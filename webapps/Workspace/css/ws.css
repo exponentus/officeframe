@@ -1,0 +1,448 @@
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+body {
+    background: url(../img/f.gif) 0 0 no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.header {
+    background: #48A5E0;
+    /* background: #3B9AD5;
+    box-shadow: inset 0 3px 3px #106AA5; */
+    position: relative;
+}
+
+.navbar {
+    height: auto;
+    padding: 16px;
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        height: auto;
+        padding: 4px 16px;
+    }
+}
+
+.navbar i.fa {
+    color: #FFF;
+}
+
+.navbar .navbar-header {
+    max-width: 80%;
+}
+
+.brand-title {
+    color: #FFF;
+    font: 32px/50px Arial, Tahoma;
+    overflow: hidden;
+    text-transform: none;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .brand-title {
+        display: inline-block;
+        font-size: 18px;
+    }
+}
+
+.navbar .dropdown:hover .dropdown-menu {
+    right: 0;
+}
+
+.navbar .dropdown-menu:before,
+.navbar .dropdown-menu:after {
+    content: none;
+}
+
+.navbar .dropdown .dropdown-menu > li > a {
+    color: #FFF;
+    font-size: 14px;
+}
+
+@media (max-width: 970px) {
+    .navbar .dropdown .dropdown-menu {
+        top: 50px;
+    }
+    .navbar .dropdown .dropdown-menu > li > a {
+        color: #333;
+    }
+    .container {
+        margin: 0 auto;
+    }
+}
+
+.content {
+    background: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-spacer {
+    height: 50px;
+}
+
+.footer {
+    bottom: 0;
+    padding: 6px;
+    position: absolute;
+    width: 100%;
+}
+
+.footer span {
+    display: inline-block;
+    margin: 2px;
+}
+
+
+/* .ws */
+
+.ws {
+    padding: 10px;
+}
+
+.ws-apps {
+    margin-top: 20px;
+    padding: 10px 0;
+    position: relative;
+}
+
+.ws-app {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #f2f2f2;
+    box-shadow: 1px 1px 1px #CCC;
+    display: inline-block;
+    height: 160px;
+    margin: 6px;
+    position: relative;
+    width: 180px;
+}
+
+.ws-app:hover {
+    border-color: #bbb;
+}
+
+.ws-app:active {
+    box-shadow: 0px 0px 0px #CCC;
+}
+
+.ws-app.off {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: #bbb;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: .5;
+    pointer-events: none;
+}
+
+.ws-app .ws-app-link {
+    color: #333;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    padding: 4px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+}
+
+span.ws-app-logo {
+    display: inline-block;
+    padding-top: 11px;
+    height: 56%;
+    width: 100%;
+}
+
+img.ws-app-logo {
+    border: none;
+    outline: 0;
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.ws-app-type {
+    color: #888;
+    display: block;
+    font-size: .9em;
+    padding: 3px;
+}
+
+.ws-app-name {
+    display: block;
+    max-height: 3em;
+    min-height: 24px;
+    overflow: hidden;
+    padding: 4px;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+@media ( max-width: 768px) {
+    .ws-apps {
+        margin: 0;
+    }
+    .ws-app {
+        display: inline-block;
+        height: auto;
+        margin: 8px auto;
+        width: 100%;
+    }
+    span.ws-app-logo {
+        bottom: 4px;
+        height: auto;
+        left: 4px;
+        padding: 0;
+        position: absolute;
+        top: 4px;
+        width: 100px;
+    }
+    .ws-app-type {
+        padding: 8px 8px 8px 110px;
+        text-align: left;
+    }
+    .ws-app-name {
+        padding: 2px 2px 2px 110px;
+        text-align: left;
+    }
+}
+
+@media (max-width: 970px) {
+    .ws-apps.off,
+    .ws-app.off {
+        display: none;
+    }
+}
+
+.user-profile {
+    background: none !important;
+}
+
+
+/* .sign-up */
+
+.sign-up {
+    margin: 5% auto 0;
+    max-width: 98%;
+    width: 360px;
+}
+
+.sign-up h1 {
+    color: #666;
+    font-size: 22px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.sign-up label {
+    display: block;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.sign-up label span {
+    color: #555;
+    display: block;
+}
+
+.sign-up input,
+.sign-up textarea {
+    padding: 8px;
+    transition: all .15s;
+}
+
+.sign-up button[type=submit] {
+    font-size: 14px;
+    line-height: 1;
+    margin: 0px;
+    padding: 16px;
+    width: 100%;
+}
+
+@media (min-width: 970px) {
+    .sign-up label span {
+        position: absolute;
+        left: -205px;
+        text-align: right;
+        top: 6px;
+        width: 200px;
+    }
+    .sign-up .error-message {
+        position: absolute;
+        right: -225px;
+        top: 6px;
+        width: 220px;
+    }
+}
+
+
+/* .sign-in */
+
+.sign-in {
+    font-size: 14px;
+    margin: 10% auto 0;
+    max-width: 98%;
+    padding: 4px;
+    position: relative;
+    width: 320px;
+}
+
+.sign-in h1 {
+    color: #666;
+    font-size: 22px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.sign-in .login,
+.sign-in .pwd {
+    display: block;
+    float: none;
+    margin: 12px 0px;
+    position: relative;
+    width: 100%;
+}
+
+.sign-in .login input,
+.sign-in .pwd input {
+    min-height: auto;
+    padding: 13px 13px 13px 42px;
+    margin: 0px;
+    width: 100%;
+}
+
+.sign-in .login input:invalid,
+.sign-in .pwd input:invalid {
+    box-shadow: none;
+}
+
+.sign-in i.fa {
+    color: #9E9E9E;
+    font-size: 18px;
+    height: 100%;
+    left: 0;
+    padding: 13px 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 42px;
+    z-index: 1;
+}
+
+.sign-in .noauth {
+    float: left;
+    padding: 0 4px;
+}
+
+.sign-in .noauth span {
+    color: #333;
+}
+
+.sign-in button[type=submit] {
+    float: right;
+    font-size: 14px;
+    line-height: 1;
+    margin: 0px;
+    padding: 8px 12px;
+}
+
+.sign-in button[type=submit]:hover {
+    background-color: rgba(255, 255, 255, .3);
+}
+
+.btn-sign-in,
+a.btn-sign-up {
+    display: block;
+    padding: 16px;
+    margin-top: 16px;
+    text-align: center;
+}
+
+@media (min-width: 970px) {
+    a.btn-sign-up {
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        right: 10px;
+        text-align: right;
+        top: 50px;
+    }
+    .sign-in {
+        margin: 4px 80px 0 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        width: auto;
+        z-index: 9;
+    }
+    .sign-in h1 {
+        display: none;
+    }
+    .sign-in .login,
+    .sign-in .pwd {
+        float: left;
+        margin: 2px 4px;
+        width: 185px;
+    }
+    .sign-in .login input,
+    .sign-in .pwd input {
+        border-color: transparent;
+    }
+    .sign-in .noauth {
+        clear: both;
+        color: #FFF;
+        display: block;
+    }
+    .sign-in .noauth span {
+        color: #FFF;
+    }
+    .sign-in button[type=submit] {
+        background: transparent;
+        border-color: transparent;
+        border-radius: 0;
+        color: #FFF;
+        line-height: 16px;
+        margin-top: 2px;
+        padding: 13px;
+        position: absolute;
+        width: 80px;
+    }
+}
+
+
+/* .lang */
+
+.lang {
+    display: inline-block;
+    position: relative;
+}
+
+.lang-title {
+    display: block;
+}
+
+.lang-menu {
+    bottom: 100%;
+    display: none;
+    right: 4px;
+}
+
+.lang:hover .lang-menu {
+    display: block;
+    position: absolute;
+}
+
+.lang-menu a {
+    display: block;
+    padding: 2px 0;
+}
