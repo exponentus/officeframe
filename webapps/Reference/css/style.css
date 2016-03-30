@@ -1,0 +1,10 @@
+.fieldset > .legend {
+    background: transparent;
+    padding-bottom: 0;
+}
+
+form[data-edit=false] .on-edit,
+form[data-edit=false] [data-action=save_and_close],
+form[data-edit=false] [data-upload] {
+    display: none;
+}
