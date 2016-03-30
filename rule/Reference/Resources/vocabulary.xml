@@ -1,0 +1,180 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<vocabulary primary="ENG">
+    <sentence mode="on" keyword="brand">
+        <entry lang="ENG">Reference</entry>
+        <entry lang="RUS">Общий справочник</entry>
+        <entry lang="KAZ">Общий справочник</entry>
+        <entry lang="CHO">Reference</entry>
+    </sentence>
+    <sentence mode="on" keyword="common_reference_data">
+        <entry lang="ENG">Common reference data</entry>
+        <entry lang="RUS">Общий справочник</entry>
+        <entry lang="KAZ">Общий справочник</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="specific_reference_data">
+        <entry lang="ENG">Application reference data</entry>
+        <entry lang="RUS">Справочник приложения</entry>
+        <entry lang="KAZ">Справочник приложения</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="countries">
+        <entry lang="ENG">Countries</entry>
+        <entry lang="RUS">Страны</entry>
+        <entry lang="KAZ">Страны</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="regions">
+        <entry lang="ENG">Regions</entry>
+        <entry lang="RUS">Регионы</entry>
+        <entry lang="KAZ">Регионы</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="districts">
+        <entry lang="ENG">Districts</entry>
+        <entry lang="RUS">Районы</entry>
+        <entry lang="KAZ">Районы</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+     <sentence mode="on" keyword="city_district">
+        <entry lang="ENG">City district</entry>
+        <entry lang="RUS">Район города </entry>
+        <entry lang="KAZ">Район города</entry>
+    </sentence>
+    <sentence mode="on" keyword="city_districts">
+        <entry lang="ENG">City districts</entry>
+        <entry lang="RUS">Районы города </entry>
+        <entry lang="KAZ">Районы города</entry>
+    </sentence>
+    <sentence mode="on" keyword="localities">
+        <entry lang="ENG">Localities</entry>
+        <entry lang="RUS">Населенные пункты</entry>
+        <entry lang="KAZ">Населенные пункты</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="streets">
+        <entry lang="ENG">Streets</entry>
+        <entry lang="RUS">Улицы</entry>
+        <entry lang="KAZ">Улицы</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="region_types">
+        <entry lang="ENG">Region types</entry>
+        <entry lang="RUS">Типы регионов</entry>
+        <entry lang="KAZ">Типы регионов</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="locality_types">
+        <entry lang="ENG">Locality types</entry>
+        <entry lang="RUS">Типы населенных пунктов</entry>
+        <entry lang="KAZ">Типы населенных пунктов</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="positions">
+        <entry lang="ENG">Positions</entry>
+        <entry lang="RUS">Должности</entry>
+        <entry lang="KAZ">Должности</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="org_categories">
+        <entry lang="ENG">Organizaton categories</entry>
+        <entry lang="RUS">Типы организации</entry>
+        <entry lang="KAZ">Типы организации</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="property_codes">
+        <entry lang="ENG">Property codes</entry>
+        <entry lang="RUS">Коды собственности</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="property_code">
+        <entry lang="ENG">Property code</entry>
+        <entry lang="RUS">Код собственности</entry>
+        <entry lang="KAZ">Код собственности</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="structure_type">
+        <entry lang="ENG">Structure type</entry>
+        <entry lang="RUS">Тип структуры</entry>
+        <entry lang="KAZ">Тип структуры</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="building_materials">
+        <entry lang="ENG">Building materials</entry>
+        <entry lang="RUS">Материал постройки</entry>
+        <entry lang="KAZ">Материал постройки</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="building_material">
+        <entry lang="ENG">Building material</entry>
+        <entry lang="RUS">Материал постройки</entry>
+        <entry lang="KAZ">Материал постройки</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="receiving_reason">
+        <entry lang="RUS">Основание поступления на баланс</entry>
+        <entry lang="KAZ">Балансқа өту негізі</entry>
+        <entry lang="ENG">Receiving reason</entry>
+    </sentence>
+    <sentence mode="on" keyword="tags">
+        <entry lang="ENG">Tags</entry>
+        <entry lang="RUS">Метки</entry>
+        <entry lang="KAZ">Метки</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="tag">
+        <entry lang="ENG">Tag</entry>
+        <entry lang="RUS">Метка</entry>
+        <entry lang="KAZ">Метка</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="kuf">
+        <entry lang="ENG">KUF</entry>
+        <entry lang="RUS">КУФ</entry>
+        <entry lang="KAZ">КУФ</entry>
+    </sentence>
+    <sentence mode="on" keyword="name">
+        <entry lang="ENG">Name</entry>
+        <entry lang="RUS">Название</entry>
+        <entry lang="KAZ">Название</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="code">
+        <entry lang="ENG">Code</entry>
+        <entry lang="RUS">Код</entry>
+        <entry lang="KAZ">Код</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+
+    <sentence mode="on" keyword="UNKNOWN">
+        <entry lang="ENG">Unknown</entry>
+        <entry lang="RUS">Не определен</entry>
+        <entry lang="KAZ">Не определен</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="URBAN_AGGLOMERATION">
+        <entry lang="ENG">Urban agglomeration</entry>
+        <entry lang="RUS">Городская агломерация</entry>
+        <entry lang="KAZ">Городская агломерация</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="REGION">
+        <entry lang="ENG">Region</entry>
+        <entry lang="RUS">Область</entry>
+        <entry lang="KAZ">Область</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="FEDERATION">
+        <entry lang="ENG">Federation</entry>
+        <entry lang="RUS">Федерация</entry>
+        <entry lang="KAZ">Федерация</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="identifier">
+        <entry lang="ENG">Identifier</entry>
+        <entry lang="RUS">Идентификатор</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+</vocabulary>
