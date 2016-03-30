@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule type="page" mode="on" anonymous="on">
+    <description>Workspace</description>
+    <!-- <caching>CACHING_IN_USER_SESSION_SCOPE</caching> -->
+    <caching>NO_CACHING</caching>
+    <xsltfile>DEFAULT</xsltfile>
+    <element mode="ON" type="SCRIPT">
+        <events>
+            <doscript source="JAVA_CLASS">workspace.page.Workspace</doscript>
+        </events>
+    </element>
+    <caption name="logout"/>
+    <caption name="another_comp"/>
+    <caption name="user"/>
+    <caption name="password"/>
+    <caption name="login"/>
+    <caption name="sign_in"/>
+    <caption name="sign_up"/>
+</rule>
