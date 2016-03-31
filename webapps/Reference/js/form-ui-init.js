@@ -30,7 +30,7 @@ $(function() {
             return;
         }
 
-        nb.xhrDelete('docid=' + docids.join('&docid=')).then(function() {
+        nb.xhrDelete(location.href + '&docid=' + docids.join('&docid=')).then(function() {
             location.reload();
         });
     });
