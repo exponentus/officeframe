@@ -1,4 +1,28 @@
+# Compiled source #
+###################
+*.class
+
+# Application resources #
+#########################
+/system_data/
+/backup/
+/indicators/
+/tmp/
+/webapps/*/reports/templates/*.jasper
+
+# Idea resources #
+##################
+.idea
+*.iml
+/out/
+/.svn/
+# Logs #
+########
+*.log
+/logs/
 /bin/
+/.settings/
 /.classpath
 /.project
-/logs/
+#
+node_modules/
