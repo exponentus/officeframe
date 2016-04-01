@@ -294,7 +294,7 @@
         <entry lang="ENG">Logout</entry>
         <entry lang="CHI">退出</entry>
     </sentence>
-    <sentence mode="on" keyword="countdocinview">
+    <sentence mode="on" keyword="limit_view">
         <entry lang="RUS">Количество документов в виде</entry>
         <entry lang="KAZ">Көрінетін құжаттардың саны</entry>
         <entry lang="ENG">An amount of documents is in a kind</entry>

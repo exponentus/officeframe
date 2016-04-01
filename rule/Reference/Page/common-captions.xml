@@ -7,9 +7,9 @@
     <caption name="cancel"/>
     <caption name="select"/>
     <caption name="close"/>
-    <caption name="wait_while_document_save"/>
     <caption name="add"/>
     <caption name="delete"/>
+    <caption name="wait_while_document_save"/>
 
     <caption name="page"/>
     <caption name="documents"/>
@@ -32,7 +32,7 @@
     <caption name="org_name"/>
     <caption name="department"/>
     <caption name="roles"/>
-    <caption name="countdocinview"/>
+    <caption name="limit_view"/>
     <caption name="interface_lang"/>
 
     <caption name="name"/>
@@ -46,6 +46,7 @@
     <caption name="region_types"/>
     <caption name="locality_types"/>
     <caption name="street"/>
+    <caption name="department_type"/>
     <caption name="position"/>
     <caption name="org_categories"/>
     <caption name="property_code"/>
@@ -62,6 +63,7 @@
     <caption name="regions"/>
     <caption name="localities"/>
     <caption name="streets"/>
+    <caption name="department_types"/>
     <caption name="positions"/>
     <caption name="property_codes"/>
     <caption name="receiving_reasons"/>

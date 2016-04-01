@@ -33,6 +33,6 @@
     <caption name="org_name"/>
     <caption name="department"/>
     <caption name="roles"/>
-    <caption name="countdocinview"/>
+    <caption name="limit_view"/>
     <caption name="interface_lang"/>
 </rule>

@@ -100,7 +100,7 @@ footer.content-actions {
     padding-left: 243px;
 }
 
-@media ( max-width: 960px) {
+@media ( max-width: 1024px) {
     footer.content-actions {
         padding-left: 195px;
     }

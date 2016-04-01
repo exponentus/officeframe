@@ -14,7 +14,7 @@
         <form name="{@entity}" action="" data-edit="{@editable}">
             <header class="content-header">
                 <h1 class="header-title">
-                    <xsl:value-of select="//captions/locality_type/@caption"/>
+                    <xsl:value-of select="//captions/department_type/@caption"/>
                 </h1>
                 <div class="content-actions">
                     <xsl:apply-templates select="//actionbar"/>

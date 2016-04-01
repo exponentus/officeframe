@@ -46,7 +46,7 @@
     white-space: nowrap;
 }
 
-@media ( max-width: 768px) {
+@media ( max-width: 540px) {
     .brand-title {
         display: none;
     }
@@ -200,7 +200,7 @@ button.btn-side-nav-toggle {
     display: none;
 }
 
-@media ( max-width: 970px) {
+@media ( max-width: 1024px) {
     .navbar .dropdown .dropdown-toggle {
         display: block;
     }
