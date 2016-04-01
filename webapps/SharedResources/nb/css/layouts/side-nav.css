@@ -7,7 +7,7 @@
 
 .tablet .side-nav,
 .phone .side-nav {
-    background: #FFF;
+    background: #FFF url(../img/main_header_bg.png) 0 0 no-repeat;
     left: -280px;
     height: 100%;
     overflow-y: auto;
@@ -61,8 +61,14 @@
 }
 
 .side-nav header[data-role=side-tree-toggle]:hover {
-    background-color: #DDD;
+    background-color: rgba(0, 0, 0, .1);
     color: #303333;
+}
+
+.tablet .side-nav section > header,
+.phone .side-nav section > header {
+    padding-bottom: 9px;
+    padding-top: 9px;
 }
 
 .side-nav ul {
@@ -105,8 +111,8 @@
 
 .tablet .side-nav .nav-link,
 .phone .side-nav .nav-link {
-    padding-bottom: 8px;
-    padding-top: 8px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
 .side-nav .nav-link.active {
@@ -116,12 +122,12 @@
 }
 
 .side-nav .nav-link:active {
-    background-color: #DDD !important;
+    background-color: rgba(0, 0, 0, .1);
     color: #303333;
 }
 
 .side-nav .nav-link:hover {
-    background-color: #DDD;
+    background-color: rgba(0, 0, 0, .1);
     color: #303333;
 }
 
@@ -170,7 +176,7 @@
 .side-nav i.side-tree-toggle {
     height: 100%;
     left: 0;
-    padding: 9px 11px;
+    padding: 8px 11px;
     position: absolute;
     top: 0;
     width: 28px !important;
@@ -178,8 +184,12 @@
 
 .tablet .side-nav i.side-tree-toggle,
 .phone .side-nav i.side-tree-toggle {
-    padding-bottom: 11px;
     padding-top: 11px;
+}
+
+.tablet .side-nav .nav-link i.side-tree-toggle,
+.phone .side-nav .nav-link i.side-tree-toggle {
+    padding-top: 14px;
 }
 
 .side-nav i.side-tree-toggle:hover {
