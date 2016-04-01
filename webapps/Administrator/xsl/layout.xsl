@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
     <xsl:import href="templates/constants.xsl"/>
     <xsl:import href="templates/outline.xsl"/>
     <xsl:import href="templates/view.xsl"/>
@@ -29,14 +28,14 @@
                 <div class="layout {$aside_collapse}">
                     <div class="content-overlay" id="content-overlay"></div>
                     <xsl:call-template name="main-header"/>
-                    <div class="container">
+                    <main class="container">
                         <xsl:apply-templates select="//app_menu" mode="outline">
                             <xsl:with-param name="active-id" select="$active_aside_id"/>
                         </xsl:apply-templates>
                         <section class="content">
                             <xsl:call-template name="_content"/>
                         </section>
-                    </div>
+                    </main>
                     <xsl:call-template name="main-footer"/>
                 </div>
                 <xsl:copy-of select="$include_body_bottom"/>

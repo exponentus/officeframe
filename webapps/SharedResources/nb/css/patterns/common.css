@@ -34,6 +34,10 @@ img {
     vertical-align: middle;
 }
 
+main {
+    display: block;
+}
+
 table {
     border-collapse: collapse;
 }
