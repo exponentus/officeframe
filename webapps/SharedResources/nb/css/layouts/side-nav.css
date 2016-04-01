@@ -176,10 +176,14 @@
 .side-nav i.side-tree-toggle {
     height: 100%;
     left: 0;
-    padding: 8px 11px;
+    padding: 9px 11px;
     position: absolute;
     top: 0;
     width: 28px !important;
+}
+
+.side-nav header i.side-tree-toggle {
+    padding: 8px 11px;
 }
 
 .tablet .side-nav i.side-tree-toggle,
