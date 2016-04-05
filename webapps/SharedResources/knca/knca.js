@@ -43,6 +43,11 @@ var knca = (function() {
 
     function log(msg) {
         console.log('knca > ', msg);
+
+        nb.notify({
+            type: 'info',
+            message: 'knca > ' + msg
+        }).show(2000);
     }
 
     function insertApplet() {
@@ -50,24 +55,16 @@ var knca = (function() {
             return;
         }
 
-        nb.uiBlock();
-
-        noty = nb.notify({
-            type: 'process',
-            message: 'Подождите, идет загрузка Java-апплета...'
-        }).show();
-
         var htm = [];
         htm.push('<applet width="1" height="1"');
         htm.push(' codebase="."');
         htm.push(' code="kz.gov.pki.knca.applet.MainApplet"');
-        htm.push(' archive="knca_applet.jar"');
+        htm.push(' archive="/SharedResources/knca/knca_applet.jar"');
         htm.push(' type="application/x-java-applet"');
         htm.push(' mayscript="true"');
-        htm.push(' style="display:none"');
         htm.push(' id="KncaApplet" name="KncaApplet">');
         htm.push('<param name="code" value="kz.gov.pki.knca.applet.MainApplet">');
-        htm.push('<param name="archive" value="knca_applet.jar">');
+        htm.push('<param name="archive" value="/SharedResources/knca/knca_applet.jar">');
         htm.push('<param name="mayscript" value="true">');
         htm.push('<param name="scriptable" value="true">');
         htm.push('<param name="language" value="ru">');
@@ -75,9 +72,17 @@ var knca = (function() {
         htm.push('</applet>');
 
         var d = wd.createElement('div');
-        d.style.display = 'none;'
+        d.style.height = 0;
+        d.style.visibility = 'hidden';
         d.innerHTML = htm.join('');
         wd.getElementsByTagName('body')[0].appendChild(d);
+
+        nb.uiBlock();
+
+        noty = nb.notify({
+            type: 'process',
+            message: 'Подождите, идет загрузка Java-апплета...'
+        }).show();
     }
 
     return {
