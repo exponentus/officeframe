@@ -36,14 +36,14 @@
         <entry lang="KAZ">Районы</entry>
         <entry lang="CHO"></entry>
     </sentence>
-     <sentence mode="on" keyword="city_district">
+    <sentence mode="on" keyword="city_district">
         <entry lang="ENG">City district</entry>
-        <entry lang="RUS">Район города </entry>
+        <entry lang="RUS">Район города</entry>
         <entry lang="KAZ">Район города</entry>
     </sentence>
     <sentence mode="on" keyword="city_districts">
         <entry lang="ENG">City districts</entry>
-        <entry lang="RUS">Районы города </entry>
+        <entry lang="RUS">Районы города</entry>
         <entry lang="KAZ">Районы города</entry>
     </sentence>
     <sentence mode="on" keyword="localities">
@@ -56,6 +56,18 @@
         <entry lang="ENG">Streets</entry>
         <entry lang="RUS">Улицы</entry>
         <entry lang="KAZ">Улицы</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="department_types">
+        <entry lang="ENG">Department types</entry>
+        <entry lang="RUS">Типы департаментов</entry>
+        <entry lang="KAZ">Бөлім түрлері</entry>
+        <entry lang="CHO"></entry>
+    </sentence>
+    <sentence mode="on" keyword="department_type">
+        <entry lang="ENG">Department type</entry>
+        <entry lang="RUS">Тип департамента</entry>
+        <entry lang="KAZ">Бөлім түрі</entry>
         <entry lang="CHO"></entry>
     </sentence>
     <sentence mode="on" keyword="region_types">

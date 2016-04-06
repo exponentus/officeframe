@@ -1,9 +1,0 @@
-.filter {
-    /* max-height: 0px;
-    overflow: hidden;
-    transition: max-height .15s; */
-}
-
-.filter.open {
-    /* max-height: 300px; */
-}

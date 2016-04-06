@@ -16,11 +16,11 @@
                 <div class="layout">
                     <div class="content-overlay" id="content-overlay"></div>
                     <xsl:call-template name="main-header"/>
-                    <div class="container">
+                    <main class="container">
                         <section class="content">
                             <xsl:call-template name="_content"/>
                         </section>
-                    </div>
+                    </main>
                     <xsl:call-template name="main-footer"/>
                 </div>
             </body>

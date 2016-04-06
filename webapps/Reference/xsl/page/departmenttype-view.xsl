@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-
     <xsl:import href="../layout.xsl"/>
 
     <xsl:template match="/request">
@@ -10,7 +9,7 @@
     <xsl:template name="_content">
         <div class="content-header">
             <xsl:call-template name="page-info">
-                <xsl:with-param name="title" select="//captions/region_type/@caption"/>
+                <xsl:with-param name="title" select="//captions/department_types/@caption"/>
             </xsl:call-template>
         </div>
         <div class="content-body">

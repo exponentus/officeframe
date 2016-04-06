@@ -36,7 +36,7 @@
                         </div>
                         <div class="controls">
                             <input type="text" name="kufcode" value="{fields/kufcode}" class="span7"
-                                   readonly="readonly"/>
+                                   disabled="disabled"/>
                         </div>
                     </div>
                 </fieldset>

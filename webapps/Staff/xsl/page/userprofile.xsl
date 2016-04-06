@@ -194,7 +194,7 @@
                         <fieldset class="fieldset">
                             <div class="form-group">
                                 <div class="control-label">
-                                    <xsl:value-of select="//captions/countdocinview/@caption"/>
+                                    <xsl:value-of select="//captions/limit_view/@caption"/>
                                 </div>
                                 <div class="controls">
                                     <select name="pagesize" class="native span2">
