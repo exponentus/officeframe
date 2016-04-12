@@ -91,11 +91,11 @@ public class UserServices {
 	public void importFromOldStructure(boolean showConsoleOutput) {
 		Connection conn = null;
 		Properties connectionProps = new Properties();
-		connectionProps.put("user", EnvConst.STRUCTDB_USER);
-		connectionProps.put("password", EnvConst.STRUCTDB_PWD);
+		connectionProps.put("user", EnvConst.OLD_STRUCTDB_USER);
+		connectionProps.put("password", EnvConst.OLD_STRUCTDB_PWD);
 
 		try {
-			conn = DriverManager.getConnection(EnvConst.STRUCTDB_URL, connectionProps);
+			conn = DriverManager.getConnection(EnvConst.OLD_STRUCTDB_URL, connectionProps);
 			conn.setAutoCommit(false);
 			Statement st = conn.createStatement();
 			PreparedStatement pst;
