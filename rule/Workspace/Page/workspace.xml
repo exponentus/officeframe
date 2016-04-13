@@ -6,7 +6,7 @@
     <xsltfile>DEFAULT</xsltfile>
     <element mode="ON" type="SCRIPT">
         <events>
-            <doscript source="JAVA_CLASS">workspace.page.Workspace</doscript>
+            <doscript source="JAVA_CLASS">workspace.page.form.Workspace</doscript>
         </events>
     </element>
     <caption name="logout"/>
