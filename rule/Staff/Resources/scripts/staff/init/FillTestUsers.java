@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import kz.flabs.localization.Vocabulary;
 import kz.flabs.util.Util;
-import kz.lof.administrator.dao.UserDAO;
-import kz.lof.administrator.model.User;
 import kz.lof.dataengine.jpa.deploying.InitialDataAdapter;
 import kz.lof.env.EnvConst;
 import kz.lof.localization.LanguageCode;

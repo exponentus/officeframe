@@ -2,7 +2,9 @@ package reference.page.form;
 
 import java.util.UUID;
 
-import kz.lof.administrator.dao.LanguageDAO;
+import org.eclipse.persistence.exceptions.DatabaseException;
+
+import administrator.dao.LanguageDAO;
 import kz.lof.exception.SecureException;
 import kz.lof.scripting._POJOListWrapper;
 import kz.lof.scripting._Session;
@@ -11,9 +13,6 @@ import kz.lof.scripting._WebFormData;
 import kz.lof.user.IUser;
 import kz.nextbase.script._EnumWrapper;
 import kz.nextbase.script._Exception;
-
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import reference.dao.RegionTypeDAO;
 import reference.model.RegionType;
 import reference.model.constants.LocalityCode;

@@ -2,8 +2,8 @@ package workspace.page;
 
 import java.util.List;
 
-import kz.lof.administrator.dao.LanguageDAO;
-import kz.lof.administrator.model.Application;
+import administrator.dao.LanguageDAO;
+import administrator.model.Application;
 import kz.lof.env.Environment;
 import kz.lof.localization.LanguageCode;
 import kz.lof.scripting._POJOListWrapper;

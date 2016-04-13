@@ -3,9 +3,9 @@ package workspace.page.form;
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.lof.administrator.dao.LanguageDAO;
-import kz.lof.administrator.dao.UserDAO;
-import kz.lof.administrator.model.User;
+import administrator.dao.LanguageDAO;
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import kz.lof.env.Environment;
 import kz.lof.localization.LanguageCode;
 import kz.lof.scripting._POJOListWrapper;
@@ -60,7 +60,8 @@ public class RegForm extends _DoPage {
 			}
 
 			MailAgent ma = new MailAgent();
-			if (!ma.sendMail(email, recipients, "registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment)) {
+			if (!ma.sendMail(email, recipients, "registration request",
+			        fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment)) {
 				setBadRequest();
 			}
 		} catch (Exception e) {

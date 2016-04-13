@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import kz.lof.administrator.dao.ApplicationDAO;
-import kz.lof.administrator.dao.UserDAO;
-import kz.lof.administrator.model.Application;
-import kz.lof.administrator.model.User;
+import administrator.dao.ApplicationDAO;
+import administrator.dao.UserDAO;
+import administrator.model.Application;
+import administrator.model.User;
 import kz.lof.dataengine.jpa.constants.AppCode;
 import kz.lof.localization.LanguageCode;
 import kz.lof.scripting._POJOListWrapper;

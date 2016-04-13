@@ -2,7 +2,7 @@ package reference.page.form;
 
 import java.util.UUID;
 
-import kz.lof.administrator.dao.LanguageDAO;
+import administrator.dao.LanguageDAO;
 import kz.lof.exception.SecureException;
 import kz.lof.localization.LanguageCode;
 import kz.lof.scripting._POJOListWrapper;

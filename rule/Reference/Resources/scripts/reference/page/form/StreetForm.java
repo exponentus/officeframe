@@ -2,7 +2,9 @@ package reference.page.form;
 
 import java.util.UUID;
 
-import kz.lof.administrator.dao.LanguageDAO;
+import org.eclipse.persistence.exceptions.DatabaseException;
+
+import administrator.dao.LanguageDAO;
 import kz.lof.exception.SecureException;
 import kz.lof.localization.LanguageCode;
 import kz.lof.scripting._POJOListWrapper;
@@ -11,9 +13,6 @@ import kz.lof.scripting._Validation;
 import kz.lof.scripting._WebFormData;
 import kz.lof.user.IUser;
 import kz.nextbase.script._Exception;
-
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
 import reference.model.Locality;
@@ -77,17 +76,17 @@ public class StreetForm extends ReferenceForm {
 				return;
 			}
 
-			/*ViewPage<Street> foundEntityList = dao.findAllequal("streetId", Integer.toString(entity.getStreetId()), 1, 1);
-			if (foundEntityList.getCount() > 0) {
-				foundEntity = foundEntityList.getResult().get(0);
-				if (foundEntity != null && !foundEntity.equals(entity) && foundEntity.getLocality().equals(entity.getLocality())) {
-					ve = new _Validation();
-					ve.addError("streetid", "unique", getLocalizedWord("streetid_is_not_unique", session.getLang()));
-					setBadRequest();
-					setValidation(ve);
-					return;
-				}
-			}*/
+			/*
+			 * ViewPage<Street> foundEntityList = dao.findAllequal("streetId",
+			 * Integer.toString(entity.getStreetId()), 1, 1); if
+			 * (foundEntityList.getCount() > 0) { foundEntity =
+			 * foundEntityList.getResult().get(0); if (foundEntity != null &&
+			 * !foundEntity.equals(entity) &&
+			 * foundEntity.getLocality().equals(entity.getLocality())) { ve =
+			 * new _Validation(); ve.addError("streetid", "unique",
+			 * getLocalizedWord("streetid_is_not_unique", session.getLang()));
+			 * setBadRequest(); setValidation(ve); return; } }
+			 */
 
 			if (isNew) {
 				dao.add(entity);
@@ -108,11 +107,14 @@ public class StreetForm extends ReferenceForm {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
 
-		/*if (formData.getValueSilently("streetid").isEmpty()) {
-			ve.addError("streetid", "required", getLocalizedWord("field_is_empty", lang));
-		} else if (formData.getNumberValueSilently("streetid", 0) <= 0) {
-			ve.addError("streetid", "gt_0", getLocalizedWord("should_be_contain_value_more_than_zero", lang));
-		}*/
+		/*
+		 * if (formData.getValueSilently("streetid").isEmpty()) {
+		 * ve.addError("streetid", "required",
+		 * getLocalizedWord("field_is_empty", lang)); } else if
+		 * (formData.getNumberValueSilently("streetid", 0) <= 0) {
+		 * ve.addError("streetid", "gt_0",
+		 * getLocalizedWord("should_be_contain_value_more_than_zero", lang)); }
+		 */
 
 		if (formData.getValueSilently("locality").isEmpty()) {
 			ve.addError("locality", "required", getLocalizedWord("field_is_empty", lang));

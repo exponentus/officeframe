@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import administrator.dao.ApplicationDAO;
+import administrator.dao.UserDAO;
+import administrator.model.Application;
+import administrator.model.User;
 import kz.flabs.dataengine.DatabasePoolException;
 import kz.flabs.dataengine.ISystemDatabase;
-import kz.lof.administrator.dao.ApplicationDAO;
-import kz.lof.administrator.dao.UserDAO;
-import kz.lof.administrator.model.Application;
-import kz.lof.administrator.model.User;
 import kz.lof.appenv.AppEnv;
 import kz.lof.dataengine.jpa.ViewPage;
 import kz.lof.dataengine.jpa.constants.AppCode;
@@ -101,7 +101,8 @@ public class UserServices {
 			PreparedStatement pst;
 			// ResultSet rs = st.executeQuery("select * from employers");
 			// ResultSet rs =
-			// st.executeQuery("select * from employers where obl in (select docid from maindocs)");
+			// st.executeQuery("select * from employers where obl in (select
+			// docid from maindocs)");
 			ResultSet rs = st.executeQuery("select * from employers");
 			conn.commit();
 			EmployeeDAO dao = new EmployeeDAO(new _Session(env, new AnonymousUser()));

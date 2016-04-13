@@ -18,18 +18,17 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import kz.flabs.util.Util;
-import kz.lof.administrator.model.User;
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.dataengine.system.IEmployee;
-import kz.lof.scripting._Session;
-
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.config.CacheIsolationType;
 
-import reference.model.Position;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import administrator.model.User;
+import kz.flabs.util.Util;
+import kz.lof.common.model.SimpleEntity;
+import kz.lof.dataengine.system.IEmployee;
+import kz.lof.scripting._Session;
+import reference.model.Position;
 
 @Entity
 @Table(name = "employees")

@@ -12,19 +12,18 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.eclipse.persistence.exceptions.DatabaseException;
+
+import administrator.dao.UserDAO;
 import kz.flabs.runtimeobj.RuntimeObjUtil;
-import kz.lof.administrator.dao.UserDAO;
 import kz.lof.dataengine.jpa.DAO;
 import kz.lof.dataengine.jpa.ViewPage;
 import kz.lof.dataengine.system.IEmployee;
 import kz.lof.dataengine.system.IEmployeeDAO;
 import kz.lof.scripting._Session;
-
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import staff.model.Employee;
 
-public class EmployeeDAO extends DAO<Employee, UUID> implements IEmployeeDAO {
+public class EmployeeDAO extends DAO<Employee, UUID>implements IEmployeeDAO {
 
 	public EmployeeDAO(_Session session) {
 		super(Employee.class, session);

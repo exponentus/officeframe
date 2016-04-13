@@ -2,9 +2,9 @@ package staff.page;
 
 import java.util.Date;
 
-import kz.lof.administrator.dao.LanguageDAO;
-import kz.lof.administrator.dao.UserDAO;
-import kz.lof.administrator.model.User;
+import administrator.dao.LanguageDAO;
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import kz.lof.localization.LanguageCode;
 import kz.lof.scripting._POJOListWrapper;
 import kz.lof.scripting._Session;

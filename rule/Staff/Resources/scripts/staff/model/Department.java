@@ -10,14 +10,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import kz.flabs.util.Util;
-import kz.lof.administrator.dao.LanguageDAO;
-import kz.lof.administrator.model.Language;
 import kz.lof.common.model.SimpleEntity;
 import kz.lof.scripting._Session;
 import reference.model.DepartmentType;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "departments")
