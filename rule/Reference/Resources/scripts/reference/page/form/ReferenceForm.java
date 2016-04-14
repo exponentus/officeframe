@@ -2,15 +2,15 @@ package reference.page.form;
 
 import java.util.Date;
 
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.common.page.form.Form;
-import kz.lof.localization.LanguageCode;
-import kz.lof.scripting._Session;
-import kz.lof.scripting._Validation;
-import kz.lof.scripting._WebFormData;
-import kz.lof.scriptprocessor.page.IOutcomeObject;
-import kz.lof.user.IUser;
-import kz.lof.user.SuperUser;
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.page.form.Form;
+import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting._Session;
+import com.exponentus.scripting._Validation;
+import com.exponentus.scripting._WebFormData;
+import com.exponentus.scriptprocessor.page.IOutcomeObject;
+import com.exponentus.user.IUser;
+import com.exponentus.user.SuperUser;
 import kz.nextbase.script.actions._Action;
 import kz.nextbase.script.actions._ActionBar;
 import kz.nextbase.script.actions._ActionType;

@@ -1,8 +1,8 @@
 package reference.dao;
 
 import kz.flabs.runtimeobj.RuntimeObjUtil;
-import kz.lof.dataengine.jpa.ViewPage;
-import kz.lof.scripting._Session;
+import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.scripting._Session;
 import reference.model.Locality;
 import reference.model.Street;
 

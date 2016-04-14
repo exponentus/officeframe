@@ -5,7 +5,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import kz.lof.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleEntity;
 
 @Entity
 @Table(name = "department_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))

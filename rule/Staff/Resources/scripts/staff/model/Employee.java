@@ -25,9 +25,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import administrator.model.User;
 import kz.flabs.util.Util;
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.dataengine.system.IEmployee;
-import kz.lof.scripting._Session;
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.dataengine.system.IEmployee;
+import com.exponentus.scripting._Session;
 import reference.model.Position;
 
 @Entity

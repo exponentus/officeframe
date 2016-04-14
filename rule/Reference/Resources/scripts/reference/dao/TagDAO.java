@@ -10,8 +10,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import kz.lof.dataengine.jpa.DAO;
-import kz.lof.scripting._Session;
+import com.exponentus.dataengine.jpa.DAO;
+import com.exponentus.scripting._Session;
 import reference.model.Tag;
 
 public class TagDAO extends DAO<Tag, UUID> {

@@ -12,8 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.scripting._Session;
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.scripting._Session;
 import reference.model.constants.CountryCode;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

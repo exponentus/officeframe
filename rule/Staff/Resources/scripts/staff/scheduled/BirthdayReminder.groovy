@@ -1,7 +1,9 @@
 package staff.scheduled
 
-import kz.lof.scripting._Session
-import kz.lof.scripting.event._DoScheduledTask
+import com.exponentus.scripting._Session
+import com.exponentus.scripting.event._DoScheduledTask
+
+
 
 class BirthdayReminder extends _DoScheduledTask {
 	@Override

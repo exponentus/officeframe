@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.scripting._Session;
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.scripting._Session;
 
 @Entity
 @Table(name = "streets", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "locality_id" }))

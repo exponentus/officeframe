@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 import kz.flabs.localization.Vocabulary;
-import kz.lof.dataengine.jpa.deploying.InitialDataAdapter;
-import kz.lof.localization.LanguageCode;
-import kz.lof.scripting._Session;
+import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
+import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting._Session;
 import reference.dao.TagDAO;
 import reference.model.Tag;
 

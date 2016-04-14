@@ -15,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import kz.flabs.util.Util;
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.scripting._Session;
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.scripting._Session;
 import reference.model.DepartmentType;
 
 @Entity

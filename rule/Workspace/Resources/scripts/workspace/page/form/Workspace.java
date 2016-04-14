@@ -4,14 +4,14 @@ import java.util.List;
 
 import administrator.dao.LanguageDAO;
 import administrator.model.Application;
-import kz.lof.env.Environment;
-import kz.lof.localization.LanguageCode;
-import kz.lof.scripting._POJOListWrapper;
-import kz.lof.scripting._Session;
-import kz.lof.scripting._WebFormData;
-import kz.lof.scripting.event._DoPage;
-import kz.lof.user.AnonymousUser;
-import kz.lof.user.IUser;
+import com.exponentus.env.Environment;
+import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting._POJOListWrapper;
+import com.exponentus.scripting._Session;
+import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.event._DoPage;
+import com.exponentus.user.AnonymousUser;
+import com.exponentus.user.IUser;
 import kz.nextbase.script._AppEntourage;
 import kz.nextbase.script._Exception;
 

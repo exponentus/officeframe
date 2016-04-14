@@ -3,11 +3,11 @@ package staff.page.form;
 import java.util.Date;
 import java.util.UUID;
 
-import kz.lof.exception.SecureException;
-import kz.lof.scripting._Session;
-import kz.lof.scripting._Validation;
-import kz.lof.scripting._WebFormData;
-import kz.lof.user.IUser;
+import com.exponentus.exception.SecureException;
+import com.exponentus.scripting._Session;
+import com.exponentus.scripting._Validation;
+import com.exponentus.scripting._WebFormData;
+import com.exponentus.user.IUser;
 import kz.nextbase.script._Exception;
 
 import org.eclipse.persistence.exceptions.DatabaseException;

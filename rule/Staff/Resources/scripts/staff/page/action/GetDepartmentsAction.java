@@ -3,10 +3,10 @@ package staff.page.action;
 import java.util.List;
 import java.util.UUID;
 
-import kz.lof.scripting._POJOListWrapper;
-import kz.lof.scripting._Session;
-import kz.lof.scripting._WebFormData;
-import kz.lof.scripting.event._DoPage;
+import com.exponentus.scripting._POJOListWrapper;
+import com.exponentus.scripting._Session;
+import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.event._DoPage;
 import staff.dao.OrganizationDAO;
 import staff.model.Department;
 import staff.model.Organization;

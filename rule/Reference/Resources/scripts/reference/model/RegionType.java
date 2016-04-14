@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import kz.lof.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleEntity;
 import reference.model.constants.RegionCode;
 
 @Entity

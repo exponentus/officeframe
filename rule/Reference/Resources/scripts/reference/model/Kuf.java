@@ -7,8 +7,8 @@ import javax.persistence.Enumerated;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import kz.lof.common.model.SimpleEntity;
-import kz.lof.scripting._Session;
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.scripting._Session;
 import reference.model.constants.KufType;
 
 @Entity

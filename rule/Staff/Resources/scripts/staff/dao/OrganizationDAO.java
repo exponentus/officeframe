@@ -14,9 +14,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import kz.flabs.runtimeobj.RuntimeObjUtil;
-import kz.lof.dataengine.jpa.DAO;
-import kz.lof.dataengine.jpa.ViewPage;
-import kz.lof.scripting._Session;
+import com.exponentus.dataengine.jpa.DAO;
+import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.scripting._Session;
 import reference.model.OrgCategory;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;

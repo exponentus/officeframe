@@ -1,6 +1,6 @@
 package workspace.init;
 
-import kz.lof.dataengine.jpa.constants.AppCode;
+import com.exponentus.dataengine.jpa.constants.AppCode;
 
 public class AppConst {
 	public static String NAME = "Workspace";

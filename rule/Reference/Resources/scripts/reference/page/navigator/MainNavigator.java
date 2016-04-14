@@ -3,10 +3,10 @@ package reference.page.navigator;
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.lof.scripting._Session;
-import kz.lof.scripting._WebFormData;
-import kz.lof.scripting.event._DoPage;
-import kz.lof.scriptprocessor.page.IOutcomeObject;
+import com.exponentus.scripting._Session;
+import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.event._DoPage;
+import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import kz.nextbase.script.outline._Outline;
 import kz.nextbase.script.outline._OutlineEntry;
 
