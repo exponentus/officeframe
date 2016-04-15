@@ -3,8 +3,9 @@ package reference.model.embedded;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
-import kz.flabs.util.Util;
 import com.exponentus.scripting._Session;
+
+import kz.flabs.util.Util;
 import reference.dao.CountryDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.RegionDAO;
@@ -31,6 +32,8 @@ public class Address {
 	@Column(name = "house_number", length = 10)
 	private String houseNumber;
 
+	private Street coordiantes;
+
 	@Column(name = "additional_info")
 	private String additionalInfo;
 
@@ -56,6 +59,14 @@ public class Address {
 
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
+	}
+
+	public Street getCoordiantes() {
+		return coordiantes;
+	}
+
+	public void setCoordiantes(Street coordiantes) {
+		this.coordiantes = coordiantes;
 	}
 
 	public String getAdditionalInfo() {
