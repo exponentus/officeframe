@@ -3,9 +3,6 @@ package workspace.page.form;
 import java.util.ArrayList;
 import java.util.List;
 
-import administrator.dao.LanguageDAO;
-import administrator.dao.UserDAO;
-import administrator.model.User;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._POJOListWrapper;
@@ -13,8 +10,12 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
+import com.exponentus.scripting.mail.MailAgent;
+
+import administrator.dao.LanguageDAO;
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import kz.nextbase.script._AppEntourage;
-import kz.pchelka.reminder.MailAgent;
 
 public class RegForm extends _DoPage {
 
