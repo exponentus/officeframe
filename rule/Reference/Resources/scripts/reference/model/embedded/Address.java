@@ -32,7 +32,7 @@ public class Address {
 	@Column(name = "house_number", length = 10)
 	private String houseNumber;
 
-	private Street coordiantes;
+	private String coordiantes;
 
 	@Column(name = "additional_info")
 	private String additionalInfo;
@@ -61,11 +61,11 @@ public class Address {
 		this.houseNumber = houseNumber;
 	}
 
-	public Street getCoordiantes() {
+	public String getCoordiantes() {
 		return coordiantes;
 	}
 
-	public void setCoordiantes(Street coordiantes) {
+	public void setCoordiantes(String coordiantes) {
 		this.coordiantes = coordiantes;
 	}
 
