@@ -11,6 +11,7 @@ import com.exponentus.scripting._WebFormData;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
+
 import kz.nextbase.script.actions._Action;
 import kz.nextbase.script.actions._ActionBar;
 import kz.nextbase.script.actions._ActionType;
@@ -54,4 +55,14 @@ public abstract class ReferenceForm extends Form {
 
 	@Override
 	public abstract void doPOST(_Session session, _WebFormData formData);
+
+	@Override
+	public void doPUT(_Session session, _WebFormData formData) {
+
+	}
+
+	@Override
+	public void doDELETE(_Session session, _WebFormData formData) {
+
+	}
 }
