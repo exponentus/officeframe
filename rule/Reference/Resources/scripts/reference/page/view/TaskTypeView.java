@@ -12,8 +12,8 @@ import com.exponentus.user.SuperUser;
 import kz.nextbase.script.actions._Action;
 import kz.nextbase.script.actions._ActionBar;
 import kz.nextbase.script.actions._ActionType;
-import reference.dao.BuildingMaterialDAO;
-import reference.model.BuildingMaterial;
+import reference.dao.TaskTypeDAO;
+import reference.model.TaskType;
 
 public class TaskTypeView extends _DoPage {
 
@@ -28,16 +28,16 @@ public class TaskTypeView extends _DoPage {
 			actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
 		}
-		addContent(getViewPage(new BuildingMaterialDAO(session), formData));
+		addContent(getViewPage(new TaskTypeDAO(session), formData));
 	}
 
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
 
-		BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
+		TaskTypeDAO dao = new TaskTypeDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
-			BuildingMaterial m = dao.findById(UUID.fromString(id));
+			TaskType m = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(m);
 			} catch (SecureException e) {
