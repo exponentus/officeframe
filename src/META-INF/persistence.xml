@@ -43,7 +43,7 @@
 		<class>reference.model.Position</class>
 		<class>reference.model.OrgCategory</class>
 		<!-- Obligatory the application module entities -->
-		<class>kz.lof.administrator.model.Language</class>
+		<class>administrator.model.Language</class>
 		<shared-cache-mode>NONE</shared-cache-mode>
 	</persistence-unit>		
 
@@ -70,6 +70,7 @@
 		<class>reference.model.Street</class>
 		<class>reference.model.DepartmentType</class>		
 		<class>reference.model.Position</class>
+		<class>reference.model.TaskType</class>
 		<class>reference.model.Tag</class>	
 		<class>reference.model.OrgCategory</class>
 		<!-- Specific Reference module entities -->
