@@ -7,6 +7,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
+
 import kz.nextbase.script.outline._Outline;
 import kz.nextbase.script.outline._OutlineEntry;
 
@@ -30,6 +31,7 @@ public class MainNavigator extends _DoPage {
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("region_types", session.getLang()), "regiontype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("locality_types", session.getLang()), "localitytype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("positions", session.getLang()), "position-view"));
+		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("tags", session.getLang()), "tag-view"));
 
 		_Outline specific_outline = new _Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
