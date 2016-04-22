@@ -1,3 +1,5 @@
+#Init primary data for Officeframe applications
+#
 stini reference.init.FillRegionTypes
 stini reference.init.FillLocalityTypes
 stini reference.init.FillCountries
