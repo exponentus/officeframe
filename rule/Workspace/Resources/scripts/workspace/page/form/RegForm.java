@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting._AppEntourage;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -15,7 +16,6 @@ import com.exponentus.scripting.mail.MailAgent;
 import administrator.dao.LanguageDAO;
 import administrator.dao.UserDAO;
 import administrator.model.User;
-import kz.nextbase.script._AppEntourage;
 
 public class RegForm extends _DoPage {
 
