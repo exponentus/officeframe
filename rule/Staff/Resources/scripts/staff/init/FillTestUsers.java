@@ -5,15 +5,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import administrator.dao.UserDAO;
-import administrator.model.User;
-import kz.flabs.localization.Vocabulary;
-import kz.flabs.util.Util;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
+
+import administrator.dao.UserDAO;
+import administrator.model.User;
+import kz.flabs.util.Util;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.EmployeeDAO;

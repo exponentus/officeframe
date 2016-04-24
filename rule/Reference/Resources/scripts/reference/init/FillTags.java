@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kz.flabs.localization.Vocabulary;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
+
 import reference.dao.TagDAO;
 import reference.model.Tag;
 

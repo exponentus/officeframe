@@ -3,10 +3,11 @@ package reference.init;
 import java.util.ArrayList;
 import java.util.List;
 
-import kz.flabs.localization.Vocabulary;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
+
 import reference.dao.StructureTypeDAO;
 import reference.model.StructureType;
 

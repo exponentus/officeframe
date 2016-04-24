@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 
-import kz.flabs.localization.Vocabulary;
 import reference.dao.DisputeTypeDAO;
 import reference.model.DisputeType;
 

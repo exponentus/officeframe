@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kz.flabs.localization.Vocabulary;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
+
 import reference.dao.CountryDAO;
 import reference.model.Country;
 import reference.model.constants.CountryCode;
@@ -25,7 +26,8 @@ public class FillCountries extends InitialDataAdapter<Country, CountryDAO> {
 		String[] data = { "Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США", "Китай", "Болгария", "Португалия" };
 		String[] dataKaz = { "Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США", "Китай", "Болгария",
 		        "Португалия" };
-		String[] dataEng = { "Kazakhstan", "Russia", "Byelorussia", "Ukraine", "Germany", "France", "Turkey", "USA", "China", "Bulgaria", "Portugal" };
+		String[] dataEng = { "Kazakhstan", "Russia", "Byelorussia", "Ukraine", "Germany", "France", "Turkey", "USA", "China", "Bulgaria",
+		        "Portugal" };
 		CountryCode[] code = { CountryCode.KZ, CountryCode.RU, CountryCode.BY, CountryCode.UA, CountryCode.DE, CountryCode.FR, CountryCode.TR,
 		        CountryCode.US, CountryCode.CN, CountryCode.BG, CountryCode.PT };
 

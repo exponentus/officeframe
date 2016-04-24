@@ -5,10 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import kz.flabs.localization.Vocabulary;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
+
 import reference.dao.KufDAO;
 import reference.model.Kuf;
 import reference.model.constants.KufType;
@@ -43,9 +44,10 @@ public class FillKufs extends InitialDataAdapter<Kuf, KufDAO> {
 		        KufType.COOK_EQUIPMENT, KufType.EQUIPMENT_OF_CIVIL_DEFENCE, KufType.OTHERS_EQUIPMENT, KufType.BUILDINGS, KufType.ROOMS,
 		        KufType.STRUCTURES, KufType.RESIDENTIAL_OBJECTS, KufType.LAND, KufType.MONUMENT, KufType.AUTOMOBILE, KufType.CAR, KufType.CARGO,
 		        KufType.DEJ_TRANSPORT, KufType.OFFICIAL_TRANSPORT, KufType.HOSPITAL_TRANSPORT, KufType.BUS, KufType.TROLLEYBUS, KufType.TRAM,
-		        KufType.TAXI, KufType.WATER_TRANSPORT, KufType.SPECIAL_EQUIPMENT, KufType.MOTORCYCLE, KufType.OBJECT_RESERVED_FUND,
-		        KufType.BOMBPROOF, KufType.FACTORY, KufType.COMBINES, KufType.AIRPORT, KufType.TRANSITIONS, KufType.BILLBOARD, KufType.COLUMNS,
-		        KufType.ELECTRIC_NETWORKS, KufType.THERMAL_NETWORKS, KufType.GAS, KufType.WATER_SYSTEM, KufType.DRAIN, KufType.ROAD, KufType.PARKING };
+		        KufType.TAXI, KufType.WATER_TRANSPORT, KufType.SPECIAL_EQUIPMENT, KufType.MOTORCYCLE, KufType.OBJECT_RESERVED_FUND, KufType.BOMBPROOF,
+		        KufType.FACTORY, KufType.COMBINES, KufType.AIRPORT, KufType.TRANSITIONS, KufType.BILLBOARD, KufType.COLUMNS,
+		        KufType.ELECTRIC_NETWORKS, KufType.THERMAL_NETWORKS, KufType.GAS, KufType.WATER_SYSTEM, KufType.DRAIN, KufType.ROAD,
+		        KufType.PARKING };
 
 		for (int i = 0; i < data.length; i++) {
 			Kuf entity = new Kuf();

@@ -5,19 +5,21 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import administrator.dao.ApplicationDAO;
-import administrator.dao.UserDAO;
-import administrator.model.Application;
-import administrator.model.User;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
+import com.exponentus.scripting._Validator;
+import com.exponentus.scripting._Validator;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.user.IUser;
+
+import administrator.dao.ApplicationDAO;
+import administrator.dao.UserDAO;
+import administrator.model.Application;
+import administrator.model.User;
 import kz.nextbase.script._Exception;
-import kz.nextbase.script._Validator;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.DepartmentDAO;

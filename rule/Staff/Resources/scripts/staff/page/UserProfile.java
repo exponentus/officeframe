@@ -2,18 +2,19 @@ package staff.page;
 
 import java.util.Date;
 
-import administrator.dao.LanguageDAO;
-import administrator.dao.UserDAO;
-import administrator.model.User;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
+import com.exponentus.scripting._Validator;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
+
+import administrator.dao.LanguageDAO;
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import kz.nextbase.script._Exception;
-import kz.nextbase.script._Validator;
 import kz.nextbase.script.actions._Action;
 import kz.nextbase.script.actions._ActionBar;
 import kz.nextbase.script.actions._ActionType;
