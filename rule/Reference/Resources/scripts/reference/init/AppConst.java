@@ -3,7 +3,7 @@ package reference.init;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 
 public class AppConst {
-	public static String NAME = "Reference";
+	public static String APP_ID = "Reference";
 	public static String NAME_ENG = "Reference";
 	public static String NAME_RUS = "Справочники";
 	public static String NAME_KZ = "Анықтамалар";

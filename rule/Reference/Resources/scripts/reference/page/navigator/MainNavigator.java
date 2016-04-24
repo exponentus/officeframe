@@ -3,6 +3,7 @@ package reference.page.navigator;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.env.EnvConst;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
@@ -31,15 +32,25 @@ public class MainNavigator extends _DoPage {
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("region_types", session.getLang()), "regiontype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("locality_types", session.getLang()), "localitytype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("positions", session.getLang()), "position-view"));
-		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("tags", session.getLang()), "tag-view"));
 
 		_Outline specific_outline = new _Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
-		specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("kuf", session.getLang()), "kuf-view"));
-		specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));
-		specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
-		specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
-		specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
+		if (EnvConst.APP_ID.equals("ComProperty")) {
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("kuf", session.getLang()), "kuf-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
+		} else if (EnvConst.APP_ID.equals("Projects")) {
+			common_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
+		} else if (EnvConst.APP_ID.equals("ClaimsWork")) {
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("dispute_type", session.getLang()), "disputetype-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("law_article", session.getLang()), "lawarticle-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("law_branch", session.getLang()), "lawbranch-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("responsible_type", session.getLang()), "responsibletype-view"));
+		}
 
 		list.add(common_outline);
 		list.add(specific_outline);
