@@ -14,13 +14,14 @@ import javax.persistence.criteria.Root;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import administrator.dao.UserDAO;
-import kz.flabs.runtimeobj.RuntimeObjUtil;
+import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IEmployeeDAO;
 import com.exponentus.scripting._Session;
+
+import administrator.dao.UserDAO;
 import staff.model.Employee;
 
 public class EmployeeDAO extends DAO<Employee, UUID>implements IEmployeeDAO {

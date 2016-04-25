@@ -2,12 +2,13 @@ package reference.page.action;
 
 import java.util.List;
 
-import kz.flabs.runtimeobj.RuntimeObjUtil;
+import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
+
 import reference.dao.LocalityDAO;
 import reference.model.Locality;
 import reference.model.Region;
