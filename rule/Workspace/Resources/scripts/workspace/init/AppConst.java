@@ -10,4 +10,5 @@ public class AppConst {
 	public static AppCode CODE = AppCode.WORKSPACE;
 	public static String DEFAULT_URL = "p?id=workspace";
 	public static String FT_INDEX_SCOPE = "";
+
 }
