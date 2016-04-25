@@ -6,7 +6,7 @@
     <element mode="ON" type="SCRIPT">
         <name>view_content</name>
         <events>
-            <doscript source="JAVA_CLASS">kz.lof.common.page.view.FTSearch</doscript>
+            <doscript source="JAVA_CLASS">com.exponentus.common.page.view.FTSearch</doscript>
         </events>
     </element>
     <element mode="ON" type="INCLUDED_PAGE">

@@ -3,11 +3,11 @@ package reference.page.form;
 import java.util.Date;
 
 import com.exponentus.common.model.SimpleEntity;
-import com.exponentus.common.page.form.Form;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.event._DoPage;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
@@ -20,7 +20,7 @@ import kz.nextbase.script.actions._ActionType;
  * @author Kayra created 03-01-2016
  */
 
-public abstract class ReferenceForm extends Form {
+public abstract class ReferenceForm extends _DoPage {
 
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();

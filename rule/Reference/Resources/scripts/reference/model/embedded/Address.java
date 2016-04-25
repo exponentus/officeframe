@@ -32,10 +32,10 @@ public class Address {
 	@Column(name = "house_number", length = 10)
 	private String houseNumber;
 
-	private String coordiantes;
+	private String coordinates = "";
 
 	@Column(name = "additional_info")
-	private String additionalInfo;
+	private String additionalInfo = "";
 
 	public Locality getLocality() {
 		return locality;
@@ -61,12 +61,12 @@ public class Address {
 		this.houseNumber = houseNumber;
 	}
 
-	public String getCoordiantes() {
-		return coordiantes;
+	public String getCoordinates() {
+		return coordinates;
 	}
 
-	public void setCoordiantes(String coordiantes) {
-		this.coordiantes = coordiantes;
+	public void setCoordinates(String c) {
+		this.coordinates = c;
 	}
 
 	public String getAdditionalInfo() {

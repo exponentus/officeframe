@@ -13,11 +13,10 @@ import javax.validation.constraints.NotNull;
 
 import com.exponentus.common.model.SimpleEntity;
 import com.exponentus.scripting._Session;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "regions", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "country_id" }))
+@Table(name = "regions", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "country_id" }) )
 @NamedQuery(name = "Region.findAll", query = "SELECT m FROM Region AS m ORDER BY m.regDate")
 public class Region extends SimpleEntity {
 
@@ -25,6 +24,7 @@ public class Region extends SimpleEntity {
 	@OneToMany(mappedBy = "region")
 	private List<District> districts;
 
+	@JsonIgnore
 	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
