@@ -6,7 +6,7 @@ public class AppConst {
 	public static String APP_ID = "Reference";
 	public static String NAME_ENG = "Reference";
 	public static String NAME_RUS = "Справочники";
-	public static String NAME_KZ = "Анықтамалар";
+	public static String NAME_KAZ = "Анықтамалар";
 	public static AppCode CODE = AppCode.REFERENCE;
 	public static String DEFAULT_URL = "p?id=country-view";
 	public static String FT_INDEX_SCOPE = "[{\"tableName\":\"countries\",\"fieldNames\":"
