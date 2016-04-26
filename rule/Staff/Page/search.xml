@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rule type="page" mode="on" history="off">
+<rule  mode="on" >
     <description>FTSearch</description>
     <caching>NO_CACHING</caching>
     <xsltfile>DEFAULT</xsltfile>

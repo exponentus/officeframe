@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rule type="page" mode="on" history="on">
+<rule  mode="on" >
     <caching>NO_CACHING</caching>
     <xsltfile>DEFAULT</xsltfile>
     <element mode="ON" type="SCRIPT">
