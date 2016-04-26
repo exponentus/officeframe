@@ -5,16 +5,16 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.eclipse.persistence.exceptions.DatabaseException;
+
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.user.IUser;
-import kz.nextbase.script._Exception;
-
-import org.eclipse.persistence.exceptions.DatabaseException;
 
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;

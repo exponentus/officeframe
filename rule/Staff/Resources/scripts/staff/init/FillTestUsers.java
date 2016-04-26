@@ -11,10 +11,10 @@ import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
+import com.exponentus.util.Util;
 
 import administrator.dao.UserDAO;
 import administrator.model.User;
-import kz.flabs.util.Util;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.EmployeeDAO;

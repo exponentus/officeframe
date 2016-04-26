@@ -5,6 +5,7 @@ import java.util.List;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._AppEntourage;
+import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
@@ -14,7 +15,6 @@ import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
 import administrator.model.Application;
-import kz.nextbase.script._Exception;
 
 public class Workspace extends _DoPage {
 

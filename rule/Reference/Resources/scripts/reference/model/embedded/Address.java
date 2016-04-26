@@ -4,8 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import com.exponentus.scripting._Session;
+import com.exponentus.util.Util;
 
-import kz.flabs.util.Util;
 import reference.dao.CountryDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.RegionDAO;

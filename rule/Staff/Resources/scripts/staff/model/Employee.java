@@ -21,13 +21,13 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.config.CacheIsolationType;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import administrator.model.User;
-import kz.flabs.util.Util;
 import com.exponentus.common.model.SimpleEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
+import com.exponentus.util.Util;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import administrator.model.User;
 import reference.model.Position;
 
 @Entity

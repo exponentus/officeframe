@@ -10,12 +10,12 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
+import com.exponentus.util.Util;
 
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
-import kz.flabs.util.Util;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
 import reference.model.Locality;

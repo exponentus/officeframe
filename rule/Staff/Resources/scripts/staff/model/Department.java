@@ -10,13 +10,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
-import kz.flabs.util.Util;
-import com.exponentus.common.model.SimpleEntity;
-import com.exponentus.scripting._Session;
 import reference.model.DepartmentType;
 
 @Entity

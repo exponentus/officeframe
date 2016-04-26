@@ -3,6 +3,7 @@ package staff.page;
 import java.util.Date;
 
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -17,7 +18,6 @@ import com.exponentus.user.IUser;
 import administrator.dao.LanguageDAO;
 import administrator.dao.UserDAO;
 import administrator.model.User;
-import kz.nextbase.script._Exception;
 import reference.model.Position;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;

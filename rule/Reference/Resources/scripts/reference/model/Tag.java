@@ -14,13 +14,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
-import kz.flabs.util.Util;
-import com.exponentus.common.model.SimpleEntity;
-import com.exponentus.scripting._Session;
 
 @Entity
 @Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "parent", "name" }) )
