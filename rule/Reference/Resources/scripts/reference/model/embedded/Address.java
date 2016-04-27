@@ -32,7 +32,7 @@ public class Address {
 	@Column(name = "house_number", length = 10)
 	private String houseNumber;
 
-	private String coordinates = "";
+	private String coordinates;
 
 	@Column(name = "additional_info")
 	private String additionalInfo = "";
