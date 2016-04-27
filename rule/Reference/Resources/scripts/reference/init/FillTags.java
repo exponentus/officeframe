@@ -30,6 +30,7 @@ public class FillTags extends InitialDataAdapter<Tag, TagDAO> {
 		name.put(LanguageCode.RUS, "Избранный");
 		name.put(LanguageCode.KAZ, "Сүйікті");
 		entity.setLocalizedName(name);
+		entity.setColor("#d94600");
 		entities.add(entity);
 
 		return entities;

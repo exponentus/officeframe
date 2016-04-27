@@ -90,12 +90,7 @@
         <entry lang="RUS">Добавить новую организацию</entry>
         <entry lang="KAZ"></entry>
     </sentence>
-    <sentence mode="on" keyword="del_document">
-        <entry lang="ENG">Delete document</entry>
-        <entry lang="RUS">Удалить документ</entry>
-        <entry lang="KAZ"></entry>
-    </sentence>
-     <sentence mode="on" keyword="is_primary_organization">
+      <sentence mode="on" keyword="is_primary_organization">
         <entry lang="ENG">is Primary organization</entry>
         <entry lang="RUS">Первичная организация</entry>
         <entry lang="KAZ"></entry>
