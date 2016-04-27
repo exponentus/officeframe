@@ -12,6 +12,8 @@ import java.util.Properties;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DatabasePoolException;
+import com.exponentus.dataengine.h2.ISystemDatabase;
+import com.exponentus.dataengine.h2.SystemDatabase;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
@@ -25,7 +27,6 @@ import administrator.dao.ApplicationDAO;
 import administrator.dao.UserDAO;
 import administrator.model.Application;
 import administrator.model.User;
-import kz.flabs.dataengine.ISystemDatabase;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.EmployeeDAO;
@@ -51,9 +52,9 @@ public class UserServices {
 
 		ISystemDatabase sysDb = null;
 		try {
-			sysDb = new kz.flabs.dataengine.h2.SystemDatabase();
+			sysDb = new SystemDatabase();
 
-			List<kz.flabs.users.User> users = sysDb.getAllUsers("", 0, 10000);
+			List<com.exponentus.legacy.User> users = sysDb.getAllUsers("", 0, 10000);
 			int rCount = users.size();
 			if (showConsoleOutput) {
 				System.out.println("System users count = " + rCount);
@@ -64,7 +65,7 @@ public class UserServices {
 			list.add(AppCode.CUSTOM);
 			List<Application> appList = aDao.findAllin("code", list, 0, 0).getResult();
 
-			for (kz.flabs.users.User oldUser : users) {
+			for (com.exponentus.legacy.User oldUser : users) {
 				User entity = new User();
 				entity.setLogin(oldUser.getLogin());
 				entity.setPwd(oldUser.getPassword());
