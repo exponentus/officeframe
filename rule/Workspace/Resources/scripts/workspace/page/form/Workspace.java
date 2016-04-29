@@ -1,5 +1,6 @@
 package workspace.page.form;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.exponentus.env.Environment;
@@ -34,6 +35,7 @@ public class Workspace extends _DoPage {
 		if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 			IUser<Long> user = session.getUser();
 			List<Application> aa = user.getAllowedApps();
+			Collections.sort(aa, (left, right) -> left.getPosition() - right.getPosition());
 			addContent(new _POJOListWrapper(aa, session));
 		}
 		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
