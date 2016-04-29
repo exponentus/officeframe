@@ -31,9 +31,4 @@ public class FillDepartmentType extends InitialDataAdapter<DepartmentType, Depar
 		return entities;
 	}
 
-	@Override
-	public Class<DepartmentTypeDAO> getDAO() {
-		return DepartmentTypeDAO.class;
-	}
-
 }

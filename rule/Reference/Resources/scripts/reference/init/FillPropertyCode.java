@@ -33,9 +33,4 @@ public class FillPropertyCode extends InitialDataAdapter<PropertyCode, PropertyC
 		return entities;
 	}
 
-	@Override
-	public Class<PropertyCodeDAO> getDAO() {
-		return PropertyCodeDAO.class;
-	}
-
 }

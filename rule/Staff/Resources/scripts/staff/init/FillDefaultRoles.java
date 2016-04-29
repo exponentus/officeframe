@@ -60,9 +60,4 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		return entities;
 	}
 
-	@Override
-	public Class<RoleDAO> getDAO() {
-		return RoleDAO.class;
-	}
-
 }

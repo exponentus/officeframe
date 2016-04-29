@@ -31,9 +31,4 @@ public class FillLawBranches extends InitialDataAdapter<LawBranch, LawBranchDAO>
 		return entities;
 	}
 
-	@Override
-	public Class<LawBranchDAO> getDAO() {
-		return LawBranchDAO.class;
-	}
-
 }

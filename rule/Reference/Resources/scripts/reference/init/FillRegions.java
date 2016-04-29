@@ -85,9 +85,4 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 
 	}
 
-	@Override
-	public Class<RegionDAO> getDAO() {
-		return RegionDAO.class;
-	}
-
 }

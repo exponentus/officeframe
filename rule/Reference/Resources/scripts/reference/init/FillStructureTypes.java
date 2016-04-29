@@ -33,9 +33,4 @@ public class FillStructureTypes extends InitialDataAdapter<StructureType, Struct
 		return entities;
 	}
 
-	@Override
-	public Class<StructureTypeDAO> getDAO() {
-		return StructureTypeDAO.class;
-	}
-
 }

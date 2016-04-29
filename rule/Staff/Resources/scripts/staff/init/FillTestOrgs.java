@@ -69,9 +69,4 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 		return entities;
 	}
 
-	@Override
-	public Class<OrganizationDAO> getDAO() {
-		return OrganizationDAO.class;
-	}
-
 }

@@ -32,9 +32,4 @@ public class FillBuildingMaterials extends InitialDataAdapter<BuildingMaterial, 
 		return entities;
 	}
 
-	@Override
-	public Class<BuildingMaterialDAO> getDAO() {
-		return BuildingMaterialDAO.class;
-	}
-
 }

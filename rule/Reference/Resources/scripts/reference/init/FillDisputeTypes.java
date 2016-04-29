@@ -31,9 +31,4 @@ public class FillDisputeTypes extends InitialDataAdapter<DisputeType, DisputeTyp
 		return entities;
 	}
 
-	@Override
-	public Class<DisputeTypeDAO> getDAO() {
-		return DisputeTypeDAO.class;
-	}
-
 }

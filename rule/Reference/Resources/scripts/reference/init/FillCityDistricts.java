@@ -39,9 +39,4 @@ public class FillCityDistricts extends InitialDataAdapter<CityDistrict, CityDist
 
 	}
 
-	@Override
-	public Class<CityDistrictDAO> getDAO() {
-		return CityDistrictDAO.class;
-	}
-
 }

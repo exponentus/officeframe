@@ -56,9 +56,4 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 
 	}
 
-	@Override
-	public Class<LocalityDAO> getDAO() {
-		return LocalityDAO.class;
-	}
-
 }

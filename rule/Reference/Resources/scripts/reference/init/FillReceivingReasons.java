@@ -32,9 +32,4 @@ public class FillReceivingReasons extends InitialDataAdapter<ReceivingReason, Re
 		return entities;
 	}
 
-	@Override
-	public Class<ReceivingReasonDAO> getDAO() {
-		return ReceivingReasonDAO.class;
-	}
-
 }

@@ -83,9 +83,4 @@ public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
 
 	}
 
-	@Override
-	public Class<StreetDAO> getDAO() {
-		return StreetDAO.class;
-	}
-
 }

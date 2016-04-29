@@ -46,9 +46,4 @@ public class FillCountries extends InitialDataAdapter<Country, CountryDAO> {
 		return entities;
 	}
 
-	@Override
-	public Class<CountryDAO> getDAO() {
-		return CountryDAO.class;
-	}
-
 }

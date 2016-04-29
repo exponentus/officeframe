@@ -69,9 +69,4 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		return entities;
 	}
 
-	@Override
-	public Class<OrganizationLabelDAO> getDAO() {
-		return OrganizationLabelDAO.class;
-	}
-
 }

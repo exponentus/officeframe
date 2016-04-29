@@ -36,9 +36,4 @@ public class FillTags extends InitialDataAdapter<Tag, TagDAO> {
 		return entities;
 	}
 
-	@Override
-	public Class<TagDAO> getDAO() {
-		return TagDAO.class;
-	}
-
 }
