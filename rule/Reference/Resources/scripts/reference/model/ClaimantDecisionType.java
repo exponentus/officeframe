@@ -8,8 +8,8 @@ import javax.persistence.UniqueConstraint;
 import com.exponentus.common.model.SimpleEntity;
 
 @Entity
-@Table(name = "dispute_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
-@NamedQuery(name = "DisputeType.findAll", query = "SELECT m FROM DisputeType AS m ORDER BY m.regDate")
+@Table(name = "claimant_decision_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
+@NamedQuery(name = "ClaimantDecisionType.findAll", query = "SELECT m FROM ClaimantDecisionType AS m ORDER BY m.regDate")
 public class ClaimantDecisionType extends SimpleEntity {
 
 }
