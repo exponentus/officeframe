@@ -31,9 +31,4 @@ public class FillLawArticles extends InitialDataAdapter<LawArticle, LawArticleDA
 		return entities;
 	}
 
-	@Override
-	public Class<LawArticleDAO> getDAO() {
-		return LawArticleDAO.class;
-	}
-
 }

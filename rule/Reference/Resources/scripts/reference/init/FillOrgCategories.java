@@ -31,9 +31,4 @@ public class FillOrgCategories extends InitialDataAdapter<OrgCategory, OrgCatego
 		return entities;
 	}
 
-	@Override
-	public Class<OrgCategoryDAO> getDAO() {
-		return OrgCategoryDAO.class;
-	}
-
 }

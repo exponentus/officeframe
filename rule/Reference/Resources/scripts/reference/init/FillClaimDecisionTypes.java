@@ -33,9 +33,4 @@ public class FillClaimDecisionTypes extends InitialDataAdapter<ClaimantDecisionT
 		return entities;
 	}
 
-	@Override
-	public Class<ClaimantDecisionTypeDAO> getDAO() {
-		return ClaimantDecisionTypeDAO.class;
-	}
-
 }

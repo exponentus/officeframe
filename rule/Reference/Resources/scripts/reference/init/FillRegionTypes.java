@@ -43,9 +43,4 @@ public class FillRegionTypes extends InitialDataAdapter<RegionType, RegionTypeDA
 		return entities;
 	}
 
-	@Override
-	public Class<RegionTypeDAO> getDAO() {
-		return RegionTypeDAO.class;
-	}
-
 }

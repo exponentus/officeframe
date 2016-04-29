@@ -31,9 +31,4 @@ public class FillResponsibleTypes extends InitialDataAdapter<ResponsibleType, Re
 		return entities;
 	}
 
-	@Override
-	public Class<ResponsibleTypeDAO> getDAO() {
-		return ResponsibleTypeDAO.class;
-	}
-
 }

@@ -53,11 +53,6 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 		return entities;
 	}
 
-	@Override
-	public Class<EmployeeDAO> getDAO() {
-		return EmployeeDAO.class;
-	}
-
 	private Employee getMock(User user) {
 		Employee emp = new Employee();
 		emp.setUser(user);

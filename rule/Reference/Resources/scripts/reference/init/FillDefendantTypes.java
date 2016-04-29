@@ -31,9 +31,4 @@ public class FillDefendantTypes extends InitialDataAdapter<DefendantType, Defend
 		return entities;
 	}
 
-	@Override
-	public Class<DefendantTypeDAO> getDAO() {
-		return DefendantTypeDAO.class;
-	}
-
 }

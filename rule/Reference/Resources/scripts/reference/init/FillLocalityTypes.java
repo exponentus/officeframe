@@ -43,9 +43,4 @@ public class FillLocalityTypes extends InitialDataAdapter<LocalityType, Locality
 		return entities;
 	}
 
-	@Override
-	public Class<LocalityTypeDAO> getDAO() {
-		return LocalityTypeDAO.class;
-	}
-
 }

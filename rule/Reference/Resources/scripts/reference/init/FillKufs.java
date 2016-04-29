@@ -63,9 +63,4 @@ public class FillKufs extends InitialDataAdapter<Kuf, KufDAO> {
 		return entities;
 	}
 
-	@Override
-	public Class<KufDAO> getDAO() {
-		return KufDAO.class;
-	}
-
 }

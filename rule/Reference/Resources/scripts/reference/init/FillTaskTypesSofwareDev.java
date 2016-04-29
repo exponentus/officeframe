@@ -38,9 +38,4 @@ public class FillTaskTypesSofwareDev extends InitialDataAdapter<TaskType, TaskTy
 		return entities;
 	}
 
-	@Override
-	public Class<TaskTypeDAO> getDAO() {
-		return TaskTypeDAO.class;
-	}
-
 }
