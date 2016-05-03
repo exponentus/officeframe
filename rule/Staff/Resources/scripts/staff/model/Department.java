@@ -10,7 +10,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,7 +22,7 @@ import reference.model.DepartmentType;
 @Entity
 @Table(name = "departments")
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
-public class Department extends SimpleEntity {
+public class Department extends SimpleReferenceEntity {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)

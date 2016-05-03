@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import reference.model.constants.CountryCode;
 
@@ -23,7 +23,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 @Table(name = "countries", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }))
 @NamedQuery(name = "Country.findAll", query = "SELECT m FROM Country AS m ORDER BY m.regDate")
 @JsonIgnoreType
-public class Country extends SimpleEntity {
+public class Country extends SimpleReferenceEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "country", fetch = FetchType.EAGER)
 	private List<Region> regions;
