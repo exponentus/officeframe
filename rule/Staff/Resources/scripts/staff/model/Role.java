@@ -7,7 +7,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "roles")
 @NamedQuery(name = "Role.findAll", query = "SELECT m FROM Role AS m ORDER BY m.regDate")
-public class Role extends SimpleEntity {
+public class Role extends SimpleReferenceEntity {
 
 	@ManyToMany(mappedBy = "roles")
 	private List<Employee> employees;

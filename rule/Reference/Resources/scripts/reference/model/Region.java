@@ -11,14 +11,14 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "regions", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "country_id" }) )
 @NamedQuery(name = "Region.findAll", query = "SELECT m FROM Region AS m ORDER BY m.regDate")
-public class Region extends SimpleEntity {
+public class Region extends SimpleReferenceEntity {
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "region")

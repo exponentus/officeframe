@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,7 +25,7 @@ import administrator.model.Language;
 @Entity
 @Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "parent", "name" }) )
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
-public class Tag extends SimpleEntity {
+public class Tag extends SimpleReferenceEntity {
 
 	@Column(length = 7)
 	private String color;

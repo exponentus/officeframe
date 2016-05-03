@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.config.CacheIsolationType;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.Util;
@@ -34,7 +34,7 @@ import reference.model.Position;
 @Table(name = "employees")
 @NamedQuery(name = "Employee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
 @Cache(isolation = CacheIsolationType.ISOLATED)
-public class Employee extends SimpleEntity implements IEmployee {
+public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	@OneToOne(cascade = { CascadeType.MERGE }, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = true)

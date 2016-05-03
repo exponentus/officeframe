@@ -7,14 +7,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import reference.model.constants.KufType;
 
 @Entity
 @Table(name = "kufs")
 @NamedQuery(name = "Kuf.findAll", query = "SELECT m FROM Kuf AS m ORDER BY m.regDate")
-public class Kuf extends SimpleEntity {
+public class Kuf extends SimpleReferenceEntity {
 
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = true, length = 32, unique = true)

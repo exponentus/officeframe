@@ -11,13 +11,13 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 
 @Entity
 @Table(name = "districts", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "region_id" }))
 @NamedQuery(name = "District.findAll", query = "SELECT m FROM District AS m ORDER BY m.regDate")
-public class District extends SimpleEntity {
+public class District extends SimpleReferenceEntity {
 	private List<Locality> localities;
 
 	@NotNull

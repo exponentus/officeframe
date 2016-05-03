@@ -5,7 +5,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.common.model.SimpleEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 
 /**
  * 
@@ -16,6 +16,6 @@ import com.exponentus.common.model.SimpleEntity;
 @Entity
 @Table(name = "property_codes", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "PropertyCode.findAll", query = "SELECT m FROM PropertyCode AS m ORDER BY m.regDate")
-public class PropertyCode extends SimpleEntity {
+public class PropertyCode extends SimpleReferenceEntity {
 
 }
