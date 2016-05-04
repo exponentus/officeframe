@@ -71,4 +71,11 @@
     <caption name="kuf"/>
     <caption name="localized_names"/>
     <caption name="type"/>
+
+    <caption name="claimant_decision_type"/>
+    <caption name="defendant_type"/>
+    <caption name="dispute_type"/>
+    <caption name="law_article"/>
+    <caption name="law_branch"/>
+    <caption name="responsible_type"/>
 </rule>

@@ -193,6 +193,10 @@
         <entry lang="RUS">Решения принимаемые органом уголовного преследования</entry>
         <entry lang="ENG">Decisions made by criminal prosecution authority</entry>
     </sentence>
+    <sentence mode="on" keyword="claimant_decision_type">
+        <entry lang="RUS">Решения принимаемые органом уголовного преследования</entry>
+        <entry lang="ENG">Decisions made by criminal prosecution authority</entry>
+    </sentence>
     <sentence mode="on" keyword="defendant_type">
         <entry lang="RUS">Лицо, в отношении которого проводится проверка</entry>
         <entry lang="ENG">person concerning whom check is carried out</entry>
