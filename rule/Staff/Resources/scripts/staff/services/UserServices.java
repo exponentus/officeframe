@@ -97,6 +97,9 @@ public class UserServices {
 		connectionProps.put("password", EnvConst.OLD_STRUCTDB_PWD);
 
 		try {
+			if (showConsoleOutput) {
+				System.out.println("import from: \"" + EnvConst.OLD_STRUCTDB_URL + "\", user:\"" + EnvConst.OLD_STRUCTDB_USER + "\"");
+			}
 			conn = DriverManager.getConnection(EnvConst.OLD_STRUCTDB_URL, connectionProps);
 			conn.setAutoCommit(false);
 			Statement st = conn.createStatement();

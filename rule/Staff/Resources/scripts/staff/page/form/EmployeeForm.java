@@ -1,6 +1,7 @@
 package staff.page.form;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +39,7 @@ public class EmployeeForm extends StaffForm {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
+
 		IUser<Long> user = session.getUser();
 		Employee entity;
 		if (!id.isEmpty()) {
@@ -54,7 +56,14 @@ public class EmployeeForm extends StaffForm {
 			Position tmpPos = new Position();
 			tmpPos.setName("");
 			entity.setPosition(tmpPos);
-			entity.setRoles(new ArrayList<Role>());
+			String roleId = formData.getValueSilently("categoryid");
+			if (!roleId.isEmpty()) {
+				RoleDAO rDao = new RoleDAO(session);
+				Role role = rDao.findById(roleId);
+				entity.setRoles(new ArrayList<>(Arrays.asList(role)));
+			} else {
+				entity.setRoles(new ArrayList<Role>());
+			}
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));

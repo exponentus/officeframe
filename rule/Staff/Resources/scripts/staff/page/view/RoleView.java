@@ -28,14 +28,22 @@ public class RoleView extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
+		IUser<Long> user = session.getUser();
 		RoleDAO dao = new RoleDAO(session);
 		String id = formData.getValueSilently("categoryid");
 		if (!id.isEmpty()) {
 			Role role = dao.findById(UUID.fromString(id));
 			List<Employee> emps = role.getEmployees();
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_employee");
+				newDocAction.setURL("Provider?id=employee-form&categoryid=" + id);
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
 			addContent(new _POJOListWrapper(emps, session));
 		} else {
-			IUser<Long> user = session.getUser();
 			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_role");
