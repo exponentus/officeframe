@@ -165,9 +165,10 @@ public class EmployeeForm extends StaffForm {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
 
-		if (formData.getValueSilently("iin").isEmpty()) {
-			ve.addError("iin", "required", getLocalizedWord("field_is_empty", lang));
-		}
+		/*
+		 * if (formData.getValueSilently("iin").isEmpty()) { ve.addError("iin",
+		 * "required", getLocalizedWord("field_is_empty", lang)); }
+		 */
 
 		if (formData.getValueSilently("organization").isEmpty() && formData.getValueSilently("department").isEmpty()) {
 			ve.addError("organization", "required", getLocalizedWord("field_is_empty", lang));
