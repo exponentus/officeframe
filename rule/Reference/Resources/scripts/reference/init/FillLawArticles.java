@@ -20,7 +20,7 @@ public class FillLawArticles extends InitialDataAdapter<LawArticle, LawArticleDA
 	@Override
 	public List<LawArticle> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<LawArticle> entities = new ArrayList<LawArticle>();
-		String[] data = { "" };
+		String[] data = { "Статья 999 " };
 
 		for (int i = 0; i < data.length; i++) {
 			LawArticle entity = new LawArticle();
