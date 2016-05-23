@@ -3,7 +3,7 @@ package staff.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import reference.model.OrgCategory;
 
 import javax.persistence.*;
@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "orgs")
 @NamedQuery(name = "Organization.findAll", query = "SELECT m FROM Organization AS m ORDER BY m.regDate")
@@ -27,7 +28,6 @@ public class Organization extends SimpleReferenceEntity {
     @OneToMany(mappedBy = "organization")
     private List<Employee> employers;
 
-    @JsonProperty("orgLabelIds")
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "orgs_labels", joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
     private List<OrganizationLabel> labels;
@@ -77,7 +77,6 @@ public class Organization extends SimpleReferenceEntity {
         this.labels = labels;
     }
 
-    @JsonProperty("orgLabelIds")
     public List<String> getOrgLabelIds() {
         return Optional.of(labels).orElse(new ArrayList<>()).stream().map(it -> it.getIdentifier()).collect(Collectors.toList());
     }
