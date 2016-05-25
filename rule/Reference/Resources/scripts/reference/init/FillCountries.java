@@ -23,7 +23,7 @@ public class FillCountries extends InitialDataAdapter<Country, CountryDAO> {
 	@Override
 	public List<Country> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<Country> entities = new ArrayList<Country>();
-		String[] data = { "Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США", "Китай", "Болгария", "Португалия" };
+		String[] data = { "Kazakhstan", "Russia", "Byelorussia", "Ukraine", "Germany", "France", "Turkey", "USA", "China", "Bulgaria", "Portugal" };
 		String[] dataKaz = { "Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США", "Китай", "Болгария",
 		        "Португалия" };
 		String[] dataEng = { "Kazakhstan", "Russia", "Byelorussia", "Ukraine", "Germany", "France", "Turkey", "USA", "China", "Bulgaria",

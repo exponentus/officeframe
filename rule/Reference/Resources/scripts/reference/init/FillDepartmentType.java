@@ -1,7 +1,9 @@
 package reference.init;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
@@ -20,11 +22,18 @@ public class FillDepartmentType extends InitialDataAdapter<DepartmentType, Depar
 	@Override
 	public List<DepartmentType> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<DepartmentType> entities = new ArrayList<DepartmentType>();
-		String[] data = { "Отдел", "Сектор" };
+		String[] data = { "Department", "Sector" };
+		String[] dataRus = { "Отдел", "Сектор" };
+		String[] dataKaz = { "Отдел", "Сектор" };
 
 		for (int i = 0; i < data.length; i++) {
 			DepartmentType entity = new DepartmentType();
 			entity.setName(data[i]);
+			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+			name.put(LanguageCode.ENG, data[i]);
+			name.put(LanguageCode.KAZ, dataKaz[i]);
+			name.put(LanguageCode.RUS, dataRus[i]);
+			entity.setLocalizedName(name);
 			entities.add(entity);
 		}
 

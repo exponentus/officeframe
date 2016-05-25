@@ -22,8 +22,9 @@ public class FillTaskTypesSofwareDev extends InitialDataAdapter<TaskType, TaskTy
 	@Override
 	public List<TaskType> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<TaskType> entities = new ArrayList<TaskType>();
-		String[] data = { "Документирование", "Техническая поддержка", "Тестирование", "Программированние" };
+		String[] data = { "Documentation", "Technical support", "Testing", "Programming" };
 		String[] dataEng = { "Documentation", "Technical support", "Testing", "Programming" };
+		String[] dataRus = { "Документирование", "Техническая поддержка", "Тестирование", "Программированние" };
 
 		for (int i = 0; i < data.length; i++) {
 			TaskType entity = new TaskType();
