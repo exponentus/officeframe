@@ -9,21 +9,21 @@ import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 
 import reference.dao.UnitTypeDAO;
-import reference.model.CategoryOfUnit;
+import reference.model.UnitType;
 
 /**
  * @author Kayra on 26/03/16.
  */
 
-public class FillUnitType extends InitialDataAdapter<CategoryOfUnit, UnitTypeDAO> {
+public class FillUnitType extends InitialDataAdapter<UnitType, UnitTypeDAO> {
 
 	@Override
-	public List<CategoryOfUnit> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
-		List<CategoryOfUnit> entities = new ArrayList<CategoryOfUnit>();
+	public List<UnitType> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
+		List<UnitType> entities = new ArrayList<UnitType>();
 		String[] data = { "Мебель", "Орг.техника", "Канцелярские принадлежности" };
 
 		for (int i = 0; i < data.length; i++) {
-			CategoryOfUnit entity = new CategoryOfUnit();
+			UnitType entity = new UnitType();
 			entity.setName(data[i]);
 			entities.add(entity);
 		}
