@@ -10,6 +10,6 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 @Entity
 @Table(name = "unit_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
 @NamedQuery(name = "UnitType.findAll", query = "SELECT m FROM UnitType AS m ORDER BY m.regDate")
-public class UnitType extends SimpleReferenceEntity {
+public class CategoryOfUnit extends SimpleReferenceEntity {
 
 }

@@ -31,7 +31,7 @@ public class FillTaskTypesSofwareDev extends InitialDataAdapter<TaskType, TaskTy
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
 			name.put(LanguageCode.ENG, dataEng[i]);
-			name.put(LanguageCode.RUS, data[i]);
+			name.put(LanguageCode.RUS, dataRus[i]);
 			entity.setLocalizedName(name);
 			entities.add(entity);
 		}
