@@ -4,6 +4,7 @@
 
 # Application resources #
 #########################
+/resources/config.properties
 /system_data/
 /backup/
 /indicators/
