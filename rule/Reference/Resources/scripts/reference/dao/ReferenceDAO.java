@@ -15,6 +15,7 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 
 /**
@@ -40,6 +41,28 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			cq.select(c);
 			Predicate condition = cb.equal(cb.lower(c.<String> get("name")), name.toLowerCase());
 			cq.where(condition);
+			TypedQuery<T> typedQuery = em.createQuery(cq);
+			return typedQuery.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} finally {
+			em.close();
+		}
+	}
+
+	// TODO to implement
+	public T findByName(String name, LanguageCode lang) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		try {
+			CriteriaQuery<T> cq = cb.createQuery(getEntityClass());
+			Root<T> c = cq.from(getEntityClass());
+			cq.select(c);
+			/*
+			 * MapJoin p = c.joinMap("localizedName"); cq.multiselect(c,
+			 * p.value()); cq.where(cb.equal(p.key(), lang));
+			 */
+
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			return typedQuery.getSingleResult();
 		} catch (NoResultException e) {
