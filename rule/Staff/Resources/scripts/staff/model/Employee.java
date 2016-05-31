@@ -57,7 +57,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@JoinColumn(nullable = false)
 	private Department department;
 
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private Position position;
 
@@ -187,7 +187,9 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 			chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocalizedName(ses.getLang()) + "</department>");
 		}
 
-		chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocalizedName(ses.getLang()) + "</position>");
+		if (position != null) {
+			chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocalizedName(ses.getLang()) + "</position>");
+		}
 
 		chunk.append("<roles>");
 		if (roles != null) {
