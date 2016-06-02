@@ -1,6 +1,7 @@
 package reference.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -12,6 +13,7 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.dataengine.jpa.AppEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -75,9 +77,13 @@ public class Region extends SimpleReferenceEntity {
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<name>" + getName() + "</name>");
-		chunk.append("<type id=\"" + type.getId() + "\">" + type.getLocalizedName(ses.getLang()) + "</type>");
-		chunk.append("<country id=\"" + country.getId() + "\">" + country.getLocalizedName(ses.getLang()) + "</country>");
+		try {
+			chunk.append("<name>" + getName() + "</name>");
+			chunk.append("<type id=\"" + type.getId() + "\">" + type.getLocalizedName(ses.getLang()) + "</type>");
+			chunk.append("<country id=\"" + country.getId() + "\">" + country.getLocalizedName(ses.getLang()) + "</country>");
+		} catch (Exception e) {
+			((AppEntity<UUID>) this).getShortXMLChunk(ses);
+		}
 		return chunk.toString();
 	}
 }
