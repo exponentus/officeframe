@@ -5,13 +5,13 @@ import java.util.List;
 
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.messaging.email.MailAgent;
 import com.exponentus.scripting._AppEntourage;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
-import com.exponentus.scripting.mail.MailAgent;
 
 import administrator.dao.LanguageDAO;
 import administrator.dao.UserDAO;
@@ -61,8 +61,7 @@ public class RegForm extends _DoPage {
 			}
 
 			MailAgent ma = new MailAgent();
-			if (!ma.sendMail(email, recipients, "registration request",
-			        fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment)) {
+			if (!ma.sendMail(recipients, "registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment)) {
 				setBadRequest();
 			}
 		} catch (Exception e) {
