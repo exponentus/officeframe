@@ -18,13 +18,13 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.dataengine.system.IEmployee;
-import com.exponentus.dataengine.system.IEmployeeDAO;
+import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.scripting._Session;
 
 import administrator.dao.UserDAO;
 import staff.model.Employee;
 
-public class EmployeeDAO extends DAO<Employee, UUID>implements IEmployeeDAO {
+public class EmployeeDAO extends DAO<Employee, UUID>implements IExtUserDAO {
 
 	public EmployeeDAO(_Session session) {
 		super(Employee.class, session);

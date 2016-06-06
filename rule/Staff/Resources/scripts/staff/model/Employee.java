@@ -120,6 +120,11 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		return user;
 	}
 
+	@Override
+	public Long getUserID() {
+		return user.getId();
+	}
+
 	public List<Role> getRoles() {
 		return roles;
 	}
@@ -200,4 +205,5 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		chunk.append("</roles>");
 		return chunk.toString();
 	}
+
 }

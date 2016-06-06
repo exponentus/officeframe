@@ -14,13 +14,13 @@ import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
-import reference.model.constants.CountryCode;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
+import reference.model.constants.CountryCode;
+
 @Entity
-@Table(name = "countries", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }))
+@Table(name = "countries", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }) )
 @NamedQuery(name = "Country.findAll", query = "SELECT m FROM Country AS m ORDER BY m.regDate")
 @JsonIgnoreType
 public class Country extends SimpleReferenceEntity {
@@ -50,12 +50,12 @@ public class Country extends SimpleReferenceEntity {
 		this.regions = regions;
 	}
 
+	@JsonIgnore
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<code>" + code + "</code>");
-		;
 		return chunk.toString();
 	}
 
