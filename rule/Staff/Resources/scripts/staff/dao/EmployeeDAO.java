@@ -125,4 +125,5 @@ public class EmployeeDAO extends DAO<Employee, UUID>implements IExtUserDAO {
 			em.close();
 		}
 	}
+
 }
