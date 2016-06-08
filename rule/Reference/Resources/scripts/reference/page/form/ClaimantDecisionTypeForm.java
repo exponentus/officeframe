@@ -1,14 +1,19 @@
 package reference.page.form;
 
-import administrator.dao.LanguageDAO;
-import com.exponentus.exception.SecureException;
-import com.exponentus.scripting.*;
-import com.exponentus.user.IUser;
+import java.util.UUID;
+
 import org.eclipse.persistence.exceptions.DatabaseException;
+
+import com.exponentus.exception.SecureException;
+import com.exponentus.scripting._Exception;
+import com.exponentus.scripting._Session;
+import com.exponentus.scripting._Validation;
+import com.exponentus.scripting._WebFormData;
+import com.exponentus.user.IUser;
+
+import administrator.dao.LanguageDAO;
 import reference.dao.ClaimantDecisionTypeDAO;
 import reference.model.ClaimantDecisionType;
-
-import java.util.UUID;
 
 public class ClaimantDecisionTypeForm extends ReferenceForm {
 
@@ -24,7 +29,7 @@ public class ClaimantDecisionTypeForm extends ReferenceForm {
 			entity = (ClaimantDecisionType) getDefaultEntity(user, new ClaimantDecisionType());
 		}
 		addContent(entity);
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
+		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 		startSaveFormTransact(entity);
 	}

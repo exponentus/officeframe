@@ -7,7 +7,6 @@ import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._AppEntourage;
 import com.exponentus.scripting._Exception;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
@@ -36,8 +35,8 @@ public class Workspace extends _DoPage {
 			IUser<Long> user = session.getUser();
 			List<Application> aa = user.getAllowedApps();
 			Collections.sort(aa, (left, right) -> left.getPosition() - right.getPosition());
-			addContent(new _POJOListWrapper(aa, session));
+			addContent(aa);
 		}
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
+		addContent(new LanguageDAO(session).findAll());
 	}
 }

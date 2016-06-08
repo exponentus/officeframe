@@ -6,7 +6,6 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Exception;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
@@ -30,7 +29,7 @@ public class PositionForm extends ReferenceForm {
 			entity = (Position) getDefaultEntity(user, new Position());
 		}
 		addContent(entity);
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
+		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 		startSaveFormTransact(entity);
 	}

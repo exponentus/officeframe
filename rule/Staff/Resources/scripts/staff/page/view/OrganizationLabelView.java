@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.actions._Action;
@@ -33,7 +32,7 @@ public class OrganizationLabelView extends _DoPage {
 		if (!id.isEmpty()) {
 			OrganizationLabel role = dao.findById(UUID.fromString(id));
 			List<Organization> emps = role.getLabels();
-			addContent(new _POJOListWrapper(emps, session));
+			addContent(emps);
 		} else {
 			IUser<Long> user = session.getUser();
 			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {

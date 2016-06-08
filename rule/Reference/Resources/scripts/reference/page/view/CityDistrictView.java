@@ -6,8 +6,6 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.actions._Action;
-import com.exponentus.scripting.actions._Action;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;

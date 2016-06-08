@@ -6,7 +6,6 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Exception;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
@@ -25,7 +24,7 @@ public class DepartmentTypeForm extends ReferenceForm {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser user = session.getUser();
+		IUser<Long> user = session.getUser();
 		DepartmentType entity;
 		if (!id.isEmpty()) {
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
@@ -34,7 +33,7 @@ public class DepartmentTypeForm extends ReferenceForm {
 			entity = (DepartmentType) getDefaultEntity(user, new DepartmentType());
 		}
 		addContent(entity);
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
+		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 		startSaveFormTransact(entity);
 	}

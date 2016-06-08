@@ -7,7 +7,6 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scheduler._EnumWrapper;
 import com.exponentus.scripting._Exception;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
@@ -27,7 +26,7 @@ public class LocalityTypeForm extends ReferenceForm {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser user = session.getUser();
+		IUser<Long> user = session.getUser();
 		LocalityType entity;
 		if (!id.isEmpty()) {
 			LocalityTypeDAO dao = new LocalityTypeDAO(session);
@@ -37,7 +36,7 @@ public class LocalityTypeForm extends ReferenceForm {
 		}
 		addContent(entity);
 		addContent(new _EnumWrapper<>(LocalityCode.class.getEnumConstants()));
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
+		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 		startSaveFormTransact(entity);
 	}

@@ -1,7 +1,6 @@
 package reference.page.navigator;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 
 import com.exponentus.env.EnvConst;
 import com.exponentus.scripting._Session;
@@ -15,7 +14,7 @@ public class MainNavigator extends _DoPage {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		List<IOutcomeObject> list = new ArrayList<IOutcomeObject>();
+		LinkedList<IOutcomeObject> list = new LinkedList<IOutcomeObject>();
 
 		_Outline common_outline = new _Outline(getLocalizedWord("common_reference_data", session.getLang()), "common");
 

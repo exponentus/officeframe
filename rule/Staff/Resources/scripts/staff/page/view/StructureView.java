@@ -1,7 +1,6 @@
 package staff.page.view;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.UUID;
 
 import com.exponentus.exception.SecureException;
@@ -26,7 +25,7 @@ public class StructureView extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
-		List<IOutcomeObject> content = new ArrayList<IOutcomeObject>();
+		LinkedList<IOutcomeObject> content = new LinkedList<IOutcomeObject>();
 		OrganizationDAO dao = new OrganizationDAO(session);
 		Organization org = dao.findPrimaryOrg();
 		if (org != null) {

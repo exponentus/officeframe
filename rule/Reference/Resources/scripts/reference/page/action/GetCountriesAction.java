@@ -1,10 +1,10 @@
 package reference.page.action;
 
 import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
+
 import reference.dao.CountryDAO;
 import reference.model.Country;
 
@@ -22,6 +22,6 @@ public class GetCountriesAction extends _DoPage {
 
 		CountryDAO dao = new CountryDAO(ses);
 		ViewPage<Country> vp = dao.findAllByKeyword(keyword, pageNum, pageSize);
-		addContent(new _POJOListWrapper(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum(), ses));
+		addContent(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum());
 	}
 }

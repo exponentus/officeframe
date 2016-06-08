@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
@@ -34,7 +33,7 @@ public class GetDistrictAction extends _DoPage {
 				pageNum = maxPage;
 			}
 			ViewPage<Region> vp = new ViewPage(list, count, maxPage, pageNum);
-			addContent(new _POJOListWrapper(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum(), ses));
+			addContent(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum());
 		} else {
 			setValidation(getLocalizedWord("region_has_not_found", ses.getLang()));
 		}
