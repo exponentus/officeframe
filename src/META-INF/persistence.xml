@@ -79,6 +79,7 @@
 		<class>reference.model.StructureType</class>
 		<class>reference.model.ReceivingReason</class>
 		<class>reference.model.Kuf</class>
+		<class>reference.model.RequestType</class>    
 		<shared-cache-mode>NONE</shared-cache-mode>
 	</persistence-unit>	
 	
