@@ -64,11 +64,13 @@ public class Region extends SimpleReferenceEntity {
 		if (type != null && type.getId() != null) {
 			chunk.append("<type id=\"" + type.getId() + "\">" + type.getLocalizedName(ses.getLang()) + "</type>");
 		}
-		if (country != null && country.getId() != null) {
+		if (country != null) {
 			chunk.append("<country id=\"" + country.getId() + "\">" + country.getLocalizedName(ses.getLang()) + "</country>");
 		}
 		return chunk.toString();
 	}
+
+	// TODO consistency between Region and Country ??
 
 	@Override
 	public String getShortXMLChunk(_Session ses) {
@@ -76,7 +78,9 @@ public class Region extends SimpleReferenceEntity {
 		chunk.append("<name>" + getName() + "</name>");
 		try {
 			chunk.append("<type id=\"" + type.getId() + "\">" + type.getLocalizedName(ses.getLang()) + "</type>");
-			chunk.append("<country id=\"" + country.getId() + "\">" + country.getLocalizedName(ses.getLang()) + "</country>");
+			if (country != null) {
+				chunk.append("<country id=\"" + country.getId() + "\">" + country.getLocalizedName(ses.getLang()) + "</country>");
+			}
 		} catch (Exception e) {
 			Server.logger.errorLogEntry(e);
 		}
