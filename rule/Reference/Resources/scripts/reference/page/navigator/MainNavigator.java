@@ -33,7 +33,7 @@ public class MainNavigator extends _DoPage {
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("tags", session.getLang()), "tag-view"));
 
 		_Outline specific_outline = new _Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
-		if (EnvConst.APP_ID.equals("ComProperty")) {
+		if (EnvConst.APP_ID.equalsIgnoreCase("comproperty")) {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("kuf", session.getLang()), "kuf-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
@@ -41,7 +41,8 @@ public class MainNavigator extends _DoPage {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
 		} else if (EnvConst.APP_ID.equalsIgnoreCase("poema")) {
 			common_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
-		} else if (EnvConst.APP_ID.equals("ClaimsWork")) {
+			common_outline.addEntry(new _OutlineEntry(getLocalizedWord("request_types", session.getLang()), "requesttype-view"));
+		} else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("dispute_type", session.getLang()), "disputetype-view"));
