@@ -28,7 +28,7 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 		String[] data = { "Алматы", "Астана", "Алматинская", "Акмолинская", "Джамбульская", "Мангистауская", "ЮКО", "ВКО" };
 
 		CountryDAO cDao = new CountryDAO(ses);
-		Country country = cDao.findByName("Казахстан");
+		Country country = cDao.findByName("Kazakhstan");
 
 		for (int i = 0; i < data.length; i++) {
 			Region entity = new Region();

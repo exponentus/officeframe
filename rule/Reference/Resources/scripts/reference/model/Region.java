@@ -9,7 +9,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
@@ -26,12 +25,10 @@ public class Region extends SimpleReferenceEntity {
 	private List<District> districts;
 
 	@JsonIgnore
-	@NotNull
-	@ManyToOne(optional = false)
+	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Country country;
 
-	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private RegionType type;
