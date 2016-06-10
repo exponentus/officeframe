@@ -1,10 +1,10 @@
 package staff.page.view;
 
-import java.util.LinkedList;
 import java.util.UUID;
 
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._POJOObjectWrapper;
 import com.exponentus.scripting._Session;
@@ -13,7 +13,6 @@ import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
@@ -25,13 +24,12 @@ public class StructureView extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
-		LinkedList<IOutcomeObject> content = new LinkedList<IOutcomeObject>();
 		OrganizationDAO dao = new OrganizationDAO(session);
 		Organization org = dao.findPrimaryOrg();
 		if (org != null) {
-			content.add(new _POJOObjectWrapper(org, session));
+			addContent(new _POJOObjectWrapper(org, session));
 		} else {
-			content.add(new _POJOListWrapper(getLocalizedWord("no_primary_org", lang), ""));
+			addContent(new _POJOListWrapper<IPOJOObject>(getLocalizedWord("no_primary_org", lang), ""));
 		}
 
 		IUser<Long> user = session.getUser();
@@ -43,12 +41,11 @@ public class StructureView extends _DoPage {
 			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
 		}
-		addContent(content);
 	}
 
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		println(formData);
+		devPrint(formData);
 
 		OrganizationDAO dao = new OrganizationDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {

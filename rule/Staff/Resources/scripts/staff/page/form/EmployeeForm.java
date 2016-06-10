@@ -6,15 +6,19 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.exponentus.common.model.Attachment;
 import com.exponentus.dataengine.jpa.constants.AppCode;
+import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
+import com.exponentus.scripting._FormAttachments;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._Validator;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.user.IUser;
+import com.exponentus.util.Util;
 
 import administrator.dao.ApplicationDAO;
 import administrator.dao.UserDAO;
@@ -39,7 +43,6 @@ public class EmployeeForm extends StaffForm {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-
 		IUser<Long> user = session.getUser();
 		Employee entity;
 		if (!id.isEmpty()) {
@@ -65,6 +68,11 @@ public class EmployeeForm extends StaffForm {
 				entity.setRoles(new ArrayList<Role>());
 			}
 		}
+		String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
+		if (fsId.isEmpty()) {
+			fsId = Util.generateRandomAsText();
+		}
+		addValue("formsesid", fsId);
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
 		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
@@ -144,6 +152,12 @@ public class EmployeeForm extends StaffForm {
 
 				entity.setUser(user);
 			}
+
+			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
+			_FormAttachments formFiles = session.getAttachments(fsId);
+			String fileName = formData.getValueSilently("fileid");
+			Attachment att = formFiles.getFile(fileName);
+			entity.setAvatar(att.getFile());
 
 			if (isNew) {
 				dao.add(entity);

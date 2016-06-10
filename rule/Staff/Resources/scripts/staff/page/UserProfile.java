@@ -4,7 +4,6 @@ import java.util.Date;
 
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._Validator;
@@ -49,10 +48,11 @@ public class UserProfile extends _DoPage {
 			emp.setName(user.getLogin());
 
 		}
+		addValue("pagesize", session.getPageSize());
 		addContent(emp);
 		addContent(actionBar);
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
-		addContent("pagesize", String.valueOf(session.getPageSize()));
+		addContent(new LanguageDAO(session).findAll());
+
 	}
 
 	@Override
