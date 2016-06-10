@@ -78,4 +78,6 @@
     <caption name="law_article"/>
     <caption name="law_branch"/>
     <caption name="responsible_type"/>
+    <caption name="request_types"/>
+    <caption name="request_type"/>
 </rule>
