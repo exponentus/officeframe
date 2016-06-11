@@ -1,10 +1,10 @@
 package reference.dao;
 
-import com.exponentus.scripting._Session;
-import reference.model.RequestType;
-import reference.model.ResponsibleType;
-
 import java.util.UUID;
+
+import com.exponentus.scripting._Session;
+
+import reference.model.RequestType;
 
 public class RequestTypeDAO extends ReferenceDAO<RequestType, UUID> {
 

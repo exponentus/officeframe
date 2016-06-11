@@ -40,8 +40,8 @@ public class MainNavigator extends _DoPage {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
 		} else if (EnvConst.APP_ID.equalsIgnoreCase("poema")) {
-			common_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
-			common_outline.addEntry(new _OutlineEntry(getLocalizedWord("request_types", session.getLang()), "requesttype-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
+			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("request_types", session.getLang()), "requesttype-view"));
 		} else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
