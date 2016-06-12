@@ -1,5 +1,7 @@
 package reference.page.view;
 
+import java.util.UUID;
+
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
@@ -9,10 +11,9 @@ import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
+
 import reference.dao.RequestTypeDAO;
 import reference.model.RequestType;
-
-import java.util.UUID;
 
 public class RequestTypeView extends _DoPage {
 

@@ -1,18 +1,19 @@
 package reference.page.form;
 
-import administrator.dao.LanguageDAO;
+import java.util.UUID;
+
+import org.eclipse.persistence.exceptions.DatabaseException;
+
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.user.IUser;
-import org.eclipse.persistence.exceptions.DatabaseException;
-import reference.dao.RequestTypeDAO;
-import reference.dao.ResponsibleTypeDAO;
-import reference.model.RequestType;
 
-import java.util.UUID;
+import administrator.dao.LanguageDAO;
+import reference.dao.RequestTypeDAO;
+import reference.model.RequestType;
 
 public class RequestTypeForm extends ReferenceForm {
 
