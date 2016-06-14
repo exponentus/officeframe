@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
     <xsl:import href="../layout.xsl"/>
+    <xsl:import href="../templates/sharedfields.xsl"/>
 
     <xsl:template match="/request">
         <xsl:call-template name="layout"/>
@@ -174,6 +175,18 @@
                                     </xsl:if>
                                 </input>
                             </div>
+                        </div>
+                    </fieldset>
+                    <fieldset class="fieldset">
+                        <legend class="legend">
+                            <xsl:value-of select="//captions/credentials/@caption"/>
+                        </legend>
+                        <div class="control-label">
+                        </div>
+                        <div class="controls">
+                            <xsl:call-template name="upload-files">
+                                <xsl:with-param name="input-name" select="'reg-files'"/>
+                            </xsl:call-template>
                         </div>
                     </fieldset>
                 </fieldset>
