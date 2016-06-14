@@ -179,7 +179,7 @@
                     </fieldset>
                     <fieldset class="fieldset">
                         <legend class="legend">
-                            <xsl:value-of select="//captions/credentials/@caption"/>
+                            <xsl:value-of select="//captions/upload_photo/@caption"/>
                         </legend>
                         <div class="control-label">
                         </div>
