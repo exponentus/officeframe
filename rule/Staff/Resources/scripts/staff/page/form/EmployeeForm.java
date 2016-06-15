@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.exponentus.common.model.Attachment;
+import com.exponentus.common.model.EntityFile;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
@@ -48,6 +48,14 @@ public class EmployeeForm extends StaffForm {
 		if (!id.isEmpty()) {
 			EmployeeDAO dao = new EmployeeDAO(session);
 			entity = dao.findById(UUID.fromString(id));
+			String avatar = formData.getValueSilently("avatar");
+			if (!avatar.isEmpty()) {
+				if (showAttachment(entity.getAvatar())) {
+					return;
+				} else {
+					setBadRequest();
+				}
+			}
 		} else {
 			entity = new Employee();
 			entity.setRegDate(new Date());
@@ -81,6 +89,7 @@ public class EmployeeForm extends StaffForm {
 
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
+		devPrint(formData);
 		try {
 			String id = formData.getValueSilently("docid");
 			EmployeeDAO dao = new EmployeeDAO(session);
@@ -156,9 +165,10 @@ public class EmployeeForm extends StaffForm {
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getAttachments(fsId);
 			String fileName = formData.getValueSilently("fileid");
-			Attachment att = formFiles.getFile(fileName);
-			entity.setAvatar(att.getFile());
-
+			EntityFile att = formFiles.getFile(fileName);
+			if (att != null) {
+				entity.setAvatar(att.getFile());
+			}
 			if (isNew) {
 				dao.add(entity);
 			} else {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ import org.eclipse.persistence.config.CacheIsolationType;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
+import com.exponentus.user.UndefinedUser;
 import com.exponentus.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -65,8 +67,10 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@JoinTable(name = "employee_role")
 	private List<Role> roles;
 
+	@JsonIgnore
 	@Lob
-	protected byte[] avatar;
+	@Basic(fetch = FetchType.LAZY)
+	private byte[] avatar;
 
 	@JsonIgnore
 	public Organization getOrganization() {
@@ -122,7 +126,11 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	@Override
 	public Long getUserID() {
-		return user.getId();
+		if (user != null) {
+			return user.getId();
+		} else {
+			return UndefinedUser.ID;
+		}
 	}
 
 	public List<Role> getRoles() {
@@ -203,6 +211,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 			}
 		}
 		chunk.append("</roles>");
+
 		return chunk.toString();
 	}
 
