@@ -163,7 +163,7 @@ public class EmployeeForm extends StaffForm {
 			}
 
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
-			_FormAttachments formFiles = session.getAttachments(fsId);
+			_FormAttachments formFiles = session.getFormAttachments(fsId);
 			String fileName = formData.getValueSilently("fileid");
 			EntityFile att = formFiles.getFile(fileName);
 			if (att != null) {
