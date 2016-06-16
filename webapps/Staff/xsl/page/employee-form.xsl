@@ -47,13 +47,13 @@
                 </div>
             </header>
             <section class="content-body">
-                <fieldset class="fieldset">
+                <fieldset class="fieldset" style="float:left">
                     <div class="form-group">
                         <div class="control-label">
                             <xsl:value-of select="//captions/name/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="name" value="{fields/name}" class="span7" autofocus="true"/>
+                            <input type="text" name="name" value="{fields/name}" class="span6" autofocus="true"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -69,7 +69,7 @@
                             <xsl:value-of select="//captions/organization/@caption"/>
                         </div>
                         <div class="controls">
-                            <select name="organization" class="span7">
+                            <select name="organization" class="span6">
                                 <xsl:apply-templates select="fields/organization" mode="selected_options"/>
                             </select>
                         </div>
@@ -79,7 +79,7 @@
                             <xsl:value-of select="//captions/department/@caption"/>
                         </div>
                         <div class="controls">
-                            <select name="department" class="span7">
+                            <select name="department" class="span6">
                                 <xsl:apply-templates select="fields/department" mode="selected_options"/>
                             </select>
                         </div>
@@ -89,7 +89,7 @@
                             <xsl:value-of select="//captions/position/@caption"/>
                         </div>
                         <div class="controls">
-                            <select name="position" class="span7">
+                            <select name="position" class="span6">
                                 <xsl:apply-templates select="fields/position" mode="selected_options"/>
                             </select>
                         </div>
@@ -104,6 +104,12 @@
                             </xsl:apply-templates>
                         </div>
                     </div>
+                 </fieldset>
+                <label for="upload_photo" style="cursor:pointer">
+                    <div style="width:202px; height:202px; border:1px solid black; position:relative; float:right; margin:10px 10px 0 0">
+                        <img style="max-width:200px; max-height:201px" src="p?id=employee-form&amp;docid={//document[@entity='employee']/@docid}&amp;avatar=1"></img>
+                    </div>
+                </label>
                     <fieldset class="fieldset">
                         <legend class="legend">
                             <xsl:value-of select="//captions/credentials/@caption"/>
@@ -130,7 +136,7 @@
                                 <xsl:value-of select="//captions/login_name/@caption"/>
                             </div>
                             <div class="controls">
-                                <input type="text" name="login" value="{fields/login}" class="span7" autocomplete="off">
+                                <input type="text" name="login" value="{fields/login}" class="span5" autocomplete="off">
                                     <xsl:if test="not(fields/reguser) or @docid != 'null'">
                                         <xsl:attribute name="disabled">disabled</xsl:attribute>
                                     </xsl:if>
@@ -177,6 +183,7 @@
                             </div>
                         </div>
                     </fieldset>
+
                     <fieldset class="fieldset">
                         <legend class="legend">
                             <xsl:value-of select="//captions/upload_photo/@caption"/>
@@ -189,7 +196,6 @@
                             </xsl:call-template>
                         </div>
                     </fieldset>
-                </fieldset>
             </section>
         </form>
     </xsl:template>

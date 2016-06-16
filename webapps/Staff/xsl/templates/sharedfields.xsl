@@ -4,7 +4,7 @@
     <xsl:param name="input-name"/>
 
     <div class="form-group">
-        <button type="button" class="btn btn-upload" data-upload="{$input-name}">
+        <button type="button" class="btn btn-upload" id="upload_photo" data-upload="{$input-name}">
             <i class="fa fa-paperclip"></i>
             <span>
                 <xsl:value-of select="//captions/attach_file/@caption"/>
