@@ -106,7 +106,7 @@
                     </div>
                  </fieldset>
                 <label for="upload_photo" style="cursor:pointer">
-                    <div style="width:202px; height:202px; border:1px solid black; position:relative; float:right; margin:10px 10px 0 0">
+                    <div style="width:202px; height:202px; border:1px solid #ccc; position:relative; float:right; margin:10px 10px 0 0">
                         <img style="max-width:200px; max-height:201px" src="p?id=employee-form&amp;docid={//document[@entity='employee']/@docid}&amp;avatar=1"></img>
                     </div>
                 </label>
