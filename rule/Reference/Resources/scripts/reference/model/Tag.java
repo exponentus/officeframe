@@ -23,7 +23,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 
 @Entity
-@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "parent", "name" }) )
+@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }) )
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {
 

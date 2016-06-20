@@ -80,4 +80,6 @@
     <caption name="responsible_type"/>
     <caption name="request_types"/>
     <caption name="request_type"/>
+    <caption name="task_types"/>
+    <caption name="task_type"/>
 </rule>
