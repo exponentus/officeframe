@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import com.exponentus.common.model.EntityFile;
+import com.exponentus.common.model.Attachment;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
@@ -165,7 +165,7 @@ public class EmployeeForm extends StaffForm {
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
 			String fileName = formData.getValueSilently("fileid");
-			EntityFile att = formFiles.getFile(fileName);
+			Attachment att = formFiles.getFile(fileName);
 			if (att != null) {
 				entity.setAvatar(att.getFile());
 			}
