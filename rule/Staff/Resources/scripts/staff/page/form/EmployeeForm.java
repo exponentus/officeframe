@@ -80,7 +80,7 @@ public class EmployeeForm extends StaffForm {
 		if (fsId.isEmpty()) {
 			fsId = Util.generateRandomAsText();
 		}
-		addValue("formsesid", fsId);
+		addValue("fsid", fsId);
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
 		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
