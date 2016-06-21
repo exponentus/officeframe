@@ -193,7 +193,7 @@
                         </div>
                         <div class="controls">
                             <xsl:call-template name="upload-files">
-                                <xsl:with-param name="input-name" select="'reg-files'"/>
+                                <xsl:with-param name="input-name" select="'avatar'"/>
                             </xsl:call-template>
                         </div>
                     </fieldset>
