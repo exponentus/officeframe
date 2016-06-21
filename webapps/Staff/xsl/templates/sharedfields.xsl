@@ -4,13 +4,15 @@
     <xsl:param name="input-name"/>
 
     <div class="form-group">
-        <button type="button" class="btn btn-upload" id="upload_photo" data-upload="{$input-name}">
+        <button type="button" class="btn btn-upload" id="upload_photo" data-upload-avatar="{$input-name}">
             <i class="fa fa-paperclip"></i>
             <span>
                 <xsl:value-of select="//captions/attach_file/@caption"/>
             </span>
         </button>
         <div class="attachments" data-upload-files="{$input-name}">
+            <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
+            <input type="hidden" id="fieldname" name="fieldname" value="'avatar'"/>
             <xsl:for-each select="fields/attachments/attachment">
                 <div class="attachments-file">
                     <a class="file-name" data-file="{filename}" href="{url}">
@@ -21,6 +23,7 @@
                     </span>
                 </div>
             </xsl:for-each>
+
         </div>
     </div>
 </xsl:template>
