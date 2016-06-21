@@ -1,14 +1,21 @@
 package staff.page.form;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.commons.io.IOUtils;
+
 import com.exponentus.common.model.Attachment;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._FormAttachments;
@@ -18,7 +25,6 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._Validator;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.user.IUser;
-import com.exponentus.util.Util;
 
 import administrator.dao.ApplicationDAO;
 import administrator.dao.UserDAO;
@@ -48,15 +54,19 @@ public class EmployeeForm extends StaffForm {
 		if (!id.isEmpty()) {
 			EmployeeDAO dao = new EmployeeDAO(session);
 			entity = dao.findById(UUID.fromString(id));
-			String avatar = formData.getValueSilently("avatar");
-			if (!avatar.isEmpty()) {
-				if (showAttachment(entity.getAvatar())) {
+			if (formData.containsField("avatar")) {
+				byte[] image = entity.getAvatar();
+				if (showAttachment(image)) {
 					return;
 				} else {
 					setBadRequest();
 				}
 			}
 		} else {
+			if (formData.containsField("avatar")) {
+				showAttachment(getEmptyAvatar());
+				return;
+			}
 			entity = new Employee();
 			entity.setRegDate(new Date());
 			entity.setAuthor(user);
@@ -75,12 +85,9 @@ public class EmployeeForm extends StaffForm {
 			} else {
 				entity.setRoles(new ArrayList<Role>());
 			}
+			entity.setAvatar(getEmptyAvatar());
+
 		}
-		String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
-		if (fsId.isEmpty()) {
-			fsId = Util.generateRandomAsText();
-		}
-		addValue("fsid", fsId);
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
 		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
@@ -222,5 +229,19 @@ public class EmployeeForm extends StaffForm {
 		}
 
 		return ve;
+	}
+
+	private byte[] getEmptyAvatar() {
+		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_APP_NAME + File.separator
+		        + "img" + File.separator + "nophoto.png");
+		InputStream is = null;
+		try {
+			is = new FileInputStream(file);
+			return IOUtils.toByteArray(is);
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+
+		return null;
 	}
 }
