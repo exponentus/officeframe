@@ -3,7 +3,7 @@
 <xsl:template name="upload-files">
     <xsl:param name="input-name"/>
 
-    <div class="form-group">
+    <div class="form-group" style="display:none">
         <button type="button" class="btn btn-upload" id="upload_photo" data-upload-avatar="{$input-name}">
             <i class="fa fa-paperclip"></i>
             <span>
