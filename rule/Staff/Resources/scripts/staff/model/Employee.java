@@ -22,10 +22,12 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.config.CacheIsolationType;
 
+import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.UndefinedUser;
+import com.exponentus.util.StringUtil;
 import com.exponentus.util.Util;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -155,6 +157,16 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	public void setAvatar(byte[] avatar) {
 		this.avatar = avatar;
+	}
+
+	@Override
+	public List<Attachment> getAttachments() {
+		List<Attachment> atts = new ArrayList<Attachment>();
+		Attachment a = new Attachment();
+		a.setRealFileName(StringUtil.getRandomText());
+		a.setFieldName("avatar");
+		atts.add(a);
+		return atts;
 	}
 
 	@Override

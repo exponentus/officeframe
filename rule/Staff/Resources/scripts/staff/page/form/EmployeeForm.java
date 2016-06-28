@@ -56,6 +56,9 @@ public class EmployeeForm extends StaffForm {
 			entity = dao.findById(UUID.fromString(id));
 			if (formData.containsField("avatar")) {
 				byte[] image = entity.getAvatar();
+				if (image == null) {
+					image = getEmptyAvatar();
+				}
 				if (showAttachment(image)) {
 					return;
 				} else {
@@ -172,7 +175,7 @@ public class EmployeeForm extends StaffForm {
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
 			String fileName = formData.getValueSilently("fileid");
-			Attachment att = formFiles.getFile(fileName);
+			Attachment att = formFiles.getFile("avatar", fileName);
 			if (att != null) {
 				entity.setAvatar(att.getFile());
 			}
