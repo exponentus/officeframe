@@ -6,7 +6,6 @@ input:-webkit-autofill:active {
 }
 
 body {
-    background: url(../img/f.gif) 0 0 no-repeat;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
