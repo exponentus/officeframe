@@ -1,7 +1,5 @@
 package reference.page.form;
 
-import java.util.Date;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -44,7 +42,6 @@ public abstract class ReferenceForm extends _DoPage {
 
 	protected SimpleReferenceEntity getDefaultEntity(IUser<Long> user, SimpleReferenceEntity entity) {
 		entity.setAuthor(user);
-		entity.setRegDate(new Date());
 		entity.setName("");
 		return entity;
 	}

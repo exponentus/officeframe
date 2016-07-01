@@ -1,7 +1,5 @@
 package staff.page;
 
-import java.util.Date;
-
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
@@ -37,7 +35,6 @@ public class UserProfile extends _DoPage {
 		actionBar.addAction(new _Action(getLocalizedWord("close", session.getLang()), "", _ActionType.CLOSE));
 		if (emp == null) {
 			emp = new Employee();
-			emp.setRegDate(new Date());
 			User userObj = new User();
 			userObj.setUserName(user.getUserName());
 			userObj.setLogin(user.getLogin());

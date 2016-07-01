@@ -1,6 +1,5 @@
 package reference.page.form;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
@@ -40,7 +39,6 @@ public class LocalityForm extends ReferenceForm {
 		} else {
 			entity = new Locality();
 			entity.setAuthor(user);
-			entity.setRegDate(new Date());
 			entity.setName("");
 			Region region = new Region();
 			region.setName("");

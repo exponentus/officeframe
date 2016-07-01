@@ -144,7 +144,6 @@ public class UserServices {
 									} else {
 										Organization newOrg = new Organization();
 										newOrg.setName(rs_orgs.getString("viewtext"));
-										newOrg.setRegDate(new java.util.Date());
 										// newOrg.setOrgCategory(new
 										// OrgCategory());
 										newOrg.setLabels(new ArrayList<>());

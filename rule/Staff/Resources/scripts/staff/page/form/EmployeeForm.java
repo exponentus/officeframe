@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -71,7 +70,6 @@ public class EmployeeForm extends StaffForm {
 				return;
 			}
 			entity = new Employee();
-			entity.setRegDate(new Date());
 			entity.setAuthor(user);
 			entity.setName("");
 			Organization tmpOrg = new Organization();

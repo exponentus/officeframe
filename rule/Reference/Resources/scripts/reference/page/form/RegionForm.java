@@ -1,6 +1,5 @@
 package reference.page.form;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
@@ -42,7 +41,6 @@ public class RegionForm extends ReferenceForm {
 			CountryDAO cDao = new CountryDAO(session);
 			entity = new Region();
 			entity.setAuthor(user);
-			entity.setRegDate(new Date());
 			entity.setName("");
 			RegionType regionType = regionTypeDAO.findByCode(RegionCode.REGION);
 			entity.setType(regionType);

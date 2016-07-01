@@ -1,6 +1,5 @@
 package staff.page.form;
 
-import java.util.Date;
 import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
@@ -36,7 +35,6 @@ public class DepartmentForm extends StaffForm {
 			entity = dao.findById(UUID.fromString(id));
 		} else {
 			entity = new Department();
-			entity.setRegDate(new Date());
 			entity.setAuthor(user);
 			entity.setName("");
 			Organization o = new Organization();

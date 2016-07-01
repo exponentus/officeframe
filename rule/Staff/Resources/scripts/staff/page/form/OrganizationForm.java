@@ -1,7 +1,6 @@
 package staff.page.form;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -42,7 +41,6 @@ public class OrganizationForm extends StaffForm {
 			entity.setAuthor(user);
 			entity.setName("");
 			entity.setBin("");
-			entity.setRegDate(new Date());
 			OrgCategory oc = new OrgCategory();
 			oc.setName("");
 			entity.setOrgCategory(oc);
