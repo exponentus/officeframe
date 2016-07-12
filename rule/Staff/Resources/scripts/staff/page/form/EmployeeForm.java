@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import com.exponentus.dataengine.jpa.IAppFile;
 import org.apache.commons.io.IOUtils;
 
 import com.exponentus.common.model.Attachment;
@@ -91,7 +92,7 @@ public class EmployeeForm extends StaffForm {
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
-		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
+		addContent(new _POJOListWrapper<Role>(new RoleDAO(session).findAll(), session));
 		startSaveFormTransact(entity);
 	}
 
@@ -173,7 +174,7 @@ public class EmployeeForm extends StaffForm {
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
 			String fileName = formData.getValueSilently("fileid");
-			Attachment att = formFiles.getFile("avatar", fileName);
+			IAppFile att = formFiles.getFile("avatar", fileName);
 			if (att != null) {
 				entity.setAvatar(att.getFile());
 			}
