@@ -67,7 +67,9 @@ public class Department extends SimpleReferenceEntity {
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + Util.dateFormat.format(regDate) + "</regdate>");
+		if (regDate != null){
+			chunk.append("<regdate>" + Util.dateFormat.format(regDate) + "</regdate>");
+		}
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<type>" + getType() + "</type>");
 		chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocalizedName(ses.getLang()) + "</organization>");
