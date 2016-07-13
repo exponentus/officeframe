@@ -13,6 +13,7 @@ import org.apache.commons.io.IOUtils;
 
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpa.IAppFile;
+import com.exponentus.dataengine.jpa.IAppFile;
 import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
@@ -102,7 +103,8 @@ public class EmployeeForm extends StaffForm {
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
-		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
+		addContent(new _POJOListWrapper<Role>(new RoleDAO(session).findAll(), session));
+
 	}
 
 	@Override
@@ -182,7 +184,9 @@ public class EmployeeForm extends StaffForm {
 
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
+
 			TempFile att = formFiles.getFile("avatar", formData.getValueSilently("fileid"));
+
 			if (att != null) {
 				entity.setAvatar((Avatar) att.getFileObject(new Avatar()));
 			}
