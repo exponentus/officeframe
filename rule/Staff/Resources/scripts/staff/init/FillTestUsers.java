@@ -8,8 +8,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
-
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
@@ -77,11 +75,11 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 		List<Position> posts = postDao.findAll();
 		emp.setPosition((Position) Util.getRndListElement(posts));
 
-		try {
-			emp.setAvatar(IOUtils.toByteArray(image));
-		} catch (IOException e) {
-			System.err.println(e);
-		}
+		// try {
+		// emp.setAvatar(IOUtils.toByteArray(image));
+		// } catch (IOException e) {
+		// System.err.println(e);
+		// }
 
 		return emp;
 

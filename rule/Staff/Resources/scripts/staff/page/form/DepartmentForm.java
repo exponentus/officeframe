@@ -46,7 +46,6 @@ public class DepartmentForm extends StaffForm {
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -83,7 +82,6 @@ public class DepartmentForm extends StaffForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			error(e);
 		}

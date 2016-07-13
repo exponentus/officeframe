@@ -11,7 +11,9 @@ import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 
-import com.exponentus.common.model.Attachment;
+import com.exponentus.common.model.embedded.Avatar;
+import com.exponentus.dataengine.jpa.IAppFile;
+import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
@@ -54,10 +56,19 @@ public class EmployeeForm extends StaffForm {
 			EmployeeDAO dao = new EmployeeDAO(session);
 			entity = dao.findById(UUID.fromString(id));
 			if (formData.containsField("avatar")) {
-				byte[] image = entity.getAvatar();
-				if (image == null) {
-					image = getEmptyAvatar();
+				String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
+				_FormAttachments formFiles = session.getFormAttachments(fsId);
+				IAppFile att = formFiles.getFile("avatar", "avatar");
+				byte[] image = null;
+				if (att == null) {
+					att = entity.getAvatar();
+					if (att == null) {
+						image = getEmptyAvatar();
+					}
+				} else {
+					image = att.getFile();
 				}
+
 				if (showAttachment(image)) {
 					return;
 				} else {
@@ -86,13 +97,12 @@ public class EmployeeForm extends StaffForm {
 			} else {
 				entity.setRoles(new ArrayList<Role>());
 			}
-			entity.setAvatar(getEmptyAvatar());
+			// entity.setAvatar(getEmptyAvatar());
 
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
 		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -172,10 +182,9 @@ public class EmployeeForm extends StaffForm {
 
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
-			String fileName = formData.getValueSilently("fileid");
-			Attachment att = formFiles.getFile("avatar", fileName);
+			TempFile att = formFiles.getFile("avatar", formData.getValueSilently("fileid"));
 			if (att != null) {
-				entity.setAvatar(att.getFile());
+				entity.setAvatar((Avatar) att.getFileObject(new Avatar()));
 			}
 			if (isNew) {
 				dao.add(entity);
@@ -183,7 +192,6 @@ public class EmployeeForm extends StaffForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception e) {
 			setBadRequest();
 			error(e);

@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
@@ -22,7 +23,7 @@ import reference.model.DepartmentType;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "departments")
+@Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization" }) )
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
 public class Department extends SimpleReferenceEntity {
 
@@ -67,7 +68,7 @@ public class Department extends SimpleReferenceEntity {
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + Util.dateFormat.format(regDate) + "</regdate>");
+		chunk.append("<regdate>" + Util.convertDataTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<type>" + getType() + "</type>");
 		chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocalizedName(ses.getLang()) + "</organization>");
