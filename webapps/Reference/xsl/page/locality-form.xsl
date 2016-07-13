@@ -77,6 +77,7 @@
                     </xsl:for-each>
                 </fieldset>
             </section>
+            <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
         </form>
     </xsl:template>
 
