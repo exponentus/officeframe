@@ -4,14 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
@@ -24,6 +23,7 @@ import org.eclipse.persistence.config.CacheIsolationType;
 
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.UndefinedUser;
@@ -70,9 +70,8 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	private List<Role> roles;
 
 	@JsonIgnore
-	@Lob
-	@Basic(fetch = FetchType.LAZY)
-	private byte[] avatar;
+	@Embedded
+	private Avatar avatar;
 
 	@JsonIgnore
 	public Organization getOrganization() {
@@ -151,11 +150,11 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	}
 
 	@JsonIgnore
-	public byte[] getAvatar() {
+	public Avatar getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(byte[] avatar) {
+	public void setAvatar(Avatar avatar) {
 		this.avatar = avatar;
 	}
 
