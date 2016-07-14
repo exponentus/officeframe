@@ -198,7 +198,7 @@ public class EmployeeForm extends StaffForm {
 
 		} catch (_Exception e) {
 			setBadRequest();
-			error(e);
+			logError(e);
 		}
 	}
 

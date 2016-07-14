@@ -66,7 +66,7 @@ public class ResponsibleTypeForm extends ReferenceForm {
 
 			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
-			error(e);
+			logError(e);
 		}
 	}
 }

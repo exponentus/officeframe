@@ -69,7 +69,7 @@ public class CountryForm extends ReferenceForm {
 
 			finishSaveFormTransact(entity);
 		} catch (_Exception | SecureException e) {
-			error(e);
+			logError(e);
 		}
 	}
 

@@ -75,7 +75,7 @@ public class UserProfile extends _DoPage {
 
 			setRedirect("_back");
 		} catch (_Exception e) {
-			error(e);
+			logError(e);
 		}
 	}
 

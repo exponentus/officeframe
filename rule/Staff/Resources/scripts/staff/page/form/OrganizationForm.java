@@ -98,7 +98,7 @@ public class OrganizationForm extends StaffForm {
 
 			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
-			error(e);
+			logError(e);
 		}
 	}
 

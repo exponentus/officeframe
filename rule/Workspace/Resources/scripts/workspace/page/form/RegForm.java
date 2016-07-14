@@ -1,11 +1,15 @@
 package workspace.page.form;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.env.Environment;
+import com.exponentus.exception.MsgException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.messaging.email.MailAgent;
+import com.exponentus.messaging.email.Memo;
 import com.exponentus.scripting._AppEntourage;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
@@ -61,11 +65,16 @@ public class RegForm extends _DoPage {
 			}
 
 			MailAgent ma = new MailAgent();
-			if (!ma.sendMail(recipients, "registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment)) {
-				setBadRequest();
+			Map<String, String> vars = new HashMap<String, String>();
+			Memo memo = new Memo("registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment, vars);
+			if (!ma.sendMеssage(memo, recipients)) {
+				addContent("notify", "ok");
 			}
+
+		} catch (MsgException e) {
+			logError(e);
 		} catch (Exception e) {
-			error(e);
+			logError(e);
 		}
 	}
 
