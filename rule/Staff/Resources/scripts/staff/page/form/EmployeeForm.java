@@ -13,7 +13,6 @@ import org.apache.commons.io.IOUtils;
 
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpa.IAppFile;
-import com.exponentus.dataengine.jpa.IAppFile;
 import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
