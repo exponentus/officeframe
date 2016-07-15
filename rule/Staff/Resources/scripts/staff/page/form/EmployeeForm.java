@@ -175,7 +175,7 @@ public class EmployeeForm extends StaffForm {
 					List<Application> appList = aDao.findAllin("code", list, 0, 0).getResult();
 					user.setAllowedApps(appList);
 					uDao.add(user);
-					user = uDao.findById(user.getId());
+					user = (User) uDao.findById(user.getId());
 				}
 
 				entity.setUser(user);

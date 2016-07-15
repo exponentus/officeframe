@@ -86,7 +86,7 @@ public class EmployeeDAO extends DAO<Employee, UUID>implements IExtUserDAO {
 			EntityTransaction t = em.getTransaction();
 			try {
 				t.begin();
-				entity.setAuthor(user.getId());
+				entity.setAuthorId(user.getId());
 				entity.setForm(entity.getDefaultFormName());
 				UserDAO.normalizePwd(entity.getUser());
 				em.persist(entity);

@@ -1,9 +1,7 @@
 package workspace.page.form;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.exponentus.env.Environment;
 import com.exponentus.exception.MsgException;
@@ -65,8 +63,7 @@ public class RegForm extends _DoPage {
 			}
 
 			MailAgent ma = new MailAgent();
-			Map<String, String> vars = new HashMap<String, String>();
-			Memo memo = new Memo("registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment, vars);
+			Memo memo = new Memo("registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment);
 			if (!ma.sendMеssage(memo, recipients)) {
 				addContent("notify", "ok");
 			}

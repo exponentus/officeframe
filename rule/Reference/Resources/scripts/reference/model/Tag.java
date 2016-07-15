@@ -99,6 +99,6 @@ public class Tag extends SimpleReferenceEntity {
 
 	@Override
 	public String toString() {
-		return "Tag[" + id + ", " + getLocalizedName() + ", " + color + ", " + parent + ", " + getAuthor() + ", " + getRegDate() + "]";
+		return "Tag[" + id + ", " + getLocalizedName() + ", " + color + ", " + parent + ", " + getAuthorId() + ", " + getRegDate() + "]";
 	}
 }

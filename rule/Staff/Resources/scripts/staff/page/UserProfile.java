@@ -64,7 +64,7 @@ public class UserProfile extends _DoPage {
 
 			IUser<Long> user = session.getUser();
 			UserDAO dao = new UserDAO(session);
-			User entity = dao.findById(user.getId());
+			IUser<Long> entity = dao.findById(user.getId());
 
 			entity.setLogin(formData.getValue("login"));
 			entity.setEmail(formData.getValue("email"));
