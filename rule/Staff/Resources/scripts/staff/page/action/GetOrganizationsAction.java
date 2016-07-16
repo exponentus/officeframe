@@ -32,7 +32,7 @@ public class GetOrganizationsAction extends _DoPage {
             for (String id : ids) {
                 uids.add(UUID.fromString(id));
             }
-            vp = dao.findAllByIds(uids, pageNum, pageSize);
+            vp = dao.findAllByIds(uids, 0, 0);
         } else {
             vp = dao.findAllByKeyword(keyword, pageNum, pageSize);
         }
