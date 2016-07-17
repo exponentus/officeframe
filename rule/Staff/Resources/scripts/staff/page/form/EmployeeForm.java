@@ -11,6 +11,7 @@ import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
 
+import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpa.IAppFile;
 import com.exponentus.dataengine.jpa.TempFile;
@@ -18,13 +19,16 @@ import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._FormAttachments;
 import com.exponentus.scripting._POJOListWrapper;
+import com.exponentus.scripting._POJOObjectWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._Validator;
 import com.exponentus.scripting._WebFormData;
+import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
 
 import administrator.dao.ApplicationDAO;
@@ -58,7 +62,7 @@ public class EmployeeForm extends StaffForm {
 			if (formData.containsField("avatar")) {
 				String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 				_FormAttachments formFiles = session.getFormAttachments(fsId);
-				IAppFile att = formFiles.getFile("avatar", "avatar");
+				IAppFile att = formFiles.getFile();
 				byte[] image = null;
 				if (att == null) {
 					att = entity.getAvatar();
@@ -243,6 +247,20 @@ public class EmployeeForm extends StaffForm {
 		return ve;
 	}
 
+	@Override
+	protected void addContent(IPOJOObject document) {
+		_Session ses = getSes();
+		List<Attachment> atts = document.getAttachments();
+		_FormAttachments fa = ses.getFormAttachments(formData.getValueSilently(EnvConst.FSID_FIELD_NAME));
+
+		TempFile file = fa.getFile();
+		if (file != null) {
+			atts.add((Attachment) file.getFileObject(new Attachment()));
+		}
+		_POJOObjectWrapper wrapped = new _POJOObjectWrapper(document, getSes());
+		result.addObject(wrapped);
+	}
+
 	private byte[] getEmptyAvatar() {
 		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_APP_NAME + File.separator
 		        + "img" + File.separator + "nophoto.png");
@@ -251,7 +269,7 @@ public class EmployeeForm extends StaffForm {
 			is = new FileInputStream(file);
 			return IOUtils.toByteArray(is);
 		} catch (IOException e) {
-			System.err.println(e);
+			Server.logger.errorLogEntry(e);
 		}
 
 		return null;
