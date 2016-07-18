@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.io.IOUtils;
@@ -62,22 +63,28 @@ public class EmployeeForm extends StaffForm {
 			if (formData.containsField("avatar")) {
 				String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 				_FormAttachments formFiles = session.getFormAttachments(fsId);
-				IAppFile att = formFiles.getFile();
-				byte[] image = null;
-				if (att == null) {
+				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+				if (attsMap == null) {
+					IAppFile att = entity.getAvatar();
+					byte[] image = null;
 					att = entity.getAvatar();
 					if (att == null) {
 						image = getEmptyAvatar();
+					} else {
+						image = att.getFile();
+					}
+					if (showAttachment(image)) {
+						return;
+					} else {
+						setBadRequest();
 					}
 				} else {
-					image = att.getFile();
+					IAppFile att = attsMap.values().iterator().next();
+					TempFile tempFile = (TempFile) att;
+					showFile(tempFile.getPath(), tempFile.getRealFileName());
+					return;
 				}
 
-				if (showAttachment(image)) {
-					return;
-				} else {
-					setBadRequest();
-				}
 			}
 		} else {
 			if (formData.containsField("avatar")) {
@@ -188,10 +195,11 @@ public class EmployeeForm extends StaffForm {
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
 
-			TempFile att = formFiles.getFile("avatar", formData.getValueSilently("fileid"));
+			Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
 
-			if (att != null) {
-				entity.setAvatar((Avatar) att.getFileObject(new Avatar()));
+			if (attsMap != null && attsMap.size() > 0) {
+				TempFile att = attsMap.values().iterator().next();
+				entity.setAvatar((Avatar) att.convertTo(new Avatar()));
 			}
 			if (isNew) {
 				dao.add(entity);
@@ -253,10 +261,13 @@ public class EmployeeForm extends StaffForm {
 		List<Attachment> atts = document.getAttachments();
 		_FormAttachments fa = ses.getFormAttachments(formData.getValueSilently(EnvConst.FSID_FIELD_NAME));
 
-		TempFile file = fa.getFile();
-		if (file != null) {
-			atts.add((Attachment) file.getFileObject(new Attachment()));
+		Map<String, TempFile> attsMap = fa.getFieldFile("avatar");
+
+		if (attsMap != null && attsMap.size() > 0) {
+			TempFile att = attsMap.values().iterator().next();
+			atts.add((Attachment) att.convertTo(new Attachment()));
 		}
+
 		_POJOObjectWrapper wrapped = new _POJOObjectWrapper(document, getSes());
 		result.addObject(wrapped);
 	}
