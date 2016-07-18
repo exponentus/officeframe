@@ -108,7 +108,7 @@
                  </fieldset>
                 <label for="upload_photo" style="cursor:pointer">
                     <div style="width:152px; height:152px; border:1px solid #ccc; position:relative; float:right; margin:12px 10px 0 42px">
-                        <img style="max-width:150px; max-height:150px" src="p?id=employee-form&amp;docid={//document[@entity='employee']/@docid}&amp;avatar=1"></img>
+                        <img style="max-width:150px; max-height:150px" src="p?id=employee-form&amp;docid={//document[@entity='employee']/@docid}&amp;fsid={//fsid}&amp;avatar=1"></img>
                     </div>
                 </label>
                     <fieldset class="fieldset">
