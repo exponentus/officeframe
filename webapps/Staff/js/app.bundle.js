@@ -3100,8 +3100,14 @@ $(function() {
         if (!docids.length) {
             return;
         }
-
         nb.xhrDelete(location.href + '&docid=' + docids.join('&docid=')).then(function() {
+            location.reload();
+        });
+    });
+
+    $('.delete-photo').click(function(event) {
+        event.preventDefault();
+        $.get("p?id=employee-form&docid="+$(this).data("docid")+"&avatar=0", function(  ) {
             location.reload();
         });
     });

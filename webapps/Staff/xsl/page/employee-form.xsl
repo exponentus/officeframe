@@ -106,11 +106,22 @@
                         </div>
                     </div>
                  </fieldset>
-                <label for="upload_photo" style="cursor:pointer">
-                    <div style="width:152px; height:152px; border:1px solid #ccc; position:relative; float:right; margin:12px 10px 0 42px">
-                        <img style="max-width:150px; max-height:150px" src="p?id=employee-form&amp;docid={//document[@entity='employee']/@docid}&amp;fsid={//fsid}&amp;avatar=1"></img>
-                    </div>
-                </label>
+                    <span style="display:inline-block" class="upload-photo-wrapper">
+                        <div style="width:152px; height:152px; border:1px solid #ccc; position:relative; float:right; margin:12px 10px 0 42px">
+                            <label for="upload_photo" class="label-upload-photo">
+                                <img style="max-width:150px; max-height:150px" src="p?id=employee-form&amp;docid={//document[@entity='employee']/@docid}&amp;fsid={//fsid}&amp;avatar=1"/>
+                                <span class="go-top">
+                                    Обновить фотографию
+                                    <br/>
+                                    <br/>
+                                    <img src="img/image-2-48.png"/>
+                                </span>
+                            </label>
+                            <span class="delete-photo" data-docid="{//document[@entity='employee']/@docid}">
+                                <img src="img/x-mark-16.png" style="width:8px;"/>
+                            </span>
+                        </div>
+                    </span>
                     <fieldset class="fieldset">
                         <legend class="legend">
                             <xsl:value-of select="//captions/credentials/@caption"/>
