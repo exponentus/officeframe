@@ -39,7 +39,7 @@ $(function() {
 
     $('.delete-photo').click(function(event) {
         event.preventDefault();
-        $.get("p?id=employee-form&docid="+$(this).data("docid")+"&avatar=0", function(  ) {
+        $.get("p?id=employee-form&docid="+$(this).data("docid")+"&fsid="+$(this).data("fsid")+"&avatar=0", function() {
             location.reload();
         });
     });

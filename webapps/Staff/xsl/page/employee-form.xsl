@@ -117,7 +117,7 @@
                                     <img src="img/image-2-48.png"/>
                                 </span>
                             </label>
-                            <span class="delete-photo" data-docid="{//document[@entity='employee']/@docid}">
+                            <span class="delete-photo" data-docid="{//document[@entity='employee']/@docid}" data-fsid="{//fsid}">
                                 <img src="img/x-mark-16.png" style="width:8px;"/>
                             </span>
                         </div>
