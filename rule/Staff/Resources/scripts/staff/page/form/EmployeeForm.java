@@ -213,6 +213,42 @@ public class EmployeeForm extends StaffForm {
 		}
 	}
 
+	@Override
+	public void doDELETE(_Session session, _WebFormData formData) {
+		String id = formData.getValueSilently("docid");
+		Employee entity;
+		if (!id.isEmpty()) {
+			EmployeeDAO dao = new EmployeeDAO(session);
+			entity = dao.findById(UUID.fromString(id));
+			if (formData.containsField("avatar")) {
+				String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
+				_FormAttachments formFiles = session.getFormAttachments(fsId);
+				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+				if (attsMap == null) {
+					IAppFile att = entity.getAvatar();
+					byte[] image = null;
+					att = entity.getAvatar();
+					if (att == null) {
+						image = getEmptyAvatar();
+					} else {
+						image = att.getFile();
+					}
+					if (showAttachment(image)) {
+						return;
+					} else {
+						setBadRequest();
+					}
+				} else {
+					IAppFile att = attsMap.values().iterator().next();
+					TempFile tempFile = (TempFile) att;
+					showFile(tempFile.getPath(), tempFile.getRealFileName());
+					return;
+				}
+
+			}
+		}
+	}
+
 	protected _Validation validate(_WebFormData formData, LanguageCode lang, boolean isNew) {
 		_Validation ve = new _Validation();
 
