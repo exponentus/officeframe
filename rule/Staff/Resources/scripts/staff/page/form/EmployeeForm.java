@@ -56,12 +56,12 @@ public class EmployeeForm extends StaffForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
+		String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 		Employee entity;
 		if (!id.isEmpty()) {
 			EmployeeDAO dao = new EmployeeDAO(session);
 			entity = dao.findById(UUID.fromString(id));
 			if (formData.containsField("avatar")) {
-				String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 				_FormAttachments formFiles = session.getFormAttachments(fsId);
 				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
 				if (attsMap == null) {
@@ -88,7 +88,17 @@ public class EmployeeForm extends StaffForm {
 			}
 		} else {
 			if (formData.containsField("avatar")) {
-				showAttachment(getEmptyAvatar());
+				_FormAttachments formFiles = session.getFormAttachments(fsId);
+				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+				if (attsMap != null) {
+					IAppFile att = attsMap.values().iterator().next();
+					TempFile tempFile = (TempFile) att;
+					showFile(tempFile.getPath(), tempFile.getRealFileName());
+					return;
+				}
+				if (attsMap == null) {
+					showAttachment(getEmptyAvatar());
+				}
 				return;
 			}
 			entity = new Employee();
