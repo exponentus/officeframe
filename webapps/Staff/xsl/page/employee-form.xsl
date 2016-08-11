@@ -47,6 +47,7 @@
                     <xsl:apply-templates select="//actionbar"/>
                 </div>
             </header>
+           <!--   <xsl:value-of select="../fsid"/> -->
             <section class="content-body">
                 <fieldset class="fieldset" style="float:left">
                     <div class="form-group">
