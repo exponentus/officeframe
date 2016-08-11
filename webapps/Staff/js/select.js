@@ -21,6 +21,7 @@ nbApp.selectOptions = {
             $("select[name='department'], select[name='organization']").removeClass("required");
             $("select[name='department'], select[name='organization']").closest(".controls").removeClass("has-error")
         }
+        
     }
     },
     position: {
