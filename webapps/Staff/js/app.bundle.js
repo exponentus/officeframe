@@ -2829,6 +2829,11 @@ nb.uploadAvatar = function(fileInput) {
         complete: function() {
             fileInput.form.reset();
             $('#progress_' + inputName).val(0);
+            var org_html = $("select[name=organization]").html();
+            sessionStorage.setItem('organization', org_html);
+            var dept_html = $("select[name=department]").html();
+            sessionStorage.setItem('department', dept_html);
+            
             window.location.reload();
         }
     });
@@ -3068,7 +3073,20 @@ c(a.element).is("option")?(a.element.selected=!1,void this.$element.trigger("cha
 (function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd)var e=jQuery.fn.select2.amd;return e.define("select2/i18n/ru",[],function(){function e(e,t,n,r){return e%10<5&&e%10>0&&e%100<5||e%100>20?e%10>1?n:t:r}return{errorLoading:function(){return"Невозможно загрузить результаты"},inputTooLong:function(t){var n=t.input.length-t.maximum,r="Пожалуйста, введите на "+n+" символ";return r+=e(n,"","a","ов"),r+=" меньше",r},inputTooShort:function(t){var n=t.minimum-t.input.length,r="Пожалуйста, введите еще хотя бы "+n+" символ";return r+=e(n,"","a","ов"),r},loadingMore:function(){return"Загрузка данных…"},maximumSelected:function(t){var n="Вы можете выбрать не более "+t.maximum+" элемент";return n+=e(t.maximum,"","a","ов"),n},noResults:function(){return"Совпадений не найдено"},searching:function(){return"Поиск…"}}}),{define:e.define,require:e.require}})();
 $(function() {
     $.datepicker.setDefaults($.datepicker.regional['ru']);
-
+    if(sessionStorage.getItem("organization")){
+        $("select[name=organization]").html(sessionStorage.getItem("organization"));
+        $("select[name=organization] option").attr("selected","true");
+        $("select[name=organization] option:first").remove();
+        sessionStorage.removeItem("organization");
+        $("select[name=organization]").next("span").find(".select2-selection__rendered").text($("select[name=organization] option").text())
+    }
+    if(sessionStorage.getItem("department")){
+        $("select[name=department]").html(sessionStorage.getItem("department"));
+        $("select[name=department] option").attr("selected","true");
+        $("select[name=department] option:first").remove();
+        sessionStorage.removeItem("department");
+        $("select[name=organization]").next("span").find(".select2-selection__rendered").text($("select[name=department] option").text())
+    }
     // fix fox memorize checkbox, blyat'
     $(':checkbox.all').attr('checked', false);
 

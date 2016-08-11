@@ -1,6 +1,19 @@
 $(function() {
     $.datepicker.setDefaults($.datepicker.regional['ru']);
-
+    if(sessionStorage.getItem("organization")){
+        $("select[name=organization]").html(sessionStorage.getItem("organization"));
+        $("select[name=organization] option").attr("selected","true");
+        $("select[name=organization] option:first").remove();
+        sessionStorage.removeItem("organization");
+        $("select[name=organization]").next("span").find(".select2-selection__rendered").text($("select[name=organization] option").text())
+    }
+    if(sessionStorage.getItem("department")){
+        $("select[name=department]").html(sessionStorage.getItem("department"));
+        $("select[name=department] option").attr("selected","true");
+        $("select[name=department] option:first").remove();
+        sessionStorage.removeItem("department");
+        $("select[name=organization]").next("span").find(".select2-selection__rendered").text($("select[name=department] option").text())
+    }
     // fix fox memorize checkbox, blyat'
     $(':checkbox.all').attr('checked', false);
 
