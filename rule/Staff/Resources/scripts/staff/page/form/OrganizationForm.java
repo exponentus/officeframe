@@ -112,11 +112,15 @@ public class OrganizationForm extends StaffForm {
 		if (formData.getValueSilently("orgcategory").isEmpty()) {
 			ve.addError("orgcategory", "required", getLocalizedWord("field_is_empty", lang));
 		}
-		if (formData.getValueSilently("bin").isEmpty()) {
+		/*if (formData.getValueSilently("bin").isEmpty()) {
 			ve.addError("bin", "required", getLocalizedWord("field_is_empty", lang));
 		} else if (formData.getValueSilently("bin").length() != 12) {
 			ve.addError("bin", "eq_12", getLocalizedWord("bin_value_should_be_consist_from_12_symbols", lang));
+		}*/
+		if (formData.getValueSilently("bin").length() != 12 && formData.getValueSilently("bin").length() > 0) {
+			ve.addError("bin", "eq_12", getLocalizedWord("bin_value_should_be_consist_from_12_symbols", lang));
 		}
+
 
 		return ve;
 	}
