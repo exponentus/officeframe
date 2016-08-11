@@ -1,8 +1,8 @@
 input:-webkit-autofill,
-input:-webkit-autofill:hover,
+input:-webkit-autofill:active,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
+input:-webkit-autofill:hover {
+    -webkit-box-shadow: 0 0 0 1000px white inset;
 }
 
 body {
@@ -11,7 +11,6 @@ body {
     -o-background-size: cover;
     background-size: cover;
 }
-
 
 .header {
     background: #48A5E0;
@@ -22,7 +21,6 @@ body {
     height: auto;
     padding: 16px;
 }
-
 @media (max-width: 768px) {
     .navbar {
         height: auto;
@@ -47,7 +45,6 @@ body {
     text-overflow: ellipsis;
     width: 100%;
 }
-
 @media (max-width: 768px) {
     .brand-title {
         display: inline-block;
@@ -59,8 +56,8 @@ body {
     right: 0;
 }
 
-.navbar .dropdown-menu:before,
-.navbar .dropdown-menu:after {
+.navbar .dropdown-menu:after,
+.navbar .dropdown-menu:before {
     content: none;
 }
 
@@ -68,14 +65,15 @@ body {
     color: #FFF;
     font-size: 14px;
 }
-
 @media (max-width: 1024px) {
     .navbar .dropdown .dropdown-menu {
         top: 50px;
     }
+
     .navbar .dropdown .dropdown-menu > li > a {
         color: #333;
     }
+
     .container {
         margin: 0 auto;
     }
@@ -103,7 +101,6 @@ body {
     display: inline-block;
     margin: 2px;
 }
-
 
 /* .ws */
 
@@ -133,7 +130,7 @@ body {
 }
 
 .ws-app:active {
-    box-shadow: 0px 0px 0px #CCC;
+    box-shadow: 0 0 0 #CCC;
 }
 
 .ws-app.off {
@@ -186,17 +183,18 @@ img.ws-app-logo {
     text-overflow: ellipsis;
     width: 100%;
 }
-
 @media ( max-width: 768px) {
     .ws-apps {
         margin: 0;
     }
+
     .ws-app {
         display: inline-block;
         height: auto;
         margin: 8px auto;
         width: 100%;
     }
+
     span.ws-app-logo {
         bottom: 4px;
         height: auto;
@@ -206,19 +204,20 @@ img.ws-app-logo {
         top: 4px;
         width: 100px;
     }
+
     .ws-app-type {
         padding: 8px 8px 8px 110px;
         text-align: left;
     }
+
     .ws-app-name {
         padding: 2px 2px 2px 110px;
         text-align: left;
     }
 }
-
 @media (max-width: 1024px) {
-    .ws-apps.off,
-    .ws-app.off {
+    .ws-app.off,
+    .ws-apps.off {
         display: none;
     }
 }
@@ -226,7 +225,6 @@ img.ws-app-logo {
 .user-profile {
     background: none !important;
 }
-
 
 /* .sign-up */
 
@@ -263,11 +261,10 @@ img.ws-app-logo {
 .sign-up button[type=submit] {
     font-size: 14px;
     line-height: 1;
-    margin: 0px;
+    margin: 0;
     padding: 16px;
     width: 100%;
 }
-
 @media (min-width: 1024px) {
     .sign-up label span {
         position: absolute;
@@ -276,6 +273,7 @@ img.ws-app-logo {
         top: 6px;
         width: 200px;
     }
+
     .sign-up .error-message {
         position: absolute;
         right: -225px;
@@ -283,7 +281,6 @@ img.ws-app-logo {
         width: 220px;
     }
 }
-
 
 /* .sign-in */
 
@@ -307,7 +304,7 @@ img.ws-app-logo {
 .sign-in .pwd {
     display: block;
     float: none;
-    margin: 12px 0px;
+    margin: 12px 0;
     position: relative;
     width: 100%;
 }
@@ -316,7 +313,7 @@ img.ws-app-logo {
 .sign-in .pwd input {
     min-height: auto;
     padding: 13px 13px 13px 42px;
-    margin: 0px;
+    margin: 0;
     width: 100%;
 }
 
@@ -351,7 +348,7 @@ img.ws-app-logo {
     float: right;
     font-size: 14px;
     line-height: 1;
-    margin: 0px;
+    margin: 0;
     padding: 8px 12px;
 }
 
@@ -366,7 +363,6 @@ a.btn-sign-up {
     margin-top: 16px;
     text-align: center;
 }
-
 @media (min-width: 1024px) {
     a.btn-sign-up {
         color: #fff;
@@ -377,6 +373,7 @@ a.btn-sign-up {
         text-align: right;
         top: 50px;
     }
+
     .sign-in {
         margin: 4px 80px 0 0;
         position: fixed;
@@ -385,27 +382,33 @@ a.btn-sign-up {
         width: auto;
         z-index: 9;
     }
+
     .sign-in h1 {
         display: none;
     }
+
     .sign-in .login,
     .sign-in .pwd {
         float: left;
         margin: 2px 4px;
         width: 185px;
     }
+
     .sign-in .login input,
     .sign-in .pwd input {
         border-color: transparent;
     }
+
     .sign-in .noauth {
         clear: both;
         color: #FFF;
         display: block;
     }
+
     .sign-in .noauth span {
         color: #FFF;
     }
+
     .sign-in button[type=submit] {
         background: transparent;
         border-color: transparent;
@@ -418,7 +421,6 @@ a.btn-sign-up {
         width: 80px;
     }
 }
-
 
 /* .lang */
 
@@ -433,16 +435,20 @@ a.btn-sign-up {
 
 .lang-menu {
     bottom: 100%;
-    display: none;
+    /*display: none;*/
     right: 4px;
 }
 
 .lang:hover .lang-menu {
-    display: block;
-    position: absolute;
+    /*    display: block;
+    position: absolute;*/
 }
 
 .lang-menu a {
-    display: block;
-    padding: 2px 0;
+    display: inline-block;
+    padding: 2px 4px;
+}
+
+.lang-menu a.active {
+    color: gray;
 }
