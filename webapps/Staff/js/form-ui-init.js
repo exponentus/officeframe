@@ -32,6 +32,14 @@ $(function() {
         }).datepicker({ dateFormat: nb.options.dateFormat });
     });
 
+    $('input[name=bin]').on("input propertychange" ,function(){
+       if($(this).val().length == 0){
+           $(this).removeAttr("required").removeClass("required");
+           $(this).removeClass("required");
+           $(this).next("div").remove();
+       }
+    });
+
     // init action
     $('[data-action=save_and_close]').click(function(event) {
         event.preventDefault();
