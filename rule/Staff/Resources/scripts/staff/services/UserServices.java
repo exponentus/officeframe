@@ -46,7 +46,6 @@ public class UserServices {
 		importFromH2(true);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void importFromH2(boolean showConsoleOutput) {
 		List<User> entities = new ArrayList<User>();
 
