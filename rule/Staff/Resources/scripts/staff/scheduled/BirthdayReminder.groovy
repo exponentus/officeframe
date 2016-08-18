@@ -8,7 +8,7 @@ import com.exponentus.scripting.event._DoScheduledTask
 class BirthdayReminder extends _DoScheduledTask {
 	@Override
 	public void doEvery5Min(_Session session) {
-		log("555")
+		//log("555")
 	}
 
 	@Override
