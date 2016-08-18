@@ -3,6 +3,7 @@ package workspace.init;
 import com.exponentus.dataengine.jpa.constants.AppCode;
 
 public class AppConst {
+	public static String MODULE_VERSION = "1.0";
 	public static String NAME = "Workspace";
 	public static String NAME_ENG = "Workspace";
 	public static String NAME_RUS = "Рабочая область";
