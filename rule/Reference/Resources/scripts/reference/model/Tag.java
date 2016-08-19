@@ -79,7 +79,7 @@ public class Tag extends SimpleReferenceEntity {
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + Util.dateFormat.format(regDate) + "</regdate>");
+		chunk.append("<regdate>" + Util.convertDataTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<color>" + color + "</color>");
 		chunk.append("<localizednames>");
