@@ -38,7 +38,7 @@ import reference.model.Position;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id", "department_id" }) )
+@Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }) )
 @NamedQuery(name = "Employee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
 @Cache(isolation = CacheIsolationType.ISOLATED)
 public class Employee extends SimpleReferenceEntity implements IEmployee {
