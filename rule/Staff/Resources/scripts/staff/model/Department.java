@@ -23,7 +23,7 @@ import reference.model.DepartmentType;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization" }) )
+@Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }) )
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
 public class Department extends SimpleReferenceEntity {
 

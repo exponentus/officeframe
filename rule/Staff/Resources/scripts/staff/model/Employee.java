@@ -16,6 +16,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.eclipse.persistence.annotations.Cache;
@@ -37,7 +38,7 @@ import reference.model.Position;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "employees")
+@Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id", "department_id" }) )
 @NamedQuery(name = "Employee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
 @Cache(isolation = CacheIsolationType.ISOLATED)
 public class Employee extends SimpleReferenceEntity implements IEmployee {
