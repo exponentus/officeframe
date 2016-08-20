@@ -39,7 +39,8 @@ public class MainNavigator extends _DoPage {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
-		} else if (EnvConst.APP_ID.equalsIgnoreCase("poema")) {
+			// TODO it is weird code
+		} else if (EnvConst.APP_ID.equalsIgnoreCase("poema") || EnvConst.APP_ID.equalsIgnoreCase("run")) {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("request_types", session.getLang()), "requesttype-view"));
 		} else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
