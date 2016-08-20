@@ -157,6 +157,7 @@ span.ws-app-logo {
     display: inline-block;
     padding-top: 11px;
     height: 56%;
+    max-height: 80px;
     width: 100%;
 }
 
