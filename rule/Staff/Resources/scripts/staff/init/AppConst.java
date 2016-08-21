@@ -11,7 +11,7 @@ public class AppConst {
 	public static String NAME_POR = "Funcionários";
 	public static String NAME_SPA = "Personal";
 	public static AppCode CODE = AppCode.STAFF;
-	public static String DEFAULT_URL = "p?id=organization-view";
+	public static String DEFAULT_PAGE = "organization-view";
 	public static String FT_INDEX_SCOPE = "[{\"tableName\":\"orgs\",\"fieldNames\":"
 	        + "[\"name\",\"localized_name\"],\"daoImpl\":\"staff.dao.OrganizationDAO\"},{\"tableName\":\"employees\",\"fieldNames\":"
 	        + "[\"name\",\"user_id\"],\"daoImpl\":\"staff.dao.EmployeeDAO\"}]";

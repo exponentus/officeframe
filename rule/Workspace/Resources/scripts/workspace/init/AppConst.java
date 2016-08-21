@@ -9,7 +9,7 @@ public class AppConst {
 	public static String NAME_RUS = "Рабочая область";
 	public static String NAME_KAZ = "Рабочая область";
 	public static AppCode CODE = AppCode.WORKSPACE;
-	public static String DEFAULT_URL = "p?id=workspace";
+	public static String DEFAULT_PAGE = "workspace";
 	public static String FT_INDEX_SCOPE = "";
 
 }
