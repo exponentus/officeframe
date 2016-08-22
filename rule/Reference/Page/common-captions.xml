@@ -82,4 +82,5 @@
     <caption name="request_type"/>
     <caption name="task_types"/>
     <caption name="task_type"/>
+    <caption name="prefix"/>
 </rule>

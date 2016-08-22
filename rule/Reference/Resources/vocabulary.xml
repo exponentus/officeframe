@@ -241,4 +241,10 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="prefix">
+        <entry lang="ENG">Prefix</entry>
+        <entry lang="RUS">Префикс</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
 </vocabulary>
