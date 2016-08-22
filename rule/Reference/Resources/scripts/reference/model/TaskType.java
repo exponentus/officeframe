@@ -11,5 +11,14 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 @Table(name = "task_type", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
 @NamedQuery(name = "TaskType.findAll", query = "SELECT m FROM TaskType AS m ORDER BY m.regDate")
 public class TaskType extends SimpleReferenceEntity {
+	public String prefix;
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 
 }
