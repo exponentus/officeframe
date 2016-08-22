@@ -126,6 +126,10 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		return user;
 	}
 
+	public String getLogin() {
+		return this.user.getLogin();
+	}
+
 	@Override
 	public Long getUserID() {
 		if (user != null) {
