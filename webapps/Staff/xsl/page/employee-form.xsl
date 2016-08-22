@@ -106,6 +106,18 @@
                             </xsl:apply-templates>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            <xsl:value-of select="//captions/login_name/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="text" name="login" value="{fields/login}" class="span5" autocomplete="off">
+                               <!-- <xsl:if test="@docid != 'null'">
+                                    <xsl:attribute name="disabled">disabled</xsl:attribute>
+                                </xsl:if>-->
+                            </input>
+                        </div>
+                    </div>
                  </fieldset>
                     <span style="display:inline-block" class="upload-photo-wrapper">
                         <div style="width:152px; height:152px; border:1px solid #ccc; position:relative; float:right; margin:12px 10px 0 42px">
@@ -123,7 +135,7 @@
                             </span>
                         </div>
                     </span>
-                    <fieldset class="fieldset">
+                <!--<fieldset class="fieldset">
                         <legend class="legend">
                             <xsl:value-of select="//captions/credentials/@caption"/>
                         </legend>
@@ -195,7 +207,7 @@
                                 </input>
                             </div>
                         </div>
-                    </fieldset>
+                    </fieldset>-->
 
                     <fieldset class="fieldset">
                         <legend class="legend">
