@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.scripting._Session;
 
 @Entity
 @Table(name = "task_type", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
@@ -20,5 +21,11 @@ public class TaskType extends SimpleReferenceEntity {
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
 	}
-
+	@Override
+	public String getFullXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append(super.getFullXMLChunk(ses));
+		chunk.append("<prefix>" + this.prefix + "</prefix>");
+		return chunk.toString();
+	}
 }
