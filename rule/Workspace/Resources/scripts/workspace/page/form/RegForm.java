@@ -9,7 +9,6 @@ import com.exponentus.localization.LanguageCode;
 import com.exponentus.messaging.email.MailAgent;
 import com.exponentus.messaging.email.Memo;
 import com.exponentus.scripting._AppEntourage;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
@@ -34,7 +33,7 @@ public class RegForm extends _DoPage {
 			session.setLang(LanguageCode.valueOf(lang));
 		}
 
-		addContent(new _POJOListWrapper(new LanguageDAO(session).findAll(), session));
+		addContent(new LanguageDAO(session).findAll());
 	}
 
 	@Override
@@ -90,10 +89,10 @@ public class RegForm extends _DoPage {
 			ve.addError("org", "required", getLocalizedWord("field_is_empty", lang));
 		}
 
-		if (formData.getValueSilently("orgbin").isEmpty()) {
-			ve.addError("orgbin", "required", getLocalizedWord("field_is_empty", lang));
-		} else if (formData.getValueSilently("orgbin").length() != 12) {
-			ve.addError("orgbin", "eq_12", getLocalizedWord("bin_value_should_be_consist_from_12_symbols", lang));
+		if (!formData.getValueSilently("orgbin").isEmpty()) {
+			if (formData.getValueSilently("orgbin").length() != 12) {
+				ve.addError("orgbin", "eq_12", getLocalizedWord("bin_value_should_be_consist_from_12_symbols", lang));
+			}
 		}
 
 		return ve;

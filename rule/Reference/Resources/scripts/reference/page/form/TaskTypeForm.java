@@ -27,6 +27,7 @@ public class TaskTypeForm extends ReferenceForm {
 			entity = dao.findById(UUID.fromString(id));
 		} else {
 			entity = (TaskType) getDefaultEntity(user, new TaskType());
+			entity.setPrefix("");
 		}
 		addContent(entity);
 		addContent(new LanguageDAO(session).findAll());
