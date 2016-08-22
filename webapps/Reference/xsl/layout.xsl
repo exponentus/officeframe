@@ -100,7 +100,8 @@
                                 <li class="divider"></li>
                                 <li>
                                     <a class="logout" href="Logout">
-                                        <xsl:value-of select="//captions/logout/@caption"/>
+                                        <i class="fa fa-th"></i>
+                                        <span> Workspace</span>
                                     </a>
                                 </li>
                             </ul>
