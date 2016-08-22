@@ -25,7 +25,9 @@ public class TaskType extends SimpleReferenceEntity {
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
-		chunk.append("<prefix>" + this.prefix + "</prefix>");
+		if(this.prefix != null) {
+			chunk.append("<prefix>" + this.prefix + "</prefix>");
+		}
 		return chunk.toString();
 	}
 }
