@@ -178,6 +178,14 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	}
 
 	@Override
+	public String getShortXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<name>" + getName() + "</name>");
+		chunk.append("<login>" + getLogin() + "</login>");
+		return chunk.toString();
+	}
+
+	@Override
 	public List<String> getAllRoles() {
 		List<String> list = new ArrayList<String>();
 		if (roles == null) {
@@ -205,9 +213,6 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<iin>" + iin + "</iin>");
 		if (user != null) {
-			chunk.append("<reguser>on</reguser>");
-			chunk.append("<userid>" + user.getId() + "</userid>");
-			chunk.append("<email>" + user.getEmail() + "</email>");
 			chunk.append("<login>" + user.getLogin() + "</login>");
 		}
 

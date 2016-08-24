@@ -16,7 +16,6 @@ import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpa.IAppFile;
 import com.exponentus.dataengine.jpa.TempFile;
-import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
@@ -27,14 +26,11 @@ import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._POJOObjectWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._Validator;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
 
-import administrator.dao.ApplicationDAO;
 import administrator.dao.UserDAO;
-import administrator.model.Application;
 import administrator.model.User;
 import reference.dao.PositionDAO;
 import reference.model.Position;
@@ -181,25 +177,13 @@ public class EmployeeForm extends StaffForm {
 				}
 			}
 
-			if (isNew && "on".equals(formData.getValueSilently("reguser"))) {
-				String login = formData.getValueSilently("login");
+			String login = formData.getValueSilently("login");
+			if (!login.isEmpty()) {
 				UserDAO uDao = new UserDAO();
 				User user = (User) uDao.findByLogin(login);
-				if (user == null) {
-					user = new User();
-					user.setEmail(formData.getValueSilently("email"));
-					user.setLogin(login);
-					user.setPwd(formData.getValueSilently("pwd"));
-					ApplicationDAO aDao = new ApplicationDAO(session);
-					List<AppCode> list = new ArrayList<AppCode>();
-					list.add(AppCode.CUSTOM);
-					List<Application> appList = aDao.findAllin("code", list, 0, 0).getResult();
-					user.setAllowedApps(appList);
-					uDao.add(user);
-					user = (User) uDao.findById(user.getId());
-				}
-
 				entity.setUser(user);
+			} else {
+				entity.setUser(null);
 			}
 
 			String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
@@ -266,11 +250,6 @@ public class EmployeeForm extends StaffForm {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
 
-		/*
-		 * if (formData.getValueSilently("iin").isEmpty()) { ve.addError("iin",
-		 * "required", getLocalizedWord("field_is_empty", lang)); }
-		 */
-
 		if (formData.getValueSilently("organization").isEmpty() && formData.getValueSilently("department").isEmpty()) {
 			ve.addError("organization", "required", getLocalizedWord("field_is_empty", lang));
 			ve.addError("department", "required", getLocalizedWord("field_is_empty", lang));
@@ -280,21 +259,12 @@ public class EmployeeForm extends StaffForm {
 			ve.addError("position", "required", getLocalizedWord("field_is_empty", lang));
 		}
 
-		if (isNew && "on".equals(formData.getValueSilently("reguser"))) {
-			if (formData.getValueSilently("login").isEmpty()) {
-				ve.addError("login", "required", getLocalizedWord("field_is_empty", lang));
-			}
-			if (formData.getValueSilently("email").isEmpty() || !_Validator.checkEmail(formData.getValueSilently("email"))) {
-				ve.addError("email", "email", getLocalizedWord("email_invalid", lang));
-			}
-			if (!formData.getValueSilently("pwd").isEmpty()) {
-				if (formData.getValueSilently("pwd_confirm").isEmpty()) {
-					ve.addError("pwd_confirm", "required", getLocalizedWord("field_is_empty", lang));
-				} else if (!formData.getValueSilently("pwd").equals(formData.getValueSilently("pwd_confirm"))) {
-					ve.addError("pwd_confirm", "required", getLocalizedWord("password_confirm_not_equals", lang));
-				}
-			} else {
-				ve.addError("pwd", "required", getLocalizedWord("field_is_empty", lang));
+		String login = formData.getValueSilently("login");
+		if (!login.isEmpty()) {
+			UserDAO uDao = new UserDAO();
+			User user = (User) uDao.findByLogin(login);
+			if (user == null) {
+				ve.addError("login", "login", getLocalizedWord("login_has_not_been_found", lang));
 			}
 		}
 
@@ -326,7 +296,9 @@ public class EmployeeForm extends StaffForm {
 			is = new FileInputStream(file);
 			return IOUtils.toByteArray(is);
 		} catch (IOException e) {
+			Server.logger.errorLogEntry(file.getAbsolutePath());
 			Server.logger.errorLogEntry(e);
+
 		}
 
 		return null;

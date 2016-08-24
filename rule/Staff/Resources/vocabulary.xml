@@ -1,5 +1,13 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <vocabulary primary="ENG">
+  <sentence mode="on" keyword="login_has_not_been_found">
+        <entry lang="ENG">The login has not been found</entry>
+        <entry lang="RUS">Пользователь с таким логином не найден</entry>
+        <entry lang="KAZ">Пользователь с таким логином не найден</entry>
+        <entry lang="SPA">Login has not been found</entry>
+        <entry lang="POR">Login has not been found</entry>
+        <entry lang="BUL">Login has not been found</entry>
+    </sentence>
     <sentence mode="on" keyword="brand">
         <entry lang="ENG">Staff</entry>
         <entry lang="RUS">Структура</entry>
