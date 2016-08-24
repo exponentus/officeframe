@@ -1,7 +1,9 @@
 package reference.init;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
@@ -20,10 +22,16 @@ public class FillOrgCategories extends InitialDataAdapter<OrgCategory, OrgCatego
 	@Override
 	public List<OrgCategory> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<OrgCategory> entities = new ArrayList<OrgCategory>();
-		String[] data = { "ТОО", "Частный предприниматель", "АО", "Государственное ведомство" };
+		String[] data = { "LTD", "Self employed", "JSC", "State office" };
+		String[] dataRus = { "ТОО", "Частный предприниматель", "АО", "Государственное ведомство" };
 
 		for (int i = 0; i < data.length; i++) {
 			OrgCategory entity = new OrgCategory();
+			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+			name.put(LanguageCode.ENG, data[i]);
+			name.put(LanguageCode.KAZ, dataRus[i]);
+			name.put(LanguageCode.RUS, dataRus[i]);
+			entity.setLocalizedName(name);
 			entity.setName(data[i]);
 			entities.add(entity);
 		}

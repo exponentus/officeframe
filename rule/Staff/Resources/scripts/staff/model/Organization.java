@@ -125,6 +125,7 @@ public class Organization extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<bin>" + bin + "</bin>");
+		chunk.append("<labels>" + labels + "</labels>");
 		return chunk.toString();
 	}
 }
