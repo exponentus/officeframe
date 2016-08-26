@@ -25,7 +25,7 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 	@Override
 	public List<Region> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<Region> entities = new ArrayList<Region>();
-		String[] data = { "Алматы", "Астана", "Алматинская", "Акмолинская", "Джамбульская", "Мангистауская", "ЮКО", "ВКО" };
+		String[] data = { "Almaty", "Astana", "Almaty region" };
 
 		CountryDAO cDao = new CountryDAO(ses);
 		Country country = cDao.findByName("Kazakhstan");
@@ -36,7 +36,7 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 			entity.setName(data[i]);
 			RegionTypeDAO rtDao = new RegionTypeDAO(ses);
 			RegionType rType = null;
-			if (data[i].equals("Алматы") || data[i].equals("Астана")) {
+			if (data[i].equals("Almaty") || data[i].equals("Astana")) {
 				rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
 			} else {
 				rType = rtDao.findByCode(RegionCode.REGION);
@@ -45,8 +45,8 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 			entities.add(entity);
 		}
 
-		String[] data1 = { "Москва", "Санкт-Петербург", "Рязаньская", "Ростовская" };
-		Country country1 = cDao.findByName("Россия");
+		String[] data1 = { "Moscow", "Saint-Petersburg" };
+		Country country1 = cDao.findByName("Russia");
 
 		for (int i = 0; i < data1.length; i++) {
 			Region entity = new Region();
@@ -54,7 +54,7 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 			entity.setName(data1[i]);
 			RegionTypeDAO rtDao = new RegionTypeDAO(ses);
 			RegionType rType = null;
-			if (data1[i].equals("Москва") || data1[i].equals("Санкт-Петербург")) {
+			if (data1[i].equals("Moscow") || data1[i].equals("Saint-Petersburg")) {
 				rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
 			} else {
 				rType = rtDao.findByCode(RegionCode.REGION);
@@ -64,7 +64,7 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 		}
 
 		String[] data2 = { "Lisbon", "Leiria" };
-		Country country2 = cDao.findByName("Португалия");
+		Country country2 = cDao.findByName("Portugal");
 
 		for (int i = 0; i < data2.length; i++) {
 			Region entity = new Region();

@@ -25,12 +25,12 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 	public List<Locality> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 
 		List<Locality> entities = new ArrayList<Locality>();
-		String[] data = { "Капчагай", "Талды-Курган" };
-		String[] data1 = { "Алматы" };
+		String[] data = { "Kapchagay", "Taldykorgan" };
+		String[] data1 = { "Almaty" };
 
 		LocalityTypeDAO ltDao = new LocalityTypeDAO(ses);
 		RegionDAO cDao = new RegionDAO(ses);
-		Region d = cDao.findByName("Алматинская");
+		Region d = cDao.findByName("Almaty region");
 		if (d != null) {
 			for (String val : data) {
 				Locality entity = new Locality();
@@ -41,7 +41,7 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 			}
 		}
 
-		d = cDao.findByName("Алматы");
+		d = cDao.findByName("Almaty");
 		if (d != null) {
 			for (String val : data1) {
 				Locality entity = new Locality();
