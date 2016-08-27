@@ -1,16 +1,12 @@
 package staff.init;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
-import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
@@ -38,7 +34,6 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 	private _Session ses;
 	private static String file1 = EnvConst.RESOURCES_DIR + File.separator + "Roman.txt";
 	private static String file2 = EnvConst.RESOURCES_DIR + File.separator + "Fantasy.txt";
-	private InputStream image = getFakeImage();
 
 	@Override
 	public List<Employee> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
@@ -83,18 +78,6 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 
 		return emp;
 
-	}
-
-	private InputStream getFakeImage() {
-		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_APP_NAME + File.separator
-		        + "img" + File.separator + "nophoto.png");
-		InputStream is = null;
-		try {
-			is = new FileInputStream(file);
-		} catch (FileNotFoundException e) {
-			System.err.println(e);
-		}
-		return is;
 	}
 
 	private String getRndFirstName() {

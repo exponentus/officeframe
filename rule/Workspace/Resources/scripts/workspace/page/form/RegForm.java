@@ -62,8 +62,9 @@ public class RegForm extends _DoPage {
 			}
 
 			MailAgent ma = new MailAgent();
-			Memo memo = new Memo("registration request", fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment);
-			if (!ma.sendMеssage(recipients, memo)) {
+			Memo memo = new Memo();
+			if (!ma.sendMеssage(recipients, "registration request",
+			        memo.getBody(fio + " " + org + "  " + orgbin + "  " + login + " " + email + " " + comment))) {
 				addContent("notify", "ok");
 			}
 

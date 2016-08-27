@@ -44,7 +44,7 @@ import reference.model.Position;
 public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	@OneToOne(cascade = { CascadeType.MERGE }, optional = false, fetch = FetchType.EAGER)
-	@JoinColumn(name = "user_id", nullable = true)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
 	@Column(name = "birth_date")

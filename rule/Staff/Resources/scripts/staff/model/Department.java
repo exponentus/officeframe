@@ -70,7 +70,7 @@ public class Department extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + Util.convertDataTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
-		chunk.append("<type>" + getType() + "</type>");
+		chunk.append("<type id=\"" + type.getId() + "\">" + type + "</type>");
 		chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocalizedName(ses.getLang()) + "</organization>");
 		chunk.append("<localizednames>");
 		LanguageDAO lDao = new LanguageDAO(ses);

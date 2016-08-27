@@ -57,7 +57,7 @@ public class TaskTypeForm extends ReferenceForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-			entity.setPrefix(formData.getValue("prefix"));
+			entity.setPrefix(formData.getValueSilently("prefix"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 
 			if (isNew) {

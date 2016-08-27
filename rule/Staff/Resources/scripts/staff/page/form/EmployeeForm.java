@@ -266,6 +266,8 @@ public class EmployeeForm extends StaffForm {
 			if (user == null) {
 				ve.addError("login", "login", getLocalizedWord("login_has_not_been_found", lang));
 			}
+		} else {
+			ve.addError("login", "login", getLocalizedWord("field_is_empty", lang));
 		}
 
 		return ve;
