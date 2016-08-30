@@ -74,6 +74,8 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@Embedded
 	private Avatar avatar;
 
+	private boolean fired;
+
 	@JsonIgnore
 	public Organization getOrganization() {
 		return organization;
@@ -165,6 +167,14 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	public void setAvatar(Avatar avatar) {
 		this.avatar = avatar;
+	}
+
+	public boolean isFired() {
+		return fired;
+	}
+
+	public void setFired(boolean fired) {
+		this.fired = fired;
 	}
 
 	@Override
