@@ -77,7 +77,7 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a class="user-profile_ws" href="Provider?id=userprofile">
+                                        <a class="user-profile_ws" href="p?id=userprofile">
                                             <i class="fa fa-user"></i>
                                             <xsl:value-of select="' '"/>
                                             <xsl:value-of select="@username"/>
