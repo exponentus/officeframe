@@ -3,8 +3,9 @@
     <xsl:import href="../layout.xsl"/>
 
     <xsl:template match="/request">
-        <xsl:call-template name="layout_userprofile">
+        <xsl:call-template name="layout">
             <xsl:with-param name="include_head">
+                <script src="/Staff/js/app.bundle.js"></script>
                 <script type="text/javascript">
                     <![CDATA[
                     function createCookie(name, value, days) {
@@ -257,5 +258,7 @@
             </section>
         </form>
     </xsl:template>
+
+    <xsl:template name="main-footer"/>
 
 </xsl:stylesheet>
