@@ -1,5 +1,6 @@
 package staff.page;
 
+import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
@@ -49,6 +50,7 @@ public class UserProfile extends _DoPage {
 		addContent(new LanguageDAO(session).findAll());
 		addValue("currentLang", session.getLang().name());
 		addValue("pagesize", session.getPageSize());
+		addValue("org", Environment.orgName);
 		addContent(actionBar);
 	}
 
