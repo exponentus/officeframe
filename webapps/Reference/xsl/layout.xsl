@@ -94,7 +94,7 @@
                                 <li>
                                     <a class="user-profile" title="{//captions/user_profile/@caption}"
                                        href="Provider?id=userprofile">
-                                        <xsl:value-of select="@username"/>
+                                        <i class="fa fa-user"></i><xsl:value-of select="' '"/> <xsl:value-of select="@username"/>
                                     </a>
                                 </li>
                                 <li class="divider"></li>
