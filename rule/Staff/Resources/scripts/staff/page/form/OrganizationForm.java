@@ -75,6 +75,7 @@ public class OrganizationForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
+            entity.setLocalizedName(getLocalizedNames(session, formData));
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(session);
 			entity.setOrgCategory(ocDao.findById(formData.getValue("orgcategory")));
 			entity.setBin(formData.getValue("bin"));
