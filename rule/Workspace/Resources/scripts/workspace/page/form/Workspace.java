@@ -3,6 +3,7 @@ package workspace.page.form;
 import java.util.Collections;
 import java.util.List;
 
+import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._AppEntourage;
@@ -13,6 +14,7 @@ import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.AnonymousUser;
 import com.exponentus.user.IUser;
 
+import administrator.dao.ApplicationDAO;
 import administrator.dao.LanguageDAO;
 import administrator.model.Application;
 
@@ -34,6 +36,11 @@ public class Workspace extends _DoPage {
 		if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 			IUser<Long> user = session.getUser();
 			List<Application> aa = user.getAllowedApps();
+			ApplicationDAO aDao = new ApplicationDAO(session);
+			Application app = aDao.findByName(EnvConst.WORKSPACE_NAME);
+			if (app != null) {
+				aa.remove(app);
+			}
 			Collections.sort(aa, (left, right) -> left.getPosition() - right.getPosition());
 			addContent(aa);
 		}

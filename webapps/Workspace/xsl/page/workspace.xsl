@@ -29,7 +29,7 @@
     </xsl:template>
 
     <xsl:template match="entry" mode="app">
-        <xsl:if test="viewcontent/app/@id != 'Workspace'">
+      
             <div class="ws-app">
                 <a class="ws-app-link" href="/{viewcontent/app/@id}/{viewcontent/url}">
                     <span class="ws-app-logo">
@@ -43,7 +43,7 @@
                     </span>
                 </a>
             </div>
-        </xsl:if>
+       
     </xsl:template>
 
     <xsl:template name="off-app">
