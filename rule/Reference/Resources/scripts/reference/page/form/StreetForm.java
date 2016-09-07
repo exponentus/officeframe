@@ -37,7 +37,7 @@ public class StreetForm extends ReferenceForm {
 		addContent(entity);
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
-		startSaveFormTransact(entity);
+
 	}
 
 	@Override
@@ -94,7 +94,6 @@ public class StreetForm extends ReferenceForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			logError(e);
 		}
@@ -106,15 +105,6 @@ public class StreetForm extends ReferenceForm {
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
-		/*
-		 * if (formData.getValueSilently("streetid").isEmpty()) {
-		 * ve.addError("streetid", "required",
-		 * getLocalizedWord("field_is_empty", lang)); } else if
-		 * (formData.getNumberValueSilently("streetid", 0) <= 0) {
-		 * ve.addError("streetid", "gt_0",
-		 * getLocalizedWord("should_be_contain_value_more_than_zero", lang)); }
-		 */
 
 		if (formData.getValueSilently("locality").isEmpty()) {
 			ve.addError("locality", "required", getLocalizedWord("field_is_empty", lang));

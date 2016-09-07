@@ -39,7 +39,6 @@ public class RegionTypeForm extends ReferenceForm {
 		addContent(new _EnumWrapper<>(LocalityCode.class.getEnumConstants()));
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -73,7 +72,6 @@ public class RegionTypeForm extends ReferenceForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			logError(e);
 		}

@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -32,7 +33,7 @@ public class TaskTypeForm extends ReferenceForm {
 		addContent(entity);
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
-		startSaveFormTransact(entity);
+
 	}
 
 	@Override
@@ -66,9 +67,22 @@ public class TaskTypeForm extends ReferenceForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			logError(e);
 		}
+	}
+
+	@Override
+	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
+		_Validation ve = new _Validation();
+		if (formData.getValueSilently("name").isEmpty()) {
+			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
+		}
+
+		if (formData.getValueSilently("prefix").isEmpty()) {
+			ve.addError("prefix", "required", getLocalizedWord("field_is_empty", lang));
+		}
+
+		return ve;
 	}
 }

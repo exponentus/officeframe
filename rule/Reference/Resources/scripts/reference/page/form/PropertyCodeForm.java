@@ -30,7 +30,6 @@ public class PropertyCodeForm extends ReferenceForm {
 		}
 		addContent(entity);
 		addContent(new LanguageDAO(session).findAll());
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -64,7 +63,6 @@ public class PropertyCodeForm extends ReferenceForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			logError(e);
 		}

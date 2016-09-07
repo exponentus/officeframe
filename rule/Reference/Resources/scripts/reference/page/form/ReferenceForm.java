@@ -8,7 +8,7 @@ import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
-import com.exponentus.scripting.event._DoPage;
+import com.exponentus.scripting.event._DoForm;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
@@ -17,7 +17,7 @@ import com.exponentus.user.SuperUser;
  * @author Kayra created 03-01-2016
  */
 
-public abstract class ReferenceForm extends _DoPage {
+public abstract class ReferenceForm extends _DoForm {
 
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();

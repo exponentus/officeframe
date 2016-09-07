@@ -37,7 +37,6 @@ public class CountryForm extends ReferenceForm {
 		addContent(new _EnumWrapper<>(CountryCode.class.getEnumConstants()));
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -67,7 +66,6 @@ public class CountryForm extends ReferenceForm {
 
 			save(session, entity, dao, isNew);
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | SecureException e) {
 			logError(e);
 		}

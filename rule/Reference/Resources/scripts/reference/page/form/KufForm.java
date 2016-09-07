@@ -31,7 +31,6 @@ public class KufForm extends ReferenceForm {
 		addContent(entity);
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -64,7 +63,6 @@ public class KufForm extends ReferenceForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			logError(e);
 		}

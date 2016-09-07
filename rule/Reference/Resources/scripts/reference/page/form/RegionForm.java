@@ -52,7 +52,6 @@ public class RegionForm extends ReferenceForm {
 		addContent(entity);
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -86,7 +85,6 @@ public class RegionForm extends ReferenceForm {
 
 			save(session, entity, dao, isNew);
 
-			finishSaveFormTransact(entity);
 		} catch (_Exception | DatabaseException | SecureException e) {
 			logError(e);
 		}
