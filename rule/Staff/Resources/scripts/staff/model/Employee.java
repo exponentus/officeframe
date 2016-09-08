@@ -29,7 +29,7 @@ import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.UndefinedUser;
 import com.exponentus.util.StringUtil;
-import com.exponentus.util.Util;
+import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -219,14 +219,14 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + Util.convertDataTimeToString(regDate) + "</regdate>");
+		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<iin>" + iin + "</iin>");
 		if (user != null) {
 			chunk.append("<login>" + user.getLogin() + "</login>");
 		}
 
-		chunk.append("<birthdate>" + Util.convertDateToStringSilently(birthDate) + "</birthdate>");
+		chunk.append("<birthdate>" + TimeUtil.dateTimeToStringSilently(birthDate) + "</birthdate>");
 
 		if (organization != null) {
 			chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocalizedName(ses.getLang()) + "</organization>");
