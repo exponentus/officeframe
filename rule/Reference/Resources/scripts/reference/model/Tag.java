@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
-import com.exponentus.util.Util;
+import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import administrator.dao.LanguageDAO;
@@ -37,6 +37,8 @@ public class Tag extends SimpleReferenceEntity {
 
 	@OneToMany(mappedBy = "parent", cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
 	private List<Tag> children;
+
+	private boolean hidden;
 
 	public Tag getParent() {
 		return parent;
@@ -65,6 +67,14 @@ public class Tag extends SimpleReferenceEntity {
 		return parent.id;
 	}
 
+	public boolean isHidden() {
+		return hidden;
+	}
+
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
+
 	public void setParentId(UUID id) {
 		if (id == null) {
 			setParent(null);
@@ -79,9 +89,10 @@ public class Tag extends SimpleReferenceEntity {
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + Util.convertDataTimeToStringSilently(regDate) + "</regdate>");
+		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<color>" + color + "</color>");
+		chunk.append("<hidden>" + hidden + "</hidden>");
 		chunk.append("<localizednames>");
 		LanguageDAO lDao = new LanguageDAO(ses);
 		List<Language> list = lDao.findAll();
