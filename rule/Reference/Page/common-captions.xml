@@ -34,6 +34,7 @@
     <caption name="roles"/>
     <caption name="limit_view"/>
     <caption name="interface_lang"/>
+    <caption name="is_hidden"/>
 
     <caption name="name"/>
     <caption name="code"/>
