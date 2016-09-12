@@ -39,6 +39,7 @@ public class TagForm extends ReferenceForm {
 
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
+		devPrint(formData);
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -60,11 +61,7 @@ public class TagForm extends ReferenceForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setColor(formData.getValue("color"));
-			boolean isHidden = false;
-			if(!formData.getValue("hidden").isEmpty()){
-				isHidden = true;
-			}
-			entity.setHidden(isHidden);
+			entity.setHidden(formData.getBoolSilently("hidden"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 
 			if (isNew) {
