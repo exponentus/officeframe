@@ -38,6 +38,18 @@
                             <input type="color" name="color" value="{fields/color}"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            <xsl:value-of select="//captions/is_hidden/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="checkbox" name="hidden" value="true" style="vertical-align:bottom" autocomplete="off">
+                                <xsl:if test="fields/hidden = 'true'">
+                                    <xsl:attribute name="checked" select="'checked'"/>
+                                </xsl:if>
+                            </input>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset class="fieldset">
                     <legend class="legend">
