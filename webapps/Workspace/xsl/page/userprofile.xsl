@@ -91,11 +91,11 @@
                             <xsl:value-of select="//captions/properties/@caption"/>
                         </a>
                     </li>
-                    <li>
+                    <!--<li>
                         <a href="#tabs-3" role="tab" data-toggle="tab">
                             <xsl:value-of select="//captions/interface/@caption"/>
                         </a>
-                    </li>
+                    </li>-->
                 </ul>
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="tabs-1">
