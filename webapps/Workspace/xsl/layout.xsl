@@ -85,7 +85,7 @@
                                     </li>
                                     <li class="divider"></li>
                                     <li>
-                                        <a class="logout" href="Logout">
+                                        <a class="logout" href="/Workspace/p?id=workspace">
                                             <xsl:value-of select="//captions/logout/@caption"/>
                                         </a>
                                     </li>
