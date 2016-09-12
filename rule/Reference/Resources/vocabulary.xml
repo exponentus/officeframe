@@ -247,4 +247,10 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="is_hidden">
+        <entry lang="ENG">Is hidden</entry>
+        <entry lang="RUS">Скрытый</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
 </vocabulary>
