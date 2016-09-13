@@ -1,6 +1,5 @@
 package reference.page.form;
 
-import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -38,12 +37,6 @@ public abstract class ReferenceForm extends _DoForm {
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
 
-	}
-
-	protected SimpleReferenceEntity getDefaultEntity(IUser<Long> user, SimpleReferenceEntity entity) {
-		entity.setAuthor(user);
-		entity.setName("");
-		return entity;
 	}
 
 	@Override

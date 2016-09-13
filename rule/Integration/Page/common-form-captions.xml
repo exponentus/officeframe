@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule  mode="on">
+    <caching>CACHING_IN_SERVER_SCOPE</caching>
+
+    <caption name="notes"/>
+    <caption name="files"/>
+    <caption name="additional"/>
+    <caption name="save_close"/>
+    <caption name="close"/>  
+    <caption name="editable"/>
+  
+</rule>

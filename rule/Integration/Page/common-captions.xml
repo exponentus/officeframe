@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule  mode="on">
+    <!-- <caching>CACHING_IN_SERVER_SCOPE</caching> -->
+    <caching>NO_CACHING</caching>
+
+    <caption name="brand"/>
+
+    <caption name="new_"/>
+    <caption name="cancel"/>
+    <caption name="select"/>
+    <caption name="close"/>
+    <caption name="filter"/>
+    <caption name="wait_while_document_save"/>
+
+   
+</rule>
