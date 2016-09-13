@@ -39,7 +39,7 @@ public class TagForm extends ReferenceForm {
 
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
-		devPrint(formData);
+
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
