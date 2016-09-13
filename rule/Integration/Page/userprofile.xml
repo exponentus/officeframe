@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rule  mode="on">
-    <description>Outline</description>
+<rule  mode="on" >
+    <description>UserProfile</description>
     <caching>NO_CACHING</caching>
+    <xsltfile>DEFAULT_STAFF</xsltfile>
     <element mode="ON" type="SCRIPT">
-        <name>app_menu</name>
         <events>
-            <doscript source="JAVA_CLASS">monitoring.page.navigator.MainNavigator</doscript>
+            <doscript source="JAVA_CLASS">staff.page.UserProfile</doscript>
         </events>
     </element>
     <element mode="ON" type="INCLUDED_PAGE">
-        <value>common-captions</value>
+        <value>outline</value>
     </element>
 </rule>

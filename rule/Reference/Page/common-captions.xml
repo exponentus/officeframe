@@ -3,7 +3,7 @@
     <caching>CACHING_IN_SERVER_SCOPE</caching>
 
     <caption name="brand"/>
-
+    <caption name="workspace"/>
     <caption name="cancel"/>
     <caption name="select"/>
     <caption name="close"/>
@@ -13,7 +13,7 @@
 
     <caption name="page"/>
     <caption name="documents"/>
-    <caption name="logout"/>
+    <caption name="workspace"/>
     <caption name="user_profile"/>
     <caption name="search"/>
     <caption name="localized_names"/>
@@ -38,7 +38,6 @@
 
     <caption name="name"/>
     <caption name="code"/>
-    <caption name="building_material"/>
     <caption name="district"/>
     <caption name="city_district"/>
     <caption name="region"/>
@@ -51,13 +50,9 @@
     <caption name="position"/>
     <caption name="org_categories"/>
     <caption name="property_code"/>
-    <caption name="receiving_reason"/>
-    <caption name="structure_type"/>
     <caption name="tag"/>
-    <caption name="color"/>
     <caption name="identifier"/>
 
-    <caption name="building_materials"/>
     <caption name="countries"/>
     <caption name="districts"/>
     <caption name="city_districts"/>
@@ -69,15 +64,9 @@
     <caption name="property_codes"/>
     <caption name="receiving_reasons"/>
     <caption name="tags"/>
-    <caption name="kuf"/>
     <caption name="localized_names"/>
     <caption name="type"/>
 
-    <caption name="claimant_decision_type"/>
-    <caption name="defendant_type"/>
-    <caption name="dispute_type"/>
-    <caption name="law_article"/>
-    <caption name="law_branch"/>
     <caption name="responsible_type"/>
     <caption name="request_types"/>
     <caption name="request_type"/>
