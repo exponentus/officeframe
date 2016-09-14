@@ -2,7 +2,7 @@
 <rule  mode="on">
     <caching>CACHING_IN_SERVER_SCOPE</caching>
 
-    <caption name="brand"/>
+   <caption name="brand"/>
 
     <caption name="cancel"/>
     <caption name="select"/>
@@ -19,8 +19,6 @@
     <caption name="localized_names"/>
     <caption name="properties"/>
     <caption name="interface"/>
-    <caption name="change_skin"/>
-    <caption name="position"/>
     <caption name="user_name"/>
     <caption name="login_name"/>
     <caption name="email"/>
@@ -38,41 +36,12 @@
 
     <caption name="name"/>
     <caption name="code"/>
-    <caption name="district"/>
-    <caption name="city_district"/>
-    <caption name="region"/>
-    <caption name="country"/>
-    <caption name="locality"/>
-    <caption name="region_types"/>
-    <caption name="locality_types"/>
-    <caption name="street"/>
-    <caption name="department_type"/>
-    <caption name="position"/>
-    <caption name="org_categories"/>
-    <caption name="property_code"/>
+
     <caption name="tag"/>
     <caption name="identifier"/>
-
-    <caption name="countries"/>
-    <caption name="districts"/>
-    <caption name="city_districts"/>
-    <caption name="regions"/>
-    <caption name="localities"/>
-    <caption name="streets"/>
-    <caption name="department_types"/>
-    <caption name="positions"/>
-    <caption name="property_codes"/>
-    <caption name="receiving_reasons"/>
     <caption name="tags"/>
     <caption name="localized_names"/>
     <caption name="type"/>
-
-    <caption name="responsible_type"/>
-    <caption name="request_types"/>
-    <caption name="request_type"/>
-    <caption name="task_types"/>
-    <caption name="task_type"/>
-    <caption name="prefix"/>
 </rule>
 
 
