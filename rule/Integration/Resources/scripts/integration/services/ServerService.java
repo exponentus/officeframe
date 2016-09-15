@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.exponentus.env.Environment;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.ServiceDescriptor;
 import com.exponentus.rest.ServiceMethod;
@@ -28,12 +27,11 @@ public class ServerService extends RestProvider {
 	}
 
 	@Override
-	public ServiceDescriptor getDescription() {
-		ServiceDescriptor sd = new ServiceDescriptor();
+	public ServiceDescriptor updateDescription(ServiceDescriptor sd) {
 		sd.setName(getClass().getName());
 		ServiceMethod m = new ServiceMethod();
 		m.setMethod(HttpMethod.GET);
-		m.setExample(Environment.getFullHostName());
+		m.setURL("/" + sd.getAppName() + "/" + sd.getUrlMapping() + "/server/info");
 		sd.addMethod(m);
 		return sd;
 	}

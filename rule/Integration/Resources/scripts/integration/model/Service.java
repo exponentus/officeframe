@@ -54,7 +54,8 @@ public class Service implements IPOJOObject {
 			for (com.exponentus.rest.ServiceMethod a : descr.getMethods()) {
 				asText += "<servicemethod id=\"\">";
 				asText += "<method>" + a.getMethod() + "</method>";
-				asText += "<example>" + a.getExample() + "</example>";
+				asText += "<isanonymous>" + a.isAnonymous() + "</isanonymous>";
+				asText += "<url>" + a.getURL() + "</url>";
 				asText += "</servicemethod>";
 			}
 			chunk.append("<servicemethods>" + asText + "</servicemethods>");
