@@ -47,11 +47,21 @@ public class Service implements IPOJOObject {
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<id>" + descr.getName() + "</id>");
 		chunk.append("<name>" + descr.getName() + "</name>");
 		chunk.append("<isloaded>" + descr.isLoaded() + "</isloaded>");
-		chunk.append("<method></method>");
-		chunk.append("<testurl></testurl>");
+		try {
+			String asText = "";
+			for (com.exponentus.rest.ServiceMethod a : descr.getMethods()) {
+				asText += "<servicemethod id=\"\">";
+				asText += "<method>" + a.getMethod() + "</method>";
+				asText += "<example>" + a.getExample() + "</example>";
+				asText += "</servicemethod>";
+			}
+			chunk.append("<servicemethods>" + asText + "</servicemethods>");
+		} catch (NullPointerException e) {
+			chunk.append("<servicemethods></servicemethods>");
+		}
+
 		return chunk.toString();
 	}
 
