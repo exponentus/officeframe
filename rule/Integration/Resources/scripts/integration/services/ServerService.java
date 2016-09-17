@@ -31,7 +31,7 @@ public class ServerService extends RestProvider {
 		sd.setName(getClass().getName());
 		ServiceMethod m = new ServiceMethod();
 		m.setMethod(HttpMethod.GET);
-		m.setURL("/" + sd.getAppName() + "/" + sd.getUrlMapping() + "/server/info");
+		m.setURL("/" + sd.getAppName() + sd.getUrlMapping() + "/server/info");
 		sd.addMethod(m);
 		return sd;
 	}
