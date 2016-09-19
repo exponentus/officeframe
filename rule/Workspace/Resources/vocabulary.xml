@@ -75,10 +75,10 @@
         <entry lang="ENG">BIN value should be consist from 12 symbols maximum</entry>
         <entry lang="RUS">БИН может состоять из 12 символов максимум</entry>
         <entry lang="KAZ"></entry>
-        <sentence mode="on" keyword="workspace">
-            <entry lang="ENG">Workspace</entry>
-            <entry lang="RUS">Рабочая область</entry>
-            <entry lang="KAZ"></entry>
-        </sentence>
+    </sentence>
+    <sentence mode="on" keyword="workspace">
+        <entry lang="ENG">Workspace</entry>
+        <entry lang="RUS">Рабочая область</entry>
+        <entry lang="KAZ"></entry>
     </sentence>
 </vocabulary>
