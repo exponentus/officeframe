@@ -3,7 +3,7 @@
     <caching>CACHING_IN_SERVER_SCOPE</caching>
 
     <caption name="brand"/>
-
+    <caption name="workspace"/>
     <caption name="cancel"/>
     <caption name="select"/>
     <caption name="close"/>
