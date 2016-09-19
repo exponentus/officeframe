@@ -4,5 +4,10 @@
         <entry lang="RUS"></entry>
         <entry lang="KAZ"></entry>
     </sentence>
+    <sentence mode="on" keyword="workspace">
+        <entry lang="ENG">Workspace</entry>
+        <entry lang="RUS">Рабочая область</entry>
+        <entry lang="KAZ"></entry>
+    </sentence>
   
 </vocabulary>
