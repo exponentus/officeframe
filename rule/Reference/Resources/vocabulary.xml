@@ -253,4 +253,10 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="workspace">
+        <entry lang="ENG">Workspace</entry>
+        <entry lang="RUS">Рабочая область</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
 </vocabulary>
