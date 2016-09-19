@@ -129,7 +129,7 @@
     </xsl:template>
 
     <xsl:template match="entry" mode="lang">
-        <a href="?id={//request/@id}&amp;lang={viewcontent/lang/@id}">
+        <a href="p?id={//request/@id}&amp;lang={viewcontent/lang/@id}">
             <xsl:if test="//request/@lang = viewcontent/lang/@id">
                 <xsl:attribute name="class" select="'active'"/>
             </xsl:if>
