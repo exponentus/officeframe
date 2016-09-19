@@ -101,7 +101,7 @@
                                 <li>
                                     <a class="logout" href="/Workspace/p?id=workspace">
                                         <i class="fa fa-th"></i>
-                                        <span>Workspace</span>
+                                        <span><xsl:value-of select="//captions/workspace/@caption"/></span>
                                     </a>
                                 </li>
                             </ul>
