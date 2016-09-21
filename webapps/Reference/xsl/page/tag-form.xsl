@@ -35,7 +35,7 @@
                             <xsl:value-of select="//captions/color/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="color" name="color" value="{fields/color}"/>
+                            <input type="color" name="color" id="color" value="{fields/color}"/>
                         </div>
                     </div>
                     <div class="form-group">

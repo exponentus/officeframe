@@ -1,6 +1,5 @@
 $(function() {
     $.datepicker.setDefaults($.datepicker.regional['ru']);
-
     // fix fox memorize checkbox, blyat'
     $(':checkbox.all').attr('checked', false);
 
