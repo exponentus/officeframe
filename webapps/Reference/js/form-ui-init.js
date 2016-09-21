@@ -3,6 +3,7 @@ $(function() {
     // fix fox memorize checkbox, blyat'
     $(':checkbox.all').attr('checked', false);
 
+
     $('input[type=number]').each(function() {
         $(this).attr({
             'type': 'text',
