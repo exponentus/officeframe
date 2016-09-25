@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule  mode="on" >
+    <caching>NO_CACHING</caching>
+    <xsltfile>DEFAULT</xsltfile>
+    <element mode="ON" type="SCRIPT">
+        <events>
+            <doscript source="JAVA_CLASS">dataexport.page.form.ExportProfileForm</doscript>
+        </events>
+    </element>
+    <element mode="ON" type="INCLUDED_PAGE">
+        <value>outline</value>
+    </element>
+    <element mode="ON" type="INCLUDED_PAGE">
+        <value>common-form-captions</value>
+    </element>
+</rule>

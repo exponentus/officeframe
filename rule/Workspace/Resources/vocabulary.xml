@@ -9,19 +9,19 @@
         <entry lang="RUS">Пароль</entry>
         <entry lang="KAZ">Құпия сөз</entry>
         <entry lang="ENG">Password</entry>
-        <entry lang="CHN">密码</entry>
+        <entry lang="CHI">密码</entry>
     </sentence>
     <sentence mode="on" keyword="login">
         <entry lang="RUS">Войти</entry>
         <entry lang="KAZ">Кіру</entry>
         <entry lang="ENG">Login</entry>
-        <entry lang="CHN">进入</entry>
+        <entry lang="CHI">进入</entry>
     </sentence>
     <sentence mode="on" keyword="another_comp">
         <entry lang="RUS">Чужой компьютер</entry>
         <entry lang="KAZ">Бөгде компьютер</entry>
         <entry lang="ENG">Another's computer</entry>
-        <entry lang="CHN">别人的电脑</entry>
+        <entry lang="CHI">别人的电脑</entry>
     </sentence>
     <sentence mode="on" keyword="sign_in">
         <entry lang="RUS">Войти в систему</entry>
@@ -47,13 +47,13 @@
         <entry lang="RUS">Комментарий</entry>
         <entry lang="KAZ">Комментарий</entry>
         <entry lang="ENG">Comment</entry>
-        <entry lang="CHN">Comment</entry>
+        <entry lang="CHI">Comment</entry>
     </sentence>
     <sentence mode="on" keyword="reg_request_accepted">
         <entry lang="RUS">Ваше сообщение принято на регистрацию</entry>
         <entry lang="KAZ">Ваше сообщение принято на регистрацию</entry>
         <entry lang="ENG">Your message has been received for registration</entry>
-        <entry lang="CHN">Your message has been received for registration</entry>
+        <entry lang="CHI">Your message has been received for registration</entry>
     </sentence>
 
     <sentence mode="on" keyword="reference">
