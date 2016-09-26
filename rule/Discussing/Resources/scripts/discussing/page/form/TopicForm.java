@@ -19,7 +19,7 @@ import dataexport.dao.ExportProfileDAO;
 import dataexport.model.ExportProfile;
 import reference.model.constants.CountryCode;
 
-public class ExportProfileForm extends _DoForm {
+public class TopicForm extends _DoForm {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {

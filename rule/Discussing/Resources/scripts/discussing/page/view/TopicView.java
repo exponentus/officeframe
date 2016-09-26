@@ -13,7 +13,7 @@ import com.exponentus.scripting.event._DoPage;
 import dataexport.dao.ExportProfileDAO;
 import dataexport.model.ExportProfile;
 
-public class ExportProfileView extends _DoPage {
+public class TopicView extends _DoPage {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
