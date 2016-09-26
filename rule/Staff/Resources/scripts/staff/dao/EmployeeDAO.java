@@ -19,12 +19,13 @@ import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
+import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 
 import administrator.dao.UserDAO;
 import staff.model.Employee;
 
-public class EmployeeDAO extends DAO<Employee, UUID>implements IExtUserDAO {
+public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 
 	public EmployeeDAO(_Session session) {
 		super(Employee.class, session);
@@ -68,7 +69,7 @@ public class EmployeeDAO extends DAO<Employee, UUID>implements IExtUserDAO {
 			typedQuery.setFirstResult(firstRec);
 			typedQuery.setMaxResults(pageSize);
 			List<Employee> result = typedQuery.getResultList();
-			return new ViewPage<Employee>(result, count, maxPage, pageNum);
+			return new ViewPage<>(result, count, maxPage, pageNum);
 		} finally {
 			em.close();
 		}
@@ -126,4 +127,24 @@ public class EmployeeDAO extends DAO<Employee, UUID>implements IExtUserDAO {
 		}
 	}
 
+	@Override
+	public void delete(Employee entity) throws SecureException {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		try {
+
+			EntityTransaction t = em.getTransaction();
+			try {
+				t.begin();
+				entity = em.merge(entity);
+				em.remove(entity);
+				t.commit();
+			} finally {
+				if (t.isActive()) {
+					t.rollback();
+				}
+			}
+		} finally {
+			em.close();
+		}
+	}
 }

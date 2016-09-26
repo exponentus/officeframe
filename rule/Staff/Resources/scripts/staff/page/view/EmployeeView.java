@@ -40,14 +40,16 @@ public class EmployeeView extends _DoPage {
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-
-		EmployeeDAO dao = new EmployeeDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			Employee m = dao.findById(UUID.fromString(id));
-			try {
-				dao.delete(m);
-			} catch (SecureException e) {
-				setError(e);
+		IUser<Long> user = session.getUser();
+		if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+			EmployeeDAO dao = new EmployeeDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				Employee m = dao.findById(UUID.fromString(id));
+				try {
+					dao.delete(m);
+				} catch (SecureException e) {
+					setError(e);
+				}
 			}
 		}
 	}
