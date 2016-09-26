@@ -82,7 +82,26 @@
 		<class>reference.model.RequestType</class>    
 		<shared-cache-mode>NONE</shared-cache-mode>
 	</persistence-unit>	
-	
+	<persistence-unit name="Discussing" transaction-type="RESOURCE_LOCAL">
+        <!-- Obligatory the application module entities -->
+        <class>administrator.model.Language</class>
+        <class>administrator.model.Application</class>
+        <class>administrator.model.User</class>
+        <class>administrator.model.Sentence</class>
+        <!-- Common Staff module entities -->       
+        <class>staff.model.Organization</class>
+        <class>staff.model.Department</class>
+        <class>staff.model.Employee</class>
+        <class>staff.model.Role</class>
+        <class>staff.model.OrganizationLabel</class>   
+           <!-- Common Reference module entities -->
+        <class>reference.model.OrgCategory</class>  
+            <class>reference.model.Position</class>     
+        <!-- Specific Discussing module entities -->
+        <class>discussing.model.Topic</class> 
+        <class>discussing.model.Comment</class>          
+        <shared-cache-mode>NONE</shared-cache-mode>
+    </persistence-unit>    
 	<persistence-unit name="Workspace" transaction-type="RESOURCE_LOCAL">
 		<!-- Obligatory the application module entities -->
 		<class>administrator.model.User</class>

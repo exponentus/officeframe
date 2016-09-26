@@ -12,6 +12,9 @@
         </app>
          <app>
             <name mode="on">Reference</name>
+        </app>   
+         <app>
+            <name mode="on">Discussing</name>
         </app>       
         <app>
             <name mode="on">Workspace</name>
