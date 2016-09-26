@@ -10,29 +10,29 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 
-import dataexport.dao.ExportProfileDAO;
-import dataexport.model.ExportProfile;
+import discussing.dao.TopicDAO;
+import discussing.model.Topic;
 
 public class TopicView extends _DoPage {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
-		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
-		newDocAction.setURL("Provider?id=exportprofile-form");
+		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_topic");
+		newDocAction.setURL("p?id=topic-form");
 		actionBar.addAction(newDocAction);
 		actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
-		addContent(getViewPage(new ExportProfileDAO(session), formData));
+		addContent(getViewPage(new TopicDAO(session), formData));
 	}
 
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
 
-		ExportProfileDAO dao = new ExportProfileDAO(session);
+		TopicDAO dao = new TopicDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
-			ExportProfile c = dao.findById(UUID.fromString(id));
+			Topic c = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(c);
 			} catch (SecureException e) {

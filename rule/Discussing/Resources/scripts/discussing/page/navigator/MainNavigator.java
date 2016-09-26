@@ -17,8 +17,8 @@ public class MainNavigator extends _DoPage {
 		LanguageCode lang = session.getLang();
 		LinkedList<IOutcomeObject> list = new LinkedList<>();
 
-		_Outline outline = new _Outline(getLocalizedWord("services", lang), "services");
-		outline.addEntry(new _OutlineEntry(getLocalizedWord("export_profiles", lang), "exportprofile-view"));
+		_Outline outline = new _Outline(getLocalizedWord("topics", lang), "topics");
+		outline.addEntry(new _OutlineEntry(getLocalizedWord("topics", lang), "topic-view"));
 
 		list.add(outline);
 

@@ -1,7 +1,7 @@
 package discussing.model.constants;
 
 public enum TopicStatusType {
-	UNKNOWN(0), OPEN(656), CLOSE(657);
+	UNKNOWN(0), OPEN(656), CLOSE(657), DRAFT(658);
 
 	private int code;
 

@@ -15,9 +15,9 @@ import com.exponentus.scripting.event._DoForm;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import com.exponentus.user.IUser;
 
-import dataexport.dao.ExportProfileDAO;
-import dataexport.model.ExportProfile;
-import reference.model.constants.CountryCode;
+import discussing.dao.TopicDAO;
+import discussing.model.Topic;
+import discussing.model.constants.TopicStatusType;
 
 public class TopicForm extends _DoForm {
 
@@ -25,12 +25,15 @@ public class TopicForm extends _DoForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		ExportProfile entity;
+		Topic entity;
 		if (!id.isEmpty()) {
-			ExportProfileDAO dao = new ExportProfileDAO(session);
+			TopicDAO dao = new TopicDAO(session);
 			entity = dao.findById(UUID.fromString(id));
 		} else {
-			entity = (ExportProfile) getDefaultEntity(user, new ExportProfile());
+			entity = new Topic();
+			entity.setAuthor(user);
+			entity.setSubject("");
+			entity.setStatus(TopicStatusType.DRAFT);
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session));
@@ -46,20 +49,18 @@ public class TopicForm extends _DoForm {
 				return;
 			}
 
-			ExportProfileDAO dao = new ExportProfileDAO(session);
-			ExportProfile entity;
+			TopicDAO dao = new TopicDAO(session);
+			Topic entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
 
 			if (isNew) {
-				entity = new ExportProfile();
+				entity = new Topic();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
-
-			entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setSubject(formData.getValue("subject"));
 
 			save(session, entity, dao, isNew);
 
@@ -68,7 +69,7 @@ public class TopicForm extends _DoForm {
 		}
 	}
 
-	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew) throws SecureException {
+	private void save(_Session ses, Topic entity, TopicDAO dao, boolean isNew) throws SecureException {
 
 		if (isNew) {
 			dao.add(entity);
@@ -79,14 +80,8 @@ public class TopicForm extends _DoForm {
 
 	private _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
-
-		if (formData.getValueSilently("code").isEmpty()) {
-			ve.addError("code", "required", getLocalizedWord("field_is_empty", lang));
-		} else if (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.UNKNOWN.name())) {
-			ve.addError("code", "ne_unknown", getLocalizedWord("field_cannot_be_unknown", lang));
+		if (formData.getValueSilently("subject").isEmpty()) {
+			ve.addError("subject", "required", getLocalizedWord("field_is_empty", lang));
 		}
 
 		return ve;

@@ -13,6 +13,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.exponentus.dataengine.jpa.SecureAppEntity;
+import com.exponentus.dataengine.system.IEmployee;
+import com.exponentus.dataengine.system.IExtUserDAO;
+import com.exponentus.env.Environment;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 
 import discussing.model.constants.TopicStatusType;
@@ -64,6 +69,28 @@ public class Topic extends SecureAppEntity<UUID> {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	@Override
+	public String getFullXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
+		IExtUserDAO eDao = Environment.getExtUserDAO();
+		IEmployee user = eDao.getEmployee(author);
+		if (user != null) {
+			chunk.append("<author>" + user.getName() + "</author>");
+		} else {
+			chunk.append("<author>" + author + "</author>");
+		}
+		chunk.append("<subject>" + subject + "</subject>");
+		chunk.append("<status>" + status + "</status>");
+
+		return chunk.toString();
+	}
+
+	@Override
+	public String getShortXMLChunk(_Session ses) {
+		return "<subject>" + subject + "</subject>";
 	}
 
 }
