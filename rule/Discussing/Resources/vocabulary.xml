@@ -1,12 +1,24 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <vocabulary >
     <sentence mode="on" keyword="brand">
-        <entry lang="RUS"></entry>
-        <entry lang="KAZ"></entry>
+         <entry lang="ENG">Dicussions</entry>
+        <entry lang="RUS">Обсуждения</entry>
+        <entry lang="KAZ">Талқылаулар</entry>
+    </sentence>  
+      <sentence mode="on" keyword="all_dicussions">
+        <entry lang="ENG">All Dicussions</entry>
+        <entry lang="RUS">Все обсуждения</entry>
+        <entry lang="KAZ">Барлық Талқылаулар</entry>
+        <entry lang="SPA">Todas las discusiones</entry>
+        <entry lang="POR">Todas as Discussões</entry>
+        <entry lang="BUL">Всички дискусии</entry>
     </sentence>
-    <sentence mode="on" keyword="workspace">
-        <entry lang="ENG">Workspace</entry>
-        <entry lang="RUS">Рабочая область</entry>
-        <entry lang="KAZ"></entry>
+       <sentence mode="on" keyword="topics">
+         <entry lang="ENG">Topics</entry>
+        <entry lang="RUS">Темы</entry>
+        <entry lang="KAZ">Тақырыптар</entry>
+        <entry lang="SPA">Temas</entry>
+        <entry lang="POR">Tópicos</entry>
+        <entry lang="BUL">Дискусии</entry>
     </sentence>
 </vocabulary>
