@@ -23,7 +23,7 @@ public class CountryView extends _DoPage {
 		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
 			_ActionBar actionBar = new _ActionBar(session);
 			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_country");
-			newDocAction.setURL("Provider?id=country-form");
+			newDocAction.setURL("p?id=country-form");
 			actionBar.addAction(newDocAction);
 			actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
