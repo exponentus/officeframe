@@ -88,6 +88,18 @@
         <entry lang="KAZ">Должности</entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="doc_languages">
+        <entry lang="ENG">Document languages</entry>
+        <entry lang="RUS">Язык документа</entry>
+        <entry lang="KAZ">Язык документа</entry>
+        <entry lang="POR"></entry>
+    </sentence>
+      <sentence mode="on" keyword="doc_types">
+        <entry lang="ENG">Document types</entry>
+        <entry lang="RUS">Типы документов</entry>
+        <entry lang="KAZ">Типы документов</entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="org_categories">
         <entry lang="ENG">Organizaton categories</entry>
         <entry lang="RUS">Типы организации</entry>

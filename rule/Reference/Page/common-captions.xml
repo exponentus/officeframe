@@ -61,6 +61,7 @@
     <caption name="streets"/>
     <caption name="department_types"/>
     <caption name="positions"/>
+    <caption name="doc_languages"/>
     <caption name="property_codes"/>
     <caption name="receiving_reasons"/>
     <caption name="tags"/>
