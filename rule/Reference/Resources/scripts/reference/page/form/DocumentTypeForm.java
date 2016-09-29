@@ -21,16 +21,15 @@ public class DocumentTypeForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
+		DocumentTypeDAO dao = new DocumentTypeDAO(session);
 		DocumentType entity;
 		if (!id.isEmpty()) {
-			DocumentTypeDAO dao = new DocumentTypeDAO(session);
 			entity = dao.findById(UUID.fromString(id));
 		} else {
 			entity = (DocumentType) getDefaultEntity(user, new DocumentType());
 		}
 		addContent(entity);
-		// addContent(new
-		// _EnumWrapper<>(LanguageCode.class.getEnumConstants()));
+		// addContent(dao.findAllCategories());
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 	}
