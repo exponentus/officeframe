@@ -19,14 +19,14 @@
     </xsl:template>
 
     <xsl:template name="_content">
-        <xsl:apply-templates select="//request[@id = 'info-form']/page/response"/>
+        <xsl:apply-templates select="//request[@id = 'topic-form']/page/response"/>
     </xsl:template>
 
     <xsl:template match="response">
         <form name="{@entity}" action="" data-edit="{@editable}">
             <header class="content-header">
                 <h1 class="header-title">
-                    REST Services
+                    <xsl:value-of select="//captions/topic/@caption"/>
                 </h1>
                 <div class="content-actions">
                     <xsl:apply-templates select="//actionbar"/>
@@ -36,23 +36,20 @@
                 <fieldset class="fieldset">
                     <div class="form-group">
                         <div class="control-label">
-                            Rest endpoint
+                            <xsl:value-of select="//captions/subject/@caption"/>
                         </div>
                         <div class="controls">
-                            <select class="native span2" onchange="this.nextElementSibling.value=this.value">
-                                <option value=""></option>
-                                <option value="{content/getbycoord}">
-                                    <xsl:value-of select="'getbycoord'"/>
-                                </option>
-                                <option value="{content/getbystreet}">
-                                    <xsl:value-of select="'getbystreet'"/>
-                                </option>
-                            </select>
-                            <input type="text" class="span7" name="endpoint" value=""/>
-                            <button type="button" class="btn" data-action="do-get">Проверить</button>
+                            <input type="text" name="subject" value="{fields/subject}" class="span7" autofocus="true"/>
                         </div>
                     </div>
-                    <div class="form-group" id="rest-result"></div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            <xsl:value-of select="//captions/status/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="text" name="status" value="{fields/status}" class="span7" autofocus="true"/>
+                        </div>
+                    </div>
                 </fieldset>
             </section>
         </form>
