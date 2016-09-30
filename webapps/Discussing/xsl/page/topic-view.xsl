@@ -26,7 +26,9 @@
                     <input type="checkbox" data-toggle="docid" class="all"/>
                 </label>
                 <div class="entry-captions">
-                   
+                    <span>
+                        <xsl:value-of select="//captions/viewtext/@caption"/>
+                    </span>
                 </div>
             </div>
         </header>
@@ -34,5 +36,23 @@
             <xsl:apply-templates select="//view_content//query/entry" mode="view-table-body"/>
         </div>
     </xsl:template>
+
+    <xsl:template match="entry" mode="view-table-body">
+        <div class="entry-wrap">
+            <div data-id="{@id}" class="entry">
+                <label class="entry-select">
+                    <input type="checkbox" name="docid" value="{@id}"/>
+                </label>
+                <a href="{@url}" class="entry-link">
+                    <div class="entry-fields">
+                        <span>
+                            <xsl:value-of select="viewcontent/subject"/>
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </xsl:template>
+
 
 </xsl:stylesheet>
