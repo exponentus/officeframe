@@ -9,5 +9,6 @@
     <caption name="close"/>  
     <caption name="editable"/>
     <caption name="topic"/>
-
+    <caption name="subject"/>
+    <caption name="status"/>
 </rule>
