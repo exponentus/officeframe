@@ -8,5 +8,6 @@
     <caption name="save_close"/>
     <caption name="close"/>  
     <caption name="editable"/>
-  
+    <caption name="topic"/>
+
 </rule>

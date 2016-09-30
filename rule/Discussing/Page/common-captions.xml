@@ -42,6 +42,7 @@
     <caption name="tags"/>
     <caption name="localized_names"/>
     <caption name="type"/>
+    <caption name="topics"/>
 </rule>
 
 
