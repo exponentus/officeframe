@@ -14,7 +14,7 @@
         <form name="{@entity}" action="" data-edit="{@editable}">
             <header class="content-header">
                 <h1 class="header-title">
-                    <xsl:value-of select="//captions/doc_types/@caption"/>
+                    <xsl:value-of select="//captions/doc_type/@caption"/>
                 </h1>
                 <div class="content-actions">
                     <xsl:apply-templates select="//actionbar"/>
@@ -30,8 +30,6 @@
                             <input type="text" name="name" value="{fields/name}" class="span7" autofocus="true"/>
                         </div>
                     </div>
-                </fieldset>
-                <fieldset class="fieldset">
                     <div class="form-group">
                         <div class="control-label">
                             <xsl:value-of select="//captions/category/@caption"/>
