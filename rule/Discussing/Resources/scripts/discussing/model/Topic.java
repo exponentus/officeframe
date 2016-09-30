@@ -30,6 +30,7 @@ public class Topic extends SecureAppEntity<UUID> {
 
 	private String subject;
 
+	@Column(length = 64)
 	private String module;
 
 	@Enumerated(EnumType.STRING)
