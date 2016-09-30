@@ -76,4 +76,5 @@
     <caption name="task_types"/>
     <caption name="task_type"/>
     <caption name="prefix"/>
+    <caption name="control_types"/>
 </rule>
