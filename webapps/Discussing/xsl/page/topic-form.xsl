@@ -53,7 +53,9 @@
                     </div>
                 </fieldset>
             </section>
+            <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
         </form>
+
         <template id="tpl_rest_result_panel">
             <div class="panel" data-endpoint="">
                 <div class="panel__header blink-anim">

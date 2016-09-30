@@ -18,4 +18,10 @@ $(function() {
     if (theme) {
         $('body').addClass(theme);
     }
+
+    // init action
+    $('[data-action=save_and_close]').click(function(event) {
+        event.preventDefault();
+        nb.submitForm(nb.getForm(this));
+    });
 });
