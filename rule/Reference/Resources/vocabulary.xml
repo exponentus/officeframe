@@ -112,6 +112,12 @@
         <entry lang="KAZ">Тип контроля</entry>
         <entry lang="POR"></entry>
     </sentence>
+    <sentence mode="on" keyword="default_hours">
+        <entry lang="ENG">Default hours</entry>
+        <entry lang="RUS">Количество часов по умолчанию</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="org_categories">
         <entry lang="ENG">Organizaton categories</entry>
         <entry lang="RUS">Типы организации</entry>
