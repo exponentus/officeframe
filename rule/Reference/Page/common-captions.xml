@@ -70,6 +70,7 @@
 
     <caption name="responsible_type"/>
     <caption name="doc_types"/>
+    <caption name="doc_type"/>
     <caption name="category"/>
     <caption name="request_types"/>
     <caption name="request_type"/>
