@@ -23,7 +23,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 
 @Entity
-@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }) )
+@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }))
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {
 
@@ -39,6 +39,16 @@ public class Tag extends SimpleReferenceEntity {
 	private List<Tag> children;
 
 	private boolean hidden;
+
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
 	public Tag getParent() {
 		return parent;
@@ -92,6 +102,7 @@ public class Tag extends SimpleReferenceEntity {
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<color>" + color + "</color>");
+		chunk.append("<category>" + category + "</category>");
 		chunk.append("<hidden>" + hidden + "</hidden>");
 		chunk.append("<localizednames>");
 		LanguageDAO lDao = new LanguageDAO(ses);
