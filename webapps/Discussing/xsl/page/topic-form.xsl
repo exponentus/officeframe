@@ -23,6 +23,7 @@
     </xsl:template>
 
     <xsl:template match="response">
+        <xsl:variable name="fields" select="content/document/fields"/>
         <form name="{@entity}" action="" data-edit="{@editable}">
             <header class="content-header">
                 <h1 class="header-title">
@@ -39,7 +40,7 @@
                             <xsl:value-of select="//captions/subject/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="subject" value="{fields/subject}" class="span7" autofocus="true"/>
+                            <input type="text" name="subject" value="{$fields/subject}" class="span7" autofocus="true"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -47,7 +48,7 @@
                             <xsl:value-of select="//captions/status/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="status" value="{fields/status}" class="span7" autofocus="true"/>
+                            <input type="text" name="status" value="{$fields/status}" class="span3" autofocus="true"/>
                         </div>
                     </div>
                 </fieldset>
