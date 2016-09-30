@@ -94,10 +94,16 @@
         <entry lang="KAZ">Язык документа</entry>
         <entry lang="POR"></entry>
     </sentence>
-      <sentence mode="on" keyword="doc_types">
+    <sentence mode="on" keyword="doc_types">
         <entry lang="ENG">Document types</entry>
         <entry lang="RUS">Типы документов</entry>
         <entry lang="KAZ">Типы документов</entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="doc_type">
+        <entry lang="ENG">Document type</entry>
+        <entry lang="RUS">Тип документов</entry>
+        <entry lang="KAZ">Тип документов</entry>
         <entry lang="POR"></entry>
     </sentence>
     <sentence mode="on" keyword="control_types">
