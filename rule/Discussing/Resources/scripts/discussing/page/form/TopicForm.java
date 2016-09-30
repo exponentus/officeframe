@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scheduler._EnumWrapper;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -36,6 +37,7 @@ public class TopicForm extends _DoForm {
 			entity.setStatus(TopicStatusType.DRAFT);
 		}
 		addContent(entity);
+		addContent(new _EnumWrapper<>(TopicStatusType.class.getEnumConstants()));
 		addContent(getSimpleActionBar(session));
 	}
 
@@ -59,7 +61,8 @@ public class TopicForm extends _DoForm {
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			TopicStatusType status = TopicStatusType.valueOf(formData.getValueSilently("status"));
+			entity.setStatus(status);
 			entity.setSubject(formData.getValue("subject"));
 
 			save(session, entity, dao, isNew);
