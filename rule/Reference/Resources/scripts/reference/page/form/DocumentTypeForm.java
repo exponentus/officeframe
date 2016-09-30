@@ -13,7 +13,6 @@ import com.exponentus.user.IUser;
 import administrator.dao.LanguageDAO;
 import reference.dao.DocumentTypeDAO;
 import reference.model.DocumentType;
-import reference.model.constants.CountryCode;
 
 public class DocumentTypeForm extends ReferenceForm {
 
@@ -91,9 +90,12 @@ public class DocumentTypeForm extends ReferenceForm {
 
 		if (formData.getValueSilently("category").isEmpty()) {
 			ve.addError("code", "required", getLocalizedWord("field_is_empty", lang));
-		} /*else if (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.UNKNOWN.name())) {
-			ve.addError("code", "ne_unknown", getLocalizedWord("field_cannot_be_unknown", lang));
-		}*/
+		} /*
+		   * else if
+		   * (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.
+		   * UNKNOWN.name())) { ve.addError("code", "ne_unknown",
+		   * getLocalizedWord("field_cannot_be_unknown", lang)); }
+		   */
 
 		return ve;
 	}

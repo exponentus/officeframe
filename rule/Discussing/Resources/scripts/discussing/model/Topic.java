@@ -33,7 +33,7 @@ public class Topic extends SecureAppEntity<UUID> {
 	private String module;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "type", nullable = false, length = 3)
+	@Column(name = "type", nullable = false, length = 7)
 	private TopicStatusType status = TopicStatusType.UNKNOWN;
 
 	@OneToMany(mappedBy = "topic")
