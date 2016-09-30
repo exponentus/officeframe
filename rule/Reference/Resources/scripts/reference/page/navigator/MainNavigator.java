@@ -33,9 +33,11 @@ public class MainNavigator extends _DoPage {
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("positions", session.getLang()), "position-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("doc_languages", session.getLang()), "documentlanguage-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("doc_types", session.getLang()), "documenttype-view"));
+		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("control_types", session.getLang()), "controltype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("tags", session.getLang()), "tag-view"));
 
 		_Outline specific_outline = new _Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
+
 		if (EnvConst.APP_ID.equalsIgnoreCase("comproperty")) {
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("kuf", session.getLang()), "kuf-view"));
 			specific_outline.addEntry(new _OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));

@@ -100,6 +100,12 @@
         <entry lang="KAZ">Типы документов</entry>
         <entry lang="POR"></entry>
     </sentence>
+        <sentence mode="on" keyword="control_types">
+        <entry lang="ENG">Control types</entry>
+        <entry lang="RUS">Типы контроля</entry>
+        <entry lang="KAZ">Типы контроля</entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="org_categories">
         <entry lang="ENG">Organizaton categories</entry>
         <entry lang="RUS">Типы организации</entry>
