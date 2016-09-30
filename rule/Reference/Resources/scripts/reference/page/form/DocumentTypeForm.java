@@ -91,9 +91,9 @@ public class DocumentTypeForm extends ReferenceForm {
 
 		if (formData.getValueSilently("category").isEmpty()) {
 			ve.addError("code", "required", getLocalizedWord("field_is_empty", lang));
-		} else if (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.UNKNOWN.name())) {
+		} /*else if (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.UNKNOWN.name())) {
 			ve.addError("code", "ne_unknown", getLocalizedWord("field_cannot_be_unknown", lang));
-		}
+		}*/
 
 		return ve;
 	}
