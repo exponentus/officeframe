@@ -48,7 +48,17 @@
                             <xsl:value-of select="//captions/status/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="status" value="{$fields/status}" class="span3" autofocus="true"/>
+                            <select name="status" class="span2">
+                                <xsl:for-each select="//constants[@entity = 'topicstatustype']/entry">
+                                    <option value="{@attrval}">
+                                        <xsl:if test="@attrval = $fields/status">
+                                            <xsl:attribute name="selected">selected</xsl:attribute>
+                                        </xsl:if>
+
+                                        <xsl:value-of select="."/>
+                                    </option>
+                                </xsl:for-each>
+                            </select>
                         </div>
                     </div>
                 </fieldset>
