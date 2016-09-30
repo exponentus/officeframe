@@ -35,7 +35,7 @@
                             <xsl:value-of select="//captions/default_hours/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="number" name="defaulthours" value="{fields/defaulthours}" class="span7" autofocus="true"/>
+                            <input type="number" name="defaulthours" value="{fields/defaulthours}" class="span1" autofocus="true"/>
                         </div>
                     </div>
                 </fieldset>
