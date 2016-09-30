@@ -77,4 +77,6 @@
     <caption name="task_type"/>
     <caption name="prefix"/>
     <caption name="control_types"/>
+    <caption name="control_type"/>
+    <caption name="default_hours"/>
 </rule>
