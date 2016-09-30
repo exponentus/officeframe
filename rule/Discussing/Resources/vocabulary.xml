@@ -13,12 +13,28 @@
         <entry lang="POR">Todas as Discussões</entry>
         <entry lang="BUL">Всички дискусии</entry>
     </sentence>
-       <sentence mode="on" keyword="topics">
+    <sentence mode="on" keyword="topics">
          <entry lang="ENG">Topics</entry>
         <entry lang="RUS">Темы</entry>
         <entry lang="KAZ">Тақырыптар</entry>
         <entry lang="SPA">Temas</entry>
         <entry lang="POR">Tópicos</entry>
         <entry lang="BUL">Дискусии</entry>
+    </sentence>
+    <sentence mode="on" keyword="topic">
+         <entry lang="ENG">Topic</entry>
+        <entry lang="RUS">Тема</entry>
+        <entry lang="KAZ">Тақырып</entry>
+        <entry lang="SPA">Tema</entry>
+        <entry lang="POR">Tópic</entry>
+        <entry lang="BUL">Дискусия</entry>
+    </sentence>
+    <sentence mode="on" keyword="status">
+         <entry lang="ENG">Status</entry>
+        <entry lang="RUS">Статус</entry>
+        <entry lang="KAZ">Статус</entry>
+        <entry lang="SPA"></entry>
+        <entry lang="POR"></entry>
+        <entry lang="BUL"></entry>
     </sentence>
 </vocabulary>
