@@ -92,16 +92,19 @@
                             </a>
                             <ul class="dropdown-menu right">
                                 <li>
-                                    <a class="user-profile" title="{//captions/user_profile/@caption}" href="Provider?id=userprofile">
+                                    <a class="user-profile" title="{//captions/user_profile/@caption}"
+                                       href="Provider?id=userprofile">
                                         <i class="fa fa-user"></i>
                                         <xsl:value-of select="concat(' ', @username)"/>
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a class="logout" href="/Workspace/p?id=workspace">
+                                    <a class="logout" href="{//workspaceUrl}">
                                         <i class="fa fa-th"></i>
-                                        <span><xsl:value-of select="//captions/workspace/@caption"/></span>
+                                        <span>
+                                            <xsl:value-of select="//captions/workspace/@caption"/>
+                                        </span>
                                     </a>
                                 </li>
                             </ul>

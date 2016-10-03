@@ -94,13 +94,17 @@
                                 <li>
                                     <a class="user-profile" title="{//captions/user_profile/@caption}"
                                        href="Provider?id=userprofile">
-                                        <xsl:value-of select="@username"/>
+                                        <i class="fa fa-user"></i>
+                                        <xsl:value-of select="concat(' ', @username)"/>
                                     </a>
                                 </li>
                                 <li class="divider"></li>
                                 <li>
-                                    <a class="logout" href="Logout">
-                                        <xsl:value-of select="//captions/logout/@caption"/>
+                                    <a class="logout" href="{//workspaceUrl}">
+                                        <i class="fa fa-th"></i>
+                                        <span>
+                                            <xsl:value-of select="//captions/workspace/@caption"/>
+                                        </span>
                                     </a>
                                 </li>
                             </ul>
