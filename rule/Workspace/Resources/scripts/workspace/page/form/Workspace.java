@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._AppEntourage;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
@@ -27,11 +26,6 @@ public class Workspace extends _DoPage {
 		addValue("build", ent.getBuildTime());
 		addValue("org", Environment.orgName);
 		addValue("appname", ent.getAppName());
-
-		String lang = formData.getValueSilently("lang");
-		if (!lang.isEmpty()) {
-			session.setLang(LanguageCode.valueOf(lang));
-		}
 
 		if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 			IUser<Long> user = session.getUser();

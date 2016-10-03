@@ -28,11 +28,6 @@ public class RegForm extends _DoPage {
 		addValue("org", Environment.orgName);
 		addValue("appname", ent.getAppName());
 
-		String lang = formData.getValueSilently("lang");
-		if (!lang.isEmpty()) {
-			session.setLang(LanguageCode.valueOf(lang));
-		}
-
 		addContent(new LanguageDAO(session).findAll());
 	}
 
@@ -54,7 +49,7 @@ public class RegForm extends _DoPage {
 			String comment = formData.getValueSilently("comment");
 
 			UserDAO dao = new UserDAO(session);
-			List<String> recipients = new ArrayList<String>();
+			List<String> recipients = new ArrayList<>();
 			List<User> list = dao.findAllAdministrators(1, 100).getResult();
 
 			for (User user : list) {
