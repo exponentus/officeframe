@@ -1,13 +1,14 @@
-
 .vw-regdate {
+    min-width: 180px;
     width: 180px;
 }
 
 .vw-name {
-    min-width: 260px;
+    min-width: 200px;
     width: 30%;
 }
 
 .vw-bin {
+    min-width: 100px;
     width: 135px;
 }

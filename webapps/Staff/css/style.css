@@ -9,50 +9,46 @@ form[data-edit=false] [data-upload] {
     display: none;
 }
 
-
-.go-top
-{
+.go-top {
     background-color: rgba(0,0,0,0.5);
+    bottom: 0;
     color: #FFFFFF;
+    font-size: 11px;
     position: absolute;
-    bottom: 0px;
     top: 150px;
+    text-align: center;
+    left: 0;
+    -webkit-transition: .5s Ease;
+    -moz-transition: .5s Ease;
+    -o-transition: .5s Ease;
+    transition: .5s Ease;
+    visibility: hidden;
+    opacity: .9;
     width: 151px;
-    text-align:center;
-    font-size: 20px;
-    left:0px;
-    -webkit-transition: 0.5s Ease;
-    -moz-transition: 0.5s Ease;
-    -o-transition: 0.5s Ease;
-    transition: 0.5s Ease;
-    visibility:hidden;
-    opacity: 0.9;
-    font-size:11px;
 }
 
-.delete-photo
-{
+.delete-photo {
     background-color: rgba(0,0,0,0.5);
     color: #FFFFFF;
     position: absolute;
-    top: 0px;
-    width:19px;
-    height:23px;
-    text-align:center;
-    right:0px;
-    visibility:hidden;
-    opacity: 0.9;
+    top: 0;
+    width: 19px;
+    height: 23px;
+    text-align: center;
+    right: 0;
+    visibility: hidden;
+    opacity: .9;
 }
 
 .upload-photo-wrapper:hover .go-top {
-    visibility:visible;
-    top:60px;
+    visibility: visible;
+    top: 60px;
 }
 
 .upload-photo-wrapper:hover .delete-photo {
-    visibility:visible;
+    visibility: visible;
 }
 
-.upload-photo-wrapper *{
-    cursor:pointer;
+.upload-photo-wrapper * {
+    cursor: pointer;
 }

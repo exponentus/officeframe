@@ -1,12 +1,14 @@
 .vw-name {
-    min-width: 260px;
+    min-width: 180px;
     width: 30%;
 }
 
 .vw-region-type {
+    min-width: 200px;
     width: 300px;
 }
 
 .vw-country {
+    min-width: 200px;
     width: 300px;
 }
