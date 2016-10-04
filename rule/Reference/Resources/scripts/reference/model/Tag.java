@@ -100,7 +100,7 @@ public class Tag extends SimpleReferenceEntity {
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-		chunk.append("<name>" + getName() + "</name>");
+		chunk.append("<name>" + getName().replace("&", "&amp;") + "</name>");
 		chunk.append("<color>" + color + "</color>");
 		chunk.append("<category>" + category + "</category>");
 		chunk.append("<hidden>" + hidden + "</hidden>");
@@ -108,7 +108,7 @@ public class Tag extends SimpleReferenceEntity {
 		LanguageDAO lDao = new LanguageDAO(ses);
 		List<Language> list = lDao.findAll();
 		for (Language l : list) {
-			chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocalizedName(l.getCode()) + "</entry>");
+			chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocalizedName(l.getCode()).replace("&", "&amp;") + "</entry>");
 		}
 		chunk.append("</localizednames>");
 		return chunk.toString();
@@ -116,7 +116,7 @@ public class Tag extends SimpleReferenceEntity {
 
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<name>" + getName() + "</name><color>" + color + "</color><localizednames>" + getLocalizedName() + "</localizednames>";
+		return "<name>" + getName() + "</name><color>" + color + "</color>";
 	}
 
 	@Override
