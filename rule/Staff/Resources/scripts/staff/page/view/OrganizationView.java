@@ -13,6 +13,7 @@ import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
+import reference.page.ListColumnOptionsForTest;
 import staff.dao.OrganizationDAO;
 import staff.model.Organization;
 
@@ -31,6 +32,13 @@ public class OrganizationView extends _DoPage {
 			addContent(actionBar);
 		}
 		addContent(getViewPage(new OrganizationDAO(session), formData));
+
+		// test
+		ListColumnOptionsForTest columnOptions = new ListColumnOptionsForTest();
+		columnOptions.addOption("name", "name", "localizedName", "both", "vw-name");
+		columnOptions.addOption("bin", "bin", "text", "both", "vw-bin");
+
+		addContent("columnOptions", columnOptions);
 	}
 
 	@Override
