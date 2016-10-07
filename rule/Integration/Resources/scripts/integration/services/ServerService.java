@@ -21,9 +21,9 @@ public class ServerService extends RestProvider {
 	@Path("/info")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response get() {
-		HashMap<String, String> info = new HashMap<String, String>();
+		HashMap<String, String> info = new HashMap<>();
 		info.put("version", Server.serverVersion);
-		return Response.ok(info).build();
+		return Response.ok().build();
 	}
 
 	@Override
