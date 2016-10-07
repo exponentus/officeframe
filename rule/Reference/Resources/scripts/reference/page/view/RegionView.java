@@ -1,6 +1,7 @@
 package reference.page.view;
 
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting._ColumnOptions;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.actions._Action;
@@ -11,7 +12,6 @@ import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 import reference.dao.RegionDAO;
 import reference.model.Region;
-import reference.page.ListColumnOptionsForTest;
 
 import java.util.UUID;
 
@@ -31,10 +31,9 @@ public class RegionView extends _DoPage {
         }
         addContent(getViewPage(new RegionDAO(session), formData));
 
-        // test
-        ListColumnOptionsForTest columnOptions = new ListColumnOptionsForTest();
-        columnOptions.addOption("name", "name", "localizedName", "both", "vw-name");
-        columnOptions.addOption("type", "type", "localizedName", "both", "vw-name");
+        _ColumnOptions columnOptions = new _ColumnOptions();
+        columnOptions.add("name", "name", "localizedName", "both", "vw-name");
+        columnOptions.add("type", "type", "localizedName", "both", "");
 
         addContent("columnOptions", columnOptions);
     }
