@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import com.exponentus.scripting._Session;
-import com.exponentus.util.Util;
 
 import reference.dao.CountryDAO;
 import reference.dao.LocalityDAO;
@@ -79,7 +78,7 @@ public class Address {
 
 	@Override
 	public String toString() {
-		return Util.toStringGettersVal(this);
+		return country + " " + locality + " " + street;
 	}
 
 	public Country getCountry() {
