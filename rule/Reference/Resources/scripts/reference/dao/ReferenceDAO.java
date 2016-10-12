@@ -13,9 +13,9 @@ import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.DAO;
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 
 /**
@@ -111,7 +111,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			typedQuery.setFirstResult(firstRec);
 			typedQuery.setMaxResults(pageSize);
 			List<T> result = typedQuery.getResultList();
-			return new ViewPage<T>(result, count, maxPage, pageNum);
+			return new ViewPage<>(result, count, maxPage, pageNum);
 		} finally {
 			em.close();
 		}
