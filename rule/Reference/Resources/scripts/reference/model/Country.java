@@ -12,7 +12,6 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.rest.outgoingpojo.IPayload;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
@@ -61,11 +60,6 @@ public class Country extends SimpleReferenceEntity {
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<code>" + code + "</code>");
 		return chunk.toString();
-	}
-
-	@JsonIgnore
-	public IPayload getMock() {
-		return new Country();
 	}
 
 }
