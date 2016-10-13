@@ -12,10 +12,15 @@
         </app>
          <app>
             <name mode="on">Reference</name>
+                 <rest mode="on">
+           <urlmapping></urlmapping>
+                <allowcors>*</allowcors>
+                <services>
+                    
+                </services>
+            </rest>
         </app>   
-         <app>
-            <name mode="on">Discussing</name>
-        </app>       
+           
         <app>
             <name mode="on">Workspace</name>
         </app>        
