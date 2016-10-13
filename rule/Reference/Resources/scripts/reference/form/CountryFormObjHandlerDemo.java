@@ -1,7 +1,6 @@
 package reference.form;
 
 import com.exponentus.rest.incomingpojo.Income;
-import com.exponentus.rest.outgoingpojo.IPayload;
 import com.exponentus.rest.runtime.HandlerAdapter;
 import com.exponentus.rest.runtime.RequestHandler;
 import com.exponentus.scripting._Session;
@@ -27,7 +26,7 @@ public class CountryFormObjHandlerDemo extends HandlerAdapter {
 
 	@Override
 	public void doPost(_Session ses, Income request) {
-		IPayload entity = request.getPayload();
+		Object entity = request.getPayload();
 		System.out.println(entity);
 
 	}
