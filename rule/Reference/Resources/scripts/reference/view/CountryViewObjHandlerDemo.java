@@ -18,19 +18,4 @@ public class CountryViewObjHandlerDemo extends HandlerAdapter {
 		addContent(countryDAO.findAll(view.getPageNum(), ses.pageSize));
 	}
 
-	@Override
-	public void doPost(_Session ses, Income request) {
-
-	}
-
-	@Override
-	public void doPut(_Session ses, Income request) {
-
-	}
-
-	@Override
-	public void doDelete(_Session ses, Income request) {
-
-	}
-
 }
