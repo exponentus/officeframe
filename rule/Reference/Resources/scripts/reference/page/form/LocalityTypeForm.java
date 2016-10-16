@@ -5,7 +5,7 @@ import java.util.UUID;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.exception.SecureException;
-import com.exponentus.scheduler._EnumWrapper;
+import com.exponentus.scripting._EnumWrapper;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
