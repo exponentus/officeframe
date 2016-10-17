@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.exponentus.dataengine.jpa.SecureAppEntity;
+import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.env.Environment;
@@ -28,6 +29,8 @@ import discussing.model.constants.TopicStatusType;
 @JsonIgnoreType
 public class Topic extends SecureAppEntity<UUID> {
 
+	@FTSearchable
+	@Column(columnDefinition = "TEXT")
 	private String subject;
 
 	@Column(length = 64)

@@ -43,6 +43,7 @@ public class TopicForm extends _DoForm {
 
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
+		devPrint(formData);
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -50,7 +51,6 @@ public class TopicForm extends _DoForm {
 				setValidation(ve);
 				return;
 			}
-
 			TopicDAO dao = new TopicDAO(session);
 			Topic entity;
 			String id = formData.getValueSilently("docid");
@@ -64,16 +64,13 @@ public class TopicForm extends _DoForm {
 			TopicStatusType status = TopicStatusType.valueOf(formData.getValueSilently("status"));
 			entity.setStatus(status);
 			entity.setSubject(formData.getValue("subject"));
-
 			save(session, entity, dao, isNew);
-
 		} catch (_Exception | SecureException e) {
 			logError(e);
 		}
 	}
 
 	private void save(_Session ses, Topic entity, TopicDAO dao, boolean isNew) throws SecureException {
-
 		if (isNew) {
 			dao.add(entity);
 		} else {
@@ -93,9 +90,7 @@ public class TopicForm extends _DoForm {
 	private IOutcomeObject getSimpleActionBar(_Session ses) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		LanguageCode lang = ses.getLang();
-
 		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
-
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
 
