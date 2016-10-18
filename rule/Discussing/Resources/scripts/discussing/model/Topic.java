@@ -88,7 +88,12 @@ public class Topic extends SecureAppEntity<UUID> {
 		}
 		chunk.append("<subject>" + subject + "</subject>");
 		chunk.append("<status>" + status + "</status>");
-
+		List<Comment> CommentsEntry = getComments();
+		if(!CommentsEntry.isEmpty()){
+			chunk.append("<comments>");
+			for (Comment aCommentsEntry : CommentsEntry) chunk.append("<entry id='"+ aCommentsEntry.getId() +"'>" + aCommentsEntry.getComment() + "</entry>");
+			chunk.append("</comments>");
+		}
 		return chunk.toString();
 	}
 

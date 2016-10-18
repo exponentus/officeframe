@@ -18,6 +18,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.exponentus.dataengine.system.IEmployee;
+import com.exponentus.dataengine.system.IExtUserDAO;
+import com.exponentus.env.Environment;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.TimeUtil;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import com.exponentus.common.model.Attachment;
@@ -77,5 +82,22 @@ public class Comment extends SecureAppEntity<UUID> {
 	@Override
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
+	}
+
+	@Override
+	public String getFullXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
+		IExtUserDAO eDao = Environment.getExtUserDAO();
+		IEmployee user = eDao.getEmployee(author);
+		if (user != null) {
+			chunk.append("<author>" + user.getName() + "</author>");
+		} else {
+			chunk.append("<author>" + author + "</author>");
+		}
+		chunk.append("<comment>" + comment + "</comment>");
+		chunk.append("<topic id='"+ topic.getId() +"'>" + topic.getSubject() + "</topic>");
+
+		return chunk.toString();
 	}
 }
