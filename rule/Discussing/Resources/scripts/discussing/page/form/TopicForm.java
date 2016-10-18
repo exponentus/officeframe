@@ -39,12 +39,11 @@ public class TopicForm extends _DoForm {
 		addContent(entity);
 		addContent(new _EnumWrapper<>(TopicStatusType.class.getEnumConstants()));
 		if (!id.isEmpty()) {
-			addContent(getSimpleActionBar(session, entity));
-		}else{
+			addContent(getActionBar(session, entity));
+		} else {
 			addContent(getSimpleActionBar(session));
 		}
 	}
-
 
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
@@ -92,7 +91,7 @@ public class TopicForm extends _DoForm {
 		return ve;
 	}
 
-	private IOutcomeObject getSimpleActionBar(_Session ses, Topic topic) {
+	private IOutcomeObject getActionBar(_Session ses, Topic topic) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		LanguageCode lang = ses.getLang();
 		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
@@ -103,15 +102,6 @@ public class TopicForm extends _DoForm {
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
 
-
 	}
-	private IOutcomeObject getSimpleActionBar(_Session ses) {
-		_ActionBar actionBar = new _ActionBar(ses);
-		LanguageCode lang = ses.getLang();
-		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
-		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 
-		return actionBar;
-
-	}
 }

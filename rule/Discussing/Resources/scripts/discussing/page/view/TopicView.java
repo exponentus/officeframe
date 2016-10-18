@@ -1,7 +1,11 @@
 package discussing.page.view;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
@@ -23,6 +27,15 @@ public class TopicView extends _DoPage {
 		actionBar.addAction(newDocAction);
 		actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
+
+		String[] expandedIds = formData.getListOfValuesSilently("expandedIds");
+		List<UUID> expandedIdList = Arrays.stream(expandedIds).map(UUID::fromString).collect(Collectors.toList());
+		int pageSize = session.pageSize;
+		int pageNum = formData.getNumberValueSilently("page", 0);
+
+		TopicDAO tDao = new TopicDAO(session);
+		ViewPage<Topic> vp = tDao.findAllWithChildren(pageNum, pageSize, expandedIdList);
+		addContent(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum());
 		addContent(getViewPage(new TopicDAO(session), formData));
 	}
 

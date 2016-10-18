@@ -18,15 +18,15 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
+import com.exponentus.common.model.Attachment;
+import com.exponentus.dataengine.jpa.SecureAppEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
-
-import com.exponentus.common.model.Attachment;
-import com.exponentus.dataengine.jpa.SecureAppEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -41,6 +41,12 @@ public class Comment extends SecureAppEntity<UUID> {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(updatable = false, nullable = false)
 	private Topic topic;
+
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	private Comment parent;
+
+	@OneToMany(mappedBy = "parent")
+	private List<Comment> subComments;
 
 	@Column(nullable = false, length = 512)
 	private String comment;
@@ -74,6 +80,14 @@ public class Comment extends SecureAppEntity<UUID> {
 		this.comment = comment;
 	}
 
+	public List<Comment> getSubComments() {
+		return subComments;
+	}
+
+	public void setSubComments(List<Comment> subComments) {
+		this.subComments = subComments;
+	}
+
 	@Override
 	public List<Attachment> getAttachments() {
 		return attachments;
@@ -96,8 +110,13 @@ public class Comment extends SecureAppEntity<UUID> {
 			chunk.append("<author>" + author + "</author>");
 		}
 		chunk.append("<comment>" + comment + "</comment>");
-		chunk.append("<topic id='"+ topic.getId() +"'>" + topic.getSubject() + "</topic>");
+		chunk.append("<topic id='" + topic.getId() + "'>" + topic.getSubject() + "</topic>");
 
 		return chunk.toString();
 	}
+
+	public boolean isHasSubComments() {
+		return subComments != null && subComments.size() > 0;
+	}
+
 }

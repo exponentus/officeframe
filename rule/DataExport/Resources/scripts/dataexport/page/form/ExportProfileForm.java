@@ -8,11 +8,7 @@ import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
-import com.exponentus.scripting.actions._Action;
-import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoForm;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import com.exponentus.user.IUser;
 
 import dataexport.dao.ExportProfileDAO;
@@ -92,14 +88,4 @@ public class ExportProfileForm extends _DoForm {
 		return ve;
 	}
 
-	private IOutcomeObject getSimpleActionBar(_Session ses) {
-		_ActionBar actionBar = new _ActionBar(ses);
-		LanguageCode lang = ses.getLang();
-
-		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
-
-		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
-		return actionBar;
-
-	}
 }
