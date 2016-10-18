@@ -103,6 +103,7 @@ public class TopicForm extends _DoForm {
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
 
+
 	}
 	private IOutcomeObject getSimpleActionBar(_Session ses) {
 		_ActionBar actionBar = new _ActionBar(ses);
