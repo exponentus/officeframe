@@ -88,20 +88,36 @@ public class Topic extends SecureAppEntity<UUID> {
 		}
 		chunk.append("<subject>" + subject + "</subject>");
 		chunk.append("<status>" + status + "</status>");
-		List<Comment> CommentsEntry = getComments();
-		if (!CommentsEntry.isEmpty()) {
+		if (isHasComments()) {
+			chunk.append("<hascomments>true</hascomments>");
 			chunk.append("<comments>");
-			for (Comment aCommentsEntry : CommentsEntry) {
+			for (Comment aCommentsEntry : getComments()) {
 				chunk.append("<entry id='" + aCommentsEntry.getId() + "'>" + aCommentsEntry.getComment() + "</entry>");
 			}
 			chunk.append("</comments>");
+		} else {
+			chunk.append("<hascomments>false</hascomments>");
 		}
 		return chunk.toString();
 	}
 
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<subject>" + subject + "</subject>";
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
+		chunk.append("<subject>" + subject + "</subject>");
+		chunk.append("<status>" + status + "</status>");
+		if (isHasComments()) {
+			chunk.append("<hascomments>true</hascomments>");
+			chunk.append("<comments>");
+			for (Comment aCommentsEntry : getComments()) {
+				chunk.append(aCommentsEntry.getShortXMLChunkAsEntry(ses));
+			}
+			chunk.append("</comments>");
+		} else {
+			chunk.append("<hascomments>false</hascomments>");
+		}
+		return chunk.toString();
 	}
 
 	public boolean isHasComments() {

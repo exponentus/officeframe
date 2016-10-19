@@ -110,9 +110,23 @@ public class Comment extends SecureAppEntity<UUID> {
 			chunk.append("<author>" + author + "</author>");
 		}
 		chunk.append("<comment>" + comment + "</comment>");
-		chunk.append("<topic id='" + topic.getId() + "'>" + topic.getSubject() + "</topic>");
+		if (isHasSubComments()) {
+			chunk.append("<hascomments>true</hascomments>");
+			chunk.append("<comments>");
+			for (Comment aCommentsEntry : getSubComments()) {
+				chunk.append(aCommentsEntry.getShortXMLChunkAsEntry(ses));
+			}
+			chunk.append("</comments>");
+		} else {
+			chunk.append("<hascomments>false</hascomments>");
+		}
 
 		return chunk.toString();
+	}
+
+	@Override
+	public String getShortXMLChunk(_Session ses) {
+		return getFullXMLChunk(ses);
 	}
 
 	public boolean isHasSubComments() {

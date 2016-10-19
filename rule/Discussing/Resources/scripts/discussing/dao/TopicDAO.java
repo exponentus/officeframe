@@ -19,17 +19,15 @@ public class TopicDAO extends DAO<Topic, UUID> {
 	}
 
 	public ViewPage<Topic> findAllWithChildren(int pageNum, int pageSize, List<UUID> expandedIdList) {
-		List<Topic> list = findAll(pageNum, pageSize);
+		ViewPage<Topic> vp = findViewPage(pageNum, pageSize);
 
 		List<IPOJOObject> childrenList = null; // findTaskStream(expandedIds);
 
-		for (Topic task : list) {
+		for (Topic task : vp.getResult()) {
 			if (task.isHasComments() && Collections.disjoint(task.getComments(), expandedIdList)) {
 
 			}
 		}
-
-		ViewPage<Topic> vp = new ViewPage(list);
 
 		return vp;
 	}

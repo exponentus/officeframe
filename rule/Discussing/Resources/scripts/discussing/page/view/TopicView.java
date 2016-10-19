@@ -36,7 +36,7 @@ public class TopicView extends _DoPage {
 		TopicDAO tDao = new TopicDAO(session);
 		ViewPage<Topic> vp = tDao.findAllWithChildren(pageNum, pageSize, expandedIdList);
 		addContent(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum());
-		addContent(getViewPage(new TopicDAO(session), formData));
+		// addContent(getViewPage(new TopicDAO(session), formData));
 	}
 
 	@Override
