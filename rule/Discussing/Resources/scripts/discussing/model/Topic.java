@@ -104,4 +104,8 @@ public class Topic extends SecureAppEntity<UUID> {
 		return "<subject>" + subject + "</subject>";
 	}
 
+	public boolean isHasComments() {
+		return comments != null && comments.size() > 0;
+	}
+
 }
