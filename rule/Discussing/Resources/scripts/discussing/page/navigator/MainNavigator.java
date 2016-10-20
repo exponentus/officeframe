@@ -23,6 +23,7 @@ public class MainNavigator extends _DoPage {
 
 		list.add(outline);
 
+
 		addValue("outline_current", formData.getValueSilently("id").replace("-form", "-view"));
 		addValue("workspaceUrl", Environment.getWorkspaceURL());
 		addContent(list);
