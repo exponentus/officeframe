@@ -21,8 +21,6 @@ public class TopicDAO extends DAO<Topic, UUID> {
 	public ViewPage<Topic> findAllWithChildren(int pageNum, int pageSize, List<UUID> expandedIdList) {
 		ViewPage<Topic> vp = findViewPage(pageNum, pageSize);
 
-		List<IPOJOObject> childrenList = null; // findTaskStream(expandedIds);
-
 		for (Topic task : vp.getResult()) {
 			if (task.isHasComments() && Collections.disjoint(task.getComments(), expandedIdList)) {
 
