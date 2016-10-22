@@ -89,10 +89,11 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 				t.begin();
 				entity.setAuthorId(user.getId());
 				entity.setForm(entity.getDefaultFormName());
+				entity.setLastModifier(user.getId());
 				UserDAO.normalizePwd(entity.getUser());
 				em.persist(entity);
 				t.commit();
-				update(entity);
+				// update(entity);
 				return entity;
 			} finally {
 				if (t.isActive()) {
@@ -114,6 +115,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 			try {
 				t.begin();
 				UserDAO.normalizePwd(entity.getUser());
+				entity.setLastModifier(user.getId());
 				em.merge(entity);
 				t.commit();
 				return entity;
