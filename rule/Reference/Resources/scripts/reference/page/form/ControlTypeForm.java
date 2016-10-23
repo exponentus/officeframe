@@ -3,7 +3,6 @@ package reference.page.form;
 import java.util.UUID;
 
 import com.exponentus.exception.SecureException;
-import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -36,7 +35,7 @@ public class ControlTypeForm extends ReferenceForm {
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
-			_Validation ve = validate(formData, session.getLang());
+			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
 				setBadRequest();
 				setValidation(ve);
@@ -81,13 +80,4 @@ public class ControlTypeForm extends ReferenceForm {
 		}
 	}
 
-	@Override
-	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation ve = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
-
-		return ve;
-	}
 }

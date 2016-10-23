@@ -25,10 +25,10 @@ public class DocumentTypeForm extends ReferenceForm {
 		if (!id.isEmpty()) {
 			entity = dao.findById(UUID.fromString(id));
 		} else {
-			entity = (DocumentType) getDefaultEntity(user, new DocumentType());
+			entity = getDefaultEntity(user, new DocumentType());
 		}
 		addContent(entity);
-		// addContent(dao.findAllCategories());
+		addContent("category", dao.findAllCategories());
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 	}
@@ -81,22 +81,14 @@ public class DocumentTypeForm extends ReferenceForm {
 		}
 	}
 
-	@Override
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation ve = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
+		return simpleCheck("name", "category");
+	}
 
-		if (formData.getValueSilently("category").isEmpty()) {
-			ve.addError("code", "required", getLocalizedWord("field_is_empty", lang));
-		} /*
-		   * else if
-		   * (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.
-		   * UNKNOWN.name())) { ve.addError("code", "ne_unknown",
-		   * getLocalizedWord("field_cannot_be_unknown", lang)); }
-		   */
-
-		return ve;
+	protected DocumentType getDefaultEntity(IUser<Long> user, DocumentType entity) {
+		entity.setAuthor(user);
+		entity.setName("");
+		entity.setCategory("");
+		return entity;
 	}
 }

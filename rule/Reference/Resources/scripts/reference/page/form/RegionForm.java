@@ -107,12 +107,9 @@ public class RegionForm extends ReferenceForm {
 		}
 	}
 
-	@Override
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation v = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			v.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
+		_Validation v = simpleCheck("name");
+
 		if (formData.getValueSilently("regiontype").isEmpty() || formData.getValueSilently("regiontype").equals("UNKNOWN")) {
 			v.addError("regiontype", "required", getLocalizedWord("field_is_empty", lang));
 		}

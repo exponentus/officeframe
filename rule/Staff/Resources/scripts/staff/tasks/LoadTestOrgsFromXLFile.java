@@ -1,15 +1,15 @@
-package staff.init;
+package staff.tasks;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
-import com.exponentus.localization.LanguageCode;
-import com.exponentus.localization.Vocabulary;
+import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
+import com.exponentus.scripting.event._DoPatch;
+import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.ListUtil;
 
 import jxl.Sheet;
@@ -23,17 +23,12 @@ import staff.dao.OrganizationLabelDAO;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
-/**
- * 
- * 
- * @author Kayra created 24-01-2016
- */
-
-public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationDAO> {
+@Command(name = "load_orgs_xls")
+public class LoadTestOrgsFromXLFile extends _DoPatch {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
 
 	@Override
-	public List<Organization> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
+	public void doTask(_Session session) {
 		List<Organization> entities = new ArrayList<>();
 
 		File xf = new File(excelFile);
@@ -64,9 +59,19 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 				}
 			}
 		} else {
-			System.out.println("There is no \"" + excelFile + "\" file");
+			System.out.println("there is no \"" + excelFile + "\" file");
 		}
-		return entities;
+
+		OrganizationDAO oDao = new OrganizationDAO(ses);
+		for (Organization org : entities) {
+			try {
+				oDao.add(org);
+				System.out.println(org.getName() + " added");
+			} catch (SecureException e) {
+				logger.errorLogEntry(e);
+			}
+		}
+		System.out.println("done...");
 	}
 
 }

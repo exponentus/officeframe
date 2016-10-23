@@ -16,6 +16,7 @@
 		<class>reference.model.OrgCategory</class>
 		<class>reference.model.DepartmentType</class>	
 		<class>reference.model.Position</class>	
+		<class>com.exponentus.common.model.RecycleBin</class>
 	</persistence-unit>
 	
 	<persistence-unit name="Staff" transaction-type="RESOURCE_LOCAL">

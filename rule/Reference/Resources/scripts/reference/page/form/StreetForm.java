@@ -99,12 +99,8 @@ public class StreetForm extends ReferenceForm {
 		}
 	}
 
-	@Override
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation ve = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
+		_Validation ve = simpleCheck("name");
 
 		if (formData.getValueSilently("locality").isEmpty()) {
 			ve.addError("locality", "required", getLocalizedWord("field_is_empty", lang));
