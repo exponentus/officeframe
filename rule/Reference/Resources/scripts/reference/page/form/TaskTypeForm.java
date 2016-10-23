@@ -72,12 +72,8 @@ public class TaskTypeForm extends ReferenceForm {
 		}
 	}
 
-	@Override
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation ve = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
+		_Validation ve = simpleCheck("name");
 
 		if (formData.getValueSilently("prefix").isEmpty()) {
 			ve.addError("prefix", "required", getLocalizedWord("field_is_empty", lang));

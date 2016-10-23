@@ -14,7 +14,7 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "streets", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "locality_id" }) )
+@Table(name = "streets", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "locality_id" }))
 @NamedQuery(name = "Street.findAll", query = "SELECT m FROM Street AS m ORDER BY m.regDate")
 public class Street extends SimpleReferenceEntity {
 	@JsonIgnore
@@ -47,7 +47,6 @@ public class Street extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<streetid>" + streetId + "</streetid>");
-		chunk.append("<locality id=\"" + locality.getId() + "\">" + locality.getLocalizedName(ses.getLang()) + "</locality>");
 		return chunk.toString();
 	}
 }

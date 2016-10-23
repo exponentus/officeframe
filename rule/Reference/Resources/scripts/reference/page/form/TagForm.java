@@ -41,7 +41,7 @@ public class TagForm extends ReferenceForm {
 	public void doPOST(_Session session, _WebFormData formData) {
 
 		try {
-			_Validation ve = validate(formData, session.getLang());
+			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
 				setBadRequest();
 				setValidation(ve);

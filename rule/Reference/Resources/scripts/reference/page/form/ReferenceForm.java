@@ -2,7 +2,6 @@ package reference.page.form;
 
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
@@ -18,15 +17,7 @@ import com.exponentus.user.SuperUser;
 
 public abstract class ReferenceForm extends _DoForm {
 
-	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation ve = new _Validation();
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
-		}
-
-		return ve;
-	}
-
+	@Override
 	protected IOutcomeObject getSimpleActionBar(_Session ses) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		LanguageCode lang = ses.getLang();
