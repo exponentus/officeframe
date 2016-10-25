@@ -102,7 +102,9 @@ public class Tag extends SimpleReferenceEntity {
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName().replace("&", "&amp;") + "</name>");
 		chunk.append("<color>" + color + "</color>");
-		chunk.append("<category>" + category + "</category>");
+		if(category != null){
+			chunk.append("<category>" + category + "</category>");
+		}
 		chunk.append("<hidden>" + hidden + "</hidden>");
 		chunk.append("<localizednames>");
 		LanguageDAO lDao = new LanguageDAO(ses);
