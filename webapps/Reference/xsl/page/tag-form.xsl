@@ -32,6 +32,14 @@
                     </div>
                     <div class="form-group">
                         <div class="control-label">
+                            <xsl:value-of select="//captions/category/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="text" name="category" value="{fields/category}" class="span7" autofocus="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
                             <xsl:value-of select="//captions/color/@caption"/>
                         </div>
                         <div class="controls">
