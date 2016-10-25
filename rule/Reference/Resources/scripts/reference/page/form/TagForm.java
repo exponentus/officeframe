@@ -63,6 +63,7 @@ public class TagForm extends ReferenceForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setColor(formData.getValue("color"));
+			entity.setCategory(formData.getValue("category"));
 			entity.setHidden(formData.getBoolSilently("hidden"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 
