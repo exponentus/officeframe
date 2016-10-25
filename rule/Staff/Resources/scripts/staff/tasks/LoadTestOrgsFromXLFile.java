@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
@@ -28,8 +29,10 @@ public class LoadTestOrgsFromXLFile extends _DoPatch {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
 
 	@Override
-	public void doTask(_Session session) {
+	public void doTask(_Session ses) {
 		List<Organization> entities = new ArrayList<>();
+		OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
+		OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
 
 		File xf = new File(excelFile);
 		if (xf.exists()) {
@@ -41,8 +44,7 @@ public class LoadTestOrgsFromXLFile extends _DoPatch {
 			} catch (BiffException | IOException e) {
 				System.out.println(e);
 			}
-			OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
-			OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
+
 			List<OrganizationLabel> l = olDao.findAll();
 			Sheet sheet = workbook.getSheet(0);
 			int rCount = sheet.getRows();
@@ -67,7 +69,7 @@ public class LoadTestOrgsFromXLFile extends _DoPatch {
 			try {
 				oDao.add(org);
 				System.out.println(org.getName() + " added");
-			} catch (SecureException e) {
+			} catch (SecureException | DAOException e) {
 				logger.errorLogEntry(e);
 			}
 		}

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
@@ -70,7 +71,7 @@ public class DepartmentForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-            entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setLocalizedName(getLocalizedNames(session, formData));
 			DepartmentTypeDAO dtDao = new DepartmentTypeDAO(session);
 			DepartmentType dt = dtDao.findById(formData.getValueSilently("departmenttype"));
 			entity.setType(dt);
@@ -83,7 +84,7 @@ public class DepartmentForm extends StaffForm {
 				dao.update(entity);
 			}
 
-		} catch (_Exception | DatabaseException | SecureException e) {
+		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
@@ -85,12 +86,12 @@ public class RegionForm extends ReferenceForm {
 
 			save(session, entity, dao, isNew);
 
-		} catch (_Exception | DatabaseException | SecureException e) {
+		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
-	private void save(_Session ses, Region entity, RegionDAO dao, boolean isNew) throws DatabaseException, SecureException {
+	private void save(_Session ses, Region entity, RegionDAO dao, boolean isNew) throws SecureException, DAOException {
 		Region foundEntity = dao.findByName(entity.getName());
 		if (foundEntity != null && !foundEntity.equals(entity)) {
 			_Validation ve = new _Validation();

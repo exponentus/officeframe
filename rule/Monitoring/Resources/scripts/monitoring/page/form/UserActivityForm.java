@@ -2,6 +2,7 @@ package monitoring.page.form;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
@@ -57,12 +58,12 @@ public class UserActivityForm extends _DoForm {
 
 			save(session, entity, dao, isNew);
 
-		} catch (_Exception | SecureException e) {
+		} catch (_Exception | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
-	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew) throws SecureException {
+	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew) throws SecureException, DAOException {
 
 		if (isNew) {
 			dao.add(entity);

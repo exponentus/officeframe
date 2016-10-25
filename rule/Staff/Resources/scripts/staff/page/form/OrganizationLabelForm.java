@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
@@ -35,7 +36,6 @@ public class OrganizationLabelForm extends StaffForm {
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
-		startSaveFormTransact(entity);
 	}
 
 	@Override
@@ -69,8 +69,7 @@ public class OrganizationLabelForm extends StaffForm {
 				dao.update(entity);
 			}
 
-			finishSaveFormTransact(entity);
-		} catch (_Exception | DatabaseException | SecureException e) {
+		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

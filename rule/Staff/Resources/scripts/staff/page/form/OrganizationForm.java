@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
@@ -75,12 +76,12 @@ public class OrganizationForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-            entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setLocalizedName(getLocalizedNames(session, formData));
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(session);
 			entity.setOrgCategory(ocDao.findById(formData.getValue("orgcategory")));
 			entity.setBin(formData.getValue("bin"));
 			OrganizationLabelDAO olDao = new OrganizationLabelDAO(session);
-			List<OrganizationLabel> labels = new ArrayList<OrganizationLabel>();
+			List<OrganizationLabel> labels = new ArrayList<>();
 			for (String labelId : formData.getListOfValuesSilently("labels")) {
 				if (!labelId.isEmpty()) {
 					OrganizationLabel prgLabel = olDao.findById(labelId);
@@ -97,7 +98,7 @@ public class OrganizationForm extends StaffForm {
 				dao.update(entity);
 			}
 
-		} catch (_Exception | DatabaseException | SecureException e) {
+		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

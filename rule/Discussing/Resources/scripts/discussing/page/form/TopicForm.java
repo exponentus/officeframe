@@ -2,10 +2,10 @@ package discussing.page.form;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._EnumWrapper;
-import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
@@ -67,14 +67,14 @@ public class TopicForm extends _DoForm {
 			}
 			TopicStatusType status = TopicStatusType.valueOf(formData.getValueSilently("status"));
 			entity.setStatus(status);
-			entity.setSubject(formData.getValue("subject"));
+			entity.setSubject(formData.getValueSilently("subject"));
 			save(session, entity, dao, isNew);
-		} catch (_Exception | SecureException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
-	private void save(_Session ses, Topic entity, TopicDAO dao, boolean isNew) throws SecureException {
+	private void save(_Session ses, Topic entity, TopicDAO dao, boolean isNew) throws SecureException, DAOException {
 		if (isNew) {
 			dao.add(entity);
 		} else {

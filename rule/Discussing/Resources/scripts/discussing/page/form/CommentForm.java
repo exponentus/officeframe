@@ -2,6 +2,7 @@ package discussing.page.form;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -63,12 +64,12 @@ public class CommentForm extends _DoForm {
 			entity.setComment(comment);
 			entity.setTask(topic);
 			save(session, entity, dao, isNew);
-		} catch (SecureException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
-	private void save(_Session ses, Comment entity, CommentDAO dao, boolean isNew) throws SecureException {
+	private void save(_Session ses, Comment entity, CommentDAO dao, boolean isNew) throws SecureException, DAOException {
 		if (isNew) {
 			dao.add(entity);
 		} else {

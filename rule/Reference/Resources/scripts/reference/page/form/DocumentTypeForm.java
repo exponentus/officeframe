@@ -2,6 +2,7 @@ package reference.page.form;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
@@ -60,12 +61,12 @@ public class DocumentTypeForm extends ReferenceForm {
 
 			save(session, entity, dao, isNew);
 
-		} catch (_Exception | SecureException e) {
+		} catch (_Exception | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
-	private void save(_Session ses, DocumentType entity, DocumentTypeDAO dao, boolean isNew) throws SecureException {
+	private void save(_Session ses, DocumentType entity, DocumentTypeDAO dao, boolean isNew) throws SecureException, DAOException {
 		/*
 		 * DocumentLanguage foundEntity = dao.findByCode(entity.getCode()); if
 		 * (foundEntity != null && !foundEntity.equals(entity)) { _Validation ve

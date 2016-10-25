@@ -2,9 +2,9 @@ package dataexport.page.form;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting._WebFormData;
@@ -53,18 +53,18 @@ public class ExportProfileForm extends _DoForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 
 			save(session, entity, dao, isNew);
 
-		} catch (_Exception | SecureException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
-	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew) throws SecureException {
+	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew) throws SecureException, DAOException {
 
 		if (isNew) {
 			dao.add(entity);

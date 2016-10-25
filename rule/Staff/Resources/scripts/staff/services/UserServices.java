@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 
 import com.exponentus.appenv.AppEnv;
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DatabasePoolException;
 import com.exponentus.dataengine.h2.ISystemDatabase;
 import com.exponentus.dataengine.h2.SystemDatabase;
@@ -47,7 +48,7 @@ public class UserServices {
 	}
 
 	public void importFromH2(boolean showConsoleOutput) {
-		List<User> entities = new ArrayList<User>();
+		List<User> entities = new ArrayList<>();
 
 		ISystemDatabase sysDb = null;
 		try {
@@ -60,7 +61,7 @@ public class UserServices {
 			}
 
 			ApplicationDAO aDao = new ApplicationDAO(new _Session(env, new AnonymousUser()));
-			List<AppCode> list = new ArrayList<AppCode>();
+			List<AppCode> list = new ArrayList<>();
 			list.add(AppCode.CUSTOM);
 			List<Application> appList = aDao.findAllin("code", list, 0, 0).getResult();
 
@@ -164,7 +165,7 @@ public class UserServices {
 										try {
 											orgDAO.add(newOrg);
 											entity.setOrganization(newOrg);
-										} catch (SecureException e) {
+										} catch (SecureException | DAOException e) {
 											e.printStackTrace();
 										}
 									}
@@ -197,7 +198,7 @@ public class UserServices {
 								entity.setRoles(roleList);
 							}
 
-							List<Application> appList = new ArrayList<Application>();
+							List<Application> appList = new ArrayList<>();
 							appList.add(aDao.findByName("MunicipalProperty"));
 							appList.add(aDao.findByName("Accountant"));
 							appList.add(aDao.findByName("PropertyLeasing"));
