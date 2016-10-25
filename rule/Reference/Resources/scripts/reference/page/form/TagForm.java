@@ -25,14 +25,15 @@ public class TagForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
+		TagDAO dao = new TagDAO(session);
 		Tag entity;
 		if (!id.isEmpty()) {
-			TagDAO dao = new TagDAO(session);
 			entity = dao.findById(UUID.fromString(id));
 		} else {
 			entity = (Tag) getDefaultEntity(user, new Tag());
 		}
 		addContent(entity);
+		addContent("category", dao.findAllCategories());
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 	}

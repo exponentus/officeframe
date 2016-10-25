@@ -18,8 +18,12 @@ public class DocumentTypeDAO extends ReferenceDAO<DocumentType, UUID> {
 
 	public List<DocumentType> findAllCategories() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		Query query = em.createQuery("SELECT e.category FROM DocumentType AS e GROUP BY e.category");
-		return query.getResultList();
+		try {
+			Query query = em.createQuery("SELECT e.category FROM DocumentType AS e GROUP BY e.category");
+			return query.getResultList();
+		} finally {
+			em.close();
+		}
 	}
 
 }

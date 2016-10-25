@@ -1,5 +1,6 @@
 package reference.dao;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,7 @@ import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.scripting._Session;
+
 import reference.model.Tag;
 
 public class TagDAO extends DAO<Tag, UUID> {
@@ -34,6 +36,16 @@ public class TagDAO extends DAO<Tag, UUID> {
 			return entity;
 		} catch (NoResultException e) {
 			return null;
+		} finally {
+			em.close();
+		}
+	}
+
+	public List<Tag> findAllCategories() {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		try {
+			Query query = em.createQuery("SELECT e.category FROM Tag AS e GROUP BY e.category");
+			return query.getResultList();
 		} finally {
 			em.close();
 		}
