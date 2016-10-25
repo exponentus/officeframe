@@ -52,9 +52,9 @@ body {
     }
 }
 
-.navbar .dropdown:hover .dropdown-menu {
+/*.navbar .dropdown:hover .dropdown-menu {
     right: 0;
-}
+}*/
 
 .navbar .dropdown-menu:after,
 .navbar .dropdown-menu:before {
@@ -64,6 +64,11 @@ body {
 .navbar .dropdown .dropdown-menu > li > a {
     color: #FFF;
     font-size: 14px;
+}
+@media (max-width: 768px) {
+    .navbar .dropdown-menu i.fa {
+        color: #646464;
+    }
 }
 @media (max-width: 1024px) {
     .navbar .dropdown .dropdown-menu {

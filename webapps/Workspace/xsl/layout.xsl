@@ -75,7 +75,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <i class="fa fa-user"></i>
                                 </a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu right">
                                     <li>
                                         <a class="user-profile_ws" href="p?id=userprofile">
                                             <i class="fa fa-user"></i>
