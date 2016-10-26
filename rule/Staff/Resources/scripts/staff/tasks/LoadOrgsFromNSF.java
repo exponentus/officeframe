@@ -39,6 +39,7 @@ public class LoadOrgsFromNSF extends _DoPatch {
 		Map<String, Organization> entities = new HashMap<>();
 		OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 		CollationDAO<Long> cDao = new CollationDAO(ses);
+		Map<String, String> typeCorrCollation = typeCorrCollationMapInit();
 
 		try {
 			Session dominoSession = NotesFactory.createSession(DOMINO_HOST, DOMINO_USER, DOMINO_USER_PWD);
@@ -57,12 +58,13 @@ public class LoadOrgsFromNSF extends _DoPatch {
 					localizedNames.put(LanguageCode.RUS, doc.getItemValueString("FullName"));
 					entity.setLocalizedName(localizedNames);
 					String typeCorr = doc.getItemValueString("TypeCorr");
-					if (typeCorr != null) {
-						OrgCategory oCat = ocDao.findByName(typeCorr);
-						if (oCat != null) {
-							entity.setOrgCategory(oCat);
-						}
+					String intRefKey = typeCorrCollation.get(typeCorr);
+					if (intRefKey == null) {
+						logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
+						intRefKey = "undefined";
 					}
+					OrgCategory oCat = ocDao.findByName(intRefKey);
+					entity.setOrgCategory(oCat);
 
 					entities.put(doc.getUniversalID(), entity);
 				}
@@ -83,7 +85,7 @@ public class LoadOrgsFromNSF extends _DoPatch {
 					if (oDao.add(org) != null) {
 						Collation<Long> collation = new Collation<>();
 						collation.setExtKey(entry.getKey());
-						collation.setIntKey(org.getId().toString());
+						collation.setIntKey(org.getId());
 						collation.setEntityType(org.getClass().getName());
 						cDao.add(collation);
 					}
@@ -101,6 +103,55 @@ public class LoadOrgsFromNSF extends _DoPatch {
 			}
 		}
 		System.out.println("done...");
+	}
+
+	private Map<String, String> typeCorrCollationMapInit() {
+		Map<String, String> typeCorrCollation = new HashMap<>();
+		typeCorrCollation.put("ТОО", "LTD");
+		typeCorrCollation.put("Банки", "Bank");
+		typeCorrCollation.put("Компании", "LTD");
+		typeCorrCollation.put("Компания", "LTD");
+		typeCorrCollation.put("ООО", "LTD");
+		typeCorrCollation.put("Фирма", "LTD");
+		typeCorrCollation.put("Gmbh", "LTD");
+		typeCorrCollation.put("Кооператив", "LTD");
+		typeCorrCollation.put("Кооператив", "LTD");
+		typeCorrCollation.put("АО", "JSC");
+		typeCorrCollation.put("ГУ", "State_office");
+		typeCorrCollation.put("ИНТЕГРАЦИЯ", "Integration");
+		typeCorrCollation.put("ОАО", "JSC");
+		typeCorrCollation.put("Министерства РК", "Ministry");
+		typeCorrCollation.put("Премьер-Министр РК", "Ministry");
+		typeCorrCollation.put("", "undefined");
+		typeCorrCollation.put("Суд", "Court");
+		typeCorrCollation.put("Фонды", "Court");
+		typeCorrCollation.put("РГП", "State_enterprise");
+		typeCorrCollation.put("ГКП", "State_enterprise");
+		typeCorrCollation.put("РГКП", "State_enterprise");
+		typeCorrCollation.put("Комитеты", "Committee");
+		typeCorrCollation.put("Зарубежная компания", "International_company");
+		typeCorrCollation.put("Прокуратура", "State_enterprise");
+		typeCorrCollation.put("Агентства РК", "State_enterprise");
+		typeCorrCollation.put("Агентства", "State_enterprise");
+		typeCorrCollation.put("Агентство", "State_enterprise");
+		typeCorrCollation.put("Управление", "State_enterprise");
+		typeCorrCollation.put("Управления", "State_enterprise");
+		typeCorrCollation.put("Министрества РК", "State_enterprise");
+		typeCorrCollation.put("Правительство", "State_enterprise");
+		typeCorrCollation.put("Акиматы", "City_Hall");
+		typeCorrCollation.put("ЗАО", "JSC");
+		typeCorrCollation.put("ИП", "Self_employed");
+		typeCorrCollation.put("Предприниматель", "Self_employed");
+		typeCorrCollation.put("Союзы", "Public_association");
+		typeCorrCollation.put("Филиал", "Branch");
+		typeCorrCollation.put("Посольство", "Embassy");
+		typeCorrCollation.put("Посольство в РК", "Embassy");
+		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
+		typeCorrCollation.put("Университет", "Educational_institution");
+
+		typeCorrCollation.put("null", "undefined");
+		return typeCorrCollation;
+
 	}
 
 }

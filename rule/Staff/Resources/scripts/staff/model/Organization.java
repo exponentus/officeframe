@@ -28,7 +28,7 @@ import reference.model.OrgCategory;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "orgs", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "bin" }) )
+@Table(name = "orgs", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "bin" }))
 @NamedQuery(name = "Organization.findAll", query = "SELECT m FROM Organization AS m ORDER BY m.regDate")
 public class Organization extends SimpleReferenceEntity {
 
@@ -43,7 +43,7 @@ public class Organization extends SimpleReferenceEntity {
 	private List<Employee> employers;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "orgs_labels", joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id") , inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id") )
+	@JoinTable(name = "orgs_labels", joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
 	private List<OrganizationLabel> labels;
 
 	@Column(length = 12)
