@@ -22,8 +22,6 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
 import reference.model.OrgCategory;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -113,13 +111,6 @@ public class Organization extends SimpleReferenceEntity {
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<bin>" + bin + "</bin>");
 		chunk.append("<orgcategory id=\"" + orgCategory.getId() + "\">" + orgCategory.getLocalizedName(ses.getLang()) + "</orgcategory>");
-		chunk.append("<localizednames>");
-		LanguageDAO lDao = new LanguageDAO(ses);
-		List<Language> list = lDao.findAll();
-		for (Language l : list) {
-			chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocalizedName(l.getCode()) + "</entry>");
-		}
-		chunk.append("</localizednames>");
 		chunk.append("<labels>");
 		for (OrganizationLabel l : labels) {
 			chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocalizedName(ses.getLang()) + "</entry>");

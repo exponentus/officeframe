@@ -7,12 +7,14 @@ import java.util.Map.Entry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.legacy.domino.DominoEnvConst;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
+import com.exponentus.user.IUser;
 
 import administrator.dao.CollationDAO;
+import administrator.dao.UserDAO;
 import administrator.model.Collation;
 import lotus.domino.Database;
 import lotus.domino.Document;
@@ -22,90 +24,113 @@ import lotus.domino.Session;
 import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import reference.dao.OrgCategoryDAO;
-import reference.model.OrgCategory;
+import reference.dao.PositionDAO;
+import reference.model.Position;
+import staff.dao.DepartmentDAO;
+import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
+import staff.model.Department;
+import staff.model.Employee;
 import staff.model.Organization;
 
-@Command(name = "import_orgs_nsf")
-public class LoadOrgsFromNSF extends _DoPatch {
-	private static final String DOMINO_HOST = "localhost";
-	private static final String DOMINO_USER = "developer";
-	private static final String DOMINO_USER_PWD = "12345";
-	private static final String STRUCTURE_DATABASE = "SmartDoc_BRK\\struct.nsf";
+@Command(name = "import_emp_nsf")
+public class ImportEmpFromNSF extends _DoPatch {
 
 	@Override
 	public void doTask(_Session ses) {
-		Map<String, Organization> entities = new HashMap<>();
-		OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
-		CollationDAO<Long> cDao = new CollationDAO(ses);
-		Map<String, String> typeCorrCollation = typeCorrCollationMapInit();
-
-		try {
-			Session dominoSession = NotesFactory.createSession(DOMINO_HOST, DOMINO_USER, DOMINO_USER_PWD);
-			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), STRUCTURE_DATABASE);
-			View view = inDb.getView("(AllUNID)");
-			ViewEntryCollection vec = view.getAllEntries();
-			ViewEntry entry = vec.getFirstEntry();
-			ViewEntry tmpEntry = null;
-			while (entry != null) {
-				Document doc = entry.getDocument();
-				String form = doc.getItemValueString("Form");
-				if (form.equals("Corr")) {
-					Organization entity = new Organization();
-					entity.setName(doc.getItemValueString("FullName"));
-					Map<LanguageCode, String> localizedNames = new HashMap<>();
-					localizedNames.put(LanguageCode.RUS, doc.getItemValueString("FullName"));
-					entity.setLocalizedName(localizedNames);
-					String typeCorr = doc.getItemValueString("TypeCorr");
-					String intRefKey = typeCorrCollation.get(typeCorr);
-					if (intRefKey == null) {
-						logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
-						intRefKey = "undefined";
-					}
-					OrgCategory oCat = ocDao.findByName(intRefKey);
-					entity.setOrgCategory(oCat);
-
-					entities.put(doc.getUniversalID(), entity);
-				}
-				tmpEntry = vec.getNextEntry();
-				entry.recycle();
-				entry = tmpEntry;
-			}
-		} catch (NotesException e) {
-			logger.errorLogEntry(e);
-		}
-
-		System.out.println("has been found " + entities.size() + " records");
+		Map<String, Employee> entities = new HashMap<>();
+		UserDAO uDao = new UserDAO(ses);
 		OrganizationDAO oDao = new OrganizationDAO(ses);
-		for (Entry<String, Organization> entry : entities.entrySet()) {
-			Organization org = entry.getValue();
+		DepartmentDAO dDao = new DepartmentDAO(ses);
+		EmployeeDAO eDao = new EmployeeDAO(ses);
+		PositionDAO pDao = new PositionDAO(ses);
+		CollationDAO cDao = new CollationDAO(ses);
+		Map<String, String> stuffCollation = stuffCollationMapInit();
+		Organization primaryOrg = oDao.findPrimaryOrg();
+		if (primaryOrg != null) {
 			try {
-				try {
-					if (oDao.add(org) != null) {
-						Collation<Long> collation = new Collation<>();
-						collation.setExtKey(entry.getKey());
-						collation.setIntKey(org.getId());
-						collation.setEntityType(org.getClass().getName());
-						cDao.add(collation);
+				Session dominoSession = NotesFactory.createSession(DominoEnvConst.DOMINO_HOST, DominoEnvConst.DOMINO_USER,
+				        DominoEnvConst.DOMINO_USER_PWD);
+				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), DominoEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
+				View view = inDb.getView("(AllUNID)");
+				ViewEntryCollection vec = view.getAllEntries();
+				ViewEntry entry = vec.getFirstEntry();
+				ViewEntry tmpEntry = null;
+				while (entry != null) {
+					Document doc = entry.getDocument();
+					String form = doc.getItemValueString("Form");
+					if (form.equals("E") && doc.getItemValueString("EType").equals("EMP")) {
+						Employee entity = new Employee();
+						String na = doc.getItemValueString("NotesAddress");
+						IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
+						if (user != null) {
+							String parent = doc.getParentDocumentUNID();
+							Employee parentUser = eDao.findByExtKey(parent);
+							if (parentUser != null) {
+								entity.setBoss(parentUser);
+							} else {
+								Department parentDep = dDao.findByExtKey(parent);
+								if (parentDep != null) {
+									entity.setDepartment(parentDep);
+								} else {
+									logger.errorLogEntry("\"" + parent + "\" parent entity has not been found");
+									break;
+								}
+							}
+							entity.setName(doc.getItemValueString("FullName"));
+							entity.setRank(doc.getItemValueInteger("Rank"));
+							String stuff = doc.getItemValueString("Stuff");
+							Position position = pDao.findByName(stuff);
+							if (position != null) {
+								entity.setPosition(position);
+							}
+
+							entities.put(doc.getUniversalID(), entity);
+						} else {
+							logger.errorLogEntry("\"" + na + "\" user has not been found");
+						}
 					}
-					System.out.println(org.getName() + " added");
+					tmpEntry = vec.getNextEntry();
+					entry.recycle();
+					entry = tmpEntry;
+				}
+			} catch (NotesException e) {
+				logger.errorLogEntry(e);
+			}
+
+			logger.infoLogEntry("has been found " + entities.size() + " records");
+
+			for (Entry<String, Employee> entry : entities.entrySet()) {
+				Employee employee = entry.getValue();
+
+				try {
+					if (eDao.add(employee) != null) {
+						Collation collation = new Collation();
+						collation.setExtKey(entry.getKey());
+						collation.setIntKey(employee.getId());
+						collation.setEntityType(employee.getClass().getName());
+						cDao.add(collation);
+						logger.infoLogEntry(employee.getName() + " added");
+					}
+
 				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.VALUE_IS_NOT_UNIQUE) {
+					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else {
 						logger.errorLogEntry(e);
 					}
+				} catch (SecureException e) {
+					logger.errorLogEntry(e);
 				}
 
-			} catch (SecureException e) {
-				logger.errorLogEntry(e);
 			}
+		} else {
+			logger.errorLogEntry("primary Organization has not been found");
 		}
 		System.out.println("done...");
 	}
 
-	private Map<String, String> typeCorrCollationMapInit() {
+	private Map<String, String> stuffCollationMapInit() {
 		Map<String, String> typeCorrCollation = new HashMap<>();
 		typeCorrCollation.put("ТОО", "LTD");
 		typeCorrCollation.put("Банки", "Bank");

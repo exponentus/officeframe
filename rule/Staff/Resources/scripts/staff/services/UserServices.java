@@ -80,7 +80,7 @@ public class UserServices {
 				uDao.add(user);
 			}
 
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | DatabasePoolException e) {
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | DatabasePoolException | DAOException e) {
 			Server.logger.errorLogEntry(e);
 		}
 
@@ -212,7 +212,7 @@ public class UserServices {
 				}
 				/*----------------------------------------*/
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | SecureException | DAOException e) {
 			e.printStackTrace();
 		} finally {
 			try {

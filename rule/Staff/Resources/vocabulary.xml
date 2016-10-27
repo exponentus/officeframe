@@ -98,6 +98,11 @@
         <entry lang="RUS">Добавить новую организацию</entry>
         <entry lang="KAZ">Қосу жаңа ұйым</entry>
     </sentence>
+      <sentence mode="on" keyword="primary_organization">
+        <entry lang="ENG">Primary organization</entry>
+        <entry lang="RUS">Первичная организация</entry>
+        <entry lang="KAZ">Алғашқы ұйымдастыру</entry>
+    </sentence>
       <sentence mode="on" keyword="is_primary_organization">
         <entry lang="ENG">is Primary organization</entry>
         <entry lang="RUS">Первичная организация</entry>

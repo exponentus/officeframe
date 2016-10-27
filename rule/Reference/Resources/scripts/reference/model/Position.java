@@ -17,5 +17,13 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 @Table(name = "positions", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Position.findAll", query = "SELECT m FROM Position AS m ORDER BY m.regDate")
 public class Position extends SimpleReferenceEntity {
+	private int rank = 999;
 
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
 }

@@ -38,7 +38,7 @@ import reference.model.Position;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }) )
+@Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @NamedQuery(name = "Employee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
 @Cache(isolation = CacheIsolationType.ISOLATED)
 public class Employee extends SimpleReferenceEntity implements IEmployee {
@@ -62,6 +62,11 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@JoinColumn(nullable = false)
 	private Department department;
 
+	@NotNull
+	@ManyToOne(optional = true)
+	@JoinColumn(nullable = false)
+	private Employee boss;
+
 	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private Position position;
@@ -70,11 +75,11 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@JoinTable(name = "employee_role")
 	private List<Role> roles;
 
+	private int rank = 999;
+
 	@JsonIgnore
 	@Embedded
 	private Avatar avatar;
-
-	private boolean fired;
 
 	@JsonIgnore
 	public Organization getOrganization() {
@@ -92,6 +97,14 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	public void setDepartment(Department department) {
 		this.department = department;
+	}
+
+	public Employee getBoss() {
+		return boss;
+	}
+
+	public void setBoss(Employee boss) {
+		this.boss = boss;
 	}
 
 	@JsonIgnore
@@ -155,9 +168,17 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	public void addRole(Role r) {
 		if (roles == null) {
-			roles = new ArrayList<Role>();
+			roles = new ArrayList<>();
 		}
 		roles.add(r);
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 
 	@JsonIgnore
@@ -169,17 +190,9 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		this.avatar = avatar;
 	}
 
-	public boolean isFired() {
-		return fired;
-	}
-
-	public void setFired(boolean fired) {
-		this.fired = fired;
-	}
-
 	@Override
 	public List<Attachment> getAttachments() {
-		List<Attachment> atts = new ArrayList<Attachment>();
+		List<Attachment> atts = new ArrayList<>();
 		Attachment a = new Attachment();
 		a.setRealFileName(StringUtil.getRandomText());
 		a.setFieldName("avatar");
@@ -197,7 +210,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 	@Override
 	public List<String> getAllRoles() {
-		List<String> list = new ArrayList<String>();
+		List<String> list = new ArrayList<>();
 		if (roles == null) {
 			return list;
 		}
@@ -222,6 +235,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<iin>" + iin + "</iin>");
+		chunk.append("<rank>" + rank + "</rank>");
 		if (user != null) {
 			chunk.append("<login>" + user.getLogin() + "</login>");
 		}

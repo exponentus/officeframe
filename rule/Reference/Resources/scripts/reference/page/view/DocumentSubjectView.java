@@ -1,11 +1,9 @@
-package staff.page.view;
+package reference.page.view;
 
-import java.util.List;
 import java.util.UUID;
 
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.actions._Action;
@@ -15,49 +13,35 @@ import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
-import staff.dao.OrganizationDAO;
-import staff.model.Department;
-import staff.model.Employee;
-import staff.model.Organization;
+import reference.dao.DocumentSubjectDAO;
+import reference.model.DocumentSubject;
 
-public class StructureView extends _DoPage {
+public class DocumentSubjectView extends _DoPage {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
-
 		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
 			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization");
-			newDocAction.setURL("Provider?id=organization-form");
+			_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_document_type");
+			newDocAction.setURL("p?id=documentsubject-form");
 			actionBar.addAction(newDocAction);
 			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
 		}
-
-		OrganizationDAO dao = new OrganizationDAO(session);
-		Organization org = dao.findPrimaryOrg();
-		if (org != null) {
-			List<Employee> bosses = org.getEmployers();
-			addContent(new _POJOListWrapper<>(bosses, session));
-			List<Department> deps = org.getDepartments();
-			addContent(new _POJOListWrapper<>(deps, session));
-		} else {
-			addContent(new _POJOListWrapper<>(getLocalizedWord("no_primary_org", lang), ""));
-		}
-
+		addContent(getViewPage(new DocumentSubjectDAO(session), formData));
 	}
 
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		devPrint(formData);
+		println(formData);
 
-		OrganizationDAO dao = new OrganizationDAO(session);
+		DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
-			Organization m = dao.findById(UUID.fromString(id));
+			DocumentSubject c = dao.findById(UUID.fromString(id));
 			try {
-				dao.delete(m);
+				dao.delete(c);
 			} catch (SecureException e) {
 				setError(e);
 			}

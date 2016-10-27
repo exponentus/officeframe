@@ -14,10 +14,12 @@ import org.apache.commons.io.IOUtils;
 
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.embedded.Avatar;
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppFile;
 import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
+import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._Exception;
@@ -119,7 +121,7 @@ public class EmployeeForm extends StaffForm {
 		}
 		addContent(entity);
 		addContent(getSimpleActionBar(session, session.getLang()));
-		addContent(new _POJOListWrapper<Role>(new RoleDAO(session).findAll(), session));
+		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
 
 	}
 
@@ -201,7 +203,7 @@ public class EmployeeForm extends StaffForm {
 				dao.update(entity);
 			}
 
-		} catch (_Exception e) {
+		} catch (_Exception | SecureException | DAOException e) {
 			setBadRequest();
 			logError(e);
 		}

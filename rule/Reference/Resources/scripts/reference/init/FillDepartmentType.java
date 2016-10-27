@@ -21,15 +21,15 @@ public class FillDepartmentType extends InitialDataAdapter<DepartmentType, Depar
 
 	@Override
 	public List<DepartmentType> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
-		List<DepartmentType> entities = new ArrayList<DepartmentType>();
-		String[] data = { "Department", "Sector" };
-		String[] dataRus = { "Отдел", "Сектор" };
-		String[] dataKaz = { "Отдел", "Сектор" };
+		List<DepartmentType> entities = new ArrayList<>();
+		String[] data = { "Department", "Sector", "Group", "Management" };
+		String[] dataRus = { "Департамент", "Сектор", "Группа", "Управление" };
+		String[] dataKaz = { "Департамент", "Сектор", "Группа", "Управление" };
 
 		for (int i = 0; i < data.length; i++) {
 			DepartmentType entity = new DepartmentType();
 			entity.setName(data[i]);
-			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.ENG, data[i]);
 			name.put(LanguageCode.KAZ, dataKaz[i]);
 			name.put(LanguageCode.RUS, dataRus[i]);

@@ -12,8 +12,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
@@ -22,7 +20,6 @@ import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 
-import administrator.dao.UserDAO;
 import staff.model.Employee;
 
 public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
@@ -80,54 +77,29 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 		return findByUserId(id);
 	}
 
-	@Override
-	public Employee add(Employee entity) throws DatabaseException {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				t.begin();
-				entity.setAuthorId(user.getId());
-				entity.setForm(entity.getDefaultFormName());
-				entity.setLastModifier(user.getId());
-				UserDAO.normalizePwd(entity.getUser());
-				em.persist(entity);
-				t.commit();
-				// update(entity);
-				return entity;
-			} finally {
-				if (t.isActive()) {
-					t.rollback();
-				}
-			}
-		} finally {
-			em.close();
-
-		}
-
-	}
-
-	@Override
-	public Employee update(Employee entity) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				t.begin();
-				UserDAO.normalizePwd(entity.getUser());
-				entity.setLastModifier(user.getId());
-				em.merge(entity);
-				t.commit();
-				return entity;
-			} finally {
-				if (t.isActive()) {
-					t.rollback();
-				}
-			}
-		} finally {
-			em.close();
-		}
-	}
+	/*
+	 * @Override public Employee add(Employee entity){ EntityManager em =
+	 * getEntityManagerFactory().createEntityManager(); try { EntityTransaction
+	 * t = em.getTransaction(); try { t.begin();
+	 * entity.setAuthorId(user.getId());
+	 * entity.setForm(entity.getDefaultFormName());
+	 * entity.setLastModifier(user.getId());
+	 * 
+	 * em.persist(entity); t.commit(); // update(entity); return entity; }
+	 * finally { if (t.isActive()) { t.rollback(); } } } finally { em.close();
+	 * 
+	 * }
+	 * 
+	 * }
+	 * 
+	 * @Override public Employee update(Employee entity) { EntityManager em =
+	 * getEntityManagerFactory().createEntityManager(); try { EntityTransaction
+	 * t = em.getTransaction(); try { t.begin();
+	 * UserDAO.normalizePwd(entity.getUser());
+	 * entity.setLastModifier(user.getId()); em.merge(entity); t.commit();
+	 * return entity; } finally { if (t.isActive()) { t.rollback(); } } }
+	 * finally { em.close(); } }
+	 */
 
 	@Override
 	public void delete(Employee entity) throws SecureException {

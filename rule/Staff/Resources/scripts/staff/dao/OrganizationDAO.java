@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -19,7 +18,6 @@ import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
 
-import administrator.model.Collation;
 import reference.model.OrgCategory;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;
@@ -139,48 +137,6 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			typedQuery.setMaxResults(pageSize);
 			List<Organization> result = typedQuery.getResultList();
 			return new ViewPage<>(result, count, maxPage, pageNum);
-		} finally {
-			em.close();
-		}
-	}
-
-	public Organization findByExtKey(String extKey) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		try {
-			CriteriaQuery<?> criteriaQuery = cb.createQuery();
-			Root<Organization> org = criteriaQuery.from(Organization.class);
-			Root<Collation> collation = criteriaQuery.from(Collation.class);
-			criteriaQuery.multiselect(org, collation);
-			Predicate condition1 = cb.equal(org.get("id"), collation.get("intKey"));
-			Predicate condition2 = cb.equal(collation.get("extKey"), extKey);
-			criteriaQuery.where(cb.and(condition2, condition1));
-			Query query = em.createQuery(criteriaQuery);
-			Object[] result = (Object[]) query.getSingleResult();
-			return (Organization) result[0];
-		} catch (NoResultException e) {
-			return null;
-		} finally {
-			em.close();
-		}
-	}
-
-	public List findAllExt(int pageNum, int pageSize) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		try {
-			CriteriaQuery criteriaQuery = cb.createQuery();
-			Root<Organization> org = criteriaQuery.from(Organization.class);
-			Root<Collation> collation = criteriaQuery.from(Collation.class);
-			criteriaQuery.multiselect(org, collation);
-			Predicate condition = cb.equal(org.get("id"), collation.get("intKey"));
-			Query query = em.createQuery(criteriaQuery);
-			criteriaQuery.where(condition);
-			TypedQuery<Organization> typedQuery = em.createQuery(criteriaQuery);
-			int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-			typedQuery.setFirstResult(firstRec);
-			typedQuery.setMaxResults(pageSize);
-			return typedQuery.getResultList();
 		} finally {
 			em.close();
 		}

@@ -23,7 +23,7 @@ import reference.model.DepartmentType;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }) )
+@Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
 public class Department extends SimpleReferenceEntity {
 
@@ -32,12 +32,24 @@ public class Department extends SimpleReferenceEntity {
 	private DepartmentType type;
 
 	@NotNull
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private Organization organization;
 
+	@NotNull
+	@ManyToOne(optional = true)
+	@JoinColumn(nullable = false)
+	private Department leadDepartment;
+
+	@NotNull
+	@ManyToOne(optional = true)
+	@JoinColumn(nullable = false)
+	private Employee boss;
+
 	@OneToMany(mappedBy = "department")
 	private List<Employee> employees;
+
+	private int rank = 999;
 
 	@JsonIgnore
 	public Organization getOrganization() {
@@ -46,6 +58,22 @@ public class Department extends SimpleReferenceEntity {
 
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
+	}
+
+	public Department getLeadDepartment() {
+		return leadDepartment;
+	}
+
+	public void setLeadDepartment(Department leadDepartment) {
+		this.leadDepartment = leadDepartment;
+	}
+
+	public Employee getBoss() {
+		return boss;
+	}
+
+	public void setBoss(Employee boss) {
+		this.boss = boss;
 	}
 
 	@JsonIgnore
@@ -59,6 +87,14 @@ public class Department extends SimpleReferenceEntity {
 
 	public void setType(DepartmentType type) {
 		this.type = type;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
 	}
 
 	String getOrganizationId() {
