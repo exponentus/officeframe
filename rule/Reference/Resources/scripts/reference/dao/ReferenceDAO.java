@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -43,6 +44,8 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			cq.where(condition);
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			return typedQuery.getSingleResult();
+		} catch (NonUniqueResultException e) {
+			return null;
 		} catch (NoResultException e) {
 			return null;
 		} finally {

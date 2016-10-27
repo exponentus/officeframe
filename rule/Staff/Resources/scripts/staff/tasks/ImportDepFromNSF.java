@@ -24,6 +24,7 @@ import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.DepartmentTypeDAO;
 import reference.model.DepartmentType;
+import reference.tasks.InsertUndefinedGag;
 import staff.dao.DepartmentDAO;
 import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
@@ -75,7 +76,7 @@ public class ImportDepFromNSF extends _DoPatch {
 						String intRefKey = depTypeCollation.get(depType);
 						if (intRefKey == null) {
 							logger.errorLogEntry("wrong reference ext value \"" + depType + "\"");
-							intRefKey = "undefined";
+							intRefKey = InsertUndefinedGag.gagKey;
 						}
 						DepartmentType type = dtDao.findByName(intRefKey);
 						entity.setType(type);
@@ -130,7 +131,8 @@ public class ImportDepFromNSF extends _DoPatch {
 		depTypeCollation.put("Сектор", "Sector");
 		depTypeCollation.put("Группа", "Group");
 
-		depTypeCollation.put("null", "undefined");
+		depTypeCollation.put("", InsertUndefinedGag.gagKey);
+		depTypeCollation.put("null", InsertUndefinedGag.gagKey);
 		return depTypeCollation;
 
 	}

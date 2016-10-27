@@ -1,11 +1,14 @@
 package staff.tasks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
+import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.exception.SecureException;
 import com.exponentus.legacy.domino.DominoEnvConst;
 import com.exponentus.localization.LanguageCode;
@@ -26,11 +29,16 @@ import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
+import reference.tasks.InsertUndefinedGag;
 import staff.dao.OrganizationDAO;
+import staff.dao.OrganizationLabelDAO;
 import staff.model.Organization;
+import staff.model.OrganizationLabel;
 
 @Command(name = "import_orgs_nsf")
 public class ImportOrgsFromNSF extends _DoPatch {
+	private static final String PRIMARY_ORGANIZATION = "Банк развития Казахстана";
+	private static final String PRIMARY_ORGANIZATION_LABEL = "primary";
 
 	@Override
 	public void doTask(_Session ses) {
@@ -61,7 +69,7 @@ public class ImportOrgsFromNSF extends _DoPatch {
 					String intRefKey = typeCorrCollation.get(typeCorr);
 					if (intRefKey == null) {
 						logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
-						intRefKey = "undefined";
+						intRefKey = InsertUndefinedGag.gagKey;
 					}
 					OrgCategory oCat = ocDao.findByName(intRefKey);
 					entity.setOrgCategory(oCat);
@@ -102,7 +110,35 @@ public class ImportOrgsFromNSF extends _DoPatch {
 				logger.errorLogEntry(e);
 			}
 		}
+		setPrimaryOrg(oDao);
+
 		logger.infoLogEntry("done...");
+	}
+
+	private void setPrimaryOrg(OrganizationDAO oDao) {
+		logger.infoLogEntry("setup primary organization...");
+		ViewPage<Organization> orgs = oDao.findAllByKeyword(PRIMARY_ORGANIZATION, 1, 1);
+		Organization org = orgs.getResult().get(0);
+		if (org != null) {
+			OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
+			List<OrganizationLabel> labels = new ArrayList<>();
+			OrganizationLabel l = olDao.findByName(PRIMARY_ORGANIZATION_LABEL);
+			if (l != null) {
+				labels.add(l);
+				org.setLabels(labels);
+				try {
+					oDao.update(org);
+				} catch (SecureException e) {
+					logger.errorLogEntry(e);
+				} catch (DAOException e) {
+					logger.errorLogEntry(e);
+				}
+			} else {
+				logger.errorLogEntry("organization label has not been found (" + PRIMARY_ORGANIZATION_LABEL + ")");
+			}
+		} else {
+			logger.errorLogEntry("primary organization has not been found (" + PRIMARY_ORGANIZATION + ")");
+		}
 	}
 
 	private Map<String, String> typeCorrCollationMapInit() {
@@ -111,9 +147,11 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		typeCorrCollation.put("Банки", "Bank");
 		typeCorrCollation.put("Компании", "LTD");
 		typeCorrCollation.put("Компания", "LTD");
+		typeCorrCollation.put("компания", "LTD");
 		typeCorrCollation.put("ООО", "LTD");
 		typeCorrCollation.put("Фирма", "LTD");
-		typeCorrCollation.put("Gmbh", "LTD");
+		typeCorrCollation.put("Фирмы", "LTD");
+		typeCorrCollation.put("GmbH", "LTD");
 		typeCorrCollation.put("Кооператив", "LTD");
 		typeCorrCollation.put("Кооператив", "LTD");
 		typeCorrCollation.put("АО", "JSC");
@@ -122,7 +160,6 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		typeCorrCollation.put("ОАО", "JSC");
 		typeCorrCollation.put("Министерства РК", "Ministry");
 		typeCorrCollation.put("Премьер-Министр РК", "Ministry");
-		typeCorrCollation.put("", "undefined");
 		typeCorrCollation.put("Суд", "Court");
 		typeCorrCollation.put("Фонды", "Court");
 		typeCorrCollation.put("РГП", "State_enterprise");
@@ -130,6 +167,8 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		typeCorrCollation.put("РГКП", "State_enterprise");
 		typeCorrCollation.put("Комитеты", "Committee");
 		typeCorrCollation.put("Зарубежная компания", "International_company");
+		typeCorrCollation.put("Президент РК", "State_enterprise");
+		typeCorrCollation.put("финансовая полиция", "State_enterprise");
 		typeCorrCollation.put("Прокуратура", "State_enterprise");
 		typeCorrCollation.put("Агентства РК", "State_enterprise");
 		typeCorrCollation.put("Агентства", "State_enterprise");
@@ -138,10 +177,12 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		typeCorrCollation.put("Управления", "State_enterprise");
 		typeCorrCollation.put("Министрества РК", "State_enterprise");
 		typeCorrCollation.put("Правительство", "State_enterprise");
+		typeCorrCollation.put("ЦОН", "State_enterprise");
 		typeCorrCollation.put("Акиматы", "City_Hall");
 		typeCorrCollation.put("ЗАО", "JSC");
 		typeCorrCollation.put("ИП", "Self_employed");
 		typeCorrCollation.put("Предприниматель", "Self_employed");
+		typeCorrCollation.put("Физические лица", "Self_employed");
 		typeCorrCollation.put("Союзы", "Public_association");
 		typeCorrCollation.put("Филиал", "Branch");
 		typeCorrCollation.put("Посольство", "Embassy");
@@ -149,7 +190,8 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
 		typeCorrCollation.put("Университет", "Educational_institution");
 
-		typeCorrCollation.put("null", "undefined");
+		typeCorrCollation.put("null", InsertUndefinedGag.gagKey);
+		typeCorrCollation.put("", InsertUndefinedGag.gagKey);
 		return typeCorrCollation;
 
 	}

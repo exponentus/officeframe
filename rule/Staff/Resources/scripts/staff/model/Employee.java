@@ -203,6 +203,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<rank>" + rank + "</rank>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<login>" + getLogin() + "</login>");
 		return chunk.toString();

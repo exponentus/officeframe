@@ -13,6 +13,7 @@ import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
+import com.exponentus.util.NumberUtil;
 
 import administrator.dao.CollationDAO;
 import administrator.dao.UserDAO;
@@ -71,7 +72,7 @@ public class ImportRvzFromNSF extends _DoPatch {
 								entity.setBoss(parentUser);
 							}
 							entity.setName(doc.getItemValueString("FullName"));
-							entity.setRank(doc.getItemValueInteger("Rank"));
+							entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
 							String stuff = doc.getItemValueString("Stuff");
 							Position position = pDao.findByName(stuff);
 							if (position != null) {

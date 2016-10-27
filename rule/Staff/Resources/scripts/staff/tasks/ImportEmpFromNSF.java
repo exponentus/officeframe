@@ -12,6 +12,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.IUser;
+import com.exponentus.util.NumberUtil;
 
 import administrator.dao.CollationDAO;
 import administrator.dao.UserDAO;
@@ -26,6 +27,7 @@ import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.PositionDAO;
 import reference.model.Position;
+import reference.tasks.InsertUndefinedGag;
 import staff.dao.DepartmentDAO;
 import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
@@ -78,8 +80,9 @@ public class ImportEmpFromNSF extends _DoPatch {
 								}
 							}
 							entity.setName(doc.getItemValueString("FullName"));
-							entity.setRank(doc.getItemValueInteger("Rank"));
+							entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
 							String stuff = doc.getItemValueString("Stuff");
+							System.out.println(stuff);
 							Position position = pDao.findByName(stuff);
 							if (position != null) {
 								entity.setPosition(position);
@@ -147,7 +150,6 @@ public class ImportEmpFromNSF extends _DoPatch {
 		typeCorrCollation.put("ОАО", "JSC");
 		typeCorrCollation.put("Министерства РК", "Ministry");
 		typeCorrCollation.put("Премьер-Министр РК", "Ministry");
-		typeCorrCollation.put("", "undefined");
 		typeCorrCollation.put("Суд", "Court");
 		typeCorrCollation.put("Фонды", "Court");
 		typeCorrCollation.put("РГП", "State_enterprise");
@@ -173,8 +175,8 @@ public class ImportEmpFromNSF extends _DoPatch {
 		typeCorrCollation.put("Посольство в РК", "Embassy");
 		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
 		typeCorrCollation.put("Университет", "Educational_institution");
-
-		typeCorrCollation.put("null", "undefined");
+		typeCorrCollation.put("", InsertUndefinedGag.gagKey);
+		typeCorrCollation.put("null", InsertUndefinedGag.gagKey);
 		return typeCorrCollation;
 
 	}
