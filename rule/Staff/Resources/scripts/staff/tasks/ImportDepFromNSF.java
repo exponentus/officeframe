@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.domino.DominoEnvConst;
+import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -24,7 +24,6 @@ import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.DepartmentTypeDAO;
 import reference.model.DepartmentType;
-import reference.tasks.InsertUndefinedGag;
 import staff.dao.DepartmentDAO;
 import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
@@ -47,9 +46,9 @@ public class ImportDepFromNSF extends _DoPatch {
 		Organization primaryOrg = oDao.findPrimaryOrg();
 		if (primaryOrg != null) {
 			try {
-				Session dominoSession = NotesFactory.createSession(DominoEnvConst.DOMINO_HOST, DominoEnvConst.DOMINO_USER,
-				        DominoEnvConst.DOMINO_USER_PWD);
-				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), DominoEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
+				Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
+				        ConvertorEnvConst.DOMINO_USER_PWD);
+				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
 				View view = inDb.getView("(AllUNID)");
 				ViewEntryCollection vec = view.getAllEntries();
 				ViewEntry entry = vec.getFirstEntry();
@@ -76,7 +75,7 @@ public class ImportDepFromNSF extends _DoPatch {
 						String intRefKey = depTypeCollation.get(depType);
 						if (intRefKey == null) {
 							logger.errorLogEntry("wrong reference ext value \"" + depType + "\"");
-							intRefKey = InsertUndefinedGag.gagKey;
+							intRefKey = ConvertorEnvConst.GAG_KEY;
 						}
 						DepartmentType type = dtDao.findByName(intRefKey);
 						entity.setType(type);
@@ -131,8 +130,8 @@ public class ImportDepFromNSF extends _DoPatch {
 		depTypeCollation.put("Сектор", "Sector");
 		depTypeCollation.put("Группа", "Group");
 
-		depTypeCollation.put("", InsertUndefinedGag.gagKey);
-		depTypeCollation.put("null", InsertUndefinedGag.gagKey);
+		depTypeCollation.put("", ConvertorEnvConst.GAG_KEY);
+		depTypeCollation.put("null", ConvertorEnvConst.GAG_KEY);
 		return depTypeCollation;
 
 	}

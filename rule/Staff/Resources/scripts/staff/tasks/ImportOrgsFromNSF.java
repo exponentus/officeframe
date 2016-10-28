@@ -10,7 +10,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.domino.DominoEnvConst;
+import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPatch;
@@ -29,7 +29,6 @@ import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
-import reference.tasks.InsertUndefinedGag;
 import staff.dao.OrganizationDAO;
 import staff.dao.OrganizationLabelDAO;
 import staff.model.Organization;
@@ -37,7 +36,7 @@ import staff.model.OrganizationLabel;
 
 @Command(name = "import_orgs_nsf")
 public class ImportOrgsFromNSF extends _DoPatch {
-	private static final String PRIMARY_ORGANIZATION = "Банк развития Казахстана";
+	private static final String PRIMARY_ORGANIZATION = "Банк развития Казахстана".toLowerCase();
 	private static final String PRIMARY_ORGANIZATION_LABEL = "primary";
 
 	@Override
@@ -48,9 +47,9 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		Map<String, String> typeCorrCollation = typeCorrCollationMapInit();
 
 		try {
-			Session dominoSession = NotesFactory.createSession(DominoEnvConst.DOMINO_HOST, DominoEnvConst.DOMINO_USER,
-			        DominoEnvConst.DOMINO_USER_PWD);
-			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), DominoEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
+			Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
+			        ConvertorEnvConst.DOMINO_USER_PWD);
+			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
 			View view = inDb.getView("(AllUNID)");
 			ViewEntryCollection vec = view.getAllEntries();
 			ViewEntry entry = vec.getFirstEntry();
@@ -69,11 +68,19 @@ public class ImportOrgsFromNSF extends _DoPatch {
 					String intRefKey = typeCorrCollation.get(typeCorr);
 					if (intRefKey == null) {
 						logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
-						intRefKey = InsertUndefinedGag.gagKey;
+						intRefKey = ConvertorEnvConst.GAG_KEY;
 					}
 					OrgCategory oCat = ocDao.findByName(intRefKey);
 					entity.setOrgCategory(oCat);
-
+					if (entity.getName().toLowerCase().contains(PRIMARY_ORGANIZATION)) {
+						List<OrganizationLabel> labels = new ArrayList<>();
+						OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
+						OrganizationLabel l = olDao.findByName(PRIMARY_ORGANIZATION_LABEL);
+						if (l != null) {
+							labels.add(l);
+							entity.setLabels(labels);
+						}
+					}
 					entities.put(doc.getUniversalID(), entity);
 				}
 				tmpEntry = vec.getNextEntry();
@@ -96,8 +103,9 @@ public class ImportOrgsFromNSF extends _DoPatch {
 						collation.setIntKey(org.getId());
 						collation.setEntityType(org.getClass().getName());
 						cDao.add(collation);
+						logger.infoLogEntry(org.getName() + " added");
 					}
-					System.out.println(org.getName() + " added");
+
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
@@ -110,7 +118,7 @@ public class ImportOrgsFromNSF extends _DoPatch {
 				logger.errorLogEntry(e);
 			}
 		}
-		setPrimaryOrg(oDao);
+		// setPrimaryOrg(oDao);
 
 		logger.infoLogEntry("done...");
 	}
@@ -190,8 +198,8 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
 		typeCorrCollation.put("Университет", "Educational_institution");
 
-		typeCorrCollation.put("null", InsertUndefinedGag.gagKey);
-		typeCorrCollation.put("", InsertUndefinedGag.gagKey);
+		typeCorrCollation.put("null", ConvertorEnvConst.GAG_KEY);
+		typeCorrCollation.put("", ConvertorEnvConst.GAG_KEY);
 		return typeCorrCollation;
 
 	}

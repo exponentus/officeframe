@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.domino.DominoEnvConst;
+import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPatch;
@@ -36,9 +36,9 @@ public class ImportPositionNSF extends _DoPatch {
 		CollationDAO cDao = new CollationDAO(ses);
 
 		try {
-			Session dominoSession = NotesFactory.createSession(DominoEnvConst.DOMINO_HOST, DominoEnvConst.DOMINO_USER,
-			        DominoEnvConst.DOMINO_USER_PWD);
-			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), DominoEnvConst.APPLICATION_DIRECTORY + "sprav.nsf");
+			Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
+			        ConvertorEnvConst.DOMINO_USER_PWD);
+			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "sprav.nsf");
 			View view = inDb.getView("(AllUNID)");
 			ViewEntryCollection vec = view.getAllEntries();
 			ViewEntry entry = vec.getFirstEntry();
