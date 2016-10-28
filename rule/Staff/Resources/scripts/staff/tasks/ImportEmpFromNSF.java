@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.domino.DominoEnvConst;
+import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -17,6 +17,7 @@ import com.exponentus.util.NumberUtil;
 import administrator.dao.CollationDAO;
 import administrator.dao.UserDAO;
 import administrator.model.Collation;
+import administrator.model.User;
 import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
@@ -27,7 +28,6 @@ import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.PositionDAO;
 import reference.model.Position;
-import reference.tasks.InsertUndefinedGag;
 import staff.dao.DepartmentDAO;
 import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
@@ -47,13 +47,15 @@ public class ImportEmpFromNSF extends _DoPatch {
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		PositionDAO pDao = new PositionDAO(ses);
 		CollationDAO cDao = new CollationDAO(ses);
-		Map<String, String> stuffCollation = stuffCollationMapInit();
 		Organization primaryOrg = oDao.findPrimaryOrg();
+
+		User dummyUser = (User) uDao.findByLogin(ConvertorEnvConst.DUMMY_USER);
+
 		if (primaryOrg != null) {
 			try {
-				Session dominoSession = NotesFactory.createSession(DominoEnvConst.DOMINO_HOST, DominoEnvConst.DOMINO_USER,
-				        DominoEnvConst.DOMINO_USER_PWD);
-				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), DominoEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
+				Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
+				        ConvertorEnvConst.DOMINO_USER_PWD);
+				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
 				View view = inDb.getView("(AllUNID)");
 				ViewEntryCollection vec = view.getAllEntries();
 				ViewEntry entry = vec.getFirstEntry();
@@ -64,35 +66,37 @@ public class ImportEmpFromNSF extends _DoPatch {
 					if (form.equals("E") && doc.getItemValueString("EType").equals("EMP")) {
 						Employee entity = new Employee();
 						String na = doc.getItemValueString("NotesAddress");
+
+						String parent = doc.getParentDocumentUNID();
+						Employee parentUser = eDao.findByExtKey(parent);
+						if (parentUser != null) {
+							entity.setBoss(parentUser);
+						} else {
+							Department parentDep = dDao.findByExtKey(parent);
+							if (parentDep != null) {
+								entity.setDepartment(parentDep);
+							} else {
+								logger.errorLogEntry("\"" + parent + "\" parent entity has not been found");
+								break;
+							}
+						}
+						entity.setName(doc.getItemValueString("FullName"));
+						entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
+						String stuff = doc.getItemValueString("Stuff");
+						Position position = pDao.findByName(stuff);
+						if (position != null) {
+							entity.setPosition(position);
+						}
 						IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
 						if (user != null) {
-							String parent = doc.getParentDocumentUNID();
-							Employee parentUser = eDao.findByExtKey(parent);
-							if (parentUser != null) {
-								entity.setBoss(parentUser);
-							} else {
-								Department parentDep = dDao.findByExtKey(parent);
-								if (parentDep != null) {
-									entity.setDepartment(parentDep);
-								} else {
-									logger.errorLogEntry("\"" + parent + "\" parent entity has not been found");
-									break;
-								}
-							}
-							entity.setName(doc.getItemValueString("FullName"));
-							entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
-							String stuff = doc.getItemValueString("Stuff");
-							System.out.println(stuff);
-							Position position = pDao.findByName(stuff);
-							if (position != null) {
-								entity.setPosition(position);
-							}
-
-							entities.put(doc.getUniversalID(), entity);
+							entity.setUser((User) user);
 						} else {
 							logger.errorLogEntry("\"" + na + "\" user has not been found");
+							entity.setUser(dummyUser);
 						}
+						entities.put(doc.getUniversalID(), entity);
 					}
+
 					tmpEntry = vec.getNextEntry();
 					entry.recycle();
 					entry = tmpEntry;
@@ -119,6 +123,8 @@ public class ImportEmpFromNSF extends _DoPatch {
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
 						logger.errorLogEntry(e);
 					}
@@ -175,8 +181,8 @@ public class ImportEmpFromNSF extends _DoPatch {
 		typeCorrCollation.put("Посольство в РК", "Embassy");
 		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
 		typeCorrCollation.put("Университет", "Educational_institution");
-		typeCorrCollation.put("", InsertUndefinedGag.gagKey);
-		typeCorrCollation.put("null", InsertUndefinedGag.gagKey);
+		typeCorrCollation.put("", ConvertorEnvConst.GAG_KEY);
+		typeCorrCollation.put("null", ConvertorEnvConst.GAG_KEY);
 		return typeCorrCollation;
 
 	}
