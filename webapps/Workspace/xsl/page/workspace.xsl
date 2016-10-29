@@ -29,21 +29,19 @@
     </xsl:template>
 
     <xsl:template match="entry" mode="app">
-      
-            <div class="ws-app">
-                <a class="ws-app-link" href="/{viewcontent/app/@id}/{viewcontent/url}">
-                    <span class="ws-app-logo">
-                        <img class="ws-app-logo" src="/{viewcontent/app/@id}/img/logo.png" alt="logo"/>
-                    </span>
-                    <span class="ws-app-type">
-                        <xsl:value-of select="viewcontent/app/@id"/>
-                    </span>
-                    <span class="ws-app-name">
-                        <xsl:value-of select="viewcontent/app"/>
-                    </span>
-                </a>
-            </div>
-       
+        <div class="ws-app">
+            <a class="ws-app-link" href="/{viewcontent/app/@id}/{viewcontent/url}">
+                <span class="ws-app-logo">
+                    <img class="ws-app-logo" src="/{viewcontent/app/@id}/img/logo.png" alt="logo"/>
+                </span>
+                <span class="ws-app-type">
+                    <xsl:value-of select="viewcontent/app/@id"/>
+                </span>
+                <span class="ws-app-name">
+                    <xsl:value-of select="viewcontent/app"/>
+                </span>
+            </a>
+        </div>
     </xsl:template>
 
     <xsl:template name="off-app">
