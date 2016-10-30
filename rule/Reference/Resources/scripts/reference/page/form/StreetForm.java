@@ -32,7 +32,13 @@ public class StreetForm extends ReferenceForm {
 		} else {
 			entity = (Street) getDefaultEntity(user, new Street());
 			LocalityDAO cDao = new LocalityDAO(session);
-			Locality city = cDao.findByName("Алматы");
+			Locality city = null;
+			try {
+				city = cDao.findByName("Алматы");
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			entity.setLocality(city);
 		}
 		addContent(entity);

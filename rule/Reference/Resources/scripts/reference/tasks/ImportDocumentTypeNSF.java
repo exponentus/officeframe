@@ -10,20 +10,23 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;
 
+import administrator.dao.CollationDAO;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import reference.dao.DocumentSubjectDAO;
-import reference.model.DocumentSubject;
+import reference.dao.DocumentTypeDAO;
+import reference.model.DocumentType;
 
-@Command(name = "import_har_nsf")
-public class ImportDocumentSubjNSF extends ImportNSF {
+@Command(name = "import_vid_nsf")
+public class ImportDocumentTypeNSF extends ImportNSF {
 
 	@Override
 	public void doTask(_Session ses) {
-		Map<String, DocumentSubject> entities = new HashMap<>();
-		DocumentSubjectDAO dao = new DocumentSubjectDAO(ses);
+		Map<String, DocumentType> entities = new HashMap<>();
+		CollationDAO cDao = new CollationDAO(ses);
+		DocumentTypeDAO dao = new DocumentTypeDAO(ses);
+
 		try {
 			ViewEntryCollection vec = getAllEntries("sprav.nsf");
 			ViewEntry entry = vec.getFirstEntry();
@@ -31,17 +34,17 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 			while (entry != null) {
 				Document doc = entry.getDocument();
 				String form = doc.getItemValueString("Form");
-				if (form.equals("Har")) {
+				if (form.equals("TypeDoc")) {
 					String unId = doc.getUniversalID();
-					DocumentSubject entity = dao.findByExtKey(unId);
+					DocumentType entity = dao.findByExtKey(unId);
 					if (entity == null) {
-						entity = new DocumentSubject();
+						entity = new DocumentType();
 						entity.setAuthor(new SuperUser());
 					}
 					entity.setName(doc.getItemValueString("Name"));
 					Map<LanguageCode, String> localizedNames = new HashMap<>();
 					localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name"));
-					localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("NameKZ"));
+					localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name1"));
 					entity.setLocalizedName(localizedNames);
 					entity.setCategory(doc.getItemValueString("Cat"));
 					entities.put(doc.getUniversalID(), entity);
@@ -56,9 +59,10 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 
 		logger.infoLogEntry("has been found " + entities.size() + " records");
 
-		for (Entry<String, DocumentSubject> entry : entities.entrySet()) {
+		for (Entry<String, DocumentType> entry : entities.entrySet()) {
 			save(dao, entry.getValue(), entry.getKey());
 		}
+
 		logger.infoLogEntry("done...");
 	}
 

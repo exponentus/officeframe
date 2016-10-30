@@ -5,25 +5,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.exception.SecureException;
 import com.exponentus.legacy.ConvertorEnvConst;
+import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.IUser;
+import com.exponentus.user.SuperUser;
 import com.exponentus.util.NumberUtil;
 
-import administrator.dao.CollationDAO;
 import administrator.dao.UserDAO;
-import administrator.model.Collation;
 import administrator.model.User;
-import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
-import lotus.domino.NotesFactory;
-import lotus.domino.Session;
-import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.PositionDAO;
@@ -36,7 +29,7 @@ import staff.model.Employee;
 import staff.model.Organization;
 
 @Command(name = "import_emp_nsf")
-public class ImportEmpFromNSF extends _DoPatch {
+public class ImportEmpFromNSF extends ImportNSF {
 
 	@Override
 	public void doTask(_Session ses) {
@@ -46,55 +39,58 @@ public class ImportEmpFromNSF extends _DoPatch {
 		DepartmentDAO dDao = new DepartmentDAO(ses);
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		PositionDAO pDao = new PositionDAO(ses);
-		CollationDAO cDao = new CollationDAO(ses);
 		Organization primaryOrg = oDao.findPrimaryOrg();
 
 		User dummyUser = (User) uDao.findByLogin(ConvertorEnvConst.DUMMY_USER);
 
 		if (primaryOrg != null) {
 			try {
-				Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
-				        ConvertorEnvConst.DOMINO_USER_PWD);
-				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
-				View view = inDb.getView("(AllUNID)");
-				ViewEntryCollection vec = view.getAllEntries();
+				ViewEntryCollection vec = getAllEntries("struct.nsf");
 				ViewEntry entry = vec.getFirstEntry();
 				ViewEntry tmpEntry = null;
 				while (entry != null) {
 					Document doc = entry.getDocument();
 					String form = doc.getItemValueString("Form");
 					if (form.equals("E") && doc.getItemValueString("EType").equals("EMP")) {
-						Employee entity = new Employee();
-						String na = doc.getItemValueString("NotesAddress");
-
-						String parent = doc.getParentDocumentUNID();
-						Employee parentUser = eDao.findByExtKey(parent);
-						if (parentUser != null) {
-							entity.setBoss(parentUser);
-						} else {
-							Department parentDep = dDao.findByExtKey(parent);
-							if (parentDep != null) {
-								entity.setDepartment(parentDep);
-							} else {
-								logger.errorLogEntry("\"" + parent + "\" parent entity has not been found");
-								break;
+						try {
+							String unId = doc.getUniversalID();
+							Employee entity = eDao.findByExtKey(unId);
+							if (entity == null) {
+								entity = new Employee();
+								entity.setAuthor(new SuperUser());
 							}
+							String na = doc.getItemValueString("NotesAddress");
+							String parent = doc.getParentDocumentUNID();
+							Employee parentUser = eDao.findByExtKey(parent);
+							if (parentUser != null) {
+								entity.setBoss(parentUser);
+							} else {
+								Department parentDep = dDao.findByExtKey(parent);
+								if (parentDep != null) {
+									entity.setDepartment(parentDep);
+								} else {
+									logger.errorLogEntry("\"" + parent + "\" parent entity has not been found");
+									break;
+								}
+							}
+							entity.setName(doc.getItemValueString("FullName"));
+							entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
+							String stuff = doc.getItemValueString("Stuff");
+							Position position = pDao.findByName(stuff);
+							if (position != null) {
+								entity.setPosition(position);
+							}
+							IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
+							if (user != null) {
+								entity.setUser((User) user);
+							} else {
+								logger.errorLogEntry("\"" + na + "\" user has not been found");
+								entity.setUser(dummyUser);
+							}
+							entities.put(doc.getUniversalID(), entity);
+						} catch (DAOException e) {
+							logger.errorLogEntry(e);
 						}
-						entity.setName(doc.getItemValueString("FullName"));
-						entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
-						String stuff = doc.getItemValueString("Stuff");
-						Position position = pDao.findByName(stuff);
-						if (position != null) {
-							entity.setPosition(position);
-						}
-						IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
-						if (user != null) {
-							entity.setUser((User) user);
-						} else {
-							logger.errorLogEntry("\"" + na + "\" user has not been found");
-							entity.setUser(dummyUser);
-						}
-						entities.put(doc.getUniversalID(), entity);
 					}
 
 					tmpEntry = vec.getNextEntry();
@@ -108,83 +104,13 @@ public class ImportEmpFromNSF extends _DoPatch {
 			logger.infoLogEntry("has been found " + entities.size() + " records");
 
 			for (Entry<String, Employee> entry : entities.entrySet()) {
-				Employee employee = entry.getValue();
-
-				try {
-					if (eDao.add(employee) != null) {
-						Collation collation = new Collation();
-						collation.setExtKey(entry.getKey());
-						collation.setIntKey(employee.getId());
-						collation.setEntityType(employee.getClass().getName());
-						cDao.add(collation);
-						logger.infoLogEntry(employee.getName() + " added");
-					}
-
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.errorLogEntry(e);
-					}
-				} catch (SecureException e) {
-					logger.errorLogEntry(e);
-				}
-
+				save(eDao, entry.getValue(), entry.getKey());
 			}
+
 		} else {
 			logger.errorLogEntry("primary Organization has not been found");
 		}
 		System.out.println("done...");
-	}
-
-	private Map<String, String> stuffCollationMapInit() {
-		Map<String, String> typeCorrCollation = new HashMap<>();
-		typeCorrCollation.put("ТОО", "LTD");
-		typeCorrCollation.put("Банки", "Bank");
-		typeCorrCollation.put("Компании", "LTD");
-		typeCorrCollation.put("Компания", "LTD");
-		typeCorrCollation.put("ООО", "LTD");
-		typeCorrCollation.put("Фирма", "LTD");
-		typeCorrCollation.put("Gmbh", "LTD");
-		typeCorrCollation.put("Кооператив", "LTD");
-		typeCorrCollation.put("Кооператив", "LTD");
-		typeCorrCollation.put("АО", "JSC");
-		typeCorrCollation.put("ГУ", "State_office");
-		typeCorrCollation.put("ИНТЕГРАЦИЯ", "Integration");
-		typeCorrCollation.put("ОАО", "JSC");
-		typeCorrCollation.put("Министерства РК", "Ministry");
-		typeCorrCollation.put("Премьер-Министр РК", "Ministry");
-		typeCorrCollation.put("Суд", "Court");
-		typeCorrCollation.put("Фонды", "Court");
-		typeCorrCollation.put("РГП", "State_enterprise");
-		typeCorrCollation.put("ГКП", "State_enterprise");
-		typeCorrCollation.put("РГКП", "State_enterprise");
-		typeCorrCollation.put("Комитеты", "Committee");
-		typeCorrCollation.put("Зарубежная компания", "International_company");
-		typeCorrCollation.put("Прокуратура", "State_enterprise");
-		typeCorrCollation.put("Агентства РК", "State_enterprise");
-		typeCorrCollation.put("Агентства", "State_enterprise");
-		typeCorrCollation.put("Агентство", "State_enterprise");
-		typeCorrCollation.put("Управление", "State_enterprise");
-		typeCorrCollation.put("Управления", "State_enterprise");
-		typeCorrCollation.put("Министрества РК", "State_enterprise");
-		typeCorrCollation.put("Правительство", "State_enterprise");
-		typeCorrCollation.put("Акиматы", "City_Hall");
-		typeCorrCollation.put("ЗАО", "JSC");
-		typeCorrCollation.put("ИП", "Self_employed");
-		typeCorrCollation.put("Предприниматель", "Self_employed");
-		typeCorrCollation.put("Союзы", "Public_association");
-		typeCorrCollation.put("Филиал", "Branch");
-		typeCorrCollation.put("Посольство", "Embassy");
-		typeCorrCollation.put("Посольство в РК", "Embassy");
-		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
-		typeCorrCollation.put("Университет", "Educational_institution");
-		typeCorrCollation.put("", ConvertorEnvConst.GAG_KEY);
-		typeCorrCollation.put("null", ConvertorEnvConst.GAG_KEY);
-		return typeCorrCollation;
-
 	}
 
 }

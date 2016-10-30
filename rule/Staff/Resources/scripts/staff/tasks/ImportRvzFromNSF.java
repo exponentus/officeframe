@@ -1,41 +1,37 @@
 package staff.tasks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.ConvertorEnvConst;
+import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 import com.exponentus.util.NumberUtil;
 
-import administrator.dao.CollationDAO;
 import administrator.dao.UserDAO;
-import administrator.model.Collation;
 import administrator.model.User;
-import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
-import lotus.domino.NotesFactory;
-import lotus.domino.Session;
-import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
+import staff.dao.RoleDAO;
 import staff.model.Employee;
 import staff.model.Organization;
+import staff.model.Role;
 
 @Command(name = "import_rvz_nsf")
-public class ImportRvzFromNSF extends _DoPatch {
+public class ImportRvzFromNSF extends ImportNSF {
+	private static final String RVZ_ROLE = "senior_manager";
 
 	@Override
 	public void doTask(_Session ses) {
@@ -44,81 +40,70 @@ public class ImportRvzFromNSF extends _DoPatch {
 		OrganizationDAO oDao = new OrganizationDAO(ses);
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		PositionDAO pDao = new PositionDAO(ses);
-		CollationDAO cDao = new CollationDAO(ses);
+		RoleDAO rDao = new RoleDAO(ses);
 		Organization primaryOrg = oDao.findPrimaryOrg();
 		if (primaryOrg != null) {
-			try {
-				Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
-				        ConvertorEnvConst.DOMINO_USER_PWD);
-				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
-				View view = inDb.getView("(AllUNID)");
-				ViewEntryCollection vec = view.getAllEntries();
-				ViewEntry entry = vec.getFirstEntry();
-				ViewEntry tmpEntry = null;
-				while (entry != null) {
-					Document doc = entry.getDocument();
-					String form = doc.getItemValueString("Form");
-					if (form.equals("E") && doc.getItemValueString("EType").equals("RVZ")) {
-						Employee entity = new Employee();
-						entity.setAuthor(new SuperUser());
-						String na = doc.getItemValueString("NotesAddress");
-						IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
-						if (user != null) {
-							String parent = doc.getParentDocumentUNID();
-							Employee parentUser = eDao.findByExtKey(parent);
-							if (parentUser == null) {
-								entity.setOrganization(primaryOrg);
-							} else {
-								entity.setBoss(parentUser);
-							}
-							entity.setName(doc.getItemValueString("FullName"));
-							entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
-							String stuff = doc.getItemValueString("Stuff");
-							Position position = pDao.findByName(stuff);
-							if (position != null) {
-								entity.setPosition(position);
-							}
-							entity.setUser((User) user);
-							entities.put(doc.getUniversalID(), entity);
-						} else {
-							logger.errorLogEntry("\"" + na + "\" user has not been found");
-						}
-					}
-					tmpEntry = vec.getNextEntry();
-					entry.recycle();
-					entry = tmpEntry;
-				}
-			} catch (NotesException e) {
-				logger.errorLogEntry(e);
-			}
-
-			logger.infoLogEntry("has been found " + entities.size() + " records");
-
-			for (Entry<String, Employee> entry : entities.entrySet()) {
-				Employee employee = entry.getValue();
-
+			List<Role> roles = new ArrayList<>();
+			Role role = rDao.findByName(RVZ_ROLE);
+			if (role != null) {
+				roles.add(role);
 				try {
-					if (eDao.add(employee) != null) {
-						Collation collation = new Collation();
-						collation.setExtKey(entry.getKey());
-						collation.setIntKey(employee.getId());
-						collation.setEntityType(employee.getClass().getName());
-						cDao.add(collation);
-						logger.infoLogEntry(employee.getName() + " added");
+					ViewEntryCollection vec = getAllEntries("struct.nsf");
+					ViewEntry entry = vec.getFirstEntry();
+					ViewEntry tmpEntry = null;
+					while (entry != null) {
+						Document doc = entry.getDocument();
+						String form = doc.getItemValueString("Form");
+						if (form.equals("E") && doc.getItemValueString("EType").equals("RVZ")) {
+							String unId = doc.getUniversalID();
+							Employee entity = eDao.findByExtKey(unId);
+							if (entity == null) {
+								entity = new Employee();
+								entity.setAuthor(new SuperUser());
+							}
+							String na = doc.getItemValueString("NotesAddress");
+							IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
+							if (user != null) {
+								try {
+									String parent = doc.getParentDocumentUNID();
+									Employee parentUser = eDao.findByExtKey(parent);
+									if (parentUser == null) {
+										entity.setOrganization(primaryOrg);
+									} else {
+										entity.setBoss(parentUser);
+									}
+									entity.setName(doc.getItemValueString("FullName"));
+									entity.setRank(NumberUtil.stringToInt(doc.getItemValueString("Rank"), 998));
+									String stuff = doc.getItemValueString("Stuff");
+									Position position = pDao.findByName(stuff);
+									if (position != null) {
+										entity.setPosition(position);
+									}
+									entity.setRoles(roles);
+									entity.setUser((User) user);
+									entities.put(doc.getUniversalID(), entity);
+								} catch (DAOException e) {
+									logger.errorLogEntry(e);
+								}
+							} else {
+								logger.errorLogEntry("\"" + na + "\" user has not been found");
+							}
+						}
+						tmpEntry = vec.getNextEntry();
+						entry.recycle();
+						entry = tmpEntry;
 					}
-
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a data is null (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.errorLogEntry(e);
-					}
-				} catch (SecureException e) {
+				} catch (NotesException e) {
 					logger.errorLogEntry(e);
 				}
 
+				logger.infoLogEntry("has been found " + entities.size() + " records");
+
+				for (Entry<String, Employee> entry : entities.entrySet()) {
+					save(eDao, entry.getValue(), entry.getKey());
+				}
+			} else {
+				logger.errorLogEntry("RVZ role has not been found");
 			}
 		} else {
 			logger.errorLogEntry("primary Organization has not been found");

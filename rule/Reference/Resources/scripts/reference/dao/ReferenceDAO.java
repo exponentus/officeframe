@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.localization.LanguageCode;
@@ -33,7 +34,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 		super(entityClass, session);
 	}
 
-	public T findByName(String name) {
+	public T findByName(String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		try {
@@ -45,7 +46,29 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			return typedQuery.getSingleResult();
 		} catch (NonUniqueResultException e) {
+			throw new DAOException(e);
+		} catch (NoResultException e) {
 			return null;
+		} finally {
+			em.close();
+		}
+	}
+
+	public T findByNameAndCategory(String category, String name) throws DAOException {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		try {
+			CriteriaQuery<T> cq = cb.createQuery(getEntityClass());
+			Root<T> c = cq.from(getEntityClass());
+			cq.select(c);
+			Predicate condition1 = cb.equal(cb.lower(c.<String> get("category")), category.toLowerCase());
+			Predicate condition2 = cb.equal(cb.lower(c.<String> get("name")), name.toLowerCase());
+			Predicate condition = cb.and(condition1, condition2);
+			cq.where(condition);
+			TypedQuery<T> typedQuery = em.createQuery(cq);
+			return typedQuery.getSingleResult();
+		} catch (NonUniqueResultException e) {
+			throw new DAOException(e);
 		} catch (NoResultException e) {
 			return null;
 		} finally {

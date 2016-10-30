@@ -3,6 +3,7 @@ package reference.model.embedded;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 
 import reference.dao.CountryDAO;
@@ -116,13 +117,23 @@ public class Address {
 		Country country = cDao.findByCode(CountryCode.KZ);
 		addr.setCountry(country);
 		RegionDAO rDao = new RegionDAO(session);
-		Region region = rDao.findByName("Алматы");
+		Region region = null;
+		try {
+			region = rDao.findByName("Алматы");
+		} catch (DAOException e) {
+
+		}
 		addr.setRegion(region);
 		CityDistrict cityDistrict = new CityDistrict();
 		cityDistrict.setName("");
 		addr.setCityDistrict(cityDistrict);
 		LocalityDAO lDao = new LocalityDAO(session);
-		Locality city = lDao.findByName("Алматы");
+		Locality city = null;
+		try {
+			city = lDao.findByName("Алматы");
+		} catch (DAOException e) {
+
+		}
 		addr.setLocality(city);
 		Street street = new Street();
 		street.setName("");

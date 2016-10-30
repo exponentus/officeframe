@@ -35,7 +35,13 @@ public class DistrictForm extends ReferenceForm {
 		} else {
 			entity = (District) getDefaultEntity(user, new District());
 			RegionDAO cDao = new RegionDAO(session);
-			Region region = cDao.findByName("Алматы");
+			Region region = null;
+			try {
+				region = cDao.findByName("Алматы");
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			entity.setRegion(region);
 		}
 		addContent(entity);

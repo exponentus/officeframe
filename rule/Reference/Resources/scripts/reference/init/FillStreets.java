@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
@@ -31,9 +32,15 @@ public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
 	@Override
 	public List<Street> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 
-		List<Street> entities = new ArrayList<Street>();
+		List<Street> entities = new ArrayList<>();
 		LocalityDAO cDao = new LocalityDAO(ses);
-		Locality d = cDao.findByName("Алматы");
+		Locality d = null;
+		try {
+			d = cDao.findByName("Алматы");
+		} catch (DAOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (d != null) {
 			File xf = new File(excelFile);
 			if (xf.exists()) {

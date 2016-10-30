@@ -5,21 +5,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.exception.SecureException;
 import com.exponentus.legacy.ConvertorEnvConst;
+import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
+import com.exponentus.user.SuperUser;
 
-import administrator.dao.CollationDAO;
-import administrator.model.Collation;
-import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
-import lotus.domino.NotesFactory;
-import lotus.domino.Session;
-import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.DepartmentTypeDAO;
@@ -32,7 +25,7 @@ import staff.model.Employee;
 import staff.model.Organization;
 
 @Command(name = "import_dep_nsf")
-public class ImportDepFromNSF extends _DoPatch {
+public class ImportDepFromNSF extends ImportNSF {
 
 	@Override
 	public void doTask(_Session ses) {
@@ -41,45 +34,50 @@ public class ImportDepFromNSF extends _DoPatch {
 		DepartmentDAO dDao = new DepartmentDAO(ses);
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		DepartmentTypeDAO dtDao = new DepartmentTypeDAO(ses);
-		CollationDAO cDao = new CollationDAO(ses);
 		Map<String, String> depTypeCollation = depTypeCollationMapInit();
 		Organization primaryOrg = oDao.findPrimaryOrg();
 		if (primaryOrg != null) {
 			try {
-				Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
-				        ConvertorEnvConst.DOMINO_USER_PWD);
-				Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
-				View view = inDb.getView("(AllUNID)");
-				ViewEntryCollection vec = view.getAllEntries();
+				ViewEntryCollection vec = getAllEntries("struct.nsf");
 				ViewEntry entry = vec.getFirstEntry();
 				ViewEntry tmpEntry = null;
 				while (entry != null) {
 					Document doc = entry.getDocument();
 					String form = doc.getItemValueString("Form");
 					if (form.equals("D")) {
-						Department entity = new Department();
-						String parent = doc.getParentDocumentUNID();
-						Employee parentUser = eDao.findByExtKey(parent);
-						if (parentUser != null) {
-							entity.setBoss(parentUser);
-						} else {
-							Department parentDep = dDao.findByExtKey(parent);
-							if (parentDep != null) {
-								entity.setLeadDepartment(parentDep);
-							} else {
-								entity.setOrganization(primaryOrg);
+						try {
+							String unId = doc.getUniversalID();
+							Department entity = dDao.findByExtKey(unId);
+							if (entity == null) {
+								entity = new Department();
+								entity.setAuthor(new SuperUser());
 							}
+							String parent = doc.getParentDocumentUNID();
+							Employee parentUser = eDao.findByExtKey(parent);
+							if (parentUser != null) {
+								entity.setBoss(parentUser);
+							} else {
+								Department parentDep = dDao.findByExtKey(parent);
+								if (parentDep != null) {
+									entity.setLeadDepartment(parentDep);
+								} else {
+									entity.setOrganization(primaryOrg);
+								}
+							}
+							entity.setName(doc.getItemValueString("FullName"));
+							String depType = doc.getItemValueString("Type");
+							String intRefKey = depTypeCollation.get(depType);
+							if (intRefKey == null) {
+								logger.errorLogEntry("wrong reference ext value \"" + depType + "\"");
+								intRefKey = ConvertorEnvConst.GAG_KEY;
+							}
+							DepartmentType type;
+							type = dtDao.findByName(intRefKey);
+							entity.setType(type);
+							entities.put(doc.getUniversalID(), entity);
+						} catch (DAOException e) {
+							logger.errorLogEntry(e);
 						}
-						entity.setName(doc.getItemValueString("FullName"));
-						String depType = doc.getItemValueString("Type");
-						String intRefKey = depTypeCollation.get(depType);
-						if (intRefKey == null) {
-							logger.errorLogEntry("wrong reference ext value \"" + depType + "\"");
-							intRefKey = ConvertorEnvConst.GAG_KEY;
-						}
-						DepartmentType type = dtDao.findByName(intRefKey);
-						entity.setType(type);
-						entities.put(doc.getUniversalID(), entity);
 					}
 					tmpEntry = vec.getNextEntry();
 					entry.recycle();
@@ -92,28 +90,7 @@ public class ImportDepFromNSF extends _DoPatch {
 			logger.infoLogEntry("has been found " + entities.size() + " records");
 
 			for (Entry<String, Department> entry : entities.entrySet()) {
-				Department dep = entry.getValue();
-
-				try {
-					if (dDao.add(dep) != null) {
-						Collation collation = new Collation();
-						collation.setExtKey(entry.getKey());
-						collation.setIntKey(dep.getId());
-						collation.setEntityType(Department.class.getName());
-						cDao.add(collation);
-						logger.infoLogEntry(dep.getName() + " added");
-					}
-
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.errorLogEntry(e);
-					}
-				} catch (SecureException e) {
-					logger.errorLogEntry(e);
-				}
-
+				save(eDao, entry.getValue(), entry.getKey());
 			}
 		}
 

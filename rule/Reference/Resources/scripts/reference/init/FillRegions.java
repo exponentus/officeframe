@@ -3,6 +3,7 @@ package reference.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
@@ -24,11 +25,17 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 
 	@Override
 	public List<Region> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
-		List<Region> entities = new ArrayList<Region>();
+		List<Region> entities = new ArrayList<>();
 		String[] data = { "Almaty", "Astana", "Almaty region" };
 
 		CountryDAO cDao = new CountryDAO(ses);
-		Country country = cDao.findByName("Kazakhstan");
+		Country country = null;
+		try {
+			country = cDao.findByName("Kazakhstan");
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (int i = 0; i < data.length; i++) {
 			Region entity = new Region();
@@ -46,7 +53,13 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 		}
 
 		String[] data1 = { "Moscow", "Saint-Petersburg" };
-		Country country1 = cDao.findByName("Russia");
+		Country country1 = null;
+		try {
+			country1 = cDao.findByName("Russia");
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (int i = 0; i < data1.length; i++) {
 			Region entity = new Region();
@@ -64,7 +77,13 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 		}
 
 		String[] data2 = { "Lisbon", "Leiria" };
-		Country country2 = cDao.findByName("Portugal");
+		Country country2 = null;
+		try {
+			country2 = cDao.findByName("Portugal");
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (int i = 0; i < data2.length; i++) {
 			Region entity = new Region();

@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class DocumentLanguage extends SimpleReferenceEntity {
 
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = true, length = 3, unique = true)
+	@Column(nullable = true, length = 7, unique = true)
 	private LanguageCode code = LanguageCode.UNKNOWN;
 
 	public LanguageCode getCode() {

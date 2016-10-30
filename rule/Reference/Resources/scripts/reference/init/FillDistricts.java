@@ -3,6 +3,7 @@ package reference.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
@@ -22,11 +23,17 @@ public class FillDistricts extends InitialDataAdapter<District, DistrictDAO> {
 	@Override
 	public List<District> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 
-		List<District> entities = new ArrayList<District>();
+		List<District> entities = new ArrayList<>();
 		String[] data = { "Karasay", "Talgar" };
 
 		RegionDAO cDao = new RegionDAO(ses);
-		Region region = cDao.findByName("Almaty region");
+		Region region = null;
+		try {
+			region = cDao.findByName("Almaty region");
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		for (int i = 0; i < data.length; i++) {
 			District entity = new District();

@@ -7,24 +7,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.exception.SecureException;
 import com.exponentus.legacy.ConvertorEnvConst;
+import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;
 
-import administrator.dao.CollationDAO;
-import administrator.model.Collation;
-import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
-import lotus.domino.NotesFactory;
-import lotus.domino.Session;
-import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.OrgCategoryDAO;
@@ -35,7 +26,7 @@ import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
 @Command(name = "import_orgs_nsf")
-public class ImportOrgsFromNSF extends _DoPatch {
+public class ImportOrgsFromNSF extends ImportNSF {
 	private static final String PRIMARY_ORGANIZATION = "Банк развития Казахстана".toLowerCase();
 	private static final String PRIMARY_ORGANIZATION_LABEL = "primary";
 
@@ -43,45 +34,52 @@ public class ImportOrgsFromNSF extends _DoPatch {
 	public void doTask(_Session ses) {
 		Map<String, Organization> entities = new HashMap<>();
 		OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
-		CollationDAO cDao = new CollationDAO(ses);
+		OrganizationDAO oDao = new OrganizationDAO(ses);
 		Map<String, String> typeCorrCollation = typeCorrCollationMapInit();
 
 		try {
-			Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
-			        ConvertorEnvConst.DOMINO_USER_PWD);
-			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "struct.nsf");
-			View view = inDb.getView("(AllUNID)");
-			ViewEntryCollection vec = view.getAllEntries();
+			ViewEntryCollection vec = getAllEntries("struct.nsf");
 			ViewEntry entry = vec.getFirstEntry();
 			ViewEntry tmpEntry = null;
 			while (entry != null) {
 				Document doc = entry.getDocument();
 				String form = doc.getItemValueString("Form");
 				if (form.equals("Corr")) {
-					Organization entity = new Organization();
-					entity.setAuthor(new SuperUser());
-					entity.setName(doc.getItemValueString("FullName"));
-					Map<LanguageCode, String> localizedNames = new HashMap<>();
-					localizedNames.put(LanguageCode.RUS, doc.getItemValueString("FullName"));
-					entity.setLocalizedName(localizedNames);
-					String typeCorr = doc.getItemValueString("TypeCorr");
-					String intRefKey = typeCorrCollation.get(typeCorr);
-					if (intRefKey == null) {
-						logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
-						intRefKey = ConvertorEnvConst.GAG_KEY;
-					}
-					OrgCategory oCat = ocDao.findByName(intRefKey);
-					entity.setOrgCategory(oCat);
-					if (entity.getName().toLowerCase().contains(PRIMARY_ORGANIZATION)) {
-						List<OrganizationLabel> labels = new ArrayList<>();
-						OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
-						OrganizationLabel l = olDao.findByName(PRIMARY_ORGANIZATION_LABEL);
-						if (l != null) {
-							labels.add(l);
-							entity.setLabels(labels);
+					try {
+						String unId = doc.getUniversalID();
+						Organization entity = oDao.findByExtKey(unId);
+						if (entity == null) {
+							entity = new Organization();
+							entity.setAuthor(new SuperUser());
 						}
+						String orgName = doc.getItemValueString("FullName");
+						entity.setName(orgName);
+						Map<LanguageCode, String> localizedNames = new HashMap<>();
+						localizedNames.put(LanguageCode.RUS, orgName);
+						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("FullNameKZ"));
+						localizedNames.put(LanguageCode.ENG, orgName);
+						entity.setLocalizedName(localizedNames);
+						String typeCorr = doc.getItemValueString("TypeCorr");
+						String intRefKey = typeCorrCollation.get(typeCorr);
+						if (intRefKey == null) {
+							logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
+							intRefKey = ConvertorEnvConst.GAG_KEY;
+						}
+						OrgCategory oCat = ocDao.findByName(intRefKey);
+						entity.setOrgCategory(oCat);
+						if (entity.getName().toLowerCase().contains(PRIMARY_ORGANIZATION)) {
+							List<OrganizationLabel> labels = new ArrayList<>();
+							OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
+							OrganizationLabel l = olDao.findByName(PRIMARY_ORGANIZATION_LABEL);
+							if (l != null) {
+								labels.add(l);
+								entity.setLabels(labels);
+							}
+						}
+						entities.put(doc.getUniversalID(), entity);
+					} catch (DAOException e) {
+						logger.errorLogEntry(e);
 					}
-					entities.put(doc.getUniversalID(), entity);
 				}
 				tmpEntry = vec.getNextEntry();
 				entry.recycle();
@@ -92,61 +90,11 @@ public class ImportOrgsFromNSF extends _DoPatch {
 		}
 
 		logger.infoLogEntry("has been found " + entities.size() + " records");
-		OrganizationDAO oDao = new OrganizationDAO(ses);
 		for (Entry<String, Organization> entry : entities.entrySet()) {
-			Organization org = entry.getValue();
-			try {
-				try {
-					if (oDao.add(org) != null) {
-						Collation collation = new Collation();
-						collation.setExtKey(entry.getKey());
-						collation.setIntKey(org.getId());
-						collation.setEntityType(org.getClass().getName());
-						cDao.add(collation);
-						logger.infoLogEntry(org.getName() + " added");
-					}
-
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.errorLogEntry(e);
-					}
-				}
-
-			} catch (SecureException e) {
-				logger.errorLogEntry(e);
-			}
+			save(oDao, entry.getValue(), entry.getKey());
 		}
-		// setPrimaryOrg(oDao);
 
 		logger.infoLogEntry("done...");
-	}
-
-	private void setPrimaryOrg(OrganizationDAO oDao) {
-		logger.infoLogEntry("setup primary organization...");
-		ViewPage<Organization> orgs = oDao.findAllByKeyword(PRIMARY_ORGANIZATION, 1, 1);
-		Organization org = orgs.getResult().get(0);
-		if (org != null) {
-			OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
-			List<OrganizationLabel> labels = new ArrayList<>();
-			OrganizationLabel l = olDao.findByName(PRIMARY_ORGANIZATION_LABEL);
-			if (l != null) {
-				labels.add(l);
-				org.setLabels(labels);
-				try {
-					oDao.update(org);
-				} catch (SecureException e) {
-					logger.errorLogEntry(e);
-				} catch (DAOException e) {
-					logger.errorLogEntry(e);
-				}
-			} else {
-				logger.errorLogEntry("organization label has not been found (" + PRIMARY_ORGANIZATION_LABEL + ")");
-			}
-		} else {
-			logger.errorLogEntry("primary organization has not been found (" + PRIMARY_ORGANIZATION + ")");
-		}
 	}
 
 	private Map<String, String> typeCorrCollationMapInit() {

@@ -3,6 +3,7 @@ package reference.init;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
@@ -24,13 +25,19 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 	@Override
 	public List<Locality> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 
-		List<Locality> entities = new ArrayList<Locality>();
+		List<Locality> entities = new ArrayList<>();
 		String[] data = { "Kapchagay", "Taldykorgan" };
 		String[] data1 = { "Almaty" };
 
 		LocalityTypeDAO ltDao = new LocalityTypeDAO(ses);
 		RegionDAO cDao = new RegionDAO(ses);
-		Region d = cDao.findByName("Almaty region");
+		Region d = null;
+		try {
+			d = cDao.findByName("Almaty region");
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (d != null) {
 			for (String val : data) {
 				Locality entity = new Locality();
@@ -41,7 +48,12 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 			}
 		}
 
-		d = cDao.findByName("Almaty");
+		try {
+			d = cDao.findByName("Almaty");
+		} catch (DAOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (d != null) {
 			for (String val : data1) {
 				Locality entity = new Locality();

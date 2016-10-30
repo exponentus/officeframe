@@ -160,6 +160,18 @@
         <entry lang="KAZ">Құрылыс материалдары</entry>
         <entry lang="POR"></entry>
     </sentence>
+      <sentence mode="on" keyword="doc_subjs">
+        <entry lang="ENG">Document subjects</entry>
+        <entry lang="RUS">Характер документа</entry>
+        <entry lang="KAZ">Характер документа</entry>
+        <entry lang="POR"></entry>
+    </sentence>
+      <sentence mode="on" keyword="doc_subj">
+        <entry lang="ENG">Subject</entry>
+        <entry lang="RUS">Характер документа</entry>
+        <entry lang="KAZ">Характер документа</entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="receiving_reason">
         <entry lang="RUS">Основание поступления на баланс</entry>
         <entry lang="KAZ">Негізі түсімдер балансы</entry>

@@ -4,51 +4,40 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.ConvertorEnvConst;
+import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;
 
-import administrator.dao.CollationDAO;
-import administrator.model.Collation;
-import lotus.domino.Database;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
-import lotus.domino.NotesFactory;
-import lotus.domino.Session;
-import lotus.domino.View;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 
 @Command(name = "import_positions_nsf")
-public class ImportPositionNSF extends _DoPatch {
+public class ImportPositionNSF extends ImportNSF {
 
 	@Override
 	public void doTask(_Session ses) {
 		Map<String, Position> entities = new HashMap<>();
-		CollationDAO cDao = new CollationDAO(ses);
+		PositionDAO dao = new PositionDAO(ses);
 
 		try {
-			Session dominoSession = NotesFactory.createSession(ConvertorEnvConst.DOMINO_HOST, ConvertorEnvConst.DOMINO_USER,
-			        ConvertorEnvConst.DOMINO_USER_PWD);
-			Database inDb = dominoSession.getDatabase(dominoSession.getServerName(), ConvertorEnvConst.APPLICATION_DIRECTORY + "sprav.nsf");
-			View view = inDb.getView("(AllUNID)");
-			ViewEntryCollection vec = view.getAllEntries();
+			ViewEntryCollection vec = getAllEntries("sprav.nsf");
 			ViewEntry entry = vec.getFirstEntry();
 			ViewEntry tmpEntry = null;
 			while (entry != null) {
 				Document doc = entry.getDocument();
 				String form = doc.getItemValueString("Form");
 				if (form.equals("Post")) {
-					Position entity = new Position();
-					entity.setAuthor(new SuperUser());
+					Position entity = dao.findByExtKey(doc.getUniversalID());
+					if (entity == null) {
+						entity = new Position();
+						entity.setAuthor(new SuperUser());
+					}
 					entity.setName(doc.getItemValueString("Name"));
 					Map<LanguageCode, String> localizedNames = new HashMap<>();
 					localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name1"));
@@ -66,31 +55,11 @@ public class ImportPositionNSF extends _DoPatch {
 		}
 
 		logger.infoLogEntry("has been found " + entities.size() + " records");
-		PositionDAO oDao = new PositionDAO(ses);
-		for (Entry<String, Position> entry : entities.entrySet()) {
-			Position entity = entry.getValue();
-			try {
-				try {
-					if (oDao.add(entity) != null) {
-						Collation collation = new Collation();
-						collation.setExtKey(entry.getKey());
-						collation.setIntKey(entity.getId());
-						collation.setEntityType(entity.getClass().getName());
-						cDao.add(collation);
-						logger.infoLogEntry(entity.getName() + " added");
-					}
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.errorLogEntry(e);
-					}
-				}
 
-			} catch (SecureException e) {
-				logger.errorLogEntry(e);
-			}
+		for (Entry<String, Position> entry : entities.entrySet()) {
+			save(dao, entry.getValue(), entry.getKey());
 		}
+
 		logger.infoLogEntry("done...");
 	}
 
