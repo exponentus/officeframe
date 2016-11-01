@@ -35,7 +35,7 @@
                             <xsl:value-of select="//captions/rank/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="rank" value="{fields/rank}" class="span1" autofocus="true"/>
+                            <input type="number" name="rank" value="{fields/rank}" class="span1" autofocus="true"/>
                         </div>
                     </div>
                 </fieldset>
