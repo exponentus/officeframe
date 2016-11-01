@@ -271,6 +271,12 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="rank">
+        <entry lang="ENG">Rank</entry>
+        <entry lang="RUS">Ранг</entry>
+        <entry lang="KAZ">Ранг</entry>
+        <entry lang="POR"></entry>
+    </sentence>
      <sentence mode="on" keyword="task_type">
         <entry lang="ENG">Task type</entry>
         <entry lang="RUS">Тип задания</entry>

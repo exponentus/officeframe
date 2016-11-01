@@ -30,6 +30,14 @@
                             <input type="text" name="name" value="{fields/name}" class="span7" autofocus="true"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            <xsl:value-of select="//captions/rank/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="text" name="rank" value="{fields/rank}" class="span1" autofocus="true"/>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset class="fieldset">
                     <legend class="legend">

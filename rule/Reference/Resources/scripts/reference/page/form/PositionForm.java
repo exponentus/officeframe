@@ -56,6 +56,7 @@ public class PositionForm extends ReferenceForm {
 			}
 
 			entity.setName(formData.getValue("name"));
+			entity.setRank(formData.getNumberValueSilently("rank",0));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 
 			if (isNew) {

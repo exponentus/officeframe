@@ -6,6 +6,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.scripting._Session;
 
 /**
  * 
@@ -25,5 +26,13 @@ public class Position extends SimpleReferenceEntity {
 
 	public void setRank(int rank) {
 		this.rank = rank;
+	}
+
+	@Override
+	public String getFullXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append(super.getFullXMLChunk(ses));
+		chunk.append("<rank>" + rank + "</rank>");
+		return chunk.toString();
 	}
 }
