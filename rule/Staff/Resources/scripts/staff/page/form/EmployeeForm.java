@@ -149,6 +149,7 @@ public class EmployeeForm extends StaffForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setIin(formData.getValue("iin"));
+			entity.setRank(formData.getNumberValueSilently("rank",0));
 			OrganizationDAO orgDAO = new OrganizationDAO(session);
 			String orgId = formData.getValueSilently("organization");
 			if (!orgId.isEmpty()) {

@@ -107,6 +107,7 @@ public class Department extends SimpleReferenceEntity {
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<type id=\"" + type.getId() + "\">" + type + "</type>");
+		chunk.append("<rank>" + rank + "</rank>");
 		chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocalizedName(ses.getLang()) + "</organization>");
 		chunk.append("<localizednames>");
 		LanguageDAO lDao = new LanguageDAO(ses);

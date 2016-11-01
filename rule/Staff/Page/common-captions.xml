@@ -57,4 +57,5 @@
     <caption name="is_primary_organization"/>
 
     <caption name="bin_value_should_be_consist_from_12_symbols"/>
+    <caption name="rank"/>
 </rule>

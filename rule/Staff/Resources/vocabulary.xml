@@ -13,6 +13,11 @@
         <entry lang="RUS">Құрылымы</entry>
         <entry lang="KAZ">Staff</entry>
     </sentence>
+    <sentence mode="on" keyword="rank">
+        <entry lang="ENG">Rank</entry>
+        <entry lang="RUS">Ранг</entry>
+        <entry lang="KAZ">Ранг</entry>
+    </sentence>
     <sentence mode="on" keyword="common_staff_data">
         <entry lang="ENG">Structure and Organizations</entry>
         <entry lang="RUS">Структура и организации</entry>

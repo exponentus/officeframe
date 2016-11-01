@@ -52,6 +52,14 @@
                             </select>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            <xsl:value-of select="//captions/rank/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="number" name="rank" value="{fields/rank}" class="span1" autofocus="true"/>
+                        </div>
+                    </div>
                     <fieldset class="fieldset">
                         <legend class="legend">
                             <xsl:value-of select="//captions/localized_names/@caption"/>
