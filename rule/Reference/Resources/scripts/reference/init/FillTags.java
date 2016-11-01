@@ -21,16 +21,26 @@ public class FillTags extends InitialDataAdapter<Tag, TagDAO> {
 
 	@Override
 	public List<Tag> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
-		List<Tag> entities = new ArrayList<Tag>();
+		List<Tag> entities = new ArrayList<>();
 
 		Tag entity = new Tag();
 		entity.setName("starred");
-		Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+		Map<LanguageCode, String> name = new HashMap<>();
 		name.put(LanguageCode.ENG, "Starred");
 		name.put(LanguageCode.RUS, "Избранный");
 		name.put(LanguageCode.KAZ, "Сүйікті");
 		entity.setLocalizedName(name);
 		entity.setColor("#d94600");
+		entities.add(entity);
+
+		entity = new Tag();
+		entity.setName("expired");
+		name = new HashMap<>();
+		name.put(LanguageCode.ENG, "Overdued");
+		name.put(LanguageCode.RUS, "Просроченный");
+		name.put(LanguageCode.KAZ, "Mерзімі өткен");
+		entity.setLocalizedName(name);
+		entity.setColor("#db0000");
 		entities.add(entity);
 
 		return entities;
