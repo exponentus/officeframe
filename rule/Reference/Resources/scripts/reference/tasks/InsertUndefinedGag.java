@@ -28,6 +28,7 @@ public class InsertUndefinedGag extends _DoPatch {
 	public void doTask(_Session ses) {
 		Vocabulary vocabular = ses.getAppEnv().vocabulary;
 		DatabaseUtil.makeStrictUniqIndex("positions", "name", true);
+		DatabaseUtil.makeNotNullStrict("orgs", "orgcategory_id");
 
 		Map<LanguageCode, String> gag = new HashMap<>();
 		gag.put(LanguageCode.ENG, vocabular.getWord("undefined", LanguageCode.ENG));
