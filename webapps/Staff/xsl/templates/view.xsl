@@ -10,7 +10,7 @@
 
             <xsl:if test="//view_content//query/@count">
                 <sup class="entry-count">
-                    <xsl:value-of select="concat('(', //view_content//query/@count, ')')"/>
+                    (<xsl:value-of select="//view_content//query/@count"/>)
                 </sup>
             </xsl:if>
         </h1>
