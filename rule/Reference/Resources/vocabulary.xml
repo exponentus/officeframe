@@ -283,6 +283,12 @@
         <entry lang="KAZ">Тапсырманың түрі</entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="text_template">
+        <entry lang="ENG">Text template</entry>
+        <entry lang="RUS">Текстовый шаблон</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
       <sentence mode="on" keyword="request_types">
         <entry lang="ENG">Request types</entry>
         <entry lang="RUS">Типы запросов</entry>

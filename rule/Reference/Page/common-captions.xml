@@ -81,4 +81,5 @@
     <caption name="control_type"/>
     <caption name="default_hours"/>
     <caption name="rank"/>
+    <caption name="text_template"/>
 </rule>
