@@ -41,6 +41,7 @@ public class FillTags extends InitialDataAdapter<Tag, TagDAO> {
 		name.put(LanguageCode.KAZ, "Mерзімі өткен");
 		entity.setLocalizedName(name);
 		entity.setColor("#db0000");
+		entity.setHidden(true);
 		entities.add(entity);
 
 		return entities;
