@@ -31,7 +31,7 @@ public class DocumentLanguageForm extends ReferenceForm {
 			entity = (DocumentLanguage) getDefaultEntity(user, new DocumentLanguage());
 		}
 		addContent(entity);
-		addContent(new _EnumWrapper<>(LanguageCode.class.getEnumConstants()));
+		addContent(new _EnumWrapper(LanguageCode.class.getEnumConstants()));
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 	}

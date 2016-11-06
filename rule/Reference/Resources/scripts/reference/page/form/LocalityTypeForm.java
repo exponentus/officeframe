@@ -36,7 +36,7 @@ public class LocalityTypeForm extends ReferenceForm {
 			entity = (LocalityType) getDefaultEntity(user, new LocalityType());
 		}
 		addContent(entity);
-		addContent(new _EnumWrapper<>(LocalityCode.class.getEnumConstants()));
+		addContent(new _EnumWrapper(LocalityCode.class.getEnumConstants()));
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 	}

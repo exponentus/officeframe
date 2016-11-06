@@ -7,13 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import com.exponentus.common.model.Attachment;
+import com.exponentus.dataengine.jpa.SimpleAppEntity;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
@@ -23,12 +21,7 @@ import monitoring.model.constants.ActivityType;
 @Entity
 @Table(name = "_user_activities")
 @NamedQuery(name = "UserActivity.findAll", query = "SELECT m FROM UserActivity AS m ORDER BY m.eventTime")
-public class UserActivity implements IPOJOObject {
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
-	protected Long id;
+public class UserActivity extends SimpleAppEntity implements IPOJOObject {
 
 	@Column(name = "act_user", nullable = false, updatable = false)
 	private Long actUser;

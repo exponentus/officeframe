@@ -37,7 +37,7 @@ public class TopicForm extends _DoForm {
 			entity.setStatus(TopicStatusType.DRAFT);
 		}
 		addContent(entity);
-		addContent(new _EnumWrapper<>(TopicStatusType.class.getEnumConstants()));
+		addContent(new _EnumWrapper(TopicStatusType.class.getEnumConstants()));
 		if (!id.isEmpty()) {
 			addContent(getActionBar(session, entity));
 		} else {

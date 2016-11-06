@@ -37,7 +37,7 @@ public class RegionTypeForm extends ReferenceForm {
 			entity = (RegionType) getDefaultEntity(user, new RegionType());
 		}
 		addContent(entity);
-		addContent(new _EnumWrapper<>(LocalityCode.class.getEnumConstants()));
+		addContent(new _EnumWrapper(LocalityCode.class.getEnumConstants()));
 		addContent(new LanguageDAO(session).findAll());
 		addContent(getSimpleActionBar(session));
 	}
