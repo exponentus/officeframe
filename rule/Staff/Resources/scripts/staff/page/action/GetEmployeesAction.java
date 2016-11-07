@@ -15,7 +15,7 @@ public class GetEmployeesAction extends _DoPage {
 
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
-		String keyword = formData.getEncodedValueSilently("keyword");
+		String keyword = formData.getValueSilently("keyword");
 		int pageNum = formData.getNumberValueSilently("page", 1);
 		int pageSize = ses.pageSize;
 		EmployeeDAO empDao = new EmployeeDAO(ses);
