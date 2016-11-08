@@ -21,11 +21,11 @@ import staff.model.Employee;
 import staff.model.Organization;
 
 public class StructureView extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
-
+		
 		IUser<Long> user = session.getUser();
 		if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
 			_ActionBar actionBar = new _ActionBar(session);
@@ -35,9 +35,9 @@ public class StructureView extends _DoPage {
 			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
 		}
-
+		
 		OrganizationDAO dao = new OrganizationDAO(session);
-		Organization org = dao.findPrimaryOrg();
+		Organization org = dao.findPrimaryOrg().get(0);
 		if (org != null) {
 			List<Employee> bosses = org.getEmployers();
 			addContent(new _POJOListWrapper<>(bosses, session));
@@ -46,13 +46,13 @@ public class StructureView extends _DoPage {
 		} else {
 			addContent(new _POJOListWrapper<>(getLocalizedWord("no_primary_org", lang), ""));
 		}
-
+		
 	}
-
+	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		devPrint(formData);
-
+		
 		OrganizationDAO dao = new OrganizationDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			Organization m = dao.findById(UUID.fromString(id));

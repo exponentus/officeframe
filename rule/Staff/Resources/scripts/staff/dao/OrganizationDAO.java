@@ -23,23 +23,23 @@ import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
 public class OrganizationDAO extends DAO<Organization, UUID> {
-
+	
 	public OrganizationDAO(_Session session) {
 		super(Organization.class, session);
 	}
-
-	public Organization findPrimaryOrg() {
+	
+	public List<Organization> findPrimaryOrg() {
 		try {
 			ViewPage<Organization> result = findAllByLabel("primary", 1, 1);
 			if (result.getCount() > 0) {
-				return result.getResult().get(0);
+				return result.getResult();
 			}
 			return null;
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
 	}
-
+	
 	public ViewPage<Organization> findAllByLabel(String labelName, int pageNum, int pageSize) {
 		List<OrganizationLabel> val = new ArrayList<>();
 		OrganizationLabelDAO olDAO = new OrganizationLabelDAO(ses);
@@ -76,7 +76,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			return new ViewPage<>(null);
 		}
 	}
-
+	
 	public ViewPage<Organization> findAllByOrgCategory(List<OrgCategory> name, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -97,7 +97,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			TypedQuery<Organization> typedQuery = em.createQuery(cq);
 			Query query = em.createQuery(countCq);
 			long count = (long) query.getSingleResult();
-
+			
 			int maxPage = 1;
 			if (pageNum != 0 || pageSize != 0) {
 				maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
@@ -114,7 +114,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			em.close();
 		}
 	}
-
+	
 	public ViewPage<Organization> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -125,7 +125,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			cq.select(c);
 			countCq.select(cb.count(c));
 			if (!keyword.isEmpty()) {
-				Predicate condition = cb.like(cb.lower(c.<String> get("name")), "%" + keyword.toLowerCase() + "%");
+				Predicate condition = cb.like(cb.lower(c.<String>get("name")), "%" + keyword.toLowerCase() + "%");
 				cq.where(condition);
 				countCq.where(condition);
 			}
@@ -145,5 +145,5 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			em.close();
 		}
 	}
-
+	
 }

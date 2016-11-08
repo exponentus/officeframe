@@ -32,7 +32,7 @@ import staff.model.Role;
 @Command(name = "import_rvz_nsf")
 public class ImportRvzFromNSF extends ImportNSF {
 	private static final String RVZ_ROLE = "senior_manager";
-
+	
 	@Override
 	public void doTask(_Session ses) {
 		Map<String, Employee> entities = new HashMap<>();
@@ -41,7 +41,7 @@ public class ImportRvzFromNSF extends ImportNSF {
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		PositionDAO pDao = new PositionDAO(ses);
 		RoleDAO rDao = new RoleDAO(ses);
-		Organization primaryOrg = oDao.findPrimaryOrg();
+		Organization primaryOrg = oDao.findPrimaryOrg().get(0);
 		if (primaryOrg != null) {
 			List<Role> roles = new ArrayList<>();
 			Role role = rDao.findByName(RVZ_ROLE);
@@ -96,9 +96,9 @@ public class ImportRvzFromNSF extends ImportNSF {
 				} catch (NotesException e) {
 					logger.errorLogEntry(e);
 				}
-
+				
 				logger.infoLogEntry("has been found " + entities.size() + " records");
-
+				
 				for (Entry<String, Employee> entry : entities.entrySet()) {
 					save(eDao, entry.getValue(), entry.getKey());
 				}
@@ -110,5 +110,5 @@ public class ImportRvzFromNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-
+	
 }
