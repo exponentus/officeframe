@@ -36,6 +36,7 @@ public class MainNavigator extends _DoPage {
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("doc_subjs", session.getLang()), "documentsubject-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("control_types", session.getLang()), "controltype-view"));
 		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("tags", session.getLang()), "tag-view"));
+		common_outline.addEntry(new _OutlineEntry(getLocalizedWord("text_template", session.getLang()), "texttemplate-view"));
 
 		_Outline specific_outline = new _Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
 
