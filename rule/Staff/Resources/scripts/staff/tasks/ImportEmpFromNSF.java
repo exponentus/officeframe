@@ -30,7 +30,7 @@ import staff.model.Organization;
 
 @Command(name = "import_emp_nsf")
 public class ImportEmpFromNSF extends ImportNSF {
-
+	
 	@Override
 	public void doTask(_Session ses) {
 		Map<String, Employee> entities = new HashMap<>();
@@ -39,10 +39,10 @@ public class ImportEmpFromNSF extends ImportNSF {
 		DepartmentDAO dDao = new DepartmentDAO(ses);
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		PositionDAO pDao = new PositionDAO(ses);
-		Organization primaryOrg = oDao.findPrimaryOrg();
-
+		Organization primaryOrg = oDao.findPrimaryOrg().get(0);
+		
 		User dummyUser = (User) uDao.findByLogin(ConvertorEnvConst.DUMMY_USER);
-
+		
 		if (primaryOrg != null) {
 			try {
 				ViewEntryCollection vec = getAllEntries("struct.nsf");
@@ -92,7 +92,7 @@ public class ImportEmpFromNSF extends ImportNSF {
 							logger.errorLogEntry(e);
 						}
 					}
-
+					
 					tmpEntry = vec.getNextEntry();
 					entry.recycle();
 					entry = tmpEntry;
@@ -100,17 +100,17 @@ public class ImportEmpFromNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-
+			
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-
+			
 			for (Entry<String, Employee> entry : entities.entrySet()) {
 				save(eDao, entry.getValue(), entry.getKey());
 			}
-
+			
 		} else {
 			logger.errorLogEntry("primary Organization has not been found");
 		}
 		System.out.println("done...");
 	}
-
+	
 }

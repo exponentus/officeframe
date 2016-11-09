@@ -1,5 +1,6 @@
 package staff.page;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Exception;
@@ -25,14 +26,15 @@ import staff.model.Employee;
  */
 
 public class UserProfile extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		IUser<Long> user = session.getUser();
 		EmployeeDAO dao = new EmployeeDAO(session);
 		Employee emp = dao.findByUserId(user.getId());
 		_ActionBar actionBar = new _ActionBar(session);
-		actionBar.addAction(new _Action(getLocalizedWord("save_close", session.getLang()), "", _ActionType.SAVE_AND_CLOSE));
+		actionBar.addAction(
+				new _Action(getLocalizedWord("save_close", session.getLang()), "", _ActionType.SAVE_AND_CLOSE));
 		actionBar.addAction(new _Action(getLocalizedWord("close", session.getLang()), "", _ActionType.CLOSE));
 		if (emp == null) {
 			emp = new Employee();
@@ -44,7 +46,7 @@ public class UserProfile extends _DoPage {
 			emp.setPosition(tmpPos);
 			emp.setUser(userObj);
 			emp.setName(user.getLogin());
-
+			
 		}
 		addContent(emp);
 		addContent(new LanguageDAO(session).findAll());
@@ -54,7 +56,7 @@ public class UserProfile extends _DoPage {
 		addValue("workspaceUrl", Environment.getWorkspaceURL());
 		addContent(actionBar);
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -64,37 +66,37 @@ public class UserProfile extends _DoPage {
 				setValidation(ve);
 				return;
 			}
-
+			
 			IUser<Long> user = session.getUser();
 			UserDAO dao = new UserDAO(session);
 			IUser<Long> entity = dao.findById(user.getId());
-
+			
 			entity.setLogin(formData.getValue("login"));
 			entity.setEmail(formData.getValue("email"));
 			if (!formData.getValueSilently("pwd").isEmpty()) {
 				entity.setPwd(formData.getValue("pwd"));
 			}
 			dao.update(entity);
-
+			
 			setRedirect("_back");
-		} catch (_Exception e) {
+		} catch (_Exception | DAOException e) {
 			logError(e);
 		}
 	}
-
+	
 	private _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-
+		
 		if (formData.getValueSilently("login").isEmpty()) {
 			ve.addError("login", "required", getLocalizedWord("required", lang));
 		}
-
+		
 		if (!formData.getValueSilently("email").isEmpty()) {
 			if (!_Validator.checkEmail(formData.getValueSilently("email"))) {
 				ve.addError("email", "email", getLocalizedWord("email_invalid", lang));
 			}
 		}
-
+		
 		if (!formData.getValueSilently("pwd_new").isEmpty()) {
 			if (formData.getValueSilently("pwd_confirm").isEmpty()) {
 				ve.addError("pwd_confirm", "required", getLocalizedWord("required", lang));
@@ -104,7 +106,7 @@ public class UserProfile extends _DoPage {
 				ve.addError("pwd_new", "len_ge_8", getLocalizedWord("password_new_invalid", lang));
 			}
 		}
-
+		
 		return ve;
 	}
 }
