@@ -25,7 +25,7 @@ import reference.model.constants.CountryCode;
 @NamedQuery(name = "Country.findAll", query = "SELECT m FROM Country AS m ORDER BY m.regDate")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonRootName("country")
-@JsonIgnoreType
+// @JsonIgnoreType
 public class Country extends SimpleReferenceEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "country")

@@ -24,7 +24,7 @@ public class Region extends SimpleReferenceEntity {
 	@OneToMany(mappedBy = "region")
 	private List<District> districts;
 
-	@JsonIgnore
+	// @JsonIgnore
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Country country;
