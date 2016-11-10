@@ -28,53 +28,53 @@ import discussing.model.constants.TopicStatusType;
 @NamedQuery(name = "Topic.findAll", query = "SELECT m FROM Topic AS m ORDER BY m.regDate")
 @JsonIgnoreType
 public class Topic extends SecureAppEntity<UUID> {
-
+	
 	@FTSearchable
 	@Column(columnDefinition = "TEXT")
 	private String subject;
-
+	
 	@Column(length = 64)
 	private String module;
-
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type", nullable = false, length = 7)
 	private TopicStatusType status = TopicStatusType.UNKNOWN;
-
+	
 	@OneToMany(mappedBy = "topic")
 	private List<Comment> comments;
-
+	
 	public String getSubject() {
 		return subject;
 	}
-
+	
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-
+	
 	public String getModule() {
 		return module;
 	}
-
+	
 	public void setModule(String module) {
 		this.module = module;
 	}
-
+	
 	public TopicStatusType getStatus() {
 		return status;
 	}
-
+	
 	public void setStatus(TopicStatusType s) {
 		this.status = s;
 	}
-
+	
 	public List<Comment> getComments() {
 		return comments;
 	}
-
+	
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-
+	
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -100,7 +100,7 @@ public class Topic extends SecureAppEntity<UUID> {
 		}
 		return chunk.toString();
 	}
-
+	
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -119,9 +119,9 @@ public class Topic extends SecureAppEntity<UUID> {
 		}
 		return chunk.toString();
 	}
-
+	
 	public boolean isHasComments() {
 		return comments != null && comments.size() > 0;
 	}
-
+	
 }
