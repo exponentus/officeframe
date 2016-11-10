@@ -2980,7 +2980,9 @@ nb.resetSearchFromRefer = function() {
 $(document).ready(function() {
     $('form[name=ft-search]').on('submit', function() {
         nb.setSearchReferToSessionStorage();
-        return true;
+        window.location.href = "api/view/ftsearch/"+$("input[type=search]").val()+"/1";
+        
+        return false;
     });
 
     $('form[name=ft-search]').on('reset', function() {
