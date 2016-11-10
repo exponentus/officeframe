@@ -74,6 +74,7 @@
 		<class>reference.model.TaskType</class>
 		<class>reference.model.Tag</class>	
 		<class>reference.model.OrgCategory</class>
+		<class>reference.model.TextTemplate</class>
 		<!-- Specific Reference module entities -->
 		<class>reference.model.PropertyCode</class>	
 		<class>reference.model.BuildingMaterial</class>	
