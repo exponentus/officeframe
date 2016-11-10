@@ -9,6 +9,7 @@
             <doscript source="JAVA_CLASS">workspace.page.form.Workspace</doscript>
         </events>
     </element>
+    <caption name="your_profile"/>
     <caption name="logout"/>
     <caption name="another_comp"/>
     <caption name="user"/>
