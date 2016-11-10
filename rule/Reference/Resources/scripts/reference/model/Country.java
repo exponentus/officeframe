@@ -12,9 +12,9 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -30,29 +30,30 @@ public class Country extends SimpleReferenceEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "country")
 	private List<Region> regions;
-
+	
+	@FTSearchable
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = true, length = 7, unique = true)
 	private CountryCode code = CountryCode.UNKNOWN;
-
+	
 	public CountryCode getCode() {
 		return code;
 	}
-
+	
 	public void setCode(CountryCode code) {
 		this.code = code;
 	}
-
+	
 	@JsonIgnore
 	public List<Region> getRegions() {
 		return regions;
 	}
-
+	
 	@JsonIgnore
 	public void setRegions(List<Region> regions) {
 		this.regions = regions;
 	}
-
+	
 	@JsonIgnore
 	@Override
 	public String getFullXMLChunk(_Session ses) {
@@ -61,5 +62,5 @@ public class Country extends SimpleReferenceEntity {
 		chunk.append("<code>" + code + "</code>");
 		return chunk.toString();
 	}
-
+	
 }
