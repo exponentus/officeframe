@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rule  mode="on">
+<rule mode="on">
     <caching>CACHING_IN_SERVER_SCOPE</caching>
 
     <caption name="brand"/>
@@ -12,6 +12,7 @@
     <caption name="page"/>
     <caption name="documents"/>
     <caption name="logout"/>
+    <caption name="your_profile"/>
     <caption name="user_profile"/>
     <caption name="search"/>
     <caption name="ft_search_result"/>

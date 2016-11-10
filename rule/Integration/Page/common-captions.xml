@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rule  mode="on">
+<rule mode="on">
     <caching>CACHING_IN_SERVER_SCOPE</caching>
 
     <caption name="brand"/>
@@ -14,6 +14,7 @@
     <caption name="page"/>
     <caption name="documents"/>
     <caption name="workspace"/>
+    <caption name="your_profile"/>
     <caption name="user_profile"/>
     <caption name="search"/>
     <caption name="localized_names"/>
@@ -42,10 +43,4 @@
     <caption name="tags"/>
     <caption name="localized_names"/>
     <caption name="type"/>
-
-  
 </rule>
-
-
-   
-

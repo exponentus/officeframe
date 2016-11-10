@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <vocabulary primary="RUS">
+    <sentence mode="on" keyword="your_profile">
+        <entry lang="RUS">Ваш профиль</entry>
+        <entry lang="KAZ">Ваш профиль</entry>
+        <entry lang="ENG">Your profile</entry>
+        <entry lang="CHI"></entry>
+    </sentence>
     <sentence mode="on" keyword="user">
         <entry lang="RUS">Пользователь</entry>
         <entry lang="KAZ">Пайдаланушы</entry>

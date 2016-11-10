@@ -89,13 +89,18 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="fa fa-user"></i>
+                                <span>
+                                    <xsl:value-of select="@username"/>
+                                </span>
                             </a>
                             <ul class="dropdown-menu right">
                                 <li>
                                     <a class="user-profile" title="{//captions/user_profile/@caption}"
                                        href="Provider?id=userprofile">
                                         <i class="fa fa-user"></i>
-                                        <xsl:value-of select="concat(' ', @username)"/>
+                                        <span>
+                                            <xsl:value-of select="//captions/your_profile/@caption"/>
+                                        </span>
                                     </a>
                                 </li>
                                 <li class="divider"></li>

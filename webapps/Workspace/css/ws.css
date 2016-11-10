@@ -57,11 +57,17 @@ body {
     content: none;
 }
 
-.navbar .dropdown .dropdown-menu > li > a {
+.navbar .dropdown .dropdown-toggle {
     color: #FFF;
+}
+
+.navbar .dropdown .dropdown-menu > li > a,
+.navbar .dropdown .dropdown-menu > li > a > i {
+    color: #444;
     font-size: 14px;
 }
-@media (max-width: 1024px) {
+
+/*@media (max-width: 1024px) {
     .navbar .dropdown .dropdown-menu {
         top: 50px;
     }
@@ -77,7 +83,7 @@ body {
     .container {
         margin: 0 auto;
     }
-}
+}*/
 
 .content {
     background: none;
@@ -223,9 +229,9 @@ img.ws-app-logo {
     }
 }
 
-.user-profile {
+/*.user-profile {
     background: none !important;
-}
+}*/
 
 /* .sign-up */
 
@@ -441,7 +447,7 @@ a.btn-sign-up {
 }
 
 .lang:hover .lang-menu {
-    /*    display: block;
+    /*display: block;
     position: absolute;*/
 }
 
