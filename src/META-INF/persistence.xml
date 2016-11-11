@@ -75,13 +75,16 @@
 		<class>reference.model.Tag</class>	
 		<class>reference.model.OrgCategory</class>
 		<class>reference.model.TextTemplate</class>
+		
 		<!-- Specific Reference module entities -->
 		<class>reference.model.PropertyCode</class>	
 		<class>reference.model.BuildingMaterial</class>	
 		<class>reference.model.StructureType</class>
 		<class>reference.model.ReceivingReason</class>
 		<class>reference.model.Kuf</class>
-		<class>reference.model.RequestType</class>    
+		<class>reference.model.RequestType</class>  
+		<!-- Specific Reference module entities for HelpDesk module-->
+		<class>reference.model.DemandType</class>  
 		<shared-cache-mode>NONE</shared-cache-mode>
 	</persistence-unit>	
 	<persistence-unit name="Discussing" transaction-type="RESOURCE_LOCAL">
