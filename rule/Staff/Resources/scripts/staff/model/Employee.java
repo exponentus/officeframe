@@ -83,7 +83,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 	@Embedded
 	private Avatar avatar;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	public Organization getOrganization() {
 		return organization;
 	}
@@ -92,7 +92,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		this.organization = organization;
 	}
 	
-	@JsonIgnore
+	//@JsonIgnore
 	public Department getDepartment() {
 		return department;
 	}
@@ -109,7 +109,7 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		this.boss = boss;
 	}
 	
-	@JsonIgnore
+	//@JsonIgnore
 	public Position getPosition() {
 		return position;
 	}
