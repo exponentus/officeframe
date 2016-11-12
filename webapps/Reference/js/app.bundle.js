@@ -2796,7 +2796,7 @@ nb.upload = function(fileInput) {
 nb.uploadAvatar = function(fileInput) {
     var inputName = fileInput.name;
     var formData = new FormData(fileInput.form);
-    formData.append("fieldname","avatar");
+    formData.append("fieldname", "avatar");
     var $attNode = $(nb.template('attachments', {
         files: [{ name: fileInput.files[0].name, path: '' }]
     }));
@@ -2841,7 +2841,7 @@ nb.uploadAvatar = function(fileInput) {
             sessionStorage.setItem('organization', org_html);
             var dept_html = $("select[name=department]").html();
             sessionStorage.setItem('department', dept_html);
-            
+
             window.location.reload();
         }
     });
@@ -2854,7 +2854,7 @@ nb.uploadProgress = function(e, $progress) {
 };
 
 $(document).ready(function() {
-   // var fsId = new Date().getTime();
+    // var fsId = new Date().getTime();
     var fsId = $("#fsid").val();
 
     $('[data-upload]').each(function() {
