@@ -3,7 +3,6 @@ package reference.tasks;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.exponentus.dataengine.DatabaseUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -23,18 +22,16 @@ import reference.model.OrgCategory;
 
 @Command(name = "prepare_storage")
 public class InsertUndefinedGag extends _DoPatch {
-
+	
 	@Override
 	public void doTask(_Session ses) {
 		Vocabulary vocabular = ses.getAppEnv().vocabulary;
-		DatabaseUtil.makeStrictUniqIndex("positions", "name", true);
-		DatabaseUtil.makeNotNullStrict("orgs", "orgcategory_id");
-
+		
 		Map<LanguageCode, String> gag = new HashMap<>();
 		gag.put(LanguageCode.ENG, vocabular.getWord("undefined", LanguageCode.ENG));
 		gag.put(LanguageCode.KAZ, vocabular.getWord("undefined", LanguageCode.KAZ));
 		gag.put(LanguageCode.RUS, vocabular.getWord("undefined", LanguageCode.RUS));
-
+		
 		DepartmentTypeDAO dao = new DepartmentTypeDAO(ses);
 		DepartmentType entity = new DepartmentType();
 		entity.setName(ConvertorEnvConst.GAG_KEY);
@@ -52,7 +49,7 @@ public class InsertUndefinedGag extends _DoPatch {
 		} catch (SecureException e) {
 			logger.errorLogEntry(e);
 		}
-
+		
 		OrgCategoryDAO dao1 = new OrgCategoryDAO(ses);
 		OrgCategory entity1 = new OrgCategory();
 		entity1.setName(ConvertorEnvConst.GAG_KEY);
@@ -70,7 +67,7 @@ public class InsertUndefinedGag extends _DoPatch {
 		} catch (SecureException e) {
 			logger.errorLogEntry(e);
 		}
-
+		
 		DocumentLanguageDAO dao2 = new DocumentLanguageDAO(ses);
 		DocumentLanguage entity2 = new DocumentLanguage();
 		entity2.setName(ConvertorEnvConst.GAG_ENTITY);
@@ -90,5 +87,5 @@ public class InsertUndefinedGag extends _DoPatch {
 			logger.errorLogEntry(e);
 		}
 	}
-
+	
 }
