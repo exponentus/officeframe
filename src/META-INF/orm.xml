@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<entity-mappings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm" version="2.1">
+ 	<converter class="administrator.model.util.UserStatusCodeConverter"/>
+    <converter class="administrator.model.util.InterfaceTypeConvertor"/>
+</entity-mappings>
