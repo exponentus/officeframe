@@ -41,64 +41,66 @@ import staff.model.Role;
 
 public class UserServices {
 	private AppEnv env = Environment.getAppEnv(EnvConst.ADMINISTRATOR_APP_NAME);
-
+	
 	@Deprecated
 	public void importFromH2() {
 		importFromH2(true);
 	}
-
+	
 	public void importFromH2(boolean showConsoleOutput) {
 		List<User> entities = new ArrayList<>();
-
+		
 		ISystemDatabase sysDb = null;
 		try {
 			sysDb = new SystemDatabase();
-
+			
 			List<com.exponentus.legacy.User> users = sysDb.getAllUsers("", 0, 10000);
 			int rCount = users.size();
 			if (showConsoleOutput) {
 				System.out.println("System users count = " + rCount);
 			}
-
-			ApplicationDAO aDao = new ApplicationDAO(new _Session(env, new AnonymousUser()));
+			
+			ApplicationDAO aDao = new ApplicationDAO(new _Session(new AnonymousUser()));
 			List<AppCode> list = new ArrayList<>();
 			list.add(AppCode.CUSTOM);
 			List<Application> appList = aDao.findAllin("code", list, 0, 0).getResult();
-
+			
 			for (com.exponentus.legacy.User oldUser : users) {
 				User entity = new User();
 				entity.setLogin(oldUser.getLogin());
 				entity.setPwd(oldUser.getPassword());
 				entity.setPwdHash(oldUser.getPasswordHash());
 				entity.setAllowedApps(appList);
-
+				
 				entities.add(entity);
 			}
-
+			
 			UserDAO uDao = new UserDAO();
 			for (User user : entities) {
 				uDao.add(user);
 			}
-
-		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | DatabasePoolException | DAOException e) {
+			
+		} catch (InstantiationException | IllegalAccessException | ClassNotFoundException | DatabasePoolException
+				| DAOException e) {
 			Server.logger.errorLogEntry(e);
 		}
-
+		
 	}
-
+	
 	public void importFromOldStructure() {
 		importFromOldStructure(true);
 	}
-
+	
 	public void importFromOldStructure(boolean showConsoleOutput) {
 		Connection conn = null;
 		Properties connectionProps = new Properties();
 		connectionProps.put("user", EnvConst.OLD_STRUCTDB_USER);
 		connectionProps.put("password", EnvConst.OLD_STRUCTDB_PWD);
-
+		
 		try {
 			if (showConsoleOutput) {
-				System.out.println("import from: \"" + EnvConst.OLD_STRUCTDB_URL + "\", user:\"" + EnvConst.OLD_STRUCTDB_USER + "\"");
+				System.out.println("import from: \"" + EnvConst.OLD_STRUCTDB_URL + "\", user:\""
+						+ EnvConst.OLD_STRUCTDB_USER + "\"");
 			}
 			conn = DriverManager.getConnection(EnvConst.OLD_STRUCTDB_URL, connectionProps);
 			conn.setAutoCommit(false);
@@ -110,12 +112,12 @@ public class UserServices {
 			// docid from maindocs)");
 			ResultSet rs = st.executeQuery("select * from employers");
 			conn.commit();
-			EmployeeDAO dao = new EmployeeDAO(new _Session(env, new AnonymousUser()));
-			OrganizationDAO orgDAO = new OrganizationDAO(new _Session(env, new AnonymousUser()));
-			ApplicationDAO aDao = new ApplicationDAO(new _Session(env, new AnonymousUser()));
-			RoleDAO roleDAO = new RoleDAO(new _Session(env, new AnonymousUser()));
-			PositionDAO posDAO = new PositionDAO(new _Session(env, new AnonymousUser()));
-			OrganizationLabelDAO orgLabDAO = new OrganizationLabelDAO(new _Session(env, new AnonymousUser()));
+			EmployeeDAO dao = new EmployeeDAO(new _Session(new AnonymousUser()));
+			OrganizationDAO orgDAO = new OrganizationDAO(new _Session(new AnonymousUser()));
+			ApplicationDAO aDao = new ApplicationDAO(new _Session(new AnonymousUser()));
+			RoleDAO roleDAO = new RoleDAO(new _Session(new AnonymousUser()));
+			PositionDAO posDAO = new PositionDAO(new _Session(new AnonymousUser()));
+			OrganizationLabelDAO orgLabDAO = new OrganizationLabelDAO(new _Session(new AnonymousUser()));
 			UserDAO uDao = new UserDAO();
 			Employee entity;
 			while (rs.next()) {
@@ -128,17 +130,19 @@ public class UserServices {
 						if (dao.findAllByName(rs.getString("fullname"), 0, 50).getCount() == 0) {
 							entity = new Employee();
 							entity.setName(rs.getString("fullname"));
-
-							PreparedStatement ps_orgs = conn.prepareStatement("select * from maindocs where viewtext = ?");
+							
+							PreparedStatement ps_orgs = conn
+									.prepareStatement("select * from maindocs where viewtext = ?");
 							ps_orgs.setString(1, rs.getString("shortname"));
 							ResultSet rs_orgs = ps_orgs.executeQuery();
 							if (rs_orgs.next()) {
-								PreparedStatement ps_cf = conn
-								        .prepareStatement("select value from custom_fields where docid = ? and value <> '' and name = 'bin'");
+								PreparedStatement ps_cf = conn.prepareStatement(
+										"select value from custom_fields where docid = ? and value <> '' and name = 'bin'");
 								ps_cf.setInt(1, rs_orgs.getInt("docid"));
 								ResultSet rs_cf = ps_cf.executeQuery();
 								if (rs_cf.next()) {
-									ViewPage<Organization> orgPage = orgDAO.findAllequal("name", rs_orgs.getString("viewtext"), 0, 100);
+									ViewPage<Organization> orgPage = orgDAO.findAllequal("name",
+											rs_orgs.getString("viewtext"), 0, 100);
 									if (orgPage != null && orgPage.getCount() > 0) {
 										entity.setOrganization(orgPage.getResult().get(0));
 									} else {
@@ -154,14 +158,14 @@ public class UserServices {
 										}
 										newOrg.setBin(bin);
 										newOrg.setForm("organization-form");
-
+										
 										OrganizationLabel orgCategories = orgLabDAO.findByName("balance_holder");
 										if (orgCategories != null) {
 											ArrayList<OrganizationLabel> labels = new ArrayList<>();
 											labels.add(orgCategories);
 											newOrg.setLabels(labels);
 										}
-
+										
 										try {
 											orgDAO.add(newOrg);
 											entity.setOrganization(newOrg);
@@ -171,7 +175,7 @@ public class UserServices {
 									}
 								}
 							}
-
+							
 							// entity.setPosition(posDAO.findById(UUID.fromString(formData.getValue("position"))));
 							pst = conn.prepareStatement("select * from user_roles where empid = ? and type = 889");
 							pst.setInt(1, rs.getInt("empid"));
@@ -181,23 +185,25 @@ public class UserServices {
 							while (rs_roles.next()) {
 								if (rs_roles.getString("name").equalsIgnoreCase("administrator")) {
 									if (rs_roles.getString("appid").equalsIgnoreCase("Glossary")) {
-										List<Role> role = roleDAO.findAllequal("name", "reference_admin", 0, 50).getResult();
+										List<Role> role = roleDAO.findAllequal("name", "reference_admin", 0, 50)
+												.getResult();
 										roleList.addAll(role);
 									}
 									if (rs_roles.getString("appid").equalsIgnoreCase("Structure")) {
-										List<Role> role = roleDAO.findAllequal("name", "staff_admin", 0, 50).getResult();
+										List<Role> role = roleDAO.findAllequal("name", "staff_admin", 0, 50)
+												.getResult();
 										roleList.addAll(role);
 									}
 								}
 							}
-
+							
 							Position tmpPos = posDAO.findByName("unknown");
 							entity.setPosition(tmpPos);
-
+							
 							if (!roleList.isEmpty()) {
 								entity.setRoles(roleList);
 							}
-
+							
 							List<Application> appList = new ArrayList<>();
 							appList.add(aDao.findByName("MunicipalProperty"));
 							appList.add(aDao.findByName("Accountant"));
@@ -205,7 +211,7 @@ public class UserServices {
 							appList.add(aDao.findByName("Registry"));
 							user.setAllowedApps(appList);
 							entity.setUser(user);
-
+							
 							dao.add(entity);
 						}
 					}
@@ -222,5 +228,5 @@ public class UserServices {
 			}
 		}
 	}
-
+	
 }

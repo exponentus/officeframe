@@ -30,13 +30,18 @@ public class MainNavigator extends _DoPage {
 		
 		final _Outline common_outline = new _Outline(getLocalizedWord("common_staff_data", lang), "common");
 		
-		final OrganizationDAO oDao = new OrganizationDAO(session);
+		OrganizationDAO oDao;
+		
+		oDao = new OrganizationDAO(session);
+		
 		List<Organization> po = oDao.findPrimaryOrg();
-
-		for (Organization primaryOrg : po) {
-			primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocalizedName(lang),
-					getLocalizedWord("primary_organization", lang) + " : " + primaryOrg.getLocalizedName(lang),
-					"structure-view", "p?id=structure-view"));
+		
+		if (po != null) {
+			for (Organization primaryOrg : po) {
+				primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocalizedName(lang),
+						getLocalizedWord("primary_organization", lang) + " : " + primaryOrg.getLocalizedName(lang),
+						"structure-view", "p?id=structure-view"));
+			}
 		}
 		final _OutlineEntry orgEntry = new _OutlineEntry(getLocalizedWord("organizations", lang), "organization-view");
 		for (final OrganizationLabel label : new OrganizationLabelDAO(session).findAll()) {
@@ -71,5 +76,6 @@ public class MainNavigator extends _DoPage {
 		addValue("outline_current",
 				formData.getValueSilently("id").replace("-form", "-view") + formData.getValueSilently("categoryid"));
 		addContent(list);
+		
 	}
 }

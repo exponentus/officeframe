@@ -32,7 +32,7 @@ public class UserProfile extends _DoPage {
 		IUser<Long> user = session.getUser();
 		EmployeeDAO dao = new EmployeeDAO(session);
 		Employee emp = dao.findByUserId(user.getId());
-		_ActionBar actionBar = new _ActionBar(session);
+		_ActionBar actionBar = new _ActionBar(session, getCurrentAppEnv());
 		actionBar.addAction(
 				new _Action(getLocalizedWord("save_close", session.getLang()), "", _ActionType.SAVE_AND_CLOSE));
 		actionBar.addAction(new _Action(getLocalizedWord("close", session.getLang()), "", _ActionType.CLOSE));

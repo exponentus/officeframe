@@ -11,9 +11,9 @@ public class ServiceForm extends _DoForm {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		addValue("getbycoord", "/" + session.getAppEnv().appName + "/rest/gis/getbycoord/0");
-		addValue("getbystreet", "/" + session.getAppEnv().appName + "/rest/gis/getbystreet/0/0");
-		_ActionBar actionBar = new _ActionBar(session);
+		addValue("getbycoord", "/" + getCurrentAppEnv().appName + "/rest/gis/getbycoord/0");
+		addValue("getbystreet", "/" + getCurrentAppEnv().appName + "/rest/gis/getbystreet/0/0");
+		_ActionBar actionBar = new _ActionBar(session, getCurrentAppEnv());
 		actionBar.addAction(new _Action("Close", "just close the form", _ActionType.CLOSE));
 		addContent(actionBar);
 	}

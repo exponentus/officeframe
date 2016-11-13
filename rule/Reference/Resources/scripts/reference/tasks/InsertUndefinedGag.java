@@ -25,7 +25,7 @@ public class InsertUndefinedGag extends _DoPatch {
 	
 	@Override
 	public void doTask(_Session ses) {
-		Vocabulary vocabular = ses.getAppEnv().vocabulary;
+		Vocabulary vocabular = getCurrentAppEnv().vocabulary;
 		
 		Map<LanguageCode, String> gag = new HashMap<>();
 		gag.put(LanguageCode.ENG, vocabular.getWord("undefined", LanguageCode.ENG));

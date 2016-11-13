@@ -5,11 +5,11 @@ import java.util.List;
 
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.scripting._AppEntourage;
 import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
+import com.exponentus.server.Server;
 import com.exponentus.user.AnonymousUser;
 import com.exponentus.user.IUser;
 
@@ -18,15 +18,13 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Application;
 
 public class Workspace extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) throws _Exception {
-		_AppEntourage ent = session.getAppEntourage();
-		addValue("serverversion", ent.getServerVersion());
-		addValue("build", ent.getBuildTime());
+		addValue("serverversion", Server.serverVersion);
+		addValue("build", Server.compilationTime);
 		addValue("org", Environment.orgName);
-		addValue("appname", ent.getAppName());
-
+		
 		if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 			IUser<Long> user = session.getUser();
 			List<Application> aa = user.getAllowedApps();
