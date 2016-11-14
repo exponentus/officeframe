@@ -1,6 +1,7 @@
 package staff.tasks;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -26,7 +27,7 @@ import staff.model.Organization;
 
 @Command(name = "import_dep_nsf")
 public class ImportDepFromNSF extends ImportNSF {
-	
+
 	@Override
 	public void doTask(_Session ses) {
 		Map<String, Department> entities = new HashMap<>();
@@ -35,8 +36,9 @@ public class ImportDepFromNSF extends ImportNSF {
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		DepartmentTypeDAO dtDao = new DepartmentTypeDAO(ses);
 		Map<String, String> depTypeCollation = depTypeCollationMapInit();
-		Organization primaryOrg = oDao.findPrimaryOrg().get(0);
-		if (primaryOrg != null) {
+		List<Organization> orgs = oDao.findPrimaryOrg();
+		if (orgs != null && orgs.size() > 0) {
+			Organization primaryOrg = orgs.get(0);
 			try {
 				ViewEntryCollection vec = getAllEntries("struct.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -86,31 +88,31 @@ public class ImportDepFromNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-			
+
 			for (Entry<String, Department> entry : entities.entrySet()) {
 				save(eDao, entry.getValue(), entry.getKey());
 			}
 		}
-		
+
 		logger.infoLogEntry("done...");
-		
+
 	}
-	
+
 	private Map<String, String> depTypeCollationMapInit() {
 		Map<String, String> depTypeCollation = new HashMap<>();
 		depTypeCollation.put("Департамент", "Department");
 		depTypeCollation.put("Отдел", "Department");
 		depTypeCollation.put("Управление", "Management");
-		
+
 		depTypeCollation.put("Сектор", "Sector");
 		depTypeCollation.put("Группа", "Group");
-		
+
 		depTypeCollation.put("", ConvertorEnvConst.GAG_KEY);
 		depTypeCollation.put("null", ConvertorEnvConst.GAG_KEY);
 		return depTypeCollation;
-		
+
 	}
-	
+
 }

@@ -41,8 +41,9 @@ public class ImportRvzFromNSF extends ImportNSF {
 		EmployeeDAO eDao = new EmployeeDAO(ses);
 		PositionDAO pDao = new PositionDAO(ses);
 		RoleDAO rDao = new RoleDAO(ses);
-		Organization primaryOrg = oDao.findPrimaryOrg().get(0);
-		if (primaryOrg != null) {
+		List<Organization> orgs = oDao.findPrimaryOrg();
+		if (orgs != null && orgs.size() > 0) {
+			Organization primaryOrg = orgs.get(0);
 			List<Role> roles = new ArrayList<>();
 			Role role = rDao.findByName(RVZ_ROLE);
 			if (role != null) {
