@@ -5,7 +5,7 @@
     <element mode="ON" type="SCRIPT">
         <name>view_content</name>
         <events>
-            <doscript source="JAVA_CLASS">reference.page.view.DepartmentTypeView</doscript>
+            <doscript source="JAVA_CLASS">reference.page.view.DemandTypeView</doscript>
         </events>
     </element>
     <element mode="ON" type="INCLUDED_PAGE">
