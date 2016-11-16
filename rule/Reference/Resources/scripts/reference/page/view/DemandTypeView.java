@@ -11,6 +11,7 @@ import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 import reference.dao.DemandTypeDAO;
 import reference.dao.DepartmentTypeDAO;
+import reference.model.DemandType;
 import reference.model.DepartmentType;
 
 import java.util.UUID;
@@ -33,9 +34,9 @@ public class DemandTypeView extends _DoPage {
 
     @Override
     public void doDELETE(_Session session, _WebFormData formData) {
-        DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
+        DemandTypeDAO dao = new DemandTypeDAO(session);
         for (String id : formData.getListOfValuesSilently("docid")) {
-            DepartmentType m = dao.findById(UUID.fromString(id));
+            DemandType m = dao.findById(UUID.fromString(id));
             try {
                 dao.delete(m);
             } catch (SecureException e) {
