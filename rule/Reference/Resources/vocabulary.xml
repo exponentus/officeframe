@@ -319,4 +319,16 @@
         <entry lang="KAZ">Жұмыс облысы</entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="demand_types">
+        <entry lang="ENG">Demand types</entry>
+        <entry lang="RUS">Типы заявок</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+     <sentence mode="on" keyword="demand_type">
+        <entry lang="ENG">Demand type</entry>
+        <entry lang="RUS">Тип заявки</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
 </vocabulary>
