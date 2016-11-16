@@ -83,4 +83,6 @@
     <caption name="default_hours"/>
     <caption name="rank"/>
     <caption name="text_template"/>
+    <caption name="demand_types"/>
+    <caption name="demand_type"/>
 </rule>
