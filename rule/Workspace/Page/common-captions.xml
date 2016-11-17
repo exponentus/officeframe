@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rule mode="on">
+  	  <xsltfile>page/index.xsl</xsltfile>
     <caching>CACHING_IN_SERVER_SCOPE</caching>
 
     <caption name="brand"/>
