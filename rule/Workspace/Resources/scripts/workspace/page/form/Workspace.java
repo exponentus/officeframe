@@ -18,13 +18,13 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Application;
 
 public class Workspace extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) throws _Exception {
 		addValue("serverversion", Server.serverVersion);
 		addValue("build", Server.compilationTime);
 		addValue("org", Environment.orgName);
-		
+
 		if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 			IUser<Long> user = session.getUser();
 			List<Application> aa = user.getAllowedApps();
