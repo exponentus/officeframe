@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -21,7 +22,7 @@ import reference.model.DocumentSubject;
 public class ImportDocumentSubjNSF extends ImportNSF {
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, DocumentSubject> entities = new HashMap<>();
 		DocumentSubjectDAO dao = new DocumentSubjectDAO(ses);
 		try {

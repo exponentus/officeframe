@@ -3,12 +3,13 @@ package reference.tasks;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
+import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import administrator.init.ServerConst;
@@ -17,10 +18,10 @@ import reference.dao.DocumentLanguageDAO;
 import reference.model.DocumentLanguage;
 
 @Command(name = "fill_doc_langs")
-public class FillDocumentLanguages extends _DoPatch {
+public class FillDocumentLanguages extends _Do {
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		List<DocumentLanguage> entities = new ArrayList<>();
 		DocumentLanguageDAO dao = new DocumentLanguageDAO(ses);
 		LanguageCode langs[] = { LanguageCode.RUS, LanguageCode.ENG, LanguageCode.KAZ, LanguageCode.FRA, LanguageCode.CHI, LanguageCode.DEU,

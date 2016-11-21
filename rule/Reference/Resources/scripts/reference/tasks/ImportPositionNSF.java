@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.legacy.smartdoc.ImportNSF;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -21,7 +22,7 @@ import reference.model.Position;
 public class ImportPositionNSF extends ImportNSF {
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Position> entities = new HashMap<>();
 		PositionDAO dao = new PositionDAO(ses);
 

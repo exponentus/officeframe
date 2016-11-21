@@ -3,6 +3,7 @@ package reference.tasks;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -10,7 +11,7 @@ import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
+import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.DepartmentTypeDAO;
@@ -21,10 +22,10 @@ import reference.model.DocumentLanguage;
 import reference.model.OrgCategory;
 
 @Command(name = "prepare_storage")
-public class InsertUndefinedGag extends _DoPatch {
+public class InsertUndefinedGag extends _Do {
 	
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		Vocabulary vocabular = getCurrentAppEnv().vocabulary;
 		
 		Map<LanguageCode, String> gag = new HashMap<>();

@@ -5,11 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
+import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.ListUtil;
 
@@ -25,11 +26,11 @@ import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
 @Command(name = "load_orgs_xls")
-public class LoadTestOrgsFromXLFile extends _DoPatch {
+public class LoadTestOrgsFromXLFile extends _Do {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Organization> entities = new ArrayList<>();
 		OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 		OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);

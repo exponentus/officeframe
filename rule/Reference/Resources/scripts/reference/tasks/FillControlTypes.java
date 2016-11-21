@@ -5,23 +5,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._DoPatch;
+import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
 
 @Command(name = "fill_control_types")
-public class FillControlTypes extends _DoPatch {
+public class FillControlTypes extends _Do {
 	private static final int HOURS_TO_DO = 24 * 30;
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		List<ControlType> entities = new ArrayList<>();
 		ControlTypeDAO dao = new ControlTypeDAO(ses);
 		String codes[] = { "ВС", "ДВ", "ДС", "ДУ", "К", "РК", "СК" };

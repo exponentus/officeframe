@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.legacy.smartdoc.ImportNSF;
@@ -31,7 +32,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 	private static final String PRIMARY_ORGANIZATION_LABEL = "primary";
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Organization> entities = new HashMap<>();
 		OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 		OrganizationDAO oDao = new OrganizationDAO(ses);

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.legacy.smartdoc.ImportNSF;
@@ -33,7 +34,7 @@ import staff.model.Organization;
 public class ImportEmpFromNSF extends ImportNSF {
 
 	@Override
-	public void doTask(_Session ses) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Employee> entities = new HashMap<>();
 		UserDAO uDao = new UserDAO(ses);
 		OrganizationDAO oDao = new OrganizationDAO(ses);
