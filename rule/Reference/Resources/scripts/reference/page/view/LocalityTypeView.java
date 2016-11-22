@@ -2,6 +2,7 @@ package reference.page.view;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
@@ -16,7 +17,7 @@ import reference.dao.LocalityTypeDAO;
 import reference.model.LocalityType;
 
 public class LocalityTypeView extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		IUser<Long> user = session.getUser();
@@ -25,23 +26,24 @@ public class LocalityTypeView extends _DoPage {
 			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_locality_type");
 			newDocAction.setURL("Provider?id=localitytype-form");
 			actionBar.addAction(newDocAction);
-			actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
-
+			actionBar.addAction(
+					new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
+			
 			addContent(actionBar);
 		}
 		addContent(getViewPage(new LocalityTypeDAO(session), formData));
 	}
-
+	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-
+		
 		LocalityTypeDAO dao = new LocalityTypeDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			LocalityType m = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(m);
-			} catch (SecureException e) {
+			} catch (SecureException | DAOException e) {
 				setError(e);
 			}
 		}

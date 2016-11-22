@@ -2,6 +2,7 @@ package staff.page.view;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -21,7 +22,7 @@ import staff.model.Department;
  */
 
 public class DepartmentView extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
@@ -36,17 +37,17 @@ public class DepartmentView extends _DoPage {
 		}
 		addContent(getViewPage(new DepartmentDAO(session), formData));
 	}
-
+	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-
+		
 		DepartmentDAO dao = new DepartmentDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			Department m = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(m);
-			} catch (SecureException e) {
+			} catch (SecureException | DAOException e) {
 				setError(e);
 			}
 		}

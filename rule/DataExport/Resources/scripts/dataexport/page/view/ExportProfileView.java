@@ -2,6 +2,7 @@ package dataexport.page.view;
 
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
@@ -14,28 +15,29 @@ import dataexport.dao.ExportProfileDAO;
 import dataexport.model.ExportProfile;
 
 public class ExportProfileView extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
 		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
 		newDocAction.setURL("Provider?id=exportprofile-form");
 		actionBar.addAction(newDocAction);
-		actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
+		actionBar.addAction(
+				new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
 		addContent(getViewPage(new ExportProfileDAO(session), formData));
 	}
-
+	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-
+		
 		ExportProfileDAO dao = new ExportProfileDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			ExportProfile c = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(c);
-			} catch (SecureException e) {
+			} catch (SecureException | DAOException e) {
 				setError(e);
 			}
 		}

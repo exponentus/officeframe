@@ -3,6 +3,7 @@ package staff.page.view;
 import java.util.List;
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -23,7 +24,7 @@ import staff.model.Role;
  */
 
 public class RoleView extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
@@ -38,7 +39,8 @@ public class RoleView extends _DoPage {
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_employee");
 				newDocAction.setURL("Provider?id=employee-form&categoryid=" + id);
 				actionBar.addAction(newDocAction);
-				actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 			addContent(emps);
@@ -48,23 +50,24 @@ public class RoleView extends _DoPage {
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_role");
 				newDocAction.setURL("Provider?id=role-form");
 				actionBar.addAction(newDocAction);
-				actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 			addContent(getViewPage(dao, formData));
 		}
 	}
-
+	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-
+		
 		RoleDAO dao = new RoleDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			Role m = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(m);
-			} catch (SecureException e) {
+			} catch (SecureException | DAOException e) {
 				setError(e);
 			}
 		}

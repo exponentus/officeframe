@@ -3,6 +3,7 @@ package staff.page.view;
 import java.util.List;
 import java.util.UUID;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -23,7 +24,7 @@ import staff.model.OrganizationLabel;
  */
 
 public class OrganizationLabelView extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
@@ -40,23 +41,24 @@ public class OrganizationLabelView extends _DoPage {
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization_label");
 				newDocAction.setURL("Provider?id=organization-label-form");
 				actionBar.addAction(newDocAction);
-				actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 			addContent(getViewPage(dao, formData));
 		}
 	}
-
+	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-
+		
 		OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			OrganizationLabel m = dao.findById(UUID.fromString(id));
 			try {
 				dao.delete(m);
-			} catch (SecureException e) {
+			} catch (SecureException | DAOException e) {
 				setError(e);
 			}
 		}
