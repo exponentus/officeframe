@@ -2024,6 +2024,7 @@ nb.submitForm = function(form, options) {
         message: options.notify || nb.getText('wait_while_document_save', 'Пожалуйста ждите... идет сохранение документа'),
         type: 'process'
     }).show();
+    
 
     var xhrArgs = {
         cache: false,
