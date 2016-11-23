@@ -35,6 +35,8 @@ public class Workspace extends _DoPage {
 			}
 			Collections.sort(aa, (left, right) -> left.getPosition() - right.getPosition());
 			addContent(aa);
+		} else {
+			setUnauthorized();
 		}
 		addContent(new LanguageDAO(session).findAll());
 	}
