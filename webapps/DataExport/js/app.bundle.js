@@ -2025,11 +2025,12 @@ nb.submitForm = function(form, options) {
         type: 'process'
     }).show();
 
+
     var xhrArgs = {
         cache: false,
         type: 'POST',
         dataType: 'json',
-        url: form.action || form.baseURI,
+        url: form.baseURI || window.location.href,
         data: $(form).serialize(),
         beforeSend: function() {
             nb.uiBlock();
@@ -2210,7 +2211,7 @@ nb.setFormValues = function(currentNode) {
                     }
                 } else {
                     $('[data-input=' + field.replace('id', '') + ']', form).html('<li>' + text + '</li>');
-                    
+
                 }
             }
         });
