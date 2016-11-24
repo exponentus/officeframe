@@ -2025,7 +2025,6 @@ nb.submitForm = function(form, options) {
         type: 'process'
     }).show();
 
-
     var xhrArgs = {
         cache: false,
         type: 'POST',
