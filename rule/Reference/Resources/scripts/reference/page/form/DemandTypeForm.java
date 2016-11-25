@@ -25,6 +25,7 @@ public class DemandTypeForm extends ReferenceForm {
             entity = dao.findById(id);
         } else {
             entity = (DemandType) getDefaultEntity(user, new DemandType());
+            entity.setPrefix("");
         }
         addContent(entity);
         addContent(new LanguageDAO(session).findAll());
@@ -53,6 +54,7 @@ public class DemandTypeForm extends ReferenceForm {
             }
 
             entity.setName(formData.getValue("name"));
+            entity.setPrefix(formData.getValue("prefix"));
             entity.setLocalizedName(getLocalizedNames(session, formData));
 
             if (isNew) {
