@@ -23,32 +23,38 @@ import reference.model.Region;
  */
 
 public class DistrictForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		District entity;
-		if (!id.isEmpty()) {
-			DistrictDAO dao = new DistrictDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (District) getDefaultEntity(user, new District());
-			RegionDAO cDao = new RegionDAO(session);
-			Region region = null;
-			try {
-				region = cDao.findByName("Алматы");
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			District entity;
+			if (!id.isEmpty()) {
+				DistrictDAO dao = new DistrictDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (District) getDefaultEntity(user, new District());
+				RegionDAO cDao = new RegionDAO(session);
+				Region region = null;
+				try {
+					region = cDao.findByName("Алматы");
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				entity.setRegion(region);
 			}
-			entity.setRegion(region);
+			addContent(entity);
+			addContent(new LanguageDAO(session).findAll());
+			addContent(getSimpleActionBar(session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
-		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -58,38 +64,39 @@ public class DistrictForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			DistrictDAO dao = new DistrictDAO(session);
 			RegionDAO regionDAO = new RegionDAO(session);
 			District entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new District();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setRegion(regionDAO.findById(UUID.fromString(formData.getValue("region"))));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			District foundEntity = dao.findByName(entity.getName());
-			if (foundEntity != null && !foundEntity.equals(entity) && foundEntity.getRegion().equals(entity.getRegion())) {
+			if (foundEntity != null && !foundEntity.equals(entity)
+					&& foundEntity.getRegion().equals(entity.getRegion())) {
 				ve = new _Validation();
 				ve.addError("name", "unique", getLocalizedWord("name_is_not_unique", session.getLang()));
 				setBadRequest();
 				setValidation(ve);
 				return;
 			}
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

@@ -28,7 +28,7 @@ import reference.model.constants.RegionCode;
  */
 
 public class RegionForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -51,10 +51,16 @@ public class RegionForm extends ReferenceForm {
 			}
 		}
 		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
+		try {
+			addContent(new LanguageDAO(session).findAll());
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
+		}
 		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -64,18 +70,18 @@ public class RegionForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			RegionDAO dao = new RegionDAO(session);
 			Region entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new Region();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			RegionTypeDAO rtDao = new RegionTypeDAO(session);
 			entity.setType(rtDao.findById(formData.getValue("regiontype")));
@@ -83,14 +89,14 @@ public class RegionForm extends ReferenceForm {
 			Country country = countryDao.findById(UUID.fromString(formData.getValue("country")));
 			entity.setCountry(country);
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			save(session, entity, dao, isNew);
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-
+	
 	private void save(_Session ses, Region entity, RegionDAO dao, boolean isNew) throws SecureException, DAOException {
 		Region foundEntity = dao.findByName(entity.getName());
 		if (foundEntity != null && !foundEntity.equals(entity)) {
@@ -100,24 +106,25 @@ public class RegionForm extends ReferenceForm {
 			setValidation(ve);
 			return;
 		}
-
+		
 		if (isNew) {
 			dao.add(entity);
 		} else {
 			dao.update(entity);
 		}
 	}
-
+	
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation v = simpleCheck("name");
-
-		if (formData.getValueSilently("regiontype").isEmpty() || formData.getValueSilently("regiontype").equals("UNKNOWN")) {
+		
+		if (formData.getValueSilently("regiontype").isEmpty()
+				|| formData.getValueSilently("regiontype").equals("UNKNOWN")) {
 			v.addError("regiontype", "required", getLocalizedWord("field_is_empty", lang));
 		}
 		if (formData.getValueSilently("country").isEmpty()) {
 			v.addError("country", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		return v;
 	}
 }

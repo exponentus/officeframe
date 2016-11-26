@@ -17,7 +17,7 @@ import reference.dao.PositionDAO;
 import reference.model.Position;
 
 public class PositionForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -30,10 +30,16 @@ public class PositionForm extends ReferenceForm {
 			entity = (Position) getDefaultEntity(user, new Position());
 		}
 		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
+		try {
+			addContent(new LanguageDAO(session).findAll());
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
+		}
 		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -43,28 +49,28 @@ public class PositionForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			PositionDAO dao = new PositionDAO(session);
 			Position entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new Position();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
-			entity.setRank(formData.getNumberValueSilently("rank",0));
+			entity.setRank(formData.getNumberValueSilently("rank", 0));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

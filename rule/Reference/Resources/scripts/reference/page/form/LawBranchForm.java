@@ -20,18 +20,24 @@ public class LawBranchForm extends ReferenceForm {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		LawBranch entity;
-		if (!id.isEmpty()) {
-			LawBranchDAO dao = new LawBranchDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (LawBranch) getDefaultEntity(user, new LawBranch());
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			LawBranch entity;
+			if (!id.isEmpty()) {
+				LawBranchDAO dao = new LawBranchDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (LawBranch) getDefaultEntity(user, new LawBranch());
+			}
+			addContent(entity);
+			addContent(new LanguageDAO(session).findAll());
+			addContent(getSimpleActionBar(session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
-		addContent(getSimpleActionBar(session));
 	}
 
 	@Override

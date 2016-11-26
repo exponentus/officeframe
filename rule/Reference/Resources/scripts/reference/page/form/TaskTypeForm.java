@@ -18,7 +18,7 @@ import reference.dao.TaskTypeDAO;
 import reference.model.TaskType;
 
 public class TaskTypeForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -32,11 +32,17 @@ public class TaskTypeForm extends ReferenceForm {
 			entity.setPrefix("");
 		}
 		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
+		try {
+			addContent(new LanguageDAO(session).findAll());
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
+		}
 		addContent(getSimpleActionBar(session));
-
+		
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -46,40 +52,40 @@ public class TaskTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			TaskTypeDAO dao = new TaskTypeDAO(session);
 			TaskType entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new TaskType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setPrefix(formData.getValueSilently("prefix"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-
+	
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name");
-
+		
 		if (formData.getValueSilently("prefix").isEmpty()) {
 			ve.addError("prefix", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		return ve;
 	}
 }

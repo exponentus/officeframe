@@ -15,24 +15,30 @@ import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
 
 public class ControlTypeForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		ControlTypeDAO dao = new ControlTypeDAO(session);
-		ControlType entity;
-		if (!id.isEmpty()) {
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (ControlType) getDefaultEntity(user, new ControlType());
-			entity.setDefautltHours(30);
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			ControlTypeDAO dao = new ControlTypeDAO(session);
+			ControlType entity;
+			if (!id.isEmpty()) {
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (ControlType) getDefaultEntity(user, new ControlType());
+				entity.setDefautltHours(30);
+			}
+			addContent(entity);
+			addContent(new LanguageDAO(session).findAll());
+			addContent(getSimpleActionBar(session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
-		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -42,30 +48,31 @@ public class ControlTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			ControlTypeDAO dao = new ControlTypeDAO(session);
 			ControlType entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new ControlType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setDefautltHours(formData.getNumberValueSilently("defaulthours", 30));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			save(session, entity, dao, isNew);
-
+			
 		} catch (_Exception | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-
-	private void save(_Session ses, ControlType entity, ControlTypeDAO dao, boolean isNew) throws SecureException, DAOException {
+	
+	private void save(_Session ses, ControlType entity, ControlTypeDAO dao, boolean isNew)
+			throws SecureException, DAOException {
 		/*
 		 * DocumentLanguage foundEntity = dao.findByCode(entity.getCode()); if
 		 * (foundEntity != null && !foundEntity.equals(entity)) { _Validation ve
@@ -73,12 +80,12 @@ public class ControlTypeForm extends ReferenceForm {
 		 * getLocalizedWord("code_is_not_unique", ses.getLang()));
 		 * setBadRequest(); setValidation(ve); return; }
 		 */
-
+		
 		if (isNew) {
 			dao.add(entity);
 		} else {
 			dao.update(entity);
 		}
 	}
-
+	
 }

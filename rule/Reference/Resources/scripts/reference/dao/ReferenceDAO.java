@@ -21,7 +21,7 @@ import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 
 /**
- * 
+ *
  * @author Kayra 10-01-2016
  *
  *         Common superclass for all entities of the Reference module. To more
@@ -29,11 +29,11 @@ import com.exponentus.scripting._Session;
  *
  */
 public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
-
+	
 	public ReferenceDAO(Class<T> entityClass, _Session session) {
 		super(entityClass, session);
 	}
-
+	
 	public T findByName(String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -41,7 +41,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			CriteriaQuery<T> cq = cb.createQuery(getEntityClass());
 			Root<T> c = cq.from(getEntityClass());
 			cq.select(c);
-			Predicate condition = cb.equal(cb.lower(c.<String> get("name")), name.toLowerCase());
+			Predicate condition = cb.equal(cb.lower(c.<String>get("name")), name.toLowerCase());
 			cq.where(condition);
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			return typedQuery.getSingleResult();
@@ -53,7 +53,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public T findByNameAndCategory(String category, String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -61,8 +61,8 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			CriteriaQuery<T> cq = cb.createQuery(getEntityClass());
 			Root<T> c = cq.from(getEntityClass());
 			cq.select(c);
-			Predicate condition1 = cb.equal(cb.lower(c.<String> get("category")), category.toLowerCase());
-			Predicate condition2 = cb.equal(cb.lower(c.<String> get("name")), name.toLowerCase());
+			Predicate condition1 = cb.equal(cb.lower(c.<String>get("category")), category.toLowerCase());
+			Predicate condition2 = cb.equal(cb.lower(c.<String>get("name")), name.toLowerCase());
 			Predicate condition = cb.and(condition1, condition2);
 			cq.where(condition);
 			TypedQuery<T> typedQuery = em.createQuery(cq);
@@ -75,7 +75,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	// TODO to implement
 	public T findByName(String name, LanguageCode lang) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -88,7 +88,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			 * MapJoin p = c.joinMap("localizedName"); cq.multiselect(c,
 			 * p.value()); cq.where(cb.equal(p.key(), lang));
 			 */
-
+			
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			return typedQuery.getSingleResult();
 		} catch (NoResultException e) {
@@ -97,7 +97,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public T findByCode(Enum<?> code) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -111,7 +111,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public ViewPage<T> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -122,7 +122,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			cq.select(c);
 			countCq.select(cb.count(c));
 			if (!keyword.isEmpty()) {
-				Predicate condition = cb.like(cb.lower(c.<String> get("name")), "%" + keyword.toLowerCase() + "%");
+				Predicate condition = cb.like(cb.lower(c.<String>get("name")), "%" + keyword.toLowerCase() + "%");
 				cq.where(condition);
 				countCq.where(condition);
 			}

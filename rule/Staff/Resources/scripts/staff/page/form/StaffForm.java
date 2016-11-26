@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -44,16 +45,21 @@ public abstract class StaffForm extends _DoForm {
 		return actionBar;
 	}
 
+	@Override
 	protected Map<LanguageCode, String> getLocalizedNames(_Session session, _WebFormData formData) {
 		Map<LanguageCode, String> localizedNames = new HashMap<LanguageCode, String>();
-		List<Language> langs = new LanguageDAO(session).findAll();
-		for (Language l : langs) {
-			String ln = formData.getValueSilently(l.getCode().name().toLowerCase() + "localizedname");
-			if (!ln.isEmpty()) {
-				localizedNames.put(l.getCode(), ln);
-			} else {
-				localizedNames.put(l.getCode(), formData.getValueSilently("name"));
+		try {
+			List<Language> langs = new LanguageDAO(session).findAll();
+			for (Language l : langs) {
+				String ln = formData.getValueSilently(l.getCode().name().toLowerCase() + "localizedname");
+				if (!ln.isEmpty()) {
+					localizedNames.put(l.getCode(), ln);
+				} else {
+					localizedNames.put(l.getCode(), formData.getValueSilently("name"));
+				}
 			}
+		} catch (DAOException e) {
+			logError(e);
 		}
 		return localizedNames;
 	}

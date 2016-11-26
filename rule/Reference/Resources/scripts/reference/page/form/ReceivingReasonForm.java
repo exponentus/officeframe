@@ -17,7 +17,7 @@ import reference.dao.ReceivingReasonDAO;
 import reference.model.ReceivingReason;
 
 public class ReceivingReasonForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -30,10 +30,16 @@ public class ReceivingReasonForm extends ReferenceForm {
 			entity = (ReceivingReason) getDefaultEntity(user, new ReceivingReason());
 		}
 		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
+		try {
+			addContent(new LanguageDAO(session).findAll());
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
+		}
 		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -43,27 +49,27 @@ public class ReceivingReasonForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			ReceivingReasonDAO dao = new ReceivingReasonDAO(session);
 			ReceivingReason entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new ReceivingReason();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

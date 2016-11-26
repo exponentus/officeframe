@@ -17,7 +17,7 @@ import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
 
 public class OrgCategoryForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -30,10 +30,16 @@ public class OrgCategoryForm extends ReferenceForm {
 			entity = (OrgCategory) getDefaultEntity(user, new OrgCategory());
 		}
 		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
+		try {
+			addContent(new LanguageDAO(session).findAll());
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
+		}
 		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -43,27 +49,27 @@ public class OrgCategoryForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			OrgCategoryDAO dao = new OrgCategoryDAO(session);
 			OrgCategory entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new OrgCategory();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

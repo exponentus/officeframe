@@ -21,23 +21,29 @@ import reference.model.DepartmentType;
  */
 
 public class DepartmentTypeForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		DepartmentType entity;
-		if (!id.isEmpty()) {
-			DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (DepartmentType) getDefaultEntity(user, new DepartmentType());
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			DepartmentType entity;
+			if (!id.isEmpty()) {
+				DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (DepartmentType) getDefaultEntity(user, new DepartmentType());
+			}
+			addContent(entity);
+			addContent(new LanguageDAO(session).findAll());
+			addContent(getSimpleActionBar(session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(new LanguageDAO(session).findAll());
-		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -47,26 +53,26 @@ public class DepartmentTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
 			DepartmentType entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new DepartmentType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
