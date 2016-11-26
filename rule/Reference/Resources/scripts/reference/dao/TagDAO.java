@@ -17,11 +17,11 @@ import com.exponentus.scripting._Session;
 import reference.model.Tag;
 
 public class TagDAO extends DAO<Tag, UUID> {
-
+	
 	public TagDAO(_Session session) {
 		super(Tag.class, session);
 	}
-
+	
 	public Tag findByName(String tagName) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -40,7 +40,8 @@ public class TagDAO extends DAO<Tag, UUID> {
 			em.close();
 		}
 	}
-
+	
+	@SuppressWarnings("unchecked")
 	public List<Tag> findAllCategories() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -50,5 +51,5 @@ public class TagDAO extends DAO<Tag, UUID> {
 			em.close();
 		}
 	}
-
+	
 }
