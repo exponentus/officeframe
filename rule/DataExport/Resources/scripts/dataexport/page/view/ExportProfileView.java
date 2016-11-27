@@ -20,7 +20,7 @@ public class ExportProfileView extends _DoPage {
 	public void doGET(_Session session, _WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
 		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
-		newDocAction.setURL("Provider?id=exportprofile-form");
+		newDocAction.setURL("p?id=exportprofile-form");
 		actionBar.addAction(newDocAction);
 		actionBar.addAction(
 				new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
@@ -30,8 +30,6 @@ public class ExportProfileView extends _DoPage {
 	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		println(formData);
-		
 		ExportProfileDAO dao = new ExportProfileDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			ExportProfile c = dao.findById(UUID.fromString(id));
