@@ -20,5 +20,10 @@ nbApp.selectOptions = {
     },
     street: {
         url: 'p?id=get-streets'
+    },
+    category: {
+        url: 'p?id=get-document-type-category',
+        minimumInputLength: 1,
+        tags:true
     }
 };

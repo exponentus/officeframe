@@ -35,7 +35,9 @@
                             <xsl:value-of select="//captions/category/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="category" value="{fields/category}" class="span7" autofocus="true"/>
+                            <select name="category" class="span7 category" autocomplete="off">
+                                <xsl:apply-templates select="fields/category" mode="selected_options"/>
+                            </select>
                         </div>
                     </div>
                 </fieldset>
@@ -67,6 +69,12 @@
                 <xsl:attribute name="selected" select="'selected'"/>
             </xsl:if>
             <xsl:value-of select="text()"/>
+        </option>
+    </xsl:template>
+
+    <xsl:template match="*" mode="selected_options">
+        <option value="{@id}" selected="selected">
+            <xsl:value-of select="."/>
         </option>
     </xsl:template>
 </xsl:stylesheet>
