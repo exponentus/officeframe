@@ -33,32 +33,33 @@ public class RegionForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		RegionTypeDAO regionTypeDAO = new RegionTypeDAO(session);
-		Region entity;
-		if (!id.isEmpty()) {
-			RegionDAO dao = new RegionDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			CountryDAO cDao = new CountryDAO(session);
-			entity = new Region();
-			entity.setAuthor(user);
-			entity.setName("");
-			RegionType regionType = regionTypeDAO.findByCode(RegionCode.REGION);
-			entity.setType(regionType);
-			Country country = cDao.findByCode(CountryCode.KZ);
-			if (country != null) {
-				entity.setCountry(country);
-			}
-		}
-		addContent(entity);
 		try {
+			RegionTypeDAO regionTypeDAO = new RegionTypeDAO(session);
+			Region entity;
+			if (!id.isEmpty()) {
+				RegionDAO dao = new RegionDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				CountryDAO cDao = new CountryDAO(session);
+				entity = new Region();
+				entity.setAuthor(user);
+				entity.setName("");
+				RegionType regionType = regionTypeDAO.findByCode(RegionCode.REGION);
+				entity.setType(regionType);
+				Country country = cDao.findByCode(CountryCode.KZ);
+				if (country != null) {
+					entity.setCountry(country);
+				}
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 	}
 	
 	@Override

@@ -29,11 +29,11 @@ import com.exponentus.scripting._Session;
  *
  */
 public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
-	
-	public ReferenceDAO(Class<T> entityClass, _Session session) {
+
+	public ReferenceDAO(Class<T> entityClass, _Session session) throws DAOException {
 		super(entityClass, session);
 	}
-	
+
 	public T findByName(String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -53,7 +53,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
 	public T findByNameAndCategory(String category, String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -75,7 +75,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
 	// TODO to implement
 	public T findByName(String name, LanguageCode lang) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -88,7 +88,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			 * MapJoin p = c.joinMap("localizedName"); cq.multiselect(c,
 			 * p.value()); cq.where(cb.equal(p.key(), lang));
 			 */
-			
+
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			return typedQuery.getSingleResult();
 		} catch (NoResultException e) {
@@ -97,7 +97,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
 	public T findByCode(Enum<?> code) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -111,7 +111,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
 	public ViewPage<T> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();

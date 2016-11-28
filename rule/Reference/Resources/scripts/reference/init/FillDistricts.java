@@ -19,31 +19,31 @@ import reference.model.Region;
  */
 
 public class FillDistricts extends InitialDataAdapter<District, DistrictDAO> {
-
+	
 	@Override
 	public List<District> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
-
+		
 		List<District> entities = new ArrayList<>();
 		String[] data = { "Karasay", "Talgar" };
-
-		RegionDAO cDao = new RegionDAO(ses);
+		
 		Region region = null;
 		try {
+			RegionDAO cDao = new RegionDAO(ses);
 			region = cDao.findByName("Almaty region");
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 		for (int i = 0; i < data.length; i++) {
 			District entity = new District();
 			entity.setRegion(region);
 			entity.setName(data[i]);
 			entities.add(entity);
 		}
-
+		
 		return entities;
-
+		
 	}
-
+	
 }

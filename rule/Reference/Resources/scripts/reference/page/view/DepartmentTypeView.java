@@ -17,32 +17,42 @@ import reference.dao.DepartmentTypeDAO;
 import reference.model.DepartmentType;
 
 public class DepartmentTypeView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_department_type");
-			newDocAction.setURL("Provider?id=departmenttype-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(
-					new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
-			addContent(actionBar);
+		try {
+			IUser<Long> user = session.getUser();
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "",
+						"new_department_type");
+				newDocAction.setURL("Provider?id=departmenttype-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "",
+						_ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
+			addContent(getViewPage(new DepartmentTypeDAO(session), formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			
 		}
-		addContent(getViewPage(new DepartmentTypeDAO(session), formData));
 	}
-	
+
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			DepartmentType m = dao.findById(UUID.fromString(id));
-			try {
+		try {
+			DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				DepartmentType m = dao.findById(UUID.fromString(id));
 				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+
 			}
+		} catch (DAOException | SecureException e) {
+			logError(e);
+			setBadRequest();
+
 		}
 	}
 }

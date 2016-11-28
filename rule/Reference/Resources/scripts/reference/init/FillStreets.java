@@ -28,66 +28,70 @@ import reference.model.Street;
 
 public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "streets.xls";
-
+	
 	@Override
 	public List<Street> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 
 		List<Street> entities = new ArrayList<>();
-		LocalityDAO cDao = new LocalityDAO(ses);
-		Locality d = null;
 		try {
+			LocalityDAO cDao = new LocalityDAO(ses);
+			Locality d = null;
+			
 			d = cDao.findByName("Алматы");
+			
+			if (d != null) {
+				File xf = new File(excelFile);
+				if (xf.exists()) {
+					WorkbookSettings ws = new WorkbookSettings();
+					ws.setEncoding("Cp1252");
+					Workbook workbook = null;
+					try {
+						workbook = Workbook.getWorkbook(xf, ws);
+					} catch (BiffException | IOException e) {
+						System.out.println(e);
+					}
+					Sheet sheet = workbook.getSheet(0);
+					int rCount = sheet.getRows();
+					for (int i = 2; i < rCount; i++) {
+						int id = Util.convertStringToInt(sheet.getCell(0, i).getContents());
+						String name = sheet.getCell(1, i).getContents();
+						if (!name.equals("") && !name.equals("''") & id != 0) {
+							Street entity = new Street();
+							entity.setLocality(d);
+							entity.setName(name);
+							entity.setStreetId(id);
+							entities.add(entity);
+						}
+						
+					}
+				} else {
+					System.out.println(
+							"There is no appropriate file (" + excelFile + "). It will be loaded default data");
+					String[] data = { "Champs Elysées", "La Rambla", "Fifth Avenue", "Via Appia", "Zeil", "Abbey Road",
+							"Khao San", "Rua Augusta" };
+					int count = 1;
+					for (String val : data) {
+						Street entity = new Street();
+						entity.setLocality(d);
+						entity.setName(val);
+						entity.setStreetId(count);
+						entities.add(entity);
+						count++;
+					}
+				}
+				
+				Street entity = new Street();
+				entity.setLocality(d);
+				entity.setName("unknown");
+				entity.setStreetId(0);
+				entities.add(entity);
+			}
 		} catch (DAOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		if (d != null) {
-			File xf = new File(excelFile);
-			if (xf.exists()) {
-				WorkbookSettings ws = new WorkbookSettings();
-				ws.setEncoding("Cp1252");
-				Workbook workbook = null;
-				try {
-					workbook = Workbook.getWorkbook(xf, ws);
-				} catch (BiffException | IOException e) {
-					System.out.println(e);
-				}
-				Sheet sheet = workbook.getSheet(0);
-				int rCount = sheet.getRows();
-				for (int i = 2; i < rCount; i++) {
-					int id = Util.convertStringToInt(sheet.getCell(0, i).getContents());
-					String name = sheet.getCell(1, i).getContents();
-					if (!name.equals("") && !name.equals("''") & id != 0) {
-						Street entity = new Street();
-						entity.setLocality(d);
-						entity.setName(name);
-						entity.setStreetId(id);
-						entities.add(entity);
-					}
-
-				}
-			} else {
-				System.out.println("There is no appropriate file (" + excelFile + "). It will be loaded default data");
-				String[] data = { "Champs Elysées", "La Rambla", "Fifth Avenue", "Via Appia", "Zeil", "Abbey Road", "Khao San", "Rua Augusta" };
-				int count = 1;
-				for (String val : data) {
-					Street entity = new Street();
-					entity.setLocality(d);
-					entity.setName(val);
-					entity.setStreetId(count);
-					entities.add(entity);
-					count++;
-				}
-			}
-
-			Street entity = new Street();
-			entity.setLocality(d);
-			entity.setName("unknown");
-			entity.setStreetId(0);
-			entities.add(entity);
-		}
 		return entities;
-
+		
 	}
-
+	
 }

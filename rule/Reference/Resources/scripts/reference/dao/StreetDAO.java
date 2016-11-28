@@ -12,6 +12,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
 
@@ -19,11 +20,11 @@ import reference.model.Locality;
 import reference.model.Street;
 
 public class StreetDAO extends ReferenceDAO<Street, UUID> {
-
-	public StreetDAO(_Session session) {
+	
+	public StreetDAO(_Session session) throws DAOException {
 		super(Street.class, session);
 	}
-
+	
 	@Override
 	public ViewPage<Street> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -34,7 +35,7 @@ public class StreetDAO extends ReferenceDAO<Street, UUID> {
 			Root<Street> c = cq.from(getEntityClass());
 			cq.select(c);
 			countCq.select(cb.count(c));
-			Predicate condition = cb.like(cb.lower(c.<String> get("name")), "%" + keyword.toLowerCase() + "%");
+			Predicate condition = cb.like(cb.lower(c.<String>get("name")), "%" + keyword.toLowerCase() + "%");
 			cq.where(condition);
 			countCq.where(condition);
 			TypedQuery<Street> typedQuery = em.createQuery(cq);
@@ -53,7 +54,7 @@ public class StreetDAO extends ReferenceDAO<Street, UUID> {
 			em.close();
 		}
 	}
-
+	
 	public ViewPage<Street> findAllInLocalityByKeyword(Locality locality, String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -64,7 +65,7 @@ public class StreetDAO extends ReferenceDAO<Street, UUID> {
 			cq.select(c);
 			countCq.select(cb.count(c));
 			Predicate condition = cb.equal(c.get("locality"), locality);
-			condition = cb.and(cb.like(cb.lower(c.<String> get("name")), "%" + keyword.toLowerCase() + "%"), condition);
+			condition = cb.and(cb.like(cb.lower(c.<String>get("name")), "%" + keyword.toLowerCase() + "%"), condition);
 			cq.where(condition);
 			countCq.where(condition);
 			TypedQuery<Street> typedQuery = em.createQuery(cq);

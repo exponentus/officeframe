@@ -19,17 +19,23 @@ public class ExportProfileForm extends _DoForm {
 
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		ExportProfile entity;
-		if (!id.isEmpty()) {
-			ExportProfileDAO dao = new ExportProfileDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (ExportProfile) getDefaultEntity(user, new ExportProfile());
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			ExportProfile entity;
+			if (!id.isEmpty()) {
+				ExportProfileDAO dao;
+				dao = new ExportProfileDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (ExportProfile) getDefaultEntity(user, new ExportProfile());
+			}
+			addContent(entity);
+			addContent(getSimpleActionBar(session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
 		}
-		addContent(entity);
-		addContent(getSimpleActionBar(session));
 	}
 
 	@Override
@@ -64,7 +70,8 @@ public class ExportProfileForm extends _DoForm {
 		}
 	}
 
-	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew) throws SecureException, DAOException {
+	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew)
+			throws SecureException, DAOException {
 
 		if (isNew) {
 			dao.add(entity);

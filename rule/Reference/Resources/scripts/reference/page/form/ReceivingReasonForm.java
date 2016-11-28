@@ -22,22 +22,24 @@ public class ReceivingReasonForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		ReceivingReason entity;
-		if (!id.isEmpty()) {
-			ReceivingReasonDAO dao = new ReceivingReasonDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (ReceivingReason) getDefaultEntity(user, new ReceivingReason());
-		}
-		addContent(entity);
 		try {
+			ReceivingReason entity;
+			if (!id.isEmpty()) {
+				ReceivingReasonDAO dao = new ReceivingReasonDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (ReceivingReason) getDefaultEntity(user, new ReceivingReason());
+			}
+			addContent(entity);
+			
 			addContent(new LanguageDAO(session).findAll());
+
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 	}
 	
 	@Override

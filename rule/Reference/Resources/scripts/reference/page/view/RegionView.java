@@ -22,37 +22,45 @@ public class RegionView extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_region");
-			newDocAction.setURL("Provider?id=region-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(
-					new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
-			
-			addContent(actionBar);
+		try {
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_region");
+				newDocAction.setURL("Provider?id=region-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "",
+						_ActionType.DELETE_DOCUMENT));
+
+				addContent(actionBar);
+			}
+			addContent(getViewPage(new RegionDAO(session), formData));
+
+			_ColumnOptions columnOptions = new _ColumnOptions();
+			columnOptions.add("name", "name", "localizedName", "both", "vw-name");
+			columnOptions.add("type", "type", "localizedName", "both", "");
+
+			addContent("columnOptions", columnOptions);
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+
 		}
-		addContent(getViewPage(new RegionDAO(session), formData));
-		
-		_ColumnOptions columnOptions = new _ColumnOptions();
-		columnOptions.add("name", "name", "localizedName", "both", "vw-name");
-		columnOptions.add("type", "type", "localizedName", "both", "");
-		
-		addContent("columnOptions", columnOptions);
 	}
 	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		println(formData);
-		
-		RegionDAO dao = new RegionDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			Region m = dao.findById(UUID.fromString(id));
-			try {
+		try {
+			
+			RegionDAO dao = new RegionDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				Region m = dao.findById(UUID.fromString(id));
 				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+				
 			}
+		} catch (DAOException | SecureException e) {
+			logError(e);
+			setBadRequest();
+
 		}
 	}
 }

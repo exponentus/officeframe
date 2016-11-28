@@ -11,17 +11,18 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.scripting._Session;
 
 import reference.model.Tag;
 
 public class TagDAO extends DAO<Tag, UUID> {
-	
-	public TagDAO(_Session session) {
+
+	public TagDAO(_Session session) throws DAOException {
 		super(Tag.class, session);
 	}
-	
+
 	public Tag findByName(String tagName) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -40,7 +41,7 @@ public class TagDAO extends DAO<Tag, UUID> {
 			em.close();
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Tag> findAllCategories() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -51,5 +52,5 @@ public class TagDAO extends DAO<Tag, UUID> {
 			em.close();
 		}
 	}
-	
+
 }

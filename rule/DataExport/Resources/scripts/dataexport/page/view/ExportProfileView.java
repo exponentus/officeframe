@@ -18,26 +18,36 @@ public class ExportProfileView extends _DoPage {
 	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		_ActionBar actionBar = new _ActionBar(session);
-		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
-		newDocAction.setURL("p?id=exportprofile-form");
-		actionBar.addAction(newDocAction);
-		actionBar.addAction(
-				new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
-		addContent(actionBar);
-		addContent(getViewPage(new ExportProfileDAO(session), formData));
+		try {
+			_ActionBar actionBar = new _ActionBar(session);
+			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
+			newDocAction.setURL("p?id=exportprofile-form");
+			actionBar.addAction(newDocAction);
+			actionBar.addAction(
+					new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
+			addContent(actionBar);
+			addContent(getViewPage(new ExportProfileDAO(session), formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+		}
 	}
 	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		ExportProfileDAO dao = new ExportProfileDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			ExportProfile c = dao.findById(UUID.fromString(id));
-			try {
-				dao.delete(c);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+		try {
+			ExportProfileDAO dao = new ExportProfileDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				ExportProfile c = dao.findById(UUID.fromString(id));
+				try {
+					dao.delete(c);
+				} catch (SecureException | DAOException e) {
+					setError(e);
+				}
 			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
 		}
 	}
 }

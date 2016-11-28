@@ -18,34 +18,44 @@ import reference.dao.DocumentSubjectDAO;
 import reference.model.DocumentSubject;
 
 public class DocumentSubjectView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_document_type");
-			newDocAction.setURL("p?id=documentsubject-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-			addContent(actionBar);
+		try {
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_document_type");
+				newDocAction.setURL("p?id=documentsubject-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
+			addContent(getViewPage(new DocumentSubjectDAO(session), formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			
 		}
-		addContent(getViewPage(new DocumentSubjectDAO(session), formData));
 	}
-	
+
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		println(formData);
-		
-		DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			DocumentSubject c = dao.findById(UUID.fromString(id));
-			try {
+		try {
+			
+			DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				DocumentSubject c = dao.findById(UUID.fromString(id));
+				
 				dao.delete(c);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+				
 			}
+		} catch (DAOException | SecureException e) {
+			logError(e);
+			setBadRequest();
+
 		}
 	}
 }

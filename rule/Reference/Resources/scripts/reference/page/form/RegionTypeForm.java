@@ -24,30 +24,31 @@ import reference.model.constants.RegionCode;
  */
 
 public class RegionTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		RegionType entity;
-		if (!id.isEmpty()) {
-			RegionTypeDAO dao = new RegionTypeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (RegionType) getDefaultEntity(user, new RegionType());
-		}
-		addContent(entity);
-		addContent(new _EnumWrapper(LocalityCode.class.getEnumConstants()));
 		try {
+			RegionType entity;
+			if (!id.isEmpty()) {
+				RegionTypeDAO dao = new RegionTypeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (RegionType) getDefaultEntity(user, new RegionType());
+			}
+			addContent(entity);
+			addContent(new _EnumWrapper(LocalityCode.class.getEnumConstants()));
 			addContent(new LanguageDAO(session).findAll());
+			
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+			
 		}
-		addContent(getSimpleActionBar(session));
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -57,28 +58,28 @@ public class RegionTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			RegionTypeDAO dao = new RegionTypeDAO(session);
 			RegionType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new RegionType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setCode(RegionCode.valueOf(formData.getValueSilently("code", "UNKNOWN")));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

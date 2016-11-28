@@ -1,9 +1,11 @@
 package reference.form;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.rest.incomingpojo.Income;
 import com.exponentus.rest.runtime.HandlerAdapter;
 import com.exponentus.rest.runtime.RequestHandler;
 import com.exponentus.scripting._Session;
+import com.exponentus.server.Server;
 
 import reference.dao.CountryDAO;
 import reference.model.Country;
@@ -13,15 +15,19 @@ public class CountryFormObjHandlerDemo extends HandlerAdapter {
 
 	@Override
 	public void doGet(_Session ses, Income request) {
-		String docId = request.getDocId();
-		Country entity = null;
-		if (docId.equals("0")) {
-			entity = new Country();
-		} else {
-			CountryDAO dao = new CountryDAO(ses);
-			entity = dao.findById(docId);
+		try {
+			String docId = request.getDocId();
+			Country entity = null;
+			if (docId.equals("0")) {
+				entity = new Country();
+			} else {
+				CountryDAO dao = new CountryDAO(ses);
+				entity = dao.findById(docId);
+			}
+			addContent(entity);
+		} catch (DAOException e) {
+			Server.logger.errorLogEntry(e);
 		}
-		addContent(entity);
 	}
 
 	@Override

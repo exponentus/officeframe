@@ -22,20 +22,21 @@ public class PropertyCodeForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		PropertyCode entity;
-		if (!id.isEmpty()) {
-			PropertyCodeDAO dao = new PropertyCodeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (PropertyCode) getDefaultEntity(user, new PropertyCode());
-		}
-		addContent(entity);
 		try {
+			PropertyCode entity;
+			if (!id.isEmpty()) {
+				PropertyCodeDAO dao = new PropertyCodeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (PropertyCode) getDefaultEntity(user, new PropertyCode());
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+			
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
 	}
 	

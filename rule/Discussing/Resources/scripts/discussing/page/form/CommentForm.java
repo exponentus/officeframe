@@ -17,27 +17,32 @@ import discussing.model.Comment;
 import discussing.model.Topic;
 
 public class CommentForm extends _DoForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		Comment entity;
-		String topicId = formData.getValueSilently("topicid");
-		TopicDAO topicDAO = new TopicDAO(session);
-		Topic topic = topicDAO.findById(topicId);
-		if (!id.isEmpty()) {
-			CommentDAO dao = new CommentDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = new Comment();
-			entity.setAuthor(user);
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			Comment entity;
+			String topicId = formData.getValueSilently("topicid");
+			TopicDAO topicDAO = new TopicDAO(session);
+			Topic topic = topicDAO.findById(topicId);
+			if (!id.isEmpty()) {
+				CommentDAO dao = new CommentDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = new Comment();
+				entity.setAuthor(user);
+			}
+			entity.setTask(topic);
+			addContent(entity);
+			addContent(getSimpleActionBar(session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
 		}
-		entity.setTask(topic);
-		addContent(entity);
-		addContent(getSimpleActionBar(session));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		devPrint(formData);
@@ -68,22 +73,23 @@ public class CommentForm extends _DoForm {
 			logError(e);
 		}
 	}
-
-	private void save(_Session ses, Comment entity, CommentDAO dao, boolean isNew) throws SecureException, DAOException {
+	
+	private void save(_Session ses, Comment entity, CommentDAO dao, boolean isNew)
+			throws SecureException, DAOException {
 		if (isNew) {
 			dao.add(entity);
 		} else {
 			dao.update(entity);
 		}
 	}
-
+	
 	private _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		if (formData.getValueSilently("comment").isEmpty()) {
 			ve.addError("comment", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		return ve;
 	}
-
+	
 }

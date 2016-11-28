@@ -23,29 +23,39 @@ public class DocumentTypeView extends _DoPage {
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_document_type");
-			newDocAction.setURL("p?id=documenttype-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-			addContent(actionBar);
+		try {
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_document_type");
+				newDocAction.setURL("p?id=documenttype-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
+			addContent(getViewPage(new DocumentTypeDAO(session), formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+
 		}
-		addContent(getViewPage(new DocumentTypeDAO(session), formData));
 	}
 	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		println(formData);
-		
-		DocumentTypeDAO dao = new DocumentTypeDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			DocumentType c = dao.findById(UUID.fromString(id));
-			try {
+		try {
+			
+			DocumentTypeDAO dao = new DocumentTypeDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				DocumentType c = dao.findById(UUID.fromString(id));
+				
 				dao.delete(c);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+				
 			}
+		} catch (DAOException | SecureException e) {
+			logError(e);
+			setBadRequest();
+
 		}
 	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
@@ -25,8 +26,8 @@ import staff.model.Organization;
 import staff.model.Role;
 
 /**
- * 
- * 
+ *
+ *
  * @author Kayra created 24-01-2016
  */
 
@@ -66,16 +67,14 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 			emp.addRole(role);
 		}
 
-		PositionDAO postDao = new PositionDAO(ses);
-		List<Position> posts = postDao.findAll();
-		emp.setPosition((Position) Util.getRndListElement(posts));
+		try {
+			PositionDAO postDao = new PositionDAO(ses);
+			List<Position> posts = postDao.findAll();
+			emp.setPosition((Position) Util.getRndListElement(posts));
 
-		// try {
-		// emp.setAvatar(IOUtils.toByteArray(image));
-		// } catch (IOException e) {
-		// System.err.println(e);
-		// }
-
+		} catch (DAOException e) {
+			Server.logger.errorLogEntry(e);
+		}
 		return emp;
 
 	}

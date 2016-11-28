@@ -22,23 +22,24 @@ public class TextTemplateForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		TextTemplate entity;
-		if (!id.isEmpty()) {
-			TextTemplateDAO dao = new TextTemplateDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (TextTemplate) getDefaultEntity(user, new TextTemplate());
-			entity.setCategory("");
-		}
-		addContent(entity);
 		try {
+			TextTemplate entity;
+			if (!id.isEmpty()) {
+				TextTemplateDAO dao = new TextTemplateDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (TextTemplate) getDefaultEntity(user, new TextTemplate());
+				entity.setCategory("");
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+			
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 	}
 
 	@Override

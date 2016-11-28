@@ -24,11 +24,12 @@ public class FillCityDistricts extends InitialDataAdapter<CityDistrict, CityDist
 	public List<CityDistrict> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 
 		List<CityDistrict> entities = new ArrayList<>();
-		String[] data = { "Алатауский", "Алмалинский", "Ауэзовский", "Бостандыкский", "Жетысуский", "Медеуский", "Наурызбайский", "Турксибский" };
-
-		LocalityDAO cDao = new LocalityDAO(ses);
+		String[] data = { "Алатауский", "Алмалинский", "Ауэзовский", "Бостандыкский", "Жетысуский", "Медеуский",
+				
+				"Наурызбайский", "Турксибский" };
 		Locality region = null;
 		try {
+			LocalityDAO cDao = new LocalityDAO(ses);
 			region = cDao.findByName("Алматы");
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block

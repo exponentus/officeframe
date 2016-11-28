@@ -25,31 +25,32 @@ public class StreetForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		Street entity;
-		if (!id.isEmpty()) {
-			StreetDAO dao = new StreetDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (Street) getDefaultEntity(user, new Street());
-			LocalityDAO cDao = new LocalityDAO(session);
-			Locality city = null;
-			try {
-				city = cDao.findByName("Алматы");
-			} catch (DAOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			entity.setLocality(city);
-		}
-		addContent(entity);
 		try {
+			Street entity;
+			if (!id.isEmpty()) {
+				StreetDAO dao = new StreetDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (Street) getDefaultEntity(user, new Street());
+				LocalityDAO cDao = new LocalityDAO(session);
+				Locality city = null;
+				try {
+					city = cDao.findByName("Алматы");
+				} catch (DAOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				entity.setLocality(city);
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 		
 	}
 	

@@ -17,29 +17,30 @@ import reference.dao.ResponsibleTypeDAO;
 import reference.model.ResponsibleType;
 
 public class ResponsibleTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		ResponsibleType entity;
-		if (!id.isEmpty()) {
-			ResponsibleTypeDAO dao = new ResponsibleTypeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (ResponsibleType) getDefaultEntity(user, new ResponsibleType());
-		}
-		addContent(entity);
 		try {
+			ResponsibleType entity;
+			if (!id.isEmpty()) {
+				ResponsibleTypeDAO dao = new ResponsibleTypeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (ResponsibleType) getDefaultEntity(user, new ResponsibleType());
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+			
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+			
 		}
-		addContent(getSimpleActionBar(session));
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -49,27 +50,27 @@ public class ResponsibleTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			ResponsibleTypeDAO dao = new ResponsibleTypeDAO(session);
 			ResponsibleType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new ResponsibleType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

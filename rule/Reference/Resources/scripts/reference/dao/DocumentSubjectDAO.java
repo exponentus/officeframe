@@ -6,16 +6,17 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 
 import reference.model.DocumentSubject;
 
 public class DocumentSubjectDAO extends ReferenceDAO<DocumentSubject, UUID> {
-
-	public DocumentSubjectDAO(_Session session) {
+	
+	public DocumentSubjectDAO(_Session session) throws DAOException {
 		super(DocumentSubject.class, session);
 	}
-
+	
 	public List<DocumentSubject> findAllCategories() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -25,5 +26,5 @@ public class DocumentSubjectDAO extends ReferenceDAO<DocumentSubject, UUID> {
 			em.close();
 		}
 	}
-
+	
 }

@@ -20,17 +20,18 @@ import reference.model.ControlType;
 @Command(name = "fill_control_types")
 public class FillControlTypes extends _Do {
 	private static final int HOURS_TO_DO = 24 * 30;
-
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<ControlType> entities = new ArrayList<>();
-		ControlTypeDAO dao = new ControlTypeDAO(ses);
+
 		String codes[] = { "ВС", "ДВ", "ДС", "ДУ", "К", "РК", "СК" };
-		String names[] = { "very_urgent", "for_meeting", "for_information", "to_participate", "in_control", "on_normal_control", "urgent_control" };
-		String namesRus[] = { "Весьма срочно", "Для встречи", "Для сведения", "Для участия", "На контроле", "На рабочем контроле",
-		        "Срочный контроль" };
-		String namesKaz[] = { "Жедел бақылауда", "Для встречи", "Для сведения", "Для участия", "На контроле", "Жұмыс бақылауында",
-		        "Срочный контроль" };
+		String names[] = { "very_urgent", "for_meeting", "for_information", "to_participate", "in_control",
+				"on_normal_control", "urgent_control" };
+		String namesRus[] = { "Весьма срочно", "Для встречи", "Для сведения", "Для участия", "На контроле",
+				"На рабочем контроле", "Срочный контроль" };
+		String namesKaz[] = { "Жедел бақылауда", "Для встречи", "Для сведения", "Для участия", "На контроле",
+				"Жұмыс бақылауында", "Срочный контроль" };
 		for (int i = 0; i < codes.length; i++) {
 			ControlType cType = new ControlType();
 			cType.setCode(codes[i]);
@@ -43,24 +44,29 @@ public class FillControlTypes extends _Do {
 			entities.add(cType);
 		}
 
-		for (ControlType entry : entities) {
-			try {
-				if (dao.add(entry) != null) {
-					logger.infoLogEntry(entry.getName() + " added");
-				}
-			} catch (DAOException e) {
-				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-					logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-				} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-					logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
-				} else {
+		try {
+			ControlTypeDAO dao = new ControlTypeDAO(ses);
+			for (ControlType entry : entities) {
+				try {
+					if (dao.add(entry) != null) {
+						logger.infoLogEntry(entry.getName() + " added");
+					}
+				} catch (DAOException e) {
+					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+					} else {
+						logger.errorLogEntry(e);
+					}
+				} catch (SecureException e) {
 					logger.errorLogEntry(e);
 				}
-			} catch (SecureException e) {
-				logger.errorLogEntry(e);
 			}
+		} catch (DAOException e) {
+			logger.errorLogEntry(e);
 		}
 		logger.infoLogEntry("done...");
 	}
-
+	
 }

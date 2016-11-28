@@ -21,30 +21,35 @@ import discussing.model.Topic;
 import discussing.model.constants.TopicStatusType;
 
 public class TopicForm extends _DoForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
-		Topic entity;
-		if (!id.isEmpty()) {
-			TopicDAO dao = new TopicDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = new Topic();
-			entity.setAuthor(user);
-			entity.setSubject("");
-			entity.setStatus(TopicStatusType.DRAFT);
-		}
-		addContent(entity);
-		addContent(new _EnumWrapper(TopicStatusType.class.getEnumConstants()));
-		if (!id.isEmpty()) {
-			addContent(getActionBar(session, entity));
-		} else {
-			addContent(getSimpleActionBar(session));
+		try {
+			String id = formData.getValueSilently("docid");
+			IUser<Long> user = session.getUser();
+			Topic entity;
+			if (!id.isEmpty()) {
+				TopicDAO dao = new TopicDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = new Topic();
+				entity.setAuthor(user);
+				entity.setSubject("");
+				entity.setStatus(TopicStatusType.DRAFT);
+			}
+			addContent(entity);
+			addContent(new _EnumWrapper(TopicStatusType.class.getEnumConstants()));
+			if (!id.isEmpty()) {
+				addContent(getActionBar(session, entity));
+			} else {
+				addContent(getSimpleActionBar(session));
+			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
 		}
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		devPrint(formData);
@@ -59,7 +64,7 @@ public class TopicForm extends _DoForm {
 			Topic entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new Topic();
 			} else {
@@ -73,7 +78,7 @@ public class TopicForm extends _DoForm {
 			logError(e);
 		}
 	}
-
+	
 	private void save(_Session ses, Topic entity, TopicDAO dao, boolean isNew) throws SecureException, DAOException {
 		if (isNew) {
 			dao.add(entity);
@@ -81,27 +86,27 @@ public class TopicForm extends _DoForm {
 			dao.update(entity);
 		}
 	}
-
+	
 	private _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		if (formData.getValueSilently("subject").isEmpty()) {
 			ve.addError("subject", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		return ve;
 	}
-
+	
 	private IOutcomeObject getActionBar(_Session ses, Topic topic) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		LanguageCode lang = ses.getLang();
 		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
-
+		
 		_Action newCommentAction = new _Action(getLocalizedWord("new_comment", lang), "", "new_comment");
 		newCommentAction.setURL("Provider?id=comment-form&topicid=" + topic.getId());
 		actionBar.addAction(newCommentAction);
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
-
+		
 	}
-
+	
 }

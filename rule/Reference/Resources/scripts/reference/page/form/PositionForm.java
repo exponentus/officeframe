@@ -22,22 +22,22 @@ public class PositionForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		Position entity;
-		if (!id.isEmpty()) {
-			PositionDAO dao = new PositionDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (Position) getDefaultEntity(user, new Position());
-		}
-		addContent(entity);
 		try {
+			Position entity;
+			if (!id.isEmpty()) {
+				PositionDAO dao = new PositionDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (Position) getDefaultEntity(user, new Position());
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 	}
 	
 	@Override

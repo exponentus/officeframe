@@ -23,23 +23,24 @@ public class TaskTypeForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		TaskType entity;
-		if (!id.isEmpty()) {
-			TaskTypeDAO dao = new TaskTypeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (TaskType) getDefaultEntity(user, new TaskType());
-			entity.setPrefix("");
-		}
-		addContent(entity);
 		try {
+			TaskType entity;
+			if (!id.isEmpty()) {
+				TaskTypeDAO dao = new TaskTypeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (TaskType) getDefaultEntity(user, new TaskType());
+				entity.setPrefix("");
+			}
+			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
+
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 		
 	}
 	

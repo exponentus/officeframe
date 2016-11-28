@@ -28,36 +28,37 @@ import reference.model.constants.LocalityCode;
  */
 
 public class LocalityForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		Locality entity;
-		if (!id.isEmpty()) {
-			LocalityDAO dao = new LocalityDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = new Locality();
-			entity.setAuthor(user);
-			entity.setName("");
-			Region region = new Region();
-			region.setName("");
-			entity.setRegion(region);
-			LocalityType regionType = new LocalityTypeDAO(session).findByCode(LocalityCode.CITY);
-			entity.setType(regionType);
-		}
-		addContent(entity);
 		try {
+			Locality entity;
+			if (!id.isEmpty()) {
+				LocalityDAO dao = new LocalityDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = new Locality();
+				entity.setAuthor(user);
+				entity.setName("");
+				Region region = new Region();
+				region.setName("");
+				entity.setRegion(region);
+				LocalityType regionType = new LocalityTypeDAO(session).findByCode(LocalityCode.CITY);
+				entity.setType(regionType);
+			}
+			addContent(entity);
+			
 			addContent(new LanguageDAO(session).findAll());
+			
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
 		}
-		addContent(getSimpleActionBar(session));
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -67,57 +68,57 @@ public class LocalityForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			LocalityDAO dao = new LocalityDAO(session);
-			
+
 			Locality entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Locality();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			LocalityTypeDAO localityTypeDAO = new LocalityTypeDAO(session);
 			entity.setType(localityTypeDAO.findById(formData.getValue("localitytype")));
 			RegionDAO regionDAO = new RegionDAO(session);
 			entity.setRegion(regionDAO.findById(formData.getValueSilently("region")));
-			
+
 			String districtId = formData.getValueSilently("district");
 			if (!districtId.isEmpty()) {
 				DistrictDAO districtDAO = new DistrictDAO(session);
 				entity.setDistrict(districtDAO.findById(districtId));
 			} else {
-				
+
 			}
-			
+
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-	
+
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name");
-		
+
 		if (formData.getValueSilently("region").isEmpty()) {
 			ve.addError("region", "required", getLocalizedWord("field_is_empty", lang));
 		}
-		
+
 		if (formData.getValueSilently("localitytype").isEmpty()) {
 			ve.addError("localitytype", "required", getLocalizedWord("field_is_empty", lang));
 		}
-		
+
 		return ve;
 	}
 }

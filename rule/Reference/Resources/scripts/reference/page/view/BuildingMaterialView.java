@@ -17,35 +17,42 @@ import reference.dao.BuildingMaterialDAO;
 import reference.model.BuildingMaterial;
 
 public class BuildingMaterialView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "",
-					"new_building_material");
-			newDocAction.setURL("Provider?id=buildingmaterial-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(
-					new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
-			addContent(actionBar);
+		try {
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "",
+						"new_building_material");
+				newDocAction.setURL("Provider?id=buildingmaterial-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "",
+						_ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
+			addContent(getViewPage(new BuildingMaterialDAO(session), formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			
 		}
-		addContent(getViewPage(new BuildingMaterialDAO(session), formData));
 	}
-	
+
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-		println(formData);
-		
-		BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			BuildingMaterial m = dao.findById(UUID.fromString(id));
-			try {
+		try {
+			BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				BuildingMaterial m = dao.findById(UUID.fromString(id));
 				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+
 			}
+		} catch (DAOException | SecureException e) {
+			logError(e);
+			setBadRequest();
+			
 		}
 	}
 }

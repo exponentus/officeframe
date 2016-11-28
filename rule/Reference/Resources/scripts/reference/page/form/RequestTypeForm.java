@@ -22,22 +22,24 @@ public class RequestTypeForm extends ReferenceForm {
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
-		RequestType entity;
-		if (!id.isEmpty()) {
-			RequestTypeDAO dao = new RequestTypeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = (RequestType) getDefaultEntity(user, new RequestType());
-		}
-		addContent(entity);
 		try {
+			RequestType entity;
+			if (!id.isEmpty()) {
+				RequestTypeDAO dao = new RequestTypeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = (RequestType) getDefaultEntity(user, new RequestType());
+			}
+			addContent(entity);
+			
 			addContent(new LanguageDAO(session).findAll());
+
+			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
+
 		}
-		addContent(getSimpleActionBar(session));
 	}
 	
 	@Override

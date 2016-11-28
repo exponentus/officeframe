@@ -29,10 +29,12 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 		String[] data = { "Kapchagay", "Taldykorgan" };
 		String[] data1 = { "Almaty" };
 
-		LocalityTypeDAO ltDao = new LocalityTypeDAO(ses);
-		RegionDAO cDao = new RegionDAO(ses);
 		Region d = null;
+		LocalityTypeDAO ltDao = null;
+		RegionDAO cDao = null;
 		try {
+			ltDao = new LocalityTypeDAO(ses);
+			cDao = new RegionDAO(ses);
 			d = cDao.findByName("Almaty region");
 		} catch (DAOException e) {
 			// TODO Auto-generated catch block
