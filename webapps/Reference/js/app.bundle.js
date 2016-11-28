@@ -5520,6 +5520,7 @@ nbApp.selectOptions = {
     category: {
         url: 'p?id=get-document-type-category',
         minimumInputLength: 1,
-        tags:true
+        tags:true,
+        minimumResultsForSearch:1
     }
 };

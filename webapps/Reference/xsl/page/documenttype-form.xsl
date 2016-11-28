@@ -36,7 +36,7 @@
                         </div>
                         <div class="controls">
                             <select name="category" class="span7 category" autocomplete="off">
-                                <xsl:apply-templates select="fields/category" mode="selected_options"/>
+                                <xsl:apply-templates select="fields/category" mode="select_options"/>
                             </select>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
         </form>
     </xsl:template>
 
-    <xsl:template match="entry" mode="select_options">
+    <xsl:template match="*" mode="select_options">
         <xsl:param name="selected"/>
 
-        <option value="{@attrval}">
-            <xsl:if test="@attrval = $selected">
+        <option value="{.}">
+            <xsl:if test=". = $selected">
                 <xsl:attribute name="selected" select="'selected'"/>
             </xsl:if>
             <xsl:value-of select="text()"/>
