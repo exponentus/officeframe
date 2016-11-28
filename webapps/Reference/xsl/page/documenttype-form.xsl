@@ -39,7 +39,7 @@
                                 <xsl:apply-templates select="//query[@entity='category']/entry" mode="radio_category"/>
                                 <li class="list-style-none">
                                     <input type="radio" name="category" id="custom_category" value=""/>
-                                    <input type="text" id="custom_category_input" value="" placeholder="новая категория" class="span5" autofocus="false"/>
+                                    <input type="text" id="custom_category_input" value="" placeholder="{//captions/new_category/@caption}" class="span5" autofocus="false"/>
                                 </li>
                             </ul>
                         </div>

@@ -331,4 +331,10 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+     <sentence mode="on" keyword="new_category">
+        <entry lang="ENG">New category type</entry>
+        <entry lang="RUS">Новая категория</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
 </vocabulary>

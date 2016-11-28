@@ -85,4 +85,5 @@
     <caption name="text_template"/>
     <caption name="demand_types"/>
     <caption name="demand_type"/>
+    <caption name="new_category"/>
 </rule>
