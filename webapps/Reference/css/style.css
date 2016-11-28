@@ -13,13 +13,16 @@ form[data-edit=false] [data-upload] {
     padding:5px 0 0 0;
 }
 
+.ul-category  li{
+    padding-top:2px;
+}
 
 label {
     font-weight: normal;
     vertical-align: middle;
-    margin: 0 0 2px .5em;
+    margin: 0 0 2px .3em;
 }
 
 #custom_category_input{
-    margin-left:.5em;
+    margin-left:.3em;
 }
