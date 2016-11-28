@@ -1,6 +1,5 @@
 package reference.dao;
 
-import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -17,11 +16,11 @@ import com.exponentus.scripting._Session;
 import reference.model.Tag;
 
 public class TagDAO extends ReferenceDAO<Tag, UUID> {
-
+	
 	public TagDAO(_Session session) throws DAOException {
 		super(Tag.class, session);
 	}
-
+	
 	@Override
 	public Tag findByName(String tagName) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -41,18 +40,5 @@ public class TagDAO extends ReferenceDAO<Tag, UUID> {
 			em.close();
 		}
 	}
-
-	@Override
-	@SuppressWarnings("unchecked")
-	public List<Tag> findAllCategories() {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			Query query = em.createQuery(
-					"SELECT e.category FROM Tag AS e WHERE e.category != NULL AND e.category != '' GROUP BY e.category");
-			return query.getResultList();
-		} finally {
-			em.close();
-		}
-	}
-
+	
 }
