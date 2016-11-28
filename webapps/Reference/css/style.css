@@ -17,9 +17,9 @@ form[data-edit=false] [data-upload] {
 label {
     font-weight: normal;
     vertical-align: middle;
-    margin: 0 0 2px .3em;
+    margin: 0 0 2px .5em;
 }
 
 #custom_category_input{
-    margin-left:.3em;
+    margin-left:.5em;
 }
