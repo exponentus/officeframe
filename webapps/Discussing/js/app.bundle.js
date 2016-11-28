@@ -2612,7 +2612,8 @@ nb.getSelectOptions = function(selectOptions) {
 
     return {
         allowClear: true,
-        minimumInputLength: 0,
+        minimumInputLength: options.minimumInputLength || 0,
+        tags:options.tags || false,
         minimumResultsForSearch: options.minimumResultsForSearch || 20,
         placeholder: options.placeholder || '',
         templateResult: options.templateResult,
