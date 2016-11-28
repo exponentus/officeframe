@@ -8,3 +8,18 @@ form[data-edit=false] [data-action=save_and_close],
 form[data-edit=false] [data-upload] {
     display: none;
 }
+
+.ul-category{
+    padding:5px 0 0 0;
+}
+
+
+label {
+    font-weight: normal;
+    vertical-align: middle;
+    margin: 0 0 2px .3em;
+}
+
+#custom_category_input{
+    margin-left:.3em;
+}

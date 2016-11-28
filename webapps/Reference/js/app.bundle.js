@@ -5487,7 +5487,18 @@ $(function() {
             localStorage.setItem('theme', themeName);
         }
     });
-
+    if($("#custom_category").prop("checked")){
+        if($("input#custom_category_input").val().length !=0){
+            $("#custom_category").val($("input#custom_category_input").val())
+        }else{
+            $("#custom_category").prop("checked","false")
+        }
+    }
+    $('input#custom_category_input').focus(function() {
+        $("#custom_category").prop("checked","checked")
+    }).on('input',function(){
+        $("#custom_category").val($(this).val());
+    });
     var theme = localStorage.getItem('theme');
     if (theme) {
         $('body').addClass(theme);
