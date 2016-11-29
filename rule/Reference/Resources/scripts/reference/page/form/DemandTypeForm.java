@@ -77,7 +77,7 @@ public class DemandTypeForm extends ReferenceForm {
 	}
 	
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		_Validation ve = simpleCheck("name");
+		_Validation ve = simpleCheck("name", "prefix");
 		return ve;
 	}
 }
