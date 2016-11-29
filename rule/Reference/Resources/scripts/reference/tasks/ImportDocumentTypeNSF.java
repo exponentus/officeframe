@@ -21,7 +21,7 @@ import reference.model.DocumentType;
 
 @Command(name = "import_vid_nsf")
 public class ImportDocumentTypeNSF extends ImportNSF {
-
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, DocumentType> entities = new HashMap<>();

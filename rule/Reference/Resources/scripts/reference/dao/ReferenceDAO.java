@@ -16,7 +16,6 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.localization.LanguageCode;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 
@@ -29,11 +28,12 @@ import com.exponentus.scripting._Session;
  *
  */
 public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
-	
+
 	public ReferenceDAO(Class<T> entityClass, _Session session) throws DAOException {
 		super(entityClass, session);
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	public List<T> findAllCategories() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -64,7 +64,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
 	public T findByNameAndCategory(String category, String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -87,28 +87,6 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 		}
 	}
 	
-	// TODO to implement
-	public T findByName(String name, LanguageCode lang) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		try {
-			CriteriaQuery<T> cq = cb.createQuery(getEntityClass());
-			Root<T> c = cq.from(getEntityClass());
-			cq.select(c);
-			/*
-			 * MapJoin p = c.joinMap("localizedName"); cq.multiselect(c,
-			 * p.value()); cq.where(cb.equal(p.key(), lang));
-			 */
-			
-			TypedQuery<T> typedQuery = em.createQuery(cq);
-			return typedQuery.getSingleResult();
-		} catch (NoResultException e) {
-			return null;
-		} finally {
-			em.close();
-		}
-	}
-	
 	public T findByCode(Enum<?> code) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -122,7 +100,41 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
+	public ViewPage<T> findAllByCategory(String categoryName, int pageNum, int pageSize) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		try {
+			CriteriaQuery<T> cq = cb.createQuery(getEntityClass());
+			CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
+			Root<T> c = cq.from(getEntityClass());
+			cq.select(c);
+			countCq.select(cb.count(c));
+			if (!categoryName.isEmpty()) {
+				Predicate condition = cb.like(cb.lower(c.<String>get("category")), categoryName);
+				cq.where(condition);
+				countCq.where(condition);
+			}
+			TypedQuery<T> typedQuery = em.createQuery(cq);
+			Query query = em.createQuery(countCq);
+			long count = (long) query.getSingleResult();
+			int maxPage = 1;
+			if (pageNum != 0 || pageSize != 0) {
+				maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+				if (pageNum == 0) {
+					pageNum = maxPage;
+				}
+				int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
+				typedQuery.setFirstResult(firstRec);
+				typedQuery.setMaxResults(pageSize);
+			}
+			List<T> result = typedQuery.getResultList();
+			return new ViewPage<>(result, count, maxPage, pageNum);
+		} finally {
+			em.close();
+		}
+	}
+
 	public ViewPage<T> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -140,13 +152,16 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			TypedQuery<T> typedQuery = em.createQuery(cq);
 			Query query = em.createQuery(countCq);
 			long count = (long) query.getSingleResult();
-			int maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
-			if (pageNum == 0) {
-				pageNum = maxPage;
+			int maxPage = 1;
+			if (pageNum != 0 || pageSize != 0) {
+				maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+				if (pageNum == 0) {
+					pageNum = maxPage;
+				}
+				int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
+				typedQuery.setFirstResult(firstRec);
+				typedQuery.setMaxResults(pageSize);
 			}
-			int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-			typedQuery.setFirstResult(firstRec);
-			typedQuery.setMaxResults(pageSize);
 			List<T> result = typedQuery.getResultList();
 			return new ViewPage<>(result, count, maxPage, pageNum);
 		} finally {
