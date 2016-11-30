@@ -12,6 +12,7 @@ import javax.persistence.Table;
 
 import com.exponentus.common.model.Attachment;
 import com.exponentus.dataengine.jpa.SimpleAppEntity;
+import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
@@ -22,71 +23,82 @@ import monitoring.model.constants.ActivityType;
 @Table(name = "_user_activities")
 @NamedQuery(name = "UserActivity.findAll", query = "SELECT m FROM UserActivity AS m ORDER BY m.eventTime")
 public class UserActivity extends SimpleAppEntity implements IPOJOObject {
-
+	
 	@Column(name = "act_user", nullable = false, updatable = false)
 	private Long actUser;
-
+	
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type", nullable = false, length = 7)
 	private ActivityType type = ActivityType.UNKNOWN;
-
+	
 	@Column(name = "event_time")
 	private Date eventTime;
 
+	@Column(name = "related_to")
+	private IAppEntity relatedTo;
+	
 	public ActivityType getType() {
 		return type;
 	}
-
+	
 	public void setType(ActivityType type) {
 		this.type = type;
 	}
-
+	
 	public Long getActUser() {
 		return actUser;
 	}
-
+	
 	public void setActUser(Long actUser) {
 		this.actUser = actUser;
 	}
-
+	
 	public Date getEventTime() {
 		return eventTime;
 	}
-
+	
 	public void setEventTime(Date eventTime) {
 		this.eventTime = eventTime;
 	}
-
+	
+	public IAppEntity getRelatedTo() {
+		return relatedTo;
+	}
+	
+	public void setRelatedTo(IAppEntity relatedTo) {
+		this.relatedTo = relatedTo;
+	}
+	
 	@Override
 	public String getEntityKind() {
 		return this.getClass().getSimpleName().toLowerCase();
 	}
-
+	
 	@Override
 	public String getIdentifier() {
 		return id.toString();
 	}
-
+	
 	@Override
 	public String getURL() {
 		return "p?id=useractivity-form&amp;docid=" + getIdentifier();
 	}
-
+	
 	@Override
 	public List<Attachment> getAttachments() {
 		return null;
 	}
-
+	
 	@Override
 	public void setAttachments(List<Attachment> attachments) {
-
+		
 	}
-
+	
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		return getShortXMLChunk(ses);
 	}
-
+	
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -95,20 +107,20 @@ public class UserActivity extends SimpleAppEntity implements IPOJOObject {
 		chunk.append("<type>" + type + "</type>");
 		return chunk.toString();
 	}
-
+	
 	@Override
 	public boolean isWasRead() {
 		return false;
 	}
-
+	
 	@Override
 	public Object getJSONObj(_Session ses) {
 		return this;
 	}
-
+	
 	@Override
 	public boolean isEditable() {
 		return false;
 	}
-
+	
 }
