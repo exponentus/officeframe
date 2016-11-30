@@ -10,17 +10,18 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.scripting._Session;
 
 import staff.model.Role;
 
 public class RoleDAO extends DAO<Role, UUID> {
-
-	public RoleDAO(_Session session) {
+	
+	public RoleDAO(_Session session) throws DAOException {
 		super(Role.class, session);
 	}
-
+	
 	public Role findByName(String tagName) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -39,5 +40,5 @@ public class RoleDAO extends DAO<Role, UUID> {
 			em.close();
 		}
 	}
-
+	
 }

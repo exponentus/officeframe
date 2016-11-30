@@ -20,25 +20,31 @@ import staff.model.Role;
  */
 
 public class RoleForm extends StaffForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		Role entity;
-		if (!id.isEmpty()) {
-			RoleDAO dao = new RoleDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = new Role();
-			entity.setAuthor(user);
-			entity.setName("");
-			entity.setDescription("");
+		try {
+			if (!id.isEmpty()) {
+				RoleDAO dao = new RoleDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = new Role();
+				entity.setAuthor(user);
+				entity.setName("");
+				entity.setDescription("");
+			}
+			addContent(entity);
+			addContent(getSimpleActionBar(session, session.getLang()));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(getSimpleActionBar(session, session.getLang()));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -48,28 +54,28 @@ public class RoleForm extends StaffForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			RoleDAO dao = new RoleDAO(session);
 			Role entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new Role();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setDescription(formData.getValue("description"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

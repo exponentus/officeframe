@@ -25,30 +25,36 @@ import staff.model.Organization;
  */
 
 public class DepartmentForm extends StaffForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		Department entity;
-		if (!id.isEmpty()) {
-			DepartmentDAO dao = new DepartmentDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-		} else {
-			entity = new Department();
-			entity.setAuthor(user);
-			entity.setName("");
-			Organization o = new Organization();
-			o.setName("");
-			entity.setOrganization(o);
-			DepartmentType dt = new DepartmentType();
-			dt.setName("");
-			entity.setType(dt);
+		try {
+			if (!id.isEmpty()) {
+				DepartmentDAO dao = new DepartmentDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+			} else {
+				entity = new Department();
+				entity.setAuthor(user);
+				entity.setName("");
+				Organization o = new Organization();
+				o.setName("");
+				entity.setOrganization(o);
+				DepartmentType dt = new DepartmentType();
+				dt.setName("");
+				entity.setType(dt);
+			}
+			addContent(entity);
+			addContent(getSimpleActionBar(session, session.getLang()));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(getSimpleActionBar(session, session.getLang()));
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -58,54 +64,54 @@ public class DepartmentForm extends StaffForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			DepartmentDAO dao = new DepartmentDAO(session);
 			Department entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new Department();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			entity.setRank(formData.getNumberValueSilently("rank",0));
+			entity.setRank(formData.getNumberValueSilently("rank", 0));
 			DepartmentTypeDAO dtDao = new DepartmentTypeDAO(session);
 			DepartmentType dt = dtDao.findById(formData.getValueSilently("departmenttype"));
 			entity.setType(dt);
 			OrganizationDAO orgDAO = new OrganizationDAO(session);
 			entity.setOrganization(orgDAO.findById(formData.getValue("organization")));
-
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-
+	
 	@Override
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-
+		
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		if (formData.getValueSilently("organization").isEmpty()) {
 			ve.addError("organization", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		if (formData.getValueSilently("departmenttype").isEmpty()) {
 			ve.addError("departmenttype", "required", getLocalizedWord("field_is_empty", lang));
 		}
-
+		
 		return ve;
 	}
 }

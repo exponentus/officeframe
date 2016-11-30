@@ -28,39 +28,50 @@ public class OrganizationLabelView extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
-		OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
-		String id = formData.getValueSilently("categoryid");
-		if (!id.isEmpty()) {
-			OrganizationLabel role = dao.findById(UUID.fromString(id));
-			List<Organization> emps = role.getLabels();
-			addContent(emps);
-		} else {
-			IUser<Long> user = session.getUser();
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
-				_ActionBar actionBar = new _ActionBar(session);
-				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization_label");
-				newDocAction.setURL("Provider?id=organization-label-form");
-				actionBar.addAction(newDocAction);
-				actionBar.addAction(
-						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-				addContent(actionBar);
+		try {
+			OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
+			String id = formData.getValueSilently("categoryid");
+			if (!id.isEmpty()) {
+				OrganizationLabel role = dao.findById(UUID.fromString(id));
+				List<Organization> emps = role.getLabels();
+				addContent(emps);
+			} else {
+				IUser<Long> user = session.getUser();
+				if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+					_ActionBar actionBar = new _ActionBar(session);
+					_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization_label");
+					newDocAction.setURL("Provider?id=organization-label-form");
+					actionBar.addAction(newDocAction);
+					actionBar.addAction(
+							new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+					addContent(actionBar);
+				}
+				addContent(getViewPage(dao, formData));
 			}
-			addContent(getViewPage(dao, formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-		
-		OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			OrganizationLabel m = dao.findById(UUID.fromString(id));
-			try {
-				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+		try {
+			OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				OrganizationLabel m = dao.findById(UUID.fromString(id));
+				try {
+					dao.delete(m);
+				} catch (SecureException | DAOException e) {
+					setError(e);
+				}
 			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 }

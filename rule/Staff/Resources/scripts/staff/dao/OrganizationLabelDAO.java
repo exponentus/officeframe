@@ -6,16 +6,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.scripting._Session;
+
 import staff.model.OrganizationLabel;
 
 public class OrganizationLabelDAO extends DAO<OrganizationLabel, UUID> {
-
-	public OrganizationLabelDAO(_Session session) {
+	
+	public OrganizationLabelDAO(_Session session) throws DAOException {
 		super(OrganizationLabel.class, session);
 	}
-
+	
 	public OrganizationLabel findByName(String name) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {

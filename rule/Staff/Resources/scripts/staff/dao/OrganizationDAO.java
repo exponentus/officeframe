@@ -14,9 +14,11 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
+import com.exponentus.server.Server;
 
 import reference.model.OrgCategory;
 import staff.model.Organization;
@@ -24,7 +26,7 @@ import staff.model.OrganizationLabel;
 
 public class OrganizationDAO extends DAO<Organization, UUID> {
 	
-	public OrganizationDAO(_Session session) {
+	public OrganizationDAO(_Session session) throws DAOException {
 		super(Organization.class, session);
 	}
 	
@@ -42,13 +44,13 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 	
 	public ViewPage<Organization> findAllByLabel(String labelName, int pageNum, int pageSize) {
 		List<OrganizationLabel> val = new ArrayList<>();
-		OrganizationLabelDAO olDAO = new OrganizationLabelDAO(ses);
-		OrganizationLabel l = olDAO.findByName(labelName);
-		if (l != null) {
-			val.add(l);
-			EntityManager em = getEntityManagerFactory().createEntityManager();
-			CriteriaBuilder cb = em.getCriteriaBuilder();
-			try {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		try {
+			OrganizationLabelDAO olDAO = new OrganizationLabelDAO(ses);
+			OrganizationLabel l = olDAO.findByName(labelName);
+			if (l != null) {
+				val.add(l);
+				CriteriaBuilder cb = em.getCriteriaBuilder();
 				CriteriaQuery<Organization> cq = cb.createQuery(getEntityClass());
 				CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
 				Root<Organization> c = cq.from(getEntityClass());
@@ -69,11 +71,15 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 				typedQuery.setMaxResults(pageSize);
 				List<Organization> result = typedQuery.getResultList();
 				return new ViewPage<>(result, count, maxPage, pageNum);
-			} finally {
-				em.close();
+				
+			} else {
+				return new ViewPage<>(null);
 			}
-		} else {
+		} catch (DAOException e) {
+			Server.logger.errorLogEntry(e);
 			return new ViewPage<>(null);
+		} finally {
+			em.close();
 		}
 	}
 	

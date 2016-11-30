@@ -22,34 +22,46 @@ import staff.model.Department;
  */
 
 public class DepartmentView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_department");
-			newDocAction.setURL("Provider?id=department-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-			addContent(actionBar);
+		try {
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_department");
+				newDocAction.setURL("Provider?id=department-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
+			addContent(getViewPage(new DepartmentDAO(session), formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(getViewPage(new DepartmentDAO(session), formData));
 	}
-	
+
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-		
-		DepartmentDAO dao = new DepartmentDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			Department m = dao.findById(UUID.fromString(id));
-			try {
-				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+		try {
+			DepartmentDAO dao = new DepartmentDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				Department m = dao.findById(UUID.fromString(id));
+				try {
+					dao.delete(m);
+				} catch (SecureException | DAOException e) {
+					setError(e);
+				}
 			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 }

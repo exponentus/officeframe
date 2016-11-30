@@ -26,26 +26,32 @@ public class StructureView extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
+		try {
+			IUser<Long> user = session.getUser();
+			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+				_ActionBar actionBar = new _ActionBar(session);
+				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization");
+				newDocAction.setURL("Provider?id=organization-form");
+				actionBar.addAction(newDocAction);
+				actionBar.addAction(
+						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+				addContent(actionBar);
+			}
 
-		IUser<Long> user = session.getUser();
-		if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
-			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization");
-			newDocAction.setURL("Provider?id=organization-form");
-			actionBar.addAction(newDocAction);
-			actionBar.addAction(new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-			addContent(actionBar);
-		}
-
-		OrganizationDAO dao = new OrganizationDAO(session);
-		Organization org = dao.findPrimaryOrg().get(0);
-		if (org != null) {
-			List<Employee> bosses = org.getEmployers();
-			addContent(new _POJOListWrapper<>(bosses, session));
-			List<Department> deps = org.getDepartments();
-			addContent(new _POJOListWrapper<>(deps, session));
-		} else {
-			addContent(new _POJOListWrapper<>(getLocalizedWord("no_primary_org", lang), ""));
+			OrganizationDAO dao = new OrganizationDAO(session);
+			Organization org = dao.findPrimaryOrg().get(0);
+			if (org != null) {
+				List<Employee> bosses = org.getEmployers();
+				addContent(new _POJOListWrapper<>(bosses, session));
+				List<Department> deps = org.getDepartments();
+				addContent(new _POJOListWrapper<>(deps, session));
+			} else {
+				addContent(new _POJOListWrapper<>(getLocalizedWord("no_primary_org", lang), ""));
+			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 
 	}
@@ -53,15 +59,20 @@ public class StructureView extends _DoPage {
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		devPrint(formData);
-
-		OrganizationDAO dao = new OrganizationDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			Organization m = dao.findById(UUID.fromString(id));
-			try {
-				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+		try {
+			OrganizationDAO dao = new OrganizationDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				Organization m = dao.findById(UUID.fromString(id));
+				try {
+					dao.delete(m);
+				} catch (SecureException | DAOException e) {
+					setError(e);
+				}
 			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 }

@@ -35,7 +35,7 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 	private _Session ses;
 	private static String file1 = EnvConst.RESOURCES_DIR + File.separator + "Roman.txt";
 	private static String file2 = EnvConst.RESOURCES_DIR + File.separator + "Fantasy.txt";
-
+	
 	@Override
 	public List<Employee> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		this.ses = ses;
@@ -53,32 +53,32 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 		}
 		return entities;
 	}
-
+	
 	private Employee getMock(User user) {
 		Employee emp = new Employee();
 		emp.setUser(user);
 		emp.setName(getRndFirstName() + " " + getRndLastName());
-		Organization o = new OrganizationDAO(ses).findAll().get(1);
-		emp.setOrganization(o);
-		RoleDAO roleDao = new RoleDAO(ses);
-		List<Role> rl = roleDao.findAll();
-		Role role = (Role) Util.getRndListElement(rl);
-		if (role != null) {
-			emp.addRole(role);
-		}
-
 		try {
+			Organization o = new OrganizationDAO(ses).findAll().get(1);
+			emp.setOrganization(o);
+			RoleDAO roleDao = new RoleDAO(ses);
+			List<Role> rl = roleDao.findAll();
+			Role role = (Role) Util.getRndListElement(rl);
+			if (role != null) {
+				emp.addRole(role);
+			}
+			
 			PositionDAO postDao = new PositionDAO(ses);
 			List<Position> posts = postDao.findAll();
 			emp.setPosition((Position) Util.getRndListElement(posts));
-
+			
 		} catch (DAOException e) {
 			Server.logger.errorLogEntry(e);
 		}
 		return emp;
-
+		
 	}
-
+	
 	private String getRndFirstName() {
 		try {
 			NameGenerator n = new NameGenerator(file1);
@@ -88,7 +88,7 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 		}
 		return "";
 	}
-
+	
 	private String getRndLastName() {
 		try {
 			NameGenerator n = new NameGenerator(file2);
@@ -98,7 +98,7 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 		}
 		return "";
 	}
-
+	
 	private boolean checkNecessaryFiles() {
 		File f1 = new File(file1);
 		File f2 = new File(file2);
@@ -106,6 +106,6 @@ public class FillTestUsers extends InitialDataAdapter<Employee, EmployeeDAO> {
 			return true;
 		}
 		return false;
-
+		
 	}
 }

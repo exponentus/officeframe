@@ -29,47 +29,58 @@ public class RoleView extends _DoPage {
 	public void doGET(_Session session, _WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		IUser<Long> user = session.getUser();
-		RoleDAO dao = new RoleDAO(session);
-		String id = formData.getValueSilently("categoryid");
-		if (!id.isEmpty()) {
-			Role role = dao.findById(UUID.fromString(id));
-			List<Employee> emps = role.getEmployees();
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
-				_ActionBar actionBar = new _ActionBar(session);
-				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_employee");
-				newDocAction.setURL("Provider?id=employee-form&categoryid=" + id);
-				actionBar.addAction(newDocAction);
-				actionBar.addAction(
-						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-				addContent(actionBar);
+		try {
+			RoleDAO dao = new RoleDAO(session);
+			String id = formData.getValueSilently("categoryid");
+			if (!id.isEmpty()) {
+				Role role = dao.findById(UUID.fromString(id));
+				List<Employee> emps = role.getEmployees();
+				if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+					_ActionBar actionBar = new _ActionBar(session);
+					_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_employee");
+					newDocAction.setURL("Provider?id=employee-form&categoryid=" + id);
+					actionBar.addAction(newDocAction);
+					actionBar.addAction(
+							new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+					addContent(actionBar);
+				}
+				addContent(emps);
+			} else {
+				if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+					_ActionBar actionBar = new _ActionBar(session);
+					_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_role");
+					newDocAction.setURL("Provider?id=role-form");
+					actionBar.addAction(newDocAction);
+					actionBar.addAction(
+							new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+					addContent(actionBar);
+				}
+				addContent(getViewPage(dao, formData));
 			}
-			addContent(emps);
-		} else {
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
-				_ActionBar actionBar = new _ActionBar(session);
-				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_role");
-				newDocAction.setURL("Provider?id=role-form");
-				actionBar.addAction(newDocAction);
-				actionBar.addAction(
-						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
-				addContent(actionBar);
-			}
-			addContent(getViewPage(dao, formData));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 	
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
 		println(formData);
-		
-		RoleDAO dao = new RoleDAO(session);
-		for (String id : formData.getListOfValuesSilently("docid")) {
-			Role m = dao.findById(UUID.fromString(id));
-			try {
-				dao.delete(m);
-			} catch (SecureException | DAOException e) {
-				setError(e);
+		try {
+			RoleDAO dao = new RoleDAO(session);
+			for (String id : formData.getListOfValuesSilently("docid")) {
+				Role m = dao.findById(UUID.fromString(id));
+				try {
+					dao.delete(m);
+				} catch (SecureException | DAOException e) {
+					setError(e);
+				}
 			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 }

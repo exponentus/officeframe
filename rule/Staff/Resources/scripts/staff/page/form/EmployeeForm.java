@@ -56,72 +56,78 @@ public class EmployeeForm extends StaffForm {
 		IUser<Long> user = session.getUser();
 		String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 		Employee entity;
-		if (!id.isEmpty()) {
-			EmployeeDAO dao = new EmployeeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-			if (formData.containsField("avatar")) {
-				_FormAttachments formFiles = session.getFormAttachments(fsId);
-				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
-				if (attsMap == null) {
-					IAppFile att = entity.getAvatar();
-					byte[] image = null;
-					att = entity.getAvatar();
-					if (att == null) {
-						image = getEmptyAvatar();
+		try {
+			if (!id.isEmpty()) {
+				EmployeeDAO dao = new EmployeeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+				if (formData.containsField("avatar")) {
+					_FormAttachments formFiles = session.getFormAttachments(fsId);
+					Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+					if (attsMap == null) {
+						IAppFile att = entity.getAvatar();
+						byte[] image = null;
+						att = entity.getAvatar();
+						if (att == null) {
+							image = getEmptyAvatar();
+						} else {
+							image = att.getFile();
+						}
+						if (showAttachment(image)) {
+							return;
+						} else {
+							setBadRequest();
+						}
 					} else {
-						image = att.getFile();
-					}
-					if (showAttachment(image)) {
+						IAppFile att = attsMap.values().iterator().next();
+						TempFile tempFile = (TempFile) att;
+						showFile(tempFile.getPath(), tempFile.getRealFileName());
 						return;
-					} else {
-						setBadRequest();
 					}
-				} else {
-					IAppFile att = attsMap.values().iterator().next();
-					TempFile tempFile = (TempFile) att;
-					showFile(tempFile.getPath(), tempFile.getRealFileName());
-					return;
-				}
 
-			}
-		} else {
-			if (formData.containsField("avatar")) {
-				_FormAttachments formFiles = session.getFormAttachments(fsId);
-				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
-				if (attsMap != null) {
-					IAppFile att = attsMap.values().iterator().next();
-					TempFile tempFile = (TempFile) att;
-					showFile(tempFile.getPath(), tempFile.getRealFileName());
-					return;
 				}
-				if (attsMap == null) {
-					showAttachment(getEmptyAvatar());
-				}
-				return;
-			}
-			entity = new Employee();
-			entity.setAuthor(user);
-			entity.setName("");
-			Organization tmpOrg = new Organization();
-			tmpOrg.setName("");
-			entity.setOrganization(tmpOrg);
-			Position tmpPos = new Position();
-			tmpPos.setName("");
-			entity.setPosition(tmpPos);
-			String roleId = formData.getValueSilently("categoryid");
-			if (!roleId.isEmpty()) {
-				RoleDAO rDao = new RoleDAO(session);
-				Role role = rDao.findById(roleId);
-				entity.setRoles(new ArrayList<>(Arrays.asList(role)));
 			} else {
-				entity.setRoles(new ArrayList<Role>());
-			}
-			// entity.setAvatar(getEmptyAvatar());
+				if (formData.containsField("avatar")) {
+					_FormAttachments formFiles = session.getFormAttachments(fsId);
+					Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+					if (attsMap != null) {
+						IAppFile att = attsMap.values().iterator().next();
+						TempFile tempFile = (TempFile) att;
+						showFile(tempFile.getPath(), tempFile.getRealFileName());
+						return;
+					}
+					if (attsMap == null) {
+						showAttachment(getEmptyAvatar());
+					}
+					return;
+				}
+				entity = new Employee();
+				entity.setAuthor(user);
+				entity.setName("");
+				Organization tmpOrg = new Organization();
+				tmpOrg.setName("");
+				entity.setOrganization(tmpOrg);
+				Position tmpPos = new Position();
+				tmpPos.setName("");
+				entity.setPosition(tmpPos);
+				String roleId = formData.getValueSilently("categoryid");
+				if (!roleId.isEmpty()) {
+					RoleDAO rDao = new RoleDAO(session);
+					Role role = rDao.findById(roleId);
+					entity.setRoles(new ArrayList<>(Arrays.asList(role)));
+				} else {
+					entity.setRoles(new ArrayList<Role>());
+				}
+				// entity.setAvatar(getEmptyAvatar());
 
+			}
+			addContent(entity);
+			addContent(getSimpleActionBar(session, session.getLang()));
+			addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
-		addContent(entity);
-		addContent(getSimpleActionBar(session, session.getLang()));
-		addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll(), session));
 
 	}
 
@@ -149,7 +155,7 @@ public class EmployeeForm extends StaffForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setIin(formData.getValue("iin"));
-			entity.setRank(formData.getNumberValueSilently("rank",0));
+			entity.setRank(formData.getNumberValueSilently("rank", 0));
 			OrganizationDAO orgDAO = new OrganizationDAO(session);
 			String orgId = formData.getValueSilently("organization");
 			if (!orgId.isEmpty()) {
@@ -214,35 +220,41 @@ public class EmployeeForm extends StaffForm {
 	public void doDELETE(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		Employee entity;
-		if (!id.isEmpty()) {
-			EmployeeDAO dao = new EmployeeDAO(session);
-			entity = dao.findById(UUID.fromString(id));
-			if (formData.containsField("avatar")) {
-				String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
-				_FormAttachments formFiles = session.getFormAttachments(fsId);
-				Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
-				if (attsMap == null) {
-					IAppFile att = entity.getAvatar();
-					byte[] image = null;
-					att = entity.getAvatar();
-					if (att == null) {
-						image = getEmptyAvatar();
+		try {
+			if (!id.isEmpty()) {
+				EmployeeDAO dao = new EmployeeDAO(session);
+				entity = dao.findById(UUID.fromString(id));
+				if (formData.containsField("avatar")) {
+					String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
+					_FormAttachments formFiles = session.getFormAttachments(fsId);
+					Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+					if (attsMap == null) {
+						IAppFile att = entity.getAvatar();
+						byte[] image = null;
+						att = entity.getAvatar();
+						if (att == null) {
+							image = getEmptyAvatar();
+						} else {
+							image = att.getFile();
+						}
+						if (showAttachment(image)) {
+							return;
+						} else {
+							setBadRequest();
+						}
 					} else {
-						image = att.getFile();
-					}
-					if (showAttachment(image)) {
+						IAppFile att = attsMap.values().iterator().next();
+						TempFile tempFile = (TempFile) att;
+						showFile(tempFile.getPath(), tempFile.getRealFileName());
 						return;
-					} else {
-						setBadRequest();
 					}
-				} else {
-					IAppFile att = attsMap.values().iterator().next();
-					TempFile tempFile = (TempFile) att;
-					showFile(tempFile.getPath(), tempFile.getRealFileName());
-					return;
+					
 				}
-
 			}
+		} catch (DAOException e) {
+			logError(e);
+			setBadRequest();
+			return;
 		}
 	}
 
@@ -294,8 +306,8 @@ public class EmployeeForm extends StaffForm {
 	}
 
 	private byte[] getEmptyAvatar() {
-		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_APP_NAME + File.separator
-		        + "img" + File.separator + "nophoto.png");
+		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator
+				+ EnvConst.STAFF_APP_NAME + File.separator + "img" + File.separator + "nophoto.png");
 		InputStream is = null;
 		try {
 			is = new FileInputStream(file);
