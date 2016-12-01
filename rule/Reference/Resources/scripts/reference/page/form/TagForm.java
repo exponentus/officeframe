@@ -21,7 +21,7 @@ import reference.model.Tag;
  */
 
 public class TagForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -37,18 +37,18 @@ public class TagForm extends ReferenceForm {
 			addContent(entity);
 			addContent("category", dao.findAllCategories());
 			addContent(new LanguageDAO(session).findAll());
-			
+
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-
+			
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
-		
+
 		try {
 			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
@@ -56,32 +56,33 @@ public class TagForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			TagDAO dao = new TagDAO(session);
 			Tag entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Tag();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setColor(formData.getValue("color"));
 			entity.setCategory(formData.getValue("category"));
 			entity.setHidden(formData.getBoolSilently("hidden"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
-			logError(e);
+
+			setError(e);
 		}
 	}
 }
