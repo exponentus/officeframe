@@ -125,7 +125,7 @@ public class Tag extends SimpleReferenceEntity {
 	
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<name>" + getName() + "</name><color>" + color + "</color>";
+		return "<name>" + getName() + "</name><color>" + color + "</color><category>"+category+"</category>";
 	}
 	
 	@Override

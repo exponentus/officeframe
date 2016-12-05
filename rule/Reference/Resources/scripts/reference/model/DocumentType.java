@@ -7,6 +7,7 @@ import javax.persistence.UniqueConstraint;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
+import com.exponentus.util.NumberUtil;
 
 @Entity
 @Table(name = "document_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "category" }))
@@ -39,6 +40,14 @@ public class DocumentType extends SimpleReferenceEntity {
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<category>" + category + "</category>");
 		chunk.append("<prefix>" + prefix + "</prefix>");
+		return chunk.toString();
+	}
+
+	@Override
+	public String getShortXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<name>" + name + "</name>");
+		chunk.append("<category>" + category + "</category>");
 		return chunk.toString();
 	}
 
