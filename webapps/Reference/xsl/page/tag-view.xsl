@@ -26,11 +26,15 @@
                     <input type="checkbox" data-toggle="docid" class="all"/>
                 </label>
                 <div class="entry-captions">
-                    <span>
-                        <xsl:value-of select="//captions/viewtext/@caption"/>
+                    <span class="vw-name">
+                        <xsl:value-of select="//captions/name/@caption"/>
+                    </span>
+                    <span class="vw-category">
+                        <xsl:value-of select="//captions/category/@caption"/>
                     </span>
                 </div>
             </div>
+
         </header>
         <div class="entries">
             <xsl:apply-templates select="//view_content//query/entry" mode="view-table-body"/>
@@ -45,11 +49,14 @@
                 </label>
                 <a href="{@url}" class="entry-link">
                     <div class="entry-fields">
-                        <span>
+                        <span class="vw-name">
                             <xsl:if test="viewcontent/color != ''">
                                 <xsl:attribute name="style" select="('color:', viewcontent/color)"/>
                             </xsl:if>
                             <xsl:value-of select="viewcontent/name"/>
+                        </span>
+                        <span class="vw-category">
+                            <xsl:value-of select="viewcontent/category"/>
                         </span>
                     </div>
                 </a>
