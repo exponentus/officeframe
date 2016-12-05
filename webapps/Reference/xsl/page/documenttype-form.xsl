@@ -32,6 +32,14 @@
                     </div>
                     <div class="form-group">
                         <div class="control-label">
+                            <xsl:value-of select="//captions/prefix/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <input type="text" name="prefix" value="{fields/prefix}" class="span4" autofocus="true"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
                             <xsl:value-of select="//captions/category/@caption"/>
                         </div>
                         <div class="controls">
