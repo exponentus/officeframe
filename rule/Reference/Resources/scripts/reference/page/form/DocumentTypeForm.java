@@ -28,6 +28,7 @@ public class DocumentTypeForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			} else {
 				entity = getDefaultEntity(user, new DocumentType());
+				entity.setPrefix("");
 			}
 			addContent(entity);
 			addContent("category", dao.findAllCategories());
@@ -63,6 +64,7 @@ public class DocumentTypeForm extends ReferenceForm {
 			
 			entity.setName(formData.getValue("name"));
 			entity.setCategory(formData.getValueSilently("category"));
+			entity.setPrefix(formData.getValueSilently("prefix"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 			
 			save(session, entity, dao, isNew);

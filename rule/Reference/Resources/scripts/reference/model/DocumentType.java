@@ -13,6 +13,16 @@ import com.exponentus.scripting._Session;
 @NamedQuery(name = "DocumentType.findAll", query = "SELECT m FROM DocumentType AS m ORDER BY m.regDate")
 public class DocumentType extends SimpleReferenceEntity {
 
+
+	public String prefix;
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
 	private String category;
 
 	public String getCategory() {
@@ -28,6 +38,7 @@ public class DocumentType extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<category>" + category + "</category>");
+		chunk.append("<prefix>" + prefix + "</prefix>");
 		return chunk.toString();
 	}
 
