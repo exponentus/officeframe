@@ -43,7 +43,7 @@ public class TagView extends _DoPage {
             } else {
                 boolean withHidden = formData.getBoolSilently("hidden");
                 TagDAO dao = new TagDAO(session);
-                ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(category, withHidden, 0, 0);
+                ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(category, withHidden, 1, 0);
                 _POJOListWrapper<Tag> plw = new _POJOListWrapper(vp.getResult(), vp.getMaxPage(), vp.getCount(), vp.getPageNum(), session);
                 addContent(plw);
             }
