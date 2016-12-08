@@ -40,7 +40,7 @@ public class FillControlTypes extends _Do {
 			name.put(LanguageCode.KAZ, namesKaz[i]);
 			name.put(LanguageCode.RUS, namesRus[i]);
 			cType.setLocalizedName(name);
-			cType.setDefautltHours(HOURS_TO_DO);
+			cType.setDefaultHours(HOURS_TO_DO);
 			entities.add(cType);
 		}
 

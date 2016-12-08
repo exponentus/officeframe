@@ -27,7 +27,7 @@ public class ControlTypeForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			} else {
 				entity = (ControlType) getDefaultEntity(user, new ControlType());
-				entity.setDefautltHours(30);
+				entity.setDefaultHours(30);
 			}
 			addContent(entity);
 			addContent(new LanguageDAO(session).findAll());
@@ -61,7 +61,7 @@ public class ControlTypeForm extends ReferenceForm {
 			}
 			
 			entity.setName(formData.getValue("name"));
-			entity.setDefautltHours(formData.getNumberValueSilently("defaulthours", 30));
+			entity.setDefaultHours(formData.getNumberValueSilently("defaulthours", 30));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 			
 			save(session, entity, dao, isNew);
