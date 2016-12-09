@@ -19,7 +19,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Application;
 
 public class Workspace extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) throws _Exception {
 		addValue("serverversion", Server.serverVersion);
@@ -39,7 +39,7 @@ public class Workspace extends _DoPage {
 			} else {
 				setUnauthorized();
 			}
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();

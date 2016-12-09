@@ -20,17 +20,17 @@ import lotus.domino.ViewEntryCollection;
 import reference.dao.TagDAO;
 import reference.model.Tag;
 
-@Command(name = "import_har_nsf")
+@Command(name = "import_har_as_tag_nsf")
 public class ImportHarAsTagNSF extends ImportNSF {
 	private static final String sdCatName = "ЦОД";
 	private static final String tagCatName = "incoming";
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Tag> entities = new HashMap<>();
 		try {
 			TagDAO dao = new TagDAO(ses);
-			
+
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -61,9 +61,9 @@ public class ImportHarAsTagNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-			
+
 			for (Entry<String, Tag> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
@@ -72,5 +72,5 @@ public class ImportHarAsTagNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-
+	
 }

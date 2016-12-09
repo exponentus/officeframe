@@ -26,7 +26,7 @@ import staff.model.Employee;
  */
 
 public class UserProfile extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		try {
@@ -47,10 +47,10 @@ public class UserProfile extends _DoPage {
 				emp.setPosition(tmpPos);
 				emp.setUser(userObj);
 				emp.setName(user.getLogin());
-				
+
 			}
 			addContent(emp);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addValue("currentLang", session.getLang().name());
 			addValue("pagesize", session.getPageSize());
 			addValue("org", Environment.orgName);
@@ -62,7 +62,7 @@ public class UserProfile extends _DoPage {
 			return;
 		}
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -72,37 +72,37 @@ public class UserProfile extends _DoPage {
 				setValidation(ve);
 				return;
 			}
-
+			
 			IUser<Long> user = session.getUser();
 			UserDAO dao = new UserDAO(session);
 			IUser<Long> entity = dao.findById(user.getId());
-
+			
 			entity.setLogin(formData.getValue("login"));
 			entity.setEmail(formData.getValue("email"));
 			if (!formData.getValueSilently("pwd").isEmpty()) {
 				entity.setPwd(formData.getValue("pwd"));
 			}
 			dao.update(entity);
-
+			
 			setRedirect("_back");
 		} catch (_Exception | DAOException e) {
 			logError(e);
 		}
 	}
-
+	
 	private _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-
+		
 		if (formData.getValueSilently("login").isEmpty()) {
 			ve.addError("login", "required", getLocalizedWord("required", lang));
 		}
-
+		
 		if (!formData.getValueSilently("email").isEmpty()) {
 			if (!_Validator.checkEmail(formData.getValueSilently("email"))) {
 				ve.addError("email", "email", getLocalizedWord("email_invalid", lang));
 			}
 		}
-
+		
 		if (!formData.getValueSilently("pwd_new").isEmpty()) {
 			if (formData.getValueSilently("pwd_confirm").isEmpty()) {
 				ve.addError("pwd_confirm", "required", getLocalizedWord("required", lang));
@@ -112,7 +112,7 @@ public class UserProfile extends _DoPage {
 				ve.addError("pwd_new", "len_ge_8", getLocalizedWord("password_new_invalid", lang));
 			}
 		}
-
+		
 		return ve;
 	}
 }
