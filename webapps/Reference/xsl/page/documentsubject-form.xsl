@@ -35,7 +35,13 @@
                             <xsl:value-of select="//captions/category/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="category" value="{fields/category}" class="span7" autofocus="true"/>
+                            <ul class="ul-category">
+                                <xsl:apply-templates select="//query[@entity='category']/entry" mode="radio_category"/>
+                                <li class="list-style-none">
+                                    <input type="radio" name="category" id="custom_category" value="" style="vertical-align:top; margin-top:4px"/>
+                                    <input type="text" style="margin-top:4px" id="custom_category_input" value="" placeholder="{//captions/new_category/@caption}" class="span5" autofocus="false"/>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </fieldset>
@@ -58,6 +64,21 @@
             <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
         </form>
     </xsl:template>
+
+    <xsl:template match="*" mode="radio_category">
+        <xsl:param name="category" select="viewcontent/entry"/>
+        <li class="list-style-none">
+            <input type="radio" name="category" id="cat_{$category}" value="{.}">
+                <xsl:if test="$category = //fields/category">
+                    <xsl:attribute name="checked" select="'checked'"/>
+                </xsl:if>
+            </input>
+            <label for="cat_{$category}">
+                <xsl:value-of select="$category"/>
+            </label>
+        </li>
+    </xsl:template>
+
 
     <xsl:template match="entry" mode="select_options">
         <xsl:param name="selected"/>
