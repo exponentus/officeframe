@@ -31,4 +31,12 @@ public class DocumentSubject extends SimpleReferenceEntity {
 		return chunk.toString();
 	}
 
+	@Override
+	public String getShortXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<name>" + name + "</name>");
+		chunk.append("<category>" + category + "</category>");
+		return chunk.toString();
+	}
+
 }
