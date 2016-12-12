@@ -90,7 +90,7 @@ public class DocumentSubjectForm extends ReferenceForm {
 	}
 	
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
-		return simpleCheck("name", "category");
+		return simpleCheck("name");
 	}
 	
 	protected DocumentSubject getDefaultEntity(IUser<Long> user, DocumentSubject entity) {
