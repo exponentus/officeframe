@@ -1,4 +1,4 @@
-package reference.tasks;
+package reference.task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,22 +11,26 @@ import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;
+import com.exponentus.util.StringUtil;
 
 import lotus.domino.Document;
 import lotus.domino.NotesException;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import reference.dao.DocumentSubjectDAO;
-import reference.model.DocumentSubject;
+import reference.dao.TagDAO;
+import reference.model.Tag;
 
-@Command(name = "import_har_nsf")
-public class ImportDocumentSubjNSF extends ImportNSF {
-	
+@Command(name = "import_har_as_tag_nsf")
+public class ImportHarAsTagNSF extends ImportNSF {
+	private static final String sdCatName = "ЦОД";
+	private static final String tagCatName = "incoming";
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		Map<String, DocumentSubject> entities = new HashMap<>();
+		Map<String, Tag> entities = new HashMap<>();
 		try {
-			DocumentSubjectDAO dao = new DocumentSubjectDAO(ses);
+			TagDAO dao = new TagDAO(ses);
+
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -34,19 +38,20 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 				while (entry != null) {
 					Document doc = entry.getDocument();
 					String form = doc.getItemValueString("Form");
-					if (form.equals("Har")) {
-						String unId = doc.getUniversalID();
-						DocumentSubject entity = dao.findByExtKey(unId);
+					String sdCat = doc.getItemValueString("Cat");
+					if (form.equals("Har") && sdCat.equals(sdCatName)) {
+						Tag entity = dao.findByExtKey(doc.getUniversalID());
 						if (entity == null) {
-							entity = new DocumentSubject();
+							entity = new Tag();
 							entity.setAuthor(new SuperUser());
 						}
 						entity.setName(doc.getItemValueString("Name"));
 						Map<LanguageCode, String> localizedNames = new HashMap<>();
-						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name"));
-						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("NameKZ"));
+						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name1"));
+						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name2"));
 						entity.setLocalizedName(localizedNames);
-						entity.setCategory(doc.getItemValueString("Cat"));
+						entity.setCategory(tagCatName);
+						entity.setColor(StringUtil.getRandomColor());
 						entities.put(doc.getUniversalID(), entity);
 					}
 					tmpEntry = vec.getNextEntry();
@@ -56,10 +61,10 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-			
-			for (Entry<String, DocumentSubject> entry : entities.entrySet()) {
+
+			for (Entry<String, Tag> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
 		} catch (DAOException e) {

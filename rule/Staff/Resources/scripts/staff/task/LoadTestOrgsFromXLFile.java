@@ -1,4 +1,4 @@
-package staff.tasks;
+package staff.task;
 
 import java.io.File;
 import java.io.IOException;

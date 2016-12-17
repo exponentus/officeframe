@@ -1,4 +1,4 @@
-package reference.tasks;
+package reference.task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,26 +11,23 @@ import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;
-import com.exponentus.util.StringUtil;
 
 import lotus.domino.Document;
 import lotus.domino.NotesException;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import reference.dao.TagDAO;
-import reference.model.Tag;
+import reference.dao.PositionDAO;
+import reference.model.Position;
 
-@Command(name = "import_har_as_tag_nsf")
-public class ImportHarAsTagNSF extends ImportNSF {
-	private static final String sdCatName = "ЦОД";
-	private static final String tagCatName = "incoming";
-
+@Command(name = "import_positions_nsf")
+public class ImportPositionNSF extends ImportNSF {
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		Map<String, Tag> entities = new HashMap<>();
+		Map<String, Position> entities = new HashMap<>();
 		try {
-			TagDAO dao = new TagDAO(ses);
-
+			PositionDAO dao = new PositionDAO(ses);
+			
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -38,11 +35,10 @@ public class ImportHarAsTagNSF extends ImportNSF {
 				while (entry != null) {
 					Document doc = entry.getDocument();
 					String form = doc.getItemValueString("Form");
-					String sdCat = doc.getItemValueString("Cat");
-					if (form.equals("Har") && sdCat.equals(sdCatName)) {
-						Tag entity = dao.findByExtKey(doc.getUniversalID());
+					if (form.equals("Post")) {
+						Position entity = dao.findByExtKey(doc.getUniversalID());
 						if (entity == null) {
-							entity = new Tag();
+							entity = new Position();
 							entity.setAuthor(new SuperUser());
 						}
 						entity.setName(doc.getItemValueString("Name"));
@@ -50,8 +46,7 @@ public class ImportHarAsTagNSF extends ImportNSF {
 						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name1"));
 						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name2"));
 						entity.setLocalizedName(localizedNames);
-						entity.setCategory(tagCatName);
-						entity.setColor(StringUtil.getRandomColor());
+						entity.setRank(doc.getItemValueInteger("Rank"));
 						entities.put(doc.getUniversalID(), entity);
 					}
 					tmpEntry = vec.getNextEntry();
@@ -61,10 +56,10 @@ public class ImportHarAsTagNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-
+			
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-
-			for (Entry<String, Tag> entry : entities.entrySet()) {
+			
+			for (Entry<String, Position> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
 		} catch (DAOException e) {

@@ -1,4 +1,4 @@
-package reference.tasks;
+package reference.task;
 
 import java.util.HashMap;
 import java.util.Map;

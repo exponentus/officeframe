@@ -1,4 +1,4 @@
-package reference.tasks;
+package reference.task;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,18 +16,18 @@ import lotus.domino.Document;
 import lotus.domino.NotesException;
 import lotus.domino.ViewEntry;
 import lotus.domino.ViewEntryCollection;
-import reference.dao.PositionDAO;
-import reference.model.Position;
+import reference.dao.DocumentTypeDAO;
+import reference.model.DocumentType;
 
-@Command(name = "import_positions_nsf")
-public class ImportPositionNSF extends ImportNSF {
+@Command(name = "import_vid_nsf")
+public class ImportDocumentTypeNSF extends ImportNSF {
 	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		Map<String, Position> entities = new HashMap<>();
+		Map<String, DocumentType> entities = new HashMap<>();
 		try {
-			PositionDAO dao = new PositionDAO(ses);
-			
+			DocumentTypeDAO dao = new DocumentTypeDAO(ses);
+
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -35,18 +35,19 @@ public class ImportPositionNSF extends ImportNSF {
 				while (entry != null) {
 					Document doc = entry.getDocument();
 					String form = doc.getItemValueString("Form");
-					if (form.equals("Post")) {
-						Position entity = dao.findByExtKey(doc.getUniversalID());
+					if (form.equals("TypeDoc")) {
+						String unId = doc.getUniversalID();
+						DocumentType entity = dao.findByExtKey(unId);
 						if (entity == null) {
-							entity = new Position();
+							entity = new DocumentType();
 							entity.setAuthor(new SuperUser());
 						}
 						entity.setName(doc.getItemValueString("Name"));
 						Map<LanguageCode, String> localizedNames = new HashMap<>();
-						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name1"));
-						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name2"));
+						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name"));
+						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name1"));
 						entity.setLocalizedName(localizedNames);
-						entity.setRank(doc.getItemValueInteger("Rank"));
+						entity.setCategory(doc.getItemValueString("Cat"));
 						entities.put(doc.getUniversalID(), entity);
 					}
 					tmpEntry = vec.getNextEntry();
@@ -56,10 +57,10 @@ public class ImportPositionNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-			
-			for (Entry<String, Position> entry : entities.entrySet()) {
+
+			for (Entry<String, DocumentType> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
 		} catch (DAOException e) {
@@ -67,5 +68,5 @@ public class ImportPositionNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

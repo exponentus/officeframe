@@ -1,4 +1,4 @@
-package staff.tasks;
+package staff.task;
 
 import java.util.ArrayList;
 import java.util.HashMap;
