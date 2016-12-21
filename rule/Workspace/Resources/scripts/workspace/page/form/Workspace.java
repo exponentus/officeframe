@@ -1,5 +1,6 @@
 package workspace.page.form;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -28,8 +29,14 @@ public class Workspace extends _DoPage {
 		try {
 			if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 				IUser<Long> user = session.getUser();
-				List<Application> aa = user.getAllowedApps();
 				ApplicationDAO aDao = new ApplicationDAO(session);
+				List<Application> aa = new ArrayList<Application>();
+				if (user.isSuperUser()) {
+					aa = aDao.findAllActivated().getResult();
+				} else {
+					aa = user.getAllowedApps();
+				}
+
 				Application app = aDao.findByName(EnvConst.WORKSPACE_NAME);
 				if (app != null) {
 					aa.remove(app);

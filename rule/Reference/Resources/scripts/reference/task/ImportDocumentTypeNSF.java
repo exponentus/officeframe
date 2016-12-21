@@ -21,13 +21,13 @@ import reference.model.DocumentType;
 
 @Command(name = "import_vid_nsf")
 public class ImportDocumentTypeNSF extends ImportNSF {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, DocumentType> entities = new HashMap<>();
 		try {
 			DocumentTypeDAO dao = new DocumentTypeDAO(ses);
-
+			
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -48,6 +48,7 @@ public class ImportDocumentTypeNSF extends ImportNSF {
 						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name1"));
 						entity.setLocalizedName(localizedNames);
 						entity.setCategory(doc.getItemValueString("Cat"));
+						entity.setPrefix("");
 						entities.put(doc.getUniversalID(), entity);
 					}
 					tmpEntry = vec.getNextEntry();
@@ -57,9 +58,9 @@ public class ImportDocumentTypeNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-
+			
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-
+			
 			for (Entry<String, DocumentType> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
@@ -68,5 +69,5 @@ public class ImportDocumentTypeNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-
+	
 }
