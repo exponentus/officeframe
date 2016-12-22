@@ -3,7 +3,9 @@ package staff.init;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
@@ -33,7 +35,7 @@ import staff.model.OrganizationLabel;
 
 public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationDAO> {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
-
+	
 	@Override
 	public List<Organization> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<Organization> entities = new ArrayList<>();
@@ -58,6 +60,11 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 					if (!orgName.equals("") && !orgName.equals("''")) {
 						Organization entity = new Organization();
 						entity.setName(orgName);
+						Map<LanguageCode, String> localizedNames = new HashMap<>();
+						localizedNames.put(LanguageCode.RUS, orgName);
+						localizedNames.put(LanguageCode.KAZ, orgName);
+						localizedNames.put(LanguageCode.ENG, orgName);
+						entity.setLocalizedName(localizedNames);
 						entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll()));
 						List<OrganizationLabel> labels = new ArrayList<>();
 						labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
@@ -73,5 +80,5 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 		}
 		return entities;
 	}
-
+	
 }
