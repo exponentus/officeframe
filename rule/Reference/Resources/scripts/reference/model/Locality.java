@@ -29,13 +29,13 @@ public class Locality extends SimpleReferenceEntity {
 	@JoinColumn(nullable = false)
 	private LocalityType type;
 
-	@JsonIgnore
+//	@JsonIgnore
 	@NotNull
 	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private District district;
 
-	@JsonIgnore
+//	@JsonIgnore
 	@NotNull
 	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)

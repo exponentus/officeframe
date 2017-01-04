@@ -17,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NamedQuery(name = "CityDistrict.findAll", query = "SELECT m FROM CityDistrict AS m ORDER BY m.regDate")
 public class CityDistrict extends SimpleReferenceEntity {
 
-	@JsonIgnore
+	// @JsonIgnore
 	@NotNull
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)

@@ -226,14 +226,6 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		return list;
 	}
 
-	String getOrganizationId() {
-		return organization.getIdentifier();
-	}
-
-	String getDepartmentId() {
-		return department.getIdentifier();
-	}
-
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -271,5 +263,4 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 
 		return chunk.toString();
 	}
-
 }
