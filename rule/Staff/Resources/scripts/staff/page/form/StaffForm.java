@@ -24,17 +24,17 @@ import administrator.model.Language;
  */
 
 public abstract class StaffForm extends _DoForm {
-
+	
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-
+		
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("required", lang));
 		}
-
+		
 		return ve;
 	}
-
+	
 	protected _ActionBar getSimpleActionBar(_Session ses, LanguageCode lang) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		IUser<Long> user = ses.getUser();
@@ -44,12 +44,12 @@ public abstract class StaffForm extends _DoForm {
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
 	}
-
+	
 	@Override
 	protected Map<LanguageCode, String> getLocalizedNames(_Session session, _WebFormData formData) {
 		Map<LanguageCode, String> localizedNames = new HashMap<LanguageCode, String>();
 		try {
-			List<Language> langs = new LanguageDAO(session).findAll();
+			List<Language> langs = new LanguageDAO(session).findAllActivated();
 			for (Language l : langs) {
 				String ln = formData.getValueSilently(l.getCode().name().toLowerCase() + "localizedname");
 				if (!ln.isEmpty()) {

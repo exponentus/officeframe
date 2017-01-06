@@ -35,7 +35,7 @@ import staff.model.OrganizationLabel;
 
 public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationDAO> {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
-	
+
 	@Override
 	public List<Organization> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<Organization> entities = new ArrayList<>();
@@ -52,7 +52,7 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 				}
 				OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 				OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
-				List<OrganizationLabel> l = olDao.findAll();
+				List<OrganizationLabel> l = olDao.findAll().getResult();
 				Sheet sheet = workbook.getSheet(0);
 				int rCount = sheet.getRows();
 				for (int i = 2; i < rCount; i++) {
@@ -65,7 +65,7 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 						localizedNames.put(LanguageCode.KAZ, orgName);
 						localizedNames.put(LanguageCode.ENG, orgName);
 						entity.setLocalizedName(localizedNames);
-						entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll()));
+						entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll().getResult()));
 						List<OrganizationLabel> labels = new ArrayList<>();
 						labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
 						entity.setLabels(labels);
@@ -80,5 +80,5 @@ public class FillTestOrgs extends InitialDataAdapter<Organization, OrganizationD
 		}
 		return entities;
 	}
-	
+
 }

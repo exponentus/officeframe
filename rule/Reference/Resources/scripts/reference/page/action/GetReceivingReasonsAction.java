@@ -12,12 +12,12 @@ import reference.dao.ReceivingReasonDAO;
 import reference.model.ReceivingReason;
 
 public class GetReceivingReasonsAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
 		try {
 			ReceivingReasonDAO dao = new ReceivingReasonDAO(ses);
-			List<ReceivingReason> list = dao.findAll();
+			List<ReceivingReason> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, ses));
 		} catch (DAOException e) {
 			logError(e);

@@ -33,7 +33,7 @@ public class TaskTypeForm extends ReferenceForm {
 				entity.setPrefix("");
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {

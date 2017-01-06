@@ -12,12 +12,12 @@ import reference.dao.RegionTypeDAO;
 import reference.model.RegionType;
 
 public class GetRegionTypesAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
 		try {
 			RegionTypeDAO dao = new RegionTypeDAO(ses);
-			List<RegionType> list = dao.findAll();
+			List<RegionType> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, ses));
 		} catch (DAOException e) {
 			logError(e);

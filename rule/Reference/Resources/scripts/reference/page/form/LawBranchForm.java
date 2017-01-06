@@ -31,7 +31,7 @@ public class LawBranchForm extends ReferenceForm {
 				entity = (LawBranch) getDefaultEntity(user, new LawBranch());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

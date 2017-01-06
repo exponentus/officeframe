@@ -37,7 +37,7 @@ public class CountryForm extends ReferenceForm {
 			}
 			addContent(entity);
 			addContent(new _EnumWrapper(CountryCode.class.getEnumConstants()));
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

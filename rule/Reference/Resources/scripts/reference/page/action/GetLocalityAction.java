@@ -18,15 +18,15 @@ import reference.model.Region;
  */
 
 public class GetLocalityAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
 		int pageNum = formData.getNumberValueSilently("page", 1);
 		int pageSize = ses.pageSize;
 		try {
 			LocalityDAO lDao = new LocalityDAO(ses);
-			List<Locality> localities = lDao.findAll();
-			
+			List<Locality> localities = lDao.findAll().getResult();
+
 			long count = localities.size();
 			int maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
 			if (pageNum == 0) {
@@ -38,6 +38,6 @@ public class GetLocalityAction extends _DoPage {
 			logError(e);
 			setBadRequest();
 		}
-		
+
 	}
 }

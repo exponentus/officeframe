@@ -30,7 +30,7 @@ public class ControlTypeForm extends ReferenceForm {
 				entity.setDefaultHours(30);
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

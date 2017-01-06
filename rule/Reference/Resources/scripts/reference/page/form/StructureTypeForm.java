@@ -31,7 +31,7 @@ public class StructureTypeForm extends ReferenceForm {
 				entity = (StructureType) getDefaultEntity(user, new StructureType());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {

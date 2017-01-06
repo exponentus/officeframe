@@ -12,12 +12,12 @@ import reference.dao.TaskTypeDAO;
 import reference.model.TaskType;
 
 public class GetTaskTypesAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
 		try {
 			TaskTypeDAO dao = new TaskTypeDAO(ses);
-			List<TaskType> list = dao.findAll();
+			List<TaskType> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, ses));
 		} catch (DAOException e) {
 			logError(e);

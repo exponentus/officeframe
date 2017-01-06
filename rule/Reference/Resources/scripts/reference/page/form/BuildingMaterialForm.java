@@ -17,7 +17,7 @@ import reference.dao.BuildingMaterialDAO;
 import reference.model.BuildingMaterial;
 
 public class BuildingMaterialForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		try {
@@ -31,16 +31,16 @@ public class BuildingMaterialForm extends ReferenceForm {
 				entity = (BuildingMaterial) getDefaultEntity(user, new BuildingMaterial());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAll().getResult());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
 			return;
 		}
-		
+
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -50,27 +50,27 @@ public class BuildingMaterialForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
 			BuildingMaterial entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new BuildingMaterial();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}

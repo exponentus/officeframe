@@ -31,7 +31,7 @@ public class KufForm extends ReferenceForm {
 				entity = (Kuf) getDefaultEntity(user, new Kuf());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

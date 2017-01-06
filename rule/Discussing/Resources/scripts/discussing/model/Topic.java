@@ -12,8 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.dataengine.jpa.SecureAppEntity;
-import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
+import com.exponentus.common.model.HierarchicalEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.env.Environment;
@@ -27,12 +26,8 @@ import discussing.model.constants.TopicStatusType;
 @Table(name = "topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Topic.findAll", query = "SELECT m FROM Topic AS m ORDER BY m.regDate")
 @JsonIgnoreType
-public class Topic extends SecureAppEntity<UUID> {
-	
-	@FTSearchable
-	@Column(columnDefinition = "TEXT")
-	private String subject;
-	
+public class Topic extends HierarchicalEntity<UUID> {
+
 	@Column(length = 64)
 	private String module;
 	
@@ -42,15 +37,7 @@ public class Topic extends SecureAppEntity<UUID> {
 	
 	@OneToMany(mappedBy = "topic")
 	private List<Comment> comments;
-	
-	public String getSubject() {
-		return subject;
-	}
-	
-	public void setSubject(String subject) {
-		this.subject = subject;
-	}
-	
+
 	public String getModule() {
 		return module;
 	}
@@ -86,18 +73,7 @@ public class Topic extends SecureAppEntity<UUID> {
 		} else {
 			chunk.append("<author>" + author + "</author>");
 		}
-		chunk.append("<subject>" + subject + "</subject>");
 		chunk.append("<status>" + status + "</status>");
-		if (isHasComments()) {
-			chunk.append("<hascomments>true</hascomments>");
-			chunk.append("<comments>");
-			for (Comment aCommentsEntry : getComments()) {
-				chunk.append("<entry id='" + aCommentsEntry.getId() + "'>" + aCommentsEntry.getComment() + "</entry>");
-			}
-			chunk.append("</comments>");
-		} else {
-			chunk.append("<hascomments>false</hascomments>");
-		}
 		return chunk.toString();
 	}
 	
@@ -105,23 +81,8 @@ public class Topic extends SecureAppEntity<UUID> {
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-		chunk.append("<subject>" + subject + "</subject>");
 		chunk.append("<status>" + status + "</status>");
-		if (isHasComments()) {
-			chunk.append("<hascomments>true</hascomments>");
-			chunk.append("<comments>");
-			for (Comment aCommentsEntry : getComments()) {
-				chunk.append(aCommentsEntry.getShortXMLChunkAsEntry(ses));
-			}
-			chunk.append("</comments>");
-		} else {
-			chunk.append("<hascomments>false</hascomments>");
-		}
 		return chunk.toString();
-	}
-	
-	public boolean isHasComments() {
-		return comments != null && comments.size() > 0;
 	}
 	
 }

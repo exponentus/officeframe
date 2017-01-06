@@ -31,7 +31,7 @@ public class LawArticleForm extends ReferenceForm {
 				entity = (LawArticle) getDefaultEntity(user, new LawArticle());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

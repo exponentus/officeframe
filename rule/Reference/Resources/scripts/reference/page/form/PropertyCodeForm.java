@@ -31,7 +31,7 @@ public class PropertyCodeForm extends ReferenceForm {
 				entity = (PropertyCode) getDefaultEntity(user, new PropertyCode());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			
 		} catch (DAOException e) {
 			logError(e);

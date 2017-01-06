@@ -22,7 +22,7 @@ public class RegForm extends _DoPage {
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		try {
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();

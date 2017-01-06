@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.dataengine.jpa.SecureAppEntity;
+import com.exponentus.common.model.HierarchicalEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @Entity
 @Table(name = "comments")
 @NamedQuery(name = "Comment.findAll", query = "SELECT m FROM Comment AS m ORDER BY m.regDate ASC")
-public class Comment extends SecureAppEntity<UUID> {
+public class Comment extends HierarchicalEntity<UUID> {
 	
 	@JsonIgnore
 	@NotNull
@@ -44,9 +44,9 @@ public class Comment extends SecureAppEntity<UUID> {
 	private Topic topic;
 	
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
-	private Comment parent;
+	private Comment parentComment;
 	
-	@OneToMany(mappedBy = "parent")
+	@OneToMany(mappedBy = "parentComment")
 	private List<Comment> subComments;
 	
 	@FTSearchable
@@ -112,17 +112,6 @@ public class Comment extends SecureAppEntity<UUID> {
 			chunk.append("<author>" + author + "</author>");
 		}
 		chunk.append("<comment>" + comment + "</comment>");
-		if (isHasSubComments()) {
-			chunk.append("<hascomments>true</hascomments>");
-			chunk.append("<comments>");
-			for (Comment aCommentsEntry : getSubComments()) {
-				chunk.append(aCommentsEntry.getShortXMLChunkAsEntry(ses));
-			}
-			chunk.append("</comments>");
-		} else {
-			chunk.append("<hascomments>false</hascomments>");
-		}
-		
 		return chunk.toString();
 	}
 	
@@ -131,8 +120,13 @@ public class Comment extends SecureAppEntity<UUID> {
 		return getFullXMLChunk(ses);
 	}
 	
-	public boolean isHasSubComments() {
-		return subComments != null && subComments.size() > 0;
+	@Override
+	public HierarchicalEntity<UUID> getParentEntity(_Session ses) {
+		if (topic != null) {
+			return topic;
+		} else {
+			return parentComment;
+		}
 	}
 	
 }

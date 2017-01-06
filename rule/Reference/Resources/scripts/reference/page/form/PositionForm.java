@@ -31,7 +31,7 @@ public class PositionForm extends ReferenceForm {
 				entity = (Position) getDefaultEntity(user, new Position());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

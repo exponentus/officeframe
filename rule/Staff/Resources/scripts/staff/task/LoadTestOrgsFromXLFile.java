@@ -29,14 +29,14 @@ import staff.model.OrganizationLabel;
 @Command(name = "load_orgs_xls")
 public class LoadTestOrgsFromXLFile extends _Do {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Organization> entities = new ArrayList<>();
 		try {
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 			OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
-			
+
 			File xf = new File(excelFile);
 			if (xf.exists()) {
 				WorkbookSettings ws = new WorkbookSettings();
@@ -47,8 +47,8 @@ public class LoadTestOrgsFromXLFile extends _Do {
 				} catch (BiffException | IOException e) {
 					System.out.println(e);
 				}
-				
-				List<OrganizationLabel> l = olDao.findAll();
+
+				List<OrganizationLabel> l = olDao.findAll().getResult();
 				Sheet sheet = workbook.getSheet(0);
 				int rCount = sheet.getRows();
 				for (int i = 2; i < rCount; i++) {
@@ -56,7 +56,7 @@ public class LoadTestOrgsFromXLFile extends _Do {
 					if (!orgName.equals("") && !orgName.equals("''")) {
 						Organization entity = new Organization();
 						entity.setName(orgName);
-						entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll()));
+						entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll().getResult()));
 						List<OrganizationLabel> labels = new ArrayList<>();
 						labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
 						entity.setLabels(labels);
@@ -66,7 +66,7 @@ public class LoadTestOrgsFromXLFile extends _Do {
 			} else {
 				System.out.println("there is no \"" + excelFile + "\" file");
 			}
-			
+
 			OrganizationDAO oDao = new OrganizationDAO(ses);
 			for (Organization org : entities) {
 				try {
@@ -81,5 +81,5 @@ public class LoadTestOrgsFromXLFile extends _Do {
 		}
 		System.out.println("done...");
 	}
-	
+
 }

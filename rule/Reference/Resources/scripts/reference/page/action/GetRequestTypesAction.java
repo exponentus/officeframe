@@ -12,12 +12,12 @@ import reference.dao.RequestTypeDAO;
 import reference.model.RequestType;
 
 public class GetRequestTypesAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		try {
 			RequestTypeDAO dao = new RequestTypeDAO(session);
-			List<RequestType> list = dao.findAll();
+			List<RequestType> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, session));
 		} catch (DAOException e) {
 			logError(e);

@@ -34,7 +34,7 @@ public class TopicForm extends _DoForm {
 			} else {
 				entity = new Topic();
 				entity.setAuthor(user);
-				entity.setSubject("");
+				entity.setTitle("");
 				entity.setStatus(TopicStatusType.DRAFT);
 			}
 			addContent(entity);
@@ -72,7 +72,7 @@ public class TopicForm extends _DoForm {
 			}
 			TopicStatusType status = TopicStatusType.valueOf(formData.getValueSilently("status"));
 			entity.setStatus(status);
-			entity.setSubject(formData.getValueSilently("subject"));
+			entity.setTitle(formData.getValueSilently("subject"));
 			save(session, entity, dao, isNew);
 		} catch (SecureException | DAOException e) {
 			logError(e);
@@ -102,7 +102,7 @@ public class TopicForm extends _DoForm {
 		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
 		
 		_Action newCommentAction = new _Action(getLocalizedWord("new_comment", lang), "", "new_comment");
-		newCommentAction.setURL("Provider?id=comment-form&topicid=" + topic.getId());
+		newCommentAction.setURL("p?id=comment-form&topicid=" + topic.getId());
 		actionBar.addAction(newCommentAction);
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;

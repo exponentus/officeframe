@@ -12,12 +12,12 @@ import reference.dao.PropertyCodeDAO;
 import reference.model.PropertyCode;
 
 public class GetPropertyCodesAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
 		try {
 			PropertyCodeDAO dao = new PropertyCodeDAO(ses);
-			List<PropertyCode> list = dao.findAll();
+			List<PropertyCode> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, ses));
 		} catch (DAOException e) {
 			logError(e);

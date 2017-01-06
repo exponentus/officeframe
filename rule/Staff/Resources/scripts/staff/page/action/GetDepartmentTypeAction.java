@@ -13,12 +13,12 @@ import reference.dao.DepartmentTypeDAO;
 import reference.model.DepartmentType;
 
 public class GetDepartmentTypeAction extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session ses, _WebFormData formData) {
 		try {
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(ses);
-			List<DepartmentType> list = dao.findAll();
+			List<DepartmentType> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, ses));
 		} catch (DAOException e) {
 			Server.logger.errorLogEntry(e);
