@@ -24,11 +24,19 @@ import com.exponentus.scripting._Session;
 import staff.model.Employee;
 
 public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
+	private static ViewPage<Employee> allEmployee;
 	
 	public EmployeeDAO(_Session session) throws DAOException {
 		super(Employee.class, session);
 	}
-	
+
+	public ViewPage<Employee> findAll(boolean reloadCache) {
+		if (allEmployee == null || reloadCache) {
+			allEmployee = findAll(0, 0);
+		}
+		return allEmployee;
+	}
+
 	public Employee findByUserId(long id) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -43,7 +51,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 			em.close();
 		}
 	}
-	
+
 	public List<Employee> findAllByUserIds(List<Long> ids) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -57,7 +65,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 			em.close();
 		}
 	}
-	
+
 	public ViewPage<Employee> findAllByName(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -86,41 +94,28 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 			em.close();
 		}
 	}
-	
+
 	@Override
 	public IEmployee getEmployee(long id) {
 		return findByUserId(id);
 	}
 	
-	/*
-	 * @Override public Employee add(Employee entity){ EntityManager em =
-	 * getEntityManagerFactory().createEntityManager(); try { EntityTransaction
-	 * t = em.getTransaction(); try { t.begin();
-	 * entity.setAuthorId(user.getId());
-	 * entity.setForm(entity.getDefaultFormName());
-	 * entity.setLastModifier(user.getId());
-	 *
-	 * em.persist(entity); t.commit(); // update(entity); return entity; }
-	 * finally { if (t.isActive()) { t.rollback(); } } } finally { em.close();
-	 *
-	 * }
-	 *
-	 * }
-	 *
-	 * @Override public Employee update(Employee entity) { EntityManager em =
-	 * getEntityManagerFactory().createEntityManager(); try { EntityTransaction
-	 * t = em.getTransaction(); try { t.begin();
-	 * UserDAO.normalizePwd(entity.getUser());
-	 * entity.setLastModifier(user.getId()); em.merge(entity); t.commit();
-	 * return entity; } finally { if (t.isActive()) { t.rollback(); } } }
-	 * finally { em.close(); } }
-	 */
+	@Override
+	public Employee add(Employee entity) throws SecureException, DAOException {
+		allEmployee = null;
+		return super.add(entity);
+	}
+
+	@Override
+	public Employee update(Employee entity) throws SecureException, DAOException {
+		allEmployee = null;
+		return super.update(entity);
+	}
 	
 	@Override
 	public void delete(Employee entity) throws SecureException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			
 			EntityTransaction t = em.getTransaction();
 			try {
 				t.begin();
@@ -135,5 +130,6 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 		} finally {
 			em.close();
 		}
+		allEmployee = null;
 	}
 }
