@@ -14,6 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.CacheType;
+import org.eclipse.persistence.config.CacheIsolationType;
+
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
@@ -25,6 +29,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 
 @Entity
+@Cache(type = CacheType.FULL, isolation = CacheIsolationType.SHARED) //just for test
 @Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }))
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {

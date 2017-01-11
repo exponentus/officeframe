@@ -102,14 +102,18 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 	
 	@Override
 	public Employee add(Employee entity) throws SecureException, DAOException {
+		Employee e = super.add(entity);
 		allEmployee = null;
-		return super.add(entity);
+		getEntityManagerFactory().getCache().evict(Employee.class);
+		return e;
 	}
 
 	@Override
 	public Employee update(Employee entity) throws SecureException, DAOException {
+		Employee e = super.update(entity);
 		allEmployee = null;
-		return super.update(entity);
+		getEntityManagerFactory().getCache().evict(Employee.class);
+		return e;
 	}
 	
 	@Override
@@ -126,6 +130,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 				if (t.isActive()) {
 					t.rollback();
 				}
+				getEntityManagerFactory().getCache().evict(Employee.class);
 			}
 		} finally {
 			em.close();

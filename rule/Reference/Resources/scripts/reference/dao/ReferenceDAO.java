@@ -16,6 +16,7 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.exception.SecureException;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 
@@ -28,11 +29,11 @@ import com.exponentus.scripting._Session;
  *
  */
 public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
-
+	
 	public ReferenceDAO(Class<T> entityClass, _Session session) throws DAOException {
 		super(entityClass, session);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public List<T> findAllCategories() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -44,7 +45,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public T findByName(String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -64,7 +65,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public T findByNameAndCategory(String category, String name) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -86,7 +87,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-	
+
 	public T findByCode(Enum<?> code) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -100,7 +101,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public ViewPage<T> findAllByCategory(String categoryName, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -134,7 +135,7 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
-
+	
 	public ViewPage<T> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -168,4 +169,25 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 			em.close();
 		}
 	}
+	
+	@Override
+	public T add(T entity) throws SecureException, DAOException {
+		T e = super.add(entity);
+		getEntityManagerFactory().getCache().evict(getEntityClass());
+		return e;
+	}
+
+	@Override
+	public T update(T entity) throws SecureException, DAOException {
+		T e = super.update(entity);
+		getEntityManagerFactory().getCache().evict(getEntityClass());
+		return e;
+	}
+
+	@Override
+	public void delete(T entity) throws SecureException, DAOException {
+		super.delete(entity);
+		getEntityManagerFactory().getCache().evict(getEntityClass());
+	}
+	
 }

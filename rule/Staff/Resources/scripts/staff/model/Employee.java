@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.eclipse.persistence.annotations.Cache;
+
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
@@ -40,6 +42,7 @@ import reference.model.Position;
 @Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @NamedQuery(name = "EmployeCacheTypee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
 //@Cache(isolation = CacheIsolationType.ISOLATED)
+@Cache(refreshOnlyIfNewer = true)
 @JsonPropertyOrder({ "kind", "name" })
 public class Employee extends SimpleReferenceEntity implements IEmployee {
 	
