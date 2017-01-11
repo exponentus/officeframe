@@ -85,7 +85,7 @@
 		<class>reference.model.RequestType</class>  
 		<!-- Specific Reference module entities for HelpDesk module-->
 		<class>reference.model.DemandType</class>  
-		<!-- <shared-cache-mode>NONE</shared-cache-mode> -->
+		<shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode> 
 	</persistence-unit>	
 	<persistence-unit name="Discussing" transaction-type="RESOURCE_LOCAL">
         <!-- Obligatory the application module entities -->
