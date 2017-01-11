@@ -173,21 +173,21 @@ public abstract class ReferenceDAO<T extends IAppEntity, K> extends DAO<T, K> {
 	@Override
 	public T add(T entity) throws SecureException, DAOException {
 		T e = super.add(entity);
-		getEntityManagerFactory().getCache().evict(getEntityClass());
+		resetCache();
 		return e;
 	}
 
 	@Override
 	public T update(T entity) throws SecureException, DAOException {
 		T e = super.update(entity);
-		getEntityManagerFactory().getCache().evict(getEntityClass());
+		resetCache();
 		return e;
 	}
 
 	@Override
 	public void delete(T entity) throws SecureException, DAOException {
 		super.delete(entity);
-		getEntityManagerFactory().getCache().evict(getEntityClass());
+		resetCache();
 	}
 	
 }

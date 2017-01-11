@@ -1,5 +1,6 @@
 package reference.model;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,25 +10,27 @@ import javax.persistence.Table;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
+
 import reference.model.constants.KufType;
 
 @Entity
 @Table(name = "kufs")
+@Cacheable(true)
 @NamedQuery(name = "Kuf.findAll", query = "SELECT m FROM Kuf AS m ORDER BY m.regDate")
 public class Kuf extends SimpleReferenceEntity {
-
+	
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = true, length = 32, unique = true)
 	private KufType code = KufType.UNKNOWN;
-
+	
 	public KufType getKuf() {
 		return code;
 	}
-
+	
 	public void setKuf(KufType kuf) {
 		this.code = kuf;
 	}
-
+	
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -36,5 +39,5 @@ public class Kuf extends SimpleReferenceEntity {
 		;
 		return chunk.toString();
 	}
-
+	
 }

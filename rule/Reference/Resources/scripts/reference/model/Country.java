@@ -2,6 +2,7 @@ package reference.model;
 
 import java.util.List;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -21,6 +22,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import reference.model.constants.CountryCode;
 
 @Entity
+@Cacheable(true)
 @Table(name = "countries", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }))
 @NamedQuery(name = "Country.findAll", query = "SELECT m FROM Country AS m ORDER BY m.regDate")
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
@@ -30,30 +32,30 @@ public class Country extends SimpleReferenceEntity {
 	@JsonIgnore
 	@OneToMany(mappedBy = "country")
 	private List<Region> regions;
-	
+
 	@FTSearchable
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = true, length = 7, unique = true)
 	private CountryCode code = CountryCode.UNKNOWN;
-	
+
 	public CountryCode getCode() {
 		return code;
 	}
-	
+
 	public void setCode(CountryCode code) {
 		this.code = code;
 	}
-	
+
 	@JsonIgnore
 	public List<Region> getRegions() {
 		return regions;
 	}
-	
+
 	@JsonIgnore
 	public void setRegions(List<Region> regions) {
 		this.regions = regions;
 	}
-	
+
 	@JsonIgnore
 	@Override
 	public String getFullXMLChunk(_Session ses) {
@@ -62,5 +64,5 @@ public class Country extends SimpleReferenceEntity {
 		chunk.append("<code>" + code + "</code>");
 		return chunk.toString();
 	}
-	
+
 }

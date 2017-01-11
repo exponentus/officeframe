@@ -1,5 +1,6 @@
 package reference.model;
 
+import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -9,25 +10,26 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 
 /**
- * 
- * 
+ *
+ *
  * @author Kayra created 07-01-2016
  */
 
 @Entity
+@Cacheable(true)
 @Table(name = "positions", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Position.findAll", query = "SELECT m FROM Position AS m ORDER BY m.regDate")
 public class Position extends SimpleReferenceEntity {
 	private int rank = 999;
-
+	
 	public int getRank() {
 		return rank;
 	}
-
+	
 	public void setRank(int rank) {
 		this.rank = rank;
 	}
-
+	
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
