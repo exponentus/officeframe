@@ -23,15 +23,15 @@ import reference.model.OrgCategory;
 
 @Command(name = "prepare_storage")
 public class InsertUndefinedGag extends _Do {
-
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Vocabulary vocabular = getCurrentAppEnv().vocabulary;
-
+		
 		Map<LanguageCode, String> gag = new HashMap<>();
-		gag.put(LanguageCode.ENG, vocabular.getWord("undefined", LanguageCode.ENG));
-		gag.put(LanguageCode.KAZ, vocabular.getWord("undefined", LanguageCode.KAZ));
-		gag.put(LanguageCode.RUS, vocabular.getWord("undefined", LanguageCode.RUS));
+		gag.put(LanguageCode.ENG, vocabular.getWord(ConvertorEnvConst.GAG_KEY, LanguageCode.ENG));
+		gag.put(LanguageCode.KAZ, vocabular.getWord(ConvertorEnvConst.GAG_KEY, LanguageCode.KAZ));
+		gag.put(LanguageCode.RUS, vocabular.getWord(ConvertorEnvConst.GAG_KEY, LanguageCode.RUS));
 		try {
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(ses);
 			DepartmentType entity = new DepartmentType();
@@ -50,7 +50,7 @@ public class InsertUndefinedGag extends _Do {
 			} catch (SecureException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			OrgCategoryDAO dao1 = new OrgCategoryDAO(ses);
 			OrgCategory entity1 = new OrgCategory();
 			entity1.setName(ConvertorEnvConst.GAG_KEY);
@@ -68,7 +68,7 @@ public class InsertUndefinedGag extends _Do {
 			} catch (SecureException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			DocumentLanguageDAO dao2 = new DocumentLanguageDAO(ses);
 			DocumentLanguage entity2 = new DocumentLanguage();
 			entity2.setName(ConvertorEnvConst.GAG_ENTITY);
@@ -91,5 +91,5 @@ public class InsertUndefinedGag extends _Do {
 			logger.errorLogEntry(e);
 		}
 	}
-
+	
 }

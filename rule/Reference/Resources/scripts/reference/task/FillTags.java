@@ -1,7 +1,9 @@
 package reference.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
@@ -12,32 +14,40 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
-import administrator.init.ServerConst;
-import administrator.model.Language;
-import reference.dao.DocumentLanguageDAO;
-import reference.model.DocumentLanguage;
+import reference.dao.TagDAO;
+import reference.model.Tag;
 
-@Command(name = "fill_doc_langs")
-public class FillDocumentLanguages extends _Do {
+@Command(name = "fill_tags")
+public class FillTags extends _Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<DocumentLanguage> entities = new ArrayList<>();
-
-		LanguageCode langs[] = { LanguageCode.RUS, LanguageCode.ENG, LanguageCode.KAZ, LanguageCode.CHI,
-				LanguageCode.BUL, LanguageCode.DEU, LanguageCode.BEL, LanguageCode.POR, LanguageCode.SPA };
-		for (LanguageCode code : langs) {
-			Language lang = ServerConst.getLanguage(code);
-			DocumentLanguage docLang = new DocumentLanguage();
-			docLang.setCode(code);
-			docLang.setName(lang.getName());
-			docLang.setLocalizedName(lang.getLocalizedName());
-			entities.add(docLang);
-		}
-
+		List<Tag> entities = new ArrayList<>();
+		
+		Tag entity = new Tag();
+		entity.setName("starred");
+		Map<LanguageCode, String> name = new HashMap<>();
+		name.put(LanguageCode.ENG, "Starred");
+		name.put(LanguageCode.RUS, "Избранный");
+		name.put(LanguageCode.KAZ, "Сүйікті");
+		entity.setLocalizedName(name);
+		entity.setColor("#d94600");
+		entities.add(entity);
+		
+		entity = new Tag();
+		entity.setName("expired");
+		name = new HashMap<>();
+		name.put(LanguageCode.ENG, "Overdued");
+		name.put(LanguageCode.RUS, "Просроченный");
+		name.put(LanguageCode.KAZ, "Mерзімі өткен");
+		entity.setLocalizedName(name);
+		entity.setColor("#db0000");
+		entity.setHidden(true);
+		entities.add(entity);
+		
 		try {
-			DocumentLanguageDAO dao = new DocumentLanguageDAO(ses);
-			for (DocumentLanguage entry : entities) {
+			TagDAO dao = new TagDAO(ses);
+			for (Tag entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.infoLogEntry(entry.getName() + " added");

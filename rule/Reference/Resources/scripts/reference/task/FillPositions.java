@@ -1,7 +1,9 @@
 package reference.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
@@ -12,32 +14,34 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
-import administrator.init.ServerConst;
-import administrator.model.Language;
-import reference.dao.DocumentLanguageDAO;
-import reference.model.DocumentLanguage;
+import reference.dao.PositionDAO;
+import reference.model.Position;
 
-@Command(name = "fill_doc_langs")
-public class FillDocumentLanguages extends _Do {
-
+@Command(name = "fill_positions")
+public class FillPositions extends _Do {
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<DocumentLanguage> entities = new ArrayList<>();
+		List<Position> entities = new ArrayList<Position>();
+		String[] data = { "SEO", "Manager", "Accounter", "Engineer", "Specialist", "Secretary", "Administrator",
+				"Department manager", "Forwarder", "unknown" };
 
-		LanguageCode langs[] = { LanguageCode.RUS, LanguageCode.ENG, LanguageCode.KAZ, LanguageCode.CHI,
-				LanguageCode.BUL, LanguageCode.DEU, LanguageCode.BEL, LanguageCode.POR, LanguageCode.SPA };
-		for (LanguageCode code : langs) {
-			Language lang = ServerConst.getLanguage(code);
-			DocumentLanguage docLang = new DocumentLanguage();
-			docLang.setCode(code);
-			docLang.setName(lang.getName());
-			docLang.setLocalizedName(lang.getLocalizedName());
-			entities.add(docLang);
+		String[] dataRus = { "Директор", "Менеджер", "Бухгалтер", "Инженер", "Специалист", "Секретарь-референт",
+				"Администратор", "Руководитель подразделения", "Экспедитор", "unknown" };
+		
+		for (int i = 0; i < data.length; i++) {
+			Position entity = new Position();
+			entity.setName(data[i]);
+			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+			name.put(LanguageCode.ENG, data[i]);
+			name.put(LanguageCode.RUS, dataRus[i]);
+			entity.setLocalizedName(name);
+			entities.add(entity);
 		}
-
+		
 		try {
-			DocumentLanguageDAO dao = new DocumentLanguageDAO(ses);
-			for (DocumentLanguage entry : entities) {
+			PositionDAO dao = new PositionDAO(ses);
+			for (Position entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.infoLogEntry(entry.getName() + " added");
@@ -59,5 +63,5 @@ public class FillDocumentLanguages extends _Do {
 		}
 		logger.infoLogEntry("done...");
 	}
-
+	
 }
