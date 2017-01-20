@@ -7,7 +7,6 @@ import java.util.List;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.scripting._Exception;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
@@ -20,9 +19,9 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Application;
 
 public class Workspace extends _DoPage {
-
+	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) throws _Exception {
+	public void doGET(_Session session, _WebFormData formData) {
 		addValue("serverversion", Server.serverVersion);
 		addValue("build", Server.compilationTime);
 		addValue("org", Environment.orgName);
@@ -36,7 +35,7 @@ public class Workspace extends _DoPage {
 				} else {
 					aa = user.getAllowedApps();
 				}
-
+				
 				Application app = aDao.findByName(EnvConst.WORKSPACE_NAME);
 				if (app != null) {
 					aa.remove(app);
