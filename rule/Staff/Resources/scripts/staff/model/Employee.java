@@ -210,6 +210,13 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		chunk.append("<rank>" + rank + "</rank>");
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<login>" + getLogin() + "</login>");
+		chunk.append("<roles>");
+		if (roles != null) {
+			for (Role l : roles) {
+				chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocalizedName(ses.getLang()) + "</entry>");
+			}
+		}
+		chunk.append("</roles>");
 		return chunk.toString();
 	}
 	
@@ -247,12 +254,10 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 			chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocalizedName(ses.getLang())
 					+ "</department>");
 		}
-		
-		if (position != null) {
-			chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocalizedName(ses.getLang())
-					+ "</position>");
-		}
-		
+
+		chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocalizedName(ses.getLang())
+				+ "</position>");
+
 		chunk.append("<roles>");
 		if (roles != null) {
 			for (Role l : roles) {
