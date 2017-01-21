@@ -83,6 +83,7 @@ public class StreetForm extends ReferenceForm {
 			entity.setStreetId(formData.getNumberValueSilently("streetid", 0));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 			
+			//TODO it needed to add uniq constrain in database
 			Street foundEntity = dao.findByName(entity.getName());
 			if (foundEntity != null && !foundEntity.equals(entity)
 					&& foundEntity.getLocality().equals(entity.getLocality())) {
@@ -92,19 +93,7 @@ public class StreetForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
-			/*
-			 * ViewPage<Street> foundEntityList = dao.findAllequal("streetId",
-			 * Integer.toString(entity.getStreetId()), 1, 1); if
-			 * (foundEntityList.getCount() > 0) { foundEntity =
-			 * foundEntityList.getResult().get(0); if (foundEntity != null &&
-			 * !foundEntity.equals(entity) &&
-			 * foundEntity.getLocality().equals(entity.getLocality())) { ve =
-			 * new _Validation(); ve.addError("streetid", "unique",
-			 * getLocalizedWord("streetid_is_not_unique", session.getLang()));
-			 * setBadRequest(); setValidation(ve); return; } }
-			 */
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {

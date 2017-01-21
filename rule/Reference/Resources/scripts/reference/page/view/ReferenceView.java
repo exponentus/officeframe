@@ -13,15 +13,14 @@ import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 public class ReferenceView<T> extends _DoPage {
-	
+
 	@Override
 	public void doDELETE(_Session session, _WebFormData formData) {
-
+		
 	}
-	
+
 	public void delete(String[] ids, Class<T> clazz) {
-		T var = null;
-		IDAO<T, UUID> dao = (IDAO<T, UUID>) DAOFactory.get(getSes(), var.getClass());
+		IDAO<T, UUID> dao = (IDAO<T, UUID>) DAOFactory.get(getSes(), clazz);
 		try {
 			for (String id : formData.getListOfValuesSilently("docid")) {
 				T m = dao.findById(UUID.fromString(id));

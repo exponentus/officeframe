@@ -49,6 +49,8 @@ public class Street extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<streetid>" + streetId + "</streetid>");
+		chunk.append("<locality id=\"" + locality.getId() + "\">" + locality.getLocalizedName(ses.getLang())
+				+ "</locality>");
 		return chunk.toString();
 	}
 }
