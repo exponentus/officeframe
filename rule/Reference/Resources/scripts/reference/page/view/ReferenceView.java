@@ -7,14 +7,21 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
+import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 public class ReferenceView<T> extends _DoPage {
 	
-	public void delete(String[] ids, Class clazz) {
-		new DAOFactory();
-		IDAO<T, UUID> dao = (IDAO<T, UUID>) DAOFactory.get(getSes(), clazz);
+	@Override
+	public void doDELETE(_Session session, _WebFormData formData) {
+
+	}
+	
+	public void delete(String[] ids, Class<T> clazz) {
+		T var = null;
+		IDAO<T, UUID> dao = (IDAO<T, UUID>) DAOFactory.get(getSes(), var.getClass());
 		try {
 			for (String id : formData.getListOfValuesSilently("docid")) {
 				T m = dao.findById(UUID.fromString(id));

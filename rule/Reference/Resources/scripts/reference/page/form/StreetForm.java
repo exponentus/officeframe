@@ -23,6 +23,7 @@ public class StreetForm extends ReferenceForm {
 	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
+		
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		try {
@@ -56,6 +57,7 @@ public class StreetForm extends ReferenceForm {
 	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
+		devPrint(formData);
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {

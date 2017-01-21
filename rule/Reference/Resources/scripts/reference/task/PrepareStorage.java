@@ -22,7 +22,7 @@ import reference.model.DocumentLanguage;
 import reference.model.OrgCategory;
 
 @Command(name = "prepare_storage")
-public class InsertUndefinedGag extends _Do {
+public class PrepareStorage extends _Do {
 	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
