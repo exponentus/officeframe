@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.common.model.HierarchicalEntity;
+import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.env.Environment;
@@ -26,7 +26,7 @@ import discussing.model.constants.TopicStatusType;
 @Table(name = "topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Topic.findAll", query = "SELECT m FROM Topic AS m ORDER BY m.regDate")
 @JsonIgnoreType
-public class Topic extends HierarchicalEntity<UUID> {
+public class Topic extends SecureHierarchicalEntity<UUID> {
 
 	@Column(length = 64)
 	private String module;

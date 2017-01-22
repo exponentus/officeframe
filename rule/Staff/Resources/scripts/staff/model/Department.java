@@ -1,6 +1,7 @@
 package staff.model;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -11,7 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
-import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.model.HierarchicalEntity;
+import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
@@ -27,77 +29,77 @@ import reference.model.DepartmentType;
 @Entity
 @Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
-public class Department extends SimpleReferenceEntity {
-	
+public class Department extends SimpleHierarchicalReferenceEntity {
+
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private DepartmentType type;
-	
+
 	@NotNull
 	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private Organization organization;
-	
+
 	@NotNull
 	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private Department leadDepartment;
-	
+
 	@NotNull
 	@ManyToOne(optional = true)
 	@JoinColumn(nullable = false)
 	private Employee boss;
-	
+
 	@OneToMany(mappedBy = "department")
 	private List<Employee> employees;
-	
+
 	private int rank = 999;
-	
+
 	public Organization getOrganization() {
 		return organization;
 	}
-	
+
 	public void setOrganization(Organization organization) {
 		this.organization = organization;
 	}
-	
+
 	public Department getLeadDepartment() {
 		return leadDepartment;
 	}
-	
+
 	public void setLeadDepartment(Department leadDepartment) {
 		this.leadDepartment = leadDepartment;
 	}
-	
+
 	public Employee getBoss() {
 		return boss;
 	}
-	
+
 	public void setBoss(Employee boss) {
 		this.boss = boss;
 	}
-	
+
 	@JsonIgnore
 	public List<Employee> getEmployees() {
 		return employees;
 	}
-	
+
 	public DepartmentType getType() {
 		return type;
 	}
-	
+
 	public void setType(DepartmentType type) {
 		this.type = type;
 	}
-	
+
 	public int getRank() {
 		return rank;
 	}
-	
+
 	public void setRank(int rank) {
 		this.rank = rank;
 	}
-	
+
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -119,5 +121,14 @@ public class Department extends SimpleReferenceEntity {
 		}
 		chunk.append("</localizednames>");
 		return chunk.toString();
+	}
+	
+	@Override
+	public HierarchicalEntity<UUID> getParentEntity(_Session ses) {
+		if (organization != null) {
+			return organization;
+		} else {
+			return leadDepartment;
+		}
 	}
 }

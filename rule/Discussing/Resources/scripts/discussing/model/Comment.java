@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.common.model.HierarchicalEntity;
+import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
@@ -35,7 +35,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @Entity
 @Table(name = "comments")
 @NamedQuery(name = "Comment.findAll", query = "SELECT m FROM Comment AS m ORDER BY m.regDate ASC")
-public class Comment extends HierarchicalEntity<UUID> {
+public class Comment extends SecureHierarchicalEntity<UUID> {
 	
 	@JsonIgnore
 	@NotNull
@@ -121,7 +121,7 @@ public class Comment extends HierarchicalEntity<UUID> {
 	}
 	
 	@Override
-	public HierarchicalEntity<UUID> getParentEntity(_Session ses) {
+	public SecureHierarchicalEntity<UUID> getParentEntity(_Session ses) {
 		if (topic != null) {
 			return topic;
 		} else {

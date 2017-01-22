@@ -3,6 +3,7 @@ package staff.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +23,8 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.Cache;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.model.HierarchicalEntity;
+import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.dataengine.system.IEmployee;
@@ -44,7 +46,7 @@ import reference.model.Position;
 //@Cache(isolation = CacheIsolationType.ISOLATED)
 @Cache(refreshOnlyIfNewer = true)
 @JsonPropertyOrder({ "kind", "name" })
-public class Employee extends SimpleReferenceEntity implements IEmployee {
+public class Employee extends SimpleHierarchicalReferenceEntity implements IEmployee {
 	
 	@OneToOne(cascade = { CascadeType.MERGE }, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -267,5 +269,14 @@ public class Employee extends SimpleReferenceEntity implements IEmployee {
 		chunk.append("</roles>");
 		
 		return chunk.toString();
+	}
+
+	@Override
+	public HierarchicalEntity<UUID> getParentEntity(_Session ses) {
+		if (organization != null) {
+			return organization;
+		} else {
+			return department;
+		}
 	}
 }

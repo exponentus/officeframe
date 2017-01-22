@@ -3,6 +3,8 @@ package staff.page.view;
 import java.util.List;
 import java.util.UUID;
 
+import com.exponentus.common.dao.ViewEntryDAO;
+import com.exponentus.common.model.ViewEntry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
@@ -17,8 +19,6 @@ import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import staff.dao.OrganizationDAO;
-import staff.model.Department;
-import staff.model.Employee;
 import staff.model.Organization;
 
 public class StructureView extends _DoPage {
@@ -31,20 +31,20 @@ public class StructureView extends _DoPage {
 			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization");
-				newDocAction.setURL("Provider?id=organization-form");
+				newDocAction.setURL("p?id=organization-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(
 						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 
+			ViewEntryDAO veDao = new ViewEntryDAO(session);
+
 			OrganizationDAO dao = new OrganizationDAO(session);
 			Organization org = dao.findPrimaryOrg().get(0);
 			if (org != null) {
-				List<Employee> bosses = org.getEmployers();
-				addContent(new _POJOListWrapper<>(bosses, session));
-				List<Department> deps = org.getDepartments();
-				addContent(new _POJOListWrapper<>(deps, session));
+				List<ViewEntry> descendants = veDao.findAllDescendants(org.getIdentifier());
+				addContent(new _POJOListWrapper<>(descendants, session));
 			} else {
 				addContent(new _POJOListWrapper<>(getLocalizedWord("no_primary_org", lang), ""));
 			}
