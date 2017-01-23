@@ -2558,7 +2558,11 @@ nb.getSelectOptions = function(selectOptions) {
             meta = {},
             list = {},
             buff = {};
-
+        var lang = "ENG";
+        var ck = document.cookie.match('(lang)=(.*?)($|;|,(?! ))');
+        if (ck) {
+            lang = ck[2];
+        }
         var objects = data.objects;
         if (objects.length) {
             for (var i in objects) {
@@ -2574,8 +2578,10 @@ nb.getSelectOptions = function(selectOptions) {
             for (var k in list) {
                 buff = {
                     id: list[k].id,
-                    text: list[k].name
+                    text: list[k].localizedName[lang]
+
                 };
+
                 if (options.fields) {
                     for (var fi in options.fields) {
                         buff[options.fields[fi]] = list[k][options.fields[fi]];
