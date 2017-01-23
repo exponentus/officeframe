@@ -32,6 +32,15 @@
         </option>
     </xsl:template>
 
+    <xsl:template match="*" mode="users_entry">
+        <option value="{viewcontent/login}">
+            <xsl:if test="viewcontent/login = //fields/login">
+                <xsl:attribute name="selected">selected</xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="viewcontent/login"/>
+        </option>
+    </xsl:template>
+
     <xsl:template name="_content">
         <xsl:apply-templates select="//document[@entity = 'employee']"/>
     </xsl:template>
@@ -119,11 +128,17 @@
                             <xsl:value-of select="//captions/login_name/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="login" value="{fields/login}" class="span5" autocomplete="off">
-                               <!-- <xsl:if test="@docid != 'null'">
-                                    <xsl:attribute name="disabled">disabled</xsl:attribute>
-                                </xsl:if>-->
-                            </input>
+                            <div class="controls">
+                                <select name="login" class="span6">
+                                    <option value=""></option>
+                                    <xsl:apply-templates select="//query[@entity = 'user']/entry" mode="users_entry"/>
+                                </select>
+                            </div>
+                            <!-- <input type="text" name="login" value="{fields/login}" class="span5" autocomplete="off">
+                             <xsl:if test="@docid != 'null'">
+                                   <xsl:attribute name="disabled">disabled</xsl:attribute>
+                               </xsl:if>
+                            </input>-->
                         </div>
                     </div>
                  </fieldset>
