@@ -23,7 +23,7 @@ import reference.model.Region;
  */
 
 public class DistrictForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		try {
@@ -40,8 +40,7 @@ public class DistrictForm extends ReferenceForm {
 				try {
 					region = cDao.findByName("Алматы");
 				} catch (DAOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					logError(e);
 				}
 				entity.setRegion(region);
 			}
@@ -54,7 +53,7 @@ public class DistrictForm extends ReferenceForm {
 			return;
 		}
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -64,29 +63,29 @@ public class DistrictForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			DistrictDAO dao = new DistrictDAO(session);
 			RegionDAO regionDAO = new RegionDAO(session);
 			District entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new District();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setRegion(regionDAO.findById(UUID.fromString(formData.getValue("region"))));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
+			
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
