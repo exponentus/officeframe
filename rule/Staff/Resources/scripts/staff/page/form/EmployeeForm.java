@@ -56,6 +56,7 @@ public class EmployeeForm extends StaffForm {
 		IUser<Long> user = session.getUser();
 		String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
 		Employee entity;
+
 		try {
 			if (!id.isEmpty()) {
 				EmployeeDAO dao = new EmployeeDAO(session);
@@ -123,6 +124,7 @@ public class EmployeeForm extends StaffForm {
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 			addContent(new _POJOListWrapper<>(new RoleDAO(session).findAll().getResult(), session));
+			addContent(new _POJOListWrapper<>(new UserDAO(session).findAll(), session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
