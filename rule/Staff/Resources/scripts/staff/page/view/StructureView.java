@@ -39,10 +39,10 @@ public class StructureView extends _DoPage {
 			}
 
 			ViewEntryDAO veDao = new ViewEntryDAO(session);
-
 			OrganizationDAO dao = new OrganizationDAO(session);
 			Organization org = dao.findPrimaryOrg().get(0);
 			if (org != null) {
+				//addContent(org);
 				List<ViewEntry> descendants = veDao.findAllDescendants(org.getIdentifier());
 				addContent(new _POJOListWrapper<>(descendants, session));
 			} else {

@@ -28,7 +28,7 @@ import staff.model.OrganizationLabel;
  */
 
 public class OrganizationForm extends StaffForm {
-	
+
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -42,12 +42,12 @@ public class OrganizationForm extends StaffForm {
 				entity = new Organization();
 				entity.setAuthor(user);
 				entity.setName("");
-				entity.setBin("000000000000");
+				entity.setBin("");
 				OrgCategory oc = new OrgCategory();
 				oc.setName("");
 				entity.setOrgCategory(oc);
 				entity.setLabels(new ArrayList<>());
-				
+
 			}
 			addContent(entity);
 			addContent(new _POJOListWrapper<>(new OrganizationLabelDAO(session).findAll().getResult(), session));
@@ -57,9 +57,9 @@ public class OrganizationForm extends StaffForm {
 			setBadRequest();
 			return;
 		}
-		
+
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, _WebFormData formData) {
 		try {
@@ -69,18 +69,18 @@ public class OrganizationForm extends StaffForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			OrganizationDAO dao = new OrganizationDAO(session);
 			Organization entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Organization();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setLocalizedName(getLocalizedNames(session, formData));
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(session);
@@ -97,22 +97,22 @@ public class OrganizationForm extends StaffForm {
 				}
 			}
 			entity.setLabels(labels);
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-	
+
 	@Override
 	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-		
+
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
@@ -130,7 +130,7 @@ public class OrganizationForm extends StaffForm {
 		if (formData.getValueSilently("bin").length() != 12 && formData.getValueSilently("bin").length() > 0) {
 			ve.addError("bin", "eq_12", getLocalizedWord("bin_value_should_be_consist_from_12_symbols", lang));
 		}
-		
+
 		return ve;
 	}
 }

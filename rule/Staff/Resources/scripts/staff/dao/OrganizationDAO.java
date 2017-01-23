@@ -25,14 +25,14 @@ import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
 public class OrganizationDAO extends DAO<Organization, UUID> {
-	
+
 	public OrganizationDAO(_Session session) throws DAOException {
 		super(Organization.class, session);
 	}
-	
+
 	public List<Organization> findPrimaryOrg() {
 		try {
-			ViewPage<Organization> result = findAllByLabel("primary", 1, 1);
+			ViewPage<Organization> result = findAllByLabel("primary", 1, 10);
 			if (result.getCount() > 0) {
 				return result.getResult();
 			}
@@ -41,7 +41,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			return null;
 		}
 	}
-	
+
 	public ViewPage<Organization> findAllByLabel(String labelName, int pageNum, int pageSize) {
 		List<OrganizationLabel> val = new ArrayList<>();
 		EntityManager em = getEntityManagerFactory().createEntityManager();
@@ -71,7 +71,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 				typedQuery.setMaxResults(pageSize);
 				List<Organization> result = typedQuery.getResultList();
 				return new ViewPage<>(result, count, maxPage, pageNum);
-				
+
 			} else {
 				return new ViewPage<>(null);
 			}
@@ -82,7 +82,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			em.close();
 		}
 	}
-	
+
 	public ViewPage<Organization> findAllByOrgCategory(List<OrgCategory> name, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -103,7 +103,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			TypedQuery<Organization> typedQuery = em.createQuery(cq);
 			Query query = em.createQuery(countCq);
 			long count = (long) query.getSingleResult();
-			
+
 			int maxPage = 1;
 			if (pageNum != 0 || pageSize != 0) {
 				maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
@@ -120,7 +120,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			em.close();
 		}
 	}
-	
+
 	public ViewPage<Organization> findAllByKeyword(String keyword, int pageNum, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -151,5 +151,5 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 			em.close();
 		}
 	}
-	
+
 }

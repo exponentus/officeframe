@@ -25,18 +25,15 @@ public class MainNavigator extends _DoPage {
 	
 	@Override
 	public void doGET(_Session session, _WebFormData formData) {
-		final LanguageCode lang = session.getLang();
-		final LinkedList<IOutcomeObject> list = new LinkedList<>();
+		LanguageCode lang = session.getLang();
+		LinkedList<IOutcomeObject> list = new LinkedList<>();
 		List<_OutlineEntry> primaryOrgs = new ArrayList<_OutlineEntry>();
 		
-		final _Outline common_outline = new _Outline(getLocalizedWord("common_staff_data", lang), "common");
+		_Outline common_outline = new _Outline(getLocalizedWord("common_staff_data", lang), "common");
 		try {
 			OrganizationDAO oDao;
-
 			oDao = new OrganizationDAO(session);
-
 			List<Organization> po = oDao.findPrimaryOrg();
-
 			if (po != null) {
 				for (Organization primaryOrg : po) {
 					primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocalizedName(lang),
@@ -44,18 +41,16 @@ public class MainNavigator extends _DoPage {
 							"structure-view", "p?id=structure-view"));
 				}
 			}
-			final _OutlineEntry orgEntry = new _OutlineEntry(getLocalizedWord("organizations", lang),
-					"organization-view");
-			for (final OrganizationLabel label : new OrganizationLabelDAO(session).findAll().getResult()) {
+			_OutlineEntry orgEntry = new _OutlineEntry(getLocalizedWord("organizations", lang), "organization-view");
+			for (OrganizationLabel label : new OrganizationLabelDAO(session).findAll().getResult()) {
 				orgEntry.addEntry(new _OutlineEntry(label.getLocalizedName(lang),
 						getLocalizedWord("labeled", lang) + " : " + label.getLocalizedName(lang),
 						"organization-label-view" + label.getId(),
 						"p?id=organization-label-view&categoryid=" + label.getId()));
 			}
-			final _OutlineEntry departmentEntry = new _OutlineEntry(getLocalizedWord("departments", lang),
-					"department-view");
-			final _OutlineEntry employeeEntry = new _OutlineEntry(getLocalizedWord("employees", lang), "employee-view");
-			for (final Role role : new RoleDAO(session).findAll().getResult()) {
+			_OutlineEntry departmentEntry = new _OutlineEntry(getLocalizedWord("departments", lang), "department-view");
+			_OutlineEntry employeeEntry = new _OutlineEntry(getLocalizedWord("employees", lang), "employee-view");
+			for (Role role : new RoleDAO(session).findAll().getResult()) {
 				employeeEntry.addEntry(new _OutlineEntry(role.getLocalizedName(lang),
 						getLocalizedWord("assigned", lang) + " : " + role.getLocalizedName(lang),
 						"role-view" + role.getId(), "p?id=role-view&categoryid=" + role.getId()));
