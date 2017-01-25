@@ -3,11 +3,12 @@ package reference.page.form;
 import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -73,18 +74,24 @@ public class ControlTypeForm extends ReferenceForm {
 
 	private void save(_Session ses, ControlType entity, ControlTypeDAO dao, boolean isNew)
 			throws SecureException, DAOException {
-		/*
-		 * DocumentLanguage foundEntity = dao.findByCode(entity.getCode()); if
-		 * (foundEntity != null && !foundEntity.equals(entity)) { _Validation ve
-		 * = new _Validation(); ve.addError("code", "unique_error",
-		 * getLocalizedWord("code_is_not_unique", ses.getLang()));
-		 * setBadRequest(); setValidation(ve); return; }
-		 */
+		
+		try {
+			if (isNew) {
+				dao.add(entity);
+			} else {
+				dao.update(entity);
+			}
 
-		if (isNew) {
-			dao.add(entity);
-		} else {
-			dao.update(entity);
+		} catch (DAOException e) {
+			if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+				_Validation ve = new _Validation();
+				ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", ses.getLang()));
+				setBadRequest();
+				setValidation(ve);
+				return;
+			} else {
+				throw e;
+			}
 		}
 	}
 

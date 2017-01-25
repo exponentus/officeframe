@@ -3,12 +3,13 @@ package reference.page.form;
 import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -16,7 +17,7 @@ import reference.dao.DocumentTypeDAO;
 import reference.model.DocumentType;
 
 public class DocumentTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -40,7 +41,7 @@ public class DocumentTypeForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -50,51 +51,56 @@ public class DocumentTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			DocumentTypeDAO dao = new DocumentTypeDAO(session);
 			DocumentType entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new DocumentType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setCategory(formData.getValueSilently("category"));
 			entity.setPrefix(formData.getValueSilently("prefix"));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+			entity.setLocName(getLocalizedNames(session, formData));
+
 			save(session, entity, dao, isNew);
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
+			setBadRequest();
 		}
 	}
-	
+
 	private void save(_Session ses, DocumentType entity, DocumentTypeDAO dao, boolean isNew)
 			throws SecureException, DAOException {
-		/*
-		 * DocumentLanguage foundEntity = dao.findByCode(entity.getCode()); if
-		 * (foundEntity != null && !foundEntity.equals(entity)) { _Validation ve
-		 * = new _Validation(); ve.addError("code", "unique_error",
-		 * getLocalizedWord("code_is_not_unique", ses.getLang()));
-		 * setBadRequest(); setValidation(ve); return; }
-		 */
-		
-		if (isNew) {
-			dao.add(entity);
-		} else {
-			dao.update(entity);
+		try {
+			if (isNew) {
+				dao.add(entity);
+			} else {
+				dao.update(entity);
+			}
+		} catch (DAOException e) {
+			if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+				_Validation ve = new _Validation();
+				ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", ses.getLang()));
+				setBadRequest();
+				setValidation(ve);
+				return;
+			} else {
+				throw e;
+			}
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		return simpleCheck("name");
 	}
-	
+
 	protected DocumentType getDefaultEntity(IUser<Long> user, DocumentType entity) {
 		entity.setAuthor(user);
 		entity.setName("");

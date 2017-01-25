@@ -3,13 +3,14 @@ package reference.page.form;
 import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._EnumWrapper;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
+import com.exponentus.scripting._EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -65,30 +66,34 @@ public class DocumentLanguageForm extends ReferenceForm {
 			
 			entity.setName(formData.getValue("name"));
 			entity.setCode(LanguageCode.valueOf(formData.getValueSilently("code", "UNKNOWN")));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setLocName(getLocalizedNames(session, formData));
 			
 			save(session, entity, dao, isNew);
 			
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
+			setBadRequest();
 		}
 	}
 	
 	private void save(_Session ses, DocumentLanguage entity, DocumentLanguageDAO dao, boolean isNew)
 			throws SecureException, DAOException {
-		DocumentLanguage foundEntity = dao.findByCode(entity.getCode());
-		if (foundEntity != null && !foundEntity.equals(entity)) {
-			_Validation ve = new _Validation();
-			ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", ses.getLang()));
-			setBadRequest();
-			setValidation(ve);
-			return;
-		}
-		
-		if (isNew) {
-			dao.add(entity);
-		} else {
-			dao.update(entity);
+		try {
+			if (isNew) {
+				dao.add(entity);
+			} else {
+				dao.update(entity);
+			}
+		} catch (DAOException e) {
+			if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+				_Validation ve = new _Validation();
+				ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", ses.getLang()));
+				setBadRequest();
+				setValidation(ve);
+				return;
+			} else {
+				throw e;
+			}
 		}
 	}
 	

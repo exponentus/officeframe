@@ -2,7 +2,6 @@ package reference.page.form;
 
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -16,7 +15,7 @@ import com.exponentus.user.SuperUser;
  */
 
 public abstract class ReferenceForm extends _DoForm {
-
+	
 	@Override
 	protected IOutcomeObject getSimpleActionBar(_Session ses) {
 		_ActionBar actionBar = new _ActionBar(ses);
@@ -27,22 +26,7 @@ public abstract class ReferenceForm extends _DoForm {
 		}
 		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
-
+		
 	}
-
-	@Override
-	public abstract void doGET(_Session session, WebFormData formData);
-
-	@Override
-	public abstract void doPOST(_Session session, WebFormData formData);
-
-	@Override
-	public void doPUT(_Session session, WebFormData formData) {
-
-	}
-
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-
-	}
+	
 }

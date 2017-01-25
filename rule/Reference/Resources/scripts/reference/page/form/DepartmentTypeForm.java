@@ -2,14 +2,13 @@ package reference.page.form;
 
 import java.util.UUID;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -21,7 +20,7 @@ import reference.model.DepartmentType;
  */
 
 public class DepartmentTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -43,7 +42,7 @@ public class DepartmentTypeForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -53,27 +52,39 @@ public class DepartmentTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
 			DepartmentType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new DepartmentType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
-			
-			if (isNew) {
-				dao.add(entity);
-			} else {
-				dao.update(entity);
+			entity.setLocName(getLocalizedNames(session, formData));
+
+			try {
+				if (isNew) {
+					dao.add(entity);
+				} else {
+					dao.update(entity);
+				}
+			} catch (DAOException e) {
+				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+					ve = new _Validation();
+					ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", session.getLang()));
+					setBadRequest();
+					setValidation(ve);
+					return;
+				} else {
+					throw e;
+				}
 			}
-			
-		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
+		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

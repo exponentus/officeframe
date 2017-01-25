@@ -2,14 +2,13 @@ package reference.page.form;
 
 import java.util.UUID;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -72,16 +71,28 @@ public class TagForm extends ReferenceForm {
 			entity.setColor(formData.getValue("color"));
 			entity.setCategory(formData.getValue("category"));
 			entity.setHidden(formData.getBoolSilently("hidden"));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setLocName(getLocalizedNames(session, formData));
 
-			if (isNew) {
-				dao.add(entity);
-			} else {
-				dao.update(entity);
+			try {
+				if (isNew) {
+					dao.add(entity);
+				} else {
+					dao.update(entity);
+				}
+
+			} catch (DAOException e) {
+				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+					ve = new _Validation();
+					ve.addError("name", "unique_error", getLocalizedWord("name_is_not_unique", session.getLang()));
+					setBadRequest();
+					setValidation(ve);
+					return;
+				} else {
+					throw e;
+				}
 			}
-
-		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
-
+		} catch (WebFormException | SecureException | DAOException e) {
+			logError(e);
 			setError(e);
 		}
 	}

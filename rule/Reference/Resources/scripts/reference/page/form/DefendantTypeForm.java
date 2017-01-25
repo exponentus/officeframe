@@ -2,14 +2,13 @@ package reference.page.form;
 
 import java.util.UUID;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -17,7 +16,7 @@ import reference.dao.DefendantTypeDAO;
 import reference.model.DefendantType;
 
 public class DefendantTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -39,7 +38,7 @@ public class DefendantTypeForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -49,28 +48,40 @@ public class DefendantTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			DefendantTypeDAO dao = new DefendantTypeDAO(session);
 			DefendantType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new DefendantType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
-			if (isNew) {
-				dao.add(entity);
-			} else {
-				dao.update(entity);
+			entity.setLocName(getLocalizedNames(session, formData));
+
+			try {
+				if (isNew) {
+					dao.add(entity);
+				} else {
+					dao.update(entity);
+				}
+				
+			} catch (DAOException e) {
+				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+					ve = new _Validation();
+					ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", session.getLang()));
+					setBadRequest();
+					setValidation(ve);
+					return;
+				} else {
+					throw e;
+				}
 			}
-			
-		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
+		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
