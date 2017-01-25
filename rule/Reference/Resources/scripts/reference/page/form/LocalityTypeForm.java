@@ -7,10 +7,10 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._EnumWrapper;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -25,7 +25,7 @@ import reference.model.constants.LocalityCode;
 public class LocalityTypeForm extends ReferenceForm {
 
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		try {
@@ -49,7 +49,7 @@ public class LocalityTypeForm extends ReferenceForm {
 	}
 
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
@@ -78,7 +78,7 @@ public class LocalityTypeForm extends ReferenceForm {
 				dao.update(entity);
 			}
 
-		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
+		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

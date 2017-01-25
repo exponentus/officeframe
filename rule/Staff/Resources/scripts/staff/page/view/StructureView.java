@@ -10,7 +10,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -24,7 +24,7 @@ import staff.model.Organization;
 public class StructureView extends _DoPage {
 
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		try {
 			IUser<Long> user = session.getUser();
@@ -57,7 +57,7 @@ public class StructureView extends _DoPage {
 	}
 
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		devPrint(formData);
 		try {
 			OrganizationDAO dao = new OrganizationDAO(session);

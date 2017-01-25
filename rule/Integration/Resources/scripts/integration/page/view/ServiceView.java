@@ -3,9 +3,9 @@ package integration.page.view;
 import java.util.List;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import integration.dao.ServiceDAO;
@@ -16,9 +16,9 @@ import integration.model.Service;
  */
 
 public class ServiceView extends _DoPage {
-
+	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		int pageNum = 1;
 		int pageSize = session.pageSize;
 		if (formData.containsField("page")) {
@@ -33,6 +33,6 @@ public class ServiceView extends _DoPage {
 		int startRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
 		List<Service> list = dao.findAll(startRec, pageSize);
 		addContent(new _POJOListWrapper<Service>(list, maxPage, count, pageNum, session));
-
+		
 	}
 }

@@ -8,7 +8,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.scripting.outline._Outline;
 import com.exponentus.scripting.outline._OutlineEntry;
@@ -24,7 +24,7 @@ import staff.model.Role;
 public class MainNavigator extends _DoPage {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		LinkedList<IOutcomeObject> list = new LinkedList<>();
 		List<_OutlineEntry> primaryOrgs = new ArrayList<_OutlineEntry>();

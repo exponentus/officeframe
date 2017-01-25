@@ -9,13 +9,13 @@ import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 public class ReferenceView<T> extends _DoPage {
 
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		
 	}
 

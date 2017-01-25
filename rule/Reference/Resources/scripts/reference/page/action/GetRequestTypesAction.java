@@ -5,7 +5,7 @@ import java.util.List;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import reference.dao.RequestTypeDAO;
@@ -14,7 +14,7 @@ import reference.model.RequestType;
 public class GetRequestTypesAction extends _DoPage {
 
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			RequestTypeDAO dao = new RequestTypeDAO(session);
 			List<RequestType> list = dao.findAll().getResult();

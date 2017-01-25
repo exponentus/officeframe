@@ -8,7 +8,7 @@ import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -23,7 +23,7 @@ import discussing.model.constants.TopicStatusType;
 public class TopicForm extends _DoForm {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser<Long> user = session.getUser();
@@ -51,7 +51,7 @@ public class TopicForm extends _DoForm {
 	}
 	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		devPrint(formData);
 		try {
 			_Validation ve = validate(formData, session.getLang());
@@ -87,7 +87,7 @@ public class TopicForm extends _DoForm {
 		}
 	}
 	
-	private _Validation validate(_WebFormData formData, LanguageCode lang) {
+	private _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		if (formData.getValueSilently("subject").isEmpty()) {
 			ve.addError("subject", "required", getLocalizedWord("field_is_empty", lang));

@@ -6,10 +6,10 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -17,9 +17,9 @@ import reference.dao.BuildingMaterialDAO;
 import reference.model.BuildingMaterial;
 
 public class BuildingMaterialForm extends ReferenceForm {
-
+	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser<Long> user = session.getUser();
@@ -31,18 +31,18 @@ public class BuildingMaterialForm extends ReferenceForm {
 				entity = (BuildingMaterial) getDefaultEntity(user, new BuildingMaterial());
 			}
 			addContent(entity);
-			addContent(new LanguageDAO(session).findAll().getResult());
+			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
 			return;
 		}
-
+		
 	}
-
+	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
@@ -50,28 +50,28 @@ public class BuildingMaterialForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
 			BuildingMaterial entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new BuildingMaterial();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
-
+			entity.setLocName(getLocalizedNames(session, formData));
+			
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-
-		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
+			
+		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

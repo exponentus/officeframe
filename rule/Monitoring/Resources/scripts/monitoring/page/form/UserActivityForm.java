@@ -5,10 +5,10 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoForm;
 import com.exponentus.user.IUser;
 
@@ -19,7 +19,7 @@ import reference.model.constants.CountryCode;
 public class UserActivityForm extends _DoForm {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser<Long> user = session.getUser();
@@ -39,7 +39,7 @@ public class UserActivityForm extends _DoForm {
 	}
 	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -63,7 +63,7 @@ public class UserActivityForm extends _DoForm {
 			
 			save(session, entity, dao, isNew);
 			
-		} catch (_Exception | SecureException | DAOException e) {
+		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
@@ -78,7 +78,7 @@ public class UserActivityForm extends _DoForm {
 		}
 	}
 	
-	private _Validation validate(_WebFormData formData, LanguageCode lang) {
+	private _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));

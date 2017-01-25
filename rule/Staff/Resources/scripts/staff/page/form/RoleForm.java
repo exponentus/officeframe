@@ -6,10 +6,10 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import staff.dao.RoleDAO;
@@ -22,7 +22,7 @@ import staff.model.Role;
 public class RoleForm extends StaffForm {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		Role entity;
@@ -46,7 +46,7 @@ public class RoleForm extends StaffForm {
 	}
 	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -76,7 +76,7 @@ public class RoleForm extends StaffForm {
 				dao.update(entity);
 			}
 			
-		} catch (_Exception | DatabaseException | SecureException | DAOException e) {
+		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}

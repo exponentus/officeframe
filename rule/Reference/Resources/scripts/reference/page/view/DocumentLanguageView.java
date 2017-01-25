@@ -6,7 +6,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -20,7 +20,7 @@ import reference.model.DocumentLanguage;
 public class DocumentLanguageView extends _DoPage {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		IUser<Long> user = session.getUser();
 		try {
@@ -42,7 +42,7 @@ public class DocumentLanguageView extends _DoPage {
 	}
 	
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		try {
 			
 			DocumentLanguageDAO dao = new DocumentLanguageDAO(session);

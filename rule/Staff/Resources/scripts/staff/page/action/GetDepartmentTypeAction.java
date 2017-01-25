@@ -5,7 +5,7 @@ import java.util.List;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.server.Server;
 
@@ -15,7 +15,7 @@ import reference.model.DepartmentType;
 public class GetDepartmentTypeAction extends _DoPage {
 	
 	@Override
-	public void doGET(_Session ses, _WebFormData formData) {
+	public void doGET(_Session ses, WebFormData formData) {
 		try {
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(ses);
 			List<DepartmentType> list = dao.findAll().getResult();

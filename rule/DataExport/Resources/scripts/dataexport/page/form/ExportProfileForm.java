@@ -7,7 +7,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoForm;
 import com.exponentus.user.IUser;
 
@@ -18,7 +18,7 @@ import reference.model.constants.CountryCode;
 public class ExportProfileForm extends _DoForm {
 
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser<Long> user = session.getUser();
@@ -39,7 +39,7 @@ public class ExportProfileForm extends _DoForm {
 	}
 
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -80,7 +80,7 @@ public class ExportProfileForm extends _DoForm {
 		}
 	}
 
-	private _Validation validate(_WebFormData formData, LanguageCode lang) {
+	private _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));

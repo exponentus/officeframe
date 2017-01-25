@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import staff.dao.OrganizationDAO;
@@ -16,7 +16,7 @@ import staff.model.Organization;
 public class GetDepartmentsAction extends _DoPage {
 	
 	@Override
-	public void doGET(_Session ses, _WebFormData formData) {
+	public void doGET(_Session ses, WebFormData formData) {
 		try {
 			String orgId = formData.getValueSilently("organization");
 			if (!orgId.isEmpty()) {

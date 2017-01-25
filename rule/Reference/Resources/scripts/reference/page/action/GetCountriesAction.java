@@ -3,7 +3,7 @@ package reference.page.action;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import reference.dao.CountryDAO;
@@ -16,7 +16,7 @@ import reference.model.Country;
 public class GetCountriesAction extends _DoPage {
 	
 	@Override
-	public void doGET(_Session ses, _WebFormData formData) {
+	public void doGET(_Session ses, WebFormData formData) {
 		try {
 			String keyword = formData.getValueSilently("keyword");
 			int pageNum = formData.getNumberValueSilently("page", 1);

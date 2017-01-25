@@ -10,7 +10,7 @@ import com.exponentus.messaging.email.MailAgent;
 import com.exponentus.messaging.email.Memo;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import administrator.dao.LanguageDAO;
@@ -20,7 +20,7 @@ import administrator.model.User;
 public class RegForm extends _DoPage {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			addContent(new LanguageDAO(session).findAllActivated());
 		} catch (DAOException e) {
@@ -31,7 +31,7 @@ public class RegForm extends _DoPage {
 	}
 	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -69,7 +69,7 @@ public class RegForm extends _DoPage {
 		}
 	}
 	
-	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
+	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		
 		if (formData.getValueSilently("email").isEmpty()) {

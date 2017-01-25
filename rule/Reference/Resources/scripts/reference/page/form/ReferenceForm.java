@@ -2,7 +2,7 @@ package reference.page.form;
 
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -31,18 +31,18 @@ public abstract class ReferenceForm extends _DoForm {
 	}
 
 	@Override
-	public abstract void doGET(_Session session, _WebFormData formData);
+	public abstract void doGET(_Session session, WebFormData formData);
 
 	@Override
-	public abstract void doPOST(_Session session, _WebFormData formData);
+	public abstract void doPOST(_Session session, WebFormData formData);
 
 	@Override
-	public void doPUT(_Session session, _WebFormData formData) {
+	public void doPUT(_Session session, WebFormData formData) {
 
 	}
 
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 
 	}
 }

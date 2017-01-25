@@ -22,13 +22,13 @@ import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting.IPOJOObject;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._FormAttachments;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._POJOObjectWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
 
@@ -51,7 +51,7 @@ import staff.model.Role;
 public class EmployeeForm extends StaffForm {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		String fsId = formData.getValueSilently(EnvConst.FSID_FIELD_NAME);
@@ -134,7 +134,7 @@ public class EmployeeForm extends StaffForm {
 	}
 	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		devPrint(formData);
 		try {
 			String id = formData.getValueSilently("docid");
@@ -212,14 +212,14 @@ public class EmployeeForm extends StaffForm {
 				dao.update(entity);
 			}
 			
-		} catch (_Exception | SecureException | DAOException e) {
+		} catch (WebFormException | SecureException | DAOException e) {
 			setBadRequest();
 			logError(e);
 		}
 	}
 	
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
 		Employee entity;
 		try {
@@ -260,7 +260,7 @@ public class EmployeeForm extends StaffForm {
 		}
 	}
 	
-	protected _Validation validate(_WebFormData formData, LanguageCode lang, boolean isNew) {
+	protected _Validation validate(WebFormData formData, LanguageCode lang, boolean isNew) {
 		_Validation ve = new _Validation();
 		
 		if (formData.getValueSilently("name").isEmpty()) {

@@ -8,7 +8,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.server.Server;
 import com.exponentus.user.AnonymousUser;
@@ -21,7 +21,7 @@ import administrator.model.Application;
 public class Workspace extends _DoPage {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		addValue("serverversion", Server.serverVersion);
 		addValue("build", Server.compilationTime);
 		addValue("org", Environment.orgName);

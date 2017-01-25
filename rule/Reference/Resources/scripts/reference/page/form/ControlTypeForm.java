@@ -4,10 +4,10 @@ import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -15,9 +15,9 @@ import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
 
 public class ControlTypeForm extends ReferenceForm {
-	
+
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser<Long> user = session.getUser();
@@ -38,9 +38,9 @@ public class ControlTypeForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
@@ -48,29 +48,29 @@ public class ControlTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			ControlTypeDAO dao = new ControlTypeDAO(session);
 			ControlType entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new ControlType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setDefaultHours(formData.getNumberValueSilently("defaulthours", 30));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
-			
+			entity.setLocName(getLocalizedNames(session, formData));
+
 			save(session, entity, dao, isNew);
-			
-		} catch (_Exception | SecureException | DAOException e) {
+
+		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-	
+
 	private void save(_Session ses, ControlType entity, ControlTypeDAO dao, boolean isNew)
 			throws SecureException, DAOException {
 		/*
@@ -80,12 +80,12 @@ public class ControlTypeForm extends ReferenceForm {
 		 * getLocalizedWord("code_is_not_unique", ses.getLang()));
 		 * setBadRequest(); setValidation(ve); return; }
 		 */
-		
+
 		if (isNew) {
 			dao.add(entity);
 		} else {
 			dao.update(entity);
 		}
 	}
-	
+
 }

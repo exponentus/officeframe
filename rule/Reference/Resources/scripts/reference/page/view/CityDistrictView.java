@@ -2,7 +2,7 @@ package reference.page.view;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -15,7 +15,7 @@ import reference.model.CityDistrict;
 public class CityDistrictView extends ReferenceView<CityDistrict> {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		IUser<Long> user = session.getUser();
 		try {
 			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
@@ -36,7 +36,7 @@ public class CityDistrictView extends ReferenceView<CityDistrict> {
 	}
 	
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		delete(formData.getListOfValuesSilently("docid"), CityDistrict.class);
 	}
 }

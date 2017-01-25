@@ -5,10 +5,10 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._Exception;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
@@ -18,7 +18,7 @@ import reference.model.DocumentSubject;
 public class DocumentSubjectForm extends ReferenceForm {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser<Long> user = session.getUser();
@@ -41,7 +41,7 @@ public class DocumentSubjectForm extends ReferenceForm {
 	}
 	
 	@Override
-	public void doPOST(_Session session, _WebFormData formData) {
+	public void doPOST(_Session session, WebFormData formData) {
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {
@@ -67,7 +67,7 @@ public class DocumentSubjectForm extends ReferenceForm {
 			
 			save(session, entity, dao, isNew);
 			
-		} catch (_Exception | SecureException | DAOException e) {
+		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
@@ -89,7 +89,7 @@ public class DocumentSubjectForm extends ReferenceForm {
 		}
 	}
 	
-	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
+	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		return simpleCheck("name");
 	}
 	

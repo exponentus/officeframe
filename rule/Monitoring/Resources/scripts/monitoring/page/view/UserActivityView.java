@@ -6,7 +6,7 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -19,7 +19,7 @@ public class UserActivityView extends _DoPage {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
 		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_userprofile");
 		newDocAction.setURL("Provider?id=useractivity-form");
@@ -44,7 +44,7 @@ public class UserActivityView extends _DoPage {
 	}
 
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		UserActivityDAO dao = new UserActivityDAO(session);
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			UserActivity m = dao.findById(Long.parseLong(id));

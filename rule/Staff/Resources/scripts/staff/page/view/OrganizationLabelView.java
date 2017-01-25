@@ -7,7 +7,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -26,7 +26,7 @@ import staff.model.OrganizationLabel;
 public class OrganizationLabelView extends _DoPage {
 	
 	@Override
-	public void doGET(_Session session, _WebFormData formData) {
+	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		try {
 			OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
@@ -56,7 +56,7 @@ public class OrganizationLabelView extends _DoPage {
 	}
 	
 	@Override
-	public void doDELETE(_Session session, _WebFormData formData) {
+	public void doDELETE(_Session session, WebFormData formData) {
 		println(formData);
 		try {
 			OrganizationLabelDAO dao = new OrganizationLabelDAO(session);

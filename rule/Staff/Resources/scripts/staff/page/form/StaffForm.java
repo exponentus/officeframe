@@ -8,7 +8,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting._WebFormData;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -25,7 +25,7 @@ import administrator.model.Language;
 
 public abstract class StaffForm extends _DoForm {
 	
-	protected _Validation validate(_WebFormData formData, LanguageCode lang) {
+	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
 		
 		if (formData.getValueSilently("name").isEmpty()) {
@@ -46,7 +46,7 @@ public abstract class StaffForm extends _DoForm {
 	}
 	
 	@Override
-	protected Map<LanguageCode, String> getLocalizedNames(_Session session, _WebFormData formData) {
+	protected Map<LanguageCode, String> getLocalizedNames(_Session session, WebFormData formData) {
 		Map<LanguageCode, String> localizedNames = new HashMap<LanguageCode, String>();
 		try {
 			List<Language> langs = new LanguageDAO(session).findAllActivated();
