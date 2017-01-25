@@ -1679,8 +1679,8 @@ nb.dialog = {
         }
         //
         var titleBarHeight = $('.ui-dialog-titlebar', $dlgw[0]).outerHeight();
-        var actionBarHeight = $('.ui-dialog-buttonpane', $dlgw[0]).outerHeight()
-        var searchBarHeight = $('.dialog-filter', $dlgw[0]).outerHeight()
+        var actionBarHeight = $('.ui-dialog-buttonpane', $dlgw[0]).outerHeight();
+        var searchBarHeight = $('.dialog-filter', $dlgw[0]).outerHeight();
         var barHeight = titleBarHeight + actionBarHeight + searchBarHeight;
         //
         var wh = window.innerHeight;
@@ -2558,7 +2558,7 @@ nb.getSelectOptions = function(selectOptions) {
             meta = {},
             list = {},
             buff = {};
-        var lang = "ENG";
+        var lang = 'ENG';
         var ck = document.cookie.match('(lang)=(.*?)($|;|,(?! ))');
         if (ck) {
             lang = ck[2];
@@ -2572,14 +2572,11 @@ nb.getSelectOptions = function(selectOptions) {
                     break;
                 }
             }
-            // meta = data.objects[0].meta;
-            // list = data.objects[0].list;
 
             for (var k in list) {
                 buff = {
                     id: list[k].id,
                     text: list[k].localizedName[lang]
-
                 };
 
                 if (options.fields) {
@@ -2619,7 +2616,7 @@ nb.getSelectOptions = function(selectOptions) {
     return {
         allowClear: true,
         minimumInputLength: options.minimumInputLength || 0,
-        tags:options.tags || false,
+        tags: options.tags || false,
         minimumResultsForSearch: options.minimumResultsForSearch || 20,
         placeholder: options.placeholder || '',
         templateResult: options.templateResult,
