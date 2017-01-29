@@ -56,7 +56,7 @@
                             <xsl:value-of select="viewcontent/login"/>
                         </span>
                         <span class="vw-bin">
-                           <xsl:if test="viewcontent/roles/entry = 'dismissed'">
+                           <xsl:if test="lower-case(viewcontent/roles/entry) = 'dismissed'">
                                <div class="select__selected tag" style="color: red ;">
                                    <div class="select__selected-text">dismissed</div>
                                </div>
