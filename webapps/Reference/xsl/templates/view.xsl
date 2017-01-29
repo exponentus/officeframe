@@ -7,7 +7,7 @@
 
         <h1 class="header-title">
             <xsl:value-of select="$title"/>
-
+            <input type="hidden" id="entity" value="{//view_content//query/@entity}"/>
             <xsl:if test="//view_content//query/@count">
                 <sup class="entry-count">
                     <xsl:value-of select="concat('(', //view_content//query/@count, ')')"/>
