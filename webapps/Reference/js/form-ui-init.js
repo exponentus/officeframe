@@ -34,7 +34,7 @@ $(function() {
         }
         var form_name = $("#entity").val()+ "-form";
        nb.xhrDelete(location.href + '&docid=' + docids.join('&docid=')+'&form='+ form_name).then(function() {
-           // location.reload();
+            location.reload();
         });
     });
 
