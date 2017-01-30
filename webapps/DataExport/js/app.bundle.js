@@ -2453,8 +2453,17 @@ nb.notify = function(options) {
 nb.xhrDelete = function(url) {
     return $.ajax({
         type: 'DELETE',
+        url: url,
         dataType: 'json',
-        url: url
+        success: function(data, text) {},
+        error: function(request) {
+            var request_json = jQuery.parseJSON(request.responseText);
+            var notify = nb.notify({
+                message: request_json.validation.errors[0].message,
+                type: 'error'
+            }).show();
+            notify.remove(2000);
+        }
     });
 };
 
