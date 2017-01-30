@@ -24,13 +24,13 @@ import reference.model.Tag;
 public class ImportHarAsTagNSF extends ImportNSF {
 	private static final String sdCatName = "ЦОД";
 	private static final String tagCatName = "incoming";
-
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Tag> entities = new HashMap<>();
 		try {
 			TagDAO dao = new TagDAO(ses);
-
+			
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -49,7 +49,7 @@ public class ImportHarAsTagNSF extends ImportNSF {
 						Map<LanguageCode, String> localizedNames = new HashMap<>();
 						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name1"));
 						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name2"));
-						entity.setLocalizedName(localizedNames);
+						entity.setLocName(localizedNames);
 						entity.setCategory(tagCatName);
 						entity.setColor(StringUtil.getRandomColor());
 						entities.put(doc.getUniversalID(), entity);
@@ -61,9 +61,9 @@ public class ImportHarAsTagNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-
+			
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-
+			
 			for (Entry<String, Tag> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
@@ -72,5 +72,5 @@ public class ImportHarAsTagNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

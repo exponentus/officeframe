@@ -23,11 +23,11 @@ import reference.model.OrgCategory;
 
 @Command(name = "prepare_storage")
 public class PrepareStorage extends _Do {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Vocabulary vocabular = getCurrentAppEnv().vocabulary;
-		
+
 		Map<LanguageCode, String> gag = new HashMap<>();
 		gag.put(LanguageCode.ENG, vocabular.getWord(ConvertorEnvConst.GAG_KEY, LanguageCode.ENG));
 		gag.put(LanguageCode.KAZ, vocabular.getWord(ConvertorEnvConst.GAG_KEY, LanguageCode.KAZ));
@@ -36,7 +36,7 @@ public class PrepareStorage extends _Do {
 			DepartmentTypeDAO dao = new DepartmentTypeDAO(ses);
 			DepartmentType entity = new DepartmentType();
 			entity.setName(ConvertorEnvConst.GAG_KEY);
-			entity.setLocalizedName(gag);
+			entity.setLocName(gag);
 			try {
 				dao.add(entity);
 			} catch (DAOException e) {
@@ -50,11 +50,11 @@ public class PrepareStorage extends _Do {
 			} catch (SecureException e) {
 				logger.errorLogEntry(e);
 			}
-
+			
 			OrgCategoryDAO dao1 = new OrgCategoryDAO(ses);
 			OrgCategory entity1 = new OrgCategory();
 			entity1.setName(ConvertorEnvConst.GAG_KEY);
-			entity1.setLocalizedName(gag);
+			entity1.setLocName(gag);
 			try {
 				dao1.add(entity1);
 			} catch (DAOException e) {
@@ -68,12 +68,12 @@ public class PrepareStorage extends _Do {
 			} catch (SecureException e) {
 				logger.errorLogEntry(e);
 			}
-
+			
 			DocumentLanguageDAO dao2 = new DocumentLanguageDAO(ses);
 			DocumentLanguage entity2 = new DocumentLanguage();
 			entity2.setName(ConvertorEnvConst.GAG_ENTITY);
 			entity2.setCode(LanguageCode.UNKNOWN);
-			entity2.setLocalizedName(gag);
+			entity2.setLocName(gag);
 			try {
 				dao2.add(entity2);
 			} catch (DAOException e) {
@@ -91,5 +91,5 @@ public class PrepareStorage extends _Do {
 			logger.errorLogEntry(e);
 		}
 	}
-	
+
 }

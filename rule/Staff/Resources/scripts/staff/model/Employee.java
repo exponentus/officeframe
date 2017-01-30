@@ -215,7 +215,7 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IEmpl
 		chunk.append("<roles>");
 		if (roles != null) {
 			for (Role l : roles) {
-				chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocalizedName(ses.getLang()) + "</entry>");
+				chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocName(ses.getLang()) + "</entry>");
 			}
 		}
 		chunk.append("</roles>");
@@ -249,21 +249,20 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IEmpl
 		chunk.append("<birthdate>" + TimeUtil.dateTimeToStringSilently(birthDate) + "</birthdate>");
 
 		if (organization != null) {
-			chunk.append("<organization id=\"" + organization.getId() + "\">"
-					+ organization.getLocalizedName(ses.getLang()) + "</organization>");
+			chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang())
+					+ "</organization>");
 		}
 		if (department != null) {
-			chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocalizedName(ses.getLang())
+			chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocName(ses.getLang())
 					+ "</department>");
 		}
 		
-		chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocalizedName(ses.getLang())
-				+ "</position>");
+		chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocName(ses.getLang()) + "</position>");
 		
 		chunk.append("<roles>");
 		if (roles != null) {
 			for (Role l : roles) {
-				chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocalizedName(ses.getLang()) + "</entry>");
+				chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocName(ses.getLang()) + "</entry>");
 			}
 		}
 		chunk.append("</roles>");

@@ -13,28 +13,28 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "roles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
+@Table(name = "roles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Role.findAll", query = "SELECT m FROM Role AS m ORDER BY m.regDate")
 public class Role extends SimpleReferenceEntity {
-
+	
 	@ManyToMany(mappedBy = "roles")
 	private List<Employee> employees;
-
+	
 	private String description;
-
+	
 	public String getDescription() {
 		return description;
 	}
-
+	
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
+	
 	@JsonIgnore
 	public List<Employee> getEmployees() {
 		return employees;
 	}
-
+	
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -42,9 +42,9 @@ public class Role extends SimpleReferenceEntity {
 		chunk.append("<description>" + description + "</description>");
 		return chunk.toString();
 	}
-
+	
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<name>" + getLocalizedName(ses.getLang()) + "</name><description>" + description + "</description>";
+		return "<name>" + getLocName(ses.getLang()) + "</name><description>" + description + "</description>";
 	}
 }

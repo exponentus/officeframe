@@ -31,7 +31,7 @@ import staff.model.OrganizationLabel;
 public class ImportOrgsFromNSF extends ImportNSF {
 	private static final String PRIMARY_ORGANIZATION = "Банк развития Казахстана".toLowerCase();
 	private static final String PRIMARY_ORGANIZATION_LABEL = "primary";
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Organization> entities = new HashMap<>();
@@ -39,7 +39,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 			OrganizationDAO oDao = new OrganizationDAO(ses);
 			Map<String, String> typeCorrCollation = typeCorrCollationMapInit();
-			
+
 			try {
 				ViewEntryCollection vec = getAllEntries("struct.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -61,7 +61,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 							localizedNames.put(LanguageCode.RUS, orgName);
 							localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("FullNameKZ"));
 							localizedNames.put(LanguageCode.ENG, orgName);
-							entity.setLocalizedName(localizedNames);
+							entity.setLocName(localizedNames);
 							String typeCorr = doc.getItemValueString("TypeCorr");
 							String intRefKey = typeCorrCollation.get(typeCorr);
 							if (intRefKey == null) {
@@ -91,7 +91,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
 			for (Entry<String, Organization> entry : entities.entrySet()) {
 				save(oDao, entry.getValue(), entry.getKey());
@@ -101,7 +101,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 	private Map<String, String> typeCorrCollationMapInit() {
 		Map<String, String> typeCorrCollation = new HashMap<>();
 		typeCorrCollation.put("ТОО", "LTD");
@@ -150,11 +150,11 @@ public class ImportOrgsFromNSF extends ImportNSF {
 		typeCorrCollation.put("Посольство в РК", "Embassy");
 		typeCorrCollation.put("Посольства РК за рубежом", "Embassy");
 		typeCorrCollation.put("Университет", "Educational_institution");
-		
+
 		typeCorrCollation.put("null", ConvertorEnvConst.GAG_KEY);
 		typeCorrCollation.put("", ConvertorEnvConst.GAG_KEY);
 		return typeCorrCollation;
-		
+
 	}
-	
+
 }

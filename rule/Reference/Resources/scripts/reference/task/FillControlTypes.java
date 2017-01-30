@@ -20,11 +20,11 @@ import reference.model.ControlType;
 @Command(name = "fill_control_types")
 public class FillControlTypes extends _Do {
 	private static final int HOURS_TO_DO = 24 * 30;
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<ControlType> entities = new ArrayList<>();
-
+		
 		String codes[] = { "ВС", "ДВ", "ДС", "ДУ", "К", "РК", "СК" };
 		String names[] = { "very_urgent", "for_meeting", "for_information", "to_participate", "in_control",
 				"on_normal_control", "urgent_control" };
@@ -39,11 +39,11 @@ public class FillControlTypes extends _Do {
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.KAZ, namesKaz[i]);
 			name.put(LanguageCode.RUS, namesRus[i]);
-			cType.setLocalizedName(name);
+			cType.setLocName(name);
 			cType.setDefaultHours(HOURS_TO_DO);
 			entities.add(cType);
 		}
-
+		
 		try {
 			ControlTypeDAO dao = new ControlTypeDAO(ses);
 			for (ControlType entry : entities) {
@@ -68,5 +68,5 @@ public class FillControlTypes extends _Do {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

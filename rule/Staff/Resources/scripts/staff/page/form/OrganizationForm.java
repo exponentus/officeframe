@@ -9,11 +9,11 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import reference.dao.OrgCategoryDAO;
@@ -82,7 +82,7 @@ public class OrganizationForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setLocName(getLocalizedNames(session, formData));
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(session);
 			entity.setOrgCategory(ocDao.findById(formData.getValue("orgcategory")));
 			entity.setBin(formData.getValue("bin"));
@@ -106,6 +106,7 @@ public class OrganizationForm extends StaffForm {
 
 		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
 			logError(e);
+			setBadRequest();
 		}
 	}
 

@@ -13,7 +13,7 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "org_labels", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }) )
+@Table(name = "org_labels", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "OrganizationLabel.findAll", query = "SELECT m FROM OrganizationLabel AS m ORDER BY m.regDate")
 public class OrganizationLabel extends SimpleReferenceEntity {
 
@@ -37,11 +37,11 @@ public class OrganizationLabel extends SimpleReferenceEntity {
 
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<name>" + getLocalizedName(ses.getLang()) + "</name><description>" + description + "</description>";
+		return "<name>" + getLocName(ses.getLang()) + "</name><description>" + description + "</description>";
 	}
 
 	@Override
 	public String getURL() {
-		return "Provider?id=organization-label-form&amp;docid=" + getId();
+		return "p?id=organization-label-form&amp;docid=" + getId();
 	}
 }

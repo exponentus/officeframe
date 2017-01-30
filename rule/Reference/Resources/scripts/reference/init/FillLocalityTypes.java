@@ -19,7 +19,7 @@ import reference.model.constants.LocalityCode;
  */
 
 public class FillLocalityTypes extends InitialDataAdapter<LocalityType, LocalityTypeDAO> {
-
+	
 	@Override
 	public List<LocalityType> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<LocalityType> entities = new ArrayList<LocalityType>();
@@ -27,7 +27,7 @@ public class FillLocalityTypes extends InitialDataAdapter<LocalityType, Locality
 		String[] data = { "Город", "Село" };
 		String[] dataKZ = { "Город", "Село" };
 		LocalityCode[] code = { LocalityCode.CITY, LocalityCode.VILLAGE };
-
+		
 		for (int i = 0; i < data.length; i++) {
 			LocalityType entity = new LocalityType();
 			entity.setName(data[i]);
@@ -35,12 +35,12 @@ public class FillLocalityTypes extends InitialDataAdapter<LocalityType, Locality
 			name.put(LanguageCode.ENG, dataEng[i]);
 			name.put(LanguageCode.KAZ, dataKZ[i]);
 			name.put(LanguageCode.RUS, data[i]);
-			entity.setLocalizedName(name);
+			entity.setLocName(name);
 			entity.setCode(code[i]);
 			entities.add(entity);
 		}
-
+		
 		return entities;
 	}
-
+	
 }

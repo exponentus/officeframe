@@ -18,14 +18,14 @@ import reference.model.DepartmentType;
  */
 
 public class FillDepartmentType extends InitialDataAdapter<DepartmentType, DepartmentTypeDAO> {
-
+	
 	@Override
 	public List<DepartmentType> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<DepartmentType> entities = new ArrayList<>();
 		String[] data = { "Department", "Sector", "Group", "Management" };
 		String[] dataRus = { "Департамент", "Сектор", "Группа", "Управление" };
 		String[] dataKaz = { "Департамент", "Сектор", "Группа", "Управление" };
-
+		
 		for (int i = 0; i < data.length; i++) {
 			DepartmentType entity = new DepartmentType();
 			entity.setName(data[i]);
@@ -33,11 +33,11 @@ public class FillDepartmentType extends InitialDataAdapter<DepartmentType, Depar
 			name.put(LanguageCode.ENG, data[i]);
 			name.put(LanguageCode.KAZ, dataKaz[i]);
 			name.put(LanguageCode.RUS, dataRus[i]);
-			entity.setLocalizedName(name);
+			entity.setLocName(name);
 			entities.add(entity);
 		}
-
+		
 		return entities;
 	}
-
+	
 }

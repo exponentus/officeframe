@@ -31,7 +31,7 @@ public class FillDocumentLanguages extends _Do {
 			DocumentLanguage docLang = new DocumentLanguage();
 			docLang.setCode(code);
 			docLang.setName(lang.getName());
-			docLang.setLocalizedName(lang.getLocalizedName());
+			docLang.setLocName(lang.getLocName());
 			entities.add(docLang);
 		}
 

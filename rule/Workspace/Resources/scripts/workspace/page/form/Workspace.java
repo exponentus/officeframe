@@ -7,8 +7,9 @@ import java.util.List;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._POJOListWrapper;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.server.Server;
 import com.exponentus.user.AnonymousUser;
@@ -17,6 +18,7 @@ import com.exponentus.user.IUser;
 import administrator.dao.ApplicationDAO;
 import administrator.dao.LanguageDAO;
 import administrator.model.Application;
+import administrator.model.embedded.UserApplication;
 
 public class Workspace extends _DoPage {
 	
@@ -30,10 +32,12 @@ public class Workspace extends _DoPage {
 				IUser<Long> user = session.getUser();
 				ApplicationDAO aDao = new ApplicationDAO(session);
 				List<Application> aa = new ArrayList<Application>();
+				List<UserApplication> userApps = null;
 				if (user.isSuperUser()) {
 					aa = aDao.findAllActivated().getResult();
 				} else {
 					aa = user.getAllowedApps();
+					userApps = user.getUserApplications();
 				}
 				
 				Application app = aDao.findByName(EnvConst.WORKSPACE_NAME);
@@ -42,6 +46,9 @@ public class Workspace extends _DoPage {
 				}
 				Collections.sort(aa, (left, right) -> left.getPosition() - right.getPosition());
 				addContent(aa);
+				if (userApps != null) {
+					addContent(new _POJOListWrapper<UserApplication>(userApps, session));
+				}
 			} else {
 				setUnauthorized();
 			}

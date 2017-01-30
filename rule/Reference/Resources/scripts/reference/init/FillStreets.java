@@ -11,7 +11,7 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
-import com.exponentus.util.Util;
+import com.exponentus.util.StringUtil;
 
 import jxl.Sheet;
 import jxl.Workbook;
@@ -53,7 +53,7 @@ public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
 					Sheet sheet = workbook.getSheet(0);
 					int rCount = sheet.getRows();
 					for (int i = 2; i < rCount; i++) {
-						int id = Util.convertStringToInt(sheet.getCell(0, i).getContents());
+						int id = StringUtil.stringToInt(sheet.getCell(0, i).getContents(), -1);
 						String name = sheet.getCell(1, i).getContents();
 						if (!name.equals("") && !name.equals("''") & id != 0) {
 							Street entity = new Street();

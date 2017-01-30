@@ -2,14 +2,12 @@ package staff.page.form;
 
 import java.util.UUID;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.user.IUser;
 
 import staff.dao.OrganizationLabelDAO;
@@ -40,7 +38,6 @@ public class OrganizationLabelForm extends StaffForm {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			return;
 		}
 	}
 	
@@ -67,7 +64,7 @@ public class OrganizationLabelForm extends StaffForm {
 			
 			entity.setName(formData.getValue("name"));
 			entity.setDescription(formData.getValue("description"));
-			entity.setLocalizedName(getLocalizedNames(session, formData));
+			entity.setLocName(getLocalizedNames(session, formData));
 			
 			if (isNew) {
 				dao.add(entity);
@@ -75,8 +72,9 @@ public class OrganizationLabelForm extends StaffForm {
 				dao.update(entity);
 			}
 			
-		} catch (WebFormException | DatabaseException | SecureException | DAOException e) {
+		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
+			setBadRequest();
 		}
 	}
 }

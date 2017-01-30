@@ -21,13 +21,13 @@ import reference.model.Position;
 
 @Command(name = "import_positions_nsf")
 public class ImportPositionNSF extends ImportNSF {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Position> entities = new HashMap<>();
 		try {
 			PositionDAO dao = new PositionDAO(ses);
-			
+
 			try {
 				ViewEntryCollection vec = getAllEntries("sprav.nsf");
 				ViewEntry entry = vec.getFirstEntry();
@@ -45,7 +45,7 @@ public class ImportPositionNSF extends ImportNSF {
 						Map<LanguageCode, String> localizedNames = new HashMap<>();
 						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name1"));
 						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("Name2"));
-						entity.setLocalizedName(localizedNames);
+						entity.setLocName(localizedNames);
 						entity.setRank(doc.getItemValueInteger("Rank"));
 						entities.put(doc.getUniversalID(), entity);
 					}
@@ -56,9 +56,9 @@ public class ImportPositionNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-			
+
 			for (Entry<String, Position> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
@@ -67,5 +67,5 @@ public class ImportPositionNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

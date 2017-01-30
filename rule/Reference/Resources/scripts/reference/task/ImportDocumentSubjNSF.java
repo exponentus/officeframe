@@ -21,7 +21,7 @@ import reference.model.DocumentSubject;
 
 @Command(name = "import_har_nsf")
 public class ImportDocumentSubjNSF extends ImportNSF {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, DocumentSubject> entities = new HashMap<>();
@@ -45,7 +45,7 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 						Map<LanguageCode, String> localizedNames = new HashMap<>();
 						localizedNames.put(LanguageCode.RUS, doc.getItemValueString("Name"));
 						localizedNames.put(LanguageCode.KAZ, doc.getItemValueString("NameKZ"));
-						entity.setLocalizedName(localizedNames);
+						entity.setLocName(localizedNames);
 						entity.setCategory(doc.getItemValueString("Cat"));
 						entities.put(doc.getUniversalID(), entity);
 					}
@@ -56,9 +56,9 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 			} catch (NotesException e) {
 				logger.errorLogEntry(e);
 			}
-			
+
 			logger.infoLogEntry("has been found " + entities.size() + " records");
-			
+
 			for (Entry<String, DocumentSubject> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
@@ -67,5 +67,5 @@ public class ImportDocumentSubjNSF extends ImportNSF {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

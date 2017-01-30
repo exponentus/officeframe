@@ -14,36 +14,37 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
-import reference.dao.DemandTypeDAO;
-import reference.model.DemandType;
+import reference.dao.RegionTypeDAO;
+import reference.model.RegionType;
+import reference.model.constants.RegionCode;
 
-@Command(name = "fill_demand_types")
-public class FillDemandTypes extends _Do {
-
+@Command(name = "fill_region_types")
+public class FillRegionType extends _Do {
+	
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<DemandType> entities = new ArrayList<>();
+		List<RegionType> entities = new ArrayList<>();
+
+		String[] dataEng = { "Federation", "Region", "Urban agglomeration" };
+		String[] data = { "Федерация", "Область", "Городская агломерация" };
+		String[] dataKZ = { "Федерация", "Область", "Городская агломерация" };
+		RegionCode[] code = { RegionCode.FEDERATION, RegionCode.REGION, RegionCode.URBAN_AGGLOMERATION };
 		
-		String names[] = { "bug", "coding", "recommendation", "wish", "clarify" };
-		String namesEng[] = { "Bug report", "Demand to coding", "Recommendation", "Wish", "Demand to clarify" };
-		String namesRus[] = { "Сообщение об ошибке", "Запрос на доработку", "Рекомендация", "Пожелание",
-				"Запрос на разъяснение" };
-		String namesKaz[] = { "Сообщение об ошибке", "Запрос на доработку", "Рекомендация", "Пожелание",
-				"Запрос на разъяснение" };
-		for (int i = 0; i < names.length; i++) {
-			DemandType entity = new DemandType();
-			entity.setName(names[i]);
-			Map<LanguageCode, String> name = new HashMap<>();
-			name.put(LanguageCode.ENG, namesEng[i]);
-			name.put(LanguageCode.KAZ, namesKaz[i]);
-			name.put(LanguageCode.RUS, namesRus[i]);
+		for (int i = 0; i < data.length; i++) {
+			RegionType entity = new RegionType();
+			entity.setName(data[i]);
+			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+			name.put(LanguageCode.ENG, dataEng[i]);
+			name.put(LanguageCode.KAZ, dataKZ[i]);
+			name.put(LanguageCode.RUS, data[i]);
 			entity.setLocName(name);
+			entity.setCode(code[i]);
 			entities.add(entity);
 		}
-		
+
 		try {
-			DemandTypeDAO dao = new DemandTypeDAO(ses);
-			for (DemandType entry : entities) {
+			RegionTypeDAO dao = new RegionTypeDAO(ses);
+			for (RegionType entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.infoLogEntry(entry.getName() + " added");

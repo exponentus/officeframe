@@ -19,26 +19,26 @@ import reference.model.Position;
 
 @Command(name = "fill_positions")
 public class FillPositions extends _Do {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Position> entities = new ArrayList<Position>();
 		String[] data = { "SEO", "Manager", "Accounter", "Engineer", "Specialist", "Secretary", "Administrator",
 				"Department manager", "Forwarder", "unknown" };
-
+		
 		String[] dataRus = { "Директор", "Менеджер", "Бухгалтер", "Инженер", "Специалист", "Секретарь-референт",
 				"Администратор", "Руководитель подразделения", "Экспедитор", "unknown" };
-		
+
 		for (int i = 0; i < data.length; i++) {
 			Position entity = new Position();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
 			name.put(LanguageCode.ENG, data[i]);
 			name.put(LanguageCode.RUS, dataRus[i]);
-			entity.setLocalizedName(name);
+			entity.setLocName(name);
 			entities.add(entity);
 		}
-		
+
 		try {
 			PositionDAO dao = new PositionDAO(ses);
 			for (Position entry : entities) {
@@ -63,5 +63,5 @@ public class FillPositions extends _Do {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

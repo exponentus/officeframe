@@ -24,34 +24,34 @@ public class Street extends SimpleReferenceEntity {
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
 	private Locality locality;
-
+	
 	@Column(name = "street_id")
 	private int streetId;
-
+	
 	public int getStreetId() {
 		return streetId;
 	}
-
+	
 	public void setStreetId(int streetId) {
 		this.streetId = streetId;
 	}
-
+	
 	public Locality getLocality() {
 		return locality;
 	}
-
+	
 	public void setLocality(Locality city) {
 		this.locality = city;
 	}
-
+	
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<streetid>" + streetId + "</streetid>");
 		if (locality != null) {
-			chunk.append("<locality id=\"" + locality.getId() + "\">" + locality.getLocalizedName(ses.getLang())
-					+ "</locality>");
+			chunk.append(
+					"<locality id=\"" + locality.getId() + "\">" + locality.getLocName(ses.getLang()) + "</locality>");
 		}
 		return chunk.toString();
 	}
