@@ -1,23 +1,18 @@
 package reference.page.view;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
-import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import reference.dao.DistrictDAO;
-import reference.model.District;
 
-public class DistrictView extends _DoPage {
-	
+public class DistrictView extends ReferenceView {
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		IUser<Long> user = session.getUser();
@@ -29,32 +24,15 @@ public class DistrictView extends _DoPage {
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "",
 						_ActionType.DELETE_DOCUMENT));
-
+				
 				addContent(actionBar);
 			}
 			addContent(getViewPage(new DistrictDAO(session), formData));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-
+			
 		}
 	}
 	
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		try {
-			
-			DistrictDAO dao = new DistrictDAO(session);
-			for (String id : formData.getListOfValuesSilently("docid")) {
-				District m = dao.findById(UUID.fromString(id));
-				
-				dao.delete(m);
-				
-			}
-		} catch (DAOException | SecureException e) {
-			logError(e);
-			setBadRequest();
-
-		}
-	}
 }

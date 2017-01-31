@@ -1,23 +1,18 @@
 package reference.page.view;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
-import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import reference.dao.CountryDAO;
-import reference.model.Country;
 
-public class CountryView extends _DoPage {
-
+public class CountryView extends ReferenceView {
+	
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		IUser<Long> user = session.getUser();
@@ -35,24 +30,8 @@ public class CountryView extends _DoPage {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
+
 		}
 	}
-
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		try {
-
-			CountryDAO dao = new CountryDAO(session);
-			for (String id : formData.getListOfValuesSilently("docid")) {
-				Country c = dao.findById(UUID.fromString(id));
-				dao.delete(c);
-
-			}
-		} catch (DAOException | SecureException e) {
-			logError(e);
-			setBadRequest();
-			
-		}
-	}
+	
 }

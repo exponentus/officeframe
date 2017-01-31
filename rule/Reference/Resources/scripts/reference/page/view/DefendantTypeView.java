@@ -1,23 +1,18 @@
 package reference.page.view;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
-import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import reference.dao.DefendantTypeDAO;
-import reference.model.DefendantType;
 
-public class DefendantTypeView extends _DoPage {
-	
+public class DefendantTypeView extends ReferenceView {
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		IUser<Long> user = session.getUser();
@@ -36,23 +31,8 @@ public class DefendantTypeView extends _DoPage {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-
+			
 		}
 	}
 	
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		try {
-			
-			DefendantTypeDAO dao = new DefendantTypeDAO(session);
-			for (String id : formData.getListOfValuesSilently("docid")) {
-				DefendantType m = dao.findById(UUID.fromString(id));
-				dao.delete(m);
-			}
-		} catch (DAOException | SecureException e) {
-			logError(e);
-			setBadRequest();
-			
-		}
-	}
 }
