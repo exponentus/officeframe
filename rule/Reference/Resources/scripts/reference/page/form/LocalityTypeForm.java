@@ -69,7 +69,7 @@ public class LocalityTypeForm extends ReferenceForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-			entity.setCode(LocalityCode.valueOf(formData.getValueSilently("code", "UNKNOWN")));
+			entity.setCode(LocalityCode.valueOf(formData.getValueSilently("code", formData.getValue("code"))));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			try {

@@ -69,7 +69,7 @@ public class RegionTypeForm extends ReferenceForm {
 			}
 			
 			entity.setName(formData.getValue("name"));
-			entity.setCode(RegionCode.valueOf(formData.getValueSilently("code", "UNKNOWN")));
+			entity.setCode(RegionCode.valueOf(formData.getValueSilently("code", formData.getValue("code"))));
 			entity.setLocName(getLocalizedNames(session, formData));
 			
 			try {
