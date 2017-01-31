@@ -45,7 +45,9 @@
     <caption name="country"/>
     <caption name="locality"/>
     <caption name="region_types"/>
+    <caption name="region_code"/>
     <caption name="locality_types"/>
+    <caption name="locality_code"/>
     <caption name="street"/>
     <caption name="department_type"/>
     <caption name="position"/>

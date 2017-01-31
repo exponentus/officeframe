@@ -76,6 +76,18 @@
         <entry lang="KAZ">Түрлері аймақтардың</entry>
         <entry lang="POR"></entry>
     </sentence>
+    <sentence mode="on" keyword="region_code">
+        <entry lang="ENG">Region code</entry>
+        <entry lang="RUS">Код региона</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="locality_code">
+        <entry lang="ENG">Locality code</entry>
+        <entry lang="RUS">Код населенных пунктов</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="locality_types">
         <entry lang="ENG">Locality types</entry>
         <entry lang="RUS">Типы населенных пунктов</entry>

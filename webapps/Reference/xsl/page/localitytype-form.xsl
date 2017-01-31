@@ -30,6 +30,18 @@
                             <input type="text" name="name" value="{fields/name}" class="span7" autofocus="true"/>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            <xsl:value-of select="//captions/locality_code/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <select name="code" class="span3">
+                                <xsl:apply-templates select="//constants[@entity = 'localitycode']/entry" mode="select_options">
+                                    <xsl:with-param name="selected" select="fields/code"/>
+                                </xsl:apply-templates>
+                            </select>
+                        </div>
+                    </div>
                 </fieldset>
                 <fieldset class="fieldset">
                     <legend class="legend">
@@ -49,6 +61,17 @@
             </section>
             <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
         </form>
+    </xsl:template>
+
+    <xsl:template match="entry" mode="select_options">
+        <xsl:param name="selected"/>
+
+        <option value="{@attrval}">
+            <xsl:if test="@attrval = $selected">
+                <xsl:attribute name="selected" select="'selected'"/>
+            </xsl:if>
+            <xsl:value-of select="text()"/>
+        </option>
     </xsl:template>
 
 </xsl:stylesheet>
