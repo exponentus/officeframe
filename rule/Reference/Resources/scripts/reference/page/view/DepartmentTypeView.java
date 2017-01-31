@@ -1,23 +1,18 @@
 package reference.page.view;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.exception.SecureException;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
-import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import reference.dao.DepartmentTypeDAO;
-import reference.model.DepartmentType;
 
-public class DepartmentTypeView extends _DoPage {
-
+public class DepartmentTypeView extends ReferenceView {
+	
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -36,23 +31,8 @@ public class DepartmentTypeView extends _DoPage {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
-		}
-	}
-
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		try {
-			DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
-			for (String id : formData.getListOfValuesSilently("docid")) {
-				DepartmentType m = dao.findById(UUID.fromString(id));
-				dao.delete(m);
-
-			}
-		} catch (DAOException | SecureException e) {
-			logError(e);
-			setBadRequest();
 
 		}
 	}
+	
 }

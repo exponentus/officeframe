@@ -1,8 +1,8 @@
 package reference.page.view;
 
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
@@ -10,9 +10,8 @@ import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import reference.dao.BuildingMaterialDAO;
-import reference.model.BuildingMaterial;
 
-public class BuildingMaterialView extends ReferenceView<BuildingMaterial> {
+public class BuildingMaterialView extends ReferenceView {
 
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
@@ -35,9 +34,5 @@ public class BuildingMaterialView extends ReferenceView<BuildingMaterial> {
 			
 		}
 	}
-
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		delete(formData.getListOfValuesSilently("docid"), BuildingMaterial.class);
-	}
+	
 }

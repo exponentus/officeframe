@@ -7,23 +7,21 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.exception.SecureException;
+import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
-public class ReferenceView<T> extends _DoPage {
-
+public class ReferenceView extends _DoPage {
+	
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
-		
-	}
-
-	public void delete(String[] ids, Class<T> clazz) {
-		IDAO<T, UUID> dao = (IDAO<T, UUID>) DAOFactory.get(getSes(), clazz);
 		try {
+			IDAO<IAppEntity, UUID> dao = (IDAO<IAppEntity, UUID>) DAOFactory.get(getSes(), formData.getValue("form"));
 			for (String id : formData.getListOfValuesSilently("docid")) {
-				T m = dao.findById(UUID.fromString(id));
+				IAppEntity m = dao.findById(UUID.fromString(id));
 				dao.delete(m);
 			}
 		} catch (DAOException e) {
@@ -36,9 +34,10 @@ public class ReferenceView<T> extends _DoPage {
 			} else {
 				logError(e);
 			}
-		} catch (SecureException e) {
+		} catch (SecureException | WebFormException e) {
 			logError(e);
 			setBadRequest();
 		}
 	}
+	
 }

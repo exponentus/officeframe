@@ -1,24 +1,19 @@
 package reference.page.view;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
-import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 
 import reference.dao.DocumentSubjectDAO;
-import reference.model.DocumentSubject;
 
-public class DocumentSubjectView extends _DoPage {
-
+public class DocumentSubjectView extends ReferenceView {
+	
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
@@ -37,25 +32,8 @@ public class DocumentSubjectView extends _DoPage {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
-		}
-	}
-
-	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		try {
-			
-			DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
-			for (String id : formData.getListOfValuesSilently("docid")) {
-				DocumentSubject c = dao.findById(UUID.fromString(id));
-				
-				dao.delete(c);
-				
-			}
-		} catch (DAOException | SecureException e) {
-			logError(e);
-			setBadRequest();
 
 		}
 	}
+	
 }
