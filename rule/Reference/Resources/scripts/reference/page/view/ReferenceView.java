@@ -15,11 +15,11 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.event._DoPage;
 
 public class ReferenceView extends _DoPage {
-
+	
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
 		try {
-			IDAO<IAppEntity, UUID> dao = (IDAO<IAppEntity, UUID>) DAOFactory.get(getSes(), formData.getValue("form1"));
+			IDAO<IAppEntity, UUID> dao = (IDAO<IAppEntity, UUID>) DAOFactory.get(getSes(), formData.getValue("form"));
 			for (String id : formData.getListOfValuesSilently("docid")) {
 				IAppEntity m = dao.findById(UUID.fromString(id));
 				dao.delete(m);
@@ -39,5 +39,5 @@ public class ReferenceView extends _DoPage {
 			setBadRequest();
 		}
 	}
-
+	
 }
