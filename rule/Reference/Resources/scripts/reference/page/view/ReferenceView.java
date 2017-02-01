@@ -29,7 +29,6 @@ public class ReferenceView extends _DoPage {
 				_Validation ve = new _Validation();
 				ve.addError("", DAOExceptionType.VIOLATES_FOREIGN_KEY.name(),
 						getLocalizedWord(DAOExceptionType.VIOLATES_FOREIGN_KEY.name(), getSes().getLang()));
-				setBadRequest();
 				setValidation(ve);
 			} else {
 				logError(e);
