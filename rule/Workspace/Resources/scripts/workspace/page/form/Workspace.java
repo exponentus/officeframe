@@ -21,7 +21,7 @@ import administrator.model.Application;
 import administrator.model.embedded.UserApplication;
 
 public class Workspace extends _DoPage {
-
+	
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		addValue("serverversion", Server.serverVersion);
@@ -39,7 +39,7 @@ public class Workspace extends _DoPage {
 					aa = user.getAllowedApps();
 					userApps = user.getUserApplications();
 				}
-
+				
 				Application app = aDao.findByName(EnvConst.WORKSPACE_NAME);
 				if (app != null) {
 					aa.remove(app);
@@ -49,8 +49,7 @@ public class Workspace extends _DoPage {
 				if (userApps != null) {
 					addContent(new _POJOListWrapper<UserApplication>(userApps, session));
 				}
-				//session.share();
-				//Server.logger.infoLogEntry("session sahred" + session);
+
 			} else {
 				setUnauthorized();
 			}
