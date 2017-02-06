@@ -7,25 +7,26 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
 import com.exponentus.common.model.SimpleReferenceEntity;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
+
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import reference.model.constants.LocalityCode;
 
 @Entity
 @Cacheable(true)
-@Table(name = "locality_types")
+@Table(name = "locality_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }))
 @NamedQuery(name = "LocalityType.findAll", query = "SELECT m FROM LocalityType AS m ORDER BY m.regDate")
 public class LocalityType extends SimpleReferenceEntity {
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = true, length = 32, unique = true)
+	@Column(nullable = true, length = 32)
 	private LocalityCode code = LocalityCode.UNKNOWN;
 	
 	public LocalityCode getCode() {

@@ -16,7 +16,7 @@ import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
 
 public class OrgCategoryForm extends ReferenceForm {
-
+	
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -35,10 +35,10 @@ public class OrgCategoryForm extends ReferenceForm {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
+
 		}
 	}
-
+	
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -48,32 +48,32 @@ public class OrgCategoryForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-
+			
 			String id = formData.getValueSilently("docid");
 			OrgCategoryDAO dao = new OrgCategoryDAO(session);
 			OrgCategory entity;
 			boolean isNew = id.isEmpty();
-
+			
 			if (isNew) {
 				entity = new OrgCategory();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-
+			
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
-
+			
 			try {
 				if (isNew) {
 					dao.add(entity);
 				} else {
 					dao.update(entity);
 				}
-
+				
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 					ve = new _Validation();
-					ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", session.getLang()));
+					ve.addError("name", "unique_error", getLocalizedWord("name_is_not_unique", session.getLang()));
 					setBadRequest();
 					setValidation(ve);
 					return;
@@ -81,7 +81,7 @@ public class OrgCategoryForm extends ReferenceForm {
 					throw e;
 				}
 			}
-
+			
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
