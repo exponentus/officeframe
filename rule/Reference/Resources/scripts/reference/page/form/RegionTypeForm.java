@@ -82,7 +82,7 @@ public class RegionTypeForm extends ReferenceForm {
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 					ve = new _Validation();
-					ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", session.getLang()));
+					ve.addError("name", "unique_error", getLocalizedWord("name_is_not_unique", session.getLang()));
 					setBadRequest();
 					setValidation(ve);
 					return;

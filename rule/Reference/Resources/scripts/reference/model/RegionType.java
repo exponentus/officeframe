@@ -7,25 +7,26 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
 import com.exponentus.common.model.SimpleReferenceEntity;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
+
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import reference.model.constants.RegionCode;
 
 @Entity
 @Cacheable(true)
-@Table(name = "region_types")
+@Table(name = "region_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }))
 @NamedQuery(name = "RegionType.findAll", query = "SELECT m FROM RegionType AS m ORDER BY m.regDate")
 public class RegionType extends SimpleReferenceEntity {
 	
 	@Enumerated(EnumType.STRING)
-	@Column(nullable = true, length = 32, unique = true)
+	@Column(nullable = true, length = 32)
 	private RegionCode code = RegionCode.UNKNOWN;
 	
 	public RegionCode getCode() {
