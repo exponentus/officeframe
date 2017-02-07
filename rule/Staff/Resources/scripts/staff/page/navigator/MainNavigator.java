@@ -36,11 +36,9 @@ public class MainNavigator extends _DoPage {
 			List<Organization> po = oDao.findPrimaryOrg();
 			if (po != null) {
 				for (Organization primaryOrg : po) {
-					if (primaryOrg != null) {
-						primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocName(lang),
-								getLocalizedWord("primary_organization", lang) + " : " + primaryOrg.getLocName(lang),
-								"structure-view", "p?id=structure-view"));
-					}
+					primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocName(lang),
+							getLocalizedWord("primary_organization", lang) + " : " + primaryOrg.getLocName(lang),
+							"structure-view", "p?id=structure-view"));
 				}
 			}
 			_OutlineEntry orgEntry = new _OutlineEntry(getLocalizedWord("organizations", lang), "organization-view");

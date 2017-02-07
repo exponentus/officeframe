@@ -33,7 +33,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 	public List<Organization> findPrimaryOrg() {
 		try {
 			ViewPage<Organization> result = findAllByLabel("primary", 1, 10);
-			if (result.getCount() > 0) {
+			if (result != null && result.getCount() > 0) {
 				return result.getResult();
 			}
 			return null;
@@ -73,11 +73,11 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 				return new ViewPage<>(result, count, maxPage, pageNum);
 
 			} else {
-				return new ViewPage<>(null);
+				return null;
 			}
 		} catch (DAOException e) {
 			Server.logger.errorLogEntry(e);
-			return new ViewPage<>(null);
+			return null;
 		} finally {
 			em.close();
 		}
