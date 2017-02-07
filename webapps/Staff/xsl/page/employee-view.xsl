@@ -56,15 +56,17 @@
                             <xsl:value-of select="viewcontent/login"/>
                         </span>
                         <span class="vw-bin">
-                           <xsl:if test="lower-case(viewcontent/roles/entry) = 'dismissed'">
-                               <div class="select__selected tag" style="color: red ;">
-                                   <div class="select__selected-text">dismissed</div>
-                               </div>
-                           </xsl:if>
+                            <xsl:apply-templates select="viewcontent/roles/entry[lower-case(.) = 'dismissed']" mode="tags"/>
                         </span>
                     </div>
                 </a>
             </div>
+        </div>
+    </xsl:template>
+
+    <xsl:template match="*" mode="tags">
+        <div class="select__selected tag" style="color: red ;">
+            <div class="select__selected-text">dismissed</div>
         </div>
     </xsl:template>
 
