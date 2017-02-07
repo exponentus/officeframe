@@ -22,13 +22,13 @@ import staff.model.OrganizationLabel;
 import staff.model.Role;
 
 public class MainNavigator extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		LinkedList<IOutcomeObject> list = new LinkedList<>();
 		List<_OutlineEntry> primaryOrgs = new ArrayList<_OutlineEntry>();
-		
+
 		_Outline common_outline = new _Outline(getLocalizedWord("common_staff_data", lang), "common");
 		try {
 			OrganizationDAO oDao;
@@ -36,9 +36,11 @@ public class MainNavigator extends _DoPage {
 			List<Organization> po = oDao.findPrimaryOrg();
 			if (po != null) {
 				for (Organization primaryOrg : po) {
-					primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocName(lang),
-							getLocalizedWord("primary_organization", lang) + " : " + primaryOrg.getLocName(lang),
-							"structure-view", "p?id=structure-view"));
+					if (primaryOrg != null) {
+						primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocName(lang),
+								getLocalizedWord("primary_organization", lang) + " : " + primaryOrg.getLocName(lang),
+								"structure-view", "p?id=structure-view"));
+					}
 				}
 			}
 			_OutlineEntry orgEntry = new _OutlineEntry(getLocalizedWord("organizations", lang), "organization-view");
@@ -55,20 +57,20 @@ public class MainNavigator extends _DoPage {
 						getLocalizedWord("assigned", lang) + " : " + role.getLocName(lang), "role-view" + role.getId(),
 						"p?id=role-view&categoryid=" + role.getId()));
 			}
-
+			
 			for (_OutlineEntry entry : primaryOrgs) {
 				common_outline.addEntry(entry);
 			}
 			common_outline.addEntry(orgEntry);
 			common_outline.addEntry(departmentEntry);
 			common_outline.addEntry(employeeEntry);
-
+			
 			common_outline.addEntry(new _OutlineEntry(getLocalizedWord("roles", lang), "role-view"));
 			common_outline.addEntry(
 					new _OutlineEntry(getLocalizedWord("organization_labels", lang), "organization-label-view"));
-
+			
 			list.add(common_outline);
-
+			
 			addValue("workspaceUrl", Environment.getWorkspaceURL());
 			addValue("outline_current", formData.getValueSilently("id").replace("-form", "-view")
 					+ formData.getValueSilently("categoryid"));
@@ -78,6 +80,6 @@ public class MainNavigator extends _DoPage {
 			setBadRequest();
 			return;
 		}
-		
+
 	}
 }

@@ -12,19 +12,18 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import staff.dao.OrganizationDAO;
 import staff.model.Organization;
 
 public class OrganizationView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		try {
 			IUser<Long> user = session.getUser();
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization");
 				newDocAction.setURL("p?id=organization-form");
@@ -39,7 +38,7 @@ public class OrganizationView extends _DoPage {
 			setBadRequest();
 		}
 	}
-	
+
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
 		println(formData);
