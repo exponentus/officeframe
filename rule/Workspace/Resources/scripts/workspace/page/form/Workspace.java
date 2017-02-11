@@ -21,10 +21,10 @@ import administrator.model.Application;
 import administrator.model.embedded.UserApplication;
 
 public class Workspace extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
-		addValue("serverversion", Server.serverVersion);
+		addValue("serverversion", EnvConst.SERVER_VERSION);
 		addValue("build", Server.compilationTime);
 		addValue("org", Environment.orgName);
 		try {
@@ -39,7 +39,7 @@ public class Workspace extends _DoPage {
 					aa = user.getAllowedApps();
 					userApps = user.getUserApplications();
 				}
-				
+
 				Application app = aDao.findByName(EnvConst.WORKSPACE_NAME);
 				if (app != null) {
 					aa.remove(app);
@@ -49,7 +49,7 @@ public class Workspace extends _DoPage {
 				if (userApps != null) {
 					addContent(new _POJOListWrapper<UserApplication>(userApps, session));
 				}
-
+				
 			} else {
 				setUnauthorized();
 			}
