@@ -11,6 +11,7 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 
 import staff.dao.RoleDAO;
+import staff.init.AppConst;
 import staff.model.Role;
 
 /**
@@ -18,7 +19,7 @@ import staff.model.Role;
  */
 
 public class RoleForm extends StaffForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -34,6 +35,7 @@ public class RoleForm extends StaffForm {
 				entity.setName("");
 				entity.setDescription("");
 			}
+			addContent("roles", AppConst.ROLES);
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 		} catch (DAOException e) {
@@ -42,7 +44,7 @@ public class RoleForm extends StaffForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -52,28 +54,28 @@ public class RoleForm extends StaffForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			RoleDAO dao = new RoleDAO(session);
 			Role entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Role();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setDescription(formData.getValue("description"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();

@@ -9,6 +9,7 @@ public class AppConst {
 	public static String NAME_POR = "Funcionários";
 	public static String NAME_SPA = "Personal";
 	public static String DEFAULT_PAGE = "organization-view";
+	public static String[] ORG_LABELS = { "primary", "inactive" };
 	public static String[] ROLES = { "staff_admin", "fired", "senior_manager" };
 	
 }

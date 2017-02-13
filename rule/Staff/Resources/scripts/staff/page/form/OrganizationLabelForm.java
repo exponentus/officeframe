@@ -34,7 +34,7 @@ public class OrganizationLabelForm extends StaffForm {
 				entity.setAuthor(user);
 				entity.setName("");
 			}
-			addContent("roleconst", AppConst.ROLES);
+			addContent("orglabels", AppConst.ORG_LABELS);
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 		} catch (DAOException e) {
