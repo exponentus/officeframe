@@ -8,7 +8,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
-import com.exponentus.scripting._EnumWrapper;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -37,7 +37,7 @@ public class CountryForm extends ReferenceForm {
 				entity = (Country) getDefaultEntity(user, new Country());
 			}
 			addContent(entity);
-			addContent(new _EnumWrapper(CountryCode.class.getEnumConstants()));
+			addContent(new EnumWrapper(CountryCode.class.getEnumConstants()));
 			addContent(new LanguageDAO(session).findAllActivated());
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {

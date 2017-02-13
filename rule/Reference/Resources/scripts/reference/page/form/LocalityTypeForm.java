@@ -7,7 +7,7 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
-import com.exponentus.scripting._EnumWrapper;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -36,7 +36,7 @@ public class LocalityTypeForm extends ReferenceForm {
 				entity = (LocalityType) getDefaultEntity(user, new LocalityType());
 			}
 			addContent(entity);
-			addContent(new _EnumWrapper(LocalityCode.class.getEnumConstants()));
+			addContent(new EnumWrapper(LocalityCode.class.getEnumConstants()));
 			addContent(new LanguageDAO(session).findAllActivated());
 
 			addContent(getSimpleActionBar(session));

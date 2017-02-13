@@ -5,7 +5,7 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._EnumWrapper;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.WebFormData;
@@ -38,7 +38,7 @@ public class TopicForm extends _DoForm {
 				entity.setStatus(TopicStatusType.DRAFT);
 			}
 			addContent(entity);
-			addContent(new _EnumWrapper(TopicStatusType.class.getEnumConstants()));
+			addContent(new EnumWrapper(TopicStatusType.class.getEnumConstants()));
 			if (!id.isEmpty()) {
 				addContent(getActionBar(session, entity));
 			} else {

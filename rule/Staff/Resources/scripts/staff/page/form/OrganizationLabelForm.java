@@ -11,6 +11,7 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 
 import staff.dao.OrganizationLabelDAO;
+import staff.init.AppConst;
 import staff.model.OrganizationLabel;
 
 /**
@@ -33,6 +34,7 @@ public class OrganizationLabelForm extends StaffForm {
 				entity.setAuthor(user);
 				entity.setName("");
 			}
+			addContent("roleconst", AppConst.ROLES);
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 		} catch (DAOException e) {
