@@ -1,5 +1,6 @@
 package staff.page.form;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
@@ -10,6 +11,8 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 
+import administrator.dao.ApplicationDAO;
+import administrator.model.Application;
 import staff.dao.OrganizationLabelDAO;
 import staff.init.AppConst;
 import staff.model.OrganizationLabel;
@@ -19,7 +22,7 @@ import staff.model.OrganizationLabel;
  */
 
 public class OrganizationLabelForm extends StaffForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -34,6 +37,14 @@ public class OrganizationLabelForm extends StaffForm {
 				entity.setAuthor(user);
 				entity.setName("");
 			}
+			ApplicationDAO aDao = new ApplicationDAO();
+			List<Application> list = aDao.findAll().getResult();
+			
+			for (Application app : list) {
+				if (app.isOn()) {
+
+				}
+			}
 			addContent("orglabels", AppConst.ORG_LABELS);
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
@@ -42,7 +53,7 @@ public class OrganizationLabelForm extends StaffForm {
 			setBadRequest();
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -52,28 +63,28 @@ public class OrganizationLabelForm extends StaffForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
 			OrganizationLabel entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new OrganizationLabel();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setDescription(formData.getValue("description"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
