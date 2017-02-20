@@ -66,7 +66,6 @@ public class RoleForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-			
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			if (isNew) {
