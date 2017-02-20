@@ -35,16 +35,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="control-label">
-                            <xsl:value-of select="//captions/description/@caption"/>
-                        </div>
-                        <div class="controls">
-                            <textarea name="description" class="span7">
-                                <xsl:value-of select="fields/description"/>
-                            </textarea>
-                        </div>
-                    </div>
                 </fieldset>
                 <fieldset class="fieldset">
                     <legend class="legend">
