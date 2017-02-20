@@ -37,7 +37,6 @@
                     </div>
                 </fieldset>
                 <fieldset class="fieldset">
-
                     <legend class="legend">
                         <xsl:value-of select="//captions/localized_names/@caption"/>
                     </legend>
