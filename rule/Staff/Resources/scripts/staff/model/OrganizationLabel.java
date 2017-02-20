@@ -20,15 +20,6 @@ public class OrganizationLabel extends SimpleReferenceEntity {
 	@ManyToMany(mappedBy = "labels")
 	private List<Organization> labels;
 
-	private String description;
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 
 	@JsonIgnore
 	public List<Organization> getLabels() {
@@ -37,7 +28,7 @@ public class OrganizationLabel extends SimpleReferenceEntity {
 
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<name>" + getLocName(ses.getLang()) + "</name><description>" + description + "</description>";
+		return "<name>" + getLocName(ses.getLang()) + "</name>";
 	}
 
 	@Override
