@@ -27,17 +27,12 @@
                             <xsl:value-of select="//captions/name/@caption"/>
                         </div>
                         <div class="controls">
-                            <input type="text" name="name" value="{fields/name}" class="span7" autofocus="true"/>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="control-label">
-                            <xsl:value-of select="//captions/description/@caption"/>
-                        </div>
-                        <div class="controls">
-                            <textarea name="description" class="span7">
-                                <xsl:value-of select="fields/description"/>
-                            </textarea>
+                            <div class="controls">
+                                <select name="name" class="span6">
+                                    <option value=""></option>
+                                    <xsl:apply-templates select="//orglabels/entry" mode="names_entry"/>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -59,6 +54,15 @@
             </section>
             <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
         </form>
+    </xsl:template>
+
+    <xsl:template match="*" mode="names_entry">
+        <option value="{@id}">
+            <xsl:if test="@id = //fields/name">
+                <xsl:attribute name="selected">selected</xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="@id"/>
+        </option>
     </xsl:template>
 
 </xsl:stylesheet>

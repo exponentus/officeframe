@@ -74,6 +74,7 @@ public class RoleForm extends StaffForm {
 				dao.update(entity);
 			}
 
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
