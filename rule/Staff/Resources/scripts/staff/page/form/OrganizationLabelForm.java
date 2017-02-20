@@ -76,7 +76,6 @@ public class OrganizationLabelForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-			entity.setDescription(formData.getValue("description"));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			if (isNew) {

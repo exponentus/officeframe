@@ -32,7 +32,6 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		name.put(LanguageCode.RUS, "Не действующая организация");
 		name.put(LanguageCode.KAZ, "Ұйымдастыру міндетін атқарушы емес");
 		entity.setLocName(name);
-		entity.setDescription("Inactive organization");
 		entities.add(entity);
 		
 		entity = new OrganizationLabel();
@@ -42,7 +41,6 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		name.put(LanguageCode.RUS, "Первичная организация");
 		name.put(LanguageCode.KAZ, "Бастауыш ұйымы");
 		entity.setLocName(name);
-		entity.setDescription("primary organization");
 		entities.add(entity);
 		
 		/* ComProperty application specific labels */
@@ -53,7 +51,6 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		name.put(LanguageCode.RUS, "Организация-балансодержатель");
 		name.put(LanguageCode.KAZ, "Организация-балансодержатель");
 		entity.setLocName(name);
-		entity.setDescription("Организация-балансодержатель");
 		// entities.add(entity);
 		
 		return entities;

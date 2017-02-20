@@ -20,15 +20,6 @@ public class Role extends SimpleReferenceEntity {
 	@ManyToMany(mappedBy = "roles")
 	private List<Employee> employees;
 	
-	private String description;
-	
-	public String getDescription() {
-		return description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
-	}
 	
 	@JsonIgnore
 	public List<Employee> getEmployees() {
@@ -39,12 +30,11 @@ public class Role extends SimpleReferenceEntity {
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
-		chunk.append("<description>" + description + "</description>");
 		return chunk.toString();
 	}
 	
 	@Override
 	public String getShortXMLChunk(_Session ses) {
-		return "<name>" + getLocName(ses.getLang()) + "</name><description>" + description + "</description>";
+		return "<name>" + getLocName(ses.getLang()) + "</name>";
 	}
 }

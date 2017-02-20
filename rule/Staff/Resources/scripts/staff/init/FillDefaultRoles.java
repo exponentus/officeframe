@@ -33,7 +33,6 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.RUS, "Администратор структуры");
 		name.put(LanguageCode.KAZ, "Кұрылымдар администраторі");
 		entity.setLocName(name);
-		entity.setDescription("the role allow to manage in Staff module");
 		entities.add(entity);
 		
 		entity = new Role();
@@ -43,7 +42,6 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.RUS, "Администратор справочников");
 		name.put(LanguageCode.KAZ, "Справочник администраторі");
 		entity.setLocName(name);
-		entity.setDescription("the role allow to manage in Reference module");
 		entities.add(entity);
 		
 		entity = new Role();
@@ -53,7 +51,6 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.RUS, "Руководитель высшего звена");
 		name.put(LanguageCode.KAZ, "Бас");
 		entity.setLocName(name);
-		entity.setDescription("");
 		entities.add(entity);
 		
 		entity = new Role();
@@ -63,7 +60,6 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.RUS, "Имеет право подписи");
 		name.put(LanguageCode.KAZ, "Имеет право подписи");
 		entity.setLocName(name);
-		entity.setDescription("");
 		entities.add(entity);
 		
 		entity = new Role();
@@ -73,7 +69,6 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.RUS, "Уволен");
 		name.put(LanguageCode.KAZ, "Жұмыстан шығарды");
 		entity.setLocName(name);
-		entity.setDescription("");
 		entities.add(entity);
 		
 		/* ComProperty application specific roles */
@@ -84,7 +79,6 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.RUS, "Загрузчик данных");
 		name.put(LanguageCode.KAZ, "Деректер тиегіш");
 		entity.setLocName(name);
-		entity.setDescription("Ответственное лицо по загрузке данных");
 		// entities.add(entity);
 		
 		return entities;

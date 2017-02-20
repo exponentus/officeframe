@@ -33,7 +33,6 @@ public class RoleForm extends StaffForm {
 				entity = new Role();
 				entity.setAuthor(user);
 				entity.setName("");
-				entity.setDescription("");
 			}
 			addContent("roles", AppConst.ROLES);
 			addContent(entity);
@@ -67,7 +66,6 @@ public class RoleForm extends StaffForm {
 			}
 
 			entity.setName(formData.getValue("name"));
-			entity.setDescription(formData.getValue("description"));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			if (isNew) {
