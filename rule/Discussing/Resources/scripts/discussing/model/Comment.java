@@ -60,12 +60,7 @@ public class Comment extends SecureHierarchicalEntity<UUID> {
 							"comment_id", "attachment_id" }))
 	@CascadeOnDelete
 	private List<Attachment> attachments = new ArrayList<>();
-	
-	@Override
-	public long getAuthorId() {
-		return author;
-	}
-	
+
 	public Topic getTopic() {
 		return topic;
 	}
@@ -105,7 +100,7 @@ public class Comment extends SecureHierarchicalEntity<UUID> {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		IExtUserDAO eDao = Environment.getExtUserDAO();
-		IEmployee user = eDao.getEmployee(author);
+		IEmployee user = eDao.getEmployee(author.getId());
 		if (user != null) {
 			chunk.append("<author>" + user.getName() + "</author>");
 		} else {
