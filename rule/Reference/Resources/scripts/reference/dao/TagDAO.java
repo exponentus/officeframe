@@ -35,7 +35,7 @@ public class TagDAO extends ReferenceDAO<Tag, UUID> {
             Predicate condition = null;
 
             if (!categoryName.isEmpty()) {
-                condition = cb.like(cb.lower(c.<String>get("category")), categoryName);
+                condition = cb.or(cb.equal(c.get("category"), ""), cb.like(cb.lower(c.<String>get("category")), categoryName));
             }
             if (!withHidden) {
                 if (condition == null) {
