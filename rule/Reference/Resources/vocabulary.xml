@@ -100,7 +100,7 @@
         <entry lang="KAZ">Лауазымы</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="doc_languages">
+    <sentence mode="on" keyword="doc_languages">
         <entry lang="ENG">Document languages</entry>
         <entry lang="RUS">Язык документа</entry>
         <entry lang="KAZ">Құжат тілі</entry>
@@ -172,13 +172,13 @@
         <entry lang="KAZ">Құрылыс материалдары</entry>
         <entry lang="POR"></entry>
     </sentence>
-      <sentence mode="on" keyword="doc_subjs">
+    <sentence mode="on" keyword="doc_subjects">
         <entry lang="ENG">Document subjects</entry>
         <entry lang="RUS">Характер документа</entry>
         <entry lang="KAZ">Характер документа</entry>
         <entry lang="POR"></entry>
     </sentence>
-      <sentence mode="on" keyword="doc_subj">
+    <sentence mode="on" keyword="doc_subj">
         <entry lang="ENG">Subject</entry>
         <entry lang="RUS">Характер документа</entry>
         <entry lang="KAZ">Характер документа</entry>
@@ -277,73 +277,73 @@
         <entry lang="RUS">Вид ответственного лица</entry>
         <entry lang="ENG">Responsible type</entry>
     </sentence>
-     <sentence mode="on" keyword="task_types">
+    <sentence mode="on" keyword="task_types">
         <entry lang="ENG">Task types</entry>
         <entry lang="RUS">Типы заданий</entry>
         <entry lang="KAZ">Тапсырма түрлері</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="rank">
+    <sentence mode="on" keyword="rank">
         <entry lang="ENG">Rank</entry>
         <entry lang="RUS">Ранг</entry>
         <entry lang="KAZ">Ранг</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="task_type">
+    <sentence mode="on" keyword="task_type">
         <entry lang="ENG">Task type</entry>
         <entry lang="RUS">Тип задания</entry>
         <entry lang="KAZ">Тапсырманың түрі</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="text_template">
+    <sentence mode="on" keyword="text_template">
         <entry lang="ENG">Text template</entry>
         <entry lang="RUS">Текстовый шаблон</entry>
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
-      <sentence mode="on" keyword="request_types">
+    <sentence mode="on" keyword="request_types">
         <entry lang="ENG">Request types</entry>
         <entry lang="RUS">Типы запросов</entry>
         <entry lang="KAZ">Сұранымдар түрі</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="request_type">
+    <sentence mode="on" keyword="request_type">
         <entry lang="ENG">Request type</entry>
         <entry lang="RUS">Тип запроса</entry>
         <entry lang="KAZ">Сұратудың типі</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="prefix">
+    <sentence mode="on" keyword="prefix">
         <entry lang="ENG">Prefix</entry>
         <entry lang="RUS">Префикс</entry>
         <entry lang="KAZ">Префикс</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="is_hidden">
+    <sentence mode="on" keyword="is_hidden">
         <entry lang="ENG">Is hidden</entry>
         <entry lang="RUS">Скрытый</entry>
         <entry lang="KAZ">Жасырын</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="workspace">
+    <sentence mode="on" keyword="workspace">
         <entry lang="ENG">Workspace</entry>
         <entry lang="RUS">Рабочая область</entry>
         <entry lang="KAZ">Жұмыс облысы</entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="demand_types">
+    <sentence mode="on" keyword="demand_types">
         <entry lang="ENG">Demand types</entry>
         <entry lang="RUS">Типы заявок</entry>
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="demand_type">
+    <sentence mode="on" keyword="demand_type">
         <entry lang="ENG">Demand type</entry>
         <entry lang="RUS">Тип заявки</entry>
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
-     <sentence mode="on" keyword="new_category">
+    <sentence mode="on" keyword="new_category">
         <entry lang="ENG">New category</entry>
         <entry lang="RUS">Новая категория</entry>
         <entry lang="KAZ"></entry>

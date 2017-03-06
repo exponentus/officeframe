@@ -36,6 +36,8 @@
     <caption name="limit_view"/>
     <caption name="interface_lang"/>
     <caption name="is_hidden"/>
+    <caption name="common_reference_data"/>
+    <caption name="specific_reference_data"/>
 
     <caption name="name"/>
     <caption name="code"/>
@@ -65,6 +67,7 @@
     <caption name="department_types"/>
     <caption name="positions"/>
     <caption name="doc_languages"/>
+    <caption name="doc_subjects"/>
     <caption name="property_codes"/>
     <caption name="receiving_reasons"/>
     <caption name="tags"/>
