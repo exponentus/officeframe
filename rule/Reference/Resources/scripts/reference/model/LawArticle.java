@@ -1,17 +1,16 @@
 package reference.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
+import javax.persistence.*;
+
+@JsonRootName("lawarticle")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "law_articles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "law_articles", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "LawArticle.findAll", query = "SELECT m FROM LawArticle AS m ORDER BY m.regDate")
 public class LawArticle extends SimpleReferenceEntity {
-	
 }

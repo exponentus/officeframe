@@ -2,6 +2,7 @@ package reference.services;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.ServiceDescriptor;
@@ -85,6 +86,8 @@ public class DistrictService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity);
+            outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
