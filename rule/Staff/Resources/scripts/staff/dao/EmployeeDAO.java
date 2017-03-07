@@ -7,8 +7,10 @@ import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import staff.dao.filter.EmployeeFilter;
 import staff.model.Employee;
 
 import javax.persistence.EntityManager;
@@ -34,6 +36,55 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
             allEmployee = findAll(0, 0);
         }
         return allEmployee;
+    }
+
+    public ViewPage<Employee> findAll(EmployeeFilter filter, SortParams sortParams, int pageNum, int pageSize) {
+        if (filter == null) {
+            throw new IllegalArgumentException("filter is null");
+        }
+
+        EntityManager em = getEntityManagerFactory().createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        try {
+            CriteriaQuery<Employee> cq = cb.createQuery(getEntityClass());
+            CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
+            Root<Employee> root = cq.from(getEntityClass());
+
+            Predicate condition = null;
+
+            if (filter.getRoles() != null && !filter.getRoles().isEmpty()) {
+                condition = cb.and(root.get("roles").in(filter.getRoles()));
+            }
+
+            cq.select(root);
+            countCq.select(cb.count(root));
+
+            if (condition != null) {
+                cq.where(condition);
+                countCq.where(condition);
+            }
+
+            cq.orderBy(collectSortOrder(cb, root, sortParams));
+
+            TypedQuery<Employee> typedQuery = em.createQuery(cq);
+            Query query = em.createQuery(countCq);
+            long count = (long) query.getSingleResult();
+
+            int maxPage = 1;
+            if (pageNum != 0 || pageSize != 0) {
+                maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+                if (pageNum == 0) {
+                    pageNum = maxPage;
+                }
+                int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
+                typedQuery.setFirstResult(firstRec);
+                typedQuery.setMaxResults(pageSize);
+            }
+            List<Employee> result = typedQuery.getResultList();
+            return new ViewPage<>(result, count, maxPage, pageNum);
+        } finally {
+            em.close();
+        }
     }
 
     public Employee findByUser(IUser<Long> user) {
