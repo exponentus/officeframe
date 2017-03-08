@@ -9,7 +9,6 @@ import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.UndefinedUser;
-import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -187,7 +186,11 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IEmpl
     public List<Attachment> getAttachments() {
         List<Attachment> atts = new ArrayList<>();
         Attachment a = new Attachment();
-        a.setRealFileName(StringUtil.getRandomText());
+        if (avatar != null && !avatar.getRealFileName().isEmpty()) {
+            a.setRealFileName(avatar.getRealFileName());
+        } else {
+            a.setRealFileName("no_avatar.png");
+        }
         a.setFieldName("avatar");
         atts.add(a);
         return atts;
