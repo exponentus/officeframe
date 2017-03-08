@@ -150,6 +150,22 @@ public class TextTemplateService extends RestProvider {
         }
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            TextTemplateDAO dao = new TextTemplateDAO(getSession());
+            TextTemplate entity = dao.findById(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
+        }
+    }
+
     private void validate(TextTemplate entity) throws _Validation.VException {
         _Validation ve = new _Validation();
 

@@ -149,6 +149,22 @@ public class BuildingMaterialService extends RestProvider {
         }
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            BuildingMaterialDAO dao = new BuildingMaterialDAO(getSession());
+            BuildingMaterial entity = dao.findById(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
+        }
+    }
+
     private void validate(BuildingMaterial entity) throws _Validation.VException {
         _Validation ve = new _Validation();
 

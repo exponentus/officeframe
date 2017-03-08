@@ -149,6 +149,22 @@ public class ClaimantDecisionTypeService extends RestProvider {
         }
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            ClaimantDecisionTypeDAO dao = new ClaimantDecisionTypeDAO(getSession());
+            ClaimantDecisionType entity = dao.findById(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
+        }
+    }
+
     private void validate(ClaimantDecisionType entity) throws _Validation.VException {
         _Validation ve = new _Validation();
 

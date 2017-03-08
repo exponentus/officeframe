@@ -162,6 +162,22 @@ public class TagService extends RestProvider {
         }
     }
 
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            TagDAO dao = new TagDAO(getSession());
+            Tag entity = dao.findById(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
+        }
+    }
+
     private void validate(Tag entity) throws _Validation.VException {
         _Validation ve = new _Validation();
 

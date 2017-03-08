@@ -16,7 +16,6 @@ import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
 
@@ -148,6 +147,22 @@ public class ControlTypeService extends RestProvider {
             return responseException(e);
         } catch (_Validation.VException e) {
             return responseValidationError(e.getValidation());
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            ControlTypeDAO dao = new ControlTypeDAO(getSession());
+            ControlType entity = dao.findById(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
         }
     }
 

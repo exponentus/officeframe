@@ -15,7 +15,7 @@ public class MainNavigator extends _DoPage {
 
     @Override
     public void doGET(_Session session, WebFormData formData) {
-        LinkedList<IOutcomeObject> list = new LinkedList<>();
+        /*LinkedList<IOutcomeObject> list = new LinkedList<>();
 
         _Outline common_outline = new _Outline(getLocalizedWord("common_reference_data", session.getLang()), "common");
 
@@ -65,6 +65,6 @@ public class MainNavigator extends _DoPage {
 
         addValue("workspaceUrl", Environment.getWorkspaceURL());
         addValue("outline_current", formData.getValueSilently("id").replace("-form", "-view"));
-        addContent(list);
+        addContent(list);*/
     }
 }
