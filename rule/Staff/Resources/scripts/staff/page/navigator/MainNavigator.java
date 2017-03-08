@@ -25,7 +25,7 @@ public class MainNavigator extends _DoPage {
 
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
-		/*LanguageCode lang = session.getLang();
+		LanguageCode lang = session.getLang();
 		LinkedList<IOutcomeObject> list = new LinkedList<>();
 		List<_OutlineEntry> primaryOrgs = new ArrayList<_OutlineEntry>();
 
@@ -77,7 +77,7 @@ public class MainNavigator extends _DoPage {
 			logError(e);
 			setBadRequest();
 			return;
-		}*/
+		}
 
 	}
 }

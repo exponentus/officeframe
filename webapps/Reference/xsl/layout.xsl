@@ -33,8 +33,7 @@
                             <xsl:with-param name="active-id" select="$active_aside_id"/>
                         </xsl:apply-templates>
                         <section class="content">
-                            <h1><a href="?id=index">Используйте SPA версию >></a></h1>
-                            <!--<xsl:call-template name="_content"/>-->
+                            <xsl:call-template name="_content"/>
                         </section>
                     </main>
                     <xsl:call-template name="main-footer"/>
