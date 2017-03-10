@@ -6,14 +6,13 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import staff.dao.OrganizationLabelDAO;
 import staff.model.Organization;
@@ -24,7 +23,7 @@ import staff.model.OrganizationLabel;
  */
 
 public class OrganizationLabelView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
@@ -37,7 +36,7 @@ public class OrganizationLabelView extends _DoPage {
 				addContent(emps);
 			} else {
 				IUser<Long> user = session.getUser();
-				if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+				if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 					_ActionBar actionBar = new _ActionBar(session);
 					_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization_label");
 					newDocAction.setURL("Provider?id=organization-label-form");
@@ -54,7 +53,7 @@ public class OrganizationLabelView extends _DoPage {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
 		println(formData);
