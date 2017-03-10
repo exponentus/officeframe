@@ -173,7 +173,7 @@
   "position" : "Должность",
   "handler_not_defined" : "Запрашиваемый обработчик не определен",
   "create_report" : "Сформировать отчет",
-  "send" : "send",
+  "send" : "Отправить",
   "view_mode_tree" : "В виде иерархии",
   "demand_types" : "Типы заявок",
   "method_is_not_implemented" : "Метод не реализован",

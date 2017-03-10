@@ -118,7 +118,7 @@
   "region" : "Область",
   "employees" : "Сотрудники",
   "create_report" : "Сформировать отчет",
-  "send" : "send",
+  "send" : "Отправить",
   "view_mode_tree" : "В виде иерархии",
   "method_is_not_implemented" : "Метод не реализован",
   "password_confirm" : "Confirm password",
