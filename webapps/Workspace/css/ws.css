@@ -82,6 +82,7 @@
 .workspace .content {
     background: none;
     margin: 0;
+    min-height: auto;
     padding: 0;
     z-index: auto;
 }
