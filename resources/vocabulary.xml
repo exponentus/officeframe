@@ -401,7 +401,7 @@
         <entry lang="ENG">Localized titles</entry>
         <entry lang="CHI">基本性能</entry>
     </sentence>
-     <sentence mode="on" keyword="iin">
+    <sentence mode="on" keyword="iin">
         <entry lang="RUS">ИИН</entry>
         <entry lang="KAZ">ИИН</entry>
         <entry lang="ENG">IIN</entry>
@@ -557,7 +557,7 @@
         <entry lang="KAZ">Есептеменің мазмұны</entry>
         <entry lang="ENG">Report Content</entry>
         <entry lang="CHI">报告内容</entry>
-    </sentence>    
+    </sentence>
     <sentence mode="on" keyword="save_close">
         <entry lang="RUS">Сохранить и закрыть</entry>
         <entry lang="KAZ">Сақтау және жабу</entry>
@@ -691,12 +691,12 @@
         <entry lang="KAZ">Рөлдер</entry>
         <entry lang="ENG">Roles</entry>
         <entry lang="CHI">電郵通知</entry>
-    </sentence>    
+    </sentence>
     <sentence mode="on" keyword="code">
         <entry lang="KAZ">Код</entry>
         <entry lang="ENG">Code</entry>
         <entry lang="CHI">代码</entry>
-    </sentence>    
+    </sentence>
     <sentence mode="on" keyword="recycle_bin">
         <entry lang="KAZ">Кәрзеңке</entry>
         <entry lang="ENG">Recycle Bin</entry>
@@ -753,13 +753,13 @@
         <entry lang="KAZ">Жіберу</entry>
         <entry lang="ENG">Send</entry>
         <entry lang="CHI">问责</entry>
-    </sentence>    
+    </sentence>
     <sentence mode="on" keyword="user_profile">
         <entry lang="RUS">Посмотреть свойства текущего пользователя</entry>
         <entry lang="KAZ">Ағымдағы қолданушының қасиеттерін көру</entry>
         <entry lang="ENG">View the properties current user</entry>
         <entry lang="CHI">查看當前用戶的屬性</entry>
-    </sentence>  
+    </sentence>
     <sentence mode="on" keyword="no_data">
         <entry lang="ENG">There is no any data</entry>
         <entry lang="RUS">Нет данных</entry>
@@ -797,9 +797,21 @@
         <entry lang="KAZ">Дата отправки</entry>
     </sentence>
     <sentence mode="on" keyword="content">
-      	<entry lang="RUS">Содержание</entry>
+        <entry lang="RUS">Содержание</entry>
         <entry lang="KAZ">Мазмұны</entry>
         <entry lang="ENG">Content</entry>
-        <entry lang="CHI">内容</entry>  
+        <entry lang="CHI">内容</entry>
+    </sentence>
+    <sentence mode="on" keyword="place_of_origin">
+        <entry lang="RUS">Место происхождения</entry>
+        <entry lang="ENG">Place of origin</entry>
+        <entry lang="POR">Place of origin</entry>
+        <entry lang="SPA">Place of origin</entry>
+    </sentence>
+    <sentence mode="on" keyword="work_types">
+        <entry lang="RUS">Виды работ</entry>
+        <entry lang="ENG">Work types</entry>
+        <entry lang="POR">Work types</entry>
+        <entry lang="SPA">Work types</entry>
     </sentence>
 </vocabulary>
