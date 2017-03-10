@@ -4,6 +4,7 @@
   "responsible_type" : "responsible_type",
   "password" : "password",
   "not_null_violation" : "a value cannot be null",
+  "messaging_type" : "messaging_type",
   "attach_file" : "attach_file",
   "rank" : "rank",
   "brand" : "brand",
@@ -63,7 +64,7 @@
   "district" : "district",
   "name" : "name",
   "property_codes" : "property_codes",
-  "page" : "page",
+  "page" : "Page",
   "region" : "REGION",
   "color" : "color",
   "additional" : "additional",
@@ -200,5 +201,6 @@
   "dialog_no_selected_value" : "dialog_no_selected_value",
   "save_close" : "save_close",
   "category" : "category",
+  "user" : "user",
   "properties" : "properties"
 }

@@ -4,6 +4,7 @@
   "responsible_type" : "Вид ответственного лица",
   "password" : "Пароль",
   "not_null_violation" : "Значение должно быть не null",
+  "messaging_type" : "Messaging type",
   "attach_file" : "Прикрепить файл",
   "rank" : "Ранг",
   "brand" : "Общий справочник",
@@ -63,7 +64,7 @@
   "district" : "Район",
   "name" : "Название",
   "property_codes" : "Кодтары меншік",
-  "page" : "страница",
+  "page" : "Страница",
   "region" : "Область",
   "color" : "Цвет",
   "additional" : "Дополнительно",
@@ -200,5 +201,6 @@
   "dialog_no_selected_value" : "Вы не сделали выбор",
   "save_close" : "Сохранить и закрыть",
   "category" : "Категория",
+  "user" : "Пользователь",
   "properties" : "Свойства"
 }
