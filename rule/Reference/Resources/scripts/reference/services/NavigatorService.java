@@ -66,6 +66,9 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new _OutlineEntry("law_article", "law_articles"));
             so.addEntry(new _OutlineEntry("law_branch", "law_branches"));
             so.addEntry(new _OutlineEntry("responsible_type", "responsible_types"));
+        } else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
+            so.addEntry(new _OutlineEntry("place_of_origin", "place_of_origin"));
+            so.addEntry(new _OutlineEntry("work_types", "work_types"));
         }
 
         list.add(co);
