@@ -5,6 +5,7 @@
   "select" : "select",
   "bin" : "bin",
   "type" : "type",
+  "deleting_is_restricted" : "Deleting is restricted",
   "branch" : "branch",
   "required" : "required",
   "just_close" : "just_close",

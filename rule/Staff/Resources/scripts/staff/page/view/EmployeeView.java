@@ -12,7 +12,6 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
@@ -31,7 +30,7 @@ public class EmployeeView extends _DoPage {
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_employee");
-				newDocAction.setURL("Provider?id=employee-form");
+				newDocAction.setURL("p?id=employee-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(
 						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
@@ -45,11 +44,10 @@ public class EmployeeView extends _DoPage {
 	}
 
 	@Override
-	public void doDELETE(_Session session, WebFormData formData) {
-		println(formData);
+	public void doDELETE(_Session session, WebFormData formData){
 		try {
 			IUser<Long> user = session.getUser();
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				EmployeeDAO dao = new EmployeeDAO(session);
 				for (String id : formData.getListOfValuesSilently("docid")) {
 					Employee m = dao.findById(UUID.fromString(id));
@@ -59,6 +57,8 @@ public class EmployeeView extends _DoPage {
 						setError(e);
 					}
 				}
+			} else {
+				setError(new SecureException(getCurrentAppEnv().appName, "deleting_is_restricted", session.getLang()));
 			}
 		} catch (DAOException e) {
 			logError(e);

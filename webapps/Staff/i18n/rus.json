@@ -5,6 +5,7 @@
   "select" : "Выбрать",
   "bin" : "БИН",
   "type" : "Тип",
+  "deleting_is_restricted" : "Недостаточно прав для удаления",
   "branch" : "Филиалы",
   "required" : "Обязательноe",
   "just_close" : "Закрыть форму",

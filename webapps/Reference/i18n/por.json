@@ -1,6 +1,7 @@
 {
   "markdown_preview" : "markdown_preview",
   "cancel" : "cancel",
+  "deleting_is_restricted" : "Deleting is restricted",
   "responsible_type" : "responsible_type",
   "password" : "password",
   "not_null_violation" : "a value cannot be null",

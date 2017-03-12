@@ -57,21 +57,26 @@ public class StructureView extends _DoPage {
 
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
-		devPrint(formData);
-		try {
-			OrganizationDAO dao = new OrganizationDAO(session);
-			for (String id : formData.getListOfValuesSilently("docid")) {
-				Organization m = dao.findById(UUID.fromString(id));
-				try {
-					dao.delete(m);
-				} catch (SecureException | DAOException e) {
-					setError(e);
+		IUser<Long> user = session.getUser();
+		if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
+			try {
+				OrganizationDAO dao = new OrganizationDAO(session);
+				for (String id : formData.getListOfValuesSilently("docid")) {
+					Organization m = dao.findById(UUID.fromString(id));
+					try {
+						dao.delete(m);
+					} catch (SecureException | DAOException e) {
+						setError(e);
+					}
 				}
+			} catch (DAOException e) {
+				logError(e);
+				setBadRequest();
+				return;
 			}
-		} catch (DAOException e) {
-			logError(e);
-			setBadRequest();
-			return;
+		} else {
+			setError(new SecureException(getCurrentAppEnv().appName, "deleting_is_restricted", session.getLang()));
 		}
 	}
+
 }

@@ -1,6 +1,7 @@
 {
   "markdown_preview" : "Просмотр",
   "cancel" : "Отмена",
+  "deleting_is_restricted" : "Недостаточно прав для удаления",
   "responsible_type" : "Вид ответственного лица",
   "password" : "Пароль",
   "not_null_violation" : "Значение должно быть не null",

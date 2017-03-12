@@ -5,6 +5,7 @@
   "select" : "Select",
   "bin" : "BIN",
   "type" : "Type",
+  "deleting_is_restricted" : "Deleting is restricted",
   "branch" : "Branches",
   "required" : "Required",
   "just_close" : "Just close the form",
