@@ -10,10 +10,14 @@ import java.util.Map.Entry;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
+import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
-import com.exponentus.legacy.smartdoc.ImportNSF;
+import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
+import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
+import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.server.Server;
 import com.exponentus.util.ListUtil;
@@ -30,10 +34,9 @@ import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
 @Command(name = "gen_test_orgs_xls")
-public class GenerateTestOrgsExcel extends ImportNSF {
+public class GenerateTestOrgsExcel extends _Do {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
 
-	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Organization> entities = new HashMap<String, Organization>();
 		try {
@@ -90,5 +93,31 @@ public class GenerateTestOrgsExcel extends ImportNSF {
 		logger.infoLogEntry("done...");
 
 	}
-	
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	protected void save(IDAO dao, IAppEntity entity, String extKey) {
+
+		try {
+			if (entity.getId() == null) {
+				if (dao.add(entity) != null) {
+					logger.infoLogEntry(entity.getId() + " added");
+				}
+			} else {
+				if (dao.update(entity) != null) {
+					logger.infoLogEntry(entity.getId() + " updated");
+				}
+			}
+		} catch (DAOException e) {
+			if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+				logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+			} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+				logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+			} else {
+				logger.errorLogEntry(e);
+			}
+		} catch (SecureException e) {
+			logger.errorLogEntry(e);
+		}
+	}
+
 }
