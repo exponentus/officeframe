@@ -343,6 +343,18 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+    <sentence mode="on" keyword="work_types">
+        <entry lang="RUS">Виды работ</entry>
+        <entry lang="ENG">Work types</entry>
+        <entry lang="POR">Work types</entry>
+        <entry lang="SPA">Work types</entry>
+    </sentence>
+    <sentence mode="on" keyword="work_type">
+        <entry lang="RUS">Вид работ</entry>
+        <entry lang="ENG">Work type</entry>
+        <entry lang="POR">Work type</entry>
+        <entry lang="SPA">Work type</entry>
+    </sentence>
     <sentence mode="on" keyword="new_category">
         <entry lang="ENG">New category</entry>
         <entry lang="RUS">Новая категория</entry>
