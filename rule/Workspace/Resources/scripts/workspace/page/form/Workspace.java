@@ -1,7 +1,6 @@
 package workspace.page.form;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import com.exponentus.dataengine.exception.DAOException;
@@ -44,12 +43,13 @@ public class Workspace extends _DoPage {
 				if (app != null) {
 					aa.remove(app);
 				}
-				Collections.sort(aa, (left, right) -> left.getPosition() - right.getPosition());
+				// Collections.sort(aa, (left, right) -> left.getPosition() -
+				// right.getPosition());
 				addContent(aa);
 				if (userApps != null) {
 					addContent(new _POJOListWrapper<UserApplication>(userApps, session));
 				}
-				
+
 			} else {
 				setUnauthorized();
 			}
