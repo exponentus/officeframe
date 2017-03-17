@@ -33,7 +33,7 @@ public class Workspace extends _DoPage {
 				List<Application> aa = new ArrayList<Application>();
 				List<UserApplication> userApps = null;
 				if (user.isSuperUser()) {
-					aa = aDao.findAllActivated().getResult();
+					aa = aDao.findAllActivated();
 				} else {
 					aa = user.getAllowedApps();
 					userApps = user.getUserApplications();
