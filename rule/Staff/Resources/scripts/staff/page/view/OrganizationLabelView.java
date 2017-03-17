@@ -39,7 +39,7 @@ public class OrganizationLabelView extends _DoPage {
 				if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 					_ActionBar actionBar = new _ActionBar(session);
 					_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization_label");
-					newDocAction.setURL("Provider?id=organization-label-form");
+					newDocAction.setURL("p?id=organization-label-form");
 					actionBar.addAction(newDocAction);
 					actionBar.addAction(
 							new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));

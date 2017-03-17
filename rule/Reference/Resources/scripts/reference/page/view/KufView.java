@@ -7,7 +7,6 @@ import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import reference.dao.KufDAO;
 
@@ -17,22 +16,22 @@ public class KufView extends ReferenceView {
 	public void doGET(_Session session, WebFormData formData) {
 		IUser<Long> user = session.getUser();
 		try {
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_kuf");
 				newDocAction.setURL("Provider?id=kuf-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "",
 						_ActionType.DELETE_DOCUMENT));
-				
+
 				addContent(actionBar);
 			}
 			addContent(getViewPage(new KufDAO(session), formData));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
+
 		}
 	}
-	
+
 }

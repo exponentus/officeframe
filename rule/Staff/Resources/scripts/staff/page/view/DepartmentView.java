@@ -5,14 +5,13 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.LanguageCode;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import staff.dao.DepartmentDAO;
 import staff.model.Department;
@@ -28,10 +27,10 @@ public class DepartmentView extends _DoPage {
 		LanguageCode lang = session.getLang();
 		IUser<Long> user = session.getUser();
 		try {
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("staff_admin")) {
+			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_department");
-				newDocAction.setURL("Provider?id=department-form");
+				newDocAction.setURL("p?id=department-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(
 						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
