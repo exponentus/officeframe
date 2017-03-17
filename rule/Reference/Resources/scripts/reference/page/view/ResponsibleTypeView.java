@@ -8,7 +8,6 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import reference.dao.ResponsibleTypeDAO;
 
@@ -18,7 +17,7 @@ public class ResponsibleTypeView extends _DoPage {
 	public void doGET(_Session session, WebFormData formData) {
 		IUser<Long> user = session.getUser();
 		try {
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "",
 						"new_responsible_type");
@@ -32,8 +31,8 @@ public class ResponsibleTypeView extends _DoPage {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
+
 		}
 	}
-	
+
 }

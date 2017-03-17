@@ -7,17 +7,16 @@ import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 
 import reference.dao.DepartmentTypeDAO;
 
 public class DepartmentTypeView extends ReferenceView {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			IUser<Long> user = session.getUser();
-			if (user.getId() == SuperUser.ID || user.getRoles().contains("reference_admin")) {
+			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "",
 						"new_department_type");
@@ -34,5 +33,5 @@ public class DepartmentTypeView extends ReferenceView {
 
 		}
 	}
-	
+
 }
