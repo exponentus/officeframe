@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exponentus.rest.ResourceLoader;
-import com.exponentus.rest.ServiceDescriptor;
+import com.exponentus.rest.services.ServiceClass;
 import com.exponentus.scripting._Session;
 
 import integration.model.Service;
 
 public class ServiceDAO {
-	private List<ServiceDescriptor> services;
+	private List<ServiceClass> services;
 
 	public ServiceDAO(_Session ses) {
-		services = ResourceLoader.getLoaded();
+		services = ResourceLoader.getServices();
 	}
 
 	public long getCount() {
@@ -23,7 +23,7 @@ public class ServiceDAO {
 	public List<Service> findAll(int startRec, int pageSize) {
 		List<Service> entites = new ArrayList<Service>();
 
-		for (ServiceDescriptor descr : services) {
+		for (ServiceClass descr : services) {
 			entites.add(new Service(descr));
 		}
 

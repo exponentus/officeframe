@@ -3,15 +3,15 @@ package integration.model;
 import java.util.List;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.rest.ServiceDescriptor;
+import com.exponentus.rest.services.ServiceClass;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._Session;
 
 public class Service implements IPOJOObject {
-	private ServiceDescriptor descr;
+	private ServiceClass descr;
 
-	public Service(ServiceDescriptor descr) {
-		this.descr = descr;
+	public Service(ServiceClass descr2) {
+		this.descr = descr2;
 	}
 
 	@Override
@@ -48,10 +48,10 @@ public class Service implements IPOJOObject {
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<name>" + descr.getName() + "</name>");
-		chunk.append("<isloaded>" + descr.isLoaded() + "</isloaded>");
+		chunk.append("<status>" + descr.status + "</status>");
 		try {
 			String asText = "";
-			for (com.exponentus.rest.ServiceMethod a : descr.getMethods()) {
+			for (com.exponentus.rest.ServiceMethod a : descr.getServiceMethods()) {
 				asText += "<servicemethod id=\"\">";
 				asText += "<method>" + a.getMethod() + "</method>";
 				asText += "<isanonymous>" + a.isAnonymous() + "</isanonymous>";
