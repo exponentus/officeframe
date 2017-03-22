@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.HttpMethod;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -21,8 +20,6 @@ import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
-import com.exponentus.rest.ServiceDescriptor;
-import com.exponentus.rest.ServiceMethod;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
@@ -230,13 +227,4 @@ public class OrganizationService extends RestProvider {
 		return filter;
 	}
 
-	@Override
-	public ServiceDescriptor updateDescription(ServiceDescriptor sd) {
-		sd.setName(getClass().getName());
-		ServiceMethod m = new ServiceMethod();
-		m.setMethod(HttpMethod.GET);
-		m.setURL("/" + sd.getAppName() + sd.getUrlMapping());
-		sd.addMethod(m);
-		return sd;
-	}
 }

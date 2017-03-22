@@ -3,7 +3,6 @@ package staff.services;
 import java.util.List;
 
 import javax.ws.rs.GET;
-import javax.ws.rs.HttpMethod;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -13,8 +12,6 @@ import com.exponentus.common.dao.ViewEntryDAO;
 import com.exponentus.common.model.ViewEntry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.rest.RestProvider;
-import com.exponentus.rest.ServiceDescriptor;
-import com.exponentus.rest.ServiceMethod;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting._Session;
 
@@ -49,13 +46,4 @@ public class StructureService extends RestProvider {
 		}
 	}
 
-	@Override
-	public ServiceDescriptor updateDescription(ServiceDescriptor sd) {
-		sd.setName(getClass().getName());
-		ServiceMethod m = new ServiceMethod();
-		m.setMethod(HttpMethod.GET);
-		m.setURL("/" + sd.getAppName() + sd.getUrlMapping());
-		sd.addMethod(m);
-		return sd;
-	}
 }
