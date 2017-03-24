@@ -15,6 +15,7 @@
   "org_category" : "Тип организации",
   "countries" : "Страны",
   "password_new" : "Новый пароль",
+  "version" : "Версия",
   "tags" : "Метки",
   "message_too_long" : "Капча не верная",
   "reg_date" : "Дата регистрации",

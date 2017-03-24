@@ -15,6 +15,7 @@
   "org_category" : "org_category",
   "countries" : "",
   "password_new" : "password_new",
+  "version" : "version",
   "tags" : "",
   "message_too_long" : "The message is too long",
   "reg_date" : "reg_date",

@@ -15,6 +15,7 @@
   "org_category" : "Organization type",
   "countries" : "Countries",
   "password_new" : "New password",
+  "version" : "Version",
   "tags" : "Tags",
   "message_too_long" : "The message is too long",
   "reg_date" : "Registration date",

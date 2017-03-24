@@ -34,6 +34,7 @@
   "loading" : "Loading",
   "interface_lang" : "Interface language",
   "password_new" : "New password",
+  "version" : "Version",
   "specific_staff_data" : "Additional lists",
   "message_too_long" : "The message is too long",
   "reg_date" : "Registration date",

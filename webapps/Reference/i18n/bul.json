@@ -15,6 +15,7 @@
   "org_category" : "org_category",
   "countries" : "countries",
   "password_new" : "password_new",
+  "version" : "version",
   "tags" : "tags",
   "message_too_long" : "Посланието е твърде дълго",
   "reg_date" : "reg_date",
