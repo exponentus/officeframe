@@ -1,13 +1,16 @@
 # Compiled source #
 ###################
 *.class
-
 # Application resources #
 #########################
+cfg.xml
 /resources/config.properties
 /tmp/
-/webapps/*/reports/templates/*.jasper
-
+/rule/*/Resources/report/templates/*.jasper
+/rule/*/Resources/report/.metadata/**
+/rule/*/Resources/report/templates/.settings/**
+/rule/*/Resources/report/templates/.classpath
+/rule/*/Resources/report/templates/.project
 # Idea resources #
 ##################
 .idea
@@ -16,7 +19,6 @@
 /.svn/
 # Logs #
 ########
-*.log
 /logs/
 /bin/
 /.settings/
@@ -24,3 +26,5 @@
 /.project
 #
 node_modules/
+.vscode/
+/webserver/
