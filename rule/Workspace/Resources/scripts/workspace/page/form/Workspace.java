@@ -26,6 +26,8 @@ public class Workspace extends _DoPage {
 		addValue("serverversion", EnvConst.SERVER_VERSION);
 		addValue("build", Server.compilationTime);
 		addValue("org", Environment.orgName);
+		addValue("logo", Environment.orgLogo);
+
 		try {
 			if (!session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
 				IUser<Long> user = session.getUser();
