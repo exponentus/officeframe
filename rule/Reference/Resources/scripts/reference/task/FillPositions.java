@@ -23,11 +23,11 @@ public class FillPositions extends _Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Position> entities = new ArrayList<Position>();
-		String[] data = { "SEO", "Manager", "Accounter", "Engineer", "Specialist", "Secretary", "Administrator",
-				"Department manager", "Forwarder", "unknown" };
-		
+		String[] data = { "CEO", "Manager", "Accounter", "Engineer", "Specialist", "Secretary", "Administrator",
+				"Department manager", "Forwarder" };
+
 		String[] dataRus = { "Директор", "Менеджер", "Бухгалтер", "Инженер", "Специалист", "Секретарь-референт",
-				"Администратор", "Руководитель подразделения", "Экспедитор", "unknown" };
+				"Администратор", "Руководитель подразделения", "Экспедитор" };
 
 		for (int i = 0; i < data.length; i++) {
 			Position entity = new Position();

@@ -20,11 +20,11 @@ import staff.model.Role;
  */
 
 public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
-	
+
 	@Override
 	public List<Role> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<Role> entities = new ArrayList<>();
-		
+
 		/* Common roles */
 		Role entity = new Role();
 		entity.setName("staff_admin");
@@ -34,7 +34,7 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.KAZ, "Кұрылымдар администраторі");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		entity = new Role();
 		entity.setName("reference_admin");
 		name = new HashMap<>();
@@ -43,7 +43,7 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.KAZ, "Справочник администраторі");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		entity = new Role();
 		entity.setName("senior_manager");
 		name = new HashMap<>();
@@ -52,7 +52,7 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.KAZ, "Бас");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		entity = new Role();
 		entity.setName("can_sign");
 		name = new HashMap<>();
@@ -61,16 +61,16 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.KAZ, "Имеет право подписи");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		entity = new Role();
 		entity.setName("fired");
 		name = new HashMap<>();
 		name.put(LanguageCode.ENG, "Fired");
 		name.put(LanguageCode.RUS, "Уволен");
-		name.put(LanguageCode.KAZ, "Жұмыстан шығарды");
+		name.put(LanguageCode.KAZ, "Босатылған");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		/* ComProperty application specific roles */
 		entity = new Role();
 		entity.setName("data_loader");
@@ -80,8 +80,8 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.KAZ, "Деректер тиегіш");
 		entity.setLocName(name);
 		// entities.add(entity);
-		
+
 		return entities;
 	}
-	
+
 }
