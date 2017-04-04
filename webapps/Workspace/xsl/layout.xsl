@@ -63,6 +63,7 @@
         <header class="header navbar">
             <div class="container">
                 <div class="navbar-header">
+                    <img class="brand-logo" src="{//logo}"/>
                     <span class="brand-title">
                         <xsl:value-of select="//org"/>
                     </span>
