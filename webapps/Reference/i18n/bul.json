@@ -142,6 +142,7 @@
   "iin" : "iin",
   "undefined" : "undefined",
   "unknown" : "UNKNOWN",
+  "ui_theme" : "ui_theme",
   "just_back" : "just_back",
   "org_name" : "org_name",
   "message_too_short" : "Посланието е твърде кратък",

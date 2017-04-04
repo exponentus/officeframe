@@ -64,6 +64,7 @@
   "undefined" : "undefined",
   "unknown" : "Неизвестен",
   "search" : "search",
+  "ui_theme" : "ui_theme",
   "departments" : "departments",
   "just_back" : "just_back",
   "basic_properties" : "basic_properties",
