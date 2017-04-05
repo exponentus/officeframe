@@ -70,6 +70,18 @@
         <entry lang="KAZ">Түрі департаменті</entry>
         <entry lang="POR"></entry>
     </sentence>
+    <sentence mode="on" keyword="vehicle">
+        <entry lang="ENG">Vehicle</entry>
+        <entry lang="RUS">Транспортное средство</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="vehicles">
+        <entry lang="ENG">Vehicles</entry>
+        <entry lang="RUS">Транспортные средства</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="region_types">
         <entry lang="ENG">Region types</entry>
         <entry lang="RUS">Типы регионов</entry>
