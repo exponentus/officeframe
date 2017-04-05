@@ -56,6 +56,7 @@
     <caption name="type"/>
     <caption name="description"/>
     <caption name="is_primary_organization"/>
+    <caption name="leadDepartment"/>
 
     <caption name="bin_value_should_be_consist_from_12_symbols"/>
     <caption name="rank"/>

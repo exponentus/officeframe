@@ -103,6 +103,10 @@ public class Department extends SimpleHierarchicalReferenceEntity {
         chunk.append("<rank>" + rank + "</rank>");
         chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang())
                 + "</organization>");
+        if(leadDepartment != null) {
+            chunk.append("<leadDepartment id=\"" + leadDepartment.getId() + "\">" + leadDepartment.getLocName(ses.getLang())
+                    + "</leadDepartment>");
+        }
         chunk.append("<localizednames>");
         try {
             LanguageDAO lDao = new LanguageDAO(ses);

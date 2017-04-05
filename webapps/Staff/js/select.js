@@ -24,6 +24,13 @@ nbApp.selectOptions = {
         
     }
     },
+    leadDepartment: {
+        url: 'p?id=get-departments',
+        data: ['organization'],
+        onSelect: function(e) {
+           // alert(e.params.data.text)
+        }
+    },
     position: {
         url: 'p?id=get-positions'
     },

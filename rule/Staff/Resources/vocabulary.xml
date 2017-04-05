@@ -13,6 +13,11 @@
         <entry lang="RUS">Структура</entry>
         <entry lang="KAZ">Құрылымы</entry>
     </sentence>
+    <sentence mode="on" keyword="leadDepartment">
+        <entry lang="ENG">Lead department</entry>
+        <entry lang="RUS">Головной департамент</entry>
+        <entry lang="KAZ">Головной департамент</entry>
+    </sentence>
     <sentence mode="on" keyword="rank">
         <entry lang="ENG">Rank</entry>
         <entry lang="RUS">Ранг</entry>

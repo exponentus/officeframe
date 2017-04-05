@@ -35,6 +35,16 @@
                     </div>
                     <div class="form-group">
                         <div class="control-label">
+                            <xsl:value-of select="//captions/leadDepartment/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <select name="leadDepartment" class="span7">
+                                <xsl:apply-templates select="fields/leadDepartment" mode="selected_options"/>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
                             <xsl:value-of select="//captions/name/@caption"/>
                         </div>
                         <div class="controls">

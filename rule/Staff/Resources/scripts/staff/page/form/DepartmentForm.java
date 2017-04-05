@@ -79,6 +79,11 @@ public class DepartmentForm extends StaffForm {
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
 			entity.setRank(formData.getNumberValueSilently("rank", 0));
+			String depId = formData.getValueSilently("leadDepartment");
+			if (!depId.isEmpty()) {
+				DepartmentDAO depDAO = new DepartmentDAO(session);
+				entity.setLeadDepartment(depDAO.findById(depId));
+			}
 			DepartmentTypeDAO dtDao = new DepartmentTypeDAO(session);
 			DepartmentType dt = dtDao.findById(formData.getValueSilently("departmenttype"));
 			entity.setType(dt);
