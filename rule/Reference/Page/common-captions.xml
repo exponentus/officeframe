@@ -65,6 +65,7 @@
     <caption name="localities"/>
     <caption name="streets"/>
     <caption name="department_types"/>
+    
     <caption name="positions"/>
     <caption name="doc_languages"/>
     <caption name="doc_subjects"/>
@@ -77,6 +78,8 @@
     <caption name="responsible_type"/>
     <caption name="doc_types"/>
     <caption name="doc_type"/>
+    <caption name="doc_subjs"/>
+    <caption name="doc_subj"/>
     <caption name="category"/>
     <caption name="request_types"/>
     <caption name="request_type"/>
