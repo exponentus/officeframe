@@ -148,6 +148,7 @@
   "error_400" : "The server cannot or will not process the request due to an apparent client error",
   "street" : "Street",
   "error_401" : "Unauthorized",
+  "leaddepartment" : "Lead department",
   "primary_organization" : "Primary organization",
   "department" : "Department",
   "editors" : "Editors",
