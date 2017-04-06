@@ -1,6 +1,7 @@
 {
   "markdown_preview" : "Preview",
   "cancel" : "Cancel",
+  "add_assignee" : "Add assignee",
   "deleting_is_restricted" : "Deleting is restricted",
   "responsible_type" : "Responsible type",
   "password" : "Password",
@@ -45,6 +46,7 @@
   "login_name" : "Login",
   "readers" : "Readers",
   "org_categories" : "Organizaton categories",
+  "observers" : "Observers",
   "country" : "Country",
   "reports" : "Reports",
   "workspace" : "Workspace",
@@ -63,6 +65,7 @@
   "телефон" : "Phone",
   "work_type" : "Work type",
   "no_data" : "There is no any data",
+  "related_documents" : "Related documents",
   "doc_languages" : "Document languages",
   "district" : "District",
   "name" : "Name",

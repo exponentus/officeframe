@@ -1,6 +1,7 @@
 {
   "markdown_preview" : "markdown_preview",
   "cancel" : "cancel",
+  "add_assignee" : "add_assignee",
   "deleting_is_restricted" : "Deleting is restricted",
   "responsible_type" : "responsible_type",
   "password" : "password",
@@ -45,6 +46,7 @@
   "login_name" : "login_name",
   "readers" : "Lectores",
   "org_categories" : "org_categories",
+  "observers" : "Observadores",
   "country" : "country",
   "reports" : "reports",
   "workspace" : "workspace",
@@ -63,6 +65,7 @@
   "телефон" : "Телефон",
   "work_type" : "Work type",
   "no_data" : "no_data",
+  "related_documents" : "Ejecución",
   "doc_languages" : "doc_languages",
   "district" : "district",
   "name" : "name",

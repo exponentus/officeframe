@@ -1,13 +1,15 @@
-package reference.init;
+package reference.task;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
-import com.exponentus.localization.LanguageCode;
-import com.exponentus.localization.Vocabulary;
+import com.exponentus.dataengine.exception.DAOExceptionType;
+import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
+import com.exponentus.scripting.event._Do;
+import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.CountryDAO;
 import reference.dao.RegionDAO;
@@ -17,22 +19,19 @@ import reference.model.Region;
 import reference.model.RegionType;
 import reference.model.constants.RegionCode;
 
-/**
- * Created by Kayra on 30/12/15.
- */
+@Command(name = "fill_regions")
+public class FillRegions extends _Do {
 
-public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
-	
 	@Override
-	public List<Region> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
+	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Region> entities = new ArrayList<>();
 		String[] data = { "Almaty", "Astana", "Almaty region" };
 		try {
 			CountryDAO cDao = new CountryDAO(ses);
 			Country country = null;
-			
+
 			country = cDao.findByName("Kazakhstan");
-			
+
 			for (int i = 0; i < data.length; i++) {
 				Region entity = new Region();
 				entity.setCountry(country);
@@ -47,10 +46,10 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 				entity.setType(rType);
 				entities.add(entity);
 			}
-			
+
 			String[] data1 = { "Moscow", "Saint-Petersburg" };
 			Country country1 = null;
-			
+
 			country1 = cDao.findByName("Russia");
 
 			for (int i = 0; i < data1.length; i++) {
@@ -67,12 +66,12 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 				entity.setType(rType);
 				entities.add(entity);
 			}
-			
+
 			String[] data2 = { "Lisbon", "Leiria" };
 			Country country2 = null;
-			
+
 			country2 = cDao.findByName("Portugal");
-			
+
 			for (int i = 0; i < data2.length; i++) {
 				Region entity = new Region();
 				entity.setCountry(country2);
@@ -88,11 +87,32 @@ public class FillRegions extends InitialDataAdapter<Region, RegionDAO> {
 				entities.add(entity);
 			}
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return entities;
-		
+
+		try {
+			RegionDAO dao = new RegionDAO(ses);
+			for (Region entry : entities) {
+				try {
+					if (dao.add(entry) != null) {
+						logger.infoLogEntry(entry.getName() + " added");
+					}
+				} catch (DAOException e) {
+					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+					} else {
+						logger.errorLogEntry(e);
+					}
+				} catch (SecureException e) {
+					logger.errorLogEntry(e);
+				}
+			}
+		} catch (DAOException e) {
+			logger.errorLogEntry(e);
+		}
+		logger.infoLogEntry("done...");
 	}
-	
+
 }

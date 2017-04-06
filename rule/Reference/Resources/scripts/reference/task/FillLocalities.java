@@ -1,13 +1,15 @@
-package reference.init;
+package reference.task;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
-import com.exponentus.localization.LanguageCode;
-import com.exponentus.localization.Vocabulary;
+import com.exponentus.dataengine.exception.DAOExceptionType;
+import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
+import com.exponentus.scripting.event._Do;
+import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.LocalityDAO;
 import reference.dao.LocalityTypeDAO;
@@ -16,15 +18,11 @@ import reference.model.Locality;
 import reference.model.Region;
 import reference.model.constants.LocalityCode;
 
-/**
- * Created by Kayra on 30/12/15.
- */
-
-public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
+@Command(name = "fill_localities")
+public class FillLocalities extends _Do {
 
 	@Override
-	public List<Locality> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
-
+	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Locality> entities = new ArrayList<>();
 		String[] data = { "Kapchagay", "Taldykorgan" };
 		String[] data1 = { "Almaty" };
@@ -37,7 +35,6 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 			cDao = new RegionDAO(ses);
 			d = cDao.findByName("Almaty region");
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (d != null) {
@@ -53,7 +50,6 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 		try {
 			d = cDao.findByName("Almaty");
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (d != null) {
@@ -66,8 +62,29 @@ public class FillLocalities extends InitialDataAdapter<Locality, LocalityDAO> {
 			}
 		}
 
-		return entities;
-
+		try {
+			LocalityDAO dao = new LocalityDAO(ses);
+			for (Locality entry : entities) {
+				try {
+					if (dao.add(entry) != null) {
+						logger.infoLogEntry(entry.getName() + " added");
+					}
+				} catch (DAOException e) {
+					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+					} else {
+						logger.errorLogEntry(e);
+					}
+				} catch (SecureException e) {
+					logger.errorLogEntry(e);
+				}
+			}
+		} catch (DAOException e) {
+			logger.errorLogEntry(e);
+		}
+		logger.infoLogEntry("done...");
 	}
 
 }
