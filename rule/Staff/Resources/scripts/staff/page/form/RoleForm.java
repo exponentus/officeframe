@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
@@ -11,7 +12,7 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 
 import staff.dao.RoleDAO;
-import staff.init.AppConst;
+import staff.init.AppRoles;
 import staff.model.Role;
 
 /**
@@ -34,7 +35,7 @@ public class RoleForm extends StaffForm {
 				entity.setAuthor(user);
 				entity.setName("");
 			}
-			addContent("roles", AppConst.ROLES);
+			addContent(new EnumWrapper(AppRoles.values()));
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 		} catch (DAOException e) {
@@ -73,7 +74,6 @@ public class RoleForm extends StaffForm {
 			} else {
 				dao.update(entity);
 			}
-
 
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);

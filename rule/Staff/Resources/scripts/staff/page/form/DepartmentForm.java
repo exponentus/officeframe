@@ -57,6 +57,7 @@ public class DepartmentForm extends StaffForm {
 
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
+		devPrint(formData);
 		try {
 			_Validation ve = validate(formData, session.getLang());
 			if (ve.hasError()) {

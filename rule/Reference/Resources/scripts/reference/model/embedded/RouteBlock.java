@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 
 import com.exponentus.dataengine.jpa.SimpleAppEntity;
 import com.exponentus.scripting.IPOJOObject;
+import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -79,6 +80,21 @@ public class RouteBlock extends SimpleAppEntity implements IPOJOObject {
 
 	public void setRequireCommentIfNo(boolean requireCommentIfNo) {
 		this.requireCommentIfNo = requireCommentIfNo;
+	}
+
+	public String getFullXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<type>" + type + "</type>");
+		chunk.append("<timelimit>" + timeLimit + "</timelimit>");
+		chunk.append("<requirecommentifno>" + requireCommentIfNo + "</requirecommentifno>");
+		chunk.append("<approvers>");
+
+		for (User b : approvers) {
+			chunk.append("<entry id=\"" + b.getIdentifier() + "\">" + b.getFullXMLChunk(ses) + "</entry>");
+		}
+
+		chunk.append("</approvers>");
+		return chunk.toString();
 	}
 
 }

@@ -26,10 +26,10 @@ import reference.model.Position;
 import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
 import staff.dao.RoleDAO;
-import staff.init.NameGenerator;
 import staff.model.Employee;
 import staff.model.Organization;
 import staff.model.Role;
+import staff.task.helper.NameGenerator;
 
 @Command(name = "gen_test_emps")
 public class GenerateTestEmployees extends _Do {
