@@ -1,18 +1,24 @@
 package staff.page.form;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
+import com.exponentus.util.ReflectionUtil;
 
+import administrator.dao.ApplicationDAO;
+import administrator.model.Application;
+import reference.init.AppConst;
 import staff.dao.RoleDAO;
-import staff.init.AppRoles;
 import staff.model.Role;
 
 /**
@@ -35,7 +41,21 @@ public class RoleForm extends StaffForm {
 				entity.setAuthor(user);
 				entity.setName("");
 			}
-			addContent(new EnumWrapper(AppRoles.values()));
+
+			Set<String> allRoles = new HashSet<String>();
+			ApplicationDAO dao = new ApplicationDAO();
+			allRoles.addAll(Arrays.asList(AppConst.ROLES));
+			List<Application> apps = dao.findAll().getResult();
+			for (Application app : apps) {
+				if (app.isOn()) {
+					Object rolesObj = ReflectionUtil.getAppConstValue(app.getName(), "ROLES");
+					if (rolesObj != null) {
+						allRoles.addAll(Arrays.asList((String[]) rolesObj));
+					}
+				}
+			}
+
+			addContent("roles", allRoles);
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 		} catch (DAOException e) {

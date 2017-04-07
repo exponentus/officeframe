@@ -1,6 +1,9 @@
 package staff.page.form;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import com.exponentus.dataengine.exception.DAOException;
@@ -10,6 +13,7 @@ import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
+import com.exponentus.util.ReflectionUtil;
 
 import administrator.dao.ApplicationDAO;
 import administrator.model.Application;
@@ -39,13 +43,27 @@ public class OrganizationLabelForm extends StaffForm {
 			}
 			ApplicationDAO aDao = new ApplicationDAO();
 			List<Application> list = aDao.findAll().getResult();
-			
+
 			for (Application app : list) {
 				if (app.isOn()) {
 
 				}
 			}
-			addContent("orglabels", AppConst.ORG_LABELS);
+
+			Set<String> allLabels = new HashSet<String>();
+			ApplicationDAO dao = new ApplicationDAO();
+			allLabels.addAll(Arrays.asList(AppConst.ORG_LABELS));
+			List<Application> apps = dao.findAll().getResult();
+			for (Application app : apps) {
+				if (app.isOn()) {
+					Object rolesObj = ReflectionUtil.getAppConstValue(app.getName(), "ORG_LABELS");
+					if (rolesObj != null) {
+						allLabels.addAll(Arrays.asList((String[]) rolesObj));
+					}
+				}
+			}
+
+			addContent("orglabels", allLabels);
 			addContent(entity);
 			addContent(getSimpleActionBar(session, session.getLang()));
 		} catch (DAOException e) {
