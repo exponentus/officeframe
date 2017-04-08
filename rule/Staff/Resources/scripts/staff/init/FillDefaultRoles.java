@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 

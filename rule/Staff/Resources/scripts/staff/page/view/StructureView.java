@@ -7,7 +7,7 @@ import com.exponentus.common.dao.ViewEntryDAO;
 import com.exponentus.common.model.ViewEntry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;

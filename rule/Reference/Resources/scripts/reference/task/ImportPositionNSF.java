@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.legacy.smartdoc.ImportNSF;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;

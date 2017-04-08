@@ -20,7 +20,7 @@ import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._FormAttachments;

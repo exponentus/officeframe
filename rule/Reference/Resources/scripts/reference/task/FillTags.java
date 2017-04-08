@@ -9,7 +9,7 @@ import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -19,7 +19,7 @@ import reference.model.Tag;
 
 @Command(name = "fill_tags")
 public class FillTags extends _Do {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Tag> entities = new ArrayList<>();
@@ -32,6 +32,7 @@ public class FillTags extends _Do {
 		name.put(LanguageCode.KAZ, "Сүйікті");
 		entity.setLocName(name);
 		entity.setColor("#d94600");
+		entity.setCategory("");
 		entities.add(entity);
 
 		entity = new Tag();
@@ -43,6 +44,7 @@ public class FillTags extends _Do {
 		entity.setLocName(name);
 		entity.setColor("#db0000");
 		entity.setHidden(true);
+		entity.setCategory("");
 		entities.add(entity);
 
 		try {
@@ -69,5 +71,5 @@ public class FillTags extends _Do {
 		}
 		logger.infoLogEntry("done...");
 	}
-	
+
 }

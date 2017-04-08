@@ -8,7 +8,7 @@ import java.util.List;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.StringUtil;

@@ -15,7 +15,7 @@ import javax.persistence.UniqueConstraint;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.util.LocalizedValConverter;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.util.TimeUtil;

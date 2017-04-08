@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.MsgException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.messaging.email.MailAgent;
 import com.exponentus.messaging.email.Memo;
 import com.exponentus.scripting._Session;

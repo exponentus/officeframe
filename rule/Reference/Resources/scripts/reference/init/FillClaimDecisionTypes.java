@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
 

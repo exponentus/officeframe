@@ -14,7 +14,7 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.localization.LanguageCode;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._Do;
