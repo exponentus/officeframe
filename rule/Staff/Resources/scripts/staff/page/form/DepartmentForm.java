@@ -83,13 +83,13 @@ public class DepartmentForm extends StaffForm {
 			String depId = formData.getValueSilently("leadDepartment");
 			if (!depId.isEmpty()) {
 				DepartmentDAO depDAO = new DepartmentDAO(session);
-				entity.setLeadDepartment(depDAO.findById(depId));
+				entity.setLeadDepartment(depDAO.findByIdentefier(depId));
 			}
 			DepartmentTypeDAO dtDao = new DepartmentTypeDAO(session);
-			DepartmentType dt = dtDao.findById(formData.getValueSilently("departmenttype"));
+			DepartmentType dt = dtDao.findByIdentefier(formData.getValueSilently("departmenttype"));
 			entity.setType(dt);
 			OrganizationDAO orgDAO = new OrganizationDAO(session);
-			entity.setOrganization(orgDAO.findById(formData.getValue("organization")));
+			entity.setOrganization(orgDAO.findByIdentefier(formData.getValue("organization")));
 
 			if (isNew) {
 				dao.add(entity);

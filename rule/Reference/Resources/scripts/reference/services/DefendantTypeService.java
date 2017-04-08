@@ -80,7 +80,7 @@ public class DefendantTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				DefendantTypeDAO dao = new DefendantTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class DefendantTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			DefendantTypeDAO dao = new DefendantTypeDAO(getSession());
-			DefendantType entity = dao.findById(id);
+			DefendantType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

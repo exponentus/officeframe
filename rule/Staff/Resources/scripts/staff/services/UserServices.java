@@ -15,7 +15,6 @@ import com.exponentus.dataengine.exception.DatabasePoolException;
 import com.exponentus.dataengine.h2.ISystemDatabase;
 import com.exponentus.dataengine.h2.SystemDatabase;
 import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.dataengine.jpa.constants.AppCode;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
@@ -55,21 +54,6 @@ public class UserServices {
 			int rCount = users.size();
 			if (showConsoleOutput) {
 				System.out.println("System users count = " + rCount);
-			}
-
-			ApplicationDAO aDao = new ApplicationDAO(new _Session(new AnonymousUser()));
-			List<AppCode> list = new ArrayList<>();
-			list.add(AppCode.CUSTOM);
-			List<Application> appList = aDao.findAllin("code", list, 0, 0).getResult();
-
-			for (com.exponentus.legacy.User oldUser : users) {
-				User entity = new User();
-				entity.setLogin(oldUser.getLogin());
-				entity.setPwd(oldUser.getPassword());
-				entity.setPwdHash(oldUser.getPasswordHash());
-				entity.setAllowedApps(appList);
-
-				entities.add(entity);
 			}
 
 			UserDAO uDao = new UserDAO();

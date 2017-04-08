@@ -80,7 +80,7 @@ public class DocumentLanguageService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class DocumentLanguageService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			DocumentLanguageDAO dao = new DocumentLanguageDAO(getSession());
-			DocumentLanguage entity = dao.findById(id);
+			DocumentLanguage entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

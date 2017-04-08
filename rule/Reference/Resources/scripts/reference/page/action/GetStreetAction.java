@@ -2,9 +2,9 @@ package reference.page.action;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import reference.dao.LocalityDAO;
@@ -17,7 +17,7 @@ import reference.model.Street;
  */
 
 public class GetStreetAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, WebFormData formData) {
 		String keyword = formData.getValueSilently("keyword");
@@ -25,7 +25,7 @@ public class GetStreetAction extends _DoPage {
 		int pageSize = ses.pageSize;
 		try {
 			LocalityDAO lDao = new LocalityDAO(ses);
-			Locality locality = lDao.findById(formData.getValueSilently("locality"));
+			Locality locality = lDao.findByIdentefier(formData.getValueSilently("locality"));
 			if (locality != null) {
 				StreetDAO streetDAO = new StreetDAO(ses);
 				ViewPage<Street> streets = streetDAO.findAllInLocalityByKeyword(locality, keyword, pageNum, pageSize);

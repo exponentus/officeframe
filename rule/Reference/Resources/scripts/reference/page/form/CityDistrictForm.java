@@ -19,7 +19,7 @@ import reference.model.CityDistrict;
 import reference.model.Locality;
 
 public class CityDistrictForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -44,7 +44,7 @@ public class CityDistrictForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -54,22 +54,22 @@ public class CityDistrictForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			CityDistrictDAO dao = new CityDistrictDAO(session);
 			CityDistrict entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new CityDistrict();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
 			LocalityDAO localityDAO = new LocalityDAO(session);
-			entity.setLocality(localityDAO.findById(formData.getValue("locality")));
+			entity.setLocality(localityDAO.findByIdentefier(formData.getValue("locality")));
 
 			try {
 				if (isNew) {
@@ -88,20 +88,20 @@ public class CityDistrictForm extends ReferenceForm {
 					throw e;
 				}
 			}
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name");
-		
+
 		if (formData.getValueSilently("locality").isEmpty()) {
 			ve.addError("locality", "required", getLocalizedWord("field_is_empty", lang));
 		}
-		
+
 		return ve;
 	}
-	
+
 }

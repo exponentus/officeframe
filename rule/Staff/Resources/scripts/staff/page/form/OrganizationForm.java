@@ -26,7 +26,7 @@ import staff.model.OrganizationLabel;
  */
 
 public class OrganizationForm extends StaffForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -45,7 +45,7 @@ public class OrganizationForm extends StaffForm {
 				oc.setName("");
 				entity.setOrgCategory(oc);
 				entity.setLabels(new ArrayList<>());
-				
+
 			}
 			addContent(entity);
 			addContent(new _POJOListWrapper<>(new OrganizationLabelDAO(session).findAll().getResult(), session));
@@ -55,9 +55,9 @@ public class OrganizationForm extends StaffForm {
 			setBadRequest();
 			return;
 		}
-		
+
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -67,51 +67,51 @@ public class OrganizationForm extends StaffForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			OrganizationDAO dao = new OrganizationDAO(session);
 			Organization entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Organization();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(session);
-			entity.setOrgCategory(ocDao.findById(formData.getValue("orgcategory")));
+			entity.setOrgCategory(ocDao.findByIdentefier(formData.getValue("orgcategory")));
 			entity.setBin(formData.getValue("bin"));
 			OrganizationLabelDAO olDao = new OrganizationLabelDAO(session);
 			List<OrganizationLabel> labels = new ArrayList<>();
 			for (String labelId : formData.getListOfValuesSilently("labels")) {
 				if (!labelId.isEmpty()) {
-					OrganizationLabel prgLabel = olDao.findById(labelId);
+					OrganizationLabel prgLabel = olDao.findByIdentefier(labelId);
 					if (prgLabel != null) {
 						labels.add(prgLabel);
 					}
 				}
 			}
 			entity.setLabels(labels);
-			
+
 			if (isNew) {
 				dao.add(entity);
 			} else {
 				dao.update(entity);
 			}
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}
 	}
-	
+
 	@Override
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = new _Validation();
-		
+
 		if (formData.getValueSilently("name").isEmpty()) {
 			ve.addError("name", "required", getLocalizedWord("field_is_empty", lang));
 		}
@@ -129,7 +129,7 @@ public class OrganizationForm extends StaffForm {
 		if (formData.getValueSilently("bin").length() != 12 && formData.getValueSilently("bin").length() > 0) {
 			ve.addError("bin", "eq_12", getLocalizedWord("bin_value_should_be_consist_from_12_symbols", lang));
 		}
-		
+
 		return ve;
 	}
 }

@@ -102,7 +102,7 @@ public class EmployeeService extends RestProvider {
 				entity.setUser(tempUser);
 			} else {
 				EmployeeDAO dao = new EmployeeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -202,7 +202,7 @@ public class EmployeeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			EmployeeDAO dao = new EmployeeDAO(getSession());
-			Employee entity = dao.findById(id);
+			Employee entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

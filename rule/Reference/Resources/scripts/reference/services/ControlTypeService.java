@@ -80,7 +80,7 @@ public class ControlTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				ControlTypeDAO dao = new ControlTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class ControlTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			ControlTypeDAO dao = new ControlTypeDAO(getSession());
-			ControlType entity = dao.findById(id);
+			ControlType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

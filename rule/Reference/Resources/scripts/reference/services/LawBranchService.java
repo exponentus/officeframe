@@ -80,7 +80,7 @@ public class LawBranchService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				LawBranchDAO dao = new LawBranchDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class LawBranchService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			LawBranchDAO dao = new LawBranchDAO(getSession());
-			LawBranch entity = dao.findById(id);
+			LawBranch entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

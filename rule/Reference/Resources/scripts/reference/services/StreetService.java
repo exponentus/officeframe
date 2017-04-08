@@ -80,7 +80,7 @@ public class StreetService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				StreetDAO dao = new StreetDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -164,7 +164,7 @@ public class StreetService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			StreetDAO dao = new StreetDAO(getSession());
-			Street entity = dao.findById(id);
+			Street entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

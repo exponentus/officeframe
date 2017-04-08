@@ -80,7 +80,7 @@ public class OrganizationLabelService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class OrganizationLabelService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			OrganizationLabelDAO dao = new OrganizationLabelDAO(getSession());
-			OrganizationLabel entity = dao.findById(id);
+			OrganizationLabel entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

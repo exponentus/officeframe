@@ -80,7 +80,7 @@ public class ResponsibleTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				ResponsibleTypeDAO dao = new ResponsibleTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class ResponsibleTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			ResponsibleTypeDAO dao = new ResponsibleTypeDAO(getSession());
-			ResponsibleType entity = dao.findById(id);
+			ResponsibleType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

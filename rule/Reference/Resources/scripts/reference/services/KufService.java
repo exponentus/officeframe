@@ -80,7 +80,7 @@ public class KufService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				KufDAO dao = new KufDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class KufService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			KufDAO dao = new KufDAO(getSession());
-			Kuf entity = dao.findById(id);
+			Kuf entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

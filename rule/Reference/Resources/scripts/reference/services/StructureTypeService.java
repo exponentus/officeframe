@@ -80,7 +80,7 @@ public class StructureTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				StructureTypeDAO dao = new StructureTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class StructureTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			StructureTypeDAO dao = new StructureTypeDAO(getSession());
-			StructureType entity = dao.findById(id);
+			StructureType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

@@ -80,7 +80,7 @@ public class DisputeTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				DisputeTypeDAO dao = new DisputeTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class DisputeTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			DisputeTypeDAO dao = new DisputeTypeDAO(getSession());
-			DisputeType entity = dao.findById(id);
+			DisputeType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

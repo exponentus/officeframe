@@ -80,7 +80,7 @@ public class RegionTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				RegionTypeDAO dao = new RegionTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class RegionTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			RegionTypeDAO dao = new RegionTypeDAO(getSession());
-			RegionType entity = dao.findById(id);
+			RegionType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

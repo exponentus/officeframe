@@ -80,7 +80,7 @@ public class OrgCategoryService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				OrgCategoryDAO dao = new OrgCategoryDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class OrgCategoryService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			OrgCategoryDAO dao = new OrgCategoryDAO(getSession());
-			OrgCategory entity = dao.findById(id);
+			OrgCategory entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

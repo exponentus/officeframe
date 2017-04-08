@@ -80,7 +80,7 @@ public class DocumentSubjectService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class DocumentSubjectService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			DocumentSubjectDAO dao = new DocumentSubjectDAO(getSession());
-			DocumentSubject entity = dao.findById(id);
+			DocumentSubject entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

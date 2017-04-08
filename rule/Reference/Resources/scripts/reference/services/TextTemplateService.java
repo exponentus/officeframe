@@ -80,7 +80,7 @@ public class TextTemplateService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				TextTemplateDAO dao = new TextTemplateDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class TextTemplateService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			TextTemplateDAO dao = new TextTemplateDAO(getSession());
-			TextTemplate entity = dao.findById(id);
+			TextTemplate entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

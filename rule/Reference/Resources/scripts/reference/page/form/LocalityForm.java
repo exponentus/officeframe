@@ -48,9 +48,9 @@ public class LocalityForm extends ReferenceForm {
 				entity.setType(regionType);
 			}
 			addContent(entity);
-			
+
 			addContent(new LanguageDAO(session).findAllActivated());
-			
+
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
@@ -82,19 +82,19 @@ public class LocalityForm extends ReferenceForm {
 
 			entity.setName(formData.getValue("name"));
 			LocalityTypeDAO localityTypeDAO = new LocalityTypeDAO(session);
-			entity.setType(localityTypeDAO.findById(formData.getValue("localitytype")));
+			entity.setType(localityTypeDAO.findByIdentefier(formData.getValue("localitytype")));
 			RegionDAO regionDAO = new RegionDAO(session);
-			entity.setRegion(regionDAO.findById(formData.getValueSilently("region")));
+			entity.setRegion(regionDAO.findByIdentefier(formData.getValueSilently("region")));
 
 			String districtId = formData.getValueSilently("district");
 			if (!districtId.isEmpty()) {
 				DistrictDAO districtDAO = new DistrictDAO(session);
-				entity.setDistrict(districtDAO.findById(districtId));
+				entity.setDistrict(districtDAO.findByIdentefier(districtId));
 			} else {
 
 			}
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);

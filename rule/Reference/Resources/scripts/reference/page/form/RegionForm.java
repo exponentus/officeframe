@@ -52,12 +52,12 @@ public class RegionForm extends ReferenceForm {
 			}
 			addContent(entity);
 			addContent(new LanguageDAO(session).findAllActivated());
-			
+
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
+
 		}
 	}
 
@@ -84,7 +84,7 @@ public class RegionForm extends ReferenceForm {
 
 			entity.setName(formData.getValue("name"));
 			RegionTypeDAO rtDao = new RegionTypeDAO(session);
-			entity.setType(rtDao.findById(formData.getValue("regiontype")));
+			entity.setType(rtDao.findByIdentefier(formData.getValue("regiontype")));
 			CountryDAO countryDao = new CountryDAO(session);
 			Country country = countryDao.findById(UUID.fromString(formData.getValue("country")));
 			entity.setCountry(country);

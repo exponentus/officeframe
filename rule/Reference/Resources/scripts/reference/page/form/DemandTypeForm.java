@@ -15,7 +15,7 @@ import reference.dao.DemandTypeDAO;
 import reference.model.DemandType;
 
 public class DemandTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -24,7 +24,7 @@ public class DemandTypeForm extends ReferenceForm {
 			DemandType entity;
 			if (!id.isEmpty()) {
 				DemandTypeDAO dao = new DemandTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			} else {
 				entity = (DemandType) getDefaultEntity(user, new DemandType());
 				entity.setPrefix("");
@@ -38,7 +38,7 @@ public class DemandTypeForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -48,22 +48,22 @@ public class DemandTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			DemandTypeDAO dao = new DemandTypeDAO(session);
 			DemandType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new DemandType();
 			} else {
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
-			
+
 			entity.setName(formData.getValue("name"));
 			entity.setPrefix(formData.getValue("prefix"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);
@@ -86,7 +86,7 @@ public class DemandTypeForm extends ReferenceForm {
 			logError(e);
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name", "prefix");
 		return ve;

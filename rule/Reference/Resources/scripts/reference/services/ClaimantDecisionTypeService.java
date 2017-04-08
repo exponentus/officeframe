@@ -80,7 +80,7 @@ public class ClaimantDecisionTypeService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				ClaimantDecisionTypeDAO dao = new ClaimantDecisionTypeDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class ClaimantDecisionTypeService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			ClaimantDecisionTypeDAO dao = new ClaimantDecisionTypeDAO(getSession());
-			ClaimantDecisionType entity = dao.findById(id);
+			ClaimantDecisionType entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

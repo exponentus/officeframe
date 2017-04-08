@@ -80,7 +80,7 @@ public class ReceivingReasonService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				ReceivingReasonDAO dao = new ReceivingReasonDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -162,7 +162,7 @@ public class ReceivingReasonService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			ReceivingReasonDAO dao = new ReceivingReasonDAO(getSession());
-			ReceivingReason entity = dao.findById(id);
+			ReceivingReason entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

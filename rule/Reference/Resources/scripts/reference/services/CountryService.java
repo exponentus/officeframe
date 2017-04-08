@@ -81,7 +81,7 @@ public class CountryService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				CountryDAO dao = new CountryDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -164,7 +164,7 @@ public class CountryService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			CountryDAO dao = new CountryDAO(getSession());
-			Country entity = dao.findById(id);
+			Country entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

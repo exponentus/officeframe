@@ -19,10 +19,10 @@ import reference.model.Locality;
 import reference.model.Street;
 
 public class StreetForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
-		
+
 		String id = formData.getValueSilently("docid");
 		IUser<Long> user = session.getUser();
 		try {
@@ -51,9 +51,9 @@ public class StreetForm extends ReferenceForm {
 			setBadRequest();
 
 		}
-		
+
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		devPrint(formData);
@@ -64,24 +64,24 @@ public class StreetForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			StreetDAO dao = new StreetDAO(session);
 			LocalityDAO localityDAO = new LocalityDAO(session);
 			Street entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Street();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
-			entity.setLocality(localityDAO.findById(formData.getValue("locality")));
+			entity.setLocality(localityDAO.findByIdentefier(formData.getValue("locality")));
 			entity.setStreetId(formData.getNumberValueSilently("streetid", 0));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);
@@ -104,14 +104,14 @@ public class StreetForm extends ReferenceForm {
 			setBadRequest();
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name");
-		
+
 		if (formData.getValueSilently("locality").isEmpty()) {
 			ve.addError("locality", "required", getLocalizedWord("field_is_empty", lang));
 		}
-		
+
 		return ve;
 	}
 }

@@ -80,7 +80,7 @@ public class LocalityService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				LocalityDAO dao = new LocalityDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -165,7 +165,7 @@ public class LocalityService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			LocalityDAO dao = new LocalityDAO(getSession());
-			Locality entity = dao.findById(id);
+			Locality entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}

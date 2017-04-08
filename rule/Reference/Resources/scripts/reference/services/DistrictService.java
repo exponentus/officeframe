@@ -80,7 +80,7 @@ public class DistrictService extends RestProvider {
 				entity.setAuthor(session.getUser());
 			} else {
 				DistrictDAO dao = new DistrictDAO(session);
-				entity = dao.findById(id);
+				entity = dao.findByIdentefier(id);
 			}
 
 			//
@@ -163,7 +163,7 @@ public class DistrictService extends RestProvider {
 	public Response delete(@PathParam("id") String id) {
 		try {
 			DistrictDAO dao = new DistrictDAO(getSession());
-			District entity = dao.findById(id);
+			District entity = dao.findByIdentefier(id);
 			if (entity != null) {
 				dao.delete(entity);
 			}
