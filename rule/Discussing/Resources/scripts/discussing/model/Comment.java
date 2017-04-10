@@ -2,7 +2,6 @@ package discussing.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -35,24 +34,24 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @Entity
 @Table(name = "comments")
 @NamedQuery(name = "Comment.findAll", query = "SELECT m FROM Comment AS m ORDER BY m.regDate ASC")
-public class Comment extends SecureHierarchicalEntity<UUID> {
-	
+public class Comment extends SecureHierarchicalEntity {
+
 	@JsonIgnore
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(updatable = false, nullable = false)
 	private Topic topic;
-	
+
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	private Comment parentComment;
-	
+
 	@OneToMany(mappedBy = "parentComment")
 	private List<Comment> subComments;
-	
+
 	@FTSearchable
 	@Column(nullable = false, length = 512)
 	private String comment;
-	
+
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinTable(name = "comment_attachments", joinColumns = { @JoinColumn(name = "comment_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "attachment_id") }, indexes = {
@@ -64,37 +63,37 @@ public class Comment extends SecureHierarchicalEntity<UUID> {
 	public Topic getTopic() {
 		return topic;
 	}
-	
+
 	public void setTask(Topic t) {
 		this.topic = t;
 	}
-	
+
 	public String getComment() {
 		return comment;
 	}
-	
+
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
+
 	public List<Comment> getSubComments() {
 		return subComments;
 	}
-	
+
 	public void setSubComments(List<Comment> subComments) {
 		this.subComments = subComments;
 	}
-	
+
 	@Override
 	public List<Attachment> getAttachments() {
 		return attachments;
 	}
-	
+
 	@Override
 	public void setAttachments(List<Attachment> attachments) {
 		this.attachments = attachments;
 	}
-	
+
 	@Override
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
@@ -109,19 +108,19 @@ public class Comment extends SecureHierarchicalEntity<UUID> {
 		chunk.append("<comment>" + comment + "</comment>");
 		return chunk.toString();
 	}
-	
+
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		return getFullXMLChunk(ses);
 	}
-	
+
 	@Override
-	public SecureHierarchicalEntity<UUID> getParentEntity(_Session ses) {
+	public SecureHierarchicalEntity getParentEntity(_Session ses) {
 		if (topic != null) {
 			return topic;
 		} else {
 			return parentComment;
 		}
 	}
-	
+
 }
