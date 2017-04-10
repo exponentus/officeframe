@@ -8,6 +8,7 @@ import java.util.List;
 public class EmployeeFilter extends Filter {
 
     private List<Role> roles;
+    private String keyword;
 
     public EmployeeFilter() {
     }
@@ -22,5 +23,13 @@ public class EmployeeFilter extends Filter {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

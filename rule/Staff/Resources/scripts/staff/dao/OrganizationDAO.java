@@ -56,6 +56,14 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
                 }
             }
 
+            if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
+                if (condition != null) {
+                    condition = cb.and(cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%"), condition);
+                } else {
+                    condition = cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
+                }
+            }
+
             cq.select(root);
             countCq.select(cb.count(root));
 

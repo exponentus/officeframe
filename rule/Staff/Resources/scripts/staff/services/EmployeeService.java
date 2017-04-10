@@ -44,13 +44,10 @@ public class EmployeeService extends RestProvider {
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             EmployeeFilter filter = setUpFilter(new EmployeeFilter(), params);
-            ViewPage<Employee> vp = null;
+
             EmployeeDAO dao = new EmployeeDAO(session);
-            if (params.containsField("keyword")) {
-                vp = dao.findAllByName(params.getValueSilently("keyword"), 0, 0);
-            } else {
-                vp = dao.findAll(filter, sortParams, params.getPage(), pageSize);
-            }
+            ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(), pageSize);
+
             if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new _Action("new_", "", "new_"));
@@ -247,6 +244,11 @@ public class EmployeeService extends RestProvider {
             if (!roles.isEmpty()) {
                 filter.setRoles(roles);
             }
+        }
+
+        String keyword = params.getValueSilently("keyword");
+        if (!keyword.isEmpty()) {
+            filter.setKeyword(keyword);
         }
 
         return filter;

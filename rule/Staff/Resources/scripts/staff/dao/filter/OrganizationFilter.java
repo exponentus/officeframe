@@ -10,7 +10,7 @@ public class OrganizationFilter extends Filter {
 
     private OrgCategory orgCategory;
     private List<OrganizationLabel> labels;
-    private String name;
+    private String keyword;
 
     public OrganizationFilter() {
     }
@@ -36,11 +36,11 @@ public class OrganizationFilter extends Filter {
         this.labels = labels;
     }
 
-    public String getName() {
-        return name;
+    public String getKeyword() {
+        return keyword;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 }

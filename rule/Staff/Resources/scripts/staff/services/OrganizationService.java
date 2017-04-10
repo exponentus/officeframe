@@ -210,9 +210,9 @@ public class OrganizationService extends RestProvider {
             filter.setLabels(labels);
         }
 
-        String name = params.getValueSilently("name");
-        if (!name.isEmpty()) {
-            filter.setName(name);
+        String keyword = params.getValueSilently("keyword");
+        if (!keyword.isEmpty()) {
+            filter.setKeyword(keyword);
         }
 
         return filter;
