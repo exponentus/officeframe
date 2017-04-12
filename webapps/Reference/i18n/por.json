@@ -176,7 +176,6 @@
   "internal_server_error" : "Internal Server Error",
   "view_mode_plain" : null,
   "task_type" : null,
-  "signing" : null,
   "common_reference_data" : null,
   "localized_names" : null,
   "sign" : null,
