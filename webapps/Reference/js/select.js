@@ -2,6 +2,9 @@ nbApp.selectOptions = {
     country: {
         url: 'p?id=get-countries'
     },
+    approvers: {
+        url: 'p?id=get-employee'
+    },
     district: {
         url: 'p?id=get-districts',
         data: ['region']
