@@ -76,6 +76,18 @@
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
+    <sentence mode="on" keyword="approval_route">
+        <entry lang="ENG">Approval route</entry>
+        <entry lang="RUS">Утвержденный маршрут</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="approval_routes">
+        <entry lang="ENG">Approval routes</entry>
+        <entry lang="RUS">Утвержденные  маршруты</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
     <sentence mode="on" keyword="vehicles">
         <entry lang="ENG">Vehicles</entry>
         <entry lang="RUS">Транспортные средства</entry>
@@ -157,6 +169,36 @@
     <sentence mode="on" keyword="property_codes">
         <entry lang="ENG">Property codes</entry>
         <entry lang="RUS">Кодтары меншік</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="properties">
+        <entry lang="ENG">Properties</entry>
+        <entry lang="RUS">Свойства</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="add_route_block">
+        <entry lang="ENG">Add route block</entry>
+        <entry lang="RUS">Добавить блок</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="delete_route_block">
+        <entry lang="ENG">Delete route block</entry>
+        <entry lang="RUS">Удалить блок</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="schema">
+        <entry lang="ENG">Scheme</entry>
+        <entry lang="RUS">Схема</entry>
+        <entry lang="KAZ"></entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="blocks">
+        <entry lang="ENG">Route blocks</entry>
+        <entry lang="RUS">Блоки маршрутов</entry>
         <entry lang="KAZ"></entry>
         <entry lang="POR"></entry>
     </sentence>
@@ -335,6 +377,12 @@
         <entry lang="ENG">Is hidden</entry>
         <entry lang="RUS">Скрытый</entry>
         <entry lang="KAZ">Жасырын</entry>
+        <entry lang="POR"></entry>
+    </sentence>
+    <sentence mode="on" keyword="is_on">
+        <entry lang="ENG">Is on</entry>
+        <entry lang="RUS">Включен</entry>
+        <entry lang="KAZ">Включен</entry>
         <entry lang="POR"></entry>
     </sentence>
     <sentence mode="on" keyword="workspace">
