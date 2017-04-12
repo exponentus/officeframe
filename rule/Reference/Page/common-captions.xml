@@ -36,6 +36,7 @@
     <caption name="limit_view"/>
     <caption name="interface_lang"/>
     <caption name="is_hidden"/>
+    <caption name="is_on"/>
     <caption name="common_reference_data"/>
     <caption name="specific_reference_data"/>
 
@@ -97,4 +98,16 @@
 
     <caption name="vehicle"/>
     <caption name="vehicles"/>
+    <caption name="approval_route"/>
+    <caption name="approval_routes"/>
+    <caption name="properties"/>
+    <caption name="blocks"/>
+    <caption name="schema"/>
+    <caption name="add_route_block"/>
+    <caption name="delete_route_block"/>
+    <caption name="route_block"/>
+    <caption name="time_limit"/>
+    <caption name="route_block_type"/>
+    <caption name="require_comment_if_no"/>
+    <caption name="approvers"/>
 </rule>

@@ -37,6 +37,19 @@ $(function() {
             location.reload();
         });
     });
+    
+    $('[data-action=delete_document]').click(function(event) {
+        event.preventDefault();
+
+        var docids = nb.getSelectedEntityIDs('docid');
+        if (!docids.length) {
+            return;
+        }
+        var form_name = $("#entity").val()+ "-form";
+       nb.xhrDelete(location.href + '&docid=' + docids.join('&docid=')+'&form='+ form_name).then(function() {
+            location.reload();
+        });
+    });
 
     $('[data-action=delete_document]').attr('disabled', true);
     $(':checkbox').bind('change', function() {
