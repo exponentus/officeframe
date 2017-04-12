@@ -176,7 +176,6 @@
   "internal_server_error" : "Внутренняя ошибка сервера",
   "view_mode_plain" : "В виде списка",
   "task_type" : "Тип задания",
-  "signing" : "Подписание",
   "common_reference_data" : "Общий справочник",
   "localized_names" : "Локализованные названия",
   "sign" : "Подписать",
