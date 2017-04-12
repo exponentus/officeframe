@@ -27,12 +27,14 @@ public class FillDocumentTypes extends _Do {
 		String names[] = { "letter", "demand" };
 		String namesEng[] = { "Letter", "Demand" };
 		String namesRus[] = { "Письмо", "Запрос" };
+		String namesKaz[] = { "Хат", "Cұрақ" };
 		for (int i = 0; i < names.length; i++) {
 			DocumentType dType = new DocumentType();
 			dType.setName(names[i]);
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.RUS, namesRus[i]);
 			name.put(LanguageCode.ENG, namesEng[i]);
+			name.put(LanguageCode.KAZ, namesKaz[i]);
 			dType.setLocName(name);
 			entities.add(dType);
 		}
