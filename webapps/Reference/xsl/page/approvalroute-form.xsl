@@ -106,52 +106,46 @@
                             <legend class="legend">
 
                             </legend>
-                            <div class="form-group">
-                                <div class="control-label">
-                                    <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
+                            <xsl:for-each select="fields/routeblocks/entry">
+                                <div class="form-group">
+                                    <div class="control-label">
+                                        <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
+                                    </div>
+                                    <div class="controls">
+                                        <input type="text" name="route_block_type" value="{type}" class="span4" autofocus="true"/>
+                                    </div>
                                 </div>
-                                <div class="controls">
-                                    <input type="text" name="route_block_type" value="{fields/route_block_type}" class="span4" autofocus="true"/>
+                                <div class="form-group">
+                                    <div class="control-label">
+                                        <xsl:value-of select="//captions/time_limit/@caption"/>
+                                    </div>
+                                    <div class="controls">
+                                        <input type="number" name="timelimit" value="{timelimit}" class="span3" autofocus="true"/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="control-label">
-                                    <xsl:value-of select="//captions/route_block_type/@caption"/>
+                                <div class="form-group">
+                                    <div class="control-label">
+                                        <xsl:value-of select="//captions/require_comment_if_no/@caption"/>
+                                    </div>
+                                    <div class="controls">
+                                        <input type="checkbox" name="requirecommentifno" value="'true'" style="margin-top:10px">
+                                            <xsl:if test="requirecommentifno = 'true'">
+                                                <xsl:attribute name="checked">checked</xsl:attribute>
+                                            </xsl:if>
+                                        </input>
+                                    </div>
                                 </div>
-                                <div class="controls">
-                                    <input type="number" name="route_type_limit" value="{fields/route_block_type}" class="span3" autofocus="true"/>
+                                <div class="form-group">
+                                    <div class="control-label">
+                                        <xsl:value-of select="//captions/approvers/@caption"/>
+                                    </div>
+                                    <div class="controls">
+                                        <select name="approvers" class="span6" multiple="multiple">
+                                            <xsl:apply-templates select="approvers/entry" mode="selected_options" />
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="control-label">
-                                    <xsl:value-of select="//captions/time_limit/@caption"/>
-                                </div>
-                                <div class="controls">
-                                    <input type="number" name="route_type_limit" value="{fields/route_block_type}" class="span3" autofocus="true"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="control-label">
-                                    <xsl:value-of select="//captions/require_comment_if_no/@caption"/>
-                                </div>
-                                <div class="controls">
-                                    <input type="checkbox" name="require_comment_if_no" value="'true'" style="margin-top:10px">
-                                        <xsl:if test="fields/require_comment_if_no = 'true'">
-                                            <xsl:attribute name="checked">checked</xsl:attribute>
-                                        </xsl:if>
-                                    </input>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="control-label">
-                                    <xsl:value-of select="//captions/approvers/@caption"/>
-                                </div>
-                                <div class="controls">
-                                    <select name="approvers" class="span6">
-                                        <xsl:apply-templates select="fields/approvers" mode="selected_options" />
-                                    </select>
-                                </div>
-                            </div>
+                            </xsl:for-each>
                         </fieldset>
                     </div>
                 </div>
@@ -162,7 +156,7 @@
 
     <xsl:template match="*" mode="selected_options">
         <option value="{@id}" selected="selected">
-            <xsl:value-of select="."/>
+            <xsl:value-of select="name"/>
         </option>
     </xsl:template>
 
