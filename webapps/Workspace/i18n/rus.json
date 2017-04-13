@@ -172,7 +172,7 @@
   "apply" : "Применить",
   "org" : "Организация",
   "editable" : "Редактирование",
-  "password_confirm_not_equals" : "Passwords do not match",
+  "password_confirm_not_equals" : "Пароли не совпадают",
   "approval_block" : "Блок согласования",
   "no_connection" : "Отсутствует соединение с сервером",
   "field_is_empty" : "Поле не заполнено",

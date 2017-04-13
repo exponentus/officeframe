@@ -105,7 +105,7 @@
   "message_has_sent_succesfully" : "Сообщение было успешно отправлено",
   "summary" : "Краткое содержание",
   "apply" : "Применить",
-  "password_confirm_not_equals" : "Passwords do not match",
+  "password_confirm_not_equals" : "Пароли не совпадают",
   "blocks" : "Блоки маршрутов",
   "is_on" : "Включен",
   "no_connection" : "Отсутствует соединение с сервером",
