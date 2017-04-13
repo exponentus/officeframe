@@ -225,7 +225,7 @@
   "delete" : "Delete",
   "code_is_not_unique" : "There is a record with such code",
   "change_skin" : "Change interface skin",
-  "your_profile" : "Сіздің профиль",
+  "your_profile" : "Your profile",
   "parallel" : "Parallel",
   "error_400" : "The server cannot or will not process the request due to an apparent client error",
   "error_401" : "Unauthorized",
