@@ -2585,7 +2585,7 @@ nb.getSelectOptions = function(selectOptions) {
             for (var k in list) {
                 buff = {
                     id: list[k].id,
-                    text: list[k].locName[lang]
+                    text: list[k].locName[lang] || list[k].name
                 };
 
                 if (options.fields) {
