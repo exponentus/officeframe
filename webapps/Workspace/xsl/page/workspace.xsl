@@ -23,7 +23,7 @@
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
-                <link rel="stylesheet" href="css/all.min.css"/>
+                <link rel="stylesheet" href="css/all.min.css?v={//server_version}-{//build}"/>
                 <style>
                     <![CDATA[
                     /* fix: fieldset content overflow */
@@ -36,13 +36,16 @@
                             display: table-column !important;
                         }
                     }
+                    .app-loading > .brand-logo {
+                        max-height: 60px;
+                    }
                     ]]>
                 </style>
             </head>
             <body>
                 <app class="body">
                     <div class="app-loading">
-                        <img class="brand-logo" alt="logo" src="img/logo.png"/>
+                        <img class="brand-logo" alt="logo" src="{//logo}"/>
                         <div class="three-bounce">
                             <div class="three-bounce-it one"></div>
                             <div class="three-bounce-it two"></div>
@@ -50,8 +53,8 @@
                         </div>
                     </div>
                 </app>
-                <script src="/SharedResources/ng-app/vendor.js.gz"></script>
-                <script src="/SharedResources/ng-app/app.js.gz"></script>
+                <script src="/SharedResources/ng-app/vendor.js.gz?v={//server_version}-{//build}"></script>
+                <script src="/SharedResources/ng-app/app.js.gz?v={//server_version}-{//build}"></script>
             </body>
         </html>
     </xsl:template>
