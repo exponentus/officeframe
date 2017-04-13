@@ -37,7 +37,6 @@ public class ApprovalRouteForm extends ReferenceForm {
 				entity.setLocalizedDescr(new HashMap<LanguageCode, String>());
 				entity.setLocName(new HashMap<LanguageCode, String>());
 				entity.setCategory("");
-				entity.setCode("");
 			}
 			addContent(entity);
 			addContent(new LanguageDAO(session).findAllActivated());

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.Cacheable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -41,9 +42,6 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 	@Column(name = "is_on")
 	private boolean isOn;
 
-	@Column(length = 16, unique = true)
-	private String code;
-
 	@Convert(converter = ApprovalSchemaTypeConverter.class)
 	private ApprovalSchemaType schema;
 
@@ -54,16 +52,8 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 	private Map<LanguageCode, String> localizedDescr;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "route")
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<RouteBlock> routeBlocks;
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
 
 	public ApprovalSchemaType getSchema() {
 		return schema;
@@ -110,7 +100,6 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		chunk.append("<name>" + name + "</name>");
-		chunk.append("<code>" + code + "</code>");
 		chunk.append("<ison>" + isOn + "</ison>");
 		chunk.append("<schema>" + schema + "</schema>");
 
