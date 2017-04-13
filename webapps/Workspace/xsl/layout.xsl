@@ -1,7 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:import href="templates/constants.xsl"/>
-    <xsl:import href="templates/actions.xsl"/>
 
     <xsl:output method="html" encoding="utf-8" indent="no"/>
 
@@ -9,7 +7,6 @@
         <xsl:param name="title" select="//org"/>
         <xsl:param name="include_head" select="''"/>
 
-        <xsl:call-template name="HTML-DOCTYPE"/>
         <html>
             <xsl:call-template name="html-head">
                 <xsl:with-param name="title" select="$title"/>
@@ -124,9 +121,6 @@
 
     <xsl:template match="query[@entity = 'language']">
         <div class="lang pull-right">
-            <!--<a href="#" class="lang-title">
-                <xsl:value-of select="//@lang"/>
-            </a>-->
             <div class="lang-menu">
                 <xsl:apply-templates select="entry" mode="lang"/>
             </div>

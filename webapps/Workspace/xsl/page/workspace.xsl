@@ -1,92 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-    <xsl:import href="../layout.xsl"/>
+
+    <xsl:output method="html" encoding="utf-8" indent="no"/>
 
     <xsl:template match="/request">
         <xsl:call-template name="layout"/>
     </xsl:template>
 
-    <xsl:template name="_content">
-        <xsl:call-template name="sign-in-form"/>
-        <section class="ws">
-            <xsl:choose>
-                <xsl:when test="//query[@entity = 'application']">
-                    <xsl:apply-templates select="//query[@entity = 'application']"/>
-                </xsl:when>
-                <xsl:otherwise>
-                    <xsl:call-template name="off-app"/>
-                </xsl:otherwise>
-            </xsl:choose>
-        </section>
-    </xsl:template>
-
-    <xsl:template match="query[@entity='application']">
-        <section class="ws-apps">
-            <div class="container">
-                <xsl:apply-templates select="entry" mode="app"/>
-            </div>
-        </section>
-    </xsl:template>
-
-    <xsl:template match="entry" mode="app">
-        <div class="ws-app">
-            <a class="ws-app-link" href="/{viewcontent/app/@id}/{viewcontent/url}">
-                <span class="ws-app-logo">
-                    <img class="ws-app-logo" src="/{viewcontent/app/@id}/img/logo.png" alt="logo"/>
-                </span>
-                <span class="ws-app-type">
-                    <xsl:value-of select="viewcontent/app/@id"/>
-                </span>
-                <span class="ws-app-name">
-                    <xsl:value-of select="viewcontent/app"/>
-                </span>
-            </a>
-        </div>
-    </xsl:template>
-
-    <xsl:template name="off-app">
-        <section class="ws-apps off">
-            <div class="container">
-                <div class="ws-app off"></div>
-                <div class="ws-app off"></div>
-                <div class="ws-app off"></div>
-            </div>
-        </section>
-    </xsl:template>
-
-    <xsl:template name="sign-in-form">
-        <xsl:if test="@userid = 'anonymous'">
-            <form class="sign-in" action="Login" method="post">
-                <h1>
-                    <xsl:value-of select="//captions/sign_in/@caption"/>
-                </h1>
-                <label class="login">
-                    <i class="fa fa-user"></i>
-                    <input type="text" name="login" value="" required="required">
-                        <xsl:attribute name="placeholder" select="//captions/user/@caption"/>
-                    </input>
-                </label>
-                <label class="pwd">
-                    <i class="fa fa-lock"></i>
-                    <input type="password" name="pwd" value="" required="required">
-                        <xsl:attribute name="placeholder" select="//captions/password/@caption"/>
-                    </input>
-                </label>
-                <label class="noauth">
-                    <input type="checkbox" name="noauth" value="1"/>
-                    <span>
-                        <xsl:value-of select="//captions/another_comp/@caption"/>
-                    </span>
-                </label>
-                <button class="btn" type="submit">
-                    <xsl:value-of select="//captions/login/@caption"/>
-                </button>
-                <div class="clearfix"></div>
-                <a href="?id=reg" class="btn-sign-up">
-                    <xsl:value-of select="//captions/sign_up/@caption"/>
-                </a>
-            </form>
-        </xsl:if>
+    <xsl:template name="layout">
+        <xsl:text disable-output-escaping="yes">&lt;</xsl:text>!DOCTYPE html<xsl:text
+            disable-output-escaping="yes">&gt;</xsl:text>
+        <html>
+            <head>
+                <base href=""/>
+                <meta charset="utf-8"/>
+                <title>
+                    <xsl:value-of select="//captions/brand/@caption"/>
+                </title>
+                <link rel="shortcut icon" href="img/favicon.png"/>
+                <meta name="format-detection" content="telephone=no"/>
+                <meta name="viewport"
+                      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+                <link rel="stylesheet" href="/SharedResources/vendor/bootstrap/css/bootstrap.min.css"/>
+                <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
+                <link rel="stylesheet" href="css/all.min.css"/>
+                <style>
+                    <![CDATA[
+                    /* fix: fieldset content overflow */
+                    fieldset {
+                        display: block;
+                        min-width: inherit; /* chrome */
+                    }
+                    @-moz-document url-prefix() {
+                        fieldset {
+                            display: table-column !important;
+                        }
+                    }
+                    ]]>
+                </style>
+            </head>
+            <body>
+                <app class="body">
+                    <div class="app-loading">
+                        <img class="brand-logo" alt="logo" src="img/logo.png"/>
+                        <div class="three-bounce">
+                            <div class="three-bounce-it one"></div>
+                            <div class="three-bounce-it two"></div>
+                            <div class="three-bounce-it three"></div>
+                        </div>
+                    </div>
+                </app>
+                <script src="/SharedResources/ng-app/vendor.js.gz"></script>
+                <script src="/SharedResources/ng-app/app.js.gz"></script>
+            </body>
+        </html>
     </xsl:template>
 
 </xsl:stylesheet>
