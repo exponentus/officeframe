@@ -89,4 +89,84 @@ $(function() {
     if (theme) {
         $('body').addClass(theme);
     }
+    $('[data-action=delete_route_block]').click(function() {
+        var checkbox = $("input[name=route_block_chbox][type=checkbox]:checked");
+        checkbox.parent().parent().parent().parent().remove();
+        if(checkbox.length == 0){
+            alert("Нет выбранных блоков для удаления")
+        }
+    });
+    $('[data-action=add_route_block]').click(function() {
+        var $route_block_blank = $(".route_block_blank").clone();
+        $route_block_blank.removeClass("route_block_blank");
+        $route_block_blank.find("#approvers_controls").append($('<select name="approvers" class="span6" multiple="multiple"/>'));
+        var fieldset = $("<fildset class='fieldset'><legend class='legend'/></fildset>");
+        $(fieldset).append($route_block_blank);
+
+        $($route_block_blank).css("visibility","visible");
+        $("#route_blocks_wrapper").append(fieldset);
+        var select_list=$(fieldset).find("select");
+        select_list.each(function() {
+            var appSelectOptions = nbApp.selectOptions && nbApp.selectOptions[this.name];
+            if (appSelectOptions) {
+                var $select2El = $(this).select2(nb.getSelectOptions(appSelectOptions));
+
+                $select2El.on('select2:unselecting', function(e) {
+                    $(this).data('unselecting', true);
+
+                    if (typeof(appSelectOptions.onSelect) === 'function') {
+                        appSelectOptions.onSelect(e);
+                    }
+                }).on('select2:opening', function(e) {
+                    if ($(this).data('unselecting')) {
+                        $(this).removeData('unselecting');
+                        e.preventDefault();
+                    }
+                });
+
+                if (typeof(appSelectOptions.onSelect) === 'function') {
+                    $select2El.on('select2:select', function(e) {
+                        if (appSelectOptions.onSelect) {
+                            appSelectOptions.onSelect(e);
+                        }
+                    });
+                }
+            } else {
+                if (nb.isMobile()) {
+                    if (this.multiple) {
+                        $(this).select2({
+                            minimumResultsForSearch: 20
+                        }).on('select2:unselecting', function() {
+                            $(this).data('unselecting', true);
+                        }).on('select2:opening', function(e) {
+                            if ($(this).data('unselecting')) {
+                                $(this).removeData('unselecting');
+                                e.preventDefault();
+                            }
+                        });
+                    }
+                } else {
+                    $(this).select2({
+                        minimumResultsForSearch: 20
+                    }).on('select2:unselecting', function() {
+                        $(this).data('unselecting', true);
+                    }).on('select2:opening', function(e) {
+                        if ($(this).data('unselecting')) {
+                            $(this).removeData('unselecting');
+                            e.preventDefault();
+                        }
+                    });
+                }
+            }
+        });
+
+        // need dummy input if no select value
+        $('select[name]').on('change', function() {
+            if ($(this).val()) {
+                $('[data-role=dummy-select][name=' + this.name + ']', $(this).parent()).remove();
+            } else {
+                $('<input type=hidden data-role=dummy-select name=' + this.name + ' value="">').appendTo($(this).parent());
+            }
+        });
+    });
 });
