@@ -1,8 +1,11 @@
 package reference.page.form;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
+import administrator.dao.UserDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -14,9 +17,14 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
+import com.exponentus.util.EnumUtil;
 import reference.dao.ApprovalRouteDAO;
 import reference.model.ApprovalRoute;
 import reference.model.constants.ApprovalSchemaType;
+import reference.model.constants.ApprovalType;
+import reference.model.embedded.RouteBlock;
+import staff.dao.EmployeeDAO;
+import staff.model.Employee;
 
 public class ApprovalRouteForm extends ReferenceForm {
 
@@ -72,6 +80,33 @@ public class ApprovalRouteForm extends ReferenceForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
+			entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
+			String is_on_string = formData.getValue("ison");
+			Boolean is_on = false;
+			if(is_on_string.equals("true")){
+				is_on = true;
+				/*System.out.println("ison= true");*/
+			}
+			entity.setOn(is_on);
+			//System.out.println("approvers = " + formData.getListOfValues("approvers"));
+			int timelimit_list_count = formData.getListOfValues("timelimit").length;
+			String[] timelimit_list = formData.getListOfValues("timelimit");
+			String[] blocktype_list = formData.getListOfValues("route_block_type");
+			String[] approvers_list = formData.getListOfValues("approvers");
+			//System.out.println("count = "+ count);
+			entity.setCategory(formData.getValue("category"));
+			List<RouteBlock> routeBlocks = new ArrayList<RouteBlock>();
+			for(int i = 0 ; i < timelimit_list_count; i ++){
+				RouteBlock bl = new RouteBlock();
+				bl.setType(EnumUtil.getRndElement(ApprovalType.values()));
+				List<Employee> approvers = new ArrayList<Employee>();
+				EmployeeDAO employeeDAO = new EmployeeDAO(session);
+				Employee i_empl = employeeDAO.findById(UUID.fromString(approvers_list[i]));
+				approvers.add(i_empl);
+				bl.setApprovers(approvers);
+			}
+
+
 
 			try {
 				if (isNew) {
