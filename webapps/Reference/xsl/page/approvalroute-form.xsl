@@ -118,7 +118,17 @@
                                                 <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
                                             </div>
                                             <div class="controls">
-                                                <input type="text" name="route_block_type" value="{type}" class="span4" autofocus="true"/>
+                                                <select name="type" class="span6">
+                                                    <xsl:variable name="type" select="type"/>
+                                                    <xsl:for-each select="//constants[@entity='approvaltype']/entry">
+                                                        <option value="{@attrval}">
+                                                            <xsl:if test="@attrval = $type">
+                                                                <xsl:attribute name="selected">selected</xsl:attribute>
+                                                            </xsl:if>
+                                                            <xsl:value-of select="."/>
+                                                        </option>
+                                                    </xsl:for-each>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -126,7 +136,7 @@
                                                 <xsl:value-of select="//captions/time_limit/@caption"/>
                                             </div>
                                             <div class="controls">
-                                                <input type="number" name="timelimit" value="{timelimit}" class="span3" autofocus="true"/>
+                                                <input type="number" name="timelimit" value="{timelimit}" class="span1" autofocus="true"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -209,6 +219,17 @@
 
     <xsl:template match="*" mode="selected_options_schema">
         <xsl:for-each select="//constants[@entity='approvalschematype']/entry">
+            <option value="{@attrval}">
+                <xsl:if test="@attrval = //fields/schema">
+                    <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="."/>
+            </option>
+        </xsl:for-each>
+    </xsl:template>
+
+    <xsl:template match="*" mode="selected_options_approvaltype">
+        <xsl:for-each select="//constants[@entity='approvaltype']/entry">
             <option value="{@attrval}">
                 <xsl:if test="@attrval = //fields/schema">
                     <xsl:attribute name="selected">selected</xsl:attribute>
