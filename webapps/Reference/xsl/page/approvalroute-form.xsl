@@ -178,12 +178,14 @@
             </section>
             <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
             <div class="route_block_blank" style="visibility:hidden; margin-top:7px">
-                <div  class="form-group">
+                <div class="form-group">
                     <div class="control-label">
                         <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
                     </div>
-                    <div class="controls">
-                        <input type="text" name="route_block_type" value="{type}" class="span4" autofocus="true"/>
+                    <div class="controls" id="type_controls">
+                        <xsl:for-each select="//constants[@entity='approvaltype']/entry">
+                            <input type="hidden" class="options_type" value="{@attrval}"/>
+                        </xsl:for-each>
                     </div>
                 </div>
                 <div class="form-group">

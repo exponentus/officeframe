@@ -100,6 +100,13 @@ $(function() {
         var $route_block_blank = $(".route_block_blank").clone();
         $route_block_blank.removeClass("route_block_blank");
         $route_block_blank.find("#approvers_controls").append($('<select name="approvers" class="span7"/>'));
+        var options_type="";
+        $(".options_type").each(function(indx, element){
+            options_type +="<option value='"+$(this).val()+"'>"+$(this).val()+"</option>"
+        });
+        $route_block_blank.find("#type_controls").append($('<select name="type" class="span6">' +
+            options_type+
+            '</select>'));
         var fieldset = $("<fildset class='fieldset'><legend class='legend'/></fildset>");
         $(fieldset).append($route_block_blank);
 
