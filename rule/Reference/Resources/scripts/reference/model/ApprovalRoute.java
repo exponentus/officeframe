@@ -102,13 +102,14 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 		chunk.append("<name>" + name + "</name>");
 		chunk.append("<ison>" + isOn + "</ison>");
 		chunk.append("<schema>" + schema + "</schema>");
+		chunk.append("<category>" + category + "</category>");
 
 		chunk.append("<routeblocks>");
-
-		for (RouteBlock b : routeBlocks) {
-			chunk.append("<entry id=\"" + b.getIdentifier() + "\">" + b.getFullXMLChunk(ses) + "</entry>");
+		if(routeBlocks != null) {
+			for (RouteBlock b : routeBlocks) {
+				chunk.append("<entry id=\"" + b.getIdentifier() + "\">" + b.getFullXMLChunk(ses) + "</entry>");
+			}
 		}
-
 		chunk.append("</routeblocks>");
 
 		List<Language> list = null;
