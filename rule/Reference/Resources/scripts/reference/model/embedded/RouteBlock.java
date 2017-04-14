@@ -76,6 +76,7 @@ public class RouteBlock extends SimpleAppEntity implements IPOJOObject {
 
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<position>" + position + "</position>");
 		chunk.append("<type>" + type + "</type>");
 		chunk.append("<timelimit>" + timeLimit + "</timelimit>");
 		chunk.append("<requirecommentifno>" + requireCommentIfNo + "</requirecommentifno>");
