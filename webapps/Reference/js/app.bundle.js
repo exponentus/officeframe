@@ -5538,7 +5538,9 @@ $(function() {
     $('[data-action=add_route_block]').click(function() {
         var $route_block_blank = $(".route_block_blank").clone();
         $route_block_blank.removeClass("route_block_blank");
+        $route_block_blank.addClass("route_block");
         $route_block_blank.find("#approvers_controls").append($('<select name="approvers" class="span7"/>'));
+        $route_block_blank.find("input[name=position]").val($(".route_block").length + 1);
         var options_type="";
         $(".options_type").each(function(indx, element){
             options_type +="<option value='"+$(this).val()+"'>"+$(this).val()+"</option>"
