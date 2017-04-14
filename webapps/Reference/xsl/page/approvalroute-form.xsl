@@ -69,7 +69,9 @@
                                     <xsl:value-of select="//captions/schema/@caption"/>
                                 </div>
                                 <div class="controls">
-                                    <input type="text" name="schema" value="{fields/schema}" class="span4" autofocus="true"/>
+                                    <select name="schema" class="span6">
+                                        <xsl:apply-templates select="fields/schema" mode="selected_options_schema"/>
+                                    </select>
                                 </div>
                             </div>
                         </fieldset>
@@ -203,6 +205,17 @@
         <option value="{@id}" selected="selected">
             <xsl:value-of select="name"/>
         </option>
+    </xsl:template>
+
+    <xsl:template match="*" mode="selected_options_schema">
+        <xsl:for-each select="//constants[@entity='approvalschematype']/entry">
+            <option value="{@attrval}">
+                <xsl:if test="@attrval = //fields/schema">
+                    <xsl:attribute name="selected">selected</xsl:attribute>
+                </xsl:if>
+                <xsl:value-of select="."/>
+            </option>
+        </xsl:for-each>
     </xsl:template>
 
 </xsl:stylesheet>
