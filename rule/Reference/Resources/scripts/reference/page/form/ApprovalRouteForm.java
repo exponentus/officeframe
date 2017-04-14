@@ -83,16 +83,9 @@ public class ApprovalRouteForm extends ReferenceForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
-			String is_on_string = formData.getValue("ison");
-			Boolean is_on = false;
-			if (is_on_string.equals("true")) {
-				is_on = true;
-				/* System.out.println("ison= true"); */
-			}
-			entity.setOn(is_on);
-			// System.out.println("approvers = " +
-			// formData.getListOfValues("approvers"));
+			entity.setSchema(ApprovalSchemaType.valueOf(formData.getValueSilently("schema")));
+			entity.setOn(formData.getBoolSilently("ison"));
+
 			int timelimit_list_count = formData.getListOfValues("timelimit").length;
 			String[] timelimit_list = formData.getListOfValues("timelimit");
 			String[] blocktype_list = formData.getListOfValues("route_block_type");
