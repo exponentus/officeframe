@@ -6,6 +6,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.server.Server;
+import com.exponentus.user.AnonymousUser;
 
 public class Workspace extends _DoPage {
 
@@ -14,5 +15,9 @@ public class Workspace extends _DoPage {
         addValue("logo", Environment.orgLogo);
         addValue("server_version", EnvConst.SERVER_VERSION);
         addValue("build", Server.compilationTime);
+
+        if (session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
+            setUnauthorized();
+        }
     }
 }
