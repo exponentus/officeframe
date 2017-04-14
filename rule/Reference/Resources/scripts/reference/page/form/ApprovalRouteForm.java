@@ -51,7 +51,7 @@ public class ApprovalRouteForm extends ReferenceForm {
 			addContent(new EnumWrapper(ApprovalSchemaType.class.getEnumConstants()));
 			addContent(new EnumWrapper(ApprovalType.class.getEnumConstants()));
 			addContent(getSimpleActionBar(session));
-		} catch (DAOException e) {
+		} catch (Exception e) {
 			logError(e);
 			setBadRequest();
 			return;
