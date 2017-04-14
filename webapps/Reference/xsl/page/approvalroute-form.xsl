@@ -170,49 +170,49 @@
                 </div>
             </section>
             <input type="hidden" id="fsid" name="fsid" value="{//fsid}"/>
-            <div class="route_block_blank" style="visibility:hidden; margin-top:7px">
-                <div class="form-group">
-                    <div class="control-label">
-                        <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
-                    </div>
-                    <div class="controls" id="type_controls">
-                        <xsl:for-each select="//constants[@entity='approvaltype']/entry">
-                            <input type="hidden" class="options_type" value="{@attrval}"/>
-                        </xsl:for-each>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="control-label">
-                        <xsl:value-of select="//captions/time_limit/@caption"/>
-                    </div>
-                    <div class="controls">
-                        <input type="hidden" name="position" value="{position}" class="span1" autofocus="true"/>
-                        <input type="number" name="timelimit" value="{timelimit}" class="span1" autofocus="true"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="control-label">
-                        <xsl:value-of select="//captions/require_comment_if_no/@caption"/>
-                    </div>
-                    <div class="controls">
-                        <input type="checkbox" name="requirecommentifno" value="'true'" style="margin-top:10px">
-                            <xsl:if test="requirecommentifno = 'true'">
-                                <xsl:attribute name="checked">checked</xsl:attribute>
-                            </xsl:if>
-                        </input>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="control-label">
-                        <xsl:value-of select="//captions/approvers/@caption"/>
-                    </div>
-                    <div class="controls" id="approvers_controls">
-                    </div>
-                </div>
 
-            </div>
         </form>
+        <div class="route_block_blank" style="visibility:hidden; margin-top:7px">
+            <div class="form-group">
+                <div class="control-label">
+                    <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
+                </div>
+                <div class="controls" id="type_controls">
+                    <xsl:for-each select="//constants[@entity='approvaltype']/entry">
+                        <input type="hidden" class="options_type" value="{@attrval}"/>
+                    </xsl:for-each>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    <xsl:value-of select="//captions/time_limit/@caption"/>
+                </div>
+                <div class="controls">
+                    <input type="hidden" name="position" value="{position}" class="span1" autofocus="true"/>
+                    <input type="number" name="timelimit" value="{timelimit}" class="span1" autofocus="true"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    <xsl:value-of select="//captions/require_comment_if_no/@caption"/>
+                </div>
+                <div class="controls">
+                    <input type="checkbox" name="requirecommentifno" value="'true'" style="margin-top:10px">
+                        <xsl:if test="requirecommentifno = 'true'">
+                            <xsl:attribute name="checked">checked</xsl:attribute>
+                        </xsl:if>
+                    </input>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    <xsl:value-of select="//captions/approvers/@caption"/>
+                </div>
+                <div class="controls" id="approvers_controls">
+                </div>
+            </div>
 
+        </div>
     </xsl:template>
 
     <xsl:template match="*" mode="selected_options">
