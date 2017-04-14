@@ -15,7 +15,6 @@ import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-import com.exponentus.util.EnumUtil;
 
 import administrator.dao.LanguageDAO;
 import reference.dao.ApprovalRouteDAO;
@@ -85,23 +84,24 @@ public class ApprovalRouteForm extends ReferenceForm {
 			entity.setLocName(getLocalizedNames(session, formData));
 			entity.setSchema(ApprovalSchemaType.valueOf(formData.getValueSilently("schema")));
 			entity.setOn(formData.getBoolSilently("ison"));
-
-			int timelimit_list_count = formData.getListOfValues("timelimit").length;
-			String[] timelimit_list = formData.getListOfValues("timelimit");
-			String[] blocktype_list = formData.getListOfValues("route_block_type");
-			String[] approvers_list = formData.getListOfValues("approvers");
-			// System.out.println("count = "+ count);
 			entity.setCategory(formData.getValue("category"));
+			String[] blocktype_list = formData.getListOfValues("type");
 			List<RouteBlock> routeBlocks = new ArrayList<RouteBlock>();
-			for (int i = 0; i < timelimit_list_count; i++) {
+			for (int i = 0; i < blocktype_list.length; i++) {
 				RouteBlock bl = new RouteBlock();
-				bl.setType(EnumUtil.getRndElement(ApprovalType.values()));
+				bl.setType(ApprovalType.valueOf(blocktype_list[i]));
+				bl.setPosition(formData.getListOfNumberValues("type", 99)[i]);
+				bl.setTimeLimit(formData.getListOfNumberValues("timelimit", 0)[i]);
+				String approvers_list = formData.getListOfValues("approvers")[i];
 				List<Employee> approvers = new ArrayList<Employee>();
 				EmployeeDAO employeeDAO = new EmployeeDAO(session);
-				Employee i_empl = employeeDAO.findById(UUID.fromString(approvers_list[i]));
-				approvers.add(i_empl);
+				Employee empl = employeeDAO.findById(UUID.fromString(""));
+				approvers.add(empl);
 				bl.setApprovers(approvers);
+				routeBlocks.add(bl);
 			}
+
+			entity.setRouteBlocks(routeBlocks);
 
 			try {
 				if (isNew) {
@@ -116,9 +116,9 @@ public class ApprovalRouteForm extends ReferenceForm {
 					ve.addError("code", "unique_error", getLocalizedWord("code_is_not_unique", session.getLang()));
 					setBadRequest();
 					setValidation(ve);
-					return;
 				} else {
-					throw e;
+					logError(e);
+					setBadRequest();
 				}
 			}
 		} catch (WebFormException | SecureException | DAOException e) {
