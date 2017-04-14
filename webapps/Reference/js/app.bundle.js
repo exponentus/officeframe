@@ -11827,7 +11827,7 @@ $(function() {
     $('[data-action=add_route_block]').click(function() {
         var $route_block_blank = $(".route_block_blank").clone();
         $route_block_blank.removeClass("route_block_blank");
-        $route_block_blank.find("#approvers_controls").append($('<select name="approvers" class="span6" multiple="multiple"/>'));
+        $route_block_blank.find("#approvers_controls").append($('<select name="approvers" class="span7" multiple="multiple"/>'));
         var fieldset = $("<fildset class='fieldset'><legend class='legend'/></fildset>");
         $(fieldset).append($route_block_blank);
 

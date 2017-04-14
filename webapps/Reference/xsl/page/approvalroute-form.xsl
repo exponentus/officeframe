@@ -49,7 +49,7 @@
                                     <xsl:value-of select="//captions/is_on/@caption"/>
                                 </div>
                                 <div class="controls">
-                                    <input type="checkbox" name="ison" value="'true'" style="margin-top:10px">
+                                    <input type="checkbox" name="ison" value="true" style="margin-top:10px">
                                         <xsl:if test="fields/ison = 'true'">
                                             <xsl:attribute name="checked">checked</xsl:attribute>
                                         </xsl:if>
@@ -58,10 +58,10 @@
                             </div>
                             <div class="form-group">
                                 <div class="control-label">
-                                    <xsl:value-of select="//captions/code/@caption"/>
+                                    <xsl:value-of select="//captions/category/@caption"/>
                                 </div>
                                 <div class="controls">
-                                    <input type="text" name="code" value="{fields/code}" class="span4" autofocus="true"/>
+                                    <input type="text" name="category" value="{fields/category}" class="span4" autofocus="true"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -144,54 +144,7 @@
                                                 <xsl:value-of select="//captions/approvers/@caption"/>
                                             </div>
                                             <div class="controls">
-                                                <select name="approvers" class="span6" multiple="multiple">
-                                                    <xsl:apply-templates select="approvers/entry" mode="selected_options" />
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </fieldset>
-                            </xsl:for-each>
-                            <xsl:for-each select="fields/routeblocks/entry">
-                                <fieldset class="fieldset">
-                                    <legend class="legend">
-
-                                    </legend>
-                                    <div class="route_block">
-                                        <div class="form-group">
-                                            <div class="control-label">
-                                                <input type="checkbox" name="route_block_chbox"  style="margin-right:70%; "/> <xsl:value-of select="//captions/type/@caption"/>
-                                            </div>
-                                            <div class="controls">
-                                                <input type="text" name="route_block_type" value="{type}" class="span4" autofocus="true"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="control-label">
-                                                <xsl:value-of select="//captions/time_limit/@caption"/>
-                                            </div>
-                                            <div class="controls">
-                                                <input type="number" name="timelimit" value="{timelimit}" class="span3" autofocus="true"/>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="control-label">
-                                                <xsl:value-of select="//captions/require_comment_if_no/@caption"/>
-                                            </div>
-                                            <div class="controls">
-                                                <input type="checkbox" name="requirecommentifno" value="'true'" style="margin-top:10px">
-                                                    <xsl:if test="requirecommentifno = 'true'">
-                                                        <xsl:attribute name="checked">checked</xsl:attribute>
-                                                    </xsl:if>
-                                                </input>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="control-label">
-                                                <xsl:value-of select="//captions/approvers/@caption"/>
-                                            </div>
-                                            <div class="controls">
-                                                <select name="approvers" class="span6" multiple="multiple">
+                                                <select name="approvers" class="span7">
                                                     <xsl:apply-templates select="approvers/entry" mode="selected_options" />
                                                 </select>
                                             </div>
@@ -200,8 +153,6 @@
                                 </fieldset>
                             </xsl:for-each>
                         </div>
-
-
                     </div>
                 </div>
             </section>
