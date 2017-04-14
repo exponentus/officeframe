@@ -86,6 +86,7 @@ public class FillApprovalRouters extends _Do {
 		bl.setType(EnumUtil.getRndElement(ApprovalType.values()));
 		List<Employee> approvers = new ArrayList<Employee>();
 		int apprCount = NumberUtil.getRandomNumber(1, 5);
+
 		for (int i = 1; i <= apprCount; i++) {
 			approvers.add(uDao.getRandomEntity());
 		}
