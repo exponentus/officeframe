@@ -45,6 +45,9 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 	@Convert(converter = ApprovalSchemaTypeConverter.class)
 	private ApprovalSchemaType schema;
 
+	@Column(name = "ver_support")
+	private boolean versionsSupport;
+
 	private String category;
 
 	@Convert(converter = LocalizedValConverter.class)
@@ -61,6 +64,14 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 
 	public void setSchema(ApprovalSchemaType schema) {
 		this.schema = schema;
+	}
+
+	public boolean isVersionsSupport() {
+		return versionsSupport;
+	}
+
+	public void setVersionsSupport(boolean versionsSupport) {
+		this.versionsSupport = versionsSupport;
 	}
 
 	public List<RouteBlock> getRouteBlocks() {
@@ -105,7 +116,7 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 		chunk.append("<category>" + category + "</category>");
 
 		chunk.append("<routeblocks>");
-		if(routeBlocks != null) {
+		if (routeBlocks != null) {
 			for (RouteBlock b : routeBlocks) {
 				chunk.append("<entry id=\"" + b.getIdentifier() + "\">" + b.getFullXMLChunk(ses) + "</entry>");
 			}

@@ -50,6 +50,7 @@
   "session_was_lost" : "User session was expired",
   "open_document" : "Delete",
   "demand_type" : "Demand type",
+  "words" : "Method is not implemented",
   "approving_start_successful" : "Approving started",
   "часов" : "hours",
   "login_name" : "Login",

@@ -42,6 +42,7 @@
   "email" : "Электрондық пошта",
   "session_was_lost" : null,
   "open_document" : null,
+  "words" : "Method is not implemented",
   "organization_labels" : "Белгілері ұйымдастыру үшін",
   "approving_start_successful" : "Мақұлдау бастады",
   "часов" : "сағат",

@@ -50,6 +50,7 @@
   "session_was_lost" : null,
   "open_document" : null,
   "demand_type" : null,
+  "words" : "Method is not implemented",
   "approving_start_successful" : null,
   "часов" : null,
   "login_name" : null,
