@@ -133,6 +133,14 @@
                                         </div>
                                         <div class="form-group">
                                             <div class="control-label">
+                                                <xsl:value-of select="//captions/position/@caption"/>
+                                            </div>
+                                            <div class="controls">
+                                                <input type="number" name="position" value="{position}" class="span1" autofocus="true"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="control-label">
                                                 <xsl:value-of select="//captions/time_limit/@caption"/>
                                             </div>
                                             <div class="controls">
