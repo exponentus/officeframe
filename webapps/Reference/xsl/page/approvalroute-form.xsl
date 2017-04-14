@@ -69,7 +69,7 @@
                                     <xsl:value-of select="//captions/schema/@caption"/>
                                 </div>
                                 <div class="controls">
-                                    <input type="text" name="code" value="{fields/schema}" class="span4" autofocus="true"/>
+                                    <input type="text" name="schema" value="{fields/schema}" class="span4" autofocus="true"/>
                                 </div>
                             </div>
                         </fieldset>

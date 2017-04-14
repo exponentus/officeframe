@@ -53,6 +53,7 @@
   "reports" : null,
   "workspace" : null,
   "notes" : null,
+  "time_limit" : null,
   "acl_tab_title" : "Control de acceso",
   "project" : null,
   "new_" : null,

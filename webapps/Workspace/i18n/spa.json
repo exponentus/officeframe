@@ -98,6 +98,7 @@
   "reports" : null,
   "workspace" : null,
   "notes" : null,
+  "time_limit" : null,
   "acl_tab_title" : "Control de acceso",
   "localized_names" : null,
   "sign" : null,

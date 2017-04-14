@@ -21,6 +21,8 @@ import staff.model.Employee;
 @JsonPropertyOrder({ "id", "name" })
 public class RouteBlock extends SimpleAppEntity implements IPOJOObject {
 
+	private int position;
+
 	private List<Employee> approvers;
 
 	@Convert(converter = ApprovalTypeConverter.class)
@@ -31,6 +33,14 @@ public class RouteBlock extends SimpleAppEntity implements IPOJOObject {
 
 	@Column(name = "require_comment_if_no")
 	private boolean requireCommentIfNo;
+
+	public int getPosition() {
+		return position;
+	}
+
+	public void setPosition(int position) {
+		this.position = position;
+	}
 
 	public List<Employee> getApprovers() {
 		return approvers;

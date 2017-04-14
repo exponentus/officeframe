@@ -43,7 +43,9 @@ public class FillApprovalRouters extends _Do {
 			entity.setCategory("");
 			entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
 			List<RouteBlock> routeBlocks = new ArrayList<RouteBlock>();
-			routeBlocks.add(getMockBlock());
+			RouteBlock block = getMockBlock();
+			block.setPosition(i + 1);
+			routeBlocks.add(block);
 			entity.setRouteBlocks(routeBlocks);
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.RUS, namesRus[i]);

@@ -53,6 +53,7 @@
   "reports" : "Reports",
   "workspace" : "Workspace",
   "notes" : "Notes",
+  "time_limit" : "Time limit",
   "acl_tab_title" : "ACL",
   "project" : "Project",
   "new_" : "Add",

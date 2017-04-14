@@ -5,19 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import administrator.dao.UserDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
+import com.exponentus.util.EnumUtil;
 
 import administrator.dao.LanguageDAO;
-import com.exponentus.util.EnumUtil;
 import reference.dao.ApprovalRouteDAO;
 import reference.model.ApprovalRoute;
 import reference.model.constants.ApprovalSchemaType;
@@ -48,6 +48,8 @@ public class ApprovalRouteForm extends ReferenceForm {
 			}
 			addContent(entity);
 			addContent(new LanguageDAO(session).findAllActivated());
+			addContent(new EnumWrapper(ApprovalSchemaType.class.getEnumConstants()));
+			addContent(new EnumWrapper(ApprovalType.class.getEnumConstants()));
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);
@@ -59,6 +61,7 @@ public class ApprovalRouteForm extends ReferenceForm {
 
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
+		devPrint(formData);
 		try {
 			_Validation ve = simpleCheck("name");
 			if (ve.hasError()) {
@@ -83,20 +86,21 @@ public class ApprovalRouteForm extends ReferenceForm {
 			entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
 			String is_on_string = formData.getValue("ison");
 			Boolean is_on = false;
-			if(is_on_string.equals("true")){
+			if (is_on_string.equals("true")) {
 				is_on = true;
-				/*System.out.println("ison= true");*/
+				/* System.out.println("ison= true"); */
 			}
 			entity.setOn(is_on);
-			//System.out.println("approvers = " + formData.getListOfValues("approvers"));
+			// System.out.println("approvers = " +
+			// formData.getListOfValues("approvers"));
 			int timelimit_list_count = formData.getListOfValues("timelimit").length;
 			String[] timelimit_list = formData.getListOfValues("timelimit");
 			String[] blocktype_list = formData.getListOfValues("route_block_type");
 			String[] approvers_list = formData.getListOfValues("approvers");
-			//System.out.println("count = "+ count);
+			// System.out.println("count = "+ count);
 			entity.setCategory(formData.getValue("category"));
 			List<RouteBlock> routeBlocks = new ArrayList<RouteBlock>();
-			for(int i = 0 ; i < timelimit_list_count; i ++){
+			for (int i = 0; i < timelimit_list_count; i++) {
 				RouteBlock bl = new RouteBlock();
 				bl.setType(EnumUtil.getRndElement(ApprovalType.values()));
 				List<Employee> approvers = new ArrayList<Employee>();
@@ -105,8 +109,6 @@ public class ApprovalRouteForm extends ReferenceForm {
 				approvers.add(i_empl);
 				bl.setApprovers(approvers);
 			}
-
-
 
 			try {
 				if (isNew) {
