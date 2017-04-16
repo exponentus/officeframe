@@ -87,7 +87,9 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
                 }
                 int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
                 typedQuery.setFirstResult(firstRec);
-                typedQuery.setMaxResults(pageSize);
+                if (pageSize > 0) {
+                    typedQuery.setMaxResults(pageSize);
+                }
             }
             List<Employee> result = typedQuery.getResultList();
             return new ViewPage<>(result, count, maxPage, pageNum);
