@@ -37,7 +37,6 @@ public class EmployeeService extends RestProvider {
         _Session session = getSession();
         IUser<Long> user = session.getUser();
         WebFormData params = getWebFormData();
-        int pageSize = session.pageSize;
 
         try {
             Outcome outcome = new Outcome();
@@ -46,7 +45,7 @@ public class EmployeeService extends RestProvider {
             EmployeeFilter filter = setUpFilter(new EmployeeFilter(), params);
 
             EmployeeDAO dao = new EmployeeDAO(session);
-            ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(), pageSize);
+            ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(), params.getNumberValueSilently("limit", session.pageSize));
 
             if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);

@@ -86,7 +86,9 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
                 }
                 int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
                 typedQuery.setFirstResult(firstRec);
-                typedQuery.setMaxResults(pageSize);
+                if (pageSize > 0) {
+                    typedQuery.setMaxResults(pageSize);
+                }
             }
             List<Organization> result = typedQuery.getResultList();
             return new ViewPage<>(result, count, maxPage, pageNum);
