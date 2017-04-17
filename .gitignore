@@ -28,3 +28,4 @@ cfg.xml
 node_modules/
 .vscode/
 /webserver/
+manifest.appcache
