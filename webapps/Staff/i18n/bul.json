@@ -71,6 +71,7 @@
   "labeled" : null,
   "no_data" : null,
   "related_documents" : null,
+  "current_approver" : null,
   "district" : null,
   "name" : null,
   "page" : null,
