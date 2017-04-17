@@ -2,6 +2,7 @@ package workspace.task;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._Do;
 import com.exponentus.scriptprocessor.constants.Trigger;
@@ -28,6 +29,7 @@ public class WriteAppCacheManifest extends _Do {
             writer.write("\n");
             writer.write("CACHE:\n");
             writer.write("css/all.min.css\n");
+            writer.write(Environment.orgLogo + "\n");
             writer.write("img/favicon.png\n");
             writer.write("img/logo.png\n");
             writer.write("img/loading.gif\n");
