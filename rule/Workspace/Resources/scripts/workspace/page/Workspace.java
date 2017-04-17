@@ -15,7 +15,7 @@ public class Workspace extends _DoPage {
         addValue("logo", Environment.orgLogo);
         addValue("build", "" + tm);
 
-        if (session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
+        if (!formData.containsField("skip-auth-error") && session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
             setUnauthorized();
         }
     }
