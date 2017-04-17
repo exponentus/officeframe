@@ -10,7 +10,7 @@
     <xsl:template name="layout">
         <xsl:text disable-output-escaping="yes">&lt;</xsl:text>!DOCTYPE html<xsl:text
             disable-output-escaping="yes">&gt;</xsl:text>
-        <html>
+        <html manifest="manifest.appcache">
             <head>
                 <base href=""/>
                 <meta charset="utf-8"/>
@@ -23,7 +23,7 @@
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
-                <link rel="stylesheet" href="css/all.min.css?v={//server_version}-{//build}"/>
+                <link rel="stylesheet" href="css/all.min.css"/>
                 <style>
                     <![CDATA[
                     /* fix: fieldset content overflow */
@@ -53,8 +53,8 @@
                         </div>
                     </div>
                 </app>
-                <script src="/SharedResources/ng-app/vendor.js.gz?v={//server_version}-{//build}"></script>
-                <script src="/SharedResources/ng-app/app.js.gz?v={//server_version}-{//build}"></script>
+                <script src="/SharedResources/ng-app/vendor.js.gz"></script>
+                <script src="/SharedResources/ng-app/app.js.gz"></script>
             </body>
         </html>
     </xsl:template>
