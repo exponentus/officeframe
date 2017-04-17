@@ -66,6 +66,7 @@
   "add" : null,
   "no_data" : null,
   "related_documents" : "Ejecución",
+  "current_approver" : null,
   "district" : null,
   "name" : null,
   "page" : null,
