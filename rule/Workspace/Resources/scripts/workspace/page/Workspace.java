@@ -13,6 +13,7 @@ public class Workspace extends _DoPage {
     @Override
     public void doGET(_Session session, WebFormData formData) {
         addValue("logo", Environment.orgLogo);
+        addValue("build", "" + tm);
 
         if (session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
             setUnauthorized();
