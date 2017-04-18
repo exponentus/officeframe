@@ -11,7 +11,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "document_subjs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
+@Table(name = "ref__document_subjs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
 @NamedQuery(name = "DocumentSubject.findAll", query = "SELECT m FROM DocumentSubject AS m ORDER BY m.regDate")
 public class DocumentSubject extends SimpleReferenceEntity {
 

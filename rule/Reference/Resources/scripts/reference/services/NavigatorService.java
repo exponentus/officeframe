@@ -69,6 +69,7 @@ public class NavigatorService extends RestProvider {
         }
 
         so.addEntry(new _OutlineEntry("vehicle", "", "vehicle", "vehicles"));
+        so.addEntry(new _OutlineEntry("meeting_rooms", "", "meeting_rooms", "meeting_rooms"));
 
         list.add(co);
         list.add(so);

@@ -10,7 +10,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "delivery_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = "ref__delivery_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "DeliveryType.findAll", query = "SELECT m FROM DeliveryType AS m ORDER BY m.regDate")
 public class DeliveryType extends SimpleReferenceEntity {
 }

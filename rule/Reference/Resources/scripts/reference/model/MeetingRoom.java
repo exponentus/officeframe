@@ -6,11 +6,12 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import javax.persistence.*;
 
-@JsonRootName("meetingRoom")
+@JsonRootName("meetingroom")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "meeting_rooms", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = "ref__rooms", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Inheritance(strategy = InheritanceType.JOINED)
 @NamedQuery(name = "MeetingRoom.findAll", query = "SELECT m FROM MeetingRoom AS m ORDER BY m.regDate")
 public class MeetingRoom extends SimpleReferenceEntity {
     private int floor = 1;

@@ -14,7 +14,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "property_codes", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = "ref__property_codes", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "PropertyCode.findAll", query = "SELECT m FROM PropertyCode AS m ORDER BY m.regDate")
 public class PropertyCode extends SimpleReferenceEntity {
 }

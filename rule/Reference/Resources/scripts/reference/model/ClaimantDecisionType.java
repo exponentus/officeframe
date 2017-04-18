@@ -10,7 +10,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "claimant_decision_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = "ref__claimant_decision_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "ClaimantDecisionType.findAll", query = "SELECT m FROM ClaimantDecisionType AS m ORDER BY m.regDate")
 public class ClaimantDecisionType extends SimpleReferenceEntity {
 }

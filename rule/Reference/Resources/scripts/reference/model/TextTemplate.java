@@ -11,7 +11,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "text_templates", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
+@Table(name = "ref__text_templates", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "category"}))
 @NamedQuery(name = "TextTemplate.findAll", query = "SELECT m FROM TextTemplate AS m ORDER BY m.regDate")
 public class TextTemplate extends SimpleReferenceEntity {
 

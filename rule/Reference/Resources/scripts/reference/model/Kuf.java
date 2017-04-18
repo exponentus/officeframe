@@ -11,7 +11,7 @@ import javax.persistence.*;
 @JsonRootName("kuf")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "kufs")
+@Table(name = "ref__kufs")
 @Cacheable(true)
 @NamedQuery(name = "Kuf.findAll", query = "SELECT m FROM Kuf AS m ORDER BY m.regDate")
 public class Kuf extends SimpleReferenceEntity {

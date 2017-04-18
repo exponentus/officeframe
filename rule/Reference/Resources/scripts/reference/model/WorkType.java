@@ -12,7 +12,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "work_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = "ref__work_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "WorkType.findAll", query = "SELECT m FROM WorkType AS m ORDER BY m.regDate")
 public class WorkType extends SimpleReferenceEntity {
 
