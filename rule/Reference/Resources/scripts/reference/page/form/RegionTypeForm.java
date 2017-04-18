@@ -5,9 +5,9 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
-import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -22,7 +22,7 @@ import reference.model.constants.RegionCode;
  */
 
 public class RegionTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -46,7 +46,7 @@ public class RegionTypeForm extends ReferenceForm {
 
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -56,29 +56,29 @@ public class RegionTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			RegionTypeDAO dao = new RegionTypeDAO(session);
 			RegionType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new RegionType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
-			entity.setCode(RegionCode.valueOf(formData.getValueSilently("code", formData.getValue("code"))));
+			entity.setCode(RegionCode.valueOf(formData.getStringValueSilently("code", formData.getValue("code"))));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);
 				} else {
 					dao.update(entity);
 				}
-				
+
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 					ve = new _Validation();
@@ -90,7 +90,7 @@ public class RegionTypeForm extends ReferenceForm {
 					throw e;
 				}
 			}
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();

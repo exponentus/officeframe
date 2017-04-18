@@ -6,9 +6,9 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
-import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -19,7 +19,7 @@ import reference.model.DocumentLanguage;
 import reference.model.constants.CountryCode;
 
 public class DocumentLanguageForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -42,7 +42,7 @@ public class DocumentLanguageForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -52,30 +52,30 @@ public class DocumentLanguageForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
 			DocumentLanguage entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new DocumentLanguage();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
-			entity.setCode(LanguageCode.valueOf(formData.getValueSilently("code", "UNKNOWN")));
+			entity.setCode(LanguageCode.valueOf(formData.getStringValueSilently("code", "UNKNOWN")));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			save(session, entity, dao, isNew);
-			
+
 		} catch (WebFormException | SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}
 	}
-	
+
 	private void save(_Session ses, DocumentLanguage entity, DocumentLanguageDAO dao, boolean isNew)
 			throws SecureException, DAOException {
 		try {
@@ -96,16 +96,16 @@ public class DocumentLanguageForm extends ReferenceForm {
 			}
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name");
-		
+
 		if (formData.getValueSilently("code").isEmpty()) {
 			ve.addError("code", "required", getLocalizedWord("field_is_empty", lang));
 		} else if (formData.getValueSilently("code").equalsIgnoreCase(CountryCode.UNKNOWN.name())) {
 			ve.addError("code", "ne_unknown", getLocalizedWord("field_cannot_be_unknown", lang));
 		}
-		
+
 		return ve;
 	}
 }

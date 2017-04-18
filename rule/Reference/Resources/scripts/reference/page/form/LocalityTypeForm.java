@@ -5,9 +5,9 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
-import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -22,7 +22,7 @@ import reference.model.constants.LocalityCode;
  */
 
 public class LocalityTypeForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -46,7 +46,7 @@ public class LocalityTypeForm extends ReferenceForm {
 
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -56,22 +56,22 @@ public class LocalityTypeForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			LocalityTypeDAO dao = new LocalityTypeDAO(session);
 			LocalityType entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new LocalityType();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
+
 			entity.setName(formData.getValue("name"));
-			entity.setCode(LocalityCode.valueOf(formData.getValueSilently("code", formData.getValue("code"))));
+			entity.setCode(LocalityCode.valueOf(formData.getStringValueSilently("code", formData.getValue("code"))));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);
