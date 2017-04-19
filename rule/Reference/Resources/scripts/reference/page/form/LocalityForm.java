@@ -13,7 +13,6 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 
 import administrator.dao.LanguageDAO;
-import reference.dao.DistrictDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
@@ -86,13 +85,6 @@ public class LocalityForm extends ReferenceForm {
 			RegionDAO regionDAO = new RegionDAO(session);
 			entity.setRegion(regionDAO.findByIdentefier(formData.getValueSilently("region")));
 
-			String districtId = formData.getValueSilently("district");
-			if (!districtId.isEmpty()) {
-				DistrictDAO districtDAO = new DistrictDAO(session);
-				entity.setDistrict(districtDAO.findByIdentefier(districtId));
-			} else {
-
-			}
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			try {

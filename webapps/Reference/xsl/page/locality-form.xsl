@@ -50,16 +50,6 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="control-label">
-                            <xsl:value-of select="//captions/district/@caption"/>
-                        </div>
-                        <div class="controls">
-                            <select name="district" class="span7" autocomplete="off">
-                                <xsl:apply-templates select="fields/district" mode="selected_options"/>
-                            </select>
-                        </div>
-                    </div>
                 </fieldset>
                 <fieldset class="fieldset">
                     <legend class="legend">

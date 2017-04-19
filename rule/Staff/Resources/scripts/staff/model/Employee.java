@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -21,6 +22,8 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.eclipse.persistence.annotations.Cache;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.HierarchicalEntity;
@@ -38,13 +41,14 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import administrator.model.User;
 import reference.model.Position;
+import staff.model.util.EntityConvertor;
 
 @JsonRootName("employee")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @NamedQuery(name = "EmployeCacheTypee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
-// @Cache(isolation = CacheIsolationType.ISOLATED)
+@Converter(name = "staff_convertor", converterClass = EntityConvertor.class)
 @Cache(refreshOnlyIfNewer = true)
 @JsonPropertyOrder({ "kind", "name" })
 public class Employee extends SimpleHierarchicalReferenceEntity implements IEmployee {
@@ -64,14 +68,12 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IEmpl
 	@JoinColumn(nullable = false)
 	private Organization organization;
 
-	@NotNull
-	@ManyToOne(optional = true)
-	@JoinColumn(nullable = false)
+	@Convert("staff_convertor")
+	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Department department;
 
-	@NotNull
-	@ManyToOne(optional = true)
-	@JoinColumn(nullable = false)
+	@Convert("staff_convertor")
+	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Employee boss;
 
 	@ManyToOne(optional = true)

@@ -3,14 +3,18 @@ package staff.model;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
+
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
 import com.exponentus.common.model.HierarchicalEntity;
 import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
@@ -18,18 +22,19 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.util.TimeUtil;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import reference.model.DepartmentType;
+import staff.model.util.EntityConvertor;
 
 @JsonRootName("department")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
+@Converter(name = "staff_convertor", converterClass = EntityConvertor.class)
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
 public class Department extends SimpleHierarchicalReferenceEntity {
 
@@ -42,18 +47,13 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 	@JoinColumn(nullable = false)
 	private Organization organization;
 
-	@NotNull
-	@ManyToOne(optional = true)
-	@JoinColumn(nullable = false)
+	@Convert("staff_convertor")
+	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Department leadDepartment;
 
-	@NotNull
-	@ManyToOne(optional = true)
-	@JoinColumn(nullable = false)
+	@Convert("staff_convertor")
+	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Employee boss;
-
-	@OneToMany(mappedBy = "department")
-	private List<Employee> employees;
 
 	private int rank = 999;
 
@@ -79,11 +79,6 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 
 	public void setBoss(Employee boss) {
 		this.boss = boss;
-	}
-
-	@JsonIgnore
-	public List<Employee> getEmployees() {
-		return employees;
 	}
 
 	public DepartmentType getType() {

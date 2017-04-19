@@ -29,39 +29,44 @@ public class FillCityDistricts extends _Do {
 		Locality region = null;
 		try {
 			LocalityDAO cDao = new LocalityDAO(ses);
-			region = cDao.findByName("Алматы");
+			region = cDao.findByName("Almaty");
+			if (region != null) {
+				for (int i = 0; i < data.length; i++) {
+					CityDistrict entity = new CityDistrict();
+					entity.setLocality(region);
+					entity.setName(data[i]);
+					entities.add(entity);
+				}
+				try {
+					CityDistrictDAO dao = new CityDistrictDAO(ses);
+					for (CityDistrict entry : entities) {
+						try {
+							if (dao.add(entry) != null) {
+								logger.infoLogEntry(entry.getName() + " added");
+							}
+						} catch (DAOException e) {
+							if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+								logger.warningLogEntry(
+										"a data is already exists (" + e.getAddInfo() + "), record was skipped");
+							} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+								logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+							} else {
+								logger.errorLogEntry(e);
+							}
+						} catch (SecureException e) {
+							logger.errorLogEntry(e);
+						}
+					}
+				} catch (DAOException e) {
+					logger.errorLogEntry(e);
+				}
+			} else {
+				logger.errorLogEntry("Locality has not been found");
+			}
 		} catch (DAOException e) {
 			e.printStackTrace();
 		}
 
-		for (int i = 0; i < data.length; i++) {
-			CityDistrict entity = new CityDistrict();
-			entity.setLocality(region);
-			entity.setName(data[i]);
-			entities.add(entity);
-		}
-		try {
-			CityDistrictDAO dao = new CityDistrictDAO(ses);
-			for (CityDistrict entry : entities) {
-				try {
-					if (dao.add(entry) != null) {
-						logger.infoLogEntry(entry.getName() + " added");
-					}
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.errorLogEntry(e);
-					}
-				} catch (SecureException e) {
-					logger.errorLogEntry(e);
-				}
-			}
-		} catch (DAOException e) {
-			logger.errorLogEntry(e);
-		}
 		logger.infoLogEntry("done...");
 	}
 

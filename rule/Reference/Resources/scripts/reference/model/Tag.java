@@ -1,9 +1,23 @@
 package reference.model;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
+import java.util.List;
+import java.util.UUID;
+
+import javax.persistence.Basic;
+import javax.persistence.Cacheable;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.jpa.util.UUIDConverter;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.util.TimeUtil;
@@ -11,119 +25,112 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import javax.persistence.*;
-import java.util.List;
-import java.util.UUID;
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 
 @JsonRootName("tag")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "color"}))
+@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }))
+@Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {
 
-    @Column(length = 7)
-    private String color;
+	@Column(length = 7)
+	private String color;
 
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent")
-    private Tag parent;
+	@JsonIgnore
+	@Convert("uuidConverter")
+	@Basic(fetch = FetchType.LAZY, optional = true)
+	private Tag parent;
 
-    @OneToMany(mappedBy = "parent", cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
-    private List<Tag> children;
+	private boolean hidden;
 
-    private boolean hidden;
+	private String category;
 
-    private String category;
+	public String getCategory() {
+		return category;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+	public Tag getParent() {
+		return parent;
+	}
 
-    public Tag getParent() {
-        return parent;
-    }
+	public void setParent(Tag parent) {
+		this.parent = parent;
+	}
 
-    public void setParent(Tag parent) {
-        this.parent = parent;
-    }
+	public String getColor() {
+		return color;
+	}
 
-    public List<Tag> getChildren() {
-        return children;
-    }
+	public void setColor(String color) {
+		this.color = color;
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public UUID getParentId() {
+		if (parent == null) {
+			return null;
+		}
+		return parent.id;
+	}
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+	public boolean isHidden() {
+		return hidden;
+	}
 
-    public UUID getParentId() {
-        if (parent == null) {
-            return null;
-        }
-        return parent.id;
-    }
+	public void setHidden(boolean hidden) {
+		this.hidden = hidden;
+	}
 
-    public boolean isHidden() {
-        return hidden;
-    }
+	public void setParentId(UUID id) {
+		if (id == null) {
+			setParent(null);
+			return;
+		}
 
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
+		Tag parent = new Tag();
+		parent.setId(id);
+		setParent(parent);
+	}
 
-    public void setParentId(UUID id) {
-        if (id == null) {
-            setParent(null);
-            return;
-        }
+	@Override
+	public String getFullXMLChunk(_Session ses) {
+		StringBuilder chunk = new StringBuilder(1000);
+		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
+		chunk.append("<name>" + getName().replace("&", "&amp;") + "</name>");
+		chunk.append("<color>" + color + "</color>");
+		if (category != null) {
+			chunk.append("<category>" + category + "</category>");
+		}
+		chunk.append("<hidden>" + hidden + "</hidden>");
+		chunk.append("<localizednames>");
+		try {
+			LanguageDAO lDao = new LanguageDAO(ses);
+			List<Language> list = lDao.findAllActivated();
+			for (Language l : list) {
+				chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocName(l.getCode()) + "</entry>");
+			}
+		} catch (DAOException e) {
+			Server.logger.errorLogEntry(e);
+		}
 
-        Tag parent = new Tag();
-        parent.setId(id);
-        setParent(parent);
-    }
+		chunk.append("</localizednames>");
+		return chunk.toString();
+	}
 
-    @Override
-    public String getFullXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-        chunk.append("<name>" + getName().replace("&", "&amp;") + "</name>");
-        chunk.append("<color>" + color + "</color>");
-        if (category != null) {
-            chunk.append("<category>" + category + "</category>");
-        }
-        chunk.append("<hidden>" + hidden + "</hidden>");
-        chunk.append("<localizednames>");
-        try {
-            LanguageDAO lDao = new LanguageDAO(ses);
-            List<Language> list = lDao.findAllActivated();
-            for (Language l : list) {
-                chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocName(l.getCode()) + "</entry>");
-            }
-        } catch (DAOException e) {
-            Server.logger.errorLogEntry(e);
-        }
+	@Override
+	public String getShortXMLChunk(_Session ses) {
+		return "<name>" + getName() + "</name><color>" + color + "</color><category>" + category + "</category>";
+	}
 
-        chunk.append("</localizednames>");
-        return chunk.toString();
-    }
-
-    @Override
-    public String getShortXMLChunk(_Session ses) {
-        return "<name>" + getName() + "</name><color>" + color + "</color><category>" + category + "</category>";
-    }
-
-    @Override
-    public String toString() {
-        return "Tag[" + id + ", " + getLocName() + ", " + color + ", " + parent + ", " + getRegDate() + "]";
-    }
+	@Override
+	public String toString() {
+		return "Tag[" + id + ", " + getLocName() + ", " + color + ", " + parent + ", " + getRegDate() + "]";
+	}
 }
