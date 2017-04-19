@@ -3,13 +3,7 @@ package staff.model;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.exponentus.common.model.HierarchicalEntity;
@@ -42,14 +36,14 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 	@JoinColumn(nullable = false)
 	private Organization organization;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne(optional = true)
-	@JoinColumn(nullable = false)
+	//@JoinColumn(nullable = false) // как добавить департамент, если еще нет ни одного
 	private Department leadDepartment;
 
-	@NotNull
+	//@NotNull
 	@ManyToOne(optional = true)
-	@JoinColumn(nullable = false)
+	//@JoinColumn(nullable = false) // без Employee нельзя добавить Department, без Department нельзя добавить Employee
 	private Employee boss;
 
 	@OneToMany(mappedBy = "department")
