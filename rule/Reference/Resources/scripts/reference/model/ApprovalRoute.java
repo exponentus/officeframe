@@ -34,7 +34,7 @@ import reference.model.embedded.RouteBlock;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "approval_routes", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "ref__approval_routes", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "ApprovalRoute.findAll", query = "SELECT m FROM ApprovalRoute AS m ORDER BY m.regDate")
 public class ApprovalRoute extends SimpleReferenceEntity {
 

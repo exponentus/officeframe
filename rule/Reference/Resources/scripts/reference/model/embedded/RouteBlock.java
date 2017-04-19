@@ -17,7 +17,7 @@ import reference.model.constants.converter.ApprovalTypeConverter;
 import staff.model.Employee;
 
 @Entity
-@Table(name = "route_blocks")
+@Table(name = "ref__route_blocks")
 @JsonPropertyOrder({ "id", "name" })
 public class RouteBlock extends SimpleAppEntity implements IPOJOObject {
 

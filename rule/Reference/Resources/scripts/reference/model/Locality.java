@@ -25,7 +25,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "localities", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type_id", "region_id" }))
+@Table(name = "ref__localities", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type_id",
+		"region_id" }))
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @NamedQuery(name = "Locality.findAll", query = "SELECT m FROM Locality AS m ORDER BY m.regDate")
 public class Locality extends SimpleReferenceEntity {

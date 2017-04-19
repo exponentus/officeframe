@@ -32,7 +32,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("comment")
 @Entity
-@Table(name = "disc_comments")
+@Table(name = "disc__comments")
 @NamedQuery(name = "Comment.findAll", query = "SELECT m FROM Comment AS m ORDER BY m.regDate ASC")
 public class Comment extends SecureHierarchicalEntity {
 

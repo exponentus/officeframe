@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import dataexport.model.constants.ExportFormatType;
 
 @Entity
-@Table(name = "de_export_profiles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "de__export_profiles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "ExportProfile.findAll", query = "SELECT m FROM ExportProfile AS m ORDER BY m.regDate")
 @JsonIgnoreType
 public class ExportProfile extends SimpleReferenceEntity {

@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "city_districts", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "locality_id" }))
+@Table(name = "ref__city_districts", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "locality_id" }))
 @NamedQuery(name = "CityDistrict.findAll", query = "SELECT m FROM CityDistrict AS m ORDER BY m.regDate")
 public class CityDistrict extends SimpleReferenceEntity {
 

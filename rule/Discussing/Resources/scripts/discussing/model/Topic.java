@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import discussing.model.constants.TopicStatusType;
 
 @Entity
-@Table(name = "disc_topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "disc__topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Topic.findAll", query = "SELECT m FROM Topic AS m ORDER BY m.regDate")
 @JsonIgnoreType
 public class Topic extends SecureHierarchicalEntity {
