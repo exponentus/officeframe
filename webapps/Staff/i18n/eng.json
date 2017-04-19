@@ -176,7 +176,7 @@
   "due_date" : "Due date",
   "control" : "Control",
   "structure" : "Organization structure",
-  "contractors" : "Contractors",
+  "contractors" : "Contractors", 
   "declined" : "Declined",
   "application" : "Requests",
   "dialog_no_selected_value" : "No selected",
