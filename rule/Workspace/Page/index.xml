@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rule mode="on" anonymous="on">
-    <caching>NO_CACHING</caching>
-    <xsltfile>DEFAULT</xsltfile>
+    <xsltfile>page//workspace.xsl</xsltfile>
     <element mode="ON" type="SCRIPT">
         <events>
             <doscript source="JAVA_CLASS">workspace.page.Workspace</doscript>
