@@ -138,6 +138,7 @@ public class DepartmentService extends RestProvider {
             entity.setType(dto.getType());
             entity.setOrganization(dto.getOrganization());
             entity.setLeadDepartment(dto.getLeadDepartment());
+            entity.setBoss(dto.getBoss());
 
             dao.save(entity);
 

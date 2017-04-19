@@ -82,7 +82,7 @@
   "approval_block_time_limit_help" : "after this time limit the approval process go forward",
   "blocks" : "Route blocks",
   "password_confirm_not_equals" : "Passwords do not match",
-  "applications_for_meeting_room" : "Request meeting room",
+  "applications_for_meeting_room" : "Application for meeting room",
   "is_on" : "Is on",
   "no_connection" : "No connection to the server",
   "button_show_translate" : "show translated text",
@@ -115,7 +115,7 @@
   "short_name" : "Short name",
   "specific_reference_data" : "Application reference data",
   "status" : "Status",
-  "application_for_vehicle" : "Request vehicle",
+  "application_for_vehicle" : "Application for vehicle",
   "delete_route_block" : "Delete route block",
   "is_hidden" : "Is hidden",
   "save" : "Save",
@@ -178,7 +178,7 @@
   "structure" : "Organization structure",
   "contractors" : "Contractors",
   "declined" : "Declined",
-  "application" : "Requests",
+  "application" : "Applications",
   "dialog_no_selected_value" : "No selected",
   "bin_value_should_be_consist_from_12_symbols" : "BIN value should be consist from 12 symbols maximum",
   "doc_subject" : "Document subject",
@@ -188,7 +188,8 @@
   "markdown_preview" : "Preview",
   "officememo" : "Officememo",
   "add_route_block" : "Add route block",
-  "not_null_violation" : "the value cannot be null",
+  "not_null_violation" : "a value cannot be null",
+>>>>>>> refs/remotes/origin/master
   "password" : "Password",
   "approval_route" : "Approval route",
   "use_to" : "Until",
@@ -267,10 +268,18 @@
   "notify_to_approve" : "Notification to approve",
   "leaddepartment" : "Lead department",
   "new_task" : "New task",
+<<<<<<< HEAD
   "applications_for_vehicle" : "Vehicle requests",
+=======
+  "applications_for_vehicle" : "Applications for vehicle",
+>>>>>>> refs/remotes/origin/master
   "summary" : "Summary",
   "normal" : "Normal",
+<<<<<<< HEAD
   "apply" : "Request",
+=======
+  "apply" : "Apply",
+>>>>>>> refs/remotes/origin/master
   "org" : "Organization",
   "request_types" : "Request types",
   "meetingroom" : "Meeting room",
@@ -347,7 +356,11 @@
   "tag" : "Tag",
   "new_due_date_help" : "New due date",
   "control_type" : "Control type",
+<<<<<<< HEAD
   "applicationforvehicle" : "Request vehicle",
+=======
+  "applicationforvehicle" : "Application for vehicle",
+>>>>>>> refs/remotes/origin/master
   "password_incorrect" : "Password is wrong",
   "new_category" : "New category",
   "accepted" : "Accepted",
@@ -363,7 +376,11 @@
   "structure_type" : "Structure type",
   "week" : "Week",
   "rejected" : "Rejected",
+<<<<<<< HEAD
   "unique_violation" : "the value must be unique",
+=======
+  "unique_violation" : "a value is not unique",
+>>>>>>> refs/remotes/origin/master
   "doc_type" : "Document type",
   "complete_task" : "Complete task",
   "request_time" : "Request date",
@@ -372,7 +389,11 @@
   "primary_organization" : "Primary organization",
   "editors" : "Editors",
   "date_format_does_not_match_to" : "Date format does not match to pattern",
+<<<<<<< HEAD
   "all_applications" : "All requests",
+=======
+  "all_applications" : "All applications",
+>>>>>>> refs/remotes/origin/master
   "assignment" : "Assignment",
   "send_request" : "Send request",
   "dispute_type" : "Character dispute",
