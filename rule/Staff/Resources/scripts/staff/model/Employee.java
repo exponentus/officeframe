@@ -29,6 +29,7 @@ import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.HierarchicalEntity;
 import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
+import com.exponentus.common.model.util.EntityConverter;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.dataengine.system.IEmployee;
 import com.exponentus.scripting._Session;
@@ -41,14 +42,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import administrator.model.User;
 import reference.model.Position;
-import staff.model.util.EntityConvertor;
 
 @JsonRootName("employee")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @NamedQuery(name = "EmployeCacheTypee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
-@Converter(name = "staff_convertor", converterClass = EntityConvertor.class)
+@Converter(name = "staff_convertor", converterClass = EntityConverter.class)
 @Cache(refreshOnlyIfNewer = true)
 @JsonPropertyOrder({ "kind", "name" })
 public class Employee extends SimpleHierarchicalReferenceEntity implements IEmployee {

@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
+import org.eclipse.persistence.annotations.Converters;
 
 import com.exponentus.common.model.HierarchicalEntity;
 import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
@@ -28,13 +29,16 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import reference.model.DepartmentType;
-import staff.model.util.EntityConvertor;
+import staff.model.util.DepartmentConverter;
+import staff.model.util.EmployeeConverter;
 
 @JsonRootName("department")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
-@Converter(name = "staff_convertor", converterClass = EntityConvertor.class)
+@Converters({ @Converter(name = "dep_conv", converterClass = DepartmentConverter.class),
+		@Converter(name = "emp_conv", converterClass = EmployeeConverter.class) })
+
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
 public class Department extends SimpleHierarchicalReferenceEntity {
 
@@ -47,11 +51,11 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 	@JoinColumn(nullable = false)
 	private Organization organization;
 
-	@Convert("staff_convertor")
+	@Convert("dep_conv")
 	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Department leadDepartment;
 
-	@Convert("staff_convertor")
+	@Convert("emp_conv")
 	@Basic(fetch = FetchType.LAZY, optional = true)
 	private Employee boss;
 
