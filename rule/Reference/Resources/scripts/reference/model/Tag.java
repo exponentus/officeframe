@@ -32,7 +32,7 @@ import administrator.model.Language;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }))
+@Table(name = "ref__tags", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "color" }))
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {

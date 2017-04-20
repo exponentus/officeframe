@@ -35,7 +35,7 @@ import staff.model.util.EmployeeConverter;
 @JsonRootName("department")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
+@Table(name = "staff__departments", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
 @Converters({ @Converter(name = "dep_conv", converterClass = DepartmentConverter.class),
 		@Converter(name = "emp_conv", converterClass = EmployeeConverter.class) })
 
