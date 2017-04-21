@@ -53,10 +53,11 @@ public class Comment extends SecureHierarchicalEntity {
 	private String comment;
 
 	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinTable(name = "comment_attachments", joinColumns = { @JoinColumn(name = "comment_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "attachment_id") }, indexes = {
-					@Index(columnList = "comment_id, attachment_id") }, uniqueConstraints = @UniqueConstraint(columnNames = {
-							"comment_id", "attachment_id" }))
+	@JoinTable(name = "disc_comment_attachments", joinColumns = {
+			@JoinColumn(name = "comment_id") }, inverseJoinColumns = {
+					@JoinColumn(name = "attachment_id") }, indexes = {
+							@Index(columnList = "comment_id, attachment_id") }, uniqueConstraints = @UniqueConstraint(columnNames = {
+									"comment_id", "attachment_id" }))
 	@CascadeOnDelete
 	private List<Attachment> attachments = new ArrayList<>();
 

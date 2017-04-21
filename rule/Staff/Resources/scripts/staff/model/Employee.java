@@ -84,7 +84,7 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IEmpl
 	private Position position;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "employee_role")
+	@JoinTable(name = "staff__employee_role")
 	private List<Role> roles;
 
 	private int rank = 999;

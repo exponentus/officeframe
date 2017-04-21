@@ -6,6 +6,7 @@ import administrator.model.constants.InterfaceType;
 import administrator.model.constants.VisibiltyMode;
 
 public class AppConst extends DefaultAppConst {
+	public static String CODE = "ws";
 	public static VisibiltyMode VISIBILITY = VisibiltyMode.HIDDEN;
 	public static String NAME = "Workspace";
 	public static String NAME_ENG = "Workspace";

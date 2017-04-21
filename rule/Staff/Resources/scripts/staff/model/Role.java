@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("role")
 @Entity
-@Table(name = "staff_roles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "staff__roles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Role.findAll", query = "SELECT m FROM Role AS m ORDER BY m.regDate")
 public class Role extends SimpleReferenceEntity {
 

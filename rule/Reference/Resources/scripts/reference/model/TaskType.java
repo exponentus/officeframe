@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref_task_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "ref__task_types", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "TaskType.findAll", query = "SELECT m FROM TaskType AS m ORDER BY m.regDate")
 public class TaskType extends SimpleReferenceEntity {
 

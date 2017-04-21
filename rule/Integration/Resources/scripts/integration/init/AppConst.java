@@ -3,6 +3,7 @@ package integration.init;
 import com.exponentus.common.init.DefaultAppConst;
 
 public class AppConst extends DefaultAppConst {
+	public static String CODE = "integ";
 	public static String NAME = "Integration";
 	public static String NAME_ENG = "Integration";
 	public static String NAME_RUS = "Интеграция данных";

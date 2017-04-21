@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("organizationlabel")
 @Entity
-@Table(name = "staff_org_labels", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "staff__org_labels", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "OrganizationLabel.findAll", query = "SELECT m FROM OrganizationLabel AS m ORDER BY m.regDate")
 public class OrganizationLabel extends SimpleReferenceEntity {
 

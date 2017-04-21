@@ -3,6 +3,7 @@ package staff.init;
 import com.exponentus.common.init.DefaultAppConst;
 
 public class AppConst extends DefaultAppConst {
+	public static String CODE = "staff";
 	public static String NAME = "Staff";
 	public static String NAME_ENG = "Staff";
 	public static String NAME_RUS = "Структура";

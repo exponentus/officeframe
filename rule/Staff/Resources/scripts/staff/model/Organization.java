@@ -41,7 +41,7 @@ public class Organization extends SimpleHierarchicalReferenceEntity {
 	private List<Employee> employers;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "orgs_labels", joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
+	@JoinTable(name = "staff__orgs_labels", joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
 	private List<OrganizationLabel> labels;
 
 	@FTSearchable
