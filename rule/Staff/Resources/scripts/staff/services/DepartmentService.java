@@ -10,9 +10,7 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.user.IUser;
 import staff.dao.DepartmentDAO;
 import staff.model.Department;
@@ -42,8 +40,8 @@ public class DepartmentService extends RestProvider {
 
             if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);
-                actionBar.addAction(new _Action("new_", "", "new_"));
-                actionBar.addAction(new _Action("del_document", "", _ActionType.DELETE_DOCUMENT));
+                actionBar.addAction(Action.addNew);
+                actionBar.addAction(Action.deleteDocument);
                 outcome.addPayload(actionBar);
             }
 
@@ -76,9 +74,9 @@ public class DepartmentService extends RestProvider {
 
             //
             _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new _Action("close", "", _ActionType.CLOSE));
+            actionBar.addAction(Action.close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("staff_admin")) {
-                actionBar.addAction(new _Action("save_close", "", _ActionType.SAVE_AND_CLOSE));
+                actionBar.addAction(Action.saveAndClose);
             }
 
             Outcome outcome = new Outcome();

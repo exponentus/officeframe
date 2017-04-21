@@ -51,8 +51,8 @@ public class LocalityService extends RestProvider {
 
 			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
-				actionBar.addAction(new _Action("new_", "", "new_"));
-				actionBar.addAction(new _Action("del_document", "", _ActionType.DELETE_DOCUMENT));
+				actionBar.addAction(Action.addNew);
+				actionBar.addAction(Action.deleteDocument);
 				outcome.addPayload(actionBar);
 			}
 
@@ -85,9 +85,9 @@ public class LocalityService extends RestProvider {
 
 			//
 			_ActionBar actionBar = new _ActionBar(session);
-			actionBar.addAction(new _Action("close", "", _ActionType.CLOSE));
+			actionBar.addAction(Action.close);
 			if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("reference_admin")) {
-				actionBar.addAction(new _Action("save_close", "", "save_and_close", "", "btn-primary"));
+				actionBar.addAction(Action.saveAndClose);
 			}
 
 			Outcome outcome = new Outcome();
