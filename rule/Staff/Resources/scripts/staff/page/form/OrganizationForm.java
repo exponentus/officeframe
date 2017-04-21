@@ -8,7 +8,6 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -79,11 +78,11 @@ public class OrganizationForm extends StaffForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
 			OrgCategoryDAO ocDao = new OrgCategoryDAO(session);
-			entity.setOrgCategory(ocDao.findByIdentefier(formData.getValue("orgcategory")));
-			entity.setBin(formData.getValue("bin"));
+			entity.setOrgCategory(ocDao.findByIdentefier(formData.getValueSilently("orgcategory")));
+			entity.setBin(formData.getValueSilently("bin"));
 			OrganizationLabelDAO olDao = new OrganizationLabelDAO(session);
 			List<OrganizationLabel> labels = new ArrayList<>();
 			for (String labelId : formData.getListOfValuesSilently("labels")) {
@@ -102,7 +101,7 @@ public class OrganizationForm extends StaffForm {
 				dao.update(entity);
 			}
 
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}
