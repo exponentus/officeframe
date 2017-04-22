@@ -5,6 +5,12 @@
 #########################
 cfg.xml
 /resources/config.properties
+# utility_data
+/resources/utilstorage/utility_data.lock.db
+/resources/utilstorage/utility_data.trace.db
+#any backup data
+/resources/backup/**
+#tmp folder
 /tmp/
 /rule/*/Resources/report/templates/*.jasper
 /rule/*/Resources/report/.metadata/**
@@ -21,6 +27,7 @@ cfg.xml
 ########
 /logs/
 /bin/
+/webserver/
 /.settings/
 /.classpath
 /.project
@@ -28,4 +35,3 @@ cfg.xml
 node_modules/
 .vscode/
 /webserver/
-manifest.appcache
