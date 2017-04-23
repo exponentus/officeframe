@@ -2,6 +2,8 @@ package staff.page.view;
 
 import java.util.UUID;
 
+import javax.persistence.RollbackException;
+
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
@@ -44,17 +46,21 @@ public class EmployeeView extends _DoPage {
 	}
 
 	@Override
-	public void doDELETE(_Session session, WebFormData formData){
+	public void doDELETE(_Session session, WebFormData formData) {
 		try {
 			IUser<Long> user = session.getUser();
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				EmployeeDAO dao = new EmployeeDAO(session);
 				for (String id : formData.getListOfValuesSilently("docid")) {
 					Employee m = dao.findById(UUID.fromString(id));
-					try {
-						dao.delete(m);
-					} catch (SecureException e) {
-						setError(e);
+					if (m != null) {
+						try {
+							dao.delete(m);
+						} catch (RollbackException e) {
+							setError(new DAOException(e));
+						} catch (SecureException e) {
+							setError(e);
+						}
 					}
 				}
 			} else {
