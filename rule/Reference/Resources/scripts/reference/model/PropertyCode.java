@@ -10,7 +10,7 @@ import javax.persistence.*;
  * @author Kayra created 07-01-2016
  */
 
-@JsonRootName("propertycode")
+@JsonRootName("propertyCode")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

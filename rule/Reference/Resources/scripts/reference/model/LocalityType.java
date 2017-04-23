@@ -21,7 +21,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import reference.model.constants.LocalityCode;
 
-@JsonRootName("localitytype")
+@JsonRootName("localityType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

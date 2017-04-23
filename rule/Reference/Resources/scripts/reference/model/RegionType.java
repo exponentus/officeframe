@@ -21,7 +21,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import reference.model.constants.RegionCode;
 
-@JsonRootName("regiontype")
+@JsonRootName("regionType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
