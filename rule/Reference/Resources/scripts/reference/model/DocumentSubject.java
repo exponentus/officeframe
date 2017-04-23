@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import javax.persistence.*;
 
-@JsonRootName("documentsubject")
+@JsonRootName("documentSubject")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import javax.persistence.*;
 
-@JsonRootName("documentlanguage")
+@JsonRootName("documentLanguage")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

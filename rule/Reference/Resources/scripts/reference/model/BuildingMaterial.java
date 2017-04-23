@@ -9,7 +9,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-@JsonRootName("buildingmaterial")
+@JsonRootName("buildingMaterial")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "ref__building_material", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
