@@ -10,7 +10,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("orgcategory")
+@JsonRootName("orgCategory")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

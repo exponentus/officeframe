@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import javax.persistence.*;
 import java.util.List;
 
-@JsonRootName("worktype")
+@JsonRootName("workType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

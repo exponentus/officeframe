@@ -80,7 +80,7 @@ public class BuildingMaterialService extends RestProvider {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);

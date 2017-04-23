@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
  * @author Kayra created 07-06-2016
  */
 
-@JsonRootName("requesttype")
+@JsonRootName("requestType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

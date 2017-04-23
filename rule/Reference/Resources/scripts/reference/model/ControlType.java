@@ -12,7 +12,7 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-@JsonRootName("controltype")
+@JsonRootName("controlType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
