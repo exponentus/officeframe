@@ -9,6 +9,7 @@ import com.exponentus.scripting.outline._Outline;
 import com.exponentus.scripting.outline._OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import staff.dao.OrganizationDAO;
+import staff.init.AppConst;
 import staff.model.Organization;
 
 import javax.ws.rs.GET;
@@ -39,18 +40,18 @@ public class NavigatorService extends RestProvider {
             if (po != null) {
                 for (Organization primaryOrg : po) {
                     primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocName(lang), primaryOrg.getLocName(lang),
-                            "structures", "structures"));
+                            "structures", AppConst.BASE_URL + "structures"));
                 }
             }
 
             for (_OutlineEntry entry : primaryOrgs) {
                 co.addEntry(entry);
             }
-            co.addEntry(new _OutlineEntry("organizations", "", "organizations", "organizations"));
-            co.addEntry(new _OutlineEntry("departments", "", "departments", "departments"));
-            co.addEntry(new _OutlineEntry("employees", "", "employees", "employees"));
-            co.addEntry(new _OutlineEntry("roles", "", "roles", "roles"));
-            co.addEntry(new _OutlineEntry("organization_labels", "", "organization_labels", "organization_labels"));
+            co.addEntry(new _OutlineEntry("organizations", "", "organizations", AppConst.BASE_URL + "organizations"));
+            co.addEntry(new _OutlineEntry("departments", "", "departments", AppConst.BASE_URL + "departments"));
+            co.addEntry(new _OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees"));
+            co.addEntry(new _OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
+            co.addEntry(new _OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization_labels"));
 
             list.add(co);
 
