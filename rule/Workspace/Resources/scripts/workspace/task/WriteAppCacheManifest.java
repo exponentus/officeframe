@@ -28,11 +28,11 @@ public class WriteAppCacheManifest extends _Do {
             writer.write("# version " + v + "\n");
             writer.write("\n");
             writer.write("CACHE:\n");
-            writer.write("css/all.min.css\n");
             writer.write(Environment.orgLogo + "\n");
             writer.write("img/favicon.png\n");
             writer.write("img/logo.png\n");
             writer.write("img/loading.gif\n");
+            writer.write("/SharedResources/nb/css/nb.min.css\n");
             writer.write("/SharedResources/ng-app/vendor.js.gz\n");
             writer.write("/SharedResources/ng-app/app.js.gz\n");
             writer.write("/SharedResources/vendor/bootstrap/css/bootstrap.min.css\n");

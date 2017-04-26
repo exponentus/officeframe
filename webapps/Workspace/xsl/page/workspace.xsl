@@ -23,7 +23,7 @@
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
-                <link rel="stylesheet" href="css/all.min.css"/>
+                <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css"/>
                 <style>
                     <![CDATA[
                     /* fix: fieldset content overflow */
