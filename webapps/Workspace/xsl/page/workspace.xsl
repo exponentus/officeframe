@@ -43,7 +43,7 @@
                 </style>
             </head>
             <body>
-                <app class="body">
+                <app-root class="body">
                     <div class="app-loading">
                         <img class="brand-logo" alt="logo" src="{//logo}"/>
                         <div class="three-bounce">
@@ -52,7 +52,7 @@
                             <div class="three-bounce-it three"></div>
                         </div>
                     </div>
-                </app>
+                </app-root>
                 <script src="/SharedResources/ng-app/vendor.js.gz"></script>
                 <script src="/SharedResources/ng-app/app.js.gz"></script>
             </body>
