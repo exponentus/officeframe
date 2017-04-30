@@ -1,10 +1,11 @@
 package staff.page;
 
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
+import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.actions._Action;
@@ -47,14 +48,14 @@ public class UserProfile extends _DoPage {
 				emp.setPosition(tmpPos);
 				emp.setUser(userObj);
 				emp.setName(user.getLogin());
-				
+
 			}
 			addContent(emp);
 			addContent(new LanguageDAO(session).findAllActivated());
 			addValue("currentLang", session.getLang().name());
 			addValue("pagesize", session.getPageSize());
 			addValue("org", Environment.orgName);
-			addValue("workspaceUrl", Environment.getWorkspaceURL());
+			addValue("workspaceUrl", "/" + EnvConst.WORKSPACE_NAME);
 			addContent(actionBar);
 		} catch (DAOException e) {
 			logError(e);
@@ -77,15 +78,15 @@ public class UserProfile extends _DoPage {
 			UserDAO dao = new UserDAO(session);
 			IUser<Long> entity = dao.findById(user.getId());
 
-			entity.setLogin(formData.getValue("login"));
-			entity.setEmail(formData.getValue("email"));
+			entity.setLogin(formData.getValueSilently("login"));
+			entity.setEmail(formData.getValueSilently("email"));
 			if (!formData.getValueSilently("pwd").isEmpty()) {
-				entity.setPwd(formData.getValue("pwd"));
+				entity.setPwd(formData.getValueSilently("pwd"));
 			}
 			dao.update(entity);
 
 			setRedirect("_back");
-		} catch (WebFormException | DAOException e) {
+		} catch (DAOException | SecureException e) {
 			logError(e);
 		}
 	}
