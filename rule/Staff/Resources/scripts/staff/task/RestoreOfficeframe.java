@@ -67,11 +67,11 @@ public class RestoreOfficeframe extends _Do {
 					System.out.println("\"" + entity + "\" backup was restored");
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				}
 			}
@@ -106,11 +106,11 @@ public class RestoreOfficeframe extends _Do {
 
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				}
 			}
@@ -151,11 +151,11 @@ public class RestoreOfficeframe extends _Do {
 
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				}
 			}
@@ -201,11 +201,11 @@ public class RestoreOfficeframe extends _Do {
 
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				}
 			}
@@ -238,11 +238,11 @@ public class RestoreOfficeframe extends _Do {
 					dao.add(entity);
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				}
 			}

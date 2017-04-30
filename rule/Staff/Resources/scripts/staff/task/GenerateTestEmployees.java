@@ -60,14 +60,14 @@ public class GenerateTestEmployees extends _Do {
 					System.out.println("There is no any organization");
 				}
 			} catch (DAOException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 
 		} else {
 			System.out.println("There is no \"" + file1 + "\" or \"" + file2 + "\" file");
 		}
 
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 
 	}
 
@@ -76,19 +76,19 @@ public class GenerateTestEmployees extends _Do {
 
 		try {
 			if (dao.add(entity) != null) {
-				logger.infoLogEntry(entity.getId() + " added");
+				logger.info(entity.getId() + " added");
 			}
 
 		} catch (DAOException e) {
 			if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-				logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+				logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 			} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-				logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+				logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 			} else {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 		} catch (SecureException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
 	}
 
@@ -110,7 +110,7 @@ public class GenerateTestEmployees extends _Do {
 			emp.setPosition((Position) EnumUtil.getRndElement(posts));
 
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 		return emp;
 
@@ -121,7 +121,7 @@ public class GenerateTestEmployees extends _Do {
 			NameGenerator n = new NameGenerator(file1);
 			return n.compose(3);
 		} catch (IOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 		return "";
 	}
@@ -131,7 +131,7 @@ public class GenerateTestEmployees extends _Do {
 			NameGenerator n = new NameGenerator(file2);
 			return n.compose(3);
 		} catch (IOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 		return "";
 	}

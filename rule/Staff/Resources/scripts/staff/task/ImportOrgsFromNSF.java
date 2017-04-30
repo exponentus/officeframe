@@ -65,7 +65,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 							String typeCorr = doc.getItemValueString("TypeCorr");
 							String intRefKey = typeCorrCollation.get(typeCorr);
 							if (intRefKey == null) {
-								logger.errorLogEntry("wrong reference ext value \"" + typeCorr + "\"");
+								logger.error("wrong reference ext value \"" + typeCorr + "\"");
 								intRefKey = ConvertorEnvConst.GAG_KEY;
 							}
 							OrgCategory oCat = ocDao.findByName(intRefKey);
@@ -81,7 +81,7 @@ public class ImportOrgsFromNSF extends ImportNSF {
 							}
 							entities.put(doc.getUniversalID(), entity);
 						} catch (DAOException e) {
-							logger.errorLogEntry(e);
+							logger.exception(e);
 						}
 					}
 					tmpEntry = vec.getNextEntry();
@@ -89,17 +89,17 @@ public class ImportOrgsFromNSF extends ImportNSF {
 					entry = tmpEntry;
 				}
 			} catch (NotesException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 
-			logger.infoLogEntry("has been found " + entities.size() + " records");
+			logger.info("has been found " + entities.size() + " records");
 			for (Entry<String, Organization> entry : entities.entrySet()) {
 				save(oDao, entry.getValue(), entry.getKey());
 			}
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 	}
 
 	private Map<String, String> typeCorrCollationMapInit() {

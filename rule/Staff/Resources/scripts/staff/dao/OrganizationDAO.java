@@ -143,7 +143,7 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
                 return null;
             }
         } catch (DAOException e) {
-            Server.logger.errorLogEntry(e);
+            Server.logger.exception(e);
             return null;
         } finally {
             em.close();

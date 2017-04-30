@@ -54,18 +54,18 @@ public class ImportPositionNSF extends ImportNSF {
 					entry = tmpEntry;
 				}
 			} catch (NotesException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 
-			logger.infoLogEntry("has been found " + entities.size() + " records");
+			logger.info("has been found " + entities.size() + " records");
 
 			for (Entry<String, Position> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
 		} catch (DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 	}
 
 }

@@ -87,10 +87,10 @@ public class ImportRvzFromNSF extends ImportNSF {
 										entity.setUser((User) user);
 										entities.put(doc.getUniversalID(), entity);
 									} catch (DAOException e) {
-										logger.errorLogEntry(e);
+										logger.exception(e);
 									}
 								} else {
-									logger.errorLogEntry("\"" + na + "\" user has not been found");
+									logger.error("\"" + na + "\" user has not been found");
 								}
 							}
 							tmpEntry = vec.getNextEntry();
@@ -98,24 +98,24 @@ public class ImportRvzFromNSF extends ImportNSF {
 							entry = tmpEntry;
 						}
 					} catch (NotesException e) {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 					
-					logger.infoLogEntry("has been found " + entities.size() + " records");
+					logger.info("has been found " + entities.size() + " records");
 					
 					for (Entry<String, Employee> entry : entities.entrySet()) {
 						save(eDao, entry.getValue(), entry.getKey());
 					}
 				} else {
-					logger.errorLogEntry("RVZ role has not been found");
+					logger.error("RVZ role has not been found");
 				}
 			} else {
-				logger.errorLogEntry("primary Organization has not been found");
+				logger.error("primary Organization has not been found");
 			}
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 	}
 
 }

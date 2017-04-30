@@ -29,6 +29,8 @@ public class FillPositions extends _Do {
 		String[] dataRus = { "Директор", "Менеджер", "Бухгалтер", "Инженер", "Специалист", "Секретарь-референт",
 				"Администратор", "Руководитель подразделения", "Экспедитор" };
 
+		int[] rankData = { 5, 7, 6, 6, 8, 10, 6, 8, 13 };
+
 		for (int i = 0; i < data.length; i++) {
 			Position entity = new Position();
 			entity.setName(data[i]);
@@ -36,6 +38,7 @@ public class FillPositions extends _Do {
 			name.put(LanguageCode.ENG, data[i]);
 			name.put(LanguageCode.RUS, dataRus[i]);
 			entity.setLocName(name);
+			entity.setRank(rankData[i]);
 			entities.add(entity);
 		}
 
@@ -44,24 +47,24 @@ public class FillPositions extends _Do {
 			for (Position entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
-						logger.infoLogEntry(entry.getName() + " added");
+						logger.info(entry.getName() + " added");
 					}
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				} catch (SecureException e) {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 			}
 		} catch (DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 	}
 
 }

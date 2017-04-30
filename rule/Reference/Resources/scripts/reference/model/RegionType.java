@@ -55,7 +55,7 @@ public class RegionType extends SimpleReferenceEntity {
 						+ "</entry>");
 			}
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 		chunk.append("</localizednames>");
 		return chunk.toString();

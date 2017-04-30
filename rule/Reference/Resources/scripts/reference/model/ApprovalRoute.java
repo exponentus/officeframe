@@ -128,7 +128,7 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 			LanguageDAO lDao = new LanguageDAO(ses);
 			list = lDao.findAllActivated();
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 
 		chunk.append("<localizednames>");

@@ -23,7 +23,6 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._FormAttachments;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._POJOObjectWrapper;
@@ -155,8 +154,8 @@ public class EmployeeForm extends StaffForm {
 				entity = dao.findByIdentefier(id);
 			}
 
-			entity.setName(formData.getValue("name"));
-			entity.setIin(formData.getValue("iin"));
+			entity.setName(formData.getValueSilently("name"));
+			entity.setIin(formData.getValueSilently("iin"));
 			entity.setRank(formData.getNumberValueSilently("rank", 0));
 			OrganizationDAO orgDAO = new OrganizationDAO(session);
 			String orgId = formData.getValueSilently("organization");
@@ -172,7 +171,7 @@ public class EmployeeForm extends StaffForm {
 			}
 
 			PositionDAO posDAO = new PositionDAO(session);
-			entity.setPosition(posDAO.findByIdentefier(formData.getValue("position")));
+			entity.setPosition(posDAO.findByIdentefier(formData.getValueSilently("position")));
 			String[] roles = formData.getListOfValuesSilently("role");
 			if (roles != null) {
 				RoleDAO roleDAO = new RoleDAO(session);
@@ -212,7 +211,7 @@ public class EmployeeForm extends StaffForm {
 				dao.update(entity);
 			}
 
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			setBadRequest();
 			logError(e);
 		}
@@ -315,8 +314,8 @@ public class EmployeeForm extends StaffForm {
 			is = new FileInputStream(file);
 			return IOUtils.toByteArray(is);
 		} catch (IOException e) {
-			Server.logger.errorLogEntry(file.getAbsolutePath());
-			Server.logger.errorLogEntry(e);
+			Server.logger.error(file.getAbsolutePath());
+			Server.logger.exception(e);
 
 		}
 

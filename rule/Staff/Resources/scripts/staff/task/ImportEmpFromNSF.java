@@ -73,7 +73,7 @@ public class ImportEmpFromNSF extends ImportNSF {
 									if (parentDep != null) {
 										entity.setDepartment(parentDep);
 									} else {
-										logger.errorLogEntry("\"" + parent + "\" parent entity has not been found");
+										logger.error("\"" + parent + "\" parent entity has not been found");
 										break;
 									}
 								}
@@ -88,12 +88,12 @@ public class ImportEmpFromNSF extends ImportNSF {
 								if (user != null) {
 									entity.setUser((User) user);
 								} else {
-									logger.errorLogEntry("\"" + na + "\" user has not been found");
+									logger.error("\"" + na + "\" user has not been found");
 									entity.setUser(dummyUser);
 								}
 								entities.put(doc.getUniversalID(), entity);
 							} catch (DAOException e) {
-								logger.errorLogEntry(e);
+								logger.exception(e);
 							}
 						}
 						
@@ -102,20 +102,20 @@ public class ImportEmpFromNSF extends ImportNSF {
 						entry = tmpEntry;
 					}
 				} catch (NotesException e) {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 				
-				logger.infoLogEntry("has been found " + entities.size() + " records");
+				logger.info("has been found " + entities.size() + " records");
 				
 				for (Entry<String, Employee> entry : entities.entrySet()) {
 					save(eDao, entry.getValue(), entry.getKey());
 				}
 				
 			} else {
-				logger.errorLogEntry("primary Organization has not been found");
+				logger.error("primary Organization has not been found");
 			}
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 		System.out.println("done...");
 	}

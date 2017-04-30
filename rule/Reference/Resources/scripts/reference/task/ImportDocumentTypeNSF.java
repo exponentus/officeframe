@@ -21,7 +21,7 @@ import reference.model.DocumentType;
 
 @Command(name = "import_vid_nsf")
 public class ImportDocumentTypeNSF extends ImportNSF {
-	
+
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, DocumentType> entities = new HashMap<>();
@@ -56,18 +56,18 @@ public class ImportDocumentTypeNSF extends ImportNSF {
 					entry = tmpEntry;
 				}
 			} catch (NotesException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 
-			logger.infoLogEntry("has been found " + entities.size() + " records");
+			logger.info("has been found " + entities.size() + " records");
 
 			for (Entry<String, DocumentType> entry : entities.entrySet()) {
 				save(dao, entry.getValue(), entry.getKey());
 			}
 		} catch (DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 	}
 
 }

@@ -76,7 +76,7 @@ public class GenerateTestOrgsExcel extends _Do {
 				System.out.println("There is no \"" + excelFile + "\" file");
 			}
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 
 		try {
@@ -87,10 +87,10 @@ public class GenerateTestOrgsExcel extends _Do {
 		} catch (
 
 		DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
 
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 
 	}
 
@@ -100,23 +100,23 @@ public class GenerateTestOrgsExcel extends _Do {
 		try {
 			if (entity.getId() == null) {
 				if (dao.add(entity) != null) {
-					logger.infoLogEntry(entity.getId() + " added");
+					logger.info(entity.getId() + " added");
 				}
 			} else {
 				if (dao.update(entity) != null) {
-					logger.infoLogEntry(entity.getId() + " updated");
+					logger.info(entity.getId() + " updated");
 				}
 			}
 		} catch (DAOException e) {
 			if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-				logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+				logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 			} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-				logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+				logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 			} else {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 		} catch (SecureException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
 	}
 

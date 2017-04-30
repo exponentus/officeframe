@@ -42,24 +42,24 @@ public class FillDocumentSubjects extends _Do {
 			for (DocumentSubject entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
-						logger.infoLogEntry(entry.getName() + " added");
+						logger.info(entry.getName() + " added");
 					}
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {
-						logger.errorLogEntry(e);
+						logger.exception(e);
 					}
 				} catch (SecureException e) {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 			}
 		} catch (DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 	}
 
 }

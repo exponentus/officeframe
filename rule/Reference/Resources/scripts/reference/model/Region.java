@@ -89,7 +89,7 @@ public class Region extends SimpleReferenceEntity {
 						"<country id=\"" + country.getId() + "\">" + country.getLocName(ses.getLang()) + "</country>");
 			}
 		} catch (Exception e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 		return chunk.toString();
 	}

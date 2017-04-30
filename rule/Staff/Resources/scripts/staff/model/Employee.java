@@ -48,7 +48,8 @@ import staff.model.util.EmployeeConverter;
 @JsonRootName("employee")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "staff__employees", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "organization_id" }))
+@Table(name = "staff__employees", uniqueConstraints = { @UniqueConstraint(columnNames = { "name", "organization_id" }),
+		@UniqueConstraint(columnNames = { "user_id", "organization_id" }) })
 @NamedQuery(name = "EmployeCacheTypee.findAll", query = "SELECT m FROM Employee AS m ORDER BY m.regDate")
 @Converters({ @Converter(name = "dep_conv", converterClass = DepartmentConverter.class),
 		@Converter(name = "emp_conv", converterClass = EmployeeConverter.class) })

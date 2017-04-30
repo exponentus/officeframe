@@ -72,7 +72,7 @@ public class ImportDepFromNSF extends ImportNSF {
 								String depType = doc.getItemValueString("Type");
 								String intRefKey = depTypeCollation.get(depType);
 								if (intRefKey == null) {
-									logger.errorLogEntry("wrong reference ext value \"" + depType + "\"");
+									logger.error("wrong reference ext value \"" + depType + "\"");
 									intRefKey = ConvertorEnvConst.GAG_KEY;
 								}
 								DepartmentType type;
@@ -80,7 +80,7 @@ public class ImportDepFromNSF extends ImportNSF {
 								entity.setType(type);
 								entities.put(doc.getUniversalID(), entity);
 							} catch (DAOException e) {
-								logger.errorLogEntry(e);
+								logger.exception(e);
 							}
 						}
 						tmpEntry = vec.getNextEntry();
@@ -88,20 +88,20 @@ public class ImportDepFromNSF extends ImportNSF {
 						entry = tmpEntry;
 					}
 				} catch (NotesException e) {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 				
-				logger.infoLogEntry("has been found " + entities.size() + " records");
+				logger.info("has been found " + entities.size() + " records");
 				
 				for (Entry<String, Department> entry : entities.entrySet()) {
 					save(eDao, entry.getValue(), entry.getKey());
 				}
 			}
 		} catch (DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
 		
-		logger.infoLogEntry("done...");
+		logger.info("done...");
 		
 	}
 	

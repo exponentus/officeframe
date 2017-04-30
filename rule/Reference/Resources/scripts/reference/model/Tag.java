@@ -117,7 +117,7 @@ public class Tag extends SimpleReferenceEntity {
 				chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocName(l.getCode()) + "</entry>");
 			}
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 		}
 
 		chunk.append("</localizednames>");

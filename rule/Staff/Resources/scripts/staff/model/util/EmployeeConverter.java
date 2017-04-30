@@ -22,9 +22,9 @@ public class EmployeeConverter extends EntityConverter {
 				EmployeeDAO dao = new EmployeeDAO(new _Session(new AnonymousUser()));
 				return dao.findById((UUID) dataValue);
 			} catch (DAOException e) {
-				Server.logger.errorLogEntry(e);
+				Server.logger.exception(e);
 			} catch (Exception e) {
-				Server.logger.errorLogEntry(e);
+				Server.logger.exception(e);
 			}
 		}
 		return null;

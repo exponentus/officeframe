@@ -42,7 +42,7 @@ public class WriteAppCacheManifest extends _Do {
             writer.write("NETWORK:\n");
             writer.write("*\n");
         } catch (IOException e) {
-            Server.logger.errorLogEntry(e);
+            Server.logger.exception(e);
         }
     }
 }

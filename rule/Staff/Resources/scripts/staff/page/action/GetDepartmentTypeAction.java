@@ -21,7 +21,7 @@ public class GetDepartmentTypeAction extends _DoPage {
 			List<DepartmentType> list = dao.findAll().getResult();
 			addContent(new _POJOListWrapper(list, ses));
 		} catch (DAOException e) {
-			Server.logger.errorLogEntry(e);
+			Server.logger.exception(e);
 			setBadRequest();
 		}
 	}

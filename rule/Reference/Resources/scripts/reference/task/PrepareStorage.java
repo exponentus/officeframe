@@ -41,14 +41,14 @@ public class PrepareStorage extends _Do {
 				dao.add(entity);
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-					logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 				} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-					logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+					logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 				} else {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 			} catch (SecureException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 			
 			OrgCategoryDAO dao1 = new OrgCategoryDAO(ses);
@@ -59,14 +59,14 @@ public class PrepareStorage extends _Do {
 				dao1.add(entity1);
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-					logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 				} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-					logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+					logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 				} else {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 			} catch (SecureException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 			
 			DocumentLanguageDAO dao2 = new DocumentLanguageDAO(ses);
@@ -78,17 +78,17 @@ public class PrepareStorage extends _Do {
 				dao2.add(entity2);
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-					logger.warningLogEntry("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+					logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
 				} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-					logger.warningLogEntry("a value is null (" + e.getAddInfo() + "), record was skipped");
+					logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 				} else {
-					logger.errorLogEntry(e);
+					logger.exception(e);
 				}
 			} catch (SecureException e) {
-				logger.errorLogEntry(e);
+				logger.exception(e);
 			}
 		} catch (DAOException e) {
-			logger.errorLogEntry(e);
+			logger.exception(e);
 		}
 	}
 
