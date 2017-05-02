@@ -6,13 +6,11 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.actions._Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.user.IUser;
 import reference.dao.PositionDAO;
 import reference.model.Position;
@@ -143,8 +141,8 @@ public class PositionService extends RestProvider {
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {
             return responseException(e);
-        } catch (_Validation.VException e) {
-            return responseValidationError(e.getValidation());
+        } catch (DTOException e) {
+            return responseValidationError(e);
         }
     }
 
@@ -164,13 +162,15 @@ public class PositionService extends RestProvider {
         }
     }
 
-    private void validate(Position entity) throws _Validation.VException {
-        _Validation ve = new _Validation();
+    private void validate(Position entity) throws DTOException {
+        DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
 
-        ve.assertValid();
+        if (ve.hasError()) {
+            throw ve;
+        }
     }
 }
