@@ -32,7 +32,12 @@ nbApp.selectOptions = {
         }
     },
     position: {
-        url: 'p?id=get-positions'
+        url: 'p?id=get-positions',
+        onSelect: function(e) {
+            if(e.params.data.rank){
+                $("input[name=rank]").val(e.params.data.rank);
+            }
+        }
     },
     departmenttype: {
         url: 'p?id=get-departmenttype'
