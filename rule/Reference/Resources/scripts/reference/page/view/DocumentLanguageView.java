@@ -4,7 +4,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._Action;
+import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.user.IUser;
@@ -20,11 +20,11 @@ public class DocumentLanguageView extends ReferenceView {
 		try {
 			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
-				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_document_language");
+				Action newDocAction = new Action(getLocalizedWord("new_", lang), "", "new_document_language");
 				newDocAction.setURL("p?id=documentlanguage-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(
-						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+						new Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 			addContent(getViewPage(new DocumentLanguageDAO(session), formData));

@@ -9,7 +9,7 @@ import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.actions._Action;
+import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoForm;
@@ -99,12 +99,12 @@ public class TopicForm extends _DoForm {
 	private IOutcomeObject getActionBar(_Session ses, Topic topic) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		LanguageCode lang = ses.getLang();
-		actionBar.addAction(new _Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
+		actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
 		
-		_Action newCommentAction = new _Action(getLocalizedWord("new_comment", lang), "", "new_comment");
+		Action newCommentAction = new Action(getLocalizedWord("new_comment", lang), "", "new_comment");
 		newCommentAction.setURL("p?id=comment-form&topicid=" + topic.getId());
 		actionBar.addAction(newCommentAction);
-		actionBar.addAction(new _Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
+		actionBar.addAction(new Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
 		return actionBar;
 		
 	}

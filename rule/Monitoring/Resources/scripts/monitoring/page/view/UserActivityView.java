@@ -7,7 +7,7 @@ import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.actions._Action;
+import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
@@ -21,10 +21,10 @@ public class UserActivityView extends _DoPage {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
-		_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_userprofile");
+		Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "", "new_userprofile");
 		newDocAction.setURL("Provider?id=useractivity-form");
 		actionBar.addAction(newDocAction);
-		actionBar.addAction(new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
+		actionBar.addAction(new Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
 
 		UserActivityDAO dao = new UserActivityDAO(session);

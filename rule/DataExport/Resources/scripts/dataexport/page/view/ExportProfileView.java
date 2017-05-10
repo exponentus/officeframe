@@ -6,7 +6,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.actions._Action;
+import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
@@ -20,11 +20,11 @@ public class ExportProfileView extends _DoPage {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			_ActionBar actionBar = new _ActionBar(session);
-			_Action newDocAction = new _Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
+			Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "", "new_exportprofile");
 			newDocAction.setURL("p?id=exportprofile-form");
 			actionBar.addAction(newDocAction);
 			actionBar.addAction(
-					new _Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
+					new Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
 			addContent(getViewPage(new ExportProfileDAO(session), formData));
 		} catch (DAOException e) {

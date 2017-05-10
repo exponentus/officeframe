@@ -14,6 +14,7 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.TagDAO;
 import reference.model.Tag;
+import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -50,8 +51,8 @@ public class TagService extends RestProvider {
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);
-                actionBar.addAction(Action.addNew);
-                actionBar.addAction(Action.deleteDocument);
+                actionBar.addAction(new Action().addNew);
+                actionBar.addAction(new Action().deleteDocument);
                 outcome.addPayload(actionBar);
             }
 
@@ -84,9 +85,9 @@ public class TagService extends RestProvider {
 
             //
             _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(Action.close);
+            actionBar.addAction(new Action().close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("reference_admin")) {
-                actionBar.addAction(Action.saveAndClose);
+                actionBar.addAction(new Action().saveAndClose);
             }
 
             Outcome outcome = new Outcome();

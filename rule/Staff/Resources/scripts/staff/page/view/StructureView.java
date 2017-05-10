@@ -11,7 +11,7 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._Action;
+import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions._ActionType;
 import com.exponentus.scripting.event._DoPage;
@@ -29,11 +29,11 @@ public class StructureView extends _DoPage {
 			IUser<Long> user = session.getUser();
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
-				_Action newDocAction = new _Action(getLocalizedWord("new_", lang), "", "new_organization");
+				Action newDocAction = new Action(getLocalizedWord("new_", lang), "", "new_organization");
 				newDocAction.setURL("p?id=organization-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(
-						new _Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+						new Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 
