@@ -6,13 +6,14 @@ import org.eclipse.persistence.sessions.Session;
 
 import com.exponentus.common.model.util.EntityConverter;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.user.AnonymousUser;
 
 import staff.dao.EmployeeDAO;
 
-public class EmployeeConverter extends EntityConverter {
+public class EmployeeConverter<T extends IAppEntity<UUID>> extends EntityConverter {
 	private static final long serialVersionUID = 1L;
 
 	@Override
@@ -20,7 +21,7 @@ public class EmployeeConverter extends EntityConverter {
 		if (dataValue != null) {
 			try {
 				EmployeeDAO dao = new EmployeeDAO(new _Session(new AnonymousUser()));
-				return dao.findById((UUID) dataValue);
+				return (T) dao.findById((UUID) dataValue);
 			} catch (DAOException e) {
 				Server.logger.exception(e);
 			} catch (Exception e) {
