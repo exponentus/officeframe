@@ -6,7 +6,6 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -16,7 +15,7 @@ import reference.dao.TextTemplateDAO;
 import reference.model.TextTemplate;
 
 public class TextTemplateForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -37,10 +36,10 @@ public class TextTemplateForm extends ReferenceForm {
 		} catch (DAOException e) {
 			logError(e);
 			setBadRequest();
-			
+
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -50,29 +49,29 @@ public class TextTemplateForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			TextTemplateDAO dao = new TextTemplateDAO(session);
 			TextTemplate entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new TextTemplate();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
-			entity.setName(formData.getValue("name"));
-			entity.setCategory(formData.getValue("category"));
+
+			entity.setName(formData.getValueSilently("name"));
+			entity.setCategory(formData.getValueSilently("category"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);
 				} else {
 					dao.update(entity);
 				}
-				
+
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 					ve = new _Validation();
@@ -84,7 +83,7 @@ public class TextTemplateForm extends ReferenceForm {
 					throw e;
 				}
 			}
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}

@@ -1,22 +1,22 @@
 package reference.page.form;
 
-import administrator.dao.LanguageDAO;
+import java.util.UUID;
+
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
+
+import administrator.dao.LanguageDAO;
 import reference.dao.VehicleDAO;
 import reference.model.Vehicle;
 
-import java.util.UUID;
-
 public class VehicleForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
@@ -38,9 +38,9 @@ public class VehicleForm extends ReferenceForm {
 			setBadRequest();
 
 		}
-		
+
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -50,21 +50,21 @@ public class VehicleForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			VehicleDAO dao = new VehicleDAO(session);
 			Vehicle entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new Vehicle();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
-			entity.setName(formData.getValue("name"));
+
+			entity.setName(formData.getValueSilently("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			try {
 				if (isNew) {
 					dao.add(entity);
@@ -82,12 +82,12 @@ public class VehicleForm extends ReferenceForm {
 					throw e;
 				}
 			}
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		_Validation ve = simpleCheck("name");
 

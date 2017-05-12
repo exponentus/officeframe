@@ -80,11 +80,11 @@ public class ApprovalRouteForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
 			entity.setSchema(ApprovalSchemaType.valueOf(formData.getValueSilently("schema")));
 			entity.setOn(formData.getBoolSilently("ison"));
-			entity.setCategory(formData.getValue("category"));
+			entity.setCategory(formData.getValueSilently("category"));
 			String[] blocktype_list = formData.getListOfValues("type");
 			List<RouteBlock> routeBlocks = new ArrayList<RouteBlock>();
 			for (int i = 0; i < blocktype_list.length; i++) {

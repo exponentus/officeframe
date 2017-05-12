@@ -6,7 +6,6 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -22,7 +21,7 @@ import reference.model.Region;
  */
 
 public class DistrictForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -52,7 +51,7 @@ public class DistrictForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -62,21 +61,21 @@ public class DistrictForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			String id = formData.getValueSilently("docid");
 			DistrictDAO dao = new DistrictDAO(session);
 			RegionDAO regionDAO = new RegionDAO(session);
 			District entity;
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new District();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
-			entity.setName(formData.getValue("name"));
-			entity.setRegion(regionDAO.findById(UUID.fromString(formData.getValue("region"))));
+
+			entity.setName(formData.getValueSilently("name"));
+			entity.setRegion(regionDAO.findById(UUID.fromString(formData.getValueSilently("region"))));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			try {
@@ -97,8 +96,8 @@ public class DistrictForm extends ReferenceForm {
 					throw e;
 				}
 			}
-			
-		} catch (WebFormException | SecureException | DAOException e) {
+
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}

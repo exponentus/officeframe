@@ -7,7 +7,6 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -17,7 +16,7 @@ import reference.dao.DocumentSubjectDAO;
 import reference.model.DocumentSubject;
 
 public class DocumentSubjectForm extends ReferenceForm {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
@@ -40,7 +39,7 @@ public class DocumentSubjectForm extends ReferenceForm {
 			return;
 		}
 	}
-	
+
 	@Override
 	public void doPOST(_Session session, WebFormData formData) {
 		try {
@@ -50,30 +49,30 @@ public class DocumentSubjectForm extends ReferenceForm {
 				setValidation(ve);
 				return;
 			}
-			
+
 			DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
 			DocumentSubject entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
-			
+
 			if (isNew) {
 				entity = new DocumentSubject();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
-			
-			entity.setName(formData.getValue("name"));
+
+			entity.setName(formData.getValueSilently("name"));
 			entity.setCategory(formData.getValueSilently("category"));
 			entity.setLocName(getLocalizedNames(session, formData));
-			
+
 			save(session, entity, dao, isNew);
-			
-		} catch (WebFormException | SecureException | DAOException e) {
+
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}
 	}
-	
+
 	private void save(_Session ses, DocumentSubject entity, DocumentSubjectDAO dao, boolean isNew)
 			throws SecureException, DAOException {
 		try {
@@ -95,11 +94,11 @@ public class DocumentSubjectForm extends ReferenceForm {
 			}
 		}
 	}
-	
+
 	protected _Validation validate(WebFormData formData, LanguageCode lang) {
 		return simpleCheck("name");
 	}
-	
+
 	protected DocumentSubject getDefaultEntity(IUser<Long> user, DocumentSubject entity) {
 		entity.setAuthor(user);
 		entity.setName("");

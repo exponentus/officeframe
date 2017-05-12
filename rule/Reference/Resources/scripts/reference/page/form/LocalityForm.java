@@ -7,7 +7,6 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -79,9 +78,9 @@ public class LocalityForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			LocalityTypeDAO localityTypeDAO = new LocalityTypeDAO(session);
-			entity.setType(localityTypeDAO.findByIdentefier(formData.getValue("localitytype")));
+			entity.setType(localityTypeDAO.findByIdentefier(formData.getValueSilently("localitytype")));
 			RegionDAO regionDAO = new RegionDAO(session);
 			entity.setRegion(regionDAO.findByIdentefier(formData.getValueSilently("region")));
 
@@ -104,7 +103,7 @@ public class LocalityForm extends ReferenceForm {
 					throw e;
 				}
 			}
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}

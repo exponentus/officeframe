@@ -6,7 +6,6 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -60,7 +59,7 @@ public class DefendantTypeForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			try {
@@ -69,7 +68,7 @@ public class DefendantTypeForm extends ReferenceForm {
 				} else {
 					dao.update(entity);
 				}
-				
+
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 					ve = new _Validation();
@@ -81,7 +80,7 @@ public class DefendantTypeForm extends ReferenceForm {
 					throw e;
 				}
 			}
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 		}
 	}

@@ -6,7 +6,6 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -61,20 +60,20 @@ public class ControlTypeForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			entity.setDefaultHours(formData.getNumberValueSilently("defaulthours", 30));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			save(session, entity, dao, isNew);
 
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 		}
 	}
 
 	private void save(_Session ses, ControlType entity, ControlTypeDAO dao, boolean isNew)
 			throws SecureException, DAOException {
-		
+
 		try {
 			if (isNew) {
 				dao.add(entity);

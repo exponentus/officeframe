@@ -8,7 +8,6 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -64,13 +63,13 @@ public class DocumentLanguageForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			entity.setCode(LanguageCode.valueOf(formData.getStringValueSilently("code", "UNKNOWN")));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			save(session, entity, dao, isNew);
 
-		} catch (WebFormException | SecureException | DAOException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}

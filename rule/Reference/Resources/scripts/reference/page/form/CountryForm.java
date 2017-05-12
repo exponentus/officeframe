@@ -8,7 +8,6 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
@@ -68,13 +67,13 @@ public class CountryForm extends ReferenceForm {
 				entity = dao.findById(UUID.fromString(id));
 			}
 
-			entity.setName(formData.getValue("name"));
+			entity.setName(formData.getValueSilently("name"));
 			entity.setCode(CountryCode.valueOf(formData.getStringValueSilently("code", CountryCode.UNKNOWN.name())));
 			entity.setLocName(getLocalizedNames(session, formData));
 
 			save(session, entity, dao, isNew);
 
-		} catch (SecureException | DAOException | WebFormException e) {
+		} catch (SecureException | DAOException e) {
 			logError(e);
 			setBadRequest();
 		}
