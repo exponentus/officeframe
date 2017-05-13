@@ -5,8 +5,8 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.outline._Outline;
-import com.exponentus.scripting.outline._OutlineEntry;
+import com.exponentus.scripting.outline.Outline;
+import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import staff.dao.OrganizationDAO;
 import staff.init.AppConst;
@@ -31,27 +31,27 @@ public class NavigatorService extends RestProvider {
 
         LanguageCode lang = session.getLang();
         LinkedList<IOutcomeObject> list = new LinkedList<>();
-        List<_OutlineEntry> primaryOrgs = new ArrayList<_OutlineEntry>();
+        List<OutlineEntry> primaryOrgs = new ArrayList<OutlineEntry>();
 
-        _Outline co = new _Outline("common_staff_data", "common");
+        Outline co = new Outline("common_staff_data", "common");
         try {
             OrganizationDAO oDao = new OrganizationDAO(session);
             List<Organization> po = oDao.findPrimaryOrg();
             if (po != null) {
                 for (Organization primaryOrg : po) {
-                    primaryOrgs.add(new _OutlineEntry(primaryOrg.getLocName(lang), primaryOrg.getLocName(lang),
+                    primaryOrgs.add(new OutlineEntry(primaryOrg.getLocName(lang), primaryOrg.getLocName(lang),
                             "structures", AppConst.BASE_URL + "structures"));
                 }
             }
 
-            for (_OutlineEntry entry : primaryOrgs) {
+            for (OutlineEntry entry : primaryOrgs) {
                 co.addEntry(entry);
             }
-            co.addEntry(new _OutlineEntry("organizations", "", "organizations", AppConst.BASE_URL + "organizations"));
-            co.addEntry(new _OutlineEntry("departments", "", "departments", AppConst.BASE_URL + "departments"));
-            co.addEntry(new _OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees"));
-            co.addEntry(new _OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
-            co.addEntry(new _OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization_labels"));
+            co.addEntry(new OutlineEntry("organizations", "", "organizations", AppConst.BASE_URL + "organizations"));
+            co.addEntry(new OutlineEntry("departments", "", "departments", AppConst.BASE_URL + "departments"));
+            co.addEntry(new OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees"));
+            co.addEntry(new OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
+            co.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization_labels"));
 
             list.add(co);
 

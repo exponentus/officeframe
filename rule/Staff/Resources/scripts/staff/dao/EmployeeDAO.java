@@ -1,6 +1,8 @@
 package staff.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.persistence.EntityManager;
@@ -16,9 +18,9 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.dataengine.system.IEmployee;
-import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.exception.SecureException;
+import com.exponentus.extconnect.IExtUser;
+import com.exponentus.extconnect.IExtUserDAO;
 import com.exponentus.runtimeobj.ISimpleAppEntity;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
@@ -29,6 +31,7 @@ import staff.model.Employee;
 
 public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 	private static ViewPage<Employee> allEmployee;
+	private static Map<UUID, Employee> allEmployeeMap;
 
 	public EmployeeDAO(_Session session) throws DAOException {
 		super(Employee.class, session);
@@ -37,8 +40,20 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 	public ViewPage<Employee> findAll(boolean reloadCache) {
 		if (allEmployee == null || reloadCache) {
 			allEmployee = findAll(0, 0);
+			allEmployeeMap = new HashMap<UUID, Employee>();
+			for (Employee e : allEmployee.getResult()) {
+				allEmployeeMap.put(e.getId(), e);
+			}
 		}
 		return allEmployee;
+	}
+
+	@Override
+	public Employee findById(UUID id) {
+		if (allEmployeeMap == null) {
+			findAll(true);
+		}
+		return allEmployeeMap.get(id);
 	}
 
 	public ViewPage<Employee> findAll(EmployeeFilter filter, SortParams sortParams, int pageNum, int pageSize) {
@@ -169,12 +184,12 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 	}
 
 	@Override
-	public IEmployee getEmployee(long id) {
+	public IExtUser getEmployee(long id) {
 		return findByUserId(id);
 	}
 
 	@Override
-	public IEmployee getEmployee(UUID id) {
+	public IExtUser getEmployee(UUID id) {
 		return findById(id);
 	}
 
@@ -182,6 +197,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 	public Employee add(Employee entity) throws SecureException, DAOException {
 		Employee e = super.add(entity);
 		allEmployee = null;
+		allEmployeeMap = null;
 		getEntityManagerFactory().getCache().evict(Employee.class);
 		return e;
 	}
@@ -190,6 +206,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 	public Employee update(Employee entity) throws SecureException, DAOException {
 		Employee e = super.update(entity);
 		allEmployee = null;
+		allEmployeeMap = null;
 		getEntityManagerFactory().getCache().evict(Employee.class);
 		return e;
 	}
@@ -214,6 +231,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 			em.close();
 		}
 		allEmployee = null;
+		allEmployeeMap = null;
 	}
 
 }

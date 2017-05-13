@@ -22,9 +22,9 @@ import org.eclipse.persistence.annotations.CascadeOnDelete;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.dataengine.system.IEmployee;
-import com.exponentus.dataengine.system.IExtUserDAO;
 import com.exponentus.env.Environment;
+import com.exponentus.extconnect.IExtUser;
+import com.exponentus.extconnect.IExtUserDAO;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -100,7 +100,7 @@ public class Comment extends SecureHierarchicalEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
 		IExtUserDAO eDao = Environment.getExtUserDAO();
-		IEmployee user = eDao.getEmployee(author.getId());
+		IExtUser user = eDao.getEmployee(author.getId());
 		if (user != null) {
 			chunk.append("<author>" + user.getName() + "</author>");
 		} else {

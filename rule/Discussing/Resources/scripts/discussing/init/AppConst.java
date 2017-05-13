@@ -8,5 +8,6 @@ public class AppConst extends DefaultAppConst {
 	public static String NAME_ENG = "Discussings";
 	public static String NAME_RUS = "Обсуждения";
 	public static String NAME_KAZ = "Обсуждения";
+	public static String BASE_URL = "/" + NAME + "/";
 	public static String DEFAULT_PAGE = "topic-view";
 }

@@ -8,6 +8,7 @@ public class AppConst extends DefaultAppConst {
 	public static String NAME_ENG = "Monitoring";
 	public static String NAME_RUS = "Мониторинг";
 	public static String NAME_KAZ = "Мониторинг";
+	public static String BASE_URL = "/" + NAME + "/";
 	public static String DEFAULT_PAGE = "useractivity-view";
 
 }

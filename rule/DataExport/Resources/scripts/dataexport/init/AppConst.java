@@ -8,5 +8,6 @@ public class AppConst extends DefaultAppConst {
 	public static String NAME_ENG = "DataExport";
 	public static String NAME_RUS = "Экспорт данных";
 	public static String NAME_KAZ = "Экспорт данных";
+	public static String BASE_URL = "/" + NAME + "/";
 	public static String DEFAULT_PAGE = "exportprofile-view";
 }

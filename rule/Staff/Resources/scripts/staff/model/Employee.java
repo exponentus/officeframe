@@ -31,7 +31,7 @@ import com.exponentus.common.model.HierarchicalEntity;
 import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.dataengine.system.IEmployee;
+import com.exponentus.extconnect.IExtUser;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.UndefinedUser;
 import com.exponentus.util.TimeUtil;
@@ -55,7 +55,7 @@ import staff.model.util.EmployeeConverter;
 		@Converter(name = "emp_conv", converterClass = EmployeeConverter.class) })
 @Cache(refreshOnlyIfNewer = true)
 @JsonPropertyOrder({ "kind", "name" })
-public class Employee extends SimpleHierarchicalReferenceEntity implements IEmployee {
+public class Employee extends SimpleHierarchicalReferenceEntity implements IExtUser {
 
 	@OneToOne(cascade = { CascadeType.MERGE }, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)

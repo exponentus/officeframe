@@ -7,8 +7,8 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
-import com.exponentus.scripting.outline._Outline;
-import com.exponentus.scripting.outline._OutlineEntry;
+import com.exponentus.scripting.outline.Outline;
+import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 
 public class MainNavigator extends _DoPage {
@@ -18,8 +18,8 @@ public class MainNavigator extends _DoPage {
 		LanguageCode lang = session.getLang();
 		LinkedList<IOutcomeObject> list = new LinkedList<IOutcomeObject>();
 
-		_Outline outline = new _Outline(getLocalizedWord("activities", lang), "activities");
-		outline.addEntry(new _OutlineEntry(getLocalizedWord("activities", lang), "useractivity-view"));
+		Outline outline = new Outline(getLocalizedWord("activities", lang), "activities");
+		outline.addEntry(new OutlineEntry(getLocalizedWord("activities", lang), "useractivity-view"));
 
 		list.add(outline);
 

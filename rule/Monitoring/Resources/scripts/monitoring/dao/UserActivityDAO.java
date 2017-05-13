@@ -17,8 +17,8 @@ import javax.persistence.criteria.Root;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import com.exponentus.dataengine.IDatabase;
-import com.exponentus.dataengine.system.IMonitoringDAO;
 import com.exponentus.env.Environment;
+import com.exponentus.extconnect.IMonitoringDAO;
 import com.exponentus.scripting._Session;
 
 import administrator.model.User;
