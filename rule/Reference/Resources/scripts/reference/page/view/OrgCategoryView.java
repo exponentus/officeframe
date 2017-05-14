@@ -5,7 +5,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.user.IUser;
 
 import reference.dao.OrgCategoryDAO;
@@ -22,7 +22,7 @@ public class OrgCategoryView extends ReferenceView {
 				newDocAction.setURL("p?id=orgcategory-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(new Action(getLocalizedWord("del_document", session.getLang()), "",
-						_ActionType.DELETE_DOCUMENT));
+						ActionType.DELETE_DOCUMENT));
 
 				addContent(actionBar);
 			}

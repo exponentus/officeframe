@@ -7,7 +7,7 @@ import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.user.IUser;
 
 import reference.dao.TagDAO;
@@ -29,7 +29,7 @@ public class TagView extends ReferenceView {
 				newDocAction.setURL("p?id=tag-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(new Action(getLocalizedWord("del_document", session.getLang()), "",
-						_ActionType.DELETE_DOCUMENT));
+						ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 

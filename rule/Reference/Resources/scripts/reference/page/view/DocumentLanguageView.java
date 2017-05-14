@@ -6,7 +6,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.user.IUser;
 
 import reference.dao.DocumentLanguageDAO;
@@ -24,7 +24,7 @@ public class DocumentLanguageView extends ReferenceView {
 				newDocAction.setURL("p?id=documentlanguage-form");
 				actionBar.addAction(newDocAction);
 				actionBar.addAction(
-						new Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+						new Action(getLocalizedWord("del_document", lang), "", ActionType.DELETE_DOCUMENT));
 				addContent(actionBar);
 			}
 			addContent(getViewPage(new DocumentLanguageDAO(session), formData));

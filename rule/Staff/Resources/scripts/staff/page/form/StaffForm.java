@@ -11,7 +11,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.event._DoForm;
 import com.exponentus.user.IUser;
 
@@ -38,9 +38,9 @@ public abstract class StaffForm extends _DoForm {
 		_ActionBar actionBar = new _ActionBar(ses);
 		IUser<Long> user = ses.getUser();
 		if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
-			actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", _ActionType.SAVE_AND_CLOSE));
+			actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", ActionType.SAVE_AND_CLOSE));
 		}
-		actionBar.addAction(new Action(getLocalizedWord("close", lang), "", _ActionType.CLOSE));
+		actionBar.addAction(new Action(getLocalizedWord("close", lang), "", ActionType.CLOSE));
 		return actionBar;
 	}
 

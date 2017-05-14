@@ -12,7 +12,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.event._DoPage;
 
 import discussing.dao.TopicDAO;
@@ -28,7 +28,7 @@ public class TopicView extends _DoPage {
 			newDocAction.setURL("p?id=topic-form");
 			actionBar.addAction(newDocAction);
 			actionBar.addAction(
-					new Action(getLocalizedWord("del_document", session.getLang()), "", _ActionType.DELETE_DOCUMENT));
+					new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
 			addContent(actionBar);
 			
 			String[] expandedIds = formData.getListOfValuesSilently("expandedIds");

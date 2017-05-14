@@ -10,7 +10,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 import com.exponentus.util.Validator;
@@ -36,8 +36,8 @@ public class UserProfile extends _DoPage {
 			Employee emp = dao.findByUserId(user.getId());
 			_ActionBar actionBar = new _ActionBar(session, getCurrentAppEnv());
 			actionBar.addAction(
-					new Action(getLocalizedWord("save_close", session.getLang()), "", _ActionType.SAVE_AND_CLOSE));
-			actionBar.addAction(new Action(getLocalizedWord("close", session.getLang()), "", _ActionType.CLOSE));
+					new Action(getLocalizedWord("save_close", session.getLang()), "", ActionType.SAVE_AND_CLOSE));
+			actionBar.addAction(new Action(getLocalizedWord("close", session.getLang()), "", ActionType.CLOSE));
 			if (emp == null) {
 				emp = new Employee();
 				User userObj = new User();

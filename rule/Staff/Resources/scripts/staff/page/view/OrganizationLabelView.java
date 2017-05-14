@@ -10,7 +10,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions._ActionBar;
-import com.exponentus.scripting.actions._ActionType;
+import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
 
@@ -42,7 +42,7 @@ public class OrganizationLabelView extends _DoPage {
 					newDocAction.setURL("p?id=organization-label-form");
 					actionBar.addAction(newDocAction);
 					actionBar.addAction(
-							new Action(getLocalizedWord("del_document", lang), "", _ActionType.DELETE_DOCUMENT));
+							new Action(getLocalizedWord("del_document", lang), "", ActionType.DELETE_DOCUMENT));
 					addContent(actionBar);
 				}
 				addContent(getViewPage(dao, formData));
