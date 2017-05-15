@@ -164,7 +164,7 @@
   "change_skin" : null,
   "code_is_not_unique" : null,
   "error_400" : "The server cannot or will not process the request due to an apparent client error",
-  "your_profile" : null,
+  "your_profile" : "Seu perfil",
   "error_401" : "Unauthorized",
   "btn_label_add_application" : null,
   "today" : "Hoje",
