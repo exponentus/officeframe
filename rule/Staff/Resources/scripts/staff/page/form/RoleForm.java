@@ -13,7 +13,6 @@ import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-import com.exponentus.util.ReflectionUtil;
 
 import administrator.dao.ApplicationDAO;
 import administrator.model.Application;
@@ -48,7 +47,7 @@ public class RoleForm extends StaffForm {
 			List<Application> apps = dao.findAll().getResult();
 			for (Application app : apps) {
 				if (app.isOn()) {
-					Object rolesObj = ReflectionUtil.getAppConstValue(app.getName(), "ROLES");
+					Object rolesObj = app.getAvailableRoles();
 					if (rolesObj != null) {
 						allRoles.addAll(Arrays.asList((String[]) rolesObj));
 					}
