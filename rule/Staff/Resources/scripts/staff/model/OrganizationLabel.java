@@ -33,7 +33,7 @@ public class OrganizationLabel extends SimpleReferenceEntity {
 	private List<Organization> labels;
 
 	@Convert(converter = LocalizedValConverter.class)
-	@Column(name = "localized_descr", columnDefinition = "json")
+	@Column(name = "localized_descr", columnDefinition = "jsonb")
 	private Map<LanguageCode, String> localizedDescr;
 
 	@JsonIgnore
