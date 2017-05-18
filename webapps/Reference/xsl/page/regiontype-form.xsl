@@ -7,7 +7,7 @@
     </xsl:template>
 
     <xsl:template name="_content">
-        <xsl:apply-templates select="//document[@entity = 'regiontype']"/>
+        <xsl:apply-templates select="//document[@entity = 'regionType']"/>
     </xsl:template>
 
     <xsl:template match="document[@entity]">

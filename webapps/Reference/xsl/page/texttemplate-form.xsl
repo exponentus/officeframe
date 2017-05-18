@@ -7,7 +7,7 @@
     </xsl:template>
 
     <xsl:template name="_content">
-        <xsl:apply-templates select="//document[@entity = 'texttemplate']"/>
+        <xsl:apply-templates select="//document[@entity = 'textTemplate']"/>
     </xsl:template>
 
     <xsl:template match="document[@entity]">

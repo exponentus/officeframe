@@ -7,7 +7,7 @@
     </xsl:template>
 
     <xsl:template name="_content">
-        <xsl:apply-templates select="//document[@entity = 'documentlanguage']"/>
+        <xsl:apply-templates select="//document[@entity = 'documentLanguage']"/>
     </xsl:template>
 
     <xsl:template match="document[@entity]">

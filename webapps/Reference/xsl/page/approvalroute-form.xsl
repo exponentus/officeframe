@@ -7,7 +7,7 @@
     </xsl:template>
 
     <xsl:template name="_content">
-        <xsl:apply-templates select="//document[@entity = 'approvalroute']"/>
+        <xsl:apply-templates select="//document[@entity = 'approvalRoute']"/>
     </xsl:template>
 
     <xsl:template match="document[@entity]">
