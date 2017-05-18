@@ -4,12 +4,12 @@ import java.util.List;
 
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.scripting.IPOJOObject;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.actions.Action;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions.ActionType;
+import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoPage;
 
 import monitoring.dao.UserActivityDAO;
@@ -24,12 +24,13 @@ public class UserActivityView extends _DoPage {
 		Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "", "new_userprofile");
 		newDocAction.setURL("Provider?id=useractivity-form");
 		actionBar.addAction(newDocAction);
-		actionBar.addAction(new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
+		actionBar.addAction(
+				new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
 
 		UserActivityDAO dao = new UserActivityDAO(session);
 		int pageNum = 1;
-		int pageSize = session.pageSize;
+		int pageSize = session.getPageSize();
 		if (formData.containsField("page")) {
 			pageNum = formData.getNumberValueSilently("page", pageNum);
 		}

@@ -5,8 +5,8 @@ import java.util.List;
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.scripting._Session;
 import com.exponentus.scripting.WebFormData;
+import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPage;
 
 import reference.dao.LocalityDAO;
@@ -22,7 +22,7 @@ public class GetLocalityAction extends _DoPage {
 	@Override
 	public void doGET(_Session ses, WebFormData formData) {
 		int pageNum = formData.getNumberValueSilently("page", 1);
-		int pageSize = ses.pageSize;
+		int pageSize = ses.getPageSize();
 		try {
 			LocalityDAO lDao = new LocalityDAO(ses);
 			List<Locality> localities = lDao.findAll().getResult();

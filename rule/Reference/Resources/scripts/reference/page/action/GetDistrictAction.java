@@ -22,7 +22,7 @@ public class GetDistrictAction extends _DoPage {
 	@Override
 	public void doGET(_Session ses, WebFormData formData) {
 		int pageNum = formData.getNumberValueSilently("page", 1);
-		int pageSize = ses.pageSize;
+		int pageSize = ses.getPageSize();
 		try {
 			RegionDAO rDao = new RegionDAO(ses);
 			Region region = rDao.findByIdentefier(formData.getValueSilently("region"));

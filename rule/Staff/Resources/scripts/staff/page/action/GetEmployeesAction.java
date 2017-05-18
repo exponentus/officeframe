@@ -19,7 +19,7 @@ public class GetEmployeesAction extends _DoPage {
 		try {
 			String keyword = formData.getValueSilently("keyword");
 			int pageNum = formData.getNumberValueSilently("page", 1);
-			int pageSize = ses.pageSize;
+			int pageSize = ses.getPageSize();
 			EmployeeDAO empDao = new EmployeeDAO(ses);
 			ViewPage emps = empDao.findAllByName(keyword, pageNum, pageSize);
 			addContent(emps.getResult(), emps.getMaxPage(), emps.getCount(), emps.getPageNum());

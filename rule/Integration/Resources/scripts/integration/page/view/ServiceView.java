@@ -16,11 +16,11 @@ import integration.model.Service;
  */
 
 public class ServiceView extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		int pageNum = 1;
-		int pageSize = session.pageSize;
+		int pageSize = session.getPageSize();
 		if (formData.containsField("page")) {
 			pageNum = formData.getNumberValueSilently("page", pageNum);
 		}
@@ -33,6 +33,6 @@ public class ServiceView extends _DoPage {
 		int startRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
 		List<Service> list = dao.findAll(startRec, pageSize);
 		addContent(new _POJOListWrapper<Service>(list, maxPage, count, pageNum, session));
-		
+
 	}
 }

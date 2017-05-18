@@ -58,7 +58,7 @@ public class EmployeeService extends RestProvider {
 
 			EmployeeDAO dao = new EmployeeDAO(session);
 			ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
-					params.getNumberValueSilently("limit", session.pageSize));
+					params.getNumberValueSilently("limit", session.getPageSize()));
 
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);

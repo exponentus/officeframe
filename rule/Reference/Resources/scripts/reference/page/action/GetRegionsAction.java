@@ -5,9 +5,9 @@ import java.util.List;
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.event._DoPage;
 
 import reference.dao.CountryDAO;
@@ -20,15 +20,15 @@ import reference.model.constants.CountryCode;
  */
 
 public class GetRegionsAction extends _DoPage {
-	
+
 	@Override
 	public void doGET(_Session ses, WebFormData formData) {
 		int pageNum = formData.getNumberValueSilently("page", 1);
-		int pageSize = ses.pageSize;
+		int pageSize = ses.getPageSize();
 		try {
 			CountryDAO cDao = new CountryDAO(ses);
 			Country country = cDao.findByCode(CountryCode.KZ);
-			
+
 			if (country != null) {
 				List<Region> list = country.getRegions();
 				long count = list.size();

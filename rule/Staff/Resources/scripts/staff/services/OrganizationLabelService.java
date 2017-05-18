@@ -39,7 +39,7 @@ public class OrganizationLabelService extends RestProvider {
 		_Session session = getSession();
 		IUser<Long> user = session.getUser();
 		WebFormData params = getWebFormData();
-		int pageSize = session.pageSize;
+		int pageSize = session.getPageSize();
 
 		try {
 			Outcome outcome = new Outcome();

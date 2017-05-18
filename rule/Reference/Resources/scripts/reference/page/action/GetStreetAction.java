@@ -22,7 +22,7 @@ public class GetStreetAction extends _DoPage {
 	public void doGET(_Session ses, WebFormData formData) {
 		String keyword = formData.getValueSilently("keyword");
 		int pageNum = formData.getNumberValueSilently("page", 1);
-		int pageSize = ses.pageSize;
+		int pageSize = ses.getPageSize();
 		try {
 			LocalityDAO lDao = new LocalityDAO(ses);
 			Locality locality = lDao.findByIdentefier(formData.getValueSilently("locality"));
