@@ -144,6 +144,7 @@
   "del_document" : null,
   "handler_not_found" : "The handler has not been found",
   "error_500" : "Internal Server Error",
+  "approver_is_not_set" : "APPROVER_IS_NOT_SET",
   "all" : "Todo",
   "incoming" : "incoming",
   "author" : null,
