@@ -1,7 +1,7 @@
 package reference.model.constants;
 
 public enum ApprovalSchemaType {
-	UNKNOWN(0), REJECT_IF_NO(456), IN_ANY_CASE_DECIDE_SIGNER(457);
+	UNKNOWN(0), REJECT_IF_NO(456), IN_ANY_CASE_DECIDE_SIGNER(457), WITHOUT_APPROVAL(458);
 
 	private int code;
 
