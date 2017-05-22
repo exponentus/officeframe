@@ -2,6 +2,7 @@ package reference.model;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -11,6 +12,9 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
+import reference.model.constants.ControlSchemaType;
+import reference.model.constants.converter.ControlSchemaTypeConverter;
 
 @JsonRootName("controlType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -23,6 +27,9 @@ public class ControlType extends SimpleReferenceEntity {
 	@Column(length = 16, unique = true)
 	private String code;
 
+	@Convert(converter = ControlSchemaTypeConverter.class)
+	private ControlSchemaType schema;
+
 	private String category;
 
 	@Column(name = "default_hours")
@@ -34,6 +41,14 @@ public class ControlType extends SimpleReferenceEntity {
 
 	public void setCode(String code) {
 		this.code = code;
+	}
+
+	public ControlSchemaType getSchema() {
+		return schema;
+	}
+
+	public void setSchema(ControlSchemaType schema) {
+		this.schema = schema;
 	}
 
 	public String getCategory() {

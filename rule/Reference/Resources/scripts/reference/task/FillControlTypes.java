@@ -16,6 +16,7 @@ import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
+import reference.model.constants.ControlSchemaType;
 
 @Command(name = "fill_control_types")
 public class FillControlTypes extends _Do {
@@ -25,15 +26,11 @@ public class FillControlTypes extends _Do {
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<ControlType> entities = new ArrayList<>();
 
-		String codes[] = { "HU", "FM", "FI", "P", "C", "NC", "UC" };
-		String names[] = { "very_urgent", "for_meeting", "for_information", "to_participate", "in_control",
-				"on_normal_control", "urgent_control" };
-		String namesEng[] = { "Highly urgent", "For meeting", "For information", "To participate", "In control",
-				"On normal control", "Urgent control" };
-		String namesRus[] = { "Весьма срочно", "Для встречи", "Для сведения", "Для участия", "На контроле",
-				"На рабочем контроле", "Срочный контроль" };
-		String namesKaz[] = { "Жедел бақылауда", "Для встречи", "Для сведения", "Для участия", "На контроле",
-				"Жұмыс бақылауында", "Срочный контроль" };
+		String codes[] = { "HU", "FI", "C" };
+		String names[] = { "very_urgent", "for_information", "in_control" };
+		String namesEng[] = { "Highly urgent", "For information", "In control" };
+		String namesRus[] = { "Весьма срочно", "Для сведения", "На контроле" };
+		String namesKaz[] = { "Жедел бақылауда", "Для сведения", "На контроле" };
 		for (int i = 0; i < codes.length; i++) {
 			ControlType cType = new ControlType();
 			cType.setCode(codes[i]);
@@ -44,6 +41,11 @@ public class FillControlTypes extends _Do {
 			name.put(LanguageCode.ENG, namesEng[i]);
 			cType.setLocName(name);
 			cType.setDefaultHours(HOURS_TO_DO);
+			if (codes[i].equals("FI")) {
+				cType.setSchema(ControlSchemaType.ALLOW_RESET_ON_BASIS_REPORT);
+			} else {
+				cType.setSchema(ControlSchemaType.RESET_ALL_MANULALLY);
+			}
 			entities.add(cType);
 		}
 
