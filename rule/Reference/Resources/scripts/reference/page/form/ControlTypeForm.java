@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.scripting.EnumWrapper;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
@@ -13,6 +14,7 @@ import com.exponentus.user.IUser;
 import administrator.dao.LanguageDAO;
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
+import reference.model.constants.ControlSchemaType;
 
 public class ControlTypeForm extends ReferenceForm {
 
@@ -31,6 +33,7 @@ public class ControlTypeForm extends ReferenceForm {
 			}
 			addContent(entity);
 			addContent(new LanguageDAO(session).findAllActivated());
+			addContent(new EnumWrapper(ControlSchemaType.class.getEnumConstants()));
 			addContent(getSimpleActionBar(session));
 		} catch (DAOException e) {
 			logError(e);

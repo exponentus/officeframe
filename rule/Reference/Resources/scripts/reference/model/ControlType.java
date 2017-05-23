@@ -72,6 +72,7 @@ public class ControlType extends SimpleReferenceEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append(super.getFullXMLChunk(ses));
 		chunk.append("<defaulthours>" + defaultHours + "</defaulthours>");
+		chunk.append("<schema>" + schema + "</schema>");
 		return chunk.toString();
 	}
 }
