@@ -114,7 +114,7 @@ public class Organization extends SimpleHierarchicalReferenceEntity {
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<name>" + getName() + "</name>");
+		chunk.append("<name>" + getName().replaceAll("&", "&amp;") + "</name>");
 		chunk.append("<bin>" + bin + "</bin>");
 		chunk.append("<labels>" + labels + "</labels>");
 		return chunk.toString();

@@ -35,15 +35,16 @@ import staff.model.OrganizationLabel;
 
 @Command(name = "gen_test_orgs_xls")
 public class GenerateTestOrgsExcel extends _Do {
-	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "orgs.xls";
+	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "Fortune 500-US-List-Year-2010.xls";
 
+	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		Map<String, Organization> entities = new HashMap<String, Organization>();
 		try {
 			File xf = new File(excelFile);
 			if (xf.exists()) {
 				WorkbookSettings ws = new WorkbookSettings();
-				ws.setEncoding("Cp1252");
+				//ws.setEncoding("Cp1252");
 				Workbook workbook = null;
 				try {
 					workbook = Workbook.getWorkbook(xf, ws);
