@@ -2,7 +2,6 @@ package staff.task;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,9 +66,9 @@ public class GenerateTestOrgsExcel extends _Do {
 						localizedNames.put(LanguageCode.ENG, orgName);
 						entity.setLocName(localizedNames);
 						entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll().getResult()));
-						List<OrganizationLabel> labels = new ArrayList<>();
-						labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
-						entity.setLabels(labels);
+						//List<OrganizationLabel> labels = new ArrayList<>();
+						//labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
+						//entity.setLabels(labels);
 						entities.put(orgName, entity);
 					}
 				}

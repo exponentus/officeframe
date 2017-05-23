@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
-import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 
 import staff.dao.OrganizationLabelDAO;
@@ -20,11 +20,11 @@ import staff.model.OrganizationLabel;
  */
 
 public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, OrganizationLabelDAO> {
-	
+
 	@Override
 	public List<OrganizationLabel> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
 		List<OrganizationLabel> entities = new ArrayList<>();
-		
+
 		OrganizationLabel entity = new OrganizationLabel();
 		entity.setName("inactive");
 		Map<LanguageCode, String> name = new HashMap<>();
@@ -33,7 +33,7 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		name.put(LanguageCode.KAZ, "Ұйымдастыру міндетін атқарушы емес");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		entity = new OrganizationLabel();
 		entity.setName("primary");
 		name = new HashMap<>();
@@ -42,7 +42,7 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		name.put(LanguageCode.KAZ, "Бастауыш ұйымы");
 		entity.setLocName(name);
 		entities.add(entity);
-		
+
 		/* ComProperty application specific labels */
 		entity = new OrganizationLabel();
 		entity.setName("balance_holder");
@@ -52,8 +52,13 @@ public class FillDefaultLabels extends InitialDataAdapter<OrganizationLabel, Org
 		name.put(LanguageCode.KAZ, "Организация-балансодержатель");
 		entity.setLocName(name);
 		// entities.add(entity);
-		
+
 		return entities;
 	}
-	
+
+	@Override
+	public Class<OrganizationLabelDAO> getDAO() {
+		return OrganizationLabelDAO.class;
+	}
+
 }
