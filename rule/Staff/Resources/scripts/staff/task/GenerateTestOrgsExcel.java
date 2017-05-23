@@ -3,7 +3,6 @@ package staff.task;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -30,7 +29,6 @@ import reference.model.OrgCategory;
 import staff.dao.OrganizationDAO;
 import staff.dao.OrganizationLabelDAO;
 import staff.model.Organization;
-import staff.model.OrganizationLabel;
 
 @Command(name = "gen_test_orgs_xls")
 public class GenerateTestOrgsExcel extends _Do {
@@ -52,7 +50,7 @@ public class GenerateTestOrgsExcel extends _Do {
 				}
 				OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 				OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
-				List<OrganizationLabel> l = olDao.findAll().getResult();
+				//List<OrganizationLabel> l = olDao.findAll().getResult();
 				Sheet sheet = workbook.getSheet(0);
 				int rCount = sheet.getRows();
 				for (int i = 2; i < rCount; i++) {
