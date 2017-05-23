@@ -87,7 +87,7 @@ public class RoleForm extends StaffForm {
 
 			entity.setName(formData.getValue("name"));
 			entity.setLocName(getLocalizedNames(session, formData));
-
+			entity.setLocalizedDescr(getLocalizedDescr(session, formData));
 			if (isNew) {
 				dao.add(entity);
 			} else {
