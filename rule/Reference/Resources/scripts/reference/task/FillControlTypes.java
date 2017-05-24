@@ -11,7 +11,7 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.ControlTypeDAO;
@@ -19,7 +19,7 @@ import reference.model.ControlType;
 import reference.model.constants.ControlSchemaType;
 
 @Command(name = "fill_control_types")
-public class FillControlTypes extends _Do {
+public class FillControlTypes extends Do {
 	private static final int HOURS_TO_DO = 24 * 30;
 
 	@Override

@@ -11,7 +11,7 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.LocalityTypeDAO;
@@ -19,7 +19,7 @@ import reference.model.LocalityType;
 import reference.model.constants.LocalityCode;
 
 @Command(name = "fill_locality_types")
-public class FillLocalityTypes extends _Do {
+public class FillLocalityTypes extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

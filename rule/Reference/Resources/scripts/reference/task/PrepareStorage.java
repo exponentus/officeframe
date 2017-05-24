@@ -11,7 +11,7 @@ import com.exponentus.legacy.ConvertorEnvConst;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.DepartmentTypeDAO;
@@ -22,7 +22,7 @@ import reference.model.DocumentLanguage;
 import reference.model.OrgCategory;
 
 @Command(name = "prepare_storage")
-public class PrepareStorage extends _Do {
+public class PrepareStorage extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.TagDAO;
 import reference.model.Tag;
 
 @Command(name = "st2")
-public class SpeedChecker extends _Do {
+public class SpeedChecker extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session session) {

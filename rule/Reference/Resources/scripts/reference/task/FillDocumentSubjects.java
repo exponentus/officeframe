@@ -11,14 +11,14 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.DocumentSubjectDAO;
 import reference.model.DocumentSubject;
 
 @Command(name = "fill_document_subjs")
-public class FillDocumentSubjects extends _Do {
+public class FillDocumentSubjects extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

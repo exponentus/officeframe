@@ -8,7 +8,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.CountryDAO;
@@ -20,7 +20,7 @@ import reference.model.RegionType;
 import reference.model.constants.RegionCode;
 
 @Command(name = "fill_regions")
-public class FillRegions extends _Do {
+public class FillRegions extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

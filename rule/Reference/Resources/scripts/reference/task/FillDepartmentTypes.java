@@ -11,14 +11,14 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.DepartmentTypeDAO;
 import reference.model.DepartmentType;
 
 @Command(name = "fill_department_types")
-public class FillDepartmentTypes extends _Do {
+public class FillDepartmentTypes extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

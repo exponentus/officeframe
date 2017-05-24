@@ -11,14 +11,14 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.DemandTypeDAO;
 import reference.model.DemandType;
 
 @Command(name = "fill_demand_types")
-public class FillDemandTypes extends _Do {
+public class FillDemandTypes extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

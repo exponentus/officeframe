@@ -10,7 +10,7 @@ import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,7 +24,7 @@ import staff.model.Employee;
 import staff.model.Organization;
 
 @Command(name = "backup_of")
-public class BackupOfficeframe extends _Do {
+public class BackupOfficeframe extends Do {
 	private ObjectMapper mapper = new ObjectMapper();
 
 	public void doTask(AppEnv appEnv, _Session ses) {

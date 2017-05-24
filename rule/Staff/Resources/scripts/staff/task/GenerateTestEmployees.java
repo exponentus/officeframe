@@ -14,7 +14,7 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.server.Server;
 import com.exponentus.util.EnumUtil;
@@ -32,7 +32,7 @@ import staff.model.Role;
 import staff.task.helper.NameGenerator;
 
 @Command(name = "gen_test_emps")
-public class GenerateTestEmployees extends _Do {
+public class GenerateTestEmployees extends Do {
 	private static String file1 = EnvConst.RESOURCES_DIR + File.separator + "Roman.txt";
 	private static String file2 = EnvConst.RESOURCES_DIR + File.separator + "Fantasy.txt";
 

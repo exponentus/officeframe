@@ -12,7 +12,7 @@ import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.EnumUtil;
 import com.exponentus.util.NumberUtil;
@@ -26,7 +26,7 @@ import staff.dao.EmployeeDAO;
 import staff.model.Employee;
 
 @Command(name = "fill_approval_routes")
-public class FillApprovalRouters extends _Do {
+public class FillApprovalRouters extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

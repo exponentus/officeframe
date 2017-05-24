@@ -11,14 +11,14 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.VehicleDAO;
 import reference.model.Vehicle;
 
 @Command(name = "fill_vehicles")
-public class FillVehicles extends _Do {
+public class FillVehicles extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

@@ -9,7 +9,7 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import administrator.init.ServerConst;
@@ -18,7 +18,7 @@ import reference.dao.DocumentLanguageDAO;
 import reference.model.DocumentLanguage;
 
 @Command(name = "fill_doc_langs")
-public class FillDocumentLanguages extends _Do {
+public class FillDocumentLanguages extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

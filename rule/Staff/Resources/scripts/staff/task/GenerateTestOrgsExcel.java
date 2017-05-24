@@ -15,7 +15,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.server.Server;
 import com.exponentus.util.ListUtil;
@@ -31,7 +31,7 @@ import staff.dao.OrganizationLabelDAO;
 import staff.model.Organization;
 
 @Command(name = "gen_test_orgs_xls")
-public class GenerateTestOrgsExcel extends _Do {
+public class GenerateTestOrgsExcel extends Do {
 	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "Fortune 500-US-List-Year-2010.xls";
 
 	@Override

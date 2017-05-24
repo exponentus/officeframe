@@ -8,7 +8,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
 import reference.dao.CityDistrictDAO;
@@ -17,7 +17,7 @@ import reference.model.CityDistrict;
 import reference.model.Locality;
 
 @Command(name = "fill_city_districts")
-public class FillCityDistricts extends _Do {
+public class FillCityDistricts extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

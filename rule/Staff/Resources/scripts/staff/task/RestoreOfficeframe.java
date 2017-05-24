@@ -15,7 +15,7 @@ import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.event._Do;
+import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -39,7 +39,7 @@ import staff.model.Employee;
 import staff.model.Organization;
 
 @Command(name = "restore_of")
-public class RestoreOfficeframe extends _Do {
+public class RestoreOfficeframe extends Do {
 	private ObjectMapper mapper = new ObjectMapper();
 
 	public void doTask(AppEnv appEnv, _Session ses) {
