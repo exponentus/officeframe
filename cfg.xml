@@ -36,8 +36,8 @@
 		<defaultsender>mynameis.m@mail.ru</defaultsender>
 		<auth>true</auth>
 		<smtpport>465</smtpport>
-		<smtpuser>mynameis.m@mail.ru</smtpuser>
-		<smtppassword>mynameis.mmynameis.m</smtppassword>     
+		<smtpuser></smtpuser>
+		<smtppassword></smtppassword>     
     </mailagent>
   <tls mode="OFF">
         <port>38700</port>
