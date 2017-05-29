@@ -175,6 +175,7 @@
   "handler_not_defined" : "Запрашиваемый обработчик не определен",
   "position" : "Должность",
   "create_report" : "Сформировать отчет",
+  "per_page_hint" : "per_page_hint",
   "view_mode_tree" : "В виде иерархии",
   "method_is_not_implemented" : "Метод не реализован",
   "code" : "Код",

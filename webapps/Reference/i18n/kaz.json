@@ -175,6 +175,7 @@
   "handler_not_defined" : "The handler has not been defined",
   "position" : "Қызмет",
   "create_report" : "Есептемені құрастыру",
+  "per_page_hint" : "per_page_hint",
   "view_mode_tree" : "В виде иерархии",
   "method_is_not_implemented" : "Method is not implemented",
   "code" : "Коды",
