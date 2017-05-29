@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -13,8 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.eclipse.persistence.exceptions.DatabaseException;
-
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.extconnect.IMonitoringDAO;
 
@@ -29,7 +29,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogin(long id) {
+	public void postLogin(long id) throws DAOException {
 		UserActivity ua = new UserActivity();
 		ua.setType(ActivityType.LOGIN);
 		ua.setActUser(id);
@@ -39,7 +39,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogout(long id) {
+	public void postLogout(long id) throws DAOException {
 		UserActivity ua = new UserActivity();
 		ua.setType(ActivityType.LOGOUT);
 		ua.setActUser(id);
@@ -91,22 +91,25 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		}
 	}
 
-	private UserActivity add(UserActivity entity) throws DatabaseException {
+	private UserActivity add(UserActivity entity) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		EntityTransaction t = em.getTransaction();
 		try {
-			t.begin();
-			em.persist(entity);
-			t.commit();
-			return entity;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			if (t.isActive()) {
-				t.rollback();
+			EntityTransaction t = em.getTransaction();
+			try {
+				t.begin();
+				em.persist(entity);
+				t.commit();
+				return entity;
+			} catch (PersistenceException e) {
+				throw new DAOException(e);
+			} finally {
+				if (t.isActive()) {
+					t.rollback();
+				}
 			}
+		} finally {
+			em.close();
 		}
-		return entity;
 
 	}
 
