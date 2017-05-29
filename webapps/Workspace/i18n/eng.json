@@ -175,6 +175,7 @@
   "handler_not_defined" : "The handler has not been defined",
   "position" : "Position",
   "create_report" : "Generate a report",
+  "per_page_hint" : "Show per page",
   "view_mode_tree" : "Hierarchy",
   "method_is_not_implemented" : "Method is not implemented",
   "code" : "Code",
