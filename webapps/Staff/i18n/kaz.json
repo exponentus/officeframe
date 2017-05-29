@@ -390,7 +390,7 @@
   "accepted" : null,
   "finished" : "Дайын",
   "new_document" : "Жаңа құжат",
-  "addressee" : null,
+  "addressee" : "addressee",
   "claim_decision_type" : "claim_decision_type",
   "files" : "Тіркемелер",
   "send" : "Жіберу",

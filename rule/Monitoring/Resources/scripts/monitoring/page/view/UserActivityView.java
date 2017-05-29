@@ -21,14 +21,14 @@ public class UserActivityView extends _DoPage {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
-		Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "", "new_userprofile");
-		newDocAction.setURL("Provider?id=useractivity-form");
+		Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "", "new_user_activity");
+		newDocAction.setURL("p?id=useractivity-form");
 		actionBar.addAction(newDocAction);
 		actionBar.addAction(
 				new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
 
-		UserActivityDAO dao = new UserActivityDAO(session);
+		UserActivityDAO dao = new UserActivityDAO();
 		int pageNum = 1;
 		int pageSize = session.getPageSize();
 		if (formData.containsField("page")) {
@@ -46,7 +46,7 @@ public class UserActivityView extends _DoPage {
 
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
-		UserActivityDAO dao = new UserActivityDAO(session);
+		UserActivityDAO dao = new UserActivityDAO();
 		for (String id : formData.getListOfValuesSilently("docid")) {
 			UserActivity m = dao.findById(Long.parseLong(id));
 			dao.delete(m);

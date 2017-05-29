@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -16,21 +15,17 @@ import javax.persistence.criteria.Root;
 
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import com.exponentus.dataengine.IDatabase;
-import com.exponentus.env.Environment;
+import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.extconnect.IMonitoringDAO;
-import com.exponentus.scripting._Session;
 
 import administrator.model.User;
 import monitoring.model.UserActivity;
 import monitoring.model.constants.ActivityType;
 
-public class UserActivityDAO implements IMonitoringDAO {
-	private EntityManagerFactory emf;
+public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
 
-	public UserActivityDAO(_Session ses) {
-		IDatabase db = Environment.adminApplication.getDataBase();
-		emf = db.getEntityManagerFactory();
+	public UserActivityDAO() {
+		super(UserActivity.class);
 	}
 
 	@Override
@@ -55,7 +50,7 @@ public class UserActivityDAO implements IMonitoringDAO {
 
 	public UserActivity findById(long id) {
 
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		try {
 			CriteriaQuery<User> cq = cb.createQuery(User.class);
@@ -75,7 +70,7 @@ public class UserActivityDAO implements IMonitoringDAO {
 	}
 
 	public List<UserActivity> findAll(int firstRec, int pageSize) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			TypedQuery<UserActivity> q = em.createNamedQuery("UserActivity.findAll", UserActivity.class);
 			q.setFirstResult(firstRec);
@@ -87,7 +82,7 @@ public class UserActivityDAO implements IMonitoringDAO {
 	}
 
 	public Long getCount() {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			Query q = em.createQuery("SELECT count(m) FROM UserActivity AS m");
 			return (Long) q.getSingleResult();
@@ -97,28 +92,26 @@ public class UserActivityDAO implements IMonitoringDAO {
 	}
 
 	private UserActivity add(UserActivity entity) throws DatabaseException {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		EntityTransaction t = em.getTransaction();
 		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				t.begin();
-				em.persist(entity);
-				t.commit();
-				return entity;
-			} finally {
-				if (t.isActive()) {
-					t.rollback();
-				}
-			}
+			t.begin();
+			em.persist(entity);
+			t.commit();
+			return entity;
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
-			em.close();
-
+			if (t.isActive()) {
+				t.rollback();
+			}
 		}
+		return entity;
 
 	}
 
 	public void delete(UserActivity entity) {
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			EntityTransaction t = em.getTransaction();
 			try {
