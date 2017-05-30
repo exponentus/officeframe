@@ -144,6 +144,7 @@
   "locality_code" : null,
   "user_profile" : "Ағымдағы қолданушының қасиеттерін көру",
   "login" : "Кіру",
+  "entity_has_not_been_found" : "entity_has_not_been_found",
   "approver_decision_yes" : "Келісемін",
   "task_title" : null,
   "ui_theme" : "Тема оформления",

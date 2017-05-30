@@ -144,6 +144,7 @@
   "locality_code" : null,
   "user_profile" : "Perfil del usuario",
   "login" : null,
+  "entity_has_not_been_found" : "entity_has_not_been_found",
   "approver_decision_yes" : "Estoy de acuerdo",
   "task_title" : "Título de la tarea",
   "ui_theme" : "Theme",

@@ -144,6 +144,7 @@
   "locality_code" : "Locality code",
   "user_profile" : "View the properties current user",
   "login" : "Login",
+  "entity_has_not_been_found" : "The entity has not been found",
   "approver_decision_yes" : "YES",
   "task_title" : "Task name",
   "ui_theme" : "Theme",
