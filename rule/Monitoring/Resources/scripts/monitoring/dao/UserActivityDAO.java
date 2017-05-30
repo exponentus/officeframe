@@ -17,6 +17,7 @@ import javax.persistence.criteria.Root;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.user.IUser;
 
 import administrator.model.User;
 import monitoring.model.UserActivity;
@@ -29,20 +30,20 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogin(long id) throws DAOException {
+	public void postLogin(IUser<Long> user) throws DAOException {
 		UserActivity ua = new UserActivity();
 		ua.setType(ActivityType.LOGIN);
-		ua.setActUser(id);
+		ua.setActUser(user.getId());
 		ua.setEventTime(new Date());
 		add(ua);
 
 	}
 
 	@Override
-	public void postLogout(long id) throws DAOException {
+	public void postLogout(IUser<Long> user) throws DAOException {
 		UserActivity ua = new UserActivity();
 		ua.setType(ActivityType.LOGOUT);
-		ua.setActUser(id);
+		ua.setActUser(user.getId());
 		ua.setEventTime(new Date());
 		add(ua);
 
@@ -91,7 +92,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		}
 	}
 
-	private UserActivity add(UserActivity entity) throws DAOException {
+	public UserActivity add(UserActivity entity) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			EntityTransaction t = em.getTransaction();
