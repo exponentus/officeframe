@@ -201,6 +201,7 @@
   "approval_block" : "Мақұлдау блогы",
   "due_date" : null,
   "control" : "control",
+  "start_impl" : "start_impl",
   "structure" : "Құрылымы негізгі ұйымның",
   "message_subject" : "message_subject",
   "contractors" : "Контрагенттер",

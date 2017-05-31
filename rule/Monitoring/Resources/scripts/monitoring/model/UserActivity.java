@@ -1,37 +1,43 @@
 package monitoring.model;
 
 import java.util.Date;
-import java.util.UUID;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+
+import com.exponentus.common.model.embedded.CrossLink;
+import com.exponentus.common.model.util.CrossLinkConverter;
 import com.exponentus.dataengine.jpa.SimpleAppEntity;
-import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 import monitoring.model.constants.ActivityType;
 import monitoring.model.constants.converter.ActivityTypeConverter;
 
-//@JsonRootName("userActivity")
+@JsonRootName("userActivity")
 @Entity
 @Table(name = "monit__user_activities")
+@Converter(name = "cl_conv", converterClass = CrossLinkConverter.class)
 public class UserActivity extends SimpleAppEntity {
 
 	@Column(name = "act_user", nullable = false, updatable = false)
 	private Long actUser;
 
-	@Convert(converter = ActivityTypeConverter.class)
+	@javax.persistence.Convert(converter = ActivityTypeConverter.class)
 	private ActivityType type = ActivityType.UNKNOWN;
 
 	@Column(name = "event_time", nullable = false)
 	private Date eventTime;
 
-	@Column(name = "related_to")
-	private IAppEntity<UUID> relatedTo;
+	@Convert("cl_conv")
+	@Basic
+	private CrossLink relatedTo;
 
 	public ActivityType getType() {
 		return type;
@@ -57,11 +63,11 @@ public class UserActivity extends SimpleAppEntity {
 		this.eventTime = eventTime;
 	}
 
-	public IAppEntity<UUID> getRelatedTo() {
+	public CrossLink getRelatedTo() {
 		return relatedTo;
 	}
 
-	public void setRelatedTo(IAppEntity<UUID> relatedTo) {
+	public void setRelatedTo(CrossLink relatedTo) {
 		this.relatedTo = relatedTo;
 	}
 
