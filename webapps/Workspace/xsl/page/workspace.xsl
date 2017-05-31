@@ -55,6 +55,7 @@
                 </app-root>
                 <script src="/SharedResources/ng-app/vendor.js.gz"></script>
                 <script src="/SharedResources/ng-app/app.js.gz"></script>
+                <script src="/SharedResources/knca/sjcl.js"></script>
             </body>
         </html>
     </xsl:template>
