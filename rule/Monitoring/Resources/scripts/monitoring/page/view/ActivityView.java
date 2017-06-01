@@ -12,23 +12,19 @@ import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoPage;
 
-import monitoring.dao.UserActivityDAO;
-import monitoring.model.UserActivity;
+import monitoring.dao.ActivityDAO;
+import monitoring.model.Activity;
 
-public class UserActivityView extends _DoPage {
+public class ActivityView extends _DoPage {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		_ActionBar actionBar = new _ActionBar(session);
-		Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "", "new_user_activity");
-		newDocAction.setURL("p?id=useractivity-form");
-		actionBar.addAction(newDocAction);
-		actionBar.addAction(
-				new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
+		actionBar.addAction(new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
 
-		UserActivityDAO dao = new UserActivityDAO();
+		ActivityDAO dao = new ActivityDAO();
 		int pageNum = 1;
 		int pageSize = session.getPageSize();
 		if (formData.containsField("page")) {
@@ -46,9 +42,9 @@ public class UserActivityView extends _DoPage {
 
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
-		UserActivityDAO dao = new UserActivityDAO();
+		ActivityDAO dao = new ActivityDAO();
 		for (String id : formData.getListOfValuesSilently("docid")) {
-			UserActivity m = dao.findById(Long.parseLong(id));
+			Activity m = dao.findById(Long.parseLong(id));
 			dao.delete(m);
 		}
 

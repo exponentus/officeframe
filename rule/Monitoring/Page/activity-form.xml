@@ -4,7 +4,7 @@
     <xsltfile>DEFAULT</xsltfile>
     <element mode="ON" type="SCRIPT">
         <events>
-            <doscript source="JAVA_CLASS">monitoring.page.form.UserActivityForm</doscript>
+            <doscript source="JAVA_CLASS">monitoring.page.form.ActivityForm</doscript>
         </events>
     </element>
     <element mode="ON" type="INCLUDED_PAGE">

@@ -2,6 +2,7 @@ package monitoring.dao;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -17,39 +18,37 @@ import javax.persistence.criteria.Root;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.user.IUser;
 
 import administrator.model.User;
-import monitoring.model.UserActivity;
-import monitoring.model.constants.ActivityType;
+import monitoring.model.Activity;
+import monitoring.model.embedded.Event;
 
-public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
+public class ActivityDAO extends SimpleDAO<Activity> implements IMonitoringDAO {
 
-	public UserActivityDAO() {
-		super(UserActivity.class);
+	public ActivityDAO() {
+		super(Activity.class);
 	}
 
 	@Override
-	public void postLogin(IUser<Long> user) throws DAOException {
-		UserActivity ua = new UserActivity();
-		ua.setType(ActivityType.LOGIN);
-		ua.setActUser(user.getId());
+	public void postEvent(IUser<Long> user, IAppEntity<UUID> entity, String descr) throws DAOException {
+		Activity ua = new Activity();
+		//ua.setType(ActivityType.COMPOSE);
+		ua.setActEntityId(entity.getId());
+		ua.setActEntityKind(entity.getEntityKind());
+		//ua.setDetails(descr);
+		//ua.setActUser(user.getId());
 		ua.setEventTime(new Date());
+		Event e = new Event();
+		e.setTime(new Date());
+		e.setAfterState(entity);
+		ua.addEvent(e);
 		add(ua);
 
 	}
 
-	@Override
-	public void postLogout(IUser<Long> user) throws DAOException {
-		UserActivity ua = new UserActivity();
-		ua.setType(ActivityType.LOGOUT);
-		ua.setActUser(user.getId());
-		ua.setEventTime(new Date());
-		add(ua);
-
-	}
-
-	public UserActivity findById(long id) {
+	public Activity findById(long id) {
 
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -60,7 +59,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 			Predicate condition = c.get("id").in(id);
 			cq.where(condition);
 			Query query = em.createQuery(cq);
-			UserActivity entity = (UserActivity) query.getSingleResult();
+			Activity entity = (Activity) query.getSingleResult();
 			return entity;
 		} catch (NoResultException e) {
 			return null;
@@ -70,10 +69,10 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
 	}
 
-	public List<UserActivity> findAll(int firstRec, int pageSize) {
+	public List<Activity> findAll(int firstRec, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<UserActivity> q = em.createNamedQuery("UserActivity.findAll", UserActivity.class);
+			TypedQuery<Activity> q = em.createNamedQuery("Activity.findAll", Activity.class);
 			q.setFirstResult(firstRec);
 			q.setMaxResults(pageSize);
 			return q.getResultList();
@@ -85,14 +84,14 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	public Long getCount() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT count(m) FROM UserActivity AS m");
+			Query q = em.createQuery("SELECT count(m) FROM Activity AS m");
 			return (Long) q.getSingleResult();
 		} finally {
 			em.close();
 		}
 	}
 
-	public UserActivity add(UserActivity entity) throws DAOException {
+	public Activity add(Activity entity) throws DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			EntityTransaction t = em.getTransaction();
@@ -114,7 +113,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
 	}
 
-	public void delete(UserActivity entity) {
+	public void delete(Activity entity) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			EntityTransaction t = em.getTransaction();
@@ -131,6 +130,18 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		} finally {
 			em.close();
 		}
+	}
+
+	@Override
+	public void postLogin(IUser<Long> user) throws DAOException {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void postLogout(IUser<Long> user) throws DAOException {
+		// TODO Auto-generated method stub
+
 	}
 
 }
