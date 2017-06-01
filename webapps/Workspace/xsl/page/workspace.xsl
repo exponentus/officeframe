@@ -36,9 +36,6 @@
                             display: table-column !important;
                         }
                     }
-                    .app-loading > .brand-logo {
-                        max-height: 60px;
-                    }
                     ]]>
                 </style>
             </head>
