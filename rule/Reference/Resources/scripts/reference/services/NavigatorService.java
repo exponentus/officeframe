@@ -58,6 +58,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("request_types", "", "request_types", AppConst.BASE_URL + "request_types"));
             so.addEntry(new OutlineEntry("demand_types", "", "demand_types", AppConst.BASE_URL + "demand_types"));
             so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
+            so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
             so.addEntry(new OutlineEntry("claimant_decision_types", "", "claimant_decision_types", AppConst.BASE_URL + "claimant_decision_types"));
             so.addEntry(new OutlineEntry("defendant_type", "", "defendant_types", AppConst.BASE_URL + "defendant_types"));
