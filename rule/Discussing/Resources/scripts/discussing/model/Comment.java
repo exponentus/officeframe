@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.common.model.EmbeddedSecureHierarchicalEntity;
+import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
@@ -34,7 +34,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @Entity
 @Table(name = "disc__comments")
 @NamedQuery(name = "Comment.findAll", query = "SELECT m FROM Comment AS m ORDER BY m.regDate ASC")
-public class Comment extends EmbeddedSecureHierarchicalEntity {
+public class Comment extends SecureHierarchicalEntity {
 
 	@JsonIgnore
 	@NotNull
@@ -112,15 +112,6 @@ public class Comment extends EmbeddedSecureHierarchicalEntity {
 	@Override
 	public String getShortXMLChunk(_Session ses) {
 		return getFullXMLChunk(ses);
-	}
-
-	@Override
-	public EmbeddedSecureHierarchicalEntity getParentEntity(_Session ses) {
-		if (topic != null) {
-			return topic;
-		} else {
-			return parentComment;
-		}
 	}
 
 }

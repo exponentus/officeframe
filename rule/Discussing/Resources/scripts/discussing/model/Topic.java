@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.common.model.EmbeddedSecureHierarchicalEntity;
+import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.extconnect.IExtUserDAO;
@@ -25,7 +25,7 @@ import discussing.model.constants.TopicStatusType;
 @Table(name = "disc__topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
 @NamedQuery(name = "Topic.findAll", query = "SELECT m FROM Topic AS m ORDER BY m.regDate")
 @JsonIgnoreType
-public class Topic extends EmbeddedSecureHierarchicalEntity {
+public class Topic extends SecureHierarchicalEntity {
 
 	@Column(length = 64)
 	private String module;
