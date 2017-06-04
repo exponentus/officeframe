@@ -27,7 +27,7 @@ import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.common.model.HierarchicalEntity;
+import com.exponentus.common.model.EmbeddedHierarchicalEntity;
 import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
@@ -260,12 +260,10 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IExtU
 		chunk.append("<birthdate>" + TimeUtil.dateTimeToStringSilently(birthDate) + "</birthdate>");
 
 		if (organization != null) {
-			chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang())
-					+ "</organization>");
+			chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang()) + "</organization>");
 		}
 		if (department != null) {
-			chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocName(ses.getLang())
-					+ "</department>");
+			chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocName(ses.getLang()) + "</department>");
 		}
 
 		chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocName(ses.getLang()) + "</position>");
@@ -282,7 +280,7 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IExtU
 	}
 
 	@Override
-	public HierarchicalEntity<UUID> getParentEntity(_Session ses) {
+	public EmbeddedHierarchicalEntity<UUID> getParentEntity(_Session ses) {
 		if (department != null) {
 			return department;
 		} else {

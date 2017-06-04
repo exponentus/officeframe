@@ -17,7 +17,7 @@ import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 
-import com.exponentus.common.model.HierarchicalEntity;
+import com.exponentus.common.model.EmbeddedHierarchicalEntity;
 import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
@@ -108,11 +108,10 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 		chunk.append("<name>" + getName() + "</name>");
 		chunk.append("<type id=\"" + type.getId() + "\">" + type + "</type>");
 		chunk.append("<rank>" + rank + "</rank>");
-		chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang())
-				+ "</organization>");
+		chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang()) + "</organization>");
 		if (leadDepartment != null) {
-			chunk.append("<leadDepartment id=\"" + leadDepartment.getId() + "\">"
-					+ leadDepartment.getLocName(ses.getLang()) + "</leadDepartment>");
+			chunk.append("<leadDepartment id=\"" + leadDepartment.getId() + "\">" + leadDepartment.getLocName(ses.getLang())
+					+ "</leadDepartment>");
 		}
 		chunk.append("<localizednames>");
 		try {
@@ -129,7 +128,7 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 	}
 
 	@Override
-	public HierarchicalEntity<UUID> getParentEntity(_Session ses) {
+	public EmbeddedHierarchicalEntity<UUID> getParentEntity(_Session ses) {
 		if (leadDepartment != null) {
 			return leadDepartment;
 		} else {
