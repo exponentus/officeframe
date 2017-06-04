@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
-import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 
 import staff.dao.RoleDAO;
@@ -54,7 +54,7 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		entities.add(entity);
 
 		entity = new Role();
-		entity.setName("can_sign");
+		entity.setName("can_sign_outgoing");
 		name = new HashMap<>();
 		name.put(LanguageCode.ENG, "It has the right to sign");
 		name.put(LanguageCode.RUS, "Имеет право подписи");
@@ -68,6 +68,15 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		name.put(LanguageCode.ENG, "Fired");
 		name.put(LanguageCode.RUS, "Уволен");
 		name.put(LanguageCode.KAZ, "Босатылған");
+		entity.setLocName(name);
+		entities.add(entity);
+
+		entity = new Role();
+		entity.setName("chancellery");
+		name = new HashMap<>();
+		name.put(LanguageCode.ENG, "Chancellery");
+		name.put(LanguageCode.RUS, "Канцелярия");
+		name.put(LanguageCode.KAZ, "Кенсе");
 		entity.setLocName(name);
 		entities.add(entity);
 
