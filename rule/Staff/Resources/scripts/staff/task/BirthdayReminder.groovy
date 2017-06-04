@@ -9,7 +9,7 @@ import com.exponentus.scripting.event.Do
 class BirthdayReminder extends Do {
 
 	public void doTask(AppEnv env,_Session session) {
-		//log("555")
+		log("555")
 	}
 
 	

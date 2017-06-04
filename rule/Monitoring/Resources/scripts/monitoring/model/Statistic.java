@@ -5,6 +5,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 import com.exponentus.dataengine.jpa.SimpleAppEntity;
 import com.exponentus.scripting._Session;
@@ -15,7 +18,7 @@ import administrator.model.User;
 
 @JsonRootName("statistic")
 @Entity
-@Table(name = "monit__statistics")
+@Table(name = "monit__statistics", uniqueConstraints = @UniqueConstraint(columnNames = { "app_code", "user", "event_time", "type" }))
 public class Statistic extends SimpleAppEntity {
 
 	private User user;
@@ -23,6 +26,7 @@ public class Statistic extends SimpleAppEntity {
 	@Column(name = "app_code", nullable = false, length = 32)
 	private String appCode;
 
+	@Temporal(TemporalType.DATE)
 	@Column(name = "event_time", nullable = false)
 	private Date eventTime;
 
