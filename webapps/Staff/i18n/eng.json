@@ -372,7 +372,7 @@
   "notify_about_overdued_task" : "[NOTIFICATION] Task expired",
   "assignment_was_started_to_impl" : "Assignment was started",
   "start_date" : "Start date",
-  "my_tasks" : "My tasks",
+  "my_tasks" : "Created By Me",
   "authorization_was_failed" : "Authorization has failed",
   "ft_search_return_null" : "No documents found",
   "law_branch" : "Law Branch",

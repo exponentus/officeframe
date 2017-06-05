@@ -56,7 +56,7 @@ public class FillDefaultRoles extends InitialDataAdapter<Role, RoleDAO> {
 		entity = new Role();
 		entity.setName("can_sign_outgoing");
 		name = new HashMap<>();
-		name.put(LanguageCode.ENG, "It has the right to sign");
+		name.put(LanguageCode.ENG, "Has the right to sign");
 		name.put(LanguageCode.RUS, "Имеет право подписи");
 		name.put(LanguageCode.KAZ, "Имеет право подписи");
 		entity.setLocName(name);

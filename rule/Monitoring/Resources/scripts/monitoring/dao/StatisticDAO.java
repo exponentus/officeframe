@@ -27,14 +27,14 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		super(Statistic.class);
 	}
 
-	public void postStat(User user, String appCode, String type, long amount) throws DAOException {
+	public void postStat(User user, String appCode, String type, Date eventTime, long amount) throws DAOException {
 		if (amount > 0) {
 			Statistic ua = new Statistic();
-			ua.setUser(user);
+			ua.setActUser(user.getId());
 			ua.setType(type);
 			ua.setAmount(amount);
 			ua.setAppCode(appCode);
-			ua.setEventTime(new Date());
+			ua.setEventTime(eventTime);
 			add(ua);
 		}
 

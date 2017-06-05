@@ -14,14 +14,13 @@ import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import administrator.model.User;
-
 @JsonRootName("statistic")
 @Entity
-@Table(name = "monit__statistics", uniqueConstraints = @UniqueConstraint(columnNames = { "app_code", "user", "event_time", "type" }))
+@Table(name = "monit__statistics", uniqueConstraints = @UniqueConstraint(columnNames = { "app_code", "act_user", "event_time", "type" }))
 public class Statistic extends SimpleAppEntity {
 
-	private User user;
+	@Column(name = "act_user", nullable = false)
+	private Long actUser;
 
 	@Column(name = "app_code", nullable = false, length = 32)
 	private String appCode;
@@ -34,14 +33,6 @@ public class Statistic extends SimpleAppEntity {
 	private String type;
 
 	long amount;
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
 
 	public String getAppCode() {
 		return appCode;
@@ -90,6 +81,14 @@ public class Statistic extends SimpleAppEntity {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<eventtime>" + TimeUtil.dateTimeToStringSilently(eventTime) + "</eventtime>");
 		return chunk.toString();
+	}
+
+	public Long getActUser() {
+		return actUser;
+	}
+
+	public void setActUser(Long actUser) {
+		this.actUser = actUser;
 	}
 
 }

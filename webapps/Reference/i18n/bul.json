@@ -372,7 +372,7 @@
   "notify_about_overdued_task" : "notify_about_overdued_task",
   "assignment_was_started_to_impl" : "assignment_was_started_to_impl",
   "start_date" : null,
-  "my_tasks" : null,
+  "my_tasks" : "my_tasks",
   "authorization_was_failed" : null,
   "ft_search_return_null" : "ft_search_return_null",
   "law_branch" : null,
