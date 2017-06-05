@@ -25,13 +25,13 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.model.embedded.Event;
 import monitoring.model.util.EventConverter;
 
-@JsonRootName("activity")
+@JsonRootName("documentActivity")
 @Entity
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
-@Table(name = "monit__activities")
-public class Activity extends SimpleAppEntity {
+@Table(name = "monit__doc_activities")
+public class DocumentActivity extends SimpleAppEntity {
 
-	private Activity parentActivity;
+	private DocumentActivity parentActivity;
 
 	@Column(name = "event_time", nullable = false)
 	private Date eventTime;
@@ -50,11 +50,11 @@ public class Activity extends SimpleAppEntity {
 	@OrderBy("sort")
 	private List<Event> events = new ArrayList<Event>();
 
-	public Activity getParentActivity() {
+	public DocumentActivity getParentActivity() {
 		return parentActivity;
 	}
 
-	public void setParentActivity(Activity parentActivity) {
+	public void setParentActivity(DocumentActivity parentActivity) {
 		this.parentActivity = parentActivity;
 	}
 
@@ -101,7 +101,7 @@ public class Activity extends SimpleAppEntity {
 
 	@Override
 	public String getURL() {
-		return "p?id=useractivity-form&amp;docid=" + getIdentifier();
+		return "p?id=documentactivity-form&amp;docid=" + getIdentifier();
 	}
 
 	@Override

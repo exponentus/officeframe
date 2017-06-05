@@ -21,7 +21,7 @@ import com.exponentus.log.Lg;
 import com.exponentus.util.TimeUtil;
 
 import administrator.model.User;
-import monitoring.model.Activity;
+import monitoring.model.DocumentActivity;
 import monitoring.model.Statistic;
 
 public class StatisticDAO extends SimpleDAO<Statistic> {
@@ -53,7 +53,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 
 	}
 
-	public Activity findById(long id) {
+	public DocumentActivity findById(long id) {
 
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -64,7 +64,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			Predicate condition = c.get("id").in(id);
 			cq.where(condition);
 			Query query = em.createQuery(cq);
-			Activity entity = (Activity) query.getSingleResult();
+			DocumentActivity entity = (DocumentActivity) query.getSingleResult();
 			return entity;
 		} catch (NoResultException e) {
 			return null;
@@ -74,10 +74,10 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 
 	}
 
-	public List<Activity> findAll(int firstRec, int pageSize) {
+	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<Activity> q = em.createNamedQuery("Activity.findAll", Activity.class);
+			TypedQuery<DocumentActivity> q = em.createNamedQuery("Activity.findAll", DocumentActivity.class);
 			q.setFirstResult(firstRec);
 			q.setMaxResults(pageSize);
 			return q.getResultList();
@@ -118,7 +118,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 
 	}
 
-	public void delete(Activity entity) {
+	public void delete(DocumentActivity entity) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			EntityTransaction t = em.getTransaction();

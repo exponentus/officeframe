@@ -12,8 +12,8 @@ import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoPage;
 
-import monitoring.dao.ActivityDAO;
-import monitoring.model.Activity;
+import monitoring.dao.DocumentActivityDAO;
+import monitoring.model.DocumentActivity;
 
 public class ActivityView extends _DoPage {
 
@@ -24,7 +24,7 @@ public class ActivityView extends _DoPage {
 		actionBar.addAction(new Action(getLocalizedWord("del_document", session.getLang()), "", ActionType.DELETE_DOCUMENT));
 		addContent(actionBar);
 
-		ActivityDAO dao = new ActivityDAO();
+		DocumentActivityDAO dao = new DocumentActivityDAO();
 		int pageNum = 1;
 		int pageSize = session.getPageSize();
 		if (formData.containsField("page")) {
@@ -42,9 +42,9 @@ public class ActivityView extends _DoPage {
 
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
-		ActivityDAO dao = new ActivityDAO();
+		DocumentActivityDAO dao = new DocumentActivityDAO();
 		for (String id : formData.getListOfValuesSilently("docid")) {
-			Activity m = dao.findById(Long.parseLong(id));
+			DocumentActivity m = dao.findById(Long.parseLong(id));
 			dao.delete(m);
 		}
 
