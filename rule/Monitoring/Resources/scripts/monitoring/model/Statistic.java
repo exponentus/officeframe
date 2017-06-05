@@ -16,20 +16,24 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 @JsonRootName("statistic")
 @Entity
-@Table(name = "monit__statistics", uniqueConstraints = @UniqueConstraint(columnNames = { "app_code", "act_user", "event_time", "type" }))
+@Table(name = "monit__statistics", uniqueConstraints = @UniqueConstraint(columnNames = { "app_code", "act_user", "event_time", "type",
+		"status" }))
 public class Statistic extends SimpleAppEntity {
 
 	@Column(name = "act_user", nullable = false)
 	private Long actUser;
 
-	@Column(name = "app_code", nullable = false, length = 32)
+	@Column(name = "app_code", nullable = false, length = 16)
 	private String appCode;
 
 	@Temporal(TemporalType.DATE)
 	@Column(name = "event_time", nullable = false)
 	private Date eventTime;
 
-	@Column(length = 140)
+	@Column(length = 16)
+	private String status;
+
+	@Column(length = 64)
 	private String type;
 
 	long amount;
@@ -64,6 +68,14 @@ public class Statistic extends SimpleAppEntity {
 
 	public void setEventTime(Date eventTime) {
 		this.eventTime = eventTime;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	@Override

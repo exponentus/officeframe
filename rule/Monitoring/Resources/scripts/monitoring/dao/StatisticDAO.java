@@ -15,7 +15,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.SimpleDAO;
+import com.exponentus.log.Lg;
+import com.exponentus.util.TimeUtil;
 
 import administrator.model.User;
 import monitoring.model.Activity;
@@ -27,7 +30,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		super(Statistic.class);
 	}
 
-	public void postStat(User user, String appCode, String type, Date eventTime, long amount) throws DAOException {
+	public void postStat(User user, String appCode, String type, Date eventTime, String status, long amount) throws DAOException {
 		if (amount > 0) {
 			Statistic ua = new Statistic();
 			ua.setActUser(user.getId());
@@ -35,7 +38,17 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			ua.setAmount(amount);
 			ua.setAppCode(appCode);
 			ua.setEventTime(eventTime);
-			add(ua);
+			ua.setStatus(status);
+			try {
+				add(ua);
+			} catch (DAOException e) {
+				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+					Lg.warning("a data is already exists (" + user.getId() + "-" + appCode + "-" + TimeUtil.dateToStringSilently(eventTime)
+							+ "-" + type + "-" + status + "), record was skipped");
+				} else {
+					Lg.exception(e);
+				}
+			}
 		}
 
 	}
