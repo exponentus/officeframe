@@ -14,6 +14,8 @@ import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import monitoring.model.constants.ActivityType;
+
 @JsonRootName("userActivity")
 @Entity
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
@@ -25,6 +27,8 @@ public class UserActivity extends SimpleAppEntity {
 
 	@Column(name = "event_time", nullable = false)
 	private Date eventTime;
+
+	private ActivityType type = ActivityType.UNKNOWN;
 
 	public Date getEventTime() {
 		return eventTime;
