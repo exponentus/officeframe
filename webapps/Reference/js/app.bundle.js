@@ -2088,7 +2088,7 @@ nb.validateForm = function(form, validation) {
             er;
         for (var index in ers) {
             er = ers[index];
-            if (index == 0) {
+            if (index === 0) {
                 $('[name=' + er.field + ']').focus();
             }
             $('[name=' + er.field + ']', form).attr('required', 'required').addClass('required');
@@ -2504,7 +2504,7 @@ nb.xhrDownload = function(params) {
         if (disposition && disposition.indexOf('attachment') !== -1) {
             var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
             var matches = filenameRegex.exec(disposition);
-            if (matches != null && matches[1]) {
+            if (matches && matches[1]) {
                 filename = matches[1].replace(/['"]/g, '').replace('utf-8', '');
             }
         }
@@ -2600,7 +2600,7 @@ nb.getSelectOptions = function(selectOptions) {
         return {
             meta: meta,
             items: items
-        }
+        };
     };
 
     var filterItems = function(data, term) {
@@ -2619,7 +2619,7 @@ nb.getSelectOptions = function(selectOptions) {
         return {
             meta: data.meta,
             items: items
-        }
+        };
     };
 
     return {
@@ -2982,7 +2982,7 @@ nb.setSearchReferToSessionStorage = function() {
 nb.resetSearchFromRefer = function() {
     var refer = sessionStorage.getItem(nb.options.searchReferStorageName);
     if (refer) {
-        sessionStorage.removeItem(nb.options.searchReferStorageName)
+        sessionStorage.removeItem(nb.options.searchReferStorageName);
         location.href = refer;
     } else {
         history.back();
@@ -2993,9 +2993,9 @@ nb.resetSearchFromRefer = function() {
 $(document).ready(function() {
     $('form[name=ft-search]').on('submit', function() {
         nb.setSearchReferToSessionStorage();
-        if($("select[name=id]").val() != 'search'){
-            window.location.href = "api/view/ftsearch/"+ $("input[name=id_view]").val() +"/admin/" + $("input[type=search]").val() + "/1";
-        }else{
+        if ($("select[name=id]").val() != 'search') {
+            window.location.href = "api/view/ftsearch/" + $("input[name=id_view]").val() + "/admin/" + $("input[type=search]").val() + "/1";
+        } else {
             window.location.href = "api/view/ftsearch/" + $("input[type=search]").val() + "/1";
         }
 
