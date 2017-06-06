@@ -32,6 +32,16 @@
                     </div>
                     <div class="form-group">
                         <div class="control-label">
+                            <xsl:value-of select="//captions/schema/@caption"/>
+                        </div>
+                        <div class="controls">
+                            <select name="controlschematype" class="span7" required="required">
+                                <xsl:apply-templates select="//constants[@entity = 'controlschematype']/entry" mode="select_entry"/>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
                             <xsl:value-of select="//captions/default_hours/@caption"/>
                         </div>
                         <div class="controls">
@@ -59,4 +69,13 @@
         </form>
     </xsl:template>
 
+
+    <xsl:template match="*" mode="select_entry">
+        <option value="{@attrval}">
+            <xsl:if test="@attrval = //fields/schema">
+                <xsl:attribute name="selected">selected</xsl:attribute>
+            </xsl:if>
+            <xsl:value-of select="."/>
+        </option>
+    </xsl:template>
 </xsl:stylesheet>
