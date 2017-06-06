@@ -11,7 +11,6 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -33,7 +32,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("comment")
 @Entity
 @Table(name = "disc__comments")
-@NamedQuery(name = "Comment.findAll", query = "SELECT m FROM Comment AS m ORDER BY m.regDate ASC")
 public class Comment extends SecureHierarchicalEntity {
 
 	@JsonIgnore

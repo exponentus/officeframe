@@ -8,9 +8,11 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -40,6 +42,11 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			ua.setEventTime(eventTime);
 			ua.setStatus(status);
 			try {
+				Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
+				if (s != null) {
+					Lg.warning("found " + user.getId() + "-" + appCode + "-" + TimeUtil.dateToStringSilently(eventTime) + "-" + type + "-"
+							+ status);
+				}
 				add(ua);
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
@@ -49,6 +56,30 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 					Lg.exception(e);
 				}
 			}
+		}
+
+	}
+
+	public Statistic findByStatKeys(User user, String appCode, String type, Date eventTime, String status) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		try {
+			CriteriaQuery<Statistic> cq = cb.createQuery(Statistic.class);
+			Root<Statistic> c = cq.from(Statistic.class);
+			cq.select(c);
+			ParameterExpression<Date> parameter = cb.parameter(Date.class);
+			Predicate condition = c.get("actUser").in(user.getId());
+			condition = cb.and(cb.equal(c.get("appCode"), appCode), condition);
+			condition = cb.and(cb.equal(c.get("status"), status), condition);
+			cq.where(condition);
+			Query query = em.createQuery(cq);
+			query.setParameter(parameter, eventTime, TemporalType.DATE);
+			Statistic entity = (Statistic) query.getSingleResult();
+			return entity;
+		} catch (NoResultException e) {
+			return null;
+		} finally {
+			em.close();
 		}
 
 	}

@@ -44,7 +44,7 @@ public class FillControlTypes extends Do {
 			if (codes[i].equals("FI")) {
 				cType.setSchema(ControlSchemaType.ALLOW_RESET_ON_BASIS_REPORT);
 			} else {
-				cType.setSchema(ControlSchemaType.RESET_ALL_MANULALLY);
+				cType.setSchema(ControlSchemaType.RESET_ALL_MANUALLY);
 			}
 			entities.add(cType);
 		}
