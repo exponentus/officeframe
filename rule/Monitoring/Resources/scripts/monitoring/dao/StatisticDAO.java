@@ -62,26 +62,12 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 
 	public Statistic findByStatKeys(User user, String appCode, String type, Date eventTime, String status) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
 		try {
 			return (Statistic) em
 					.createQuery(
 							"SELECT s FROM Statistic s " + "WHERE s.eventTime = :et AND s.actUser = :u AND s.appCode = :ac AND s.status=:s")
 					.setParameter("et", eventTime, TemporalType.DATE).setParameter("u", user.getId()).setParameter("ac", appCode)
 					.setParameter("s", status).getSingleResult();
-			/*CriteriaQuery<Statistic> cq = cb.createQuery(Statistic.class);
-			Root<Statistic> c = cq.from(Statistic.class);
-			cq.select(c);
-			ParameterExpression<Date> parameter = cb.parameter(Date.class);
-			Predicate condition = cb.equal(cb.function("date", Date.class, c.<Date>get("eventTime")), parameter);
-			condition = c.get("actUser").in(user.getId(), condition);
-			condition = cb.and(cb.equal(c.get("appCode"), appCode), condition);
-			condition = cb.and(cb.equal(c.get("status"), status), condition);
-			cq.where(condition);
-			Query query = em.createQuery(cq);
-			query.setParameter("et", eventTime, TemporalType.DATE);
-			Statistic entity = (Statistic) query.getSingleResult();*/
-			//return entity;
 		} catch (NoResultException e) {
 			return null;
 		} finally {
