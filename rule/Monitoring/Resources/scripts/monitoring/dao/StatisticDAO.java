@@ -43,8 +43,10 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			try {
 				Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
 				if (s != null) {
-					s.setAmount(amount);
-					update(s);
+					if (amount != s.getAmount()) {
+						s.setAmount(amount);
+						update(s);
+					}
 				} else {
 					add(ua);
 				}

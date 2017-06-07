@@ -372,6 +372,7 @@
   "undefined" : "Не определено",
   "vehicle" : "Транспортное средство",
   "placeholder_application_title" : "Заголовок, цель заявки, кратко описание...",
+  "low" : "Низкий",
   "theme" : "Тема",
   "notify_about_overdued_task" : "Уведомление о просроченном задании",
   "assignment_was_started_to_impl" : "Задание передано на исполнение",

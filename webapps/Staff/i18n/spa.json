@@ -372,6 +372,7 @@
   "undefined" : null,
   "vehicle" : null,
   "placeholder_application_title" : null,
+  "low" : "Bajo",
   "theme" : "Tema",
   "notify_about_overdued_task" : "Notificarle",
   "assignment_was_started_to_impl" : "assignment_was_started_to_impl",

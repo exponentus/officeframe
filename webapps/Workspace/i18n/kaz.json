@@ -372,6 +372,7 @@
   "undefined" : "Белгісіз",
   "vehicle" : null,
   "placeholder_application_title" : "Тақырып, өтінім мақсаты, қысқа сипаттама...",
+  "low" : "Аласа",
   "theme" : "Тақырып",
   "notify_about_overdued_task" : "Уведомление о просроченном задании",
   "assignment_was_started_to_impl" : "Тапсырма іске асыру басталды",

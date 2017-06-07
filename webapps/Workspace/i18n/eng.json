@@ -372,6 +372,7 @@
   "undefined" : "Undefined",
   "vehicle" : "Vehicle",
   "placeholder_application_title" : "Title",
+  "low" : "Low",
   "theme" : "Theme",
   "notify_about_overdued_task" : "[NOTIFICATION] Task expired",
   "assignment_was_started_to_impl" : "Assignment was started",

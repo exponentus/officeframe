@@ -372,6 +372,7 @@
   "undefined" : null,
   "vehicle" : null,
   "placeholder_application_title" : null,
+  "low" : "Нисък",
   "theme" : "Тема",
   "notify_about_overdued_task" : "notify_about_overdued_task",
   "assignment_was_started_to_impl" : "assignment_was_started_to_impl",
