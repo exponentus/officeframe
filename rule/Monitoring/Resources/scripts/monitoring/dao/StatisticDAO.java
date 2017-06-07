@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.ParameterExpression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
@@ -44,10 +43,11 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			try {
 				Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
 				if (s != null) {
-					Lg.warning("found " + user.getId() + "-" + appCode + "-" + TimeUtil.dateToStringSilently(eventTime) + "-" + type + "-"
-							+ status);
+					s.setAmount(amount);
+					update(s);
+				} else {
+					add(ua);
 				}
-				add(ua);
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
 					Lg.warning("a data is already exists (" + user.getId() + "-" + appCode + "-" + TimeUtil.dateToStringSilently(eventTime)
@@ -64,18 +64,24 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		try {
-			CriteriaQuery<Statistic> cq = cb.createQuery(Statistic.class);
+			return (Statistic) em
+					.createQuery(
+							"SELECT s FROM Statistic s " + "WHERE s.eventTime = :et AND s.actUser = :u AND s.appCode = :ac AND s.status=:s")
+					.setParameter("et", eventTime, TemporalType.DATE).setParameter("u", user.getId()).setParameter("ac", appCode)
+					.setParameter("s", status).getSingleResult();
+			/*CriteriaQuery<Statistic> cq = cb.createQuery(Statistic.class);
 			Root<Statistic> c = cq.from(Statistic.class);
 			cq.select(c);
 			ParameterExpression<Date> parameter = cb.parameter(Date.class);
-			Predicate condition = c.get("actUser").in(user.getId());
+			Predicate condition = cb.equal(cb.function("date", Date.class, c.<Date>get("eventTime")), parameter);
+			condition = c.get("actUser").in(user.getId(), condition);
 			condition = cb.and(cb.equal(c.get("appCode"), appCode), condition);
 			condition = cb.and(cb.equal(c.get("status"), status), condition);
 			cq.where(condition);
 			Query query = em.createQuery(cq);
-			query.setParameter(parameter, eventTime, TemporalType.DATE);
-			Statistic entity = (Statistic) query.getSingleResult();
-			return entity;
+			query.setParameter("et", eventTime, TemporalType.DATE);
+			Statistic entity = (Statistic) query.getSingleResult();*/
+			//return entity;
 		} catch (NoResultException e) {
 			return null;
 		} finally {
@@ -134,6 +140,28 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			try {
 				t.begin();
 				em.persist(entity);
+				t.commit();
+				return entity;
+			} catch (PersistenceException e) {
+				throw new DAOException(e);
+			} finally {
+				if (t.isActive()) {
+					t.rollback();
+				}
+			}
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public Statistic update(Statistic entity) throws DAOException {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		try {
+			EntityTransaction t = em.getTransaction();
+			try {
+				t.begin();
+				em.merge(entity);
 				t.commit();
 				return entity;
 			} catch (PersistenceException e) {

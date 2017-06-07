@@ -25,7 +25,7 @@ import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
-import com.exponentus.extconnect.IExtUserDAO;
+import com.exponentus.extconnect.IOfficeFrameDataProvider;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -108,7 +108,7 @@ public class Topic extends SecureHierarchicalEntity {
 	public String getFullXMLChunk(_Session ses) {
 		StringBuilder chunk = new StringBuilder(1000);
 		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-		IExtUserDAO eDao = Environment.getExtUserDAO();
+		IOfficeFrameDataProvider eDao = Environment.getExtUserDAO();
 		IExtUser user = eDao.getEmployee(author.getId());
 		if (user != null) {
 			chunk.append("<author>" + user.getName() + "</author>");

@@ -19,8 +19,9 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.exception.SecureException;
+import com.exponentus.extconnect.IExtRole;
 import com.exponentus.extconnect.IExtUser;
-import com.exponentus.extconnect.IExtUserDAO;
+import com.exponentus.extconnect.IOfficeFrameDataProvider;
 import com.exponentus.runtimeobj.ISimpleAppEntity;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
@@ -29,7 +30,7 @@ import com.exponentus.user.IUser;
 import staff.dao.filter.EmployeeFilter;
 import staff.model.Employee;
 
-public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
+public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameDataProvider {
 	private static ViewPage<Employee> allEmployee;
 	private static Map<UUID, Employee> allEmployeeMap;
 
@@ -76,12 +77,10 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 
 			if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
 				if (condition != null) {
-					condition = cb.and(
-							cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%"),
+					condition = cb.and(cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%"),
 							condition);
 				} else {
-					condition = cb.like(cb.lower(root.<String>get("name")),
-							"%" + filter.getKeyword().toLowerCase() + "%");
+					condition = cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
 				}
 			}
 
@@ -232,6 +231,12 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IExtUserDAO {
 		}
 		allEmployee = null;
 		allEmployeeMap = null;
+	}
+
+	@Override
+	public ViewPage<IExtRole> findAllRoles() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
