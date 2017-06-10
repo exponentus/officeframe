@@ -17,12 +17,12 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.exponentus.common.model.embedded.Avatar;
+import com.exponentus.common.service.EntityService;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -36,12 +36,13 @@ import administrator.dao.UserDAO;
 import administrator.model.User;
 import staff.dao.EmployeeDAO;
 import staff.dao.filter.EmployeeFilter;
+import staff.domain.EmployeeDomain;
 import staff.model.Employee;
 import staff.model.Role;
 import staff.ui.Action;
 
 @Path("employees")
-public class EmployeeService extends RestProvider {
+public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -124,6 +125,7 @@ public class EmployeeService extends RestProvider {
 		}
 	}
 
+	@Override
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -132,6 +134,7 @@ public class EmployeeService extends RestProvider {
 		return save(dto);
 	}
 
+	@Override
 	@PUT
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -139,6 +142,12 @@ public class EmployeeService extends RestProvider {
 	public Response update(@PathParam("id") String id, Employee dto) {
 		dto.setId(UUID.fromString(id));
 		return save(dto);
+	}
+
+	@Override
+	public Response saveForm(Employee dto) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	public Response save(Employee dto) {
@@ -195,6 +204,7 @@ public class EmployeeService extends RestProvider {
 		}
 	}
 
+	@Override
 	@DELETE
 	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -267,4 +277,5 @@ public class EmployeeService extends RestProvider {
 
 		return filter;
 	}
+
 }
