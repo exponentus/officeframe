@@ -19,7 +19,6 @@ import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.exception.SecureException;
 import com.exponentus.runtimeobj.IAppEntity;
-import com.exponentus.runtimeobj.ISimpleAppEntity;
 import com.exponentus.scripting._Session;
 
 /**
@@ -187,7 +186,7 @@ public abstract class ReferenceDAO<T extends IAppEntity<UUID>, K> extends DAO<T,
 	}
 
 	@Override
-	public void delete(ISimpleAppEntity<K> entity) throws SecureException, DAOException {
+	public void delete(T entity) throws SecureException, DAOException {
 		super.delete(entity);
 		resetCache();
 	}

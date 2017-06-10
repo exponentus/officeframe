@@ -22,7 +22,6 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.extconnect.IExtRole;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.extconnect.IOfficeFrameDataProvider;
-import com.exponentus.runtimeobj.ISimpleAppEntity;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
@@ -211,7 +210,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
 	}
 
 	@Override
-	public void delete(ISimpleAppEntity<UUID> entity) throws SecureException, DAOException {
+	public void delete(Employee entity) throws SecureException, DAOException {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
 			EntityTransaction t = em.getTransaction();

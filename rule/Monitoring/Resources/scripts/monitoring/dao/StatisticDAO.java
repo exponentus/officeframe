@@ -6,7 +6,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -14,6 +13,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+
+import org.apache.commons.lang3.time.DateUtils;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
@@ -41,14 +42,17 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 			ua.setEventTime(eventTime);
 			ua.setStatus(status);
 			try {
-				Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
-				if (s != null) {
-					if (amount != s.getAmount()) {
-						s.setAmount(amount);
-						update(s);
+				Statistic prevStat = findByStatKeys(user, appCode, type, DateUtils.addDays(eventTime, -1), status, amount);
+				if (prevStat == null) {
+					Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
+					if (s != null) {
+						if (amount != s.getAmount()) {
+							s.setAmount(amount);
+							update(s);
+						}
+					} else {
+						add(ua);
 					}
-				} else {
-					add(ua);
 				}
 			} catch (DAOException e) {
 				if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
@@ -70,6 +74,22 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 							"SELECT s FROM Statistic s " + "WHERE s.eventTime = :et AND s.actUser = :u AND s.appCode = :ac AND s.status=:s")
 					.setParameter("et", eventTime, TemporalType.DATE).setParameter("u", user.getId()).setParameter("ac", appCode)
 					.setParameter("s", status).getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		} finally {
+			em.close();
+		}
+
+	}
+
+	public Statistic findByStatKeys(User user, String appCode, String type, Date eventTime, String status, long amount) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		try {
+			return (Statistic) em
+					.createQuery("SELECT s FROM Statistic s "
+							+ "WHERE s.eventTime = :et AND s.actUser = :u AND s.appCode = :ac AND s.status=:s AND s.amount=:a")
+					.setParameter("et", eventTime, TemporalType.DATE).setParameter("u", user.getId()).setParameter("ac", appCode)
+					.setParameter("s", status).setParameter("a", amount).getSingleResult();
 		} catch (NoResultException e) {
 			return null;
 		} finally {
@@ -119,50 +139,6 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		} finally {
 			em.close();
 		}
-	}
-
-	public Statistic add(Statistic entity) throws DAOException {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				t.begin();
-				em.persist(entity);
-				t.commit();
-				return entity;
-			} catch (PersistenceException e) {
-				throw new DAOException(e);
-			} finally {
-				if (t.isActive()) {
-					t.rollback();
-				}
-			}
-		} finally {
-			em.close();
-		}
-
-	}
-
-	public Statistic update(Statistic entity) throws DAOException {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				t.begin();
-				em.merge(entity);
-				t.commit();
-				return entity;
-			} catch (PersistenceException e) {
-				throw new DAOException(e);
-			} finally {
-				if (t.isActive()) {
-					t.rollback();
-				}
-			}
-		} finally {
-			em.close();
-		}
-
 	}
 
 	public void delete(DocumentActivity entity) {

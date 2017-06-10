@@ -362,6 +362,7 @@
   "action_completed_successfully" : "action_completed_successfully",
   "urban_agglomeration" : "URBAN_AGGLOMERATION",
   "regions" : null,
+  "register_outgoing" : "Registrar",
   "request_type" : null,
   "validation_error" : "validation_error",
   "districts" : null,

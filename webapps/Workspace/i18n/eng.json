@@ -362,6 +362,7 @@
   "action_completed_successfully" : "The action has been completed",
   "urban_agglomeration" : "Metropolitan area",
   "regions" : "Regions",
+  "register_outgoing" : "Register",
   "request_type" : "Request type",
   "validation_error" : "Validation error",
   "districts" : "Districts",

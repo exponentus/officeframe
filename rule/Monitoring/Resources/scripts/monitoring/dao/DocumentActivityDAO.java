@@ -7,7 +7,6 @@ import java.util.UUID;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -89,28 +88,6 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 		} finally {
 			em.close();
 		}
-	}
-
-	public DocumentActivity add(DocumentActivity entity) throws DAOException {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			EntityTransaction t = em.getTransaction();
-			try {
-				t.begin();
-				em.persist(entity);
-				t.commit();
-				return entity;
-			} catch (PersistenceException e) {
-				throw new DAOException(e);
-			} finally {
-				if (t.isActive()) {
-					t.rollback();
-				}
-			}
-		} finally {
-			em.close();
-		}
-
 	}
 
 	public void delete(DocumentActivity entity) {
