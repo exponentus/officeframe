@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rule mode="on">
     <caching>NO_CACHING</caching>
-    <xsltfile>DEFAULT</xsltfile>
+    <xsltfile>page//country-view.xsl</xsltfile>
     <element mode="ON" type="SCRIPT">
         <events>
-            <doscript source="JAVA_CLASS">reference.page.Index</doscript>
+            <doscript source="JAVA_CLASS">reference.page.view.CountryView</doscript>
         </events>
     </element>
     <caption name="brand"/>
