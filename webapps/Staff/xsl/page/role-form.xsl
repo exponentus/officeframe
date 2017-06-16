@@ -42,7 +42,6 @@
                         </div>
                         <div class="controls">
                             <select name="name" class="span6">
-                                <option value=""></option>
                                 <xsl:apply-templates select="//query[@entity = 'roles']/entry" mode="names_entry"/>
                             </select>
                         </div>
