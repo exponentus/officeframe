@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -185,9 +184,9 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
 			String fsId = getWebFormData().getFormSesId();
 			_FormAttachments formFiles = session.getFormAttachments(fsId);
-			Map<String, TempFile> attsMap = formFiles.getFieldFile("avatar");
+			Map<String, com.exponentus.rest.stream.TempFile> attsMap = formFiles.getFieldFile("avatar");
 			if (attsMap != null && attsMap.size() > 0) {
-				TempFile att = attsMap.values().iterator().next();
+				com.exponentus.rest.stream.TempFile att = attsMap.values().iterator().next();
 				entity.setAvatar((Avatar) att.convertTo(new Avatar()));
 			}
 
