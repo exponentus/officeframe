@@ -15,12 +15,12 @@ import org.apache.commons.io.IOUtils;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.IAppFile;
-import com.exponentus.dataengine.jpa.TempFile;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.rest.stream.IAppFile;
+import com.exponentus.rest.stream.TempFile;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._FormAttachments;
@@ -307,8 +307,8 @@ public class EmployeeForm extends StaffForm {
 	}
 
 	private byte[] getEmptyAvatar() {
-		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator
-				+ EnvConst.STAFF_APP_NAME + File.separator + "img" + File.separator + "nophoto.png");
+		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_APP_NAME
+				+ File.separator + "img" + File.separator + "nophoto.png");
 		InputStream is = null;
 		try {
 			is = new FileInputStream(file);
