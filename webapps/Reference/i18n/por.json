@@ -174,6 +174,7 @@
   "del_document" : "del_document",
   "handler_not_found" : "The handler has not been found",
   "error_500" : "Internal Server Error",
+  "meeting_rooms" : "meeting_rooms",
   "approver_is_not_set" : "APPROVER_IS_NOT_SET",
   "all" : "Tudo",
   "incoming" : "incoming",
