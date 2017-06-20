@@ -17,6 +17,7 @@
   "attach_file" : "Anexar arquivo",
   "rank" : null,
   "app_sort_hint" : "app_sort_hint",
+  "parent_assignment" : "parent_assignment",
   "sign_up" : null,
   "locality" : null,
   "active" : "Ativo",

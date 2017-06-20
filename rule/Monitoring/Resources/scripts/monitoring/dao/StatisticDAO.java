@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
@@ -20,15 +21,22 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.log.Lg;
+import com.exponentus.scripting._Session;
+import com.exponentus.user.IUser;
 import com.exponentus.util.TimeUtil;
 
 import administrator.model.User;
 import monitoring.model.DocumentActivity;
 import monitoring.model.Statistic;
+import monitoring.runtimeobj.Chart;
 
 public class StatisticDAO extends SimpleDAO<Statistic> {
 
 	public StatisticDAO() {
+		super(Statistic.class);
+	}
+
+	public StatisticDAO(_Session session) {
 		super(Statistic.class);
 	}
 
@@ -158,6 +166,36 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		} finally {
 			em.close();
 		}
+	}
+
+	public Chart getUserStatistic(String appCode, String type, IUser<Long> user, Date from, Date to, String status) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		Chart chart = new Chart();
+		try {
+			for (Date fromIter = from; !fromIter.after(to); fromIter = DateUtils.addDays(fromIter, 1)) {
+				try {
+					Statistic stat = (Statistic) em
+							.createQuery(
+									"SELECT s FROM Statistic s WHERE s.eventTime = :et AND s.appCode=:ac AND s.type = :t AND s.actUser = :au AND s.status = :s")
+							.setParameter("ac", appCode).setParameter("t", type).setParameter("au", user.getId())
+							.setParameter("et", fromIter, TemporalType.DATE).setParameter("s", status).getSingleResult();
+					chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());
+					chart.setType(type);
+					chart.setStatus(status);
+				} catch (NonUniqueResultException e) {
+					e.printStackTrace();
+				} catch (NoResultException e) {
+
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+		}
+		return chart;
 	}
 
 }

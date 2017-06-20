@@ -32,7 +32,7 @@ public class Statistic extends SimpleAppEntity {
 
 	@Column(length = 16)
 	private String status;
-
+	//0889803556  стоян 
 	@Column(length = 64)
 	private String type;
 
