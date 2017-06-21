@@ -75,6 +75,7 @@
   "change_password" : "Изменить пароль",
   "has_been_not_filled" : "не заполено",
   "approvals" : "Согласование",
+  "related_assignments" : "Связанные поручения",
   "send_message" : "Отправить сообщение",
   "recycle_bin" : null,
   "add" : "Добавить",

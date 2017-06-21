@@ -75,6 +75,7 @@
   "change_password" : "Іс әрекетті құптаңыз",
   "has_been_not_filled" : "жолы толтырылмады",
   "approvals" : null,
+  "related_assignments" : "related_assignments",
   "send_message" : "send_message",
   "recycle_bin" : "Кәрзеңке",
   "add" : "Қосу",

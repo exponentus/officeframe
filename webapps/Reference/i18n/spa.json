@@ -75,6 +75,7 @@
   "change_password" : "Cambia la contraseña",
   "has_been_not_filled" : "has_been_not_filled",
   "approvals" : null,
+  "related_assignments" : "related_assignments",
   "send_message" : "send_message",
   "recycle_bin" : null,
   "add" : null,
