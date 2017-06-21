@@ -28,7 +28,7 @@ import com.exponentus.util.TimeUtil;
 import administrator.model.User;
 import monitoring.model.DocumentActivity;
 import monitoring.model.Statistic;
-import monitoring.runtimeobj.Chart;
+import monitoring.runtimeobj.TimeChart;
 
 public class StatisticDAO extends SimpleDAO<Statistic> {
 
@@ -168,9 +168,9 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		}
 	}
 
-	public Chart getStatusStat(String appCode, String type, IUser<Long> user, Date from, Date to, String status) {
+	public TimeChart getStatusStat(String appCode, String type, IUser<Long> user, Date from, Date to, String status) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
-		Chart chart = new Chart();
+		TimeChart chart = new TimeChart();
 		try {
 			for (Date fromIter = from; !fromIter.after(to); fromIter = DateUtils.addDays(fromIter, 1)) {
 				try {
@@ -182,6 +182,8 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 					chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());
 					chart.setType(type);
 					chart.setStatus(status);
+					chart.setStart(TimeUtil.dateToStringSilently(from));
+					chart.setEnd(TimeUtil.dateToStringSilently(to));
 				} catch (NonUniqueResultException e) {
 					e.printStackTrace();
 				} catch (NoResultException e) {

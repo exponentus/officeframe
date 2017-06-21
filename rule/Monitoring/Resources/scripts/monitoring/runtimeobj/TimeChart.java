@@ -1,35 +1,37 @@
 package monitoring.runtimeobj;
 
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Chart {
+public class TimeChart {
 	private String title;
-	private int maxY;
-	private Date maxX;
+	private String start;
+	private String end;
 	private String status;
 	private Map<String, Long> values = new HashMap<String, Long>();
 
 	public void addValue(String from, long amount) {
 		values.put(from, amount);
-
 	}
 
-	public int getMaxY() {
-		return maxY;
+	public String getStart() {
+		return start;
 	}
 
-	public void setMaxY(int maxY) {
-		this.maxY = maxY;
+	public void setStart(String start) {
+		this.start = start;
 	}
 
-	public Date getMaxX() {
-		return maxX;
+	public String getEnd() {
+		return end;
 	}
 
-	public void setMaxX(Date maxX) {
-		this.maxX = maxX;
+	public void setEnd(String end) {
+		this.end = end;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Map<String, Long> getValues() {
