@@ -25,7 +25,7 @@ public class FillRegions extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Region> entities = new ArrayList<>();
-		String[] data = { "Almaty", "Astana", "Almaty region" };
+		String[] data = { "Almaty", "Astana", "Almaty region", "Pavlodar region" };
 		try {
 			CountryDAO cDao = new CountryDAO(ses);
 			Country country = null;

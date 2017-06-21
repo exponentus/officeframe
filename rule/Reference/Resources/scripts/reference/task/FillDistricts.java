@@ -22,7 +22,9 @@ public class FillDistricts extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<District> entities = new ArrayList<>();
-		String[] data = { "Karasay", "Talgar" };
+		String[] almatyDistricts = { "Karasay", "Talgar" };
+		String[] pavlodarDistricts = { "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
+				"Павлодарский", "Успенский", "Щербактинский" };
 
 		Region region = null;
 		try {
@@ -32,10 +34,10 @@ public class FillDistricts extends Do {
 			e.printStackTrace();
 		}
 
-		for (int i = 0; i < data.length; i++) {
+		for (int i = 0; i < almatyDistricts.length; i++) {
 			District entity = new District();
 			entity.setRegion(region);
-			entity.setName(data[i]);
+			entity.setName(almatyDistricts[i]);
 			entities.add(entity);
 		}
 
