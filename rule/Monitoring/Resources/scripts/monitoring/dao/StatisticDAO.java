@@ -168,7 +168,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		}
 	}
 
-	public Chart getUserStatistic(String appCode, String type, IUser<Long> user, Date from, Date to, String status) {
+	public Chart getStatusStat(String appCode, String type, IUser<Long> user, Date from, Date to, String status) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		Chart chart = new Chart();
 		try {
