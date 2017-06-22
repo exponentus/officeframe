@@ -14,37 +14,42 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
-import reference.dao.PositionDAO;
-import reference.model.Position;
+import reference.dao.IndustryTypeCategoryDAO;
+import reference.dao.IndustryTypeDAO;
+import reference.model.IndustryType;
+import reference.model.IndustryTypeCategory;
 
 @Command(name = "fill_industry_types")
 public class FillIndustryTypes extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<Position> entities = new ArrayList<Position>();
-		String[] data = { "CEO", "Manager", "Accounter", "Engineer", "Specialist", "Secretary", "Administrator", "Department manager",
-				"Forwarder" };
+		List<IndustryType> entities = new ArrayList<IndustryType>();
+		String[] data = { "горнодобывающая промышленность и разработка карьеров", "обрабатывающая промышленность",
+				"электроснабжение, подача газа, пара и воздушное кондиционирование",
+				"водоснабжение; канализационная система, контроль над сбором и распределением отходов" };
 
-		String[] dataRus = { "Директор", "Менеджер", "Бухгалтер", "Инженер", "Специалист", "Секретарь-референт", "Администратор",
-				"Руководитель подразделения", "Экспедитор" };
-
-		int[] rankData = { 5, 7, 6, 6, 8, 10, 6, 8, 13 };
-
-		for (int i = 0; i < data.length; i++) {
-			Position entity = new Position();
-			entity.setName(data[i]);
-			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
-			name.put(LanguageCode.ENG, data[i]);
-			name.put(LanguageCode.RUS, dataRus[i]);
-			entity.setLocName(name);
-			entity.setRank(rankData[i]);
-			entities.add(entity);
-		}
+		String[] dataRus = { "горнодобывающая промышленность и разработка карьеров", "обрабатывающая промышленность",
+				"электроснабжение, подача газа, пара и воздушное кондиционирование",
+				"водоснабжение; канализационная система, контроль над сбором и распределением отходов" };
 
 		try {
-			PositionDAO dao = new PositionDAO(ses);
-			for (Position entry : entities) {
+
+			IndustryTypeCategory cat = new IndustryTypeCategoryDAO(ses).findByName("Промышленность");
+
+			for (int i = 0; i < data.length; i++) {
+				IndustryType entity = new IndustryType();
+				entity.setName(data[i]);
+				Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+				name.put(LanguageCode.ENG, data[i]);
+				name.put(LanguageCode.RUS, dataRus[i]);
+				entity.setLocName(name);
+				entity.setCategory(cat);
+				entities.add(entity);
+			}
+
+			IndustryTypeDAO dao = new IndustryTypeDAO(ses);
+			for (IndustryType entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.info(entry.getName() + " added");

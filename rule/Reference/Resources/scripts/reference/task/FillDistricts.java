@@ -43,7 +43,7 @@ public class FillDistricts extends Do {
 			for (int i = 0; i < pavlodarDistricts.length; i++) {
 				District entity = new District();
 				entity.setRegion(region);
-				entity.setName(almatyDistricts[i]);
+				entity.setName(pavlodarDistricts[i]);
 				entities.add(entity);
 			}
 
