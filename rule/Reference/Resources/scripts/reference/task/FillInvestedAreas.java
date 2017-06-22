@@ -17,8 +17,8 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.InvestedAreaDAO;
 import reference.model.InvestedArea;
 
-@Command(name = "fill_investment_types")
-public class FillInvestmentTypes extends Do {
+@Command(name = "fill_invested_areas")
+public class FillInvestedAreas extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
