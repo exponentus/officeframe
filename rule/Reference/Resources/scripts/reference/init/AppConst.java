@@ -16,4 +16,5 @@ public class AppConst extends DefaultAppConst {
 	public static InterfaceType AVAILABLE_MODE[] = { InterfaceType.HTML, InterfaceType.SPA };
 	public static String DEFAULT_PAGE = "country-view";
 	public static final String[] ROLES = { "reference_admin" };
+	public static boolean FORCE_DEPLOYING = true;
 }

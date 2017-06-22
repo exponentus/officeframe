@@ -18,5 +18,6 @@ public class AppConst extends DefaultAppConst {
 	public static String NAME_KAZ = "Мониторинг";
 	public static String BASE_URL = "/" + NAME + "/";
 	public static String DEFAULT_PAGE = "activity-view";
+	public static boolean FORCE_DEPLOYING = true;
 
 }

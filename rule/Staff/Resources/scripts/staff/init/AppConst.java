@@ -14,4 +14,5 @@ public class AppConst extends DefaultAppConst {
 	public static String DEFAULT_PAGE = "organization-view";
 	public static final String[] ORG_LABELS = { "primary", "inactive" };
 	public static final String[] ROLES = { "acting", "staff_admin", "fired", "senior_manager" };
+	public static boolean FORCE_DEPLOYING = true;
 }
