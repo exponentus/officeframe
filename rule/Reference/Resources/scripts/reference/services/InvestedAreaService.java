@@ -9,17 +9,17 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 
-import reference.domain.InvestmentTypeDomain;
-import reference.model.InvestmentType;
+import reference.domain.InvestedAreaDomain;
+import reference.model.InvestedArea;
 
-@Path("investment-types")
-public class InvestmentTypeService extends ReferenceService<InvestmentType, InvestmentTypeDomain> {
+@Path("invested-areas")
+public class InvestedAreaService extends ReferenceService<InvestedArea, InvestedAreaDomain> {
 
 	@Override
-	public Response saveForm(InvestmentType dto) {
+	public Response saveForm(InvestedArea dto) {
 		try {
-			InvestmentTypeDomain domain = new InvestmentTypeDomain(getSession());
-			InvestmentType entity = domain.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+			InvestedAreaDomain domain = new InvestedAreaDomain(getSession());
+			InvestedArea entity = domain.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
 			Outcome outcome = domain.getOutcome(domain.save(entity));
 			return Response.ok(outcome).build();
 		} catch (DTOException e) {
@@ -29,10 +29,10 @@ public class InvestmentTypeService extends ReferenceService<InvestmentType, Inve
 		}
 	}
 
-	public class Validation implements IValidation<InvestmentType> {
+	public class Validation implements IValidation<InvestedArea> {
 
 		@Override
-		public void check(InvestmentType dto) throws DTOException {
+		public void check(InvestedArea dto) throws DTOException {
 			DTOException e = new DTOException();
 
 			if (dto.getName() == null) {

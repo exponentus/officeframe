@@ -14,21 +14,21 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 
-import reference.dao.InvestmentTypeDAO;
-import reference.model.InvestmentType;
+import reference.dao.InvestedAreaDAO;
+import reference.model.InvestedArea;
 
 @Command(name = "fill_investment_types")
 public class FillInvestmentTypes extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<InvestmentType> entities = new ArrayList<InvestmentType>();
+		List<InvestedArea> entities = new ArrayList<InvestedArea>();
 		String[] data = { "Малые предприятия", "Средние предприятия", "Крупные предприятия" };
 
 		String[] dataRus = { "Малые предприятия", "Средние предприятия", "Крупные предприятия" };
 
 		for (int i = 0; i < data.length; i++) {
-			InvestmentType entity = new InvestmentType();
+			InvestedArea entity = new InvestedArea();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
 			name.put(LanguageCode.ENG, data[i]);
@@ -38,8 +38,8 @@ public class FillInvestmentTypes extends Do {
 		}
 
 		try {
-			InvestmentTypeDAO dao = new InvestmentTypeDAO(ses);
-			for (InvestmentType entry : entities) {
+			InvestedAreaDAO dao = new InvestedAreaDAO(ses);
+			for (InvestedArea entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.info(entry.getName() + " added");

@@ -6,25 +6,25 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
 
-import reference.dao.InvestmentTypeDAO;
-import reference.model.InvestmentType;
+import reference.dao.InvestedAreaDAO;
+import reference.model.InvestedArea;
 
-public class InvestmentTypeDomain extends CommonDomain<InvestmentType> {
+public class InvestedAreaDomain extends CommonDomain<InvestedArea> {
 
-	public InvestmentTypeDomain(_Session ses) throws DAOException {
+	public InvestedAreaDomain(_Session ses) throws DAOException {
 		super(ses);
-		dao = new InvestmentTypeDAO(ses);
+		dao = new InvestedAreaDAO(ses);
 	}
 
 	@Override
-	public InvestmentType fillFromDto(InvestmentType dto, IValidation<InvestmentType> validation, String fsid)
+	public InvestedArea fillFromDto(InvestedArea dto, IValidation<InvestedArea> validation, String fsid)
 			throws DTOException, DAOException {
 		validation.check(dto);
 
-		InvestmentType entity;
+		InvestedArea entity;
 
 		if (dto.isNew()) {
-			entity = new InvestmentType();
+			entity = new InvestedArea();
 		} else {
 			entity = dao.findById(dto.getId());
 		}
