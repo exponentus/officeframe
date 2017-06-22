@@ -27,18 +27,28 @@ public class FillDistricts extends Do {
 				"Павлодарский", "Успенский", "Щербактинский" };
 
 		Region region = null;
+		RegionDAO cDao = null;
 		try {
-			RegionDAO cDao = new RegionDAO(ses);
+			cDao = new RegionDAO(ses);
+
 			region = cDao.findByName("Almaty region");
+			for (int i = 0; i < almatyDistricts.length; i++) {
+				District entity = new District();
+				entity.setRegion(region);
+				entity.setName(almatyDistricts[i]);
+				entities.add(entity);
+			}
+
+			region = cDao.findByName("Pavlodar region");
+			for (int i = 0; i < pavlodarDistricts.length; i++) {
+				District entity = new District();
+				entity.setRegion(region);
+				entity.setName(almatyDistricts[i]);
+				entities.add(entity);
+			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
-		}
-
-		for (int i = 0; i < almatyDistricts.length; i++) {
-			District entity = new District();
-			entity.setRegion(region);
-			entity.setName(almatyDistricts[i]);
-			entities.add(entity);
 		}
 
 		try {
