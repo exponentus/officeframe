@@ -1,12 +1,15 @@
 package reference.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -26,6 +29,8 @@ public class FillLocalities extends Do {
 		List<Locality> entities = new ArrayList<>();
 		String[] data = { "Kapchagay", "Taldykorgan" };
 		String[] data1 = { "Almaty" };
+		String[] data2 = { "Pavloadar", "Aksu", "Ekibastuz" };
+		String[] data2Rus = { "Павлодар", "Аксу", "Экибастуз" };
 
 		Region d = null;
 		LocalityTypeDAO ltDao = null;
@@ -34,32 +39,48 @@ public class FillLocalities extends Do {
 			ltDao = new LocalityTypeDAO(ses);
 			cDao = new RegionDAO(ses);
 			d = cDao.findByName("Almaty region");
-		} catch (DAOException e) {
-			e.printStackTrace();
-		}
-		if (d != null) {
-			for (String val : data) {
-				Locality entity = new Locality();
-				entity.setRegion(d);
-				entity.setName(val);
-				entity.setType(ltDao.findByCode(LocalityCode.CITY));
-				entities.add(entity);
-			}
-		}
 
-		try {
+			if (d != null) {
+				for (String val : data) {
+					Locality entity = new Locality();
+					entity.setRegion(d);
+					entity.setName(val);
+					entity.setType(ltDao.findByCode(LocalityCode.CITY));
+					entities.add(entity);
+				}
+			}
+
 			d = cDao.findByName("Almaty");
+
+			if (d != null) {
+				for (String val : data1) {
+					Locality entity = new Locality();
+					entity.setRegion(d);
+					entity.setName(val);
+					entity.setType(ltDao.findByCode(LocalityCode.CITY));
+					entities.add(entity);
+				}
+			}
+
+			d = cDao.findByName("Pavloadar region");
+
+			if (d != null) {
+				for (int i = 0; i < data2.length; i++) {
+					Locality entity = new Locality();
+					entity.setRegion(d);
+					entity.setName(data2[i]);
+					Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+					name.put(LanguageCode.ENG, data2[i]);
+					name.put(LanguageCode.RUS, data2Rus[i]);
+					name.put(LanguageCode.KAZ, data2Rus[i]);
+					entity.setLocName(name);
+					entity.setType(ltDao.findByCode(LocalityCode.CITY));
+					entities.add(entity);
+				}
+			}
+
 		} catch (DAOException e) {
 			e.printStackTrace();
-		}
-		if (d != null) {
-			for (String val : data1) {
-				Locality entity = new Locality();
-				entity.setRegion(d);
-				entity.setName(val);
-				entity.setType(ltDao.findByCode(LocalityCode.CITY));
-				entities.add(entity);
-			}
 		}
 
 		try {

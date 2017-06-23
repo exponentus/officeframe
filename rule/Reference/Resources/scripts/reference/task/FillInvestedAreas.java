@@ -23,7 +23,7 @@ public class FillInvestedAreas extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<InvestedArea> entities = new ArrayList<InvestedArea>();
-		String[] data = { "Малые предприятия", "Средние предприятия", "Крупные предприятия" };
+		String[] data = { "small", "middle", "large" };
 
 		String[] dataRus = { "Малые предприятия", "Средние предприятия", "Крупные предприятия" };
 

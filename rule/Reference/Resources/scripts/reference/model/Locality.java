@@ -6,7 +6,6 @@ import javax.persistence.Cacheable;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -25,10 +24,8 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__localities", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type_id",
-		"region_id" }))
+@Table(name = "ref__localities", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "type_id", "region_id" }))
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
-@NamedQuery(name = "Locality.findAll", query = "SELECT m FROM Locality AS m ORDER BY m.regDate")
 public class Locality extends SimpleReferenceEntity {
 
 	@JsonIgnore
