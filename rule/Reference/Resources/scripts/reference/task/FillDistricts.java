@@ -1,12 +1,15 @@
 package reference.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -23,7 +26,9 @@ public class FillDistricts extends Do {
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<District> entities = new ArrayList<>();
 		String[] almatyDistricts = { "Karasay", "Talgar" };
-		String[] pavlodarDistricts = { "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
+		String[] pavlodarDistricts = { "Aktogaysky", "Bayanaulsky", "Zhelesinsky", "Irtishsky", "Cachirsky", "Lebyazhynsky", "Maysky",
+				"Pavlodarsky", "Uspensky", "Sherbaktinsky" };
+		String[] pavlodarDistrictsRus = { "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
 				"Павлодарский", "Успенский", "Щербактинский" };
 
 		Region region = null;
@@ -44,6 +49,11 @@ public class FillDistricts extends Do {
 				District entity = new District();
 				entity.setRegion(region);
 				entity.setName(pavlodarDistricts[i]);
+				Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+				name.put(LanguageCode.ENG, pavlodarDistricts[i]);
+				name.put(LanguageCode.RUS, pavlodarDistrictsRus[i]);
+				name.put(LanguageCode.KAZ, pavlodarDistrictsRus[i]);
+				entity.setLocName(name);
 				entities.add(entity);
 			}
 
