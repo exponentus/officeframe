@@ -23,7 +23,7 @@ public class FillIndustryTypeCategories extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<IndustryTypeCategory> entities = new ArrayList<IndustryTypeCategory>();
-		String[] data = { "Сельское, лесное и рыбное хозяйство", "Промышленность", "Строительство",
+		String[] data = { "Сельское, лесное и рыбное хозяйство", "Industry", "Строительство",
 				"Оптовая и розничная торговля; ремонт автомобилей и мотоциклов", "Транспорт и складирование",
 				"Услуги по проживанию и питанию", "Информация и связь", "Финансовая и страховая деятельность",
 				"Операции с недвижимым имуществом", "Профессиональная, научная и техническая деятельность",
