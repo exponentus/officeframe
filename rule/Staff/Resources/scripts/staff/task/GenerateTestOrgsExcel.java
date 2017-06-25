@@ -67,6 +67,7 @@ public class GenerateTestOrgsExcel extends Do {
 						//List<OrganizationLabel> labels = new ArrayList<>();
 						//labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
 						//entity.setLabels(labels);
+						entity.setTitle(orgName);
 						entities.put(orgName, entity);
 					}
 				}
@@ -98,11 +99,11 @@ public class GenerateTestOrgsExcel extends Do {
 		try {
 			if (entity.getId() == null) {
 				if (dao.add(entity) != null) {
-					logger.info(entity.getId() + " added");
+					logger.info(entity.getTitle() + " added");
 				}
 			} else {
 				if (dao.update(entity) != null) {
-					logger.info(entity.getId() + " updated");
+					logger.info(entity.getTitle() + " updated");
 				}
 			}
 		} catch (DAOException e) {

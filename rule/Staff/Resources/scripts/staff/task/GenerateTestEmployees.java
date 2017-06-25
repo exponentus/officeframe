@@ -36,6 +36,7 @@ public class GenerateTestEmployees extends Do {
 	private static String file1 = EnvConst.RESOURCES_DIR + File.separator + "Roman.txt";
 	private static String file2 = EnvConst.RESOURCES_DIR + File.separator + "Fantasy.txt";
 
+	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Employee> entities = new ArrayList<Employee>();
 		if (checkNecessaryFiles()) {
@@ -76,7 +77,7 @@ public class GenerateTestEmployees extends Do {
 
 		try {
 			if (dao.add(entity) != null) {
-				logger.info(entity.getId() + " added");
+				logger.info(entity.getTitle() + " added");
 			}
 
 		} catch (DAOException e) {
@@ -100,18 +101,19 @@ public class GenerateTestEmployees extends Do {
 			emp.setOrganization(o);
 			RoleDAO roleDao = new RoleDAO(ses);
 			List<Role> rl = roleDao.findAll().getResult();
-			Role role = (Role) EnumUtil.getRndElement(rl);
+			Role role = EnumUtil.getRndElement(rl);
 			if (role != null) {
 				emp.addRole(role);
 			}
 
 			PositionDAO postDao = new PositionDAO(ses);
 			List<Position> posts = postDao.findAll().getResult();
-			emp.setPosition((Position) EnumUtil.getRndElement(posts));
+			emp.setPosition(EnumUtil.getRndElement(posts));
 
 		} catch (DAOException e) {
 			Server.logger.exception(e);
 		}
+		emp.setTitle(emp.getName());
 		return emp;
 
 	}
