@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
@@ -23,7 +25,7 @@ public class FillNationalities extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Nationality> entities = new ArrayList<Nationality>();
-		String[] data = { "Kazakh", "Russians", "Ukraininan", "Germans", "Tatars", "Others" };
+		String[] data = { "kazakh", "russians", "ukraininan", "germans", "tatars", "others" };
 
 		String[] dataRus = { "Казахи", "Русские", "Украинцы", "Немцы", "Татары", "Другие" };
 
@@ -31,7 +33,7 @@ public class FillNationalities extends Do {
 			Nationality entity = new Nationality();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
-			name.put(LanguageCode.ENG, data[i]);
+			name.put(LanguageCode.ENG, WordUtils.capitalize(data[i]));
 			name.put(LanguageCode.RUS, dataRus[i]);
 			entity.setLocName(name);
 			entities.add(entity);
