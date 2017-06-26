@@ -8,8 +8,8 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.legacy.ConvertorEnvConst;
-import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -26,7 +26,7 @@ public class PrepareStorage extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		Vocabulary vocabular = getCurrentAppEnv().vocabulary;
+		Vocabulary vocabular = getCurrentAppEnv().getVocabulary();
 
 		Map<LanguageCode, String> gag = new HashMap<>();
 		gag.put(LanguageCode.ENG, vocabular.getWord(ConvertorEnvConst.GAG_KEY, LanguageCode.ENG));
@@ -50,7 +50,7 @@ public class PrepareStorage extends Do {
 			} catch (SecureException e) {
 				logger.exception(e);
 			}
-			
+
 			OrgCategoryDAO dao1 = new OrgCategoryDAO(ses);
 			OrgCategory entity1 = new OrgCategory();
 			entity1.setName(ConvertorEnvConst.GAG_KEY);
@@ -68,7 +68,7 @@ public class PrepareStorage extends Do {
 			} catch (SecureException e) {
 				logger.exception(e);
 			}
-			
+
 			DocumentLanguageDAO dao2 = new DocumentLanguageDAO(ses);
 			DocumentLanguage entity2 = new DocumentLanguage();
 			entity2.setName(ConvertorEnvConst.GAG_ENTITY);
