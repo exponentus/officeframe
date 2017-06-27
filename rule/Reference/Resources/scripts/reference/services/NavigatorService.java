@@ -68,6 +68,11 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("responsible_type", "", "responsible_types", AppConst.BASE_URL + "responsible_types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
             so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
+        } else if (EnvConst.APP_ID.equalsIgnoreCase("controlpanel")) {
+            so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
+            so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));
+            so.addEntry(new OutlineEntry("invested_areas", "", "invested-areas", AppConst.BASE_URL + "invested-areas"));
+            so.addEntry(new OutlineEntry("nationalities", "", "nationalities", AppConst.BASE_URL + "nationalities"));
         }
 
         so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
