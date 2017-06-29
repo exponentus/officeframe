@@ -47,6 +47,7 @@ public class PropertyCodeService extends RestProvider {
             }
 
             outcome.setTitle("property_codes");
+            outcome.addPayload("contentTitle", "property_codes");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -83,6 +84,7 @@ public class PropertyCodeService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "property_code");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

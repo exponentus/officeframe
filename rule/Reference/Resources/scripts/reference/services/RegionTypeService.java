@@ -47,6 +47,7 @@ public class RegionTypeService extends RestProvider {
             }
 
             outcome.setTitle("region_types");
+            outcome.addPayload("contentTitle", "region_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -83,6 +84,7 @@ public class RegionTypeService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "region_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

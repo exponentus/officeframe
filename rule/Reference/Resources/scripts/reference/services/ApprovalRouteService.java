@@ -47,6 +47,7 @@ public class ApprovalRouteService extends RestProvider {
             }
 
             outcome.setTitle("approval_routes");
+            outcome.addPayload("contentTitle", "approval_route");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -83,6 +84,7 @@ public class ApprovalRouteService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "approval_route");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

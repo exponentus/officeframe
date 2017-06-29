@@ -47,6 +47,7 @@ public class DocumentSubjectService extends RestProvider {
             }
 
             outcome.setTitle("document_subjects");
+            outcome.addPayload("contentTitle", "document_subjects");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -83,6 +84,7 @@ public class DocumentSubjectService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "document_subject");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

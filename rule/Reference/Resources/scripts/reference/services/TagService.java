@@ -57,6 +57,7 @@ public class TagService extends RestProvider {
             }
 
             outcome.setTitle("tags");
+            outcome.addPayload("contentTitle", "tags");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -93,6 +94,7 @@ public class TagService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "tag");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

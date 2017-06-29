@@ -47,6 +47,7 @@ public class ReceivingReasonService extends RestProvider {
             }
 
             outcome.setTitle("receiving_reasons");
+            outcome.addPayload("contentTitle", "receiving_reasons");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -83,6 +84,7 @@ public class ReceivingReasonService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "receiving_reason");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

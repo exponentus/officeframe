@@ -47,6 +47,7 @@ public class MeetingRoomService extends RestProvider {
             }
 
             outcome.setTitle("meeting_rooms");
+            outcome.addPayload("contentTitle", "meeting_rooms");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -83,6 +84,7 @@ public class MeetingRoomService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", "meeting_room");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
