@@ -71,7 +71,6 @@ public class NavigatorService extends RestProvider {
         } else if (EnvConst.APP_ID.equalsIgnoreCase("controlpanel")) {
             so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));
-            so.addEntry(new OutlineEntry("invested_areas", "", "invested-areas", AppConst.BASE_URL + "invested-areas"));
             so.addEntry(new OutlineEntry("nationalities", "", "nationalities", AppConst.BASE_URL + "nationalities"));
         }
 
