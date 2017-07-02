@@ -50,6 +50,9 @@
                             <xsl:value-of select="viewcontent/ip"/>
                         </span>
                         <span>
+                            <xsl:value-of select="viewcontent/country"/>
+                        </span>
+                        <span>
                             <xsl:value-of select="viewcontent/type"/>
                         </span>
                         <span>

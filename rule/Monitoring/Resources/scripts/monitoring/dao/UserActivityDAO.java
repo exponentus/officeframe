@@ -1,5 +1,7 @@
 package monitoring.dao;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -17,7 +19,10 @@ import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.SimpleDAO;
+import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.log.Lg;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.user.IUser;
 
@@ -26,11 +31,20 @@ import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
 import monitoring.model.constants.ActivityType;
 import monitoring.model.embedded.Event;
+import net.firefang.ip2c.Country;
+import net.firefang.ip2c.IP2Country;
 
 public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
+	private static IP2Country ip2c;
 
 	public UserActivityDAO() {
 		super(UserActivity.class);
+		try {
+			ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
+
+		} catch (IOException e) {
+			Lg.exception(e);
+		}
 	}
 
 	@Override
@@ -141,6 +155,16 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		ua.setType(ActivityType.LOGIN);
 		ua.setActUser(user.getId());
 		ua.setIp(ip);
+
+		if (!ip.equals("127.0.0.1")) {
+			try {
+
+				Country c = ip2c.getCountry(ip);
+				ua.setCountry(c.getName());
+			} catch (IOException e) {
+				Lg.exception(e);
+			}
+		}
 		add(ua);
 
 	}

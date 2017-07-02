@@ -31,7 +31,9 @@ public class UserActivity extends SimpleAppEntity {
 
 	private ActivityType type = ActivityType.UNKNOWN;
 
-	private String ip;
+	private String ip = "";
+
+	private String country = "";
 
 	public Date getEventTime() {
 		return eventTime;
@@ -66,6 +68,14 @@ public class UserActivity extends SimpleAppEntity {
 		this.ip = ip;
 	}
 
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
 	@Override
 	public String getIdentifier() {
 		return id.toString();
@@ -87,6 +97,7 @@ public class UserActivity extends SimpleAppEntity {
 		chunk.append("<eventtime>" + TimeUtil.dateTimeToStringSilently(eventTime) + "</eventtime>");
 		chunk.append("<actuser>" + actUser + "</actuser>");
 		chunk.append("<ip>" + ip + "</ip>");
+		chunk.append("<country>" + country + "</country>");
 		chunk.append("<type>" + type.name() + "</type>");
 		return chunk.toString();
 	}
