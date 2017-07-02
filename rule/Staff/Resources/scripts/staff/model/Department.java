@@ -13,12 +13,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.exponentus.common.model.SimpleReferenceEntity;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 
 import com.exponentus.common.model.EmbeddedHierarchicalEntity;
-import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
@@ -40,7 +40,7 @@ import staff.model.util.EmployeeConverter;
 		@Converter(name = "emp_conv", converterClass = EmployeeConverter.class) })
 
 @NamedQuery(name = "Department.findAll", query = "SELECT m FROM Department AS m ORDER BY m.regDate")
-public class Department extends SimpleHierarchicalReferenceEntity {
+public class Department extends SimpleReferenceEntity {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)
@@ -127,13 +127,5 @@ public class Department extends SimpleHierarchicalReferenceEntity {
 		return chunk.toString();
 	}
 
-	@Override
-	public EmbeddedHierarchicalEntity<UUID> getParentEntity(_Session ses) {
-		if (leadDepartment != null) {
-			return leadDepartment;
-		} else {
-			return organization;
 
-		}
-	}
 }

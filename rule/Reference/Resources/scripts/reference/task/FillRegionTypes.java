@@ -26,8 +26,9 @@ public class FillRegionTypes extends Do {
 		List<RegionType> entities = new ArrayList<>();
 
 		String[] dataEng = { "Federation", "Region", "Urban agglomeration" };
-		String[] data = { "Федерация", "Область", "Городская агломерация" };
-		String[] dataKZ = { "Федерация", "Область", "Городская агломерация" };
+		//String[] data = { "Федерация", "Область", "Город" };
+		String[] data = { "Federation", "Region", "Urban agglomeration" };
+		String[] dataKZ = { "Federation", "Region", "Urban agglomeration" };
 		RegionCode[] code = { RegionCode.FEDERATION, RegionCode.REGION, RegionCode.URBAN_AGGLOMERATION };
 		
 		for (int i = 0; i < data.length; i++) {

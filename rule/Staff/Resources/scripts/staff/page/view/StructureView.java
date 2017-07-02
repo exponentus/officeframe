@@ -3,8 +3,6 @@ package staff.page.view;
 import java.util.List;
 import java.util.UUID;
 
-import com.exponentus.common.dao.ViewEntryDAO;
-import com.exponentus.common.model.ViewEntry;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
@@ -37,13 +35,12 @@ public class StructureView extends _DoPage {
 				addContent(actionBar);
 			}
 
-			ViewEntryDAO veDao = new ViewEntryDAO(session);
+
 			OrganizationDAO dao = new OrganizationDAO(session);
 			Organization org = dao.findPrimaryOrg().get(0);
 			if (org != null) {
 				// addContent(org);
-				List<ViewEntry> descendants = veDao.findAllDescendants(org.getIdentifier());
-				addContent(new _POJOListWrapper<>(descendants, session));
+
 			} else {
 				addContent(new _POJOListWrapper<>(getLocalizedWord("no_primary_org", lang), ""));
 			}

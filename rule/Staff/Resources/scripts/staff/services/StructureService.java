@@ -1,7 +1,6 @@
 package staff.services;
 
-import com.exponentus.common.dao.ViewEntryDAO;
-import com.exponentus.common.model.ViewEntry;
+
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -24,23 +23,11 @@ public class StructureService extends RestProvider {
     public Response getViewPage() {
         _Session session = getSession();
 
-        try {
             Outcome outcome = new Outcome();
 
-            ViewEntryDAO veDao = new ViewEntryDAO(session);
-            OrganizationDAO dao = new OrganizationDAO(session);
-            Organization org = dao.findPrimaryOrg().get(0);
 
-            if (org != null) {
-                List<ViewEntry> descendants = veDao.findAllDescendants(org.getIdentifier());
-
-                outcome.setTitle("structures");
-                outcome.addPayload("structures", descendants);
-            }
 
             return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
+
     }
 }

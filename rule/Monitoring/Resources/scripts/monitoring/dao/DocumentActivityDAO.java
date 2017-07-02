@@ -71,7 +71,7 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<DocumentActivity> q = em.createNamedQuery("Activity.findAll", DocumentActivity.class);
+			TypedQuery<DocumentActivity> q = em.createNamedQuery("DocumentActivity.findAll", DocumentActivity.class);
 			q.setFirstResult(firstRec);
 			q.setMaxResults(pageSize);
 			return q.getResultList();
@@ -83,7 +83,7 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 	public Long getCount() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT count(m) FROM Activity AS m");
+			Query q = em.createQuery("SELECT count(m) FROM DocumentActivity AS m");
 			return (Long) q.getSingleResult();
 		} finally {
 			em.close();
