@@ -24,6 +24,7 @@ import com.exponentus.user.IUser;
 import administrator.model.User;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
+import monitoring.model.constants.ActivityType;
 import monitoring.model.embedded.Event;
 
 public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
@@ -73,7 +74,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<DocumentActivity> q = em.createNamedQuery("Activity.findAll", DocumentActivity.class);
+			TypedQuery<DocumentActivity> q = em.createNamedQuery("UserActivity.findAll", DocumentActivity.class);
 			q.setFirstResult(firstRec);
 			q.setMaxResults(pageSize);
 			return q.getResultList();
@@ -85,7 +86,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	public Long getCount() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT count(m) FROM Activity AS m");
+			Query q = em.createQuery("SELECT count(m) FROM UserActivity AS m");
 			return (Long) q.getSingleResult();
 		} finally {
 			em.close();
@@ -134,14 +135,23 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogin(IUser<Long> user) throws DAOException {
-		// TODO Auto-generated method stub
+	public void postLogin(IUser<Long> user, String ip) throws DAOException {
+		UserActivity ua = new UserActivity();
+		ua.setEventTime(new Date());
+		ua.setType(ActivityType.LOGIN);
+		ua.setActUser(user.getId());
+		ua.setIp(ip);
+		add(ua);
 
 	}
 
 	@Override
 	public void postLogout(IUser<Long> user) throws DAOException {
-		// TODO Auto-generated method stub
+		UserActivity ua = new UserActivity();
+		ua.setEventTime(new Date());
+		ua.setType(ActivityType.LOGOUT);
+		ua.setActUser(user.getId());
+		add(ua);
 
 	}
 

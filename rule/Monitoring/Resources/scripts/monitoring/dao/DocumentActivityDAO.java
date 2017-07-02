@@ -110,7 +110,7 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 	}
 
 	@Override
-	public void postLogin(IUser<Long> user) throws DAOException {
+	public void postLogin(IUser<Long> user, String ip) throws DAOException {
 		// TODO Auto-generated method stub
 
 	}

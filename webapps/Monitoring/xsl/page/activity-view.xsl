@@ -35,4 +35,32 @@
         </div>
     </xsl:template>
 
+    <xsl:template match="entry" mode="view-table-body">
+        <div class="entry-wrap">
+            <div data-id="{@id}" class="entry">
+                <label class="entry-select">
+                    <input type="checkbox" name="docid" value="{@id}"/>
+                </label>
+                <a href="{@url}" class="entry-link">
+                    <div class="entry-fields">
+                        <span>
+                            <xsl:value-of select="viewcontent/eventtime"/>
+                        </span>
+                        <span>
+                            <xsl:value-of select="viewcontent/ip"/>
+                        </span>
+                        <span>
+                            <xsl:value-of select="viewcontent/type"/>
+                        </span>
+                        <span>
+                            <xsl:value-of select="viewcontent/actuser"/>
+                        </span>
+
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </xsl:template>
+
 </xsl:stylesheet>
