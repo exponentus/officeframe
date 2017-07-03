@@ -156,7 +156,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		ua.setActUser(user.getId());
 		ua.setIp(ip);
 
-		if (!ip.equals("127.0.0.1")) {
+		if (!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")) {
 			try {
 
 				Country c = ip2c.getCountry(ip);

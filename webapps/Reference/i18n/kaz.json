@@ -278,6 +278,7 @@
   "more_action" : "Тағы",
   "default_hours" : "Сағат саны әдепкі",
   "send_task" : null,
+  "new_assignment" : "new_assignment",
   "new_project" : null,
   "notifications_settings" : "notifications_settings",
   "basic_properties" : "Негізгі қасиеттері",

@@ -278,6 +278,7 @@
   "more_action" : null,
   "default_hours" : null,
   "send_task" : "Enviar tarea",
+  "new_assignment" : "new_assignment",
   "new_project" : "Nuevo proyecto",
   "notifications_settings" : "notifications_settings",
   "basic_properties" : null,
