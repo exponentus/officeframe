@@ -2,6 +2,7 @@ package reference.page.view;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
@@ -33,6 +34,7 @@ public class TagView extends ReferenceView {
 				addContent(actionBar);
 			}
 
+			SortParams sortParams = formData.getSortParams(SortParams.desc("regDate"));
 			String category = formData.getValueSilently("category");
 			if (category.isEmpty() || (!"software_developing_task".equals(category))
 					&& !"software_developing_demand".equals(category)) {
@@ -40,7 +42,7 @@ public class TagView extends ReferenceView {
 			} else {
 				boolean withHidden = formData.getBoolSilently("hidden");
 				TagDAO dao = new TagDAO(session);
-				ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(category, withHidden, 1, 0);
+				ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
 				_POJOListWrapper<Tag> plw = new _POJOListWrapper(vp.getResult(), vp.getMaxPage(), vp.getCount(),
 						vp.getPageNum(), session);
 				addContent(plw);

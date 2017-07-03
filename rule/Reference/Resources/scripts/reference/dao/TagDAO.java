@@ -1,18 +1,15 @@
 package reference.dao;
 
-import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import reference.model.Tag;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,7 +19,7 @@ public class TagDAO extends ReferenceDAO<Tag, UUID> {
         super(Tag.class, session);
     }
 
-    public ViewPage<Tag> findAllByCategoryAndVisibility(String categoryName, boolean withHidden, int pageNum, int pageSize) {
+    public ViewPage<Tag> findAllByCategoryAndVisibility(SortParams sortParams, String categoryName, boolean withHidden, int pageNum, int pageSize) {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         try {
@@ -45,21 +42,17 @@ public class TagDAO extends ReferenceDAO<Tag, UUID> {
                 }
             }
 
+            List<Order> orderBy = collectSortOrder(cb, c, sortParams);
+            if (orderBy != null) {
+                cq.orderBy(orderBy);
+            }
+
             cq.where(condition);
             countCq.where(condition);
             TypedQuery<Tag> typedQuery = em.createQuery(cq);
             Query query = em.createQuery(countCq);
             long count = (long) query.getSingleResult();
-            int maxPage = 1;
-            if (pageNum != 0 || pageSize != 0) {
-                maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
-                if (pageNum == 0) {
-                    pageNum = maxPage;
-                }
-                int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-                typedQuery.setFirstResult(firstRec);
-                typedQuery.setMaxResults(pageSize);
-            }
+            int maxPage = pageable(typedQuery, count, pageNum, pageSize);
             List<Tag> result = typedQuery.getResultList();
             return new ViewPage<>(result, count, maxPage, pageNum);
         } finally {
