@@ -469,6 +469,7 @@
   "complete_task" : "Complete task",
   "request_time" : "Request date",
   "parallel" : "Parallel",
+  "new_sub_assignment" : "New sub-assignment",
   "request_send_success" : "Request has been sent",
   "primary_organization" : "Primary organization",
   "change_saved" : "Change has been saved",

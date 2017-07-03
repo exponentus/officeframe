@@ -469,6 +469,7 @@
   "complete_task" : "Завершить задачу",
   "request_time" : "Дата запроса",
   "parallel" : "parallel",
+  "new_sub_assignment" : "Новое перепоручение",
   "request_send_success" : "Запрос отправлен",
   "primary_organization" : "Первичная организация",
   "change_saved" : "Изменения сохранены",
