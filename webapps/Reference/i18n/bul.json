@@ -469,6 +469,7 @@
   "complete_task" : null,
   "request_time" : null,
   "parallel" : "parallel",
+  "new_sub_assignment" : null,
   "request_send_success" : null,
   "primary_organization" : null,
   "change_saved" : "change_saved",
