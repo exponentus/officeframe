@@ -271,7 +271,7 @@
   "reg_documents" : null,
   "contact_us_on_lang" : "contact_us_on_lang",
   "assignments_all" : null,
-  "reg_number" : null,
+  "reg_number" : "ID",
   "reg_request_accepted" : null,
   "vrp_indicator_plural" : "vrp_indicator_plural",
   "user_name" : null,
