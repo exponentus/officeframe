@@ -179,6 +179,7 @@
   "snp" : "snp",
   "add_subtask" : null,
   "report" : "Изпълнение",
+  "complete" : null,
   "signing" : null,
   "biz_quantity_indicator" : null,
   "notify_about_new_task_short" : "notify_about_new_task_short",

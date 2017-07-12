@@ -179,6 +179,7 @@
   "snp" : "snp",
   "add_subtask" : "Add subtask",
   "report" : "Report",
+  "complete" : "To complete",
   "signing" : "Signing",
   "biz_quantity_indicator" : "biz_quantity_indicator",
   "notify_about_new_task_short" : "[NOTIFICATION] New task created",

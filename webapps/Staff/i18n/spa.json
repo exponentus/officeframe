@@ -179,6 +179,7 @@
   "snp" : "snp",
   "add_subtask" : "Añadir subtarea",
   "report" : "Ejecución",
+  "complete" : "complete",
   "signing" : null,
   "biz_quantity_indicator" : "biz_quantity_indicator",
   "notify_about_new_task_short" : "Notificarle acerca de una nueva tarea",

@@ -46,8 +46,8 @@ public class TextTemplateService extends RestProvider {
                 outcome.addPayload(actionBar);
             }
 
-            outcome.setTitle("text_templates");
-            outcome.addPayload("contentTitle", "text_templates");
+            outcome.setTitle("text_template");
+            outcome.addPayload("contentTitle", "text_template");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();

@@ -39,7 +39,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("positions", "", "positions", AppConst.BASE_URL + "positions"));
         co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", AppConst.BASE_URL + "document_languages"));
         co.addEntry(new OutlineEntry("doc_types", "", "document_types", AppConst.BASE_URL + "document_types"));
-        co.addEntry(new OutlineEntry("doc_subjects", "", "document_subjects", AppConst.BASE_URL + "document_subjects"));
+        co.addEntry(new OutlineEntry("doc_subjs", "", "document_subjects", AppConst.BASE_URL + "document_subjects"));
         co.addEntry(new OutlineEntry("control_types", "", "control_types", AppConst.BASE_URL + "control_types"));
         co.addEntry(new OutlineEntry("tags", "", "tags", AppConst.BASE_URL + "tags"));
         co.addEntry(new OutlineEntry("text_template", "", "text_templates", AppConst.BASE_URL + "text_templates"));
@@ -75,7 +75,7 @@ public class NavigatorService extends RestProvider {
         }
 
         so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
-        so.addEntry(new OutlineEntry("meeting_rooms", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
+        so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
 
         list.add(co);
         list.add(so);

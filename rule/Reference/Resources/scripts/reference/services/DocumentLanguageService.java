@@ -46,8 +46,8 @@ public class DocumentLanguageService extends RestProvider {
                 outcome.addPayload(actionBar);
             }
 
-            outcome.setTitle("document_languages");
-            outcome.addPayload("contentTitle", "document_languages");
+            outcome.setTitle("doc_languages");
+            outcome.addPayload("contentTitle", "doc_languages");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -84,7 +84,7 @@ public class DocumentLanguageService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "document_language");
+            outcome.addPayload("contentTitle", "doc_language");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

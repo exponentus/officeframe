@@ -46,8 +46,8 @@ public class MeetingRoomService extends RestProvider {
                 outcome.addPayload(actionBar);
             }
 
-            outcome.setTitle("meeting_rooms");
-            outcome.addPayload("contentTitle", "meeting_rooms");
+            outcome.setTitle("meeting_room");
+            outcome.addPayload("contentTitle", "meeting_room");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();

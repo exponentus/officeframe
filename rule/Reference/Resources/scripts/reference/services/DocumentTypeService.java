@@ -46,8 +46,8 @@ public class DocumentTypeService extends RestProvider {
                 outcome.addPayload(actionBar);
             }
 
-            outcome.setTitle("document_types");
-            outcome.addPayload("contentTitle", "document_types");
+            outcome.setTitle("doc_types");
+            outcome.addPayload("contentTitle", "doc_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -84,7 +84,7 @@ public class DocumentTypeService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "document_type");
+            outcome.addPayload("contentTitle", "doc_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

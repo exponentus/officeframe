@@ -179,6 +179,7 @@
   "snp" : "snp",
   "add_subtask" : "Добавить подзадачу",
   "report" : "Исполнение",
+  "complete" : "Завершить",
   "signing" : "Подписание",
   "biz_quantity_indicator" : "Показатель по действующим предприятиям",
   "notify_about_new_task_short" : "Уведомление о новом задании",
