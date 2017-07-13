@@ -19,7 +19,7 @@ public class MainNavigator extends _DoPage {
 		LinkedList<IOutcomeObject> list = new LinkedList<IOutcomeObject>();
 
 		Outline outline = new Outline(getLocalizedWord("activities", lang), "activities");
-		outline.addEntry(new OutlineEntry(getLocalizedWord("activities", lang), "useractivity-view"));
+		outline.addEntry(new OutlineEntry(getLocalizedWord("activities", lang), "activity-view"));
 
 		list.add(outline);
 

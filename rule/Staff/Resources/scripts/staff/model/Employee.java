@@ -21,6 +21,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.exponentus.common.model.SimpleReferenceEntity;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
@@ -28,7 +29,6 @@ import org.eclipse.persistence.annotations.Converters;
 
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.EmbeddedHierarchicalEntity;
-import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.extconnect.IExtUser;
@@ -55,7 +55,7 @@ import staff.model.util.EmployeeConverter;
 		@Converter(name = "emp_conv", converterClass = EmployeeConverter.class) })
 @Cache(refreshOnlyIfNewer = true)
 @JsonPropertyOrder({ "kind", "name" })
-public class Employee extends SimpleHierarchicalReferenceEntity implements IExtUser {
+public class Employee extends SimpleReferenceEntity implements IExtUser {
 
 	@OneToOne(cascade = { CascadeType.MERGE }, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
@@ -279,12 +279,5 @@ public class Employee extends SimpleHierarchicalReferenceEntity implements IExtU
 		return chunk.toString();
 	}
 
-	@Override
-	public EmbeddedHierarchicalEntity<UUID> getParentEntity(_Session ses) {
-		if (department != null) {
-			return department;
-		} else {
-			return organization;
-		}
-	}
+
 }

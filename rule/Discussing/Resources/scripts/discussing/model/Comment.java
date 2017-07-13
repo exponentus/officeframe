@@ -2,6 +2,7 @@ package discussing.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,10 +17,10 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import com.exponentus.dataengine.jpa.SecureAppEntity;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
@@ -32,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 @JsonRootName("comment")
 @Entity
 @Table(name = "disc__comments")
-public class Comment extends SecureHierarchicalEntity {
+public class Comment extends SecureAppEntity<UUID> {
 
 	@JsonIgnore
 	@NotNull

@@ -37,17 +37,10 @@ public class TagService extends RestProvider {
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             TagDAO dao = new TagDAO(session);
-            ViewPage<Tag> vp;
 
             boolean withHidden = params.getBoolSilently("hidden");
             String category = params.getValueSilently("category");
-
-            if (category.isEmpty() || (!"software_developing_task".equals(category))
-                    && !"software_developing_demand".equals(category)) {
-                vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            } else {
-                vp = dao.findAllByCategoryAndVisibility(category, withHidden, 1, 0);
-            }
+            ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);

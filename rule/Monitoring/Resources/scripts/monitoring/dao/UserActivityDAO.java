@@ -1,5 +1,7 @@
 package monitoring.dao;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -17,19 +19,32 @@ import javax.persistence.criteria.Root;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.SimpleDAO;
+import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.log.Lg;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.user.IUser;
 
 import administrator.model.User;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
+import monitoring.model.constants.ActivityType;
 import monitoring.model.embedded.Event;
+import net.firefang.ip2c.Country;
+import net.firefang.ip2c.IP2Country;
 
 public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
+	private static IP2Country ip2c;
 
 	public UserActivityDAO() {
 		super(UserActivity.class);
+		try {
+			ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
+
+		} catch (IOException e) {
+			Lg.exception(e);
+		}
 	}
 
 	@Override
@@ -73,7 +88,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			TypedQuery<DocumentActivity> q = em.createNamedQuery("Activity.findAll", DocumentActivity.class);
+			TypedQuery<DocumentActivity> q = em.createNamedQuery("UserActivity.findAll", DocumentActivity.class);
 			q.setFirstResult(firstRec);
 			q.setMaxResults(pageSize);
 			return q.getResultList();
@@ -85,7 +100,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	public Long getCount() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			Query q = em.createQuery("SELECT count(m) FROM Activity AS m");
+			Query q = em.createQuery("SELECT count(m) FROM UserActivity AS m");
 			return (Long) q.getSingleResult();
 		} finally {
 			em.close();
@@ -134,14 +149,33 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogin(IUser<Long> user) throws DAOException {
-		// TODO Auto-generated method stub
+	public void postLogin(IUser<Long> user, String ip) throws DAOException {
+		UserActivity ua = new UserActivity();
+		ua.setEventTime(new Date());
+		ua.setType(ActivityType.LOGIN);
+		ua.setActUser(user.getId());
+		ua.setIp(ip);
+
+		if (!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")) {
+			try {
+
+				Country c = ip2c.getCountry(ip);
+				ua.setCountry(c.getName());
+			} catch (IOException e) {
+				Lg.exception(e);
+			}
+		}
+		add(ua);
 
 	}
 
 	@Override
 	public void postLogout(IUser<Long> user) throws DAOException {
-		// TODO Auto-generated method stub
+		UserActivity ua = new UserActivity();
+		ua.setEventTime(new Date());
+		ua.setType(ActivityType.LOGOUT);
+		ua.setActUser(user.getId());
+		add(ua);
 
 	}
 

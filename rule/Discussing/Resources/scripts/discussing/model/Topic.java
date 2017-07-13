@@ -2,6 +2,7 @@ package discussing.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -19,10 +20,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import com.exponentus.dataengine.jpa.SecureAppEntity;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import com.exponentus.common.model.Attachment;
-import com.exponentus.common.model.SecureHierarchicalEntity;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.extconnect.IOfficeFrameDataProvider;
@@ -37,7 +38,7 @@ import staff.model.embedded.Observer;
 @JsonRootName("topic")
 @Entity
 @Table(name = "disc__topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
-public class Topic extends SecureHierarchicalEntity {
+public class Topic extends SecureAppEntity<UUID> {
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "type", nullable = false, length = 7)

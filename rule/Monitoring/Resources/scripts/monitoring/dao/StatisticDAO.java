@@ -28,7 +28,7 @@ import com.exponentus.util.TimeUtil;
 import administrator.model.User;
 import monitoring.model.DocumentActivity;
 import monitoring.model.Statistic;
-import monitoring.runtimeobj.TimeChart;
+import monitoring.dto.TimeChart;
 
 public class StatisticDAO extends SimpleDAO<Statistic> {
 

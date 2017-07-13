@@ -5,13 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OrderBy;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
@@ -29,6 +23,7 @@ import monitoring.model.util.EventConverter;
 @Entity
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @Table(name = "monit__doc_activities")
+@NamedQuery(name = "DocumentActivity.findAll", query = "SELECT m FROM DocumentActivity AS m")
 public class DocumentActivity extends SimpleAppEntity {
 
 	private DocumentActivity parentActivity;

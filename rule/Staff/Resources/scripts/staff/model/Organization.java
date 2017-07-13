@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import com.exponentus.common.model.SimpleHierarchicalReferenceEntity;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,7 +28,7 @@ import reference.model.OrgCategory;
 @Entity
 @Table(name = "staff__orgs", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "bin" }))
 @NamedQuery(name = "Organization.findAll", query = "SELECT m FROM Organization AS m ORDER BY m.regDate")
-public class Organization extends SimpleHierarchicalReferenceEntity {
+public class Organization extends SimpleReferenceEntity {
 
 	@ManyToOne(optional = false)
 	@JoinColumn(nullable = false)

@@ -21,6 +21,12 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 
 import reference.model.constants.CountryCode;
 
+// https://en.wikipedia.org/wiki/ISO_3166-1
+
+// a2 - alpha code 2
+// a3 - alpha code 3
+// n3 // numeric code 3
+
 @JsonRootName("country")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity

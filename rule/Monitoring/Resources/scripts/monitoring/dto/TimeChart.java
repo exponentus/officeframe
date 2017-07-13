@@ -1,4 +1,4 @@
-package monitoring.runtimeobj;
+package monitoring.dto;
 
 import java.util.HashMap;
 import java.util.Map;
