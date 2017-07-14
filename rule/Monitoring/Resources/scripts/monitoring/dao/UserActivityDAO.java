@@ -49,18 +49,20 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
 	@Override
 	public void postEvent(IUser<Long> user, IAppEntity<UUID> entity, String descr) throws DAOException {
-		DocumentActivity ua = new DocumentActivity();
-		//ua.setType(ActivityType.COMPOSE);
-		ua.setActEntityId(entity.getId());
-		ua.setActEntityKind(entity.getEntityKind());
-		//ua.setDetails(descr);
-		//ua.setActUser(user.getId());
-		ua.setEventTime(new Date());
-		Event e = new Event();
-		e.setTime(new Date());
-		e.setAfterState(entity);
-		ua.addEvent(e);
-		add(ua);
+
+			DocumentActivity ua = new DocumentActivity();
+			//ua.setType(ActivityType.COMPOSE);
+			ua.setActEntityId(entity.getId());
+			ua.setActEntityKind(entity.getEntityKind());
+			//ua.setDetails(descr);
+			//ua.setActUser(user.getId());
+			ua.setEventTime(new Date());
+			Event e = new Event();
+			e.setTime(new Date());
+			e.setAfterState(entity);
+			ua.addEvent(e);
+			add(ua);
+
 
 	}
 
@@ -150,6 +152,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
 	@Override
 	public void postLogin(IUser<Long> user, String ip) throws DAOException {
+
 		UserActivity ua = new UserActivity();
 		ua.setEventTime(new Date());
 		ua.setType(ActivityType.LOGIN);
@@ -175,7 +178,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		ua.setEventTime(new Date());
 		ua.setType(ActivityType.LOGOUT);
 		ua.setActUser(user.getId());
-		add(ua);
+	//	add(ua);
 
 	}
 
