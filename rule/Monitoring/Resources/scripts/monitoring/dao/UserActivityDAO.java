@@ -1,38 +1,31 @@
 package monitoring.dao;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
+import administrator.model.User;
+import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
 import com.exponentus.log.Lg;
 import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.user.IUser;
-
-import administrator.model.User;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
 import monitoring.model.constants.ActivityType;
 import monitoring.model.embedded.Event;
 import net.firefang.ip2c.Country;
 import net.firefang.ip2c.IP2Country;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.io.File;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
 	private static IP2Country ip2c;

@@ -5,20 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
@@ -60,6 +47,7 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
 	@OneToOne(cascade = { CascadeType.MERGE }, optional = false, fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
+
 
 	@Column(name = "birth_date")
 	private Date birthDate;

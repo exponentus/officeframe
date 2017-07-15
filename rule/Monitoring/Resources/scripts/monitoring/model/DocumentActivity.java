@@ -1,23 +1,20 @@
 package monitoring.model;
 
+import com.exponentus.common.model.SimpleAppEntity;
+import com.exponentus.common.model.converter.UUIDConverter;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.TimeUtil;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import monitoring.model.embedded.Event;
+import monitoring.model.util.EventConverter;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
-import javax.persistence.*;
-
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-
-import com.exponentus.dataengine.jpa.SimpleAppEntity;
-import com.exponentus.dataengine.jpa.util.UUIDConverter;
-import com.exponentus.scripting._Session;
-import com.exponentus.util.TimeUtil;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
-import monitoring.model.embedded.Event;
-import monitoring.model.util.EventConverter;
 
 @JsonRootName("documentActivity")
 @Entity

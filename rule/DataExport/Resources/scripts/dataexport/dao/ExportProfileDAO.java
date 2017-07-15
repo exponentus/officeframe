@@ -1,12 +1,11 @@
 package dataexport.dao;
 
-import java.util.UUID;
-
+import com.exponentus.common.dao.DAO;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.scripting._Session;
-
 import dataexport.model.ExportProfile;
+
+import java.util.UUID;
 
 public class ExportProfileDAO extends DAO<ExportProfile, UUID> {
 

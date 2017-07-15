@@ -1,9 +1,18 @@
 package staff.dao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import com.exponentus.common.dao.DAO;
+import com.exponentus.common.ui.ViewPage;
+import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.exception.SecureException;
+import com.exponentus.extconnect.IExtRole;
+import com.exponentus.extconnect.IExtUser;
+import com.exponentus.extconnect.IOfficeFrameDataProvider;
+import com.exponentus.scripting.SortParams;
+import com.exponentus.scripting._Session;
+import com.exponentus.user.IUser;
+import staff.dao.filter.EmployeeFilter;
+import staff.model.Employee;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -13,21 +22,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import com.exponentus.dataengine.RuntimeObjUtil;
-import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.DAO;
-import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.exception.SecureException;
-import com.exponentus.extconnect.IExtRole;
-import com.exponentus.extconnect.IExtUser;
-import com.exponentus.extconnect.IOfficeFrameDataProvider;
-import com.exponentus.scripting.SortParams;
-import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
-
-import staff.dao.filter.EmployeeFilter;
-import staff.model.Employee;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameDataProvider {
 	private static ViewPage<Employee> allEmployee;

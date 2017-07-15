@@ -1,32 +1,22 @@
 package reference.model;
 
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.Basic;
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import org.eclipse.persistence.annotations.Convert;
-import org.eclipse.persistence.annotations.Converter;
-
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.model.converter.UUIDConverter;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.util.UUIDConverter;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
+import javax.persistence.*;
+import java.util.List;
+import java.util.UUID;
 
 @JsonRootName("tag")
 @JsonInclude(JsonInclude.Include.NON_NULL)

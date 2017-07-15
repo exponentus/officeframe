@@ -1,4 +1,4 @@
-package staff.scheduled
+package staff.task
 
 import com.exponentus.appenv.AppEnv
 import com.exponentus.scripting._Session

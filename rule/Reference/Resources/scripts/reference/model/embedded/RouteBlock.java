@@ -1,20 +1,18 @@
 package reference.model.embedded;
 
-import java.util.List;
+import com.exponentus.common.model.SimpleAppEntity;
+import com.exponentus.scripting.IPOJOObject;
+import com.exponentus.scripting._Session;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import reference.model.constants.ApprovalType;
+import reference.model.constants.converter.ApprovalTypeConverter;
+import staff.model.Employee;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
-import com.exponentus.dataengine.jpa.SimpleAppEntity;
-import com.exponentus.scripting.IPOJOObject;
-import com.exponentus.scripting._Session;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import reference.model.constants.ApprovalType;
-import reference.model.constants.converter.ApprovalTypeConverter;
-import staff.model.Employee;
+import java.util.List;
 
 @Entity
 @Table(name = "ref__route_blocks")

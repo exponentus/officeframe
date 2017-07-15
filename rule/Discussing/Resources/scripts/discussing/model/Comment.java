@@ -1,26 +1,7 @@
 package discussing.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
-
-import com.exponentus.dataengine.jpa.SecureAppEntity;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
-
 import com.exponentus.common.model.Attachment;
+import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
@@ -29,6 +10,13 @@ import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @JsonRootName("comment")
 @Entity

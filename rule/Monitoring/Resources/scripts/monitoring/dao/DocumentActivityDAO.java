@@ -1,28 +1,22 @@
 package monitoring.dao;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import administrator.model.User;
+import com.exponentus.common.dao.SimpleDAO;
+import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.user.IUser;
+import monitoring.model.DocumentActivity;
+import monitoring.model.embedded.Event;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.SimpleDAO;
-import com.exponentus.extconnect.IMonitoringDAO;
-import com.exponentus.runtimeobj.IAppEntity;
-import com.exponentus.user.IUser;
-
-import administrator.model.User;
-import monitoring.model.DocumentActivity;
-import monitoring.model.embedded.Event;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements IMonitoringDAO {
 

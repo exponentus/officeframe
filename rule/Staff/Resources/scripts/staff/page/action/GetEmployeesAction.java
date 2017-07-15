@@ -1,11 +1,10 @@
 package staff.page.action;
 
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPage;
-
 import staff.dao.EmployeeDAO;
 
 /**

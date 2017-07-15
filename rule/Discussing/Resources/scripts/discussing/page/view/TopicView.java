@@ -1,12 +1,7 @@
 package discussing.page.view;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
@@ -14,9 +9,13 @@ import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoPage;
-
 import discussing.dao.TopicDAO;
 import discussing.model.Topic;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TopicView extends _DoPage {
 

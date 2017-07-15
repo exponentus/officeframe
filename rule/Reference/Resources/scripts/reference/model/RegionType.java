@@ -1,25 +1,17 @@
 package reference.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
 import reference.model.constants.RegionCode;
+
+import javax.persistence.*;
 
 @JsonRootName("regionType")
 @JsonInclude(JsonInclude.Include.NON_NULL)

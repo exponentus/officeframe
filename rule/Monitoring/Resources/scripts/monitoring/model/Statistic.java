@@ -1,18 +1,12 @@
 package monitoring.model;
 
-import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.persistence.UniqueConstraint;
-
-import com.exponentus.dataengine.jpa.SimpleAppEntity;
+import com.exponentus.common.model.SimpleAppEntity;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @JsonRootName("statistic")
 @Entity

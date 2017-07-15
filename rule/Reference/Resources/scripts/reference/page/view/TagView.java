@@ -1,16 +1,15 @@
 package reference.page.view;
 
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._POJOListWrapper;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions.Action;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions.ActionType;
+import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
-
 import reference.dao.TagDAO;
 import reference.model.Tag;
 

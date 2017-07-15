@@ -1,21 +1,16 @@
 package monitoring.model;
 
-import java.util.Date;
+import com.exponentus.common.model.SimpleAppEntity;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.TimeUtil;
+import com.fasterxml.jackson.annotation.JsonRootName;
+import monitoring.model.constants.ActivityType;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import org.eclipse.persistence.annotations.Converter;
-
-import com.exponentus.dataengine.jpa.SimpleAppEntity;
-import com.exponentus.dataengine.jpa.util.UUIDConverter;
-import com.exponentus.scripting._Session;
-import com.exponentus.util.TimeUtil;
-import com.fasterxml.jackson.annotation.JsonRootName;
-
-import monitoring.model.constants.ActivityType;
+import java.util.Date;
 
 @JsonRootName("userActivity")
 @Entity

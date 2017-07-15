@@ -1,17 +1,16 @@
 package staff.page.action;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event._DoPage;
-
 import staff.dao.OrganizationDAO;
 import staff.model.Organization;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Kayra created 09-01-2016

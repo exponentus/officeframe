@@ -1,34 +1,25 @@
 package monitoring.dao;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.Query;
-import javax.persistence.TemporalType;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
-import org.apache.commons.lang3.time.DateUtils;
-
+import administrator.model.User;
+import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.dataengine.jpa.SimpleDAO;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.TimeUtil;
-
-import administrator.model.User;
+import monitoring.dto.TimeChart;
 import monitoring.model.DocumentActivity;
 import monitoring.model.Statistic;
-import monitoring.dto.TimeChart;
+import org.apache.commons.lang3.time.DateUtils;
+
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.Date;
+import java.util.List;
 
 public class StatisticDAO extends SimpleDAO<Statistic> {
 

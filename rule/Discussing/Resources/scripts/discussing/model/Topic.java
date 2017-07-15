@@ -1,39 +1,22 @@
 package discussing.model;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Index;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
-import com.exponentus.dataengine.jpa.SecureAppEntity;
-import org.eclipse.persistence.annotations.CascadeOnDelete;
-
 import com.exponentus.common.model.Attachment;
+import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.extconnect.IOfficeFrameDataProvider;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
 import discussing.model.constants.TopicStatusType;
+import org.eclipse.persistence.annotations.CascadeOnDelete;
 import reference.model.Tag;
 import staff.model.embedded.Observer;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @JsonRootName("topic")
 @Entity

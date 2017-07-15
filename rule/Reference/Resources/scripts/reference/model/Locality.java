@@ -1,24 +1,16 @@
 package reference.model;
 
-import java.util.List;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
-
-import org.eclipse.persistence.annotations.Converter;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.dataengine.jpa.util.UUIDConverter;
+import com.exponentus.common.model.converter.UUIDConverter;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import org.eclipse.persistence.annotations.Converter;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @JsonRootName("locality")
 @JsonInclude(JsonInclude.Include.NON_NULL)

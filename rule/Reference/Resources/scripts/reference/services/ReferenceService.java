@@ -1,19 +1,10 @@
 package reference.services;
 
-import java.util.UUID;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
 import com.exponentus.common.domain.IDTODomain;
-import com.exponentus.common.model.ISimpleReferenceEntity;
 import com.exponentus.common.service.EntityService;
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
+import com.exponentus.dataengine.jpa.ISimpleReferenceEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.runtimeobj.IAppEntity;
@@ -22,8 +13,15 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
-
 import reference.ui.Action;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDTODomain<T>> extends EntityService<T, D> {
 

@@ -1,15 +1,13 @@
 package staff.task;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import com.exponentus.appenv.AppEnv;
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IDAO;
-import com.exponentus.dataengine.jpa.ViewPage;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.runtimeobj.IAppEntity;
@@ -18,9 +16,6 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.server.Server;
 import com.exponentus.util.EnumUtil;
-
-import administrator.dao.UserDAO;
-import administrator.model.User;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.EmployeeDAO;
@@ -30,6 +25,11 @@ import staff.model.Employee;
 import staff.model.Organization;
 import staff.model.Role;
 import staff.task.helper.NameGenerator;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Command(name = "gen_test_emps")
 public class GenerateTestEmployees extends Do {
@@ -120,7 +120,7 @@ public class GenerateTestEmployees extends Do {
 
 	private String getRndFirstName() {
 		try {
-			NameGenerator n = new NameGenerator(file1);
+			staff.task.helper.NameGenerator n = new staff.task.helper.NameGenerator(file1);
 			return n.compose(3);
 		} catch (IOException e) {
 			Server.logger.exception(e);

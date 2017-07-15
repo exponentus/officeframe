@@ -1,25 +1,20 @@
 package reference.dao;
 
-import java.util.List;
-import java.util.UUID;
+import com.exponentus.common.dao.DAO;
+import com.exponentus.common.ui.ViewPage;
+import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.exception.SecureException;
+import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.scripting._Session;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import com.exponentus.dataengine.RuntimeObjUtil;
-import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.DAO;
-import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.exception.SecureException;
-import com.exponentus.runtimeobj.IAppEntity;
-import com.exponentus.scripting._Session;
+import java.util.List;
+import java.util.UUID;
 
 /**
  *

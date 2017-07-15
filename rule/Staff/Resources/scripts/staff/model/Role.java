@@ -1,18 +1,9 @@
 package staff.model;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.persistence.Column;
-import javax.persistence.Convert;
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.common.model.util.LocalizedValConverter;
+import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
@@ -20,8 +11,9 @@ import com.exponentus.server.Server;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
+import javax.persistence.*;
+import java.util.List;
+import java.util.Map;
 
 @JsonRootName("role")
 @Entity

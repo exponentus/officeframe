@@ -1,7 +1,11 @@
 package reference.dao;
 
-import java.util.List;
-import java.util.UUID;
+import com.exponentus.common.ui.ViewPage;
+import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.scripting._Session;
+import reference.model.Locality;
+import reference.model.Region;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -10,14 +14,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-
-import com.exponentus.dataengine.RuntimeObjUtil;
-import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.ViewPage;
-import com.exponentus.scripting._Session;
-
-import reference.model.Locality;
-import reference.model.Region;
+import java.util.List;
+import java.util.UUID;
 
 public class LocalityDAO extends ReferenceDAO<Locality, UUID> {
 

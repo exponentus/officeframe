@@ -1,12 +1,11 @@
 package staff.dao;
 
-import java.util.UUID;
-
+import com.exponentus.common.dao.DAO;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.DAO;
 import com.exponentus.scripting._Session;
-
 import staff.model.Department;
+
+import java.util.UUID;
 
 public class DepartmentDAO extends DAO<Department, UUID> {
 	
