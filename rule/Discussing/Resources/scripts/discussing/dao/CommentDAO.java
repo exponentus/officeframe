@@ -8,9 +8,8 @@ import discussing.model.Comment;
 import java.util.UUID;
 
 public class CommentDAO extends DAO<Comment, UUID> {
-	
-	public CommentDAO(_Session session) throws DAOException {
-		super(Comment.class, session);
-	}
-	
+
+    public CommentDAO(_Session session) throws DAOException {
+        super(Comment.class, session);
+    }
 }

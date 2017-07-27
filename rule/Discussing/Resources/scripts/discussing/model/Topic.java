@@ -2,11 +2,7 @@ package discussing.model;
 
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureAppEntity;
-import com.exponentus.env.Environment;
-import com.exponentus.extconnect.IExtUser;
-import com.exponentus.extconnect.IOfficeFrameDataProvider;
-import com.exponentus.scripting._Session;
-import com.exponentus.util.TimeUtil;
+import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import discussing.model.constants.TopicStatusType;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
@@ -20,95 +16,84 @@ import java.util.UUID;
 
 @JsonRootName("topic")
 @Entity
-@Table(name = "disc__topics", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
+@Table(name = "disc__topics")
 public class Topic extends SecureAppEntity<UUID> {
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "type", nullable = false, length = 7)
-	private TopicStatusType status = TopicStatusType.UNKNOWN;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, length = 7)
+    private TopicStatusType status = TopicStatusType.UNKNOWN;
 
-	@OneToMany(mappedBy = "topic")
-	private List<Comment> comments;
+    @FTSearchable
+    @Column(columnDefinition = "TEXT")
+    private String body;
 
-	@OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinTable(name = "disc__topic_attachments", joinColumns = { @JoinColumn(name = "topic_id") }, inverseJoinColumns = {
-			@JoinColumn(name = "attachment_id") }, indexes = {
-					@Index(columnList = "topic_id, attachment_id") }, uniqueConstraints = @UniqueConstraint(columnNames = { "topic_id",
-							"attachment_id" }))
-	@CascadeOnDelete
-	private List<Attachment> attachments = new ArrayList<>();
+    @OneToMany(mappedBy = "topic")
+    private List<Comment> comments;
 
-	@ElementCollection
-	@CollectionTable(name = "disc__topic_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
-	private List<Observer> observers = new ArrayList<Observer>();
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "disc_topic_tags")
+    private List<Tag> tags;
 
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "disc_topic_tags")
-	private List<Tag> tags;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(name = "disc__topic_attachments",
+            joinColumns = {@JoinColumn(name = "topic_id")},
+            inverseJoinColumns = {@JoinColumn(name = "attachment_id")},
+            indexes = {@Index(columnList = "topic_id, attachment_id")},
+            uniqueConstraints = @UniqueConstraint(columnNames = {"topic_id", "attachment_id"}))
+    @CascadeOnDelete
+    private List<Attachment> attachments = new ArrayList<>();
 
-	public TopicStatusType getStatus() {
-		return status;
-	}
+    @ElementCollection
+    @CollectionTable(name = "disc__topic_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    private List<Observer> observers = new ArrayList<Observer>();
 
-	public void setStatus(TopicStatusType s) {
-		this.status = s;
-	}
+    public TopicStatusType getStatus() {
+        return status;
+    }
 
-	public List<Comment> getComments() {
-		return comments;
-	}
+    public void setStatus(TopicStatusType s) {
+        this.status = s;
+    }
 
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
+    public String getBody() {
+        return body;
+    }
 
-	@Override
-	public List<Attachment> getAttachments() {
-		return attachments;
-	}
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	@Override
-	public void setAttachments(List<Attachment> attachments) {
-		this.attachments = attachments;
-	}
+    public List<Comment> getComments() {
+        return comments;
+    }
 
-	public List<Observer> getObservers() {
-		return observers;
-	}
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
-	public void setObservers(List<Observer> observers) {
-		this.observers = observers;
-	}
+    public List<Tag> getTags() {
+        return tags;
+    }
 
-	public List<Tag> getTags() {
-		return tags;
-	}
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
-	public void setTags(List<Tag> tags) {
-		this.tags = tags;
-	}
+    @Override
+    public List<Attachment> getAttachments() {
+        return attachments;
+    }
 
-	@Override
-	public String getFullXMLChunk(_Session ses) {
-		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-		IOfficeFrameDataProvider eDao = Environment.getExtUserDAO();
-		IExtUser user = eDao.getEmployee(author.getId());
-		if (user != null) {
-			chunk.append("<author>" + user.getName() + "</author>");
-		} else {
-			chunk.append("<author>" + author + "</author>");
-		}
-		chunk.append("<status>" + status + "</status>");
-		return chunk.toString();
-	}
+    @Override
+    public void setAttachments(List<Attachment> attachments) {
+        this.attachments = attachments;
+    }
 
-	@Override
-	public String getShortXMLChunk(_Session ses) {
-		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-		chunk.append("<status>" + status + "</status>");
-		return chunk.toString();
-	}
+    public List<Observer> getObservers() {
+        return observers;
+    }
 
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
+    }
 }
