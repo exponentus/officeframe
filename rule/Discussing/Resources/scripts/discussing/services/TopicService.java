@@ -12,28 +12,28 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
+import discussing.dao.CommentDAO;
 import discussing.dao.TopicDAO;
 import discussing.domain.TopicDomain;
+import discussing.model.Comment;
 import discussing.model.Topic;
 import discussing.ui.ActionFactory;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Path("topics")
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class TopicService extends EntityService<Topic, TopicDomain> {
 
     @GET
+    @Path("topics")
     public Response getViewPage() {
 
         _Session session = getSession();
@@ -62,7 +62,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
     }
 
     @GET
-    @Path("{id}")
+    @Path("topics/{id}")
     public Response getById(@PathParam("id") String id) {
         _Session session = getSession();
         try {
@@ -107,6 +107,70 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         } catch (DTOException e) {
             return responseValidationError(e);
         } catch (DAOException | SecureException e) {
+            return responseException(e);
+        }
+    }
+
+    @GET
+    @Path("topics/{id}/comments")
+    public Response getTopicComments(@PathParam("id") String id) {
+        _Session session = getSession();
+        try {
+            WebFormData params = getWebFormData();
+            SortParams sortParams = params.getSortParams(SortParams.asc("regDate"));
+            TopicDAO topicDAO = new TopicDAO(session);
+            Topic topic = topicDAO.findByIdentefier(id);
+
+            Outcome outcome = new Outcome();
+            outcome.addPayload("comments", topic.getComments());
+
+            return Response.ok(outcome).build();
+        } catch (Exception e) {
+            return responseException(e);
+        }
+    }
+
+    @POST
+    @Path("topics/{id}/comments")
+    public Response addComment(@PathParam("id") String id, Comment comment) {
+        _Session session = getSession();
+        try {
+            CommentDAO commentDAO = new CommentDAO(session);
+            TopicDAO topicDAO = new TopicDAO(session);
+            Topic topic = topicDAO.findByIdentefier(id);
+
+            comment.setId(null);
+            comment.setTopic(topic);
+
+            commentDAO.save(comment);
+
+            Outcome outcome = new Outcome();
+            outcome.addPayload(comment);
+
+            return Response.ok(outcome).build();
+        } catch (Exception e) {
+            return responseException(e);
+        }
+    }
+
+    @PUT
+    @Path("topics/{id}/comments")
+    public Response updateComment(@PathParam("id") String id, Comment comment) {
+        _Session session = getSession();
+        try {
+            CommentDAO commentDAO = new CommentDAO(session);
+            TopicDAO topicDAO = new TopicDAO(session);
+            Topic topic = topicDAO.findByIdentefier(id);
+
+            comment.setTopic(topic);
+
+            commentDAO.save(comment);
+
+            Outcome outcome = new Outcome();
+            outcome.addPayload(comment);
+
+            return Response.ok(outcome).build();
+        } catch (Exception e) {
             return responseException(e);
         }
     }

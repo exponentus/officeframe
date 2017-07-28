@@ -54,6 +54,7 @@ public class TopicDomain extends CommonDomain<Topic> {
         topic.setTitle(dto.getTitle());
         topic.setBody(dto.getBody());
         topic.setTags(dto.getTags());
+        topic.setObservers(dto.getObservers());
 
         calculateReaders(topic);
 

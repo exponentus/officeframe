@@ -4,6 +4,7 @@ import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import discussing.init.AppConst;
 import discussing.model.constants.TopicStatusType;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 import reference.model.Tag;
@@ -28,6 +29,7 @@ public class Topic extends SecureAppEntity<UUID> {
     private String body;
 
     @OneToMany(mappedBy = "topic")
+    @OrderBy("regDate ASC")
     private List<Comment> comments;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -95,5 +97,10 @@ public class Topic extends SecureAppEntity<UUID> {
 
     public void setObservers(List<Observer> observers) {
         this.observers = observers;
+    }
+
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "topics/" + getIdentifier();
     }
 }

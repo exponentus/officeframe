@@ -5,6 +5,7 @@ import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import discussing.init.AppConst;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import javax.persistence.*;
@@ -29,6 +30,7 @@ public class Comment extends SecureAppEntity<UUID> {
     private Comment parent;
 
     @OneToMany(mappedBy = "parent")
+    @OrderBy("regDate ASC")
     private List<Comment> comments;
 
     @FTSearchable
@@ -88,5 +90,10 @@ public class Comment extends SecureAppEntity<UUID> {
     @Override
     public void setAttachments(List<Attachment> attachments) {
         this.attachments = attachments;
+    }
+
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "comments/" + getIdentifier();
     }
 }
