@@ -28,12 +28,11 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Path("/")
+@Path("topics")
 @Produces(MediaType.APPLICATION_JSON)
 public class TopicService extends EntityService<Topic, TopicDomain> {
 
     @GET
-    @Path("topics")
     public Response getViewPage() {
 
         _Session session = getSession();
@@ -62,7 +61,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
     }
 
     @GET
-    @Path("topics/{id}")
+    @Path("{id}")
     public Response getById(@PathParam("id") String id) {
         _Session session = getSession();
         try {
@@ -112,7 +111,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
     }
 
     @GET
-    @Path("topics/{id}/comments")
+    @Path("{id}/comments")
     public Response getTopicComments(@PathParam("id") String id) {
         _Session session = getSession();
         try {
@@ -131,7 +130,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
     }
 
     @POST
-    @Path("topics/{id}/comments")
+    @Path("{id}/comments")
     public Response addComment(@PathParam("id") String id, Comment comment) {
         _Session session = getSession();
         try {
@@ -154,7 +153,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
     }
 
     @PUT
-    @Path("topics/{id}/comments")
+    @Path("{id}/comments")
     public Response updateComment(@PathParam("id") String id, Comment comment) {
         _Session session = getSession();
         try {
