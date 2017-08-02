@@ -1,5 +1,6 @@
 package discussing.services;
 
+import administrator.model.User;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
@@ -14,17 +15,23 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import discussing.dao.CommentDAO;
 import discussing.dao.TopicDAO;
+import discussing.dao.filter.TopicFilter;
 import discussing.domain.TopicDomain;
 import discussing.model.Comment;
 import discussing.model.Topic;
+import discussing.model.constants.TopicStatusType;
 import discussing.ui.ActionFactory;
+import reference.model.Tag;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -39,9 +46,9 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         try {
             WebFormData params = getWebFormData();
             SortParams sortParams = params.getSortParams(SortParams.asc("regDate"));
+            TopicFilter filter = setUpTopicFilter(session, params, new TopicFilter());
             TopicDAO topicDAO = new TopicDAO(session);
-
-            ViewPage<Topic> vp = topicDAO.findViewPage(sortParams, params.getPage(), session.getPageSize());
+            ViewPage<Topic> vp = topicDAO.findViewPage(filter, sortParams, params.getPage(), session.getPageSize());
 
             ActionFactory actionFactory = new ActionFactory();
             _ActionBar actionBar = new _ActionBar(session);
@@ -191,5 +198,42 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
                 throw ve;
             }
         }
+    }
+
+    public static TopicFilter setUpTopicFilter(_Session session, WebFormData formData, TopicFilter filter) {
+
+        String statusName = formData.getValueSilently("status");
+        if (!statusName.isEmpty()) {
+            filter.setStatus(TopicStatusType.valueOf(statusName));
+        }
+
+        long authorId = formData.getNumberValueSilently("author", -1);
+        if (authorId > 0) {
+            User authorUser = new User();
+            authorUser.setId(authorId);
+            filter.setAuthor(authorUser);
+        }
+
+        String slug = formData.getValueSilently("slug");
+        switch (slug) {
+            case "my":
+                filter.setAuthor((User) session.getUser());
+                break;
+            default:
+                break;
+        }
+
+        if (formData.containsField("tags")) {
+            List<Tag> tags = new ArrayList<>();
+            String[] tagIds = formData.getListOfValuesSilently("tags");
+            for (String tid : tagIds) {
+                Tag tag = new Tag();
+                tag.setId(UUID.fromString(tid));
+                tags.add(tag);
+            }
+            filter.setTags(tags);
+        }
+
+        return filter;
     }
 }

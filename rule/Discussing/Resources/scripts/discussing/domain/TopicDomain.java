@@ -50,7 +50,11 @@ public class TopicDomain extends CommonDomain<Topic> {
             topic = dao.findById(dto.getId());
         }
 
-        topic.setStatus(dto.getStatus());
+        if (dto.getStatus() == TopicStatusType.UNKNOWN) {
+            topic.setStatus(TopicStatusType.DRAFT);
+        } else {
+            topic.setStatus(dto.getStatus());
+        }
         topic.setTitle(dto.getTitle());
         topic.setBody(dto.getBody());
         topic.setTags(dto.getTags());
