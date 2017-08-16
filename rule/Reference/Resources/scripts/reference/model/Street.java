@@ -1,62 +1,58 @@
 package reference.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @JsonRootName("street")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__streets", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "locality_id" }))
+@Table(name = "ref__streets", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "locality_id"}))
 @NamedQuery(name = "Street.findAll", query = "SELECT m FROM Street AS m ORDER BY m.regDate")
 public class Street extends SimpleReferenceEntity {
-	@JsonIgnore
-	@NotNull
-	@ManyToOne(optional = false)
-	@JoinColumn(nullable = false)
-	private Locality locality;
 
-	@Column(name = "street_id")
-	private int streetId;
+    @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private Locality locality;
 
-	public int getStreetId() {
-		return streetId;
-	}
+    @Column(name = "street_id")
+    private int streetId;
 
-	public void setStreetId(int streetId) {
-		this.streetId = streetId;
-	}
+    public int getStreetId() {
+        return streetId;
+    }
 
-	public Locality getLocality() {
-		return locality;
-	}
+    public void setStreetId(int streetId) {
+        this.streetId = streetId;
+    }
 
-	public void setLocality(Locality city) {
-		this.locality = city;
-	}
+    @JsonIgnore
+    public Locality getLocality() {
+        return locality;
+    }
 
-	@Override
-	public String getFullXMLChunk(_Session ses) {
-		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append(super.getFullXMLChunk(ses));
-		chunk.append("<streetid>" + streetId + "</streetid>");
-		if (locality != null) {
-			chunk.append(
-					"<locality id=\"" + locality.getId() + "\">" + locality.getLocName(ses.getLang()) + "</locality>");
-		}
-		return chunk.toString();
-	}
+    @JsonProperty
+    public void setLocality(Locality city) {
+        this.locality = city;
+    }
+
+    @Override
+    public String getFullXMLChunk(_Session ses) {
+        StringBuilder chunk = new StringBuilder(1000);
+        chunk.append(super.getFullXMLChunk(ses));
+        chunk.append("<streetid>" + streetId + "</streetid>");
+        if (locality != null) {
+            chunk.append(
+                    "<locality id=\"" + locality.getId() + "\">" + locality.getLocName(ses.getLang()) + "</locality>");
+        }
+        return chunk.toString();
+    }
 }
