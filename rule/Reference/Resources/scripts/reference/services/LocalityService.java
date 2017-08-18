@@ -12,13 +12,16 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
+import reference.dao.DistrictDAO;
 import reference.dao.LocalityDAO;
+import reference.model.District;
 import reference.model.Locality;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.UUID;
 
 @Path("localities")
@@ -36,8 +39,19 @@ public class LocalityService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            String districtId = params.getValueSilently("district");
+
             LocalityDAO dao = new LocalityDAO(session);
-            ViewPage<Locality> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            ViewPage<Locality> vp;
+
+            if (districtId == null || districtId.isEmpty()) {
+                vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            } else {
+                DistrictDAO districtDAO = new DistrictDAO(session);
+                District district = districtDAO.findByIdentefier(districtId);
+                List<Locality> localities = district.getLocalities();
+                vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
+            }
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);

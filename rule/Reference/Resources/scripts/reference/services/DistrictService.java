@@ -13,12 +13,15 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.DistrictDAO;
+import reference.dao.RegionDAO;
 import reference.model.District;
+import reference.model.Region;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.UUID;
 
 @Path("districts")
@@ -36,8 +39,19 @@ public class DistrictService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            String regionId = params.getValueSilently("region");
+
             DistrictDAO dao = new DistrictDAO(session);
-            ViewPage<District> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            ViewPage<District> vp;
+
+            if (regionId == null || regionId.isEmpty()) {
+                vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            } else {
+                RegionDAO regionDAO = new RegionDAO(session);
+                Region region = regionDAO.findByIdentefier(regionId);
+                List<District> districts = region.getDistricts();
+                vp = new ViewPage<District>(districts, districts.size(), 1, 1);
+            }
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);

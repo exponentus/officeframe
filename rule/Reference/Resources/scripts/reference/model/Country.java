@@ -1,25 +1,15 @@
 package reference.model;
 
-import java.util.List;
-
-import javax.persistence.Cacheable;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-
 import reference.model.constants.CountryCode;
+
+import javax.persistence.*;
+import java.util.List;
 
 // https://en.wikipedia.org/wiki/ISO_3166-1
 
@@ -31,42 +21,44 @@ import reference.model.constants.CountryCode;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__countries", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "code" }))
+@Table(name = "ref__countries", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "Country.findAll", query = "SELECT m FROM Country AS m ORDER BY m.regDate")
 public class Country extends SimpleReferenceEntity {
-	@JsonIgnore
-	@OneToMany(mappedBy = "country")
-	private List<Region> regions;
 
-	@FTSearchable
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = true, length = 7, unique = true)
-	private CountryCode code = CountryCode.UNKNOWN;
+    @JsonIgnore
+    @OneToMany(mappedBy = "country")
+    @OrderBy("name ASC")
+    private List<Region> regions;
 
-	public CountryCode getCode() {
-		return code;
-	}
+    @FTSearchable
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true, length = 7, unique = true)
+    private CountryCode code = CountryCode.UNKNOWN;
 
-	public void setCode(CountryCode code) {
-		this.code = code;
-	}
+    public CountryCode getCode() {
+        return code;
+    }
 
-	@JsonIgnore
-	public List<Region> getRegions() {
-		return regions;
-	}
+    public void setCode(CountryCode code) {
+        this.code = code;
+    }
 
-	@JsonIgnore
-	public void setRegions(List<Region> regions) {
-		this.regions = regions;
-	}
+    @JsonIgnore
+    public List<Region> getRegions() {
+        return regions;
+    }
 
-	@JsonIgnore
-	@Override
-	public String getFullXMLChunk(_Session ses) {
-		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append(super.getFullXMLChunk(ses));
-		chunk.append("<code>" + code + "</code>");
-		return chunk.toString();
-	}
+    @JsonIgnore
+    public void setRegions(List<Region> regions) {
+        this.regions = regions;
+    }
+
+    @JsonIgnore
+    @Override
+    public String getFullXMLChunk(_Session ses) {
+        StringBuilder chunk = new StringBuilder(1000);
+        chunk.append(super.getFullXMLChunk(ses));
+        chunk.append("<code>" + code + "</code>");
+        return chunk.toString();
+    }
 }

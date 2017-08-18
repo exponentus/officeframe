@@ -12,13 +12,16 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
+import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
+import reference.model.Locality;
 import reference.model.Street;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.UUID;
 
 @Path("streets")
@@ -36,8 +39,19 @@ public class StreetService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            StreetDAO dao = new StreetDAO(session);
-            ViewPage<Street> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            String localityId = params.getValueSilently("locality");
+
+            StreetDAO streetDAO = new StreetDAO(session);
+            ViewPage<Street> vp;
+
+            if (localityId == null || localityId.isEmpty()) {
+                LocalityDAO localityDAO = new LocalityDAO(session);
+                Locality locality = localityDAO.findByIdentefier(localityId);
+                List<Street> streetList = locality.getStreets();
+                vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
+            } else {
+                vp = streetDAO.findViewPage(sortParams, params.getPage(), pageSize);
+            }
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);

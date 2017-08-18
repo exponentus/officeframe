@@ -12,13 +12,16 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
+import reference.dao.CountryDAO;
 import reference.dao.RegionDAO;
+import reference.model.Country;
 import reference.model.Region;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.UUID;
 
 @Path("regions")
@@ -36,8 +39,19 @@ public class RegionService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            String countryId = params.getValueSilently("country");
+
             RegionDAO dao = new RegionDAO(session);
-            ViewPage<Region> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            ViewPage<Region> vp;
+
+            if (countryId != null && !countryId.isEmpty()) {
+                CountryDAO countryDAO = new CountryDAO(session);
+                Country country = countryDAO.findByIdentefier(countryId);
+                List<Region> regionList = country.getRegions();
+                vp = new ViewPage<Region>(regionList, regionList.size(), 1, 1);
+            } else {
+                vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            }
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);
