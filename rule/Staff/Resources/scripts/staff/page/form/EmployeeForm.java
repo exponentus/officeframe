@@ -1,17 +1,7 @@
 package staff.page.form;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.apache.commons.io.IOUtils;
-
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.exception.DAOException;
@@ -21,18 +11,10 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.stream.IAppFile;
 import com.exponentus.rest.stream.TempFile;
-import com.exponentus.scripting.IPOJOObject;
-import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting._FormAttachments;
-import com.exponentus.scripting._POJOListWrapper;
-import com.exponentus.scripting._POJOObjectWrapper;
-import com.exponentus.scripting._Session;
-import com.exponentus.scripting._Validation;
+import com.exponentus.scripting.*;
 import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
-
-import administrator.dao.UserDAO;
-import administrator.model.User;
+import org.apache.commons.io.IOUtils;
 import reference.dao.PositionDAO;
 import reference.model.Position;
 import staff.dao.DepartmentDAO;
@@ -42,6 +24,12 @@ import staff.dao.RoleDAO;
 import staff.model.Employee;
 import staff.model.Organization;
 import staff.model.Role;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
 
 /**
  * @author Kayra created 07-01-2016
@@ -307,7 +295,7 @@ public class EmployeeForm extends StaffForm {
 	}
 
 	private byte[] getEmptyAvatar() {
-		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_APP_NAME
+		File file = new File(Environment.getOfficeFrameDir() + File.separator + "webapps" + File.separator + EnvConst.STAFF_MODULE_NAME
 				+ File.separator + "img" + File.separator + "nophoto.png");
 		InputStream is = null;
 		try {

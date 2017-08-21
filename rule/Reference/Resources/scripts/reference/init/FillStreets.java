@@ -1,18 +1,12 @@
 package reference.init;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.deploying.InitialDataAdapter;
 import com.exponentus.env.EnvConst;
-import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.localization.Vocabulary;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.StringUtil;
-
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -22,12 +16,17 @@ import reference.dao.StreetDAO;
 import reference.model.Locality;
 import reference.model.Street;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Kayra on 24/01/16.
  */
 
 public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
-	private static String excelFile = EnvConst.RESOURCES_DIR + File.separator + "streets.xls";
+	private static final String STREETS_LIST = EnvConst.RESOURCES_DIR + File.separator + "streets_almaty.xls";
 	
 	@Override
 	public List<Street> getData(_Session ses, LanguageCode lang, Vocabulary vocabulary) {
@@ -40,7 +39,7 @@ public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
 			d = cDao.findByName("Алматы");
 			
 			if (d != null) {
-				File xf = new File(excelFile);
+				File xf = new File(STREETS_LIST);
 				if (xf.exists()) {
 					WorkbookSettings ws = new WorkbookSettings();
 					ws.setEncoding("Cp1252");
@@ -66,7 +65,7 @@ public class FillStreets extends InitialDataAdapter<Street, StreetDAO> {
 					}
 				} else {
 					System.out.println(
-							"There is no appropriate file (" + excelFile + "). It will be loaded default data");
+							"There is no appropriate file (" + STREETS_LIST + "). It will be loaded default data");
 					String[] data = { "Champs Elysées", "La Rambla", "Fifth Avenue", "Via Appia", "Zeil", "Abbey Road",
 							"Khao San", "Rua Augusta" };
 					int count = 1;

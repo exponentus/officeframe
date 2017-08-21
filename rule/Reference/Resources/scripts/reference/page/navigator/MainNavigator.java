@@ -1,5 +1,6 @@
 package reference.page.navigator;
 
+import com.exponentus.env.AvailableApplicationTypes;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
@@ -16,10 +17,7 @@ public class MainNavigator extends _DoPage {
     @Override
     public void doGET(_Session session, WebFormData formData) {
         LinkedList<IOutcomeObject> list = new LinkedList<>();
-
         Outline common_outline = new Outline(getLocalizedWord("common_reference_data", session.getLang()), "common");
-
-        // if(cuser.hasRole(["struct_keeper", "supervisor"])) {
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("countries", session.getLang()), "country-view"));
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("regions", session.getLang()), "region-view"));
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("districts", session.getLang()), "district-view"));
@@ -34,32 +32,30 @@ public class MainNavigator extends _DoPage {
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("doc_languages", session.getLang()), "documentlanguage-view"));
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("doc_types", session.getLang()), "documenttype-view"));
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("doc_subjs", session.getLang()), "documentsubject-view"));
-        common_outline.addEntry(new OutlineEntry(getLocalizedWord("control_types", session.getLang()), "controltype-view"));
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("tags", session.getLang()), "tag-view"));
         common_outline.addEntry(new OutlineEntry(getLocalizedWord("text_template", session.getLang()), "texttemplate-view"));
-        common_outline.addEntry(new OutlineEntry(getLocalizedWord("vehicle", session.getLang()), "vehicle-view"));
 
         Outline specific_outline = new Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
 
-        if (EnvConst.APP_ID.equalsIgnoreCase("comproperty")) {
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("kuf", session.getLang()), "kuf-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
-            // TODO it is weird code
-        } else if (EnvConst.APP_ID.equalsIgnoreCase("poema") || EnvConst.APP_ID.equalsIgnoreCase("run")) {
+        if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.semantyca.name())) {
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("request_types", session.getLang()), "requesttype-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("demand_types", session.getLang()), "demandtype-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("approval_route", session.getLang()), "approvalroute-view"));
+            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("vehicle", session.getLang()), "vehicle-view"));
+            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("control_types", session.getLang()), "controltype-view"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("dispute_type", session.getLang()), "disputetype-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_article", session.getLang()), "lawarticle-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_branch", session.getLang()), "lawbranch-view"));
-            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("responsible_type", session.getLang()), "responsibletype-view"));
+   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
+   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
+   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("dispute_type", session.getLang()), "disputetype-view"));
+   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_article", session.getLang()), "lawarticle-view"));
+   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_branch", session.getLang()), "lawbranch-view"));
+   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("responsible_type", session.getLang()), "responsibletype-view"));
+        }else  if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.landrelationstar.name())) {
+            specific_outline.addEntry(new OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));
+           // specific_outline.addEntry(new OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
+           // specific_outline.addEntry(new OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
+           // specific_outline.addEntry(new OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
         }
 
         list.add(common_outline);

@@ -1,9 +1,5 @@
 package staff.page.navigator;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.constants.LanguageCode;
@@ -13,13 +9,16 @@ import com.exponentus.scripting.event._DoPage;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
-
 import staff.dao.OrganizationDAO;
 import staff.dao.OrganizationLabelDAO;
 import staff.dao.RoleDAO;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;
 import staff.model.Role;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public class MainNavigator extends _DoPage {
 
@@ -66,6 +65,7 @@ public class MainNavigator extends _DoPage {
 			common_outline.addEntry(new OutlineEntry(getLocalizedWord("roles", lang), "role-view"));
 			common_outline.addEntry(
 					new OutlineEntry(getLocalizedWord("organization_labels", lang), "organization-label-view"));
+
 			
 			list.add(common_outline);
 			

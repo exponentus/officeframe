@@ -55,7 +55,7 @@ public class UserProfile extends _DoPage {
 			addValue("currentLang", session.getLang().name());
 			addValue("pagesize", session.getPageSize());
 			addValue("org", Environment.orgName);
-			addValue("workspaceUrl", "/" + EnvConst.WORKSPACE_NAME);
+			addValue("workspaceUrl", "/" + EnvConst.WORKSPACE_MODULE_NAME);
 			addContent(actionBar);
 		} catch (DAOException e) {
 			logError(e);
