@@ -50,7 +50,7 @@ public class GenerateTestOrgsExcel extends Do {
 				}
 				OrgCategoryDAO ocDao = new OrgCategoryDAO(ses);
 				OrganizationLabelDAO olDao = new OrganizationLabelDAO(ses);
-				//List<OrganizationLabel> l = olDao.findAll().getResult();
+				//List<OrganizationLabel> l = olDao.findAll().getApprovalResult();
 				Sheet sheet = workbook.getSheet(0);
 				int rCount = sheet.getRows();
 				for (int i = 2; i < rCount; i++) {

@@ -13,19 +13,14 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import staff.dao.filter.EmployeeFilter;
 import staff.model.Employee;
+import staff.model.Role;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameDataProvider {
 	private static ViewPage<Employee> allEmployee;
@@ -121,7 +116,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
 	public Employee findByUserId(long id) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
-			String jpql = "SELECT m FROM Employee AS m WHERE m.user.id = :id";
+			String jpql = "SELECT e FROM Employee AS e WHERE e.user.id = :id";
 			TypedQuery<Employee> q = em.createQuery(jpql, Employee.class);
 			q.setParameter("id", id);
 			List<Employee> res = q.getResultList();
@@ -131,6 +126,44 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
 		} finally {
 			em.close();
 		}
+	}
+
+	public ViewPage<Employee> findByRole(Role role) throws DAOException {
+		int pageNum = 1, pageSize = 100;
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		try {
+			CriteriaQuery<Employee> cq = cb.createQuery(getEntityClass());
+			CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
+			Root<Employee> c = cq.from(getEntityClass());
+			cq.select(c);
+			countCq.select(cb.count(c));
+			Predicate condition =  cb.isMember(role,c.<Collection>get("roles"));
+			cq.where(condition);
+			countCq.where(condition);
+			TypedQuery<Employee> typedQuery = em.createQuery(cq);
+			Query query = em.createQuery(countCq);
+			long count = (long) query.getSingleResult();
+			int maxPage = 1;
+			if (pageNum != 0 || pageSize != 0) {
+				maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+				if (pageNum == 0) {
+					pageNum = maxPage;
+				}
+				int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
+				typedQuery.setFirstResult(firstRec);
+				typedQuery.setMaxResults(pageSize);
+			}
+			List<Employee> result = typedQuery.getResultList();
+			return new ViewPage<>(result, count, maxPage, pageNum);
+		} catch (PersistenceException e) {
+			throw new DAOException(e);
+		} catch (Exception e) {
+			throw new DAOException(e);
+		} finally {
+			em.close();
+		}
+
 	}
 
 	public List<Employee> findAllByUserIds(List<Long> ids) {
