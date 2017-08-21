@@ -15,7 +15,6 @@ import java.util.List;
 @Table(name = "staff__individuals", uniqueConstraints = @UniqueConstraint(columnNames = { "name", "bin" }))
 public class Individual extends SimpleReferenceEntity {
 
-
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "staff__individual_labels", joinColumns = @JoinColumn(name = "individual_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
 	private List<IndividualLabel> labels;
@@ -23,9 +22,6 @@ public class Individual extends SimpleReferenceEntity {
 	@FTSearchable
 	@Column(length = 12)
 	private String bin = "";
-
-
-
 
 	public String getBin() {
 		return bin;

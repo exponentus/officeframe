@@ -18,7 +18,6 @@ public class EmployeeDomain extends CommonDomain<Employee> {
 
 	@Override
 	public Employee fillFromDto(Employee dto, IValidation<Employee> validation, String formSesId) throws DTOException, DAOException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
