@@ -12,8 +12,6 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
-import reference.dao.DefendantTypeDAO;
-import reference.model.DefendantType;
 import reference.ui.Action;
 
 import javax.ws.rs.*;

@@ -55,13 +55,6 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
-            //  so.addEntry(new OutlineEntry("claimant_decision_types", "", "claimant_decision_types", AppConst.BASE_URL + "claimant_decision_types"));
-            //  so.addEntry(new OutlineEntry("defendant_type", "", "defendant_types", AppConst.BASE_URL + "defendant_types"));
-            //  so.addEntry(new OutlineEntry("dispute_type", "", "dispute_types", AppConst.BASE_URL + "dispute_types"));
-            //  so.addEntry(new OutlineEntry("law_article", "", "law_articles", AppConst.BASE_URL + "law_articles"));
-            //  so.addEntry(new OutlineEntry("law_branch", "", "law_branches", AppConst.BASE_URL + "law_branches"));
-            //  so.addEntry(new OutlineEntry("responsible_type", "", "responsible_types", AppConst.BASE_URL + "responsible_types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
             //  so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.controlpanel.name())) {
@@ -73,9 +66,13 @@ public class NavigatorService extends RestProvider {
             //    so.addEntry(new OutlineEntry("receiving_reason", "", "receiving_reasons", AppConst.BASE_URL + "receiving_reasons"));
             //   so.addEntry(new OutlineEntry("structure_type", "", "structure_types", AppConst.BASE_URL + "structure_types"));
             //   so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.architecturetar.name())) {
+            so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building_states"));
+            so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
+
         }
 
-        list.add(co);
+            list.add(co);
         list.add(so);
 
         Outcome outcome = new Outcome();
