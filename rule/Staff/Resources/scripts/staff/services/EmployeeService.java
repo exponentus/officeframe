@@ -172,7 +172,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             entity.setRoles(dto.getRoles());
 
             UserDAO uDao = new UserDAO();
-            User lUser = (User) uDao.findByLogin(entity.getLogin());
+            User lUser = (User) uDao.findByLogin(dto.getUser().getLogin());
             entity.setUser(lUser);
 
             String fsId = getWebFormData().getFormSesId();
@@ -232,11 +232,11 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             ve.addError("position", "required", "field_is_empty");
         }
 
-        if (entity.getLogin() == null || entity.getLogin().isEmpty()) {
+        if (entity.getUser() == null || entity.getUser().getLogin().isEmpty()) {
             ve.addError("login", "required", "field_is_empty");
         } else {
             UserDAO uDao = new UserDAO();
-            User user = (User) uDao.findByLogin(entity.getLogin());
+            User user = (User) uDao.findByLogin(entity.getUser().getLogin());
             if (user == null) {
                 ve.addError("login", "login", "login_has_not_been_found");
             }
