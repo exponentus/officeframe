@@ -13,12 +13,15 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.CityDistrictDAO;
+import reference.dao.LocalityDAO;
 import reference.model.CityDistrict;
+import reference.model.Locality;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.List;
 import java.util.UUID;
 
 @Path("city_districts")
@@ -36,8 +39,19 @@ public class CityDistrictService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            CityDistrictDAO dao = new CityDistrictDAO(session);
-            ViewPage<CityDistrict> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            String localityId = params.getValueSilently("locality");
+
+            CityDistrictDAO cityDistrictDAO = new CityDistrictDAO(session);
+            ViewPage<CityDistrict> vp;
+
+            if (localityId == null || localityId.isEmpty()) {
+                vp = cityDistrictDAO.findViewPage(sortParams, params.getPage(), pageSize);
+            } else {
+                LocalityDAO localityDAO = new LocalityDAO(session);
+                Locality locality = localityDAO.findByIdentefier(localityId);
+                List<CityDistrict> streetList = locality.getDistricts();
+                vp = new ViewPage<CityDistrict>(streetList, streetList.size(), 1, 1);
+            }
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);

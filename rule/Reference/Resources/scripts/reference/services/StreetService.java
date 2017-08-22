@@ -45,12 +45,12 @@ public class StreetService extends RestProvider {
             ViewPage<Street> vp;
 
             if (localityId == null || localityId.isEmpty()) {
+                vp = streetDAO.findViewPage(sortParams, params.getPage(), pageSize);
+            } else {
                 LocalityDAO localityDAO = new LocalityDAO(session);
                 Locality locality = localityDAO.findByIdentefier(localityId);
                 List<Street> streetList = locality.getStreets();
                 vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
-            } else {
-                vp = streetDAO.findViewPage(sortParams, params.getPage(), pageSize);
             }
 
             if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {

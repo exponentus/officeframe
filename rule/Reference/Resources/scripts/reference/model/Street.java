@@ -2,7 +2,6 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -34,7 +33,6 @@ public class Street extends SimpleReferenceEntity {
         this.streetId = streetId;
     }
 
-    @JsonIgnore
     public Locality getLocality() {
         return locality;
     }

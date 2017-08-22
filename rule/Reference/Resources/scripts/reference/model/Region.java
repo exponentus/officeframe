@@ -23,6 +23,11 @@ public class Region extends SimpleReferenceEntity {
     @OrderBy("name ASC")
     private List<District> districts;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "region")
+    @OrderBy("name ASC")
+    private List<Locality> localities;
+
     // @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
@@ -46,6 +51,14 @@ public class Region extends SimpleReferenceEntity {
 
     public List<District> getDistricts() {
         return districts;
+    }
+
+    public List<Locality> getLocalities() {
+        return localities;
+    }
+
+    public void setLocalities(List<Locality> localities) {
+        this.localities = localities;
     }
 
     public void setCountry(Country country) {

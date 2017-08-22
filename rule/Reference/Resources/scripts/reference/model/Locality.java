@@ -49,6 +49,10 @@ public class Locality extends SimpleReferenceEntity {
         this.type = type;
     }
 
+    public List<CityDistrict> getDistricts() {
+        return districts;
+    }
+
     public List<Street> getStreets() {
         return streets;
     }

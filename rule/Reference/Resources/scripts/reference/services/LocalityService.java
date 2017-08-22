@@ -12,10 +12,10 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
-import reference.dao.DistrictDAO;
 import reference.dao.LocalityDAO;
-import reference.model.District;
+import reference.dao.RegionDAO;
 import reference.model.Locality;
+import reference.model.Region;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
@@ -39,17 +39,17 @@ public class LocalityService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            String districtId = params.getValueSilently("district");
+            String regionId = params.getValueSilently("region");
 
             LocalityDAO dao = new LocalityDAO(session);
             ViewPage<Locality> vp;
 
-            if (districtId == null || districtId.isEmpty()) {
+            if (regionId == null || regionId.isEmpty()) {
                 vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
-                DistrictDAO districtDAO = new DistrictDAO(session);
-                District district = districtDAO.findByIdentefier(districtId);
-                List<Locality> localities = district.getLocalities();
+                RegionDAO regionDAO = new RegionDAO(session);
+                Region region = regionDAO.findByIdentefier(regionId);
+                List<Locality> localities = region.getLocalities();
                 vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
             }
 
