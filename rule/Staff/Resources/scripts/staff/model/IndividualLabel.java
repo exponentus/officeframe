@@ -20,6 +20,9 @@ import java.util.Map;
 public class IndividualLabel extends SimpleReferenceEntity {
 
 
+	@ManyToMany(mappedBy = "labels")
+	private List<Individual> labels;
+
 	@Convert(converter = LocalizedValConverter.class)
 	@Column(name = "localized_descr", columnDefinition = "jsonb")
 	private Map<LanguageCode, String> localizedDescr;

@@ -2,7 +2,6 @@ package staff.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
@@ -16,12 +15,20 @@ import java.util.List;
 public class Individual extends SimpleReferenceEntity {
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "staff__individual_labels", joinColumns = @JoinColumn(name = "individual_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
+	@JoinTable(name = "staff__individuals_labels", joinColumns = @JoinColumn(name = "individual_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
 	private List<IndividualLabel> labels;
 
 	@FTSearchable
 	@Column(length = 12)
 	private String bin = "";
+
+	public List<IndividualLabel> getLabels() {
+		return labels;
+	}
+
+	public void setLabels(List<IndividualLabel> labels) {
+		this.labels = labels;
+	}
 
 	public String getBin() {
 		return bin;
@@ -31,27 +38,4 @@ public class Individual extends SimpleReferenceEntity {
 		this.bin = bin;
 	}
 
-
-
-	@Override
-	public String getFullXMLChunk(_Session ses) {
-		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append(super.getFullXMLChunk(ses));
-		chunk.append("<bin>" + bin + "</bin>");
-		chunk.append("<labels>");
-		for (IndividualLabel l : labels) {
-			chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocName(ses.getLang()) + "</entry>");
-		}
-		chunk.append("</labels>");
-		return chunk.toString();
-	}
-
-	@Override
-	public String getShortXMLChunk(_Session ses) {
-		StringBuilder chunk = new StringBuilder(1000);
-		chunk.append("<name>" + getName().replaceAll("&", "&amp;") + "</name>");
-		chunk.append("<bin>" + bin + "</bin>");
-		chunk.append("<labels>" + labels + "</labels>");
-		return chunk.toString();
-	}
 }

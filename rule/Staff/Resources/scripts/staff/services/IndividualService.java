@@ -1,5 +1,6 @@
 package staff.services;
 
+import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
@@ -14,12 +15,10 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.model.OrgCategory;
 import staff.dao.IndividualDAO;
-import staff.dao.OrganizationDAO;
-import staff.dao.filter.OrganizationFilter;
+import staff.dao.filter.IndividualFilter;
 import staff.domain.IndividualDomain;
 import staff.model.Individual;
-import staff.model.Organization;
-import staff.model.OrganizationLabel;
+import staff.model.IndividualLabel;
 import staff.ui.Action;
 
 import javax.ws.rs.*;
@@ -43,10 +42,10 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            OrganizationFilter filter = setUpFilter(new OrganizationFilter(), params);
+            IndividualFilter filter = setUpFilter(new IndividualFilter(), params);
 
-            OrganizationDAO dao = new OrganizationDAO(session);
-            ViewPage<Organization> vp = dao.findAll(filter, sortParams, params.getPage(),
+            IndividualDAO dao = new IndividualDAO(session);
+            ViewPage<Individual> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
 
             if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
@@ -72,15 +71,15 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
     public Response getById(@PathParam("id") String id) {
         try {
             _Session session = getSession();
-            Organization entity;
+            Individual entity;
             boolean isNew = "new".equals(id);
 
             if (isNew) {
-                entity = new Organization();
+                entity = new Individual();
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
-                OrganizationDAO dao = new OrganizationDAO(session);
+                IndividualDAO dao = new IndividualDAO(session);
                 entity = dao.findByIdentefier(id);
             }
 
@@ -105,114 +104,53 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
         }
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(Individual dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, Individual dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
-
-    public Response save(Individual dto) {
-        _Session session = getSession();
-        IUser<Long> user = session.getUser();
-
-        if (!user.isSuperUser() && !user.getRoles().contains("staff_admin")) {
-            return null;
-        }
-
-        try {
-            validate(dto);
-
-            IndividualDAO dao = new IndividualDAO(session);
-            Individual entity;
-
-            if (dto.isNew()) {
-                entity = new Individual();
-            } else {
-                entity = dao.findById(dto.getId());
-            }
-
-            // fill from dto
-            entity.setName(dto.getName());
-            entity.setLocName(dto.getLocName());
-             entity.setBin(dto.getBin());
-          //  entity.setLabels(dto.getLabels());
-
-            dao.save(entity);
-
-            Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
-
-            return Response.ok(outcome).build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        } catch (DTOException e) {
-            return responseValidationError(e);
-        }
-    }
-
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            OrganizationDAO dao = new OrganizationDAO(getSession());
-            Organization entity = dao.findByIdentefier(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
-
     @Override
     public Response saveForm(Individual dto) {
-        return null;
-    }
-
-    private void validate(Individual entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-
-
-        if (entity.getBin() != null && !entity.getBin().isEmpty() && entity.getBin().length() != 12) {
-            ve.addError("bin", "len_12", "bin_value_should_be_consist_from_12_symbols");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
+        try {
+            IndividualDomain domain = new IndividualDomain(getSession());
+            Individual entity = domain.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            domain.save(entity);
+            return Response.ok(domain.getOutcome(entity)).build();
+        } catch (DTOException e) {
+            return responseValidationError(e);
+        } catch (DAOException | SecureException e) {
+            return responseException(e);
         }
     }
 
-    public static OrganizationFilter setUpFilter(OrganizationFilter filter, WebFormData params) {
+    private class Validation implements IValidation<Individual> {
+
+        @Override
+        public void check(Individual entity) throws DTOException {
+            DTOException ve = new DTOException();
+
+            if (entity.getName() == null || entity.getName().isEmpty()) {
+                ve.addError("name", "required", "field_is_empty");
+            }
+
+            if (entity.getBin() != null && !entity.getBin().isEmpty() && entity.getBin().length() != 12) {
+                ve.addError("bin", "len_12", "bin_value_should_be_consist_from_12_symbols");
+            }
+
+
+            if (ve.hasError()) {
+                throw ve;
+            }
+        }
+    }
+
+    public static IndividualFilter setUpFilter(IndividualFilter filter, WebFormData params) {
         String orgCategoryId = params.getValueSilently("orgCategory");
         if (!orgCategoryId.isEmpty()) {
             OrgCategory oc = new OrgCategory();
             oc.setId(UUID.fromString(orgCategoryId));
-            filter.setOrgCategory(oc);
-        }
+           }
 
         String labelId = params.getValueSilently("labels");
         if (!labelId.isEmpty()) {
-            OrganizationLabel l = new OrganizationLabel();
+            IndividualLabel l = new IndividualLabel();
             l.setId(UUID.fromString(labelId));
-            List<OrganizationLabel> labels = new ArrayList<>();
+            List<IndividualLabel> labels = new ArrayList<>();
             labels.add(l);
             filter.setLabels(labels);
         }
