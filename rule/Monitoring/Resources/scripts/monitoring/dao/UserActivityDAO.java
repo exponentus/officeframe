@@ -2,13 +2,17 @@ package monitoring.dao;
 
 import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
+import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
 import com.exponentus.log.Lg;
 import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.scripting.SortParams;
+import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import monitoring.dao.filter.UserActivityFilter;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
 import monitoring.model.constants.ActivityType;
@@ -39,6 +43,21 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 			Lg.exception(e);
 		}
 	}
+
+	public UserActivityDAO(_Session ses) {
+		super(UserActivity.class);
+		try {
+			ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
+
+		} catch (IOException e) {
+			Lg.exception(e);
+		}
+	}
+
+	public  ViewPage findViewPage(UserActivityFilter filter, SortParams sortParams, int page, int pageSize) throws DAOException{
+		return null;
+	}
+
 
 	@Override
 	public void postEvent(IUser<Long> user, IAppEntity<UUID> entity, String descr) throws DAOException {

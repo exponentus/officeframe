@@ -1,26 +1,74 @@
 package dataexport.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.fasterxml.jackson.annotation.JsonIgnoreType;
-
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import dataexport.model.constants.ExportFormatType;
+import dataexport.model.constants.RequestType;
 
+import javax.persistence.*;
+import java.util.Date;
+
+@JsonRootName("exportProfile")
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "de__export_profiles", uniqueConstraints = @UniqueConstraint(columnNames = { "name" }))
-@NamedQuery(name = "ExportProfile.findAll", query = "SELECT m FROM ExportProfile AS m ORDER BY m.regDate")
-@JsonIgnoreType
+@Table(name = "de__export_profiles")
 public class ExportProfile extends SimpleReferenceEntity {
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "type", nullable = false, length = 3)
-	private ExportFormatType format = ExportFormatType.UNKNOWN;
+	@Column(nullable = false, length = 32)
+	private RequestType requestType = RequestType.PARAMETERS_FORM;
+
+	private String entityName;
+
+	private Date from;
+
+	private Date to;
+
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false, length = 3)
+	private ExportFormatType outputFormat = ExportFormatType.UNKNOWN;
+
+	public String getEntityName() {
+		return entityName;
+	}
+
+	public void setEntityName(String entityName) {
+		this.entityName = entityName;
+	}
+
+	public Date getFrom() {
+		return from;
+	}
+
+	public void setFrom(Date from) {
+		this.from = from;
+	}
+
+	public Date getTo() {
+		return to;
+	}
+
+	public void setTo(Date to) {
+		this.to = to;
+	}
+
+	public ExportFormatType getOutputFormat() {
+		return outputFormat;
+	}
+
+	public void setOutputFormat(ExportFormatType outputFormat) {
+		this.outputFormat = outputFormat;
+	}
+
+
+
+	public RequestType getRequestType() {
+		return requestType;
+	}
+
+	public void setRequestType(RequestType requestType) {
+		this.requestType = requestType;
+	}
 
 }
