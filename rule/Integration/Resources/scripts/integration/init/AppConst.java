@@ -1,5 +1,6 @@
 package integration.init;
 
+import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 
 public class AppConst extends DefaultAppConst {
@@ -9,6 +10,6 @@ public class AppConst extends DefaultAppConst {
 	public static String NAME_RUS = "Интеграция данных";
 	public static String NAME_KAZ = "Интеграция данных";
 	public static String BASE_URL = "/" + NAME + "/";
-	public static String DEFAULT_PAGE = "service-view";
+	public static InterfaceType AVAILABLE_MODE[] = { InterfaceType.SPA };
 
 }

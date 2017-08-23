@@ -1,33 +1,38 @@
 package integration.dao;
 
+import com.exponentus.common.ui.ViewPage;
+import com.exponentus.dataengine.RuntimeObjUtil;
+import com.exponentus.env.EnvConst;
+import com.exponentus.rest.ResourceLoader;
+import com.exponentus.rest.services.ServiceClass;
+import com.exponentus.rest.util.ServicesHelper;
+import com.exponentus.scripting.SortParams;
+import com.exponentus.scripting._Session;
+import integration.model.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exponentus.rest.ResourceLoader;
-import com.exponentus.rest.services.ServiceClass;
-import com.exponentus.scripting._Session;
-
-import integration.model.Service;
-
 public class ServiceDAO {
-	private List<ServiceClass> services;
+    private List<ServiceClass> services;
 
-	public ServiceDAO(_Session ses) {
-		services = ResourceLoader.getServices();
-	}
+    public ServiceDAO(_Session ses) {
+        services = ResourceLoader.getServices();
+    }
 
-	public long getCount() {
-		return services.size();
-	}
+    public ViewPage<Service> findViewPage(SortParams sortParams, int pageNum, int pageSize) {
+        List<Service> entites = new ArrayList<Service>();
 
-	public List<Service> findAll(int startRec, int pageSize) {
-		List<Service> entites = new ArrayList<Service>();
+        for (ServiceClass entry : ServicesHelper.getAppTasks(EnvConst.MAIN_PACKAGE + ".rest", "system")) {
+            entites.add(new Service(entry));
+        }
 
-		for (ServiceClass descr : services) {
-			entites.add(new Service(descr));
-		}
+        for (ServiceClass entry : ResourceLoader.getServices()) {
+            entites.add(new Service(entry));
+        }
 
-		return entites;
-	}
-
+        int count = entites.size();
+        int maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+        return new ViewPage<>(entites, count, maxPage, pageNum);
+    }
 }
