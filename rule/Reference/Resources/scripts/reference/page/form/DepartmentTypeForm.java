@@ -1,7 +1,6 @@
 package reference.page.form;
 
-import java.util.UUID;
-
+import administrator.dao.LanguageDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -9,10 +8,10 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-
-import administrator.dao.LanguageDAO;
 import reference.dao.DepartmentTypeDAO;
 import reference.model.DepartmentType;
+
+import java.util.UUID;
 
 /**
  * @author Kayra created 03-01-2016
@@ -24,7 +23,7 @@ public class DepartmentTypeForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			DepartmentType entity;
 			if (!id.isEmpty()) {
 				DepartmentTypeDAO dao = new DepartmentTypeDAO(session);

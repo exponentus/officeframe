@@ -35,7 +35,7 @@ public class OrganizationLabelView extends _DoPage {
 				List<Organization> emps = role.getLabels();
 				addContent(emps);
 			} else {
-				IUser<Long> user = session.getUser();
+				IUser user = session.getUser();
 				if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 					_ActionBar actionBar = new _ActionBar(session);
 					Action newDocAction = new Action(getLocalizedWord("new_", lang), "", "new_organization_label");

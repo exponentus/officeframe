@@ -28,7 +28,7 @@ public class DisputeTypeService extends RestProvider {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser<Long> user = session.getUser();
+        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
@@ -113,7 +113,7 @@ public class DisputeTypeService extends RestProvider {
 
     public Response save(DisputeType dto) {
         _Session session = getSession();
-        IUser<Long> user = session.getUser();
+        IUser user = session.getUser();
 
         if (!user.isSuperUser() && !user.getRoles().contains("reference_admin")) {
             return null;

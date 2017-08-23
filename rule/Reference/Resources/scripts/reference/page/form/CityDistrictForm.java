@@ -23,7 +23,7 @@ public class CityDistrictForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			CityDistrict entity;
 			if (!id.isEmpty()) {
 				CityDistrictDAO dao = new CityDistrictDAO(session);

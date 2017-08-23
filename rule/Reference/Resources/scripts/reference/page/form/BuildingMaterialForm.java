@@ -20,7 +20,7 @@ public class BuildingMaterialForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			BuildingMaterial entity;
 			if (!id.isEmpty()) {
 				BuildingMaterialDAO dao = new BuildingMaterialDAO(session);

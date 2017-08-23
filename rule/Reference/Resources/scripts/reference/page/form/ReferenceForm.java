@@ -19,7 +19,7 @@ public abstract class ReferenceForm extends _DoForm {
 	protected IOutcomeObject getSimpleActionBar(_Session ses) {
 		_ActionBar actionBar = new _ActionBar(ses);
 		LanguageCode lang = ses.getLang();
-		IUser<Long> user = ses.getUser();
+		IUser user = ses.getUser();
 		if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 			actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", ActionType.SAVE_AND_CLOSE));
 		}

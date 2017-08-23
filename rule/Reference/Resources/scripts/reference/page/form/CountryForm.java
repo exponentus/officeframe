@@ -27,7 +27,7 @@ public class CountryForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			Country entity;
 			if (!id.isEmpty()) {
 				CountryDAO dao = new CountryDAO(session);

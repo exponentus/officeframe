@@ -84,7 +84,7 @@ public class ImportEmpFromNSF extends ImportNSF {
 								if (position != null) {
 									entity.setPosition(position);
 								}
-								IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
+								IUser user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
 								if (user != null) {
 									entity.setUser((User) user);
 								} else {

@@ -38,7 +38,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser<Long> user = session.getUser();
+        IUser user = session.getUser();
         WebFormData params = getWebFormData();
 
         try {
@@ -144,7 +144,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
     public Response save(Employee dto) {
         _Session session = getSession();
-        IUser<Long> user = session.getUser();
+        IUser user = session.getUser();
 
         if (!user.isSuperUser() && !user.getRoles().contains("staff_admin")) {
             return null;

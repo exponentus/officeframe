@@ -15,7 +15,7 @@ public class DepartmentTypeView extends ReferenceView {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				Action newDocAction = new Action(getLocalizedWord("new_", session.getLang()), "",

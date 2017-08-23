@@ -9,13 +9,15 @@ import com.exponentus.user.IUser;
 import monitoring.model.DocumentActivity;
 import monitoring.model.embedded.Event;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements IMonitoringDAO {
@@ -24,8 +26,8 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 		super(DocumentActivity.class);
 	}
 
-	@Override
-	public void postEvent(IUser<Long> user, IAppEntity<UUID> entity, String descr) throws DAOException {
+
+	public void postEvent(IUser user, IAppEntity<UUID> entity, String descr) throws DAOException {
 		DocumentActivity ua = new DocumentActivity();
 		//ua.setType(ActivityType.COMPOSE);
 		ua.setActEntityId(entity.getId());
@@ -62,18 +64,6 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 
 	}
 
-	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			TypedQuery<DocumentActivity> q = em.createNamedQuery("DocumentActivity.findAll", DocumentActivity.class);
-			q.setFirstResult(firstRec);
-			q.setMaxResults(pageSize);
-			return q.getResultList();
-		} finally {
-			em.close();
-		}
-	}
-
 	public Long getCount() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -103,14 +93,14 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements 
 		}
 	}
 
-	@Override
-	public void postLogin(IUser<Long> user, String ip) throws DAOException {
+
+	public void postLogin(IUser user, String ip) throws DAOException {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	public void postLogout(IUser<Long> user) throws DAOException {
+
+	public void postLogout(IUser user) throws DAOException {
 		// TODO Auto-generated method stub
 
 	}

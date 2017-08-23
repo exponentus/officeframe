@@ -26,7 +26,7 @@ public class DistrictForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			District entity;
 			if (!id.isEmpty()) {
 				DistrictDAO dao = new DistrictDAO(session);

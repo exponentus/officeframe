@@ -19,7 +19,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.Date;
-import java.util.List;
 
 public class StatisticDAO extends SimpleDAO<Statistic> {
 
@@ -118,18 +117,6 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 
 	}
 
-	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			TypedQuery<DocumentActivity> q = em.createNamedQuery("Activity.findAll", DocumentActivity.class);
-			q.setFirstResult(firstRec);
-			q.setMaxResults(pageSize);
-			return q.getResultList();
-		} finally {
-			em.close();
-		}
-	}
-
 	public Long getCount() {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		try {
@@ -159,7 +146,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 		}
 	}
 
-	public TimeChart getStatusStat(String appCode, String type, IUser<Long> user, Date from, Date to, String status) {
+	public TimeChart getStatusStat(String appCode, String type, IUser user, Date from, Date to, String status) {
 		EntityManager em = getEntityManagerFactory().createEntityManager();
 		TimeChart chart = new TimeChart();
 		try {

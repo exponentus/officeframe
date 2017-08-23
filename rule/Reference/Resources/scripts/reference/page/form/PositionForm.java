@@ -20,7 +20,7 @@ public class PositionForm extends ReferenceForm {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			Position entity;
 			if (!id.isEmpty()) {

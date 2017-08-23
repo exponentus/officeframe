@@ -15,7 +15,7 @@ public class RequestTypeView extends _DoPage {
 
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);

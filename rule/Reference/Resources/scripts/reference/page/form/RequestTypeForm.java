@@ -1,7 +1,6 @@
 package reference.page.form;
 
-import java.util.UUID;
-
+import administrator.dao.LanguageDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -10,17 +9,17 @@ import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-
-import administrator.dao.LanguageDAO;
 import reference.dao.RequestTypeDAO;
 import reference.model.RequestType;
+
+import java.util.UUID;
 
 public class RequestTypeForm extends ReferenceForm {
 	
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			RequestType entity;
 			if (!id.isEmpty()) {

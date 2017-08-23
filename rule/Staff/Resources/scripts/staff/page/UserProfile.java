@@ -31,7 +31,7 @@ public class UserProfile extends _DoPage {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		try {
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			EmployeeDAO dao = new EmployeeDAO(session);
 			Employee emp = dao.findByUserId(user.getId());
 			_ActionBar actionBar = new _ActionBar(session, getCurrentAppEnv());
@@ -74,9 +74,9 @@ public class UserProfile extends _DoPage {
 				return;
 			}
 
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			UserDAO dao = new UserDAO(session);
-			IUser<Long> entity = dao.findById(user.getId());
+			IUser entity = dao.findById(user.getId());
 
 			entity.setLogin(formData.getValueSilently("login"));
 			entity.setEmail(formData.getValueSilently("email"));

@@ -35,7 +35,7 @@ public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDT
 		ViewPage<T> vp = getDomain().getViewPage(sortParams, params.getPage(), session.getPageSize());
 
 		Outcome outcome = new Outcome();
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
 			_ActionBar actionBar = new _ActionBar(session);
 			actionBar.addAction(new Action().addNew);

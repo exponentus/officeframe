@@ -1,7 +1,5 @@
 package monitoring.page.view;
 
-import java.util.List;
-
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting.WebFormData;
@@ -11,10 +9,10 @@ import com.exponentus.scripting.actions.Action;
 import com.exponentus.scripting.actions.ActionType;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoPage;
-
-import monitoring.dao.DocumentActivityDAO;
 import monitoring.dao.UserActivityDAO;
 import monitoring.model.DocumentActivity;
+
+import java.util.List;
 
 public class ActivityView extends _DoPage {
 
@@ -37,7 +35,7 @@ public class ActivityView extends _DoPage {
 			pageNum = maxPage;
 		}
 		int startRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-		List<? extends IPOJOObject> list = dao.findAll(startRec, pageSize);
+		List<? extends IPOJOObject> list = dao.findAll(startRec, pageSize).getResult();
 		addContent(new _POJOListWrapper(list, maxPage, count, pageNum, session));
 	}
 

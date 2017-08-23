@@ -24,7 +24,7 @@ public class ServiceService extends RestProvider {
     @GET
     public Response getViewPage() {
         _Session session = getSession();
-        IUser<Long> user = session.getUser();
+        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 

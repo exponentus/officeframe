@@ -27,7 +27,7 @@ public class EmployeeView extends _DoPage {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
@@ -48,7 +48,7 @@ public class EmployeeView extends _DoPage {
 	@Override
 	public void doDELETE(_Session session, WebFormData formData) {
 		try {
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				EmployeeDAO dao = new EmployeeDAO(session);
 				for (String id : formData.getListOfValuesSilently("docid")) {

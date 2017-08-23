@@ -1,7 +1,6 @@
 package reference.page.form;
 
-import java.util.UUID;
-
+import administrator.dao.LanguageDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -10,8 +9,6 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-
-import administrator.dao.LanguageDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
@@ -19,6 +16,8 @@ import reference.model.Locality;
 import reference.model.LocalityType;
 import reference.model.Region;
 import reference.model.constants.LocalityCode;
+
+import java.util.UUID;
 
 /**
  * @author Kayra created 03-01-2016
@@ -29,7 +28,7 @@ public class LocalityForm extends ReferenceForm {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			Locality entity;
 			if (!id.isEmpty()) {

@@ -1,7 +1,6 @@
 package reference.page.form;
 
-import java.util.UUID;
-
+import administrator.dao.LanguageDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -10,11 +9,11 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-
-import administrator.dao.LanguageDAO;
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
 import reference.model.constants.ControlSchemaType;
+
+import java.util.UUID;
 
 public class ControlTypeForm extends ReferenceForm {
 
@@ -22,7 +21,7 @@ public class ControlTypeForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			ControlTypeDAO dao = new ControlTypeDAO(session);
 			ControlType entity;
 			if (!id.isEmpty()) {

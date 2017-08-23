@@ -1,7 +1,6 @@
 package reference.page.form;
 
-import java.util.UUID;
-
+import administrator.dao.LanguageDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -10,10 +9,10 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-
-import administrator.dao.LanguageDAO;
 import reference.dao.DocumentTypeDAO;
 import reference.model.DocumentType;
+
+import java.util.UUID;
 
 public class DocumentTypeForm extends ReferenceForm {
 
@@ -21,7 +20,7 @@ public class DocumentTypeForm extends ReferenceForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			DocumentTypeDAO dao = new DocumentTypeDAO(session);
 			DocumentType entity;
 			if (!id.isEmpty()) {
@@ -100,7 +99,7 @@ public class DocumentTypeForm extends ReferenceForm {
 		return simpleCheck("name");
 	}
 
-	protected DocumentType getDefaultEntity(IUser<Long> user, DocumentType entity) {
+	protected DocumentType getDefaultEntity(IUser user, DocumentType entity) {
 		entity.setAuthor(user);
 		entity.setName("");
 		entity.setCategory("");

@@ -1,20 +1,19 @@
 package staff.page.view;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions.Action;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.actions.ActionType;
+import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoPage;
 import com.exponentus.user.IUser;
-
 import staff.dao.OrganizationDAO;
 import staff.model.Organization;
+
+import java.util.UUID;
 
 public class OrganizationView extends _DoPage {
 
@@ -22,7 +21,7 @@ public class OrganizationView extends _DoPage {
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
 		try {
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 				_ActionBar actionBar = new _ActionBar(session);
 				Action newDocAction = new Action(getLocalizedWord("new_", lang), "", "new_organization");

@@ -28,7 +28,6 @@ import javax.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
@@ -60,7 +59,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
 
 	@Override
-	public void postEvent(IUser<Long> user, IAppEntity<UUID> entity, String descr) throws DAOException {
+	public void postEvent(IUser user, IAppEntity<UUID> entity, String descr) throws DAOException {
 
 			DocumentActivity ua = new DocumentActivity();
 			//ua.setType(ActivityType.COMPOSE);
@@ -97,18 +96,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 			em.close();
 		}
 
-	}
-
-	public List<DocumentActivity> findAll(int firstRec, int pageSize) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		try {
-			TypedQuery<DocumentActivity> q = em.createNamedQuery("UserActivity.findAll", DocumentActivity.class);
-			q.setFirstResult(firstRec);
-			q.setMaxResults(pageSize);
-			return q.getResultList();
-		} finally {
-			em.close();
-		}
 	}
 
 	public Long getCount() {
@@ -163,7 +150,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogin(IUser<Long> user, String ip) throws DAOException {
+	public void postLogin(IUser user, String ip) throws DAOException {
 
 		UserActivity ua = new UserActivity();
 		ua.setEventTime(new Date());
@@ -185,7 +172,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 	}
 
 	@Override
-	public void postLogout(IUser<Long> user) throws DAOException {
+	public void postLogout(IUser user) throws DAOException {
 		UserActivity ua = new UserActivity();
 		ua.setEventTime(new Date());
 		ua.setType(ActivityType.LOGOUT);

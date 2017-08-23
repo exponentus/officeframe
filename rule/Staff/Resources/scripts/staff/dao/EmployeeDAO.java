@@ -109,7 +109,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
 		}
 	}
 
-	public Employee findByUser(IUser<Long> user) {
+	public Employee findByUser(IUser user) {
 		return findByUserId(user.getId());
 	}
 

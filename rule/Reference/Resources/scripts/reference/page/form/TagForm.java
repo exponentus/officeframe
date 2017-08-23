@@ -1,7 +1,6 @@
 package reference.page.form;
 
-import java.util.UUID;
-
+import administrator.dao.LanguageDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
@@ -10,10 +9,10 @@ import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
-
-import administrator.dao.LanguageDAO;
 import reference.dao.TagDAO;
 import reference.model.Tag;
+
+import java.util.UUID;
 
 /**
  * @author Kayra created 28-01-2016
@@ -24,7 +23,7 @@ public class TagForm extends ReferenceForm {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			TagDAO dao = new TagDAO(session);
 			Tag entity;

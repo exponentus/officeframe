@@ -1,11 +1,7 @@
 package staff.page.form;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-
+import administrator.dao.ApplicationDAO;
+import administrator.model.Application;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting.WebFormData;
@@ -14,12 +10,11 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
-
-import administrator.dao.ApplicationDAO;
-import administrator.model.Application;
 import staff.dao.OrganizationLabelDAO;
 import staff.init.AppConst;
 import staff.model.OrganizationLabel;
+
+import java.util.*;
 
 /**
  * @author Kayra created 10-01-2016
@@ -30,7 +25,7 @@ public class OrganizationLabelForm extends StaffForm {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		String id = formData.getValueSilently("docid");
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		OrganizationLabel entity;
 		try {
 			if (!id.isEmpty()) {

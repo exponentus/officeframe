@@ -1,7 +1,5 @@
 package monitoring.page.form;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
@@ -10,10 +8,11 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.event._DoForm;
 import com.exponentus.user.IUser;
-
 import dataexport.dao.ExportProfileDAO;
 import dataexport.model.ExportProfile;
 import reference.model.constants.CountryCode;
+
+import java.util.UUID;
 
 public class UserActivityForm extends _DoForm {
 
@@ -21,7 +20,7 @@ public class UserActivityForm extends _DoForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			ExportProfile entity;
 			if (!id.isEmpty()) {
 				ExportProfileDAO dao = new ExportProfileDAO(session);

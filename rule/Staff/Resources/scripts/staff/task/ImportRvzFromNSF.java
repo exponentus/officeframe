@@ -1,11 +1,7 @@
 package staff.task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import administrator.dao.UserDAO;
+import administrator.model.User;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.legacy.smartdoc.ImportNSF;
@@ -15,9 +11,6 @@ import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
 import com.exponentus.user.SuperUser;
 import com.exponentus.util.NumberUtil;
-
-import administrator.dao.UserDAO;
-import administrator.model.User;
 import lotus.domino.Document;
 import lotus.domino.NotesException;
 import lotus.domino.ViewEntry;
@@ -30,6 +23,12 @@ import staff.dao.RoleDAO;
 import staff.model.Employee;
 import staff.model.Organization;
 import staff.model.Role;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 @Command(name = "import_rvz_nsf")
 public class ImportRvzFromNSF extends ImportNSF {
@@ -66,7 +65,7 @@ public class ImportRvzFromNSF extends ImportNSF {
 									entity.setAuthor(new SuperUser());
 								}
 								String na = doc.getItemValueString("NotesAddress");
-								IUser<Long> user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
+								IUser user = uDao.findByExtKey(doc.getItemValueString("NotesAddress"));
 								if (user != null) {
 									try {
 										String parent = doc.getParentDocumentUNID();

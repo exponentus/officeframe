@@ -35,7 +35,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser<Long> user = session.getUser();
+        IUser user = session.getUser();
         WebFormData params = getWebFormData();
 
         try {

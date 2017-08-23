@@ -21,7 +21,7 @@ public class ExportProfileForm extends _DoForm {
 	public void doGET(_Session session, WebFormData formData) {
 		try {
 			String id = formData.getValueSilently("docid");
-			IUser<Long> user = session.getUser();
+			IUser user = session.getUser();
 			ExportProfile entity;
 			if (!id.isEmpty()) {
 				ExportProfileDAO dao;

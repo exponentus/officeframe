@@ -27,7 +27,7 @@ public class RoleView extends _DoPage {
 	@Override
 	public void doGET(_Session session, WebFormData formData) {
 		LanguageCode lang = session.getLang();
-		IUser<Long> user = session.getUser();
+		IUser user = session.getUser();
 		try {
 			RoleDAO dao = new RoleDAO(session);
 			String id = formData.getValueSilently("categoryid");
