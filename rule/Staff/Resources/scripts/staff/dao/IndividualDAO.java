@@ -2,7 +2,6 @@ package staff.dao;
 
 import com.exponentus.common.dao.DAO;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
@@ -39,21 +38,15 @@ public class IndividualDAO extends DAO<Individual, UUID> {
 
             Predicate condition = null;
 
-
-
             if (filter.getLabels() != null && !filter.getLabels().isEmpty()) {
-                if (condition != null) {
-                    condition = cb.and(root.get("labels").in(filter.getLabels()), condition);
-                } else {
-                    condition = cb.and(root.get("labels").in(filter.getLabels()));
-                }
+                condition = cb.and(root.get("labels").in(filter.getLabels()));
             }
 
             if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
-                if (condition != null) {
-                    condition = cb.and(cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%"), condition);
-                } else {
+                if (condition == null) {
                     condition = cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
+                } else {
+                    condition = cb.and(cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%"), condition);
                 }
             }
 
@@ -70,24 +63,11 @@ public class IndividualDAO extends DAO<Individual, UUID> {
             TypedQuery<Individual> typedQuery = em.createQuery(cq);
             Query query = em.createQuery(countCq);
             long count = (long) query.getSingleResult();
-
-            int maxPage = 1;
-            if (pageNum != 0 || pageSize != 0) {
-                maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
-                if (pageNum == 0) {
-                    pageNum = maxPage;
-                }
-                int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-                typedQuery.setFirstResult(firstRec);
-                if (pageSize > 0) {
-                    typedQuery.setMaxResults(pageSize);
-                }
-            }
+            int maxPage = pageable(typedQuery, count, pageNum, pageSize);
             List<Individual> result = typedQuery.getResultList();
             return new ViewPage<>(result, count, maxPage, pageNum);
         } finally {
             em.close();
         }
     }
-
 }

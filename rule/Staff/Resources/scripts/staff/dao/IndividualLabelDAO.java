@@ -9,9 +9,7 @@ import java.util.UUID;
 
 public class IndividualLabelDAO extends DAO<IndividualLabel, UUID> {
 
-	public IndividualLabelDAO(_Session session) throws DAOException {
-		super(IndividualLabel.class, session);
-	}
-	
-
+    public IndividualLabelDAO(_Session session) throws DAOException {
+        super(IndividualLabel.class, session);
+    }
 }

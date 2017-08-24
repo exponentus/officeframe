@@ -21,7 +21,10 @@ import staff.model.Individual;
 import staff.model.IndividualLabel;
 import staff.ui.Action;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -144,7 +147,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
         if (!orgCategoryId.isEmpty()) {
             OrgCategory oc = new OrgCategory();
             oc.setId(UUID.fromString(orgCategoryId));
-           }
+        }
 
         String labelId = params.getValueSilently("labels");
         if (!labelId.isEmpty()) {

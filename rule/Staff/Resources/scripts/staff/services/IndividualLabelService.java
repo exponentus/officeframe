@@ -12,8 +12,8 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
-import staff.dao.OrganizationLabelDAO;
-import staff.model.OrganizationLabel;
+import staff.dao.IndividualLabelDAO;
+import staff.model.IndividualLabel;
 import staff.ui.Action;
 
 import javax.ws.rs.*;
@@ -36,8 +36,8 @@ public class IndividualLabelService extends RestProvider {
             Outcome outcome = new Outcome();
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
-            ViewPage<OrganizationLabel> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            IndividualLabelDAO dao = new IndividualLabelDAO(session);
+            ViewPage<IndividualLabel> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
             if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
                 _ActionBar actionBar = new _ActionBar(session);
@@ -62,15 +62,15 @@ public class IndividualLabelService extends RestProvider {
     public Response getById(@PathParam("id") String id) {
         try {
             _Session session = getSession();
-            OrganizationLabel entity;
+            IndividualLabel entity;
             boolean isNew = "new".equals(id);
 
             if (isNew) {
-                entity = new OrganizationLabel();
+                entity = new IndividualLabel();
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
-                OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
+                IndividualLabelDAO dao = new IndividualLabelDAO(session);
                 entity = dao.findByIdentefier(id);
             }
 
@@ -98,7 +98,7 @@ public class IndividualLabelService extends RestProvider {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(OrganizationLabel dto) {
+    public Response add(IndividualLabel dto) {
         dto.setId(null);
         return save(dto);
     }
@@ -107,12 +107,12 @@ public class IndividualLabelService extends RestProvider {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, OrganizationLabel dto) {
+    public Response update(@PathParam("id") String id, IndividualLabel dto) {
         dto.setId(UUID.fromString(id));
         return save(dto);
     }
 
-    public Response save(OrganizationLabel dto) {
+    public Response save(IndividualLabel dto) {
         _Session session = getSession();
         IUser user = session.getUser();
 
@@ -123,11 +123,11 @@ public class IndividualLabelService extends RestProvider {
         try {
             validate(dto);
 
-            OrganizationLabelDAO dao = new OrganizationLabelDAO(session);
-            OrganizationLabel entity;
+            IndividualLabelDAO dao = new IndividualLabelDAO(session);
+            IndividualLabel entity;
 
             if (dto.isNew()) {
-                entity = new OrganizationLabel();
+                entity = new IndividualLabel();
             } else {
                 entity = dao.findById(dto.getId());
             }
@@ -154,8 +154,8 @@ public class IndividualLabelService extends RestProvider {
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") String id) {
         try {
-            OrganizationLabelDAO dao = new OrganizationLabelDAO(getSession());
-            OrganizationLabel entity = dao.findByIdentefier(id);
+            IndividualLabelDAO dao = new IndividualLabelDAO(getSession());
+            IndividualLabel entity = dao.findByIdentefier(id);
             if (entity != null) {
                 dao.delete(entity);
             }
@@ -165,7 +165,7 @@ public class IndividualLabelService extends RestProvider {
         }
     }
 
-    private void validate(OrganizationLabel entity) throws DTOException {
+    private void validate(IndividualLabel entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {
