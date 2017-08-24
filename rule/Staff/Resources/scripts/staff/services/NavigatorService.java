@@ -33,7 +33,7 @@ public class NavigatorService extends RestProvider {
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         List<OutlineEntry> primaryOrgs = new ArrayList<OutlineEntry>();
 
-        Outline co = new Outline("common_staff_data", "common");
+        Outline co = new Outline("", "common");
         try {
             OrganizationDAO oDao = new OrganizationDAO(session);
             List<Organization> po = oDao.findPrimaryOrg();
