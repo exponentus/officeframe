@@ -11,5 +11,6 @@ public class AppConst extends DefaultAppConst {
 	public static String NAME_KAZ = "Интеграция данных";
 	public static String BASE_URL = "/" + NAME + "/";
 	public static InterfaceType AVAILABLE_MODE[] = { InterfaceType.SPA };
+	public static boolean FORCE_DEPLOYING = true;
 
 }
