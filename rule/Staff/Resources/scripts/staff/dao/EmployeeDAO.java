@@ -59,7 +59,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
 
             Predicate condition = null;
 
-         /*   if (filter.getRoles() != null && !filter.getRoles().isEmpty()) {
+            if (filter.getRoles() != null && !filter.getRoles().isEmpty()) {
                 condition = root.get("roles").in(filter.getRoles());
             }
 
@@ -74,7 +74,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
                 } else {
                     condition = cb.and(root.get("id").in(firedEmpSubquery).not(), condition);
                 }
-            }*/
+            }
 
             if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
                 if (condition == null) {
