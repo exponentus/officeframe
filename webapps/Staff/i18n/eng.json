@@ -261,6 +261,7 @@
   "use_to" : "Until",
   "new_request" : "Request",
   "brand" : "NextBase",
+  "moderate" : "moderate",
   "it_should_pointed_either_assignment_or_primary" : "It should pointed either assignment or primary ",
   "edit" : "Editing",
   "control_types" : "Control types",
