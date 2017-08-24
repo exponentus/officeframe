@@ -8,6 +8,7 @@ import java.util.List;
 public class EmployeeFilter extends Filter {
 
     private List<Role> roles;
+    private boolean withFired;
     private String keyword;
 
     public EmployeeFilter() {
@@ -23,6 +24,14 @@ public class EmployeeFilter extends Filter {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public boolean isWithFired() {
+        return withFired;
+    }
+
+    public void setWithFired(boolean withFired) {
+        this.withFired = withFired;
     }
 
     public String getKeyword() {

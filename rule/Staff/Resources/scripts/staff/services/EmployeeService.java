@@ -262,6 +262,12 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             }
         }
 
+        if (params.containsField("fired")) {
+            filter.setWithFired(params.getBoolSilently("fired"));
+        } else {
+            filter.setWithFired(true);
+        }
+
         String keyword = params.getValueSilently("keyword");
         if (!keyword.isEmpty()) {
             filter.setKeyword(keyword);
