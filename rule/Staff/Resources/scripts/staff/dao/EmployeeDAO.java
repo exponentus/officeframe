@@ -63,7 +63,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
                 condition = root.get("roles").in(filter.getRoles());
             }
 
-            if (!filter.isWithFired()) {
+         /*   if (!filter.isWithFired()) {
                 Role firedRole = em.createNamedQuery("Role.firedRole", Role.class).getSingleResult();
                 Subquery<Employee> firedEmpSubquery = cq.subquery(Employee.class);
                 Root<Employee> firedEmpRoot = firedEmpSubquery.from(Employee.class);
@@ -74,7 +74,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
                 } else {
                     condition = cb.and(root.get("id").in(firedEmpSubquery).not(), condition);
                 }
-            }
+            }*/
 
             if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
                 if (condition == null) {
