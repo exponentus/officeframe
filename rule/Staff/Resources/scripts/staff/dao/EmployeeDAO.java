@@ -59,11 +59,11 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
 
             Predicate condition = null;
 
-            if (filter.getRoles() != null && !filter.getRoles().isEmpty()) {
+         /*   if (filter.getRoles() != null && !filter.getRoles().isEmpty()) {
                 condition = root.get("roles").in(filter.getRoles());
             }
 
-         /*   if (!filter.isWithFired()) {
+            if (!filter.isWithFired()) {
                 Role firedRole = em.createNamedQuery("Role.firedRole", Role.class).getSingleResult();
                 Subquery<Employee> firedEmpSubquery = cq.subquery(Employee.class);
                 Root<Employee> firedEmpRoot = firedEmpSubquery.from(Employee.class);
