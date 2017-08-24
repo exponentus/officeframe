@@ -82,6 +82,7 @@
   "approvals" : null,
   "related_assignments" : "Байланысты тапсырмалар",
   "send_message" : "send_message",
+  "tasks_moderate" : "tasks_moderate",
   "recycle_bin" : "Кәрзеңке",
   "add" : "Қосу",
   "assignee_reset_time" : "assignee_reset_time",

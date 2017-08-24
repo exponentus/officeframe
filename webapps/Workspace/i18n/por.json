@@ -82,6 +82,7 @@
   "approvals" : null,
   "related_assignments" : null,
   "send_message" : "send_message",
+  "tasks_moderate" : "tasks_moderate",
   "recycle_bin" : null,
   "add" : null,
   "assignee_reset_time" : "assignee_reset_time",
