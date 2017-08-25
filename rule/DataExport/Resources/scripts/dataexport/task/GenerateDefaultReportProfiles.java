@@ -43,15 +43,10 @@ public class GenerateDefaultReportProfiles extends Do {
                     dao.add(reportProfile);
                 }
             }
-
-
         } catch (DAOException | SecureException e) {
             logger.exception(e);
         }
 
-
         logger.info("done...");
-
     }
-
 }

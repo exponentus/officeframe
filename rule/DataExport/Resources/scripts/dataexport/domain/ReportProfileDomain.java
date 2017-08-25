@@ -8,7 +8,6 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.model.ReportProfile;
-import reference.dao.DocumentTypeDAO;
 import staff.dao.EmployeeDAO;
 import staff.model.embedded.Observer;
 
@@ -25,7 +24,6 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
     public ReportProfile composeNew(IUser user) throws DAOException {
         ReportProfile entity = new ReportProfile();
         entity.setAuthor(user);
-        DocumentTypeDAO dao = new DocumentTypeDAO(ses);
         return entity;
     }
 
@@ -59,6 +57,4 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         calculateReadersEditors(entity);
         return entity;
     }
-
-
 }

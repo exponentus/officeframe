@@ -3,6 +3,7 @@ package dataexport.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import dataexport.init.AppConst;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
 import staff.model.embedded.Observer;
@@ -18,72 +19,76 @@ import java.util.List;
 @Table(name = "de__report_profiles")
 public class ReportProfile extends SimpleReferenceEntity {
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 32)
-	private ReportQueryType reportQueryType = ReportQueryType.ENTITY_REQUEST;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 32)
+    private ReportQueryType reportQueryType = ReportQueryType.ENTITY_REQUEST;
 
-	private String entityName;
+    private String entityName;
 
-	@Column(name="start_form")
-	private Date startFrom;
+    @Column(name = "start_form")
+    private Date startFrom;
 
-	@Column(name="end_untill")
-	private Date endUntil;
+    @Column(name = "end_untill")
+    private Date endUntil;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false, length = 3)
-	private ExportFormatType outputFormat = ExportFormatType.UNKNOWN;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 3)
+    private ExportFormatType outputFormat = ExportFormatType.UNKNOWN;
 
-	@ElementCollection
-	@CollectionTable(name = "de__report_profile_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
-	private List<Observer> observers = new ArrayList<Observer>();
-	public String getEntityName() {
-		return entityName;
-	}
+    @ElementCollection
+    @CollectionTable(name = "de__report_profile_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    private List<Observer> observers = new ArrayList<Observer>();
 
-	public void setEntityName(String entityName) {
-		this.entityName = entityName;
-	}
+    public String getEntityName() {
+        return entityName;
+    }
 
-	public Date getStartFrom() {
-		return startFrom;
-	}
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
 
-	public void setStartFrom(Date startFrom) {
-		this.startFrom = startFrom;
-	}
+    public Date getStartFrom() {
+        return startFrom;
+    }
 
-	public Date getEndUntil() {
-		return endUntil;
-	}
+    public void setStartFrom(Date startFrom) {
+        this.startFrom = startFrom;
+    }
 
-	public void setEndUntil(Date endUntil) {
-		this.endUntil = endUntil;
-	}
+    public Date getEndUntil() {
+        return endUntil;
+    }
 
-	public ExportFormatType getOutputFormat() {
-		return outputFormat;
-	}
+    public void setEndUntil(Date endUntil) {
+        this.endUntil = endUntil;
+    }
 
-	public void setOutputFormat(ExportFormatType outputFormat) {
-		this.outputFormat = outputFormat;
-	}
+    public ExportFormatType getOutputFormat() {
+        return outputFormat;
+    }
 
-	public ReportQueryType getReportQueryType() {
-		return reportQueryType;
-	}
+    public void setOutputFormat(ExportFormatType outputFormat) {
+        this.outputFormat = outputFormat;
+    }
 
-	public void setReportQueryType(ReportQueryType reportQueryType) {
-		this.reportQueryType = reportQueryType;
-	}
+    public ReportQueryType getReportQueryType() {
+        return reportQueryType;
+    }
 
-	public List<Observer> getObservers() {
-		return observers;
-	}
+    public void setReportQueryType(ReportQueryType reportQueryType) {
+        this.reportQueryType = reportQueryType;
+    }
 
-	public void setObservers(List<Observer> observers) {
-		this.observers = observers;
-	}
+    public List<Observer> getObservers() {
+        return observers;
+    }
 
+    public void setObservers(List<Observer> observers) {
+        this.observers = observers;
+    }
 
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "report-profiles/" + getIdentifier();
+    }
 }

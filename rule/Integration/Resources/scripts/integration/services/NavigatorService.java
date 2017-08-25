@@ -20,12 +20,11 @@ public class NavigatorService extends RestProvider {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNav() {
-        LinkedList<IOutcomeObject> list = new LinkedList<>();
 
         Outline co = new Outline("", "common");
-
         co.addEntry(new OutlineEntry("services", "", "services", AppConst.BASE_URL + "services"));
 
+        LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);
 
         Outcome outcome = new Outcome();

@@ -9,8 +9,7 @@ import java.util.UUID;
 
 public class ReportProfileDAO extends DAO<ReportProfile, UUID> {
 
-	public ReportProfileDAO(_Session session) throws DAOException {
-		super(ReportProfile.class, session);
-	}
-
+    public ReportProfileDAO(_Session session) throws DAOException {
+        super(ReportProfile.class, session);
+    }
 }
