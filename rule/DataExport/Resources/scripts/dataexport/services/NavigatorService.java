@@ -32,7 +32,8 @@ public class NavigatorService extends RestProvider {
 
         Outline co = new Outline("common_data", "common");
 
-            co.addEntry(new OutlineEntry("export_profiles", "", "export_profiles", AppConst.BASE_URL + "export_profiles"));
+            co.addEntry(new OutlineEntry("report_profiles", "", "report_profiles",
+                    AppConst.BASE_URL + "report_profiles"));
 
             list.add(co);
 

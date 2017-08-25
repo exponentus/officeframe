@@ -1,11 +1,11 @@
 package dataexport.model.constants;
 
-public enum RequestType {
-	UNKNOWN(0), JPQL(788),PARAMETERS_FORM(789);
+public enum ReportQueryType {
+	UNKNOWN(0), JPQL(788), ENTITY_REQUEST(789);
 
 	private int code;
 
-	RequestType(int code) {
+	ReportQueryType(int code) {
 		this.code = code;
 	}
 
@@ -13,8 +13,8 @@ public enum RequestType {
 		return code;
 	}
 
-	public static RequestType getType(int code) {
-		for (RequestType type : values()) {
+	public static ReportQueryType getType(int code) {
+		for (ReportQueryType type : values()) {
 			if (type.code == code) {
 				return type;
 			}

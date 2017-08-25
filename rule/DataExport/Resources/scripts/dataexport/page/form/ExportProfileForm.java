@@ -11,8 +11,8 @@ import com.exponentus.scripting._Validation;
 import com.exponentus.scripting.event._DoForm;
 import com.exponentus.user.IUser;
 
-import dataexport.dao.ExportProfileDAO;
-import dataexport.model.ExportProfile;
+import dataexport.dao.ReportProfileDAO;
+import dataexport.model.ReportProfile;
 import reference.model.constants.CountryCode;
 
 public class ExportProfileForm extends _DoForm {
@@ -22,13 +22,13 @@ public class ExportProfileForm extends _DoForm {
 		try {
 			String id = formData.getValueSilently("docid");
 			IUser user = session.getUser();
-			ExportProfile entity;
+			ReportProfile entity;
 			if (!id.isEmpty()) {
-				ExportProfileDAO dao;
-				dao = new ExportProfileDAO(session);
+				ReportProfileDAO dao;
+				dao = new ReportProfileDAO(session);
 				entity = dao.findById(UUID.fromString(id));
 			} else {
-				entity = (ExportProfile) getDefaultEntity(user, new ExportProfile());
+				entity = (ReportProfile) getDefaultEntity(user, new ReportProfile());
 			}
 			addContent(entity);
 			addContent(getSimpleActionBar(session));
@@ -48,13 +48,13 @@ public class ExportProfileForm extends _DoForm {
 				return;
 			}
 			
-			ExportProfileDAO dao = new ExportProfileDAO(session);
-			ExportProfile entity;
+			ReportProfileDAO dao = new ReportProfileDAO(session);
+			ReportProfile entity;
 			String id = formData.getValueSilently("docid");
 			boolean isNew = id.isEmpty();
 			
 			if (isNew) {
-				entity = new ExportProfile();
+				entity = new ReportProfile();
 			} else {
 				entity = dao.findById(UUID.fromString(id));
 			}
@@ -70,7 +70,7 @@ public class ExportProfileForm extends _DoForm {
 		}
 	}
 	
-	private void save(_Session ses, ExportProfile entity, ExportProfileDAO dao, boolean isNew)
+	private void save(_Session ses, ReportProfile entity, ReportProfileDAO dao, boolean isNew)
 			throws SecureException, DAOException {
 		
 		if (isNew) {
