@@ -25,21 +25,20 @@ public class UserActivityService extends RestProvider {
         _Session session = getSession();
         WebFormData params = getWebFormData();
 
-            UserActivityDAO dao = new UserActivityDAO(session);
-            int pageSize = session.getPageSize();
-            ViewPage vp = dao.findAll(params.getPage(), pageSize);
+        UserActivityDAO dao = new UserActivityDAO(session);
+        int pageSize = session.getPageSize();
+        ViewPage vp = dao.findAll(params.getPage(), pageSize);
 
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(action.refreshVew);
+        _ActionBar actionBar = new _ActionBar(session);
+        actionBar.addAction(action.refreshVew);
 
-            Outcome outcome = new Outcome();
-            outcome.setId("user-activity");
-            outcome.setTitle("user_activity_plural");
-            outcome.addPayload(actionBar);
-            outcome.addPayload(vp);
+        Outcome outcome = new Outcome();
+        outcome.setId("user-activity");
+        outcome.setTitle("user_activities");
+        outcome.addPayload("contentTitle", "user_activities");
+        outcome.addPayload(actionBar);
+        outcome.addPayload(vp);
 
-            return Response.ok(outcome).build();
-
-
+        return Response.ok(outcome).build();
     }
 }
