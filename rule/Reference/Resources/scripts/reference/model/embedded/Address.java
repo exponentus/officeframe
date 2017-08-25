@@ -104,10 +104,10 @@ public class Address {
         this.region = region;
     }
 
-    public void setRegion(String r) {
-        region = new Region();
-
-    }
+//    public void setRegion(String r) {
+//        region = new Region();
+//
+//    }
 
     public CityDistrict getDistrict() {
         return cityDistrict;
