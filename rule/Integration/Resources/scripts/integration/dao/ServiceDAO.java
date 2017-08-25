@@ -1,7 +1,6 @@
 package integration.dao;
 
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.env.EnvConst;
 import com.exponentus.rest.ResourceLoader;
 import com.exponentus.rest.services.ServiceClass;
@@ -32,7 +31,7 @@ public class ServiceDAO {
         }
 
         int count = entites.size();
-        int maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+        int maxPage = 1; // RuntimeObjUtil.countMaxPage(count, pageSize);
         return new ViewPage<>(entites, count, maxPage, pageNum);
     }
 }
