@@ -1,8 +1,6 @@
 package monitoring.model;
 
 import com.exponentus.common.model.SimpleAppEntity;
-import com.exponentus.scripting._Session;
-import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import dataexport.init.AppConst;
 import monitoring.model.constants.ActivityType;
@@ -83,21 +81,5 @@ public class UserActivity extends SimpleAppEntity {
     @Override
     public String getURL() {
         return AppConst.BASE_URL + "services/" + getIdentifier();
-    }
-
-    @Override
-    public String getFullXMLChunk(_Session ses) {
-        return getShortXMLChunk(ses);
-    }
-
-    @Override
-    public String getShortXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append("<eventtime>" + TimeUtil.dateTimeToStringSilently(eventTime) + "</eventtime>");
-        chunk.append("<actuser>" + actUser + "</actuser>");
-        chunk.append("<ip>" + ip + "</ip>");
-        chunk.append("<country>" + country + "</country>");
-        chunk.append("<type>" + type.name() + "</type>");
-        return chunk.toString();
     }
 }
