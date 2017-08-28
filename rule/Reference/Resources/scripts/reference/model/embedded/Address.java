@@ -2,26 +2,52 @@ package reference.model.embedded;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
+import org.eclipse.persistence.annotations.Converters;
 import reference.dao.CountryDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.RegionDAO;
 import reference.model.*;
 import reference.model.constants.CountryCode;
+import reference.model.util.*;
+import staff.model.util.DepartmentConverter;
+import staff.model.util.EmployeeConverter;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
+@Converters({ @org.eclipse.persistence.annotations.Converter(name = "country_conv", converterClass = CountryConverter.class),
+        @Converter(name = "region_conv", converterClass = RegionConverter.class),
+        @Converter(name = "citydistrict_conv", converterClass = CityDistrictConverter.class),
+        @Converter(name = "locality_conv", converterClass = LocalityConverter.class),
+        @Converter(name = "street_conv", converterClass = StreetConverter.class)})
 public class Address {
 
+    @NotNull
+    @Convert("country_conv")
+    @Basic(fetch = FetchType.LAZY)
     private Country country;
 
+    @NotNull
+    @Convert("region_conv")
+    @Basic(fetch = FetchType.LAZY)
     private Region region;
 
+    @NotNull
+    @Convert("citydistrict_conv")
+    @Basic(fetch = FetchType.LAZY)
     private CityDistrict cityDistrict;
 
+    @NotNull
+    @Convert("locality_conv")
+    @Basic(fetch = FetchType.LAZY)
     private Locality locality;
 
+    @NotNull
+    @Convert("street_conv")
+    @Basic(fetch = FetchType.LAZY)
     private Street street;
 
     @Column(name = "house_number", length = 10)
