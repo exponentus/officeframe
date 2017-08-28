@@ -13,11 +13,9 @@ import com.exponentus.scripting.actions._ActionBar;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
 import dataexport.model.ReportProfile;
+import dataexport.ui.ActionFactory;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -66,13 +64,25 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 }
             }
 
+            ActionFactory actionFactory = new ActionFactory();
+            _ActionBar actionBar = new _ActionBar(session);
+            actionBar.addAction(actionFactory.close);
+            actionBar.addAction(actionFactory.toForm);
+
             Outcome outcome = domain.getOutcome(entity);
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("contentTitle", "report_profile");
+            outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
+    }
+
+    @POST
+    @Path("action/toForm")
+    public Response toForm(ReportProfile dto) {
+        return null;
     }
 }
