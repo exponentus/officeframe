@@ -1,5 +1,7 @@
 package staff.services;
 
+import administrator.dao.ApplicationDAO;
+import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -12,6 +14,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
+import reference.init.AppConst;
 import staff.dao.RoleDAO;
 import staff.model.Role;
 import staff.ui.Action;
@@ -19,7 +22,7 @@ import staff.ui.Action;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
+import java.util.*;
 
 @Path("roles")
 public class RoleService extends RestProvider {
@@ -81,6 +84,19 @@ public class RoleService extends RestProvider {
                 actionBar.addAction(new Action().saveAndClose);
             }
 
+            Set<String> allRoles = new HashSet<String>();
+            ApplicationDAO dao = new ApplicationDAO();
+            allRoles.addAll(Arrays.asList(AppConst.ROLES));
+            List<Application> apps = dao.findAll().getResult();
+            for (Application app : apps) {
+                if (app.isOn()) {
+                    Object rolesObj = app.getAvailableRoles();
+                    if (rolesObj != null) {
+                        allRoles.addAll(Arrays.asList((String[]) rolesObj));
+                    }
+                }
+            }
+
             Outcome outcome = new Outcome();
             outcome.setTitle("role");
             outcome.addPayload(entity.getEntityKind(), entity);
@@ -88,6 +104,7 @@ public class RoleService extends RestProvider {
             outcome.addPayload("contentTitle", "role");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("roles", allRoles);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
