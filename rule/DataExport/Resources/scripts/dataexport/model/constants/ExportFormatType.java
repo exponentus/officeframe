@@ -1,7 +1,7 @@
 package dataexport.model.constants;
 
 public enum ExportFormatType {
-	UNKNOWN(0), XML(690), CSV(691);
+	UNKNOWN(0), XML(690), CSV(691),XLSX(692);
 
 	private int code;
 

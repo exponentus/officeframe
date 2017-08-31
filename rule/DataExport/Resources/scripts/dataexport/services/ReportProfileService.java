@@ -19,6 +19,7 @@ import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
+import dataexport.init.AppConst;
 import dataexport.model.ReportProfile;
 import dataexport.ui.ActionFactory;
 import net.sf.jasperreports.engine.*;
@@ -29,6 +30,7 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import reference.model.Position;
 import staff.model.Employee;
 
 import javax.ws.rs.*;
@@ -109,7 +111,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         long start_time = System.currentTimeMillis();
         dto.setEntityName(Employee.class.getCanonicalName());
         String reportId = dto.getId().toString();
-        String name = "simple";
+        String name = "entity_registry";
         String type = dto.getOutputFormat().name();
         type = "pdf";
 
@@ -127,13 +129,14 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
             _Session session = getSession();
             IDAO dao = DAOFactory.get(session,dto.getEntityName());
-            List result = dao.findAll().getResult();
+            List<Position> result = dao.findAll().getResult();
+
 
             JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
             JasperPrint print = JasperFillManager
                     .fillReport(
                             JasperCompileManager.compileReportToFile(repPath + File.separator + "templates"
-                                    + File.separator + name + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
+                                    + File.separator + AppConst.CODE + File.separator + name + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
                             parameters, dSource);
 
             String filePath = Environment.tmpDir + File.separator

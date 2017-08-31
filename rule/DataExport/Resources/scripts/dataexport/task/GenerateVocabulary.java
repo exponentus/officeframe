@@ -6,7 +6,7 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.constants.Trigger;
 import com.exponentus.scriptprocessor.tasks.Command;
 
-@Command(name = "gen_voc_de", trigger = Trigger.POST_APP_START)
+@Command(name = "de_gen_voc", trigger = Trigger.POST_APP_START)
 public class GenerateVocabulary extends Do {
 
     @Override

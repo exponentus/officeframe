@@ -1,15 +1,11 @@
 package reference.model;
 
-import javax.persistence.Cacheable;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
-
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+
+import javax.persistence.*;
 
 /**
  * @author Kayra created 07-01-2016
