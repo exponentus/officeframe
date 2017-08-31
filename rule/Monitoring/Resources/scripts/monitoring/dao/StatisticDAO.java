@@ -154,7 +154,8 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 				try {
 					Statistic stat = (Statistic) em
 							.createQuery(
-									"SELECT s FROM Statistic s WHERE s.eventTime = :et AND s.appCode=:ac AND s.type = :t AND s.actUser = :au AND s.status = :s")
+									"SELECT s FROM Statistic s WHERE s.eventTime = :et AND s.appCode=:ac AND s.type = :t " +
+											"AND s.actUser = :au AND s.status = :s")
 							.setParameter("ac", appCode).setParameter("t", type).setParameter("au", user.getId())
 							.setParameter("et", fromIter, TemporalType.DATE).setParameter("s", status).getSingleResult();
 					chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());

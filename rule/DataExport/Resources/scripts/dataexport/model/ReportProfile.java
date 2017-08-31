@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import dataexport.init.AppConst;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
+import reference.model.Tag;
 import staff.model.embedded.Observer;
 
 import javax.persistence.*;
@@ -38,6 +39,13 @@ public class ReportProfile extends SimpleReferenceEntity {
     @ElementCollection
     @CollectionTable(name = "de__report_profile_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "de__report_profile_tags")
+    private List<Tag> tags;
+
+    private String description;
 
     public String getEntityName() {
         return entityName;
@@ -85,6 +93,22 @@ public class ReportProfile extends SimpleReferenceEntity {
 
     public void setObservers(List<Observer> observers) {
         this.observers = observers;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
