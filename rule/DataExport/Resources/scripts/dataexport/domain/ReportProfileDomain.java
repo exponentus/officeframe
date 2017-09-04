@@ -8,6 +8,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.model.ReportProfile;
+import dataexport.model.constants.ReportQueryType;
 import staff.dao.EmployeeDAO;
 import staff.model.embedded.Observer;
 
@@ -40,6 +41,19 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         }
 
         entity.setTitle(dto.getTitle());
+        entity.setReportQueryType(dto.getReportQueryType());
+        if (entity.getReportQueryType() == ReportQueryType.ENTITY_REQUEST) {
+            entity.setEntityName(dto.getEntityName());
+        } else {
+            entity.setEntityName("");
+        }
+        entity.setOutputFormat(dto.getOutputFormat());
+        entity.setStartFrom(dto.getStartFrom());
+        entity.setEndUntil(dto.getEndUntil());
+        entity.setDescription(dto.getDescription());
+        entity.setTags(dto.getTags());
+        entity.setObservers(dto.getObservers());
+
         EmployeeDAO eDao = new EmployeeDAO(ses);
 
         List<Observer> observers = new ArrayList<Observer>();
@@ -54,7 +68,7 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
             entity.setAuthor(ses.getUser());
         }
         entity.setAttachments(getActualAttachments(entity.getAttachments(), dto.getAttachments(), fsid));
-        calculateReadersEditors(entity);
+        // calculateReadersEditors(entity);
         return entity;
     }
 }

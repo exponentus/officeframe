@@ -1,6 +1,8 @@
 package dataexport.services;
 
+import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.dao.DAOFactory;
+import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
@@ -8,19 +10,25 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
+import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.validation.exception.DTOException;
+import com.exponentus.runtimeobj.IAppEntity;
 import com.exponentus.scheduler.tasks.TempFileCleaner;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.server.Server;
+import com.exponentus.util.ReflectionUtil;
 import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
 import dataexport.init.AppConst;
 import dataexport.model.ReportProfile;
+import dataexport.model.constants.ExportFormatType;
+import dataexport.model.constants.ReportQueryType;
 import dataexport.ui.ActionFactory;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -39,8 +47,10 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 @Path("report-profiles")
 @Produces(MediaType.APPLICATION_JSON)
@@ -91,15 +101,44 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             ActionFactory actionFactory = new ActionFactory();
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(actionFactory.close);
+            actionBar.addAction(actionFactory.saveAndClose);
             actionBar.addAction(actionFactory.toForm);
+
+            List<String> entityClassNames = new ArrayList<>();
+            for (AppEnv env : Environment.getApplications()) {
+                for (Class<IAppEntity<UUID>> _entity : ReflectionUtil.getAllAppEntities(env.getPackageName())) {
+                    String entityClassName = _entity.getCanonicalName();
+                    entityClassNames.add(entityClassName);
+                }
+            }
 
             Outcome outcome = domain.getOutcome(entity);
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("contentTitle", "report_profile");
+            outcome.addPayload("exportFormatType", ExportFormatType.values());
+            outcome.addPayload("reportQueryType", ReportQueryType.values());
+            outcome.addPayload("entityClassNames", entityClassNames);
             outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
+            return responseException(e);
+        }
+    }
+
+    @Override
+    public Response saveForm(ReportProfile dto) {
+        try {
+            ReportProfileDomain domain = new ReportProfileDomain(getSession());
+            ReportProfile entity = domain.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            domain.save(entity);
+
+            Outcome outcome = domain.getOutcome(entity);
+
+            return Response.ok(outcome).build();
+        } catch (DTOException e) {
+            return responseValidationError(e);
+        } catch (DAOException | SecureException e) {
             return responseException(e);
         }
     }
@@ -128,9 +167,8 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             JRFileVirtualizer virtualizer = new JRFileVirtualizer(10, Environment.trash);
             parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
             _Session session = getSession();
-            IDAO dao = DAOFactory.get(session,dto.getEntityName());
+            IDAO dao = DAOFactory.get(session, dto.getEntityName());
             List<Position> result = dao.findAll().getResult();
-
 
             JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
             JasperPrint print = JasperFillManager
@@ -170,7 +208,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
             } catch (Exception e) {
                 return responseException(e);
-            }finally {
+            } finally {
                 TempFileCleaner.addFileToDelete(filePath);
             }
         } catch (JRException e) {
@@ -183,6 +221,18 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             return responseException(e);
         } catch (IllegalArgumentException e) {
             return responseException(e);
+        }
+    }
+
+    private class Validation implements IValidation<ReportProfile> {
+
+        @Override
+        public void check(ReportProfile dto) throws DTOException {
+            DTOException ve = new DTOException();
+
+            if (ve.hasError()) {
+                throw ve;
+            }
         }
     }
 }
