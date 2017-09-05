@@ -23,6 +23,7 @@ import com.exponentus.server.Server;
 import com.exponentus.util.ReflectionUtil;
 import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
+import com.itextpdf.text.pdf.PdfWriter;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
 import dataexport.init.AppConst;
@@ -38,14 +39,17 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import reference.model.Position;
 import staff.model.Employee;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -146,13 +150,14 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
     @POST
     @Path("action/toForm")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+   // @Produces({"application/octet-stream", "*/*"})
     public Response toForm(ReportProfile dto) {
         long start_time = System.currentTimeMillis();
         dto.setEntityName(Employee.class.getCanonicalName());
         String reportId = dto.getId().toString();
         String name = "entity_registry";
         String type = dto.getOutputFormat().name();
-        type = "pdf";
+        type = "xlsx";
 
         try {
             if (!"xlsx".equals(type) && !"pdf".equals(type)) {
@@ -177,33 +182,62 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                                     + File.separator + AppConst.CODE + File.separator + name + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
                             parameters, dSource);
 
-            String filePath = Environment.tmpDir + File.separator
-                    + StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10) + "." + type;
+
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             if (type.equals("pdf")) {
                 JRStyle style = new JRDesignStyle();
                 style.setPdfFontName(repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
                         + "tahoma.ttf");
-                style.setPdfEncoding("Cp1251");
-                style.setPdfEmbedded(true);
-                print.setDefaultStyle(style);
+                //style.setPdfEncoding("Cp1251");
+                //style.setPdfEmbedded(true);
+              //  print.setDefaultStyle(style);
                 JRPdfExporter exporter = new JRPdfExporter();
                 exporter.setExporterInput(new SimpleExporterInput(print));
-                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(filePath));
+
+           //     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(filePath));
+
+                //exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
+
+              //  exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
+              //  exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
+
+                SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+                configuration.setPermissions(PdfWriter.AllowCopy | PdfWriter.AllowPrinting);
+
+                exporter.setConfiguration(configuration);
+
+                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+
+
                 exporter.exportReport();
+
+
+
             } else if (type.equals("xlsx")) {
                 JRXlsxExporter exporter = new JRXlsxExporter();
                 exporter.setExporterInput(new SimpleExporterInput(print));
-                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(filePath));
+                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
                 exporter.exportReport();
             }
             Server.logger.info(
                     "Report \"" + name + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
 
 
+            String filePath = Environment.tmpDir + File.separator
+                    + StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10) + "." + type;
             try {
-                File file = new File(filePath);
-                String codedFileName = URLEncoder.encode(file.getName(), "UTF8");
-                return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+                File someFile = new File(filePath);
+                FileOutputStream fos = null;
+                byte[] bytes = outputStream.toByteArray();
+                if(bytes.length>1){
+                    fos = new FileOutputStream(someFile);
+                    fos.write(bytes);
+                    fos.flush();
+                    fos.close();
+                }
+                String codedFileName = URLEncoder.encode(someFile.getName(), "UTF8");
+                //codedFileName = "bla.pdf";
+                return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM)
                         .header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
 
             } catch (Exception e) {

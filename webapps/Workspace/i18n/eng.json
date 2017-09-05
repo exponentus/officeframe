@@ -287,6 +287,7 @@
   "vrp_indicator_plural" : "vrp_indicator_plural",
   "user_name" : "User name",
   "more_action" : "More",
+  "report_generation" : "Report generation...",
   "default_hours" : "Default hours",
   "send_task" : "Send task",
   "new_assignment" : "New Assignment",

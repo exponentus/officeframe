@@ -34,7 +34,7 @@ import java.util.List;
 @Command(name = "gen_test_emps")
 public class GenerateTestEmployees extends Do {
 	private static String file1 = EnvConst.RESOURCES_DIR + File.separator + "Roman.txt";
-	private static String file2 = EnvConst.RESOURCES_DIR + File.separator + "Fantasy.txt";
+	private static String file2 = EnvConst.RESOURCES_DIR + File.separator + "Simple.txt";
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
