@@ -31,21 +31,37 @@ public class ServiceDAO {
             entites.add(new Service(entry));
         }
 
-
         int count = entites.size();
         int maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
         List<Service> page = new ArrayList<Service>();
 
         int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
         int lastRec = firstRec + pageSize;
-        if (lastRec > count){
+        if (lastRec > count) {
             lastRec = count;
         }
 
-        for (int i1 = firstRec; i1 < lastRec; i1 ++  ){
+        for (int i1 = firstRec; i1 < lastRec; i1++) {
             page.add(entites.get(i1));
         }
 
         return new ViewPage<>(page, count, maxPage, pageNum);
+    }
+
+    public Service findByClassName(String className) {
+
+        for (ServiceClass entry : ServicesHelper.getAppTasks(EnvConst.MAIN_PACKAGE + ".rest", "system")) {
+            if (entry.getName().equals(className)) {
+                return new Service(entry);
+            }
+        }
+
+        for (ServiceClass entry : ResourceLoader.getServices()) {
+            if (entry.getName().equals(className)) {
+                return new Service(entry);
+            }
+        }
+
+        return null;
     }
 }

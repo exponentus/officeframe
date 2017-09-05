@@ -13,6 +13,7 @@ import integration.model.Service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -40,6 +41,21 @@ public class ServiceService extends RestProvider {
         outcome.addPayload("contentTitle", "services");
         outcome.addPayload(vp);
         outcome.addPayload(actionBar);
+
+        return Response.ok(outcome).build();
+    }
+
+    @GET
+    @Path("{id}")
+    public Response getById(@PathParam("id") String id) {
+        _Session session = getSession();
+        ServiceDAO dao = new ServiceDAO(session);
+        Service service = dao.findByClassName(id);
+
+        Outcome outcome = new Outcome();
+        outcome.setTitle("service");
+        outcome.addPayload("contentTitle", "service");
+        outcome.addPayload(service);
 
         return Response.ok(outcome).build();
     }
