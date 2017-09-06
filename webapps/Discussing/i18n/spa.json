@@ -287,6 +287,7 @@
   "vrp_indicator_plural" : "vrp_indicator_plural",
   "user_name" : null,
   "more_action" : null,
+  "report_generation" : "report_generation",
   "default_hours" : null,
   "send_task" : "Enviar tarea",
   "new_assignment" : "new_assignment",

@@ -287,6 +287,7 @@
   "vrp_indicator_plural" : "Валовый региональный продукт",
   "user_name" : "Имя пользователя",
   "more_action" : "Ещё",
+  "report_generation" : "Формирование отчета ...",
   "default_hours" : "Количество часов по умолчанию",
   "send_task" : "Отправить задачу",
   "new_assignment" : "Новое поручение",
