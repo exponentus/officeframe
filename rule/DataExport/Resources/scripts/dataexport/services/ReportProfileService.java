@@ -14,7 +14,6 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.runtimeobj.IAppEntity;
-import com.exponentus.scheduler.tasks.TempFileCleaner;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
@@ -157,7 +156,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         String reportId = dto.getId().toString();
         String name = "entity_registry";
         String type = dto.getOutputFormat().name();
-        type = "xlsx";
+        type = "pdf";
 
         try {
             if (!"xlsx".equals(type) && !"pdf".equals(type)) {
@@ -183,6 +182,9 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                             parameters, dSource);
 
 
+            String filePath = Environment.tmpDir + File.separator
+                    + StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10) + "." + type;
+
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             if (type.equals("pdf")) {
                 JRStyle style = new JRDesignStyle();
@@ -203,10 +205,12 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
                 SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
                 configuration.setPermissions(PdfWriter.AllowCopy | PdfWriter.AllowPrinting);
-
+                configuration.setMetadataAuthor("ddddddddd");
                 exporter.setConfiguration(configuration);
 
                 exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+
+             //   exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("ddddd.pdf"));
 
 
                 exporter.exportReport();
@@ -222,28 +226,30 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             Server.logger.info(
                     "Report \"" + name + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
 
-
-            String filePath = Environment.tmpDir + File.separator
+            String filePath1 = Environment.tmpDir + File.separator
                     + StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10) + "." + type;
             try {
-                File someFile = new File(filePath);
+                File someFile = new File(filePath1);
                 FileOutputStream fos = null;
                 byte[] bytes = outputStream.toByteArray();
                 if(bytes.length>1){
                     fos = new FileOutputStream(someFile);
+                  //  outputStream.writeTo(fos);
                     fos.write(bytes);
                     fos.flush();
                     fos.close();
                 }
                 String codedFileName = URLEncoder.encode(someFile.getName(), "UTF8");
                 //codedFileName = "bla.pdf";
-                return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM)
-                        .header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
+               String val =  someFile.getAbsolutePath();
+               System.out.println(val);
+                return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
+                        header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
 
             } catch (Exception e) {
                 return responseException(e);
             } finally {
-                TempFileCleaner.addFileToDelete(filePath);
+             //   TempFileCleaner.addFileToDelete(filePath);
             }
         } catch (JRException e) {
             logError(e);

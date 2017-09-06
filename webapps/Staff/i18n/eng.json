@@ -190,6 +190,7 @@
   "signing" : "Signing",
   "biz_quantity_indicator" : "biz_quantity_indicator",
   "notify_about_new_task_short" : "[NOTIFICATION] New task created",
+  "moderator" : "Moderator",
   "localized_names" : "Localized titles",
   "sign" : "Sign",
   "body" : "Body",

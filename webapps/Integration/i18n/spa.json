@@ -190,6 +190,7 @@
   "signing" : null,
   "biz_quantity_indicator" : "biz_quantity_indicator",
   "notify_about_new_task_short" : "Notificarle acerca de una nueva tarea",
+  "moderator" : "moderator",
   "localized_names" : null,
   "sign" : null,
   "body" : "Cuerpo",
