@@ -55,7 +55,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
+            //} else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
             //  so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.controlpanel.name())) {
             so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
@@ -63,17 +63,18 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("nationalities", "", "nationalities", AppConst.BASE_URL + "nationalities"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.landrelationstar.name())) {
             so.addEntry(new OutlineEntry("property_codes", "", "property_codes", AppConst.BASE_URL + "property_codes"));
-            //    so.addEntry(new OutlineEntry("receiving_reason", "", "receiving_reasons", AppConst.BASE_URL + "receiving_reasons"));
+            //   so.addEntry(new OutlineEntry("receiving_reason", "", "receiving_reasons", AppConst.BASE_URL + "receiving_reasons"));
             //   so.addEntry(new OutlineEntry("structure_type", "", "structure_types", AppConst.BASE_URL + "structure_types"));
             //   so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.architecturetar.name())) {
             so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building_states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
-
         }
 
-            list.add(co);
-        list.add(so);
+        list.add(co);
+        if (!so.getEntries().isEmpty()) {
+            list.add(so);
+        }
 
         Outcome outcome = new Outcome();
         outcome.addPayload("nav", list);

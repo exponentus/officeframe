@@ -1,5 +1,6 @@
 package reference.services;
 
+import administrator.dao.LanguageDAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -14,6 +15,8 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.ApprovalRouteDAO;
 import reference.model.ApprovalRoute;
+import reference.model.constants.ApprovalSchemaType;
+import reference.model.constants.ApprovalType;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
@@ -86,6 +89,9 @@ public class ApprovalRouteService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "approval_route");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
+            outcome.addPayload("approvalSchemaType", ApprovalSchemaType.values());
+            outcome.addPayload("approvalType", ApprovalType.values());
             outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
