@@ -206,7 +206,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
                 configuration.setPermissions(PdfWriter.AllowCopy | PdfWriter.AllowPrinting);
                 configuration.setMetadataAuthor("ddddddddd");
-                exporter.setConfiguration(configuration);
+              //  exporter.setConfiguration(configuration);
 
                 exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
 
