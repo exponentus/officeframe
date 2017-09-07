@@ -14,8 +14,8 @@ cfg.xml
 /tmp/
 # Jasper reports resources #
 ##################
-/rule/*/Resources/report/templates/*.jasper
-/rule/*/Resources/report/.metadata/**
+#/rule/*/Resources/report/templates/*.jasper
+#/rule/*/Resources/report/.metadata/**
 /rule/*/Resources/report/templates/.metadata/**
 /rule/*/Resources/report/templates/de/.settings/**
 /rule/*/Resources/report/templates/de/.classpath
