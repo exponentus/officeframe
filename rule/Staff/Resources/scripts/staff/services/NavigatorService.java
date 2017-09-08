@@ -39,8 +39,8 @@ public class NavigatorService extends RestProvider {
             List<Organization> po = oDao.findPrimaryOrg();
             if (po != null) {
                 for (Organization primaryOrg : po) {
-                    primaryOrgs.add(new OutlineEntry(primaryOrg.getLocName(lang), primaryOrg.getLocName(lang),
-                            "structures", AppConst.BASE_URL + "structures"));
+                  /*  primaryOrgs.add(new OutlineEntry(primaryOrg.getLocName(lang), primaryOrg.getLocName(lang),
+                            "structures", AppConst.BASE_URL + "structures"));*/
                 }
             }
 

@@ -14,6 +14,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.scheduler.tasks.TempFileCleaner;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
@@ -22,7 +23,6 @@ import com.exponentus.server.Server;
 import com.exponentus.util.ReflectionUtil;
 import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
-import com.itextpdf.text.pdf.PdfWriter;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
 import dataexport.init.AppConst;
@@ -38,7 +38,6 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
 import reference.model.Position;
 import staff.model.Employee;
 
@@ -149,7 +148,6 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
     @POST
     @Path("action/toForm")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-   // @Produces({"application/octet-stream", "*/*"})
     public Response toForm(ReportProfile dto) {
         long start_time = System.currentTimeMillis();
         dto.setEntityName(Employee.class.getCanonicalName());
@@ -190,33 +188,10 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 JRStyle style = new JRDesignStyle();
                 style.setPdfFontName(repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
                         + "tahoma.ttf");
-                //style.setPdfEncoding("Cp1251");
-                //style.setPdfEmbedded(true);
-              //  print.setDefaultStyle(style);
                 JRPdfExporter exporter = new JRPdfExporter();
                 exporter.setExporterInput(new SimpleExporterInput(print));
-
-           //     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(filePath));
-
-                //exporter.setParameter(JRExporterParameter.CHARACTER_ENCODING, "UTF-8");
-
-              //  exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
-              //  exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream);
-
-                SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
-                configuration.setPermissions(PdfWriter.AllowCopy | PdfWriter.AllowPrinting);
-                configuration.setMetadataAuthor("ddddddddd");
-              //  exporter.setConfiguration(configuration);
-
                 exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-
-             //   exporter.setExporterOutput(new SimpleOutputStreamExporterOutput("ddddd.pdf"));
-
-
                 exporter.exportReport();
-
-
-
             } else if (type.equals("xlsx")) {
                 JRXlsxExporter exporter = new JRXlsxExporter();
                 exporter.setExporterInput(new SimpleExporterInput(print));
@@ -234,13 +209,11 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 byte[] bytes = outputStream.toByteArray();
                 if(bytes.length>1){
                     fos = new FileOutputStream(someFile);
-                  //  outputStream.writeTo(fos);
                     fos.write(bytes);
                     fos.flush();
                     fos.close();
                 }
                 String codedFileName = URLEncoder.encode(someFile.getName(), "UTF8");
-                //codedFileName = "bla.pdf";
                String val =  someFile.getAbsolutePath();
                System.out.println(val);
                 return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
@@ -249,7 +222,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             } catch (Exception e) {
                 return responseException(e);
             } finally {
-             //   TempFileCleaner.addFileToDelete(filePath);
+                TempFileCleaner.addFileToDelete(filePath);
             }
         } catch (JRException e) {
             logError(e);

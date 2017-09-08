@@ -47,7 +47,6 @@ public class MainNavigator extends _DoPage {
         } else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
    //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
    //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
-   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("dispute_type", session.getLang()), "disputetype-view"));
    //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_article", session.getLang()), "lawarticle-view"));
    //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_branch", session.getLang()), "lawbranch-view"));
    //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("responsible_type", session.getLang()), "responsibletype-view"));
