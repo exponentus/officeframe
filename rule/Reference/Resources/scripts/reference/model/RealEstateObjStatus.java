@@ -1,16 +1,13 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.localization.constants.LanguageCode;
-import com.exponentus.scripting._Session;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.model.constants.RealEstateObjStatusCode;
 
 import javax.persistence.*;
 
-@JsonRootName("realEstateObjStatuses")
+@JsonRootName("realEstateObjStatus")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
@@ -28,6 +25,4 @@ public class RealEstateObjStatus extends SimpleReferenceEntity {
     public void setCode(RealEstateObjStatusCode code) {
         this.code = code;
     }
-
-
 }
