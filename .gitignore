@@ -14,12 +14,12 @@ cfg.xml
 /tmp/
 # Jasper reports resources #
 ##################
-/rule/DataExport/Resources/report/templates/de/*.jasper
+/rule/DataExport/Resources/report/templates/*/*.jasper
 /rule/DataExport/Resources/report/templates/.metadata/**
-/rule/DataExport/Resources/report/templates/de/.settings/**
-/rule/DataExport/Resources/report/templates/de/.classpath
-/rule/DataExport/Resources/report/templates/de/.project
-/rule/DataExport/Resources/report/templates/de/bin
+/rule/DataExport/Resources/report/templates/*/.settings/**
+/rule/DataExport/Resources/report/templates/*/.classpath
+/rule/DataExport/Resources/report/templates/*/.project
+/rule/DataExport/Resources/report/templates/*/bin
 # Idea resources #
 ##################
 .idea
