@@ -71,6 +71,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
         _ActionBar actionBar = new _ActionBar(session);
         actionBar.addAction(new ConventionalActionFactory().refreshVew);
+        actionBar.addAction(new ConventionalActionFactory().deleteDocument);
 
         Outcome outcome = new Outcome();
         outcome.setId("report-profiles");
