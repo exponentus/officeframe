@@ -31,6 +31,7 @@ public class RoleProcessor {
     }
 
     public void checkSupervisorRole() throws SecureException, DAOException {
+        int count = 0;
         for(AppEnv env:Environment.getApplications()){
             Role role = new RoleDAO(ses).findByName(env.appCode + EnvConst.SUPERVISOR_ROLE_NAME);
             if (role != null) {
@@ -40,12 +41,14 @@ public class RoleProcessor {
                         ViewPage<ISecureAppEntity> vp = dao.findAll();
                         for (ISecureAppEntity entity : vp.getResult()) {
                             entity.addReader(emp.getUser());
-                            Lg.info(emp.getLogin() + " added as reader to: " + entity.getEntityKind() + " " + entity.getId());
+                            Lg.debug(emp.getLogin() + " added as a reader to: " + entity.getEntityKind() + " " + entity.getId());
                             dao.update(entity);
+                            count ++;
                         }
                     }
                 }
             }
+            Lg.info(emp.getLogin() + " added as a reader in " + count + " documents");
         }
     }
 }
