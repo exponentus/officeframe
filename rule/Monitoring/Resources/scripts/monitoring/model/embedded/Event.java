@@ -3,7 +3,7 @@ package monitoring.model.embedded;
 import java.util.Date;
 import java.util.UUID;
 
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import monitoring.model.constants.ActivityType;

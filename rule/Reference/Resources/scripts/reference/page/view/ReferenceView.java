@@ -7,7 +7,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.exception.SecureException;
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting.WebFormException;
 import com.exponentus.scripting._Session;

@@ -8,7 +8,7 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
 import com.exponentus.log.Lg;
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;

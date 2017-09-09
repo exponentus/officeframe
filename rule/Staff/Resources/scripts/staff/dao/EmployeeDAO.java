@@ -126,6 +126,17 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
         }
     }
 
+    public ViewPage<Employee> findByRole(String roleName) throws DAOException {
+        RoleDAO roleDAO = new RoleDAO(ses);
+        Role role = roleDAO.findByName(roleName);
+        if (role != null) {
+            return findByRole(role);
+        }else{
+            return new ViewPage<>();
+        }
+    }
+
+
     public ViewPage<Employee> findByRole(Role role) throws DAOException {
         int pageNum = 1, pageSize = 100;
         EntityManager em = getEntityManagerFactory().createEntityManager();

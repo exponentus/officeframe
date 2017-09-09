@@ -7,7 +7,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.ISimpleReferenceEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.rest.outgoingdto.Outcome;
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;

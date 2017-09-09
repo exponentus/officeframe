@@ -5,7 +5,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scripting._Session;
 
 import javax.persistence.*;

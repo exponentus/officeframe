@@ -4,7 +4,7 @@ import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.extconnect.IMonitoringDAO;
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.user.IUser;
 import monitoring.model.DocumentActivity;
 import monitoring.model.embedded.Event;

@@ -75,4 +75,8 @@ public class Role extends SimpleReferenceEntity {
         chunk.append("<name>" + getLocName(ses.getLang()) + "</name>");
         return chunk.toString();
     }
+
+    public String toString(){
+        return name;
+    }
 }

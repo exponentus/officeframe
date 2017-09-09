@@ -8,6 +8,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
+import com.exponentus.log.Lg;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -21,6 +22,7 @@ import staff.dao.filter.EmployeeFilter;
 import staff.domain.EmployeeDomain;
 import staff.model.Employee;
 import staff.model.Role;
+import staff.services.helper.RoleProcessor;
 import staff.ui.Action;
 
 import javax.ws.rs.*;
@@ -184,6 +186,22 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             }
 
             dao.save(entity);
+
+
+
+            RoleProcessor roleProcessor = new RoleProcessor(session,entity);
+            Thread t = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        roleProcessor.checkSupervisorRole();
+                    } catch (SecureException | DAOException e) {
+                        Lg.exception(e);
+                    }
+                }
+            });
+            t.start();
+
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity);

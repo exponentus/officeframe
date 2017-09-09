@@ -13,7 +13,7 @@ import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.runtimeobj.IAppEntity;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scheduler.tasks.TempFileCleaner;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
