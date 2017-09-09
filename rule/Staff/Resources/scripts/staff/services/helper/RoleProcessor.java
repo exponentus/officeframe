@@ -30,8 +30,6 @@ public class RoleProcessor {
         this.ses = ses;
     }
 
-
-
     public void checkSupervisorRole() throws SecureException, DAOException {
         for(AppEnv env:Environment.getApplications()){
             Role role = new RoleDAO(ses).findByName(env.appCode + EnvConst.SUPERVISOR_ROLE_NAME);

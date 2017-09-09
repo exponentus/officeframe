@@ -1,7 +1,7 @@
 package dataexport.model.constants;
 
 public enum ReportQueryType {
-	UNKNOWN(0), JPQL(788), ENTITY_REQUEST(789);
+	UNKNOWN(0), JPQL(788), ENTITY_REQUEST(789), CUSTOM_CLASS(790);
 
 	private int code;
 

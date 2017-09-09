@@ -26,6 +26,9 @@ public class ReportProfile extends SimpleReferenceEntity {
 
     private String entityName;
 
+    @Column(name = "custom_report_class",  length = 128)
+    private String customReportClass;
+
     @Column(name = "start_form")
     private Date startFrom;
 
@@ -53,6 +56,14 @@ public class ReportProfile extends SimpleReferenceEntity {
 
     public void setEntityName(String entityName) {
         this.entityName = entityName;
+    }
+
+    public String getCustomReportClass() {
+        return customReportClass;
+    }
+
+    public void setCustomReportClass(String customReportClass) {
+        this.customReportClass = customReportClass;
     }
 
     public Date getStartFrom() {

@@ -1,19 +1,17 @@
 package dataexport.services;
 
 import com.exponentus.appenv.AppEnv;
-import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.IDAO;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scheduler.tasks.TempFileCleaner;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
@@ -25,10 +23,11 @@ import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
-import dataexport.init.AppConst;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
+import dataexport.other.ICustomReport;
+import dataexport.other.RegistryReport;
 import dataexport.ui.ActionFactory;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -38,7 +37,6 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import reference.model.Position;
 import staff.model.Employee;
 
 import javax.ws.rs.*;
@@ -153,36 +151,50 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         long start_time = System.currentTimeMillis();
         dto.setEntityName(Employee.class.getCanonicalName());
         String reportId = dto.getId().toString();
-        String name = "entity_registry";
+        String reportTemplateName = "entity_registry";
         String type = dto.getOutputFormat().name();
-        type = "pdf";
+        String appCode = "de";
+        String reportFileName = StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10);
 
         try {
-            if (!"xlsx".equals(type) && !"pdf".equals(type)) {
+            if (!"xlsx".equalsIgnoreCase(type) && !"pdf".equalsIgnoreCase(type) && !"xml".equalsIgnoreCase(type)) {
                 throw new IllegalArgumentException("Unsupported format: " + type + "; Supported format: pdf, xlsx");
             }
-
-            HashMap<String, Object> parameters = new HashMap<>();
 
             String repPath = Environment.getOfficeFrameDir() + File.separator + "rule" + File.separator
                     + getAppEnv().appName + File.separator + "Resources" + File.separator + "report";
 
+            HashMap<String, Object> parameters = new HashMap<>();
             JRFileVirtualizer virtualizer = new JRFileVirtualizer(10, Environment.trash);
             parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
             _Session session = getSession();
-            IDAO dao = DAOFactory.get(session, dto.getEntityName());
-            List<Position> result = dao.findAll().getResult();
+
+            ICustomReport customReport = null;
+            List result = new ArrayList<>();
+            switch (dto.getReportQueryType()){
+                case ENTITY_REQUEST:
+                    customReport = new RegistryReport();
+                    customReport.setSession(session);
+                    result = customReport.getReportData(dto.getStartFrom(), dto.getEndUntil(), dto.getEntityName());
+                    reportFileName = customReport.getReportFileName();
+                    break;
+                case CUSTOM_CLASS:
+                    result = customReport.getReportData(dto.getStartFrom(), dto.getEndUntil(),"");
+                    reportTemplateName = customReport.getTemplateName();
+                    appCode = customReport.getAppCode();
+                    reportFileName = customReport.getReportFileName();
+            }
+
 
             JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
             JasperPrint print = JasperFillManager
                     .fillReport(
                             JasperCompileManager.compileReportToFile(repPath + File.separator + "templates"
-                                    + File.separator + AppConst.CODE + File.separator + name + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
+                                    + File.separator + appCode + File.separator + reportTemplateName + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
                             parameters, dSource);
 
 
-            String filePath = Environment.tmpDir + File.separator
-                    + StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10) + "." + type;
+            //String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             if (type.equals("pdf")) {
@@ -200,12 +212,11 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 exporter.exportReport();
             }
             Server.logger.info(
-                    "Report \"" + name + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
+                    "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
 
-            String filePath1 = Environment.tmpDir + File.separator
-                    + StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10) + "." + type;
+            String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
             try {
-                File someFile = new File(filePath1);
+                File someFile = new File(filePath);
                 FileOutputStream fos = null;
                 byte[] bytes = outputStream.toByteArray();
                 if(bytes.length>1){
