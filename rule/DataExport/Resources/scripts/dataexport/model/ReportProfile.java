@@ -33,7 +33,7 @@ public class ReportProfile extends SimpleReferenceEntity {
     private Date endUntil;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 3)
+    @Column(nullable = false, length = 4)
     private ExportFormatType outputFormat = ExportFormatType.UNKNOWN;
 
     @ElementCollection
