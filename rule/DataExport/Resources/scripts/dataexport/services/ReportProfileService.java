@@ -10,6 +10,7 @@ import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
+import com.exponentus.rest.exception.RestServiceException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scheduler.tasks.TempFileCleaner;
@@ -171,7 +172,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
             ICustomReport customReport = null;
             List result = new ArrayList<>();
-            switch (dto.getReportQueryType()){
+            switch (dto.getReportQueryType()) {
                 case ENTITY_REQUEST:
                     customReport = new RegistryReport();
                     customReport.setSession(session);
@@ -179,7 +180,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     reportFileName = customReport.getReportFileName();
                     break;
                 case CUSTOM_CLASS:
-                    result = customReport.getReportData(dto.getStartFrom(), dto.getEndUntil(),"");
+                    result = customReport.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
                     reportTemplateName = customReport.getTemplateName();
                     appCode = customReport.getAppCode();
                     reportFileName = customReport.getReportFileName();
@@ -194,40 +195,41 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                             parameters, dSource);
 
 
-            //String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            if (type.equals("pdf")) {
-                JRStyle style = new JRDesignStyle();
-                style.setPdfFontName(repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
-                        + "tahoma.ttf");
-                JRPdfExporter exporter = new JRPdfExporter();
-                exporter.setExporterInput(new SimpleExporterInput(print));
-                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-                exporter.exportReport();
-            } else if (type.equals("xlsx")) {
-                JRXlsxExporter exporter = new JRXlsxExporter();
-                exporter.setExporterInput(new SimpleExporterInput(print));
-                exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-                exporter.exportReport();
-            }
-            Server.logger.info(
-                    "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
-
             String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
             try {
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                if (type.equalsIgnoreCase("pdf")) {
+                    JRStyle style = new JRDesignStyle();
+                    style.setPdfFontName(repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
+                            + "tahoma.ttf");
+                    JRPdfExporter exporter = new JRPdfExporter();
+                    exporter.setExporterInput(new SimpleExporterInput(print));
+                    exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+                    exporter.exportReport();
+                } else if (type.equalsIgnoreCase("xlsx")) {
+                    JRXlsxExporter exporter = new JRXlsxExporter();
+                    exporter.setExporterInput(new SimpleExporterInput(print));
+                    exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+                    exporter.exportReport();
+                } else {
+                    throw new RestServiceException("Unknown export format (" + type + ")");
+                }
+                Server.logger.info(
+                        "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
+
+
                 File someFile = new File(filePath);
                 FileOutputStream fos = null;
                 byte[] bytes = outputStream.toByteArray();
-                if(bytes.length>1){
+                if (bytes.length > 1) {
                     fos = new FileOutputStream(someFile);
                     fos.write(bytes);
                     fos.flush();
                     fos.close();
                 }
                 String codedFileName = URLEncoder.encode(someFile.getName(), "UTF8");
-               String val =  someFile.getAbsolutePath();
-               System.out.println(val);
+                String val = someFile.getAbsolutePath();
+                System.out.println(val);
                 return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
                         header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
 
