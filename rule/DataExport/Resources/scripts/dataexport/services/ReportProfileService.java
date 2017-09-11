@@ -19,15 +19,14 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.server.Server;
 import com.exponentus.util.ReflectionUtil;
-import com.exponentus.util.StringUtil;
 import com.exponentus.util.TimeUtil;
 import dataexport.dao.ReportProfileDAO;
 import dataexport.domain.ReportProfileDomain;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
-import dataexport.other.ICustomReport;
-import dataexport.other.RegistryReport;
+import dataexport.other.IReportProfile;
+import dataexport.other.RegistryReportProfile;
 import dataexport.ui.ActionFactory;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -37,7 +36,6 @@ import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
-import staff.model.Employee;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -154,12 +152,9 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response toForm(ReportProfile dto) {
         long start_time = System.currentTimeMillis();
-        dto.setEntityName(Employee.class.getCanonicalName());
-        String reportId = dto.getId().toString();
-        String reportTemplateName = "entity_registry";
+        String reportTemplateName = null;
         String type = dto.getOutputFormat().name();
-        String appCode = "de";
-        String reportFileName = StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10);
+        String reportFileName = null, appCode = null;
 
         try {
             if (!"xlsx".equalsIgnoreCase(type) && !"pdf".equalsIgnoreCase(type) && !"xml".equalsIgnoreCase(type)) {
@@ -174,20 +169,22 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
             _Session session = getSession();
 
-            ICustomReport customReport = null;
+            IReportProfile reportProfile = null;
             List result = new ArrayList<>();
             switch (dto.getReportQueryType()) {
                 case ENTITY_REQUEST:
-                    customReport = new RegistryReport();
-                    customReport.setSession(session);
-                    result = customReport.getReportData(dto.getStartFrom(), dto.getEndUntil(), dto.getEntityName());
-                    reportFileName = customReport.getReportFileName();
+                    reportProfile = new RegistryReportProfile();
+                    reportProfile.setSession(session);
+                    reportTemplateName = reportProfile.getTemplateName();
+                    appCode = reportProfile.getAppCode();
+                    result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), dto.getEntityName());
+                    reportFileName = reportProfile.getReportFileName();
                     break;
                 case CUSTOM_CLASS:
-                    result = customReport.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
-                    reportTemplateName = customReport.getTemplateName();
-                    appCode = customReport.getAppCode();
-                    reportFileName = customReport.getReportFileName();
+                    result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
+                    reportTemplateName = reportProfile.getTemplateName();
+                    appCode = reportProfile.getAppCode();
+                    reportFileName = reportProfile.getReportFileName();
             }
 
 

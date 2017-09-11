@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by kaira on 9/9/17.
  */
-public interface ICustomReport {
+public interface IReportProfile {
 
     void setSession(_Session session);
 

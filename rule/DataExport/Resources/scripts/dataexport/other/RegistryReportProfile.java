@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by kaira on 9/9/17.
  */
-public class RegistryReport implements ICustomReport {
+public class RegistryReportProfile implements IReportProfile {
     private _Session session;
 
     @Override
