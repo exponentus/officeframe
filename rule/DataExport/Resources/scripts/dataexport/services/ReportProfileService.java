@@ -31,11 +31,15 @@ import dataexport.ui.ActionFactory;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.export.JRXmlExporter;
 import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.fill.JRFileVirtualizer;
+import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimpleWriterExporterOutput;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -157,7 +161,8 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         String reportFileName = null, appCode = null;
 
         try {
-            if (!"xlsx".equalsIgnoreCase(type) && !"pdf".equalsIgnoreCase(type) && !"xml".equalsIgnoreCase(type)) {
+            if (!"xlsx".equalsIgnoreCase(type) && !"pdf".equalsIgnoreCase(type)
+                    && !"xml".equalsIgnoreCase(type) && !"csv".equalsIgnoreCase(type)) {
                 throw new IllegalArgumentException("Unsupported format: " + type + "; Supported format: pdf, xlsx");
             }
 
@@ -181,10 +186,17 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     reportFileName = reportProfile.getReportFileName();
                     break;
                 case CUSTOM_CLASS:
-                    result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
-                    reportTemplateName = reportProfile.getTemplateName();
-                    appCode = reportProfile.getAppCode();
-                    reportFileName = reportProfile.getReportFileName();
+                    try {
+                        Class clazz = Class.forName("projects.report.Report500Profile");
+                        reportProfile = (IReportProfile) clazz.newInstance();
+                        reportProfile.setSession(session);
+                        result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
+                        reportTemplateName = reportProfile.getTemplateName();
+                        appCode = reportProfile.getAppCode();
+                        reportFileName = reportProfile.getReportFileName();
+                    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+                        return responseException(e);
+                    }
             }
 
 
@@ -195,41 +207,55 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                                     + File.separator + appCode + File.separator + reportTemplateName + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
                             parameters, dSource);
 
-
+            boolean needToWriteStream = false;
             String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
+            File reportFile = new File(filePath);
+
             try {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                Exporter exporter = null;
                 if (type.equalsIgnoreCase("pdf")) {
                     JRStyle style = new JRDesignStyle();
                     style.setPdfFontName(repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
                             + "tahoma.ttf");
-                    JRPdfExporter exporter = new JRPdfExporter();
-                    exporter.setExporterInput(new SimpleExporterInput(print));
+                    exporter = new JRPdfExporter();
                     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-                    exporter.exportReport();
+                    needToWriteStream = true;
                 } else if (type.equalsIgnoreCase("xlsx")) {
-                    JRXlsxExporter exporter = new JRXlsxExporter();
-                    exporter.setExporterInput(new SimpleExporterInput(print));
+                    exporter = new JRXlsxExporter();
                     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-                    exporter.exportReport();
+                    needToWriteStream = true;
+                } else if (type.equalsIgnoreCase("csv")) {
+                    exporter = new JRCsvExporter();
+                    exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
+                } else if (type.equalsIgnoreCase("xml")) {
+                    exporter = new JRXmlExporter();
+                    exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
                 } else {
                     throw new RestServiceException("Unknown export format (" + type + ")");
                 }
-                Server.logger.info(
-                        "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
+
+
+                exporter.setExporterInput(new SimpleExporterInput(print));
+                exporter.exportReport();
 
 
                 File someFile = new File(filePath);
-                FileOutputStream fos = null;
-                byte[] bytes = outputStream.toByteArray();
-                if (bytes.length > 1) {
-                    fos = new FileOutputStream(someFile);
-                    fos.write(bytes);
-                    fos.flush();
-                    fos.close();
+                if (needToWriteStream) {
+                    FileOutputStream fos = null;
+                    byte[] bytes = outputStream.toByteArray();
+                    if (bytes.length > 1) {
+                        fos = new FileOutputStream(someFile);
+                        fos.write(bytes);
+                        fos.flush();
+                        fos.close();
+                    }
                 }
-                String codedFileName = URLEncoder.encode(someFile.getName(), "UTF8");
+                String codedFileName = URLEncoder.encode(reportFileName + "." + type, "UTF8");
                 String val = someFile.getAbsolutePath();
+                Server.logger.info(
+                        "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
+
                 System.out.println(val);
                 return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
                         header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
