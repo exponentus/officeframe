@@ -22,6 +22,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
+import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
+
 @Path("real_estate_obj_statuses")
 public class RealEstateObjStatusService extends RestProvider {
 
@@ -40,7 +42,7 @@ public class RealEstateObjStatusService extends RestProvider {
             RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(session);
             ViewPage<RealEstateObjStatus> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new Action().addNew);
                 actionBar.addAction(new Action().deleteDocument);
@@ -49,7 +51,6 @@ public class RealEstateObjStatusService extends RestProvider {
 
             outcome.setTitle("real_estate_obj_statuses");
             outcome.addPayload("contentTitle", "real_estate_obj_statuses");
-            outcome.addPayload("realEstateObjStatusCode", RealEstateObjStatusCode.values());
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -79,7 +80,7 @@ public class RealEstateObjStatusService extends RestProvider {
             //
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("reference_admin")) {
+            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);
             }
 
@@ -89,6 +90,7 @@ public class RealEstateObjStatusService extends RestProvider {
             outcome.addPayload("contentTitle", "real_estate_obj_status");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("realEstateObjStatusCode", RealEstateObjStatusCode.values());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -117,7 +119,7 @@ public class RealEstateObjStatusService extends RestProvider {
         _Session session = getSession();
         IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains("reference_admin")) {
+        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
             return null;
         }
 

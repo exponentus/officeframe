@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+
 @Path("employees")
 public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
@@ -53,7 +55,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
 
-            if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new Action().addNew);
                 actionBar.addAction(new Action().deleteDocument);
@@ -101,7 +103,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             //
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("staff_admin")) {
+            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);
             }
 
@@ -148,7 +150,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         _Session session = getSession();
         IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains("staff_admin")) {
+        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_STAFF_ADMIN)) {
             return null;
         }
 
@@ -188,8 +190,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             dao.save(entity);
 
 
-
-            RoleProcessor roleProcessor = new RoleProcessor(session,entity);
+            RoleProcessor roleProcessor = new RoleProcessor(session, entity);
             Thread t = new Thread(new Runnable() {
                 @Override
                 public void run() {

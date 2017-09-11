@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+
 @Path("organizations")
 public class OrganizationService extends RestProvider {
 
@@ -46,7 +48,7 @@ public class OrganizationService extends RestProvider {
             ViewPage<Organization> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
 
-            if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new Action().addNew);
                 actionBar.addAction(new Action().deleteDocument);
@@ -84,7 +86,7 @@ public class OrganizationService extends RestProvider {
             //
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("staff_admin")) {
+            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);
             }
 
@@ -123,7 +125,7 @@ public class OrganizationService extends RestProvider {
         _Session session = getSession();
         IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains("staff_admin")) {
+        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_STAFF_ADMIN)) {
             return null;
         }
 

@@ -21,6 +21,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
+import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
+
 @Path("building_materials")
 public class BuildingMaterialService extends RestProvider {
 
@@ -39,7 +41,7 @@ public class BuildingMaterialService extends RestProvider {
             BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
             ViewPage<BuildingMaterial> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new Action().addNew);
                 actionBar.addAction(new Action().deleteDocument);
@@ -77,7 +79,7 @@ public class BuildingMaterialService extends RestProvider {
             //
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("reference_admin")) {
+            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);
             }
 
@@ -115,7 +117,7 @@ public class BuildingMaterialService extends RestProvider {
         _Session session = getSession();
         IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains("reference_admin")) {
+        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
             return null;
         }
 

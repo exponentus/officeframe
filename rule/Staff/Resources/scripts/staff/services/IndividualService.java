@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+
 @Path("individuals")
 public class IndividualService extends EntityService<Individual, IndividualDomain> {
 
@@ -51,7 +53,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             ViewPage<Individual> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
 
-            if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new Action().addNew);
                 actionBar.addAction(new Action().deleteDocument);
@@ -89,7 +91,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             //
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("staff_admin")) {
+            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);
             }
 

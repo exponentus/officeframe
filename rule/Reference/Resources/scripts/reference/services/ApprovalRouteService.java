@@ -24,6 +24,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
+import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
+
 @Path("approval_routes")
 public class ApprovalRouteService extends RestProvider {
 
@@ -42,7 +44,7 @@ public class ApprovalRouteService extends RestProvider {
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
             ViewPage<ApprovalRoute> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains("reference_admin")) {
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
                 actionBar.addAction(new Action().addNew);
                 actionBar.addAction(new Action().deleteDocument);
@@ -80,7 +82,7 @@ public class ApprovalRouteService extends RestProvider {
             //
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains("reference_admin")) {
+            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);
             }
 
@@ -121,7 +123,7 @@ public class ApprovalRouteService extends RestProvider {
         _Session session = getSession();
         IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains("reference_admin")) {
+        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
             return null;
         }
 

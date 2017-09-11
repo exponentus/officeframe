@@ -3,7 +3,6 @@ package dataexport.services;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
-import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
@@ -68,9 +67,11 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
         ViewPage vp = getDomain().getViewPage(sortParams, params.getPage(), pageSize);
 
+        ActionFactory action = new ActionFactory();
         _ActionBar actionBar = new _ActionBar(session);
-        actionBar.addAction(new ConventionalActionFactory().refreshVew);
-        actionBar.addAction(new ConventionalActionFactory().deleteDocument);
+        actionBar.addAction(action.addNew);
+        actionBar.addAction(action.refreshVew);
+        actionBar.addAction(action.deleteDocument);
 
         Outcome outcome = new Outcome();
         outcome.setId("report-profiles");
@@ -104,7 +105,10 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(actionFactory.close);
             actionBar.addAction(actionFactory.saveAndClose);
-            actionBar.addAction(actionFactory.toForm);
+
+            if (!isNew) {
+                actionBar.addAction(actionFactory.toForm);
+            }
 
             List<String> entityClassNames = new ArrayList<>();
             for (AppEnv env : Environment.getApplications()) {
@@ -247,6 +251,24 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             }
             return responseException(e);
         } catch (IllegalArgumentException e) {
+            return responseException(e);
+        }
+    }
+
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete() {
+        try {
+            ReportProfileDAO dao = new ReportProfileDAO(getSession());
+            String[] ids = getWebFormData().getListOfValuesSilently("id");
+            for (String id : ids) {
+                ReportProfile entity = dao.findByIdentefier(id);
+                if (entity != null) {
+                    dao.delete(entity);
+                }
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
             return responseException(e);
         }
     }
