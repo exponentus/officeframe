@@ -182,7 +182,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     reportProfile.setSession(session);
                     reportTemplateName = reportProfile.getTemplateName();
                     appCode = reportProfile.getAppCode();
-                    result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), dto.getEntityName());
+                    result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), dto.getClassName());
                     reportFileName = reportProfile.getReportFileName();
                     break;
                 case CUSTOM_CLASS:

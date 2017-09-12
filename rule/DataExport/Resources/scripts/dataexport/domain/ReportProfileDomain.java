@@ -42,15 +42,10 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
 
         entity.setTitle(dto.getTitle());
         entity.setReportQueryType(dto.getReportQueryType());
-        if (entity.getReportQueryType() == ReportQueryType.ENTITY_REQUEST) {
-            entity.setEntityName(dto.getEntityName());
+        if (entity.getReportQueryType() == ReportQueryType.ENTITY_REQUEST || entity.getReportQueryType() == ReportQueryType.CUSTOM_CLASS) {
+            entity.setClassName(dto.getClassName());
         } else {
-            entity.setEntityName("");
-        }
-        if (entity.getReportQueryType() == ReportQueryType.CUSTOM_CLASS) {
-            entity.setCustomReportClass(dto.getCustomReportClass());
-        } else {
-            entity.setCustomReportClass("");
+            entity.setClassName("");
         }
         entity.setOutputFormat(dto.getOutputFormat());
         entity.setStartFrom(dto.getStartFrom());

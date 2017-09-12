@@ -35,7 +35,7 @@ public class GenerateDefaultReportProfiles extends Do {
                     System.out.println(entity.getCanonicalName());
                     ReportProfile reportProfile = new ReportProfile();
                     reportProfile.setReportQueryType(ReportQueryType.ENTITY_REQUEST);
-                    reportProfile.setEntityName(entity.getCanonicalName());
+                    reportProfile.setClassName(entity.getCanonicalName());
                     reportProfile.setOutputFormat(ExportFormatType.XML);
                     LocalDate firstDay = LocalDate.now().with(firstDayOfYear());
                     reportProfile.setStartFrom(Date.from(firstDay.atStartOfDay(ZoneId.systemDefault()).toInstant()));

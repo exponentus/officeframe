@@ -24,10 +24,8 @@ public class ReportProfile extends SimpleReferenceEntity {
     @Column(nullable = false, length = 32)
     private ReportQueryType reportQueryType = ReportQueryType.ENTITY_REQUEST;
 
-    private String entityName;
-
-    @Column(name = "custom_report_class", length = 128)
-    private String customReportClass;
+    @Column(name = "class_name")
+    private String className;
 
     @Column(name = "start_form")
     private Date startFrom;
@@ -43,27 +41,27 @@ public class ReportProfile extends SimpleReferenceEntity {
     @CollectionTable(name = "de__report_profile_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
 
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "de__report_profile_tags")
     private List<Tag> tags;
 
     private String description;
 
-    public String getEntityName() {
-        return entityName;
+    public ReportQueryType getReportQueryType() {
+        return reportQueryType;
     }
 
-    public void setEntityName(String entityName) {
-        this.entityName = entityName;
+    public void setReportQueryType(ReportQueryType reportQueryType) {
+        this.reportQueryType = reportQueryType;
     }
 
-    public String getCustomReportClass() {
-        return customReportClass;
+
+    public String getClassName() {
+        return className;
     }
 
-    public void setCustomReportClass(String customReportClass) {
-        this.customReportClass = customReportClass;
+    public void setClassName(String className) {
+        this.className = className;
     }
 
     public Date getStartFrom() {
@@ -88,14 +86,6 @@ public class ReportProfile extends SimpleReferenceEntity {
 
     public void setOutputFormat(ExportFormatType outputFormat) {
         this.outputFormat = outputFormat;
-    }
-
-    public ReportQueryType getReportQueryType() {
-        return reportQueryType;
-    }
-
-    public void setReportQueryType(ReportQueryType reportQueryType) {
-        this.reportQueryType = reportQueryType;
     }
 
     public List<Observer> getObservers() {
