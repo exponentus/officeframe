@@ -216,8 +216,12 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 Exporter exporter = null;
                 if (type.equalsIgnoreCase("pdf")) {
                     JRStyle style = new JRDesignStyle();
-                    style.setPdfFontName(repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
-                            + "tahoma.ttf");
+                    String pathToFont = repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
+                            + "tahoma.ttf";
+                    style.setPdfFontName(pathToFont);
+                    style.setPdfEncoding("Cp1251");
+                    style.setPdfEmbedded(true);
+                    print.setDefaultStyle(style);
                     exporter = new JRPdfExporter();
                     exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
                     needToWriteStream = true;

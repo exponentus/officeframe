@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-09-11T20:43:32 -->
+<!-- 2017-09-12T10:53:01 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report500" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047ecfaf-fe84-4bab-a463-41ea1917e7d2">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<queryString>
@@ -38,29 +38,26 @@
 			<staticText>
 				<reportElement x="0" y="0" width="150" height="30" uuid="84f81510-1a79-45fe-aa55-84f64f6311fc"/>
 				<textElement>
-					<font fontName="SansSerif" size="10"/>
+					<font fontName="Dialog" size="10"/>
 				</textElement>
 				<text><![CDATA[Автор]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="150" y="0" width="60" height="30" uuid="665a9751-fab9-4aac-b9c6-914c51d491ae"/>
 				<textElement>
-					<font fontName="SansSerif"/>
+					<font fontName="DejaVu Sans Mono"/>
 				</textElement>
 				<text><![CDATA[Всего]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="210" y="0" width="60" height="30" uuid="0aa5fe06-dfc8-4d3a-b7d2-bb10c1cdb8c2"/>
 				<textElement>
-					<font fontName="SansSerif"/>
+					<font fontName="Serif"/>
 				</textElement>
 				<text><![CDATA[В работе]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="270" y="0" width="60" height="30" uuid="66435ace-7c04-46d5-8cdd-7e67ff8d78cf"/>
-				<textElement>
-					<font fontName="SansSerif"/>
-				</textElement>
 				<text><![CDATA[Завершенные]]></text>
 			</staticText>
 			<staticText>
