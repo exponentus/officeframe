@@ -26,13 +26,13 @@ public class ReportProfile extends SimpleReferenceEntity {
 
     private String entityName;
 
-    @Column(name = "custom_report_class",  length = 128)
+    @Column(name = "custom_report_class", length = 128)
     private String customReportClass;
 
     @Column(name = "start_form")
     private Date startFrom;
 
-    @Column(name = "end_untill")
+    @Column(name = "end_until")
     private Date endUntil;
 
     @Enumerated(EnumType.STRING)

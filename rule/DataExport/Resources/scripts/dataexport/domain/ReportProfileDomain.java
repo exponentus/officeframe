@@ -47,6 +47,11 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         } else {
             entity.setEntityName("");
         }
+        if (entity.getReportQueryType() == ReportQueryType.CUSTOM_CLASS) {
+            entity.setCustomReportClass(dto.getCustomReportClass());
+        } else {
+            entity.setCustomReportClass("");
+        }
         entity.setOutputFormat(dto.getOutputFormat());
         entity.setStartFrom(dto.getStartFrom());
         entity.setEndUntil(dto.getEndUntil());
