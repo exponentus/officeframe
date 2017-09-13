@@ -305,6 +305,7 @@
   "new_project" : "Nuevo proyecto",
   "notifications_settings" : "notifications_settings",
   "basic_properties" : null,
+  "class_name" : "class_name",
   "law_article" : "law_article",
   "email" : null,
   "label_prj_dashboard_stat_author_state" : "label_prj_dashboard_stat_author_state",

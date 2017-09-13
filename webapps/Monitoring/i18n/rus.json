@@ -305,6 +305,7 @@
   "new_project" : "Новый проект",
   "notifications_settings" : "Рассылка",
   "basic_properties" : "Основные свойства",
+  "class_name" : "Имя класса",
   "law_article" : "Основание для возбуждения ПИР",
   "email" : "Электронная почта",
   "label_prj_dashboard_stat_author_state" : "Количество задании инициированных вами",

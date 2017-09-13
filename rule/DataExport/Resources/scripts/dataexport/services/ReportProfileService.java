@@ -189,14 +189,20 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     break;
                 case CUSTOM_CLASS:
                     try {
-                        Class clazz = Class.forName("projects.report.Report500Profile");
-                        reportProfile = (IReportProfile) clazz.newInstance();
-                        reportProfile.setSession(session);
-                        result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
-                        reportTemplateName = reportProfile.getTemplateName();
-                        appCode = reportProfile.getAppCode();
-                        reportFileName = reportProfile.getReportFileName();
-                    } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+                        Class clazz = Class.forName(dto.getClassName());
+                        if (IReportProfile.class.isAssignableFrom(clazz)) {
+                            reportProfile = (IReportProfile) clazz.newInstance();
+                            reportProfile.setSession(session);
+                            result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
+                            reportTemplateName = reportProfile.getTemplateName();
+                            appCode = reportProfile.getAppCode();
+                            reportFileName = reportProfile.getReportFileName();
+                        }else{
+                            throw new RestServiceException("Improper implementation of \"" + IReportProfile.class.getName() + "\"");
+                        }
+                    } catch (ClassNotFoundException e) {
+                        throw new RestServiceException("Class \"" + dto.getClassName() + "\", has not been found");
+                    } catch (IllegalAccessException | InstantiationException e) {
                         return responseException(e);
                     }
             }
@@ -237,7 +243,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     exporter = new JRXmlExporter();
                     exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
                 } else {
-                    throw new RestServiceException("Unknown export format (" + type + ")");
+                    throw new RestServiceException( type + " is unknown export format");
                 }
 
                 exporter.setExporterInput(new SimpleExporterInput(print));

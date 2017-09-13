@@ -1,12 +1,10 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.common.model.converter.UUIDConverter;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import org.eclipse.persistence.annotations.Converter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -17,7 +15,6 @@ import java.util.List;
 @Entity
 @Cacheable(true)
 @Table(name = "ref__localities", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "type_id", "region_id"}))
-@Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 public class Locality extends SimpleReferenceEntity {
 
     @JsonIgnore
