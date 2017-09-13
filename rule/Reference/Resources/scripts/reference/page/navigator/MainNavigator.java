@@ -37,25 +37,16 @@ public class MainNavigator extends _DoPage {
 
         Outline specific_outline = new Outline(getLocalizedWord("specific_reference_data", session.getLang()), "specific");
 
-        if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.semantyca.name())) {
+        if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("task_types", session.getLang()), "tasktype-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("request_types", session.getLang()), "requesttype-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("demand_types", session.getLang()), "demandtype-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("approval_route", session.getLang()), "approvalroute-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("vehicle", session.getLang()), "vehicle-view"));
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("control_types", session.getLang()), "controltype-view"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase("claimswork")) {
-   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("claim_decision_type", session.getLang()), "claimdecisiontype-view"));
-   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("defendant_type", session.getLang()), "defendanttype-view"));
-   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_article", session.getLang()), "lawarticle-view"));
-   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("law_branch", session.getLang()), "lawbranch-view"));
-   //         specific_outline.addEntry(new OutlineEntry(getLocalizedWord("responsible_type", session.getLang()), "responsibletype-view"));
-        }else  if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.landrelationstar.name())) {
+         }else  if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.LANDRELATIONSTAR.name())) {
             specific_outline.addEntry(new OutlineEntry(getLocalizedWord("property_codes", session.getLang()), "propertycode-view"));
-           // specific_outline.addEntry(new OutlineEntry(getLocalizedWord("receiving_reason", session.getLang()), "receivingreason-view"));
-           // specific_outline.addEntry(new OutlineEntry(getLocalizedWord("structure_type", session.getLang()), "structuretype-view"));
-           // specific_outline.addEntry(new OutlineEntry(getLocalizedWord("building_materials", session.getLang()), "buildingmaterial-view"));
-        }
+          }
 
         list.add(common_outline);
         list.add(specific_outline);

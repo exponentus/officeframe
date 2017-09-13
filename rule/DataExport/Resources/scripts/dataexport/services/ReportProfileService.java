@@ -232,7 +232,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 } else if (type.equalsIgnoreCase("csv")) {
                     exporter = new JRCsvExporter();
                     exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
-                } else if (type.equalsIgnoreCase("xml")) {
+               } else if (type.equalsIgnoreCase("xml")) {
                     exporter = new JRXmlExporter();
                     exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
                 } else {
@@ -278,6 +278,8 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             }
             return responseException(e);
         } catch (IllegalArgumentException e) {
+            return responseException(e);
+        } catch (Exception e) {
             return responseException(e);
         }
     }

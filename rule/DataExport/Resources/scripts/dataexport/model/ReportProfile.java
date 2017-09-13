@@ -45,8 +45,6 @@ public class ReportProfile extends SimpleReferenceEntity {
     @JoinTable(name = "de__report_profile_tags")
     private List<Tag> tags;
 
-    private String description;
-
     public ReportQueryType getReportQueryType() {
         return reportQueryType;
     }
@@ -104,15 +102,7 @@ public class ReportProfile extends SimpleReferenceEntity {
         this.tags = tags;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    @Override
+      @Override
     public String getURL() {
         return AppConst.BASE_URL + "report-profiles/" + getIdentifier();
     }

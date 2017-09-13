@@ -46,7 +46,7 @@ public class NavigatorService extends RestProvider {
 
         Outline so = new Outline("specific_reference_data", "specific");
 
-        if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.semantyca.name())) {
+        if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
             so.addEntry(new OutlineEntry("control_types", "", "control_types", AppConst.BASE_URL + "control_types"));
             so.addEntry(new OutlineEntry("task_types", "", "task_types", AppConst.BASE_URL + "task_types"));
             so.addEntry(new OutlineEntry("request_types", "", "request_types", AppConst.BASE_URL + "request_types"));
@@ -57,16 +57,16 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
             //} else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
             //  so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.controlpanel.name())) {
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONTROLPANEL.name())) {
             so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));
             so.addEntry(new OutlineEntry("nationalities", "", "nationalities", AppConst.BASE_URL + "nationalities"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.landrelationstar.name())) {
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.LANDRELATIONSTAR.name())) {
             so.addEntry(new OutlineEntry("property_codes", "", "property_codes", AppConst.BASE_URL + "property_codes"));
             so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", AppConst.BASE_URL + "real_estate_obj_statuses"));
             //   so.addEntry(new OutlineEntry("structure_type", "", "structure_types", AppConst.BASE_URL + "structure_types"));
             //   so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.architecturetar.name())) {
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ARCHITECTURETAR.name())) {
             so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building_states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
         }
