@@ -40,6 +40,7 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
             entity = dao.findById(dto.getId());
         }
 
+        entity.setName(dto.getName());
         entity.setTitle(dto.getTitle());
         entity.setReportQueryType(dto.getReportQueryType());
         if (entity.getReportQueryType() == ReportQueryType.ENTITY_REQUEST || entity.getReportQueryType() == ReportQueryType.CUSTOM_CLASS) {
@@ -50,8 +51,8 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         entity.setOutputFormat(dto.getOutputFormat());
         entity.setStartFrom(dto.getStartFrom());
         entity.setEndUntil(dto.getEndUntil());
-        entity.setDescription(dto.getDescription());
         entity.setTags(dto.getTags());
+        entity.setLocName(dto.getLocName());
         entity.setObservers(dto.getObservers());
 
         EmployeeDAO eDao = new EmployeeDAO(ses);

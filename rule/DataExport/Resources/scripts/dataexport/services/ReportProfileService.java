@@ -1,5 +1,6 @@
 package dataexport.services;
 
+import administrator.dao.LanguageDAO;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
@@ -126,6 +127,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             outcome.addPayload("exportFormatType", ExportFormatType.values());
             outcome.addPayload("reportQueryType", ReportQueryType.values());
             outcome.addPayload("entityClassNames", entityClassNames);
+            outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
@@ -199,7 +201,6 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     }
             }
 
-
             JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
             JasperPrint print = JasperFillManager
                     .fillReport(
@@ -232,13 +233,12 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 } else if (type.equalsIgnoreCase("csv")) {
                     exporter = new JRCsvExporter();
                     exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
-               } else if (type.equalsIgnoreCase("xml")) {
+                } else if (type.equalsIgnoreCase("xml")) {
                     exporter = new JRXmlExporter();
                     exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
                 } else {
                     throw new RestServiceException("Unknown export format (" + type + ")");
                 }
-
 
                 exporter.setExporterInput(new SimpleExporterInput(print));
                 exporter.exportReport();
