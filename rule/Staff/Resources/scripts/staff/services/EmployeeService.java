@@ -243,9 +243,9 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             ve.addError("organization", "required", "field_is_empty");
         }
 
-        if (entity.getDepartment() == null) {
+      /*  if (entity.getDepartment() == null) {
             ve.addError("department", "required", "field_is_empty");
-        }
+        }*/
 
         if (entity.getPosition() == null) {
             ve.addError("position", "required", "field_is_empty");

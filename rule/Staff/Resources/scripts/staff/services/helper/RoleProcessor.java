@@ -47,8 +47,9 @@ public class RoleProcessor {
                         }
                     }
                 }
+                Lg.info(emp.getLogin() + " added as a reader in " + count + " documents");
             }
-            Lg.info(emp.getLogin() + " added as a reader in " + count + " documents");
+
         }
     }
 }

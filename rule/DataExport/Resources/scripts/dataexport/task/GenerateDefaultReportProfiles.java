@@ -34,9 +34,10 @@ public class GenerateDefaultReportProfiles extends Do {
                 for (Class<IAppEntity<UUID>> entity : ReflectionUtil.getAllAppEntities(env.getPackageName())) {
                     System.out.println(entity.getCanonicalName());
                     ReportProfile reportProfile = new ReportProfile();
+                    reportProfile.setName(entity.getSimpleName());
                     reportProfile.setReportQueryType(ReportQueryType.ENTITY_REQUEST);
                     reportProfile.setClassName(entity.getCanonicalName());
-                    reportProfile.setOutputFormat(ExportFormatType.XML);
+                    reportProfile.setOutputFormat(ExportFormatType.CSV);
                     LocalDate firstDay = LocalDate.now().with(firstDayOfYear());
                     reportProfile.setStartFrom(Date.from(firstDay.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                     reportProfile.setEndUntil(new Date());
