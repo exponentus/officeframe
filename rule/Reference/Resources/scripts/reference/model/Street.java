@@ -42,6 +42,8 @@ public class Street extends SimpleReferenceEntity {
         this.locality = city;
     }
 
+
+
     @Override
     public String getFullXMLChunk(_Session ses) {
         StringBuilder chunk = new StringBuilder(1000);
