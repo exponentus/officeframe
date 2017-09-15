@@ -47,8 +47,11 @@ public class TagDAO extends ReferenceDAO<Tag, UUID> {
                 cq.orderBy(orderBy);
             }
 
-            cq.where(condition);
-            countCq.where(condition);
+            if (condition != null) {
+                cq.where(condition);
+                countCq.where(condition);
+            }
+
             TypedQuery<Tag> typedQuery = em.createQuery(cq);
             Query query = em.createQuery(countCq);
             long count = (long) query.getSingleResult();
