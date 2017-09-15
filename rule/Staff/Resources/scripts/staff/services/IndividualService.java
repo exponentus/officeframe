@@ -55,8 +55,10 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
-                actionBar.addAction(new Action().addNew);
-                actionBar.addAction(new Action().deleteDocument);
+                Action action = new Action();
+                actionBar.addAction(action.addNew);
+                actionBar.addAction(action.deleteDocument);
+                actionBar.addAction(action.refreshVew);
                 outcome.addPayload(actionBar);
             }
 

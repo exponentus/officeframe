@@ -40,8 +40,10 @@ public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDT
         IUser user = session.getUser();
         if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
             _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().addNew);
-            actionBar.addAction(new Action().deleteDocument);
+            Action action = new Action();
+            actionBar.addAction(action.addNew);
+            actionBar.addAction(action.deleteDocument);
+            actionBar.addAction(action.refreshVew);
             outcome.addPayload(actionBar);
         }
 
@@ -49,7 +51,6 @@ public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDT
         outcome.addPayload(vp);
 
         return Response.ok(outcome).build();
-
     }
 
     @GET
