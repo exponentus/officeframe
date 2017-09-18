@@ -2,7 +2,7 @@ package monitoring.model;
 
 import com.exponentus.common.model.SimpleAppEntity;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import dataexport.init.AppConst;
+import monitoring.init.AppConst;
 import monitoring.model.constants.ActivityType;
 
 import javax.persistence.Column;

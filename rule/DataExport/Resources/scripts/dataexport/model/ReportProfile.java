@@ -102,7 +102,7 @@ public class ReportProfile extends SimpleReferenceEntity {
         this.tags = tags;
     }
 
-      @Override
+    @Override
     public String getURL() {
         return AppConst.BASE_URL + "report-profiles/" + getIdentifier();
     }

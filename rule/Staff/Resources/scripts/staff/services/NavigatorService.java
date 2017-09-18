@@ -52,11 +52,13 @@ public class NavigatorService extends RestProvider {
             co.addEntry(new OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees"));
             co.addEntry(new OutlineEntry("individuals", "", "individuals", AppConst.BASE_URL + "individuals"));
 
-            co.addEntry(new OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
-            co.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization_labels"));
-            co.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", AppConst.BASE_URL + "individual_labels"));
+            Outline ro = new Outline("", "staff_ref");
+            ro.addEntry(new OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
+            ro.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization_labels"));
+            ro.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", AppConst.BASE_URL + "individual_labels"));
 
             list.add(co);
+            list.add(ro);
 
             Outcome outcome = new Outcome();
             outcome.addPayload("nav", list);

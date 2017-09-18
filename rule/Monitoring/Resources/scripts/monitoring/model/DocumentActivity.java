@@ -3,7 +3,7 @@ package monitoring.model;
 import com.exponentus.common.model.SimpleAppEntity;
 import com.exponentus.common.model.converter.UUIDConverter;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import dataexport.init.AppConst;
+import monitoring.init.AppConst;
 import monitoring.model.embedded.Event;
 import monitoring.model.util.EventConverter;
 import org.eclipse.persistence.annotations.Convert;
