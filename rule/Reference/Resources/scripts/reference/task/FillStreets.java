@@ -3,31 +3,22 @@ package reference.task;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import com.exponentus.util.StringUtil;
-import jxl.Sheet;
-import jxl.Workbook;
-import jxl.WorkbookSettings;
-import jxl.read.biff.BiffException;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
 import reference.init.AppConst;
 import reference.model.Locality;
 import reference.model.Street;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = AppConst.CODE + "_fill_almaty_streets")
+@Command(name = AppConst.CODE + "_fill_streets")
 public class FillStreets extends Do {
-    private static final String STREETS_LIST = EnvConst.RESOURCES_DIR + File.separator + "streets_almaty.xls";
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {

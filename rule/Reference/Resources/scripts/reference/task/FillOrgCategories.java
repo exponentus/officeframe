@@ -1,10 +1,5 @@
 package reference.task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
@@ -13,9 +8,13 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Command(name = "fill_org_categories")
 public class FillOrgCategories extends Do {
@@ -29,12 +28,15 @@ public class FillOrgCategories extends Do {
 		String[] dataRus = { "ТОО", "Частный предприниматель", "АО", "Государственное ведомство", "РГП",
 				"Зарубежная компания", "Общественное объединение", "Мэрия", "Посольство",
 				"Образовательное учреждение" };
+		String[] dataKaz = { "ТОО", "Частный предприниматель", "АО", "Государственное ведомство", "РГП",
+				"Зарубежная компания", "Общественное объединение", "Акимат", "Посольство",
+				"Образовательное учреждение" };
 
 		for (int i = 0; i < data.length; i++) {
 			OrgCategory entity = new OrgCategory();
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.ENG, data[i]);
-			name.put(LanguageCode.KAZ, dataRus[i]);
+			name.put(LanguageCode.KAZ, dataKaz[i]);
 			name.put(LanguageCode.RUS, dataRus[i]);
 			entity.setLocName(name);
 			entity.setName(data[i]);
