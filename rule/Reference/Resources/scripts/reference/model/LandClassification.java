@@ -4,6 +4,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.*;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__land_classifications")
+@Table(name = AppConst.CODE + "__land_classifications")
 public class LandClassification extends SimpleReferenceEntity {
 
 
