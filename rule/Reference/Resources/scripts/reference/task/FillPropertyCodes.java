@@ -9,6 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.PropertyCodeDAO;
+import reference.init.AppConst;
 import reference.model.PropertyCode;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.Map;
  * Created by Kayra on 30/12/15.
  */
 
-@Command(name = "fill_property_codes")
+@Command(name = AppConst.CODE + "_fill_property_codes")
 public class FillPropertyCodes extends Do {
 
 	@Override

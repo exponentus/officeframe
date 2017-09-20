@@ -10,6 +10,7 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.DocumentSubjectDAO;
 import reference.dao.RealEstateObjStatusDAO;
+import reference.init.AppConst;
 import reference.model.DocumentSubject;
 import reference.model.RealEstateObjStatus;
 import reference.model.constants.CountryCode;
@@ -20,18 +21,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_real_estate_obj_statuses")
+@Command(name = AppConst.CODE + "_fill_real_estate_obj_statuses")
 public class FillRealEstateObjStatus extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<RealEstateObjStatus> entities = new ArrayList<>();
 
-		String names[] = { "on_sale", "owned", "rental", "rented", "unknown" };
-		String namesEng[] = { "On sale", "Owned","Rental", "Rented","Unknown" };
-		String namesRus[] = { "На продажу", "В собственности","Сдается в аренду", "В аренде", "Не определен" };
+		String names[] = { "on_sale", "owned", "rental", "rented" };
+		String namesEng[] = { "On sale", "Owned","Rental", "Rented" };
+		String namesRus[] = { "На продажу", "В собственности","Сдается в аренду", "В аренде"};
 		RealEstateObjStatusCode[] code = {RealEstateObjStatusCode.ON_SALE, RealEstateObjStatusCode.OWNED,
-				RealEstateObjStatusCode.RENTAL, RealEstateObjStatusCode.RENTED, RealEstateObjStatusCode.UNKNOWN};
+				RealEstateObjStatusCode.RENTAL, RealEstateObjStatusCode.RENTED};
 
 		for (int i = 0; i < names.length; i++) {
 			RealEstateObjStatus status = new RealEstateObjStatus();
@@ -39,6 +40,7 @@ public class FillRealEstateObjStatus extends Do {
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.RUS, namesRus[i]);
 			name.put(LanguageCode.ENG, namesEng[i]);
+			name.put(LanguageCode.KAZ, names[i]);
 			status.setLocName(name);
 			status.setCode(code[i]);
 			entities.add(status);
