@@ -189,6 +189,10 @@ public class DepartmentService extends RestProvider {
             ve.addError("type", "required", "field_is_empty");
         }
 
+       if (entity.getId() != null &&   entity.getId().equals(entity.getLeadDepartment().getId())) {
+            ve.addError("leadDepartment", "required", "value_is_not_allowed");
+        }
+
         if (ve.hasError()) {
             throw ve;
         }
