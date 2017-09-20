@@ -8,13 +8,9 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.DocumentSubjectDAO;
 import reference.dao.RealEstateObjStatusDAO;
 import reference.init.AppConst;
-import reference.model.DocumentSubject;
 import reference.model.RealEstateObjStatus;
-import reference.model.constants.CountryCode;
-import reference.model.constants.RealEstateObjStatusCode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,8 +27,7 @@ public class FillRealEstateObjStatus extends Do {
 		String names[] = { "on_sale", "owned", "rental", "rented" };
 		String namesEng[] = { "On sale", "Owned","Rental", "Rented" };
 		String namesRus[] = { "На продажу", "В собственности","Сдается в аренду", "В аренде"};
-		RealEstateObjStatusCode[] code = {RealEstateObjStatusCode.ON_SALE, RealEstateObjStatusCode.OWNED,
-				RealEstateObjStatusCode.RENTAL, RealEstateObjStatusCode.RENTED};
+
 
 		for (int i = 0; i < names.length; i++) {
 			RealEstateObjStatus status = new RealEstateObjStatus();
@@ -42,7 +37,6 @@ public class FillRealEstateObjStatus extends Do {
 			name.put(LanguageCode.ENG, namesEng[i]);
 			name.put(LanguageCode.KAZ, names[i]);
 			status.setLocName(name);
-			status.setCode(code[i]);
 			entities.add(status);
 		}
 

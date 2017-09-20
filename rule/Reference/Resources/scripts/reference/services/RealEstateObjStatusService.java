@@ -14,7 +14,6 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.RealEstateObjStatusDAO;
 import reference.model.RealEstateObjStatus;
-import reference.model.constants.RealEstateObjStatusCode;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
@@ -92,7 +91,6 @@ public class RealEstateObjStatusService extends RestProvider {
             outcome.addPayload("contentTitle", "real_estate_obj_status");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
-            outcome.addPayload("realEstateObjStatusCode", RealEstateObjStatusCode.values());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -140,7 +138,7 @@ public class RealEstateObjStatusService extends RestProvider {
             // fill from dto
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
-            entity.setCode(dto.getCode());
+
 
             dao.save(entity);
 
@@ -178,9 +176,7 @@ public class RealEstateObjStatusService extends RestProvider {
             ve.addError("name", "required", "field_is_empty");
         }
 
-        if (entity.getCode() == null) {
-            ve.addError("code", "required", "field_is_empty");
-        }
+
 
         if (ve.hasError()) {
             throw ve;
