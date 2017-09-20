@@ -186,6 +186,7 @@
   "user_profile" : "Perfil de usuário",
   "login" : null,
   "entity_has_not_been_found" : "entity_has_not_been_found",
+  "user_activities" : "user_activities",
   "approver_decision_yes" : " approver_decision_yes",
   "ui_theme" : "Theme",
   "task_title" : "Título da tarefa",
@@ -535,6 +536,7 @@
   "all_applications" : null,
   "quantity" : null,
   "assignment" : null,
+  "act_user" : "act_user",
   "send_request" : "Enviar pedido",
   "dispute_type" : null,
   "add_demand" : "add_demand",
@@ -547,6 +549,7 @@
   "category" : "category",
   "clazz" : "clazz",
   "user" : null,
+  "event_time" : "event_time",
   "legal_entities" : null,
   "customer" : "Cliente"
 }

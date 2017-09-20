@@ -4,13 +4,14 @@ import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
 import com.exponentus.log.Lg;
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
+import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
 import monitoring.dao.filter.UserActivityFilter;
 import monitoring.model.DocumentActivity;
@@ -28,6 +29,7 @@ import javax.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
@@ -51,6 +53,34 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		} catch (IOException e) {
 			Lg.exception(e);
 		}
+	}
+
+	@Override
+	public ViewPage<UserActivity> findAll(int pageNum, int pageSize) {
+		EntityManager em = getEntityManagerFactory().createEntityManager();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		try {
+			CriteriaQuery<UserActivity> cq = cb.createQuery(UserActivity.class);
+			CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
+			Root<UserActivity> c = cq.from(UserActivity.class);
+			cq.select(c);
+			countCq.select(cb.count(c));
+			cq.orderBy(cb.desc(c.get("eventTime")));
+
+			TypedQuery<UserActivity> typedQuery = em.createQuery(cq);
+			Query query = em.createQuery(countCq);
+			long count = (long) query.getSingleResult();
+			int maxPage = pageable(typedQuery, count, pageNum, pageSize);
+
+			List<UserActivity> result = typedQuery.getResultList();
+			ViewPage<UserActivity> r = new ViewPage<UserActivity>(result, count, maxPage, pageNum);
+			return r;
+		} catch (Exception e) {
+			Server.logger.exception(e);
+		} finally {
+			em.close();
+		}
+		return null;
 	}
 
 	public  ViewPage findViewPage(UserActivityFilter filter, SortParams sortParams, int page, int pageSize) throws DAOException{
@@ -155,12 +185,12 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		UserActivity ua = new UserActivity();
 		ua.setEventTime(new Date());
 		ua.setType(ActivityType.LOGIN);
-		ua.setActUser(user.getId());
-		ua.setIp(ip);
+		ua.setActUser((User)user);
+
 
 		if (!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")) {
 			try {
-
+				ua.setIp(ip);
 				Country c = ip2c.getCountry(ip);
 				ua.setCountry(c.getName());
 				add(ua);
@@ -168,6 +198,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 				Lg.exception(e);
 			}
 		}else{
+			ua.setIp("local");
 			add(ua);
 		}
 
@@ -179,7 +210,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		UserActivity ua = new UserActivity();
 		ua.setEventTime(new Date());
 		ua.setType(ActivityType.LOGOUT);
-		ua.setActUser(user.getId());
+		ua.setActUser((User) user);
 	//	add(ua);
 
 	}

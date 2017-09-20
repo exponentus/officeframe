@@ -1,24 +1,30 @@
 package monitoring.model;
 
+import administrator.model.User;
 import com.exponentus.common.model.SimpleAppEntity;
+import com.exponentus.common.model.converter.UserConverter;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.init.AppConst;
 import monitoring.model.constants.ActivityType;
+import org.eclipse.persistence.annotations.Convert;
+import org.eclipse.persistence.annotations.Converter;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import java.util.Date;
 
 @JsonRootName("userActivity")
 @Entity
-@Table(name = "monit__user_activities")
-@NamedQuery(name = "UserActivity.findAll", query = "SELECT m FROM UserActivity AS m")
+@Table(name = AppConst.CODE + "__user_activities")
+@Converter(name = "user_conv", converterClass = UserConverter.class)
 public class UserActivity extends SimpleAppEntity {
 
+    @Convert("user_conv")
+    @Basic(optional = true)
     @Column(name = "act_user", nullable = false)
-    private Long actUser;
+    private User actUser;
 
     @Column(name = "event_time", nullable = false)
     private Date eventTime;
@@ -41,11 +47,11 @@ public class UserActivity extends SimpleAppEntity {
         this.eventTime = eventTime;
     }
 
-    public Long getActUser() {
+    public User getActUser() {
         return actUser;
     }
 
-    public void setActUser(Long actUser) {
+    public void setActUser(User actUser) {
         this.actUser = actUser;
     }
 
