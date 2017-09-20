@@ -39,10 +39,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("locality_types", "", "locality_types", AppConst.BASE_URL + "locality_types"));
         co.addEntry(new OutlineEntry("positions", "", "positions", AppConst.BASE_URL + "positions"));
         co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", AppConst.BASE_URL + "document_languages"));
-        co.addEntry(new OutlineEntry("doc_types", "", "document_types", AppConst.BASE_URL + "document_types"));
-        co.addEntry(new OutlineEntry("doc_subjs", "", "document_subjects", AppConst.BASE_URL + "document_subjects"));
         co.addEntry(new OutlineEntry("tags", "", "tags", AppConst.BASE_URL + "tags"));
-        co.addEntry(new OutlineEntry("text_template", "", "text_templates", AppConst.BASE_URL + "text_templates"));
 
         Outline so = new Outline("specific_reference_data", "specific");
 
@@ -52,9 +49,12 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("request_types", "", "request_types", AppConst.BASE_URL + "request_types"));
             so.addEntry(new OutlineEntry("demand_types", "", "demand_types", AppConst.BASE_URL + "demand_types"));
             so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
-            so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
+            so.addEntry(new OutlineEntry("doc_types", "", "document_types", AppConst.BASE_URL + "document_types"));
+            so.addEntry(new OutlineEntry("doc_subjs", "", "document_subjects", AppConst.BASE_URL + "document_subjects"));
+            so.addEntry(new OutlineEntry("text_template", "", "text_templates", AppConst.BASE_URL + "text_templates"));
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
+            so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
             //} else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
             //  so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONTROLPANEL.name())) {

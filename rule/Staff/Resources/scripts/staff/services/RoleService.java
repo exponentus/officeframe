@@ -4,8 +4,11 @@ import administrator.dao.ApplicationDAO;
 import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
+import com.exponentus.log.Lg;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -163,7 +166,15 @@ public class RoleService extends RestProvider {
             outcome.addPayload(entity);
 
             return Response.ok(outcome).build();
-        } catch (SecureException | DAOException e) {
+        } catch (DAOException e) {
+            if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+                return responseValidationError(
+                        Environment.vocabulary.getWord("value_exists", session.getLang()) + " (" + dto.getName() + "). " +
+                         Environment.vocabulary.getWord("document_has_not_been_saved", session.getLang()));
+            }else{
+                return responseException(e);
+            }
+        } catch (SecureException e) {
             return responseException(e);
         } catch (DTOException e) {
             return responseValidationError(e);
