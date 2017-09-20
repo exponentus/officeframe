@@ -8,6 +8,7 @@ import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.log.Lg;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -168,9 +169,10 @@ public class RoleService extends RestProvider {
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+                LanguageCode lang = session.getLang();
                 return responseValidationError(
-                        Environment.vocabulary.getWord("value_exists", session.getLang()) + " (" + dto.getName() + "). " +
-                         Environment.vocabulary.getWord("document_has_not_been_saved", session.getLang()));
+                        Environment.vocabulary.getWord("value_exists", lang) + " (" + dto.getName() + "). " +
+                         Environment.vocabulary.getWord("document_has_not_been_saved", lang));
             }else{
                 return responseException(e);
             }
