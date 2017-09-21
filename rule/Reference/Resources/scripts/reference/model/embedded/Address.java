@@ -2,6 +2,7 @@ package reference.model.embedded;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
@@ -18,8 +19,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
+@JsonPropertyOrder({ "country", "region", "district", "locality","cityDistrict",
+        "street", "houseNumber", "flat", "additionalInfo", "coordiantes" })
 @Converters({ @org.eclipse.persistence.annotations.Converter(name = "country_conv", converterClass = CountryConverter.class),
         @Converter(name = "region_conv", converterClass = RegionConverter.class),
+        @Converter(name = "district_conv", converterClass = DistrictConverter.class),
         @Converter(name = "citydistrict_conv", converterClass = CityDistrictConverter.class),
         @Converter(name = "locality_conv", converterClass = LocalityConverter.class),
         @Converter(name = "street_conv", converterClass = StreetConverter.class)})
@@ -30,20 +34,29 @@ public class Address {
     @Basic(fetch = FetchType.LAZY)
     private Country country;
 
+
     @NotNull
     @Convert("region_conv")
     @Basic(fetch = FetchType.LAZY)
     private Region region;
 
     @NotNull
-    @Convert("citydistrict_conv")
+    @Convert("district_conv")
     @Basic(fetch = FetchType.LAZY)
-    private CityDistrict cityDistrict;
+    private District district;
 
     @NotNull
     @Convert("locality_conv")
     @Basic(fetch = FetchType.LAZY)
     private Locality locality;
+
+
+    @NotNull
+    @Convert("citydistrict_conv")
+    @Basic(fetch = FetchType.LAZY)
+    private CityDistrict cityDistrict;
+
+
 
     @NotNull
     @Convert("street_conv")
@@ -130,12 +143,15 @@ public class Address {
         this.region = region;
     }
 
-//    public void setRegion(String r) {
-//        region = new Region();
-//
-//    }
+    public District getDistrict() {
+        return district;
+    }
 
-    public CityDistrict getDistrict() {
+    public void setDistrict(District district) {
+        this.district = district;
+    }
+
+    public CityDistrict getCityDistrict() {
         return cityDistrict;
     }
 
@@ -143,35 +159,5 @@ public class Address {
         this.cityDistrict = district;
     }
 
-    public static Address getStub(_Session session) {
-        Address addr = new Address();
-        try {
-            CountryDAO cDao = new CountryDAO(session);
-            Country country = cDao.findByCode(CountryCode.KZ);
-            addr.setCountry(country);
-            RegionDAO rDao = new RegionDAO(session);
-            Region region = rDao.findByName("Алматы");
-            addr.setRegion(region);
-        } catch (DAOException e) {
 
-        }
-
-        CityDistrict cityDistrict = new CityDistrict();
-        cityDistrict.setName("");
-        addr.setCityDistrict(cityDistrict);
-        try {
-            LocalityDAO lDao = new LocalityDAO(session);
-            Locality city = lDao.findByName("Алматы");
-            addr.setLocality(city);
-        } catch (DAOException e) {
-
-        }
-        Street street = new Street();
-        street.setName("");
-        addr.setStreet(street);
-        addr.setHouseNumber("");
-        addr.setAdditionalInfo("");
-        return addr;
-
-    }
 }

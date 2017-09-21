@@ -396,6 +396,7 @@
   "org" : "Organization",
   "apply" : "Request",
   "request_types" : "Request types",
+  "last_logins" : "Last logins",
   "meetingroom" : "Meeting room",
   "cancel_reason" : "Cancel reason",
   "investment_indicators" : "investment_indicators",

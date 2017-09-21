@@ -41,4 +41,27 @@ public class UserActivityService extends RestProvider {
 
         return Response.ok(outcome).build();
     }
+
+    @GET
+    @Path("action/getLastLogins")
+    public Response getViewGeneratedPage() {
+        _Session session = getSession();
+        WebFormData params = getWebFormData();
+
+        UserActivityDAO dao = new UserActivityDAO(session);
+        int pageSize = session.getPageSize();
+        ViewPage vp = dao.findAll(params.getPage(), pageSize);
+
+        _ActionBar actionBar = new _ActionBar(session);
+        actionBar.addAction(action.refreshVew);
+
+        Outcome outcome = new Outcome();
+        outcome.setId("user-activity");
+        outcome.setTitle("last_logins");
+        outcome.addPayload("contentTitle", "last_logins");
+        outcome.addPayload(actionBar);
+        outcome.addPayload(vp);
+
+        return Response.ok(outcome).build();
+    }
 }

@@ -23,8 +23,8 @@ public class FillBuildingMaterials extends Do {
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<BuildingMaterial> entities = new ArrayList<>();
 
-		String names[] = { "brick", "monolithic reinforced concrete", "reinforced concrete panel", "steel frame with filler",
-				"wood-frame", "foamblock", "skeleton-reed panel", "slagblock", "rubble", "clay", "wood-sleepers",
+		String names[] = { "brick", "monolithic_reinforced_concrete", "reinforced_concrete_panel", "steel_frame_with_filler",
+				"wood-frame", "foamblock", "skeleton-reed_panel", "slagblock", "rubble", "clay", "wood-sleepers",
 				"metal", "mixed" };
 		String namesRus[] = { "Кирпич", "Монолитный железобетон", "Железобетонная панель", "Стальной каркас с наполнителем",
 			"Дерево-сруб", "Пеноблок","Каркасно-камышитовая панель", "Шлакоблок", "Бут", "Саман", "Дерево-шпала",

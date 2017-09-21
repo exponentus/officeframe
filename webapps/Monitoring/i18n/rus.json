@@ -396,6 +396,7 @@
   "org" : "Организация",
   "apply" : "Применить",
   "request_types" : "Типы запросов",
+  "last_logins" : "Время последнего посещения",
   "meetingroom" : "Комната для переговоров",
   "cancel_reason" : "Причина отмены",
   "investment_indicators" : "Инвестиции",

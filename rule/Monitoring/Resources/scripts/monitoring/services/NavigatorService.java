@@ -23,6 +23,9 @@ public class NavigatorService extends RestProvider {
 
         Outline co = new Outline("", "common");
         co.addEntry(new OutlineEntry("user_activities", "", "user_activities", AppConst.BASE_URL + "user-activities"));
+        co.addEntry(new OutlineEntry("last_logins", "", "last_logins",
+                AppConst.BASE_URL + "user-activities/action/getLastLogins"));
+
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);

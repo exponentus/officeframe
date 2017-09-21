@@ -396,6 +396,7 @@
   "org" : null,
   "apply" : null,
   "request_types" : null,
+  "last_logins" : "last_logins",
   "meetingroom" : null,
   "cancel_reason" : "Anular motivo",
   "investment_indicators" : "investment_indicators",

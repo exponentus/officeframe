@@ -198,7 +198,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 				Lg.exception(e);
 			}
 		}else{
-			ua.setIp("local");
+			ua.setIp("localhost");
 			add(ua);
 		}
 
