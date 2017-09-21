@@ -134,6 +134,7 @@
   "is_on" : null,
   "applications_for_meeting_room" : null,
   "no_connection" : null,
+  "land_classification" : "land_classification",
   "biz_quantity_ind__ip" : "biz_quantity_ind__ip",
   "new_outgoing" : "new_outgoing",
   "home" : "home",

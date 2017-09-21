@@ -27,7 +27,7 @@ public class FillRealEstateObjStatus extends Do {
 		String names[] = { "on_sale", "owned", "rental", "rented" };
 		String namesEng[] = { "On sale", "Owned","Rental", "Rented" };
 		String namesRus[] = { "На продажу", "В собственности","Сдается в аренду", "В аренде"};
-
+		String namesKaz[] = { "Сатуға арналған", "Меншікті", "Жалға беру", "Жалға берілді"};
 
 		for (int i = 0; i < names.length; i++) {
 			RealEstateObjStatus status = new RealEstateObjStatus();
@@ -35,7 +35,7 @@ public class FillRealEstateObjStatus extends Do {
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.RUS, namesRus[i]);
 			name.put(LanguageCode.ENG, namesEng[i]);
-			name.put(LanguageCode.KAZ, names[i]);
+			name.put(LanguageCode.KAZ, namesKaz[i]);
 			status.setLocName(name);
 			entities.add(status);
 		}
