@@ -55,8 +55,6 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
             so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
-            //} else if (EnvConst.APP_ID.equalsIgnoreCase("constructionaudit")) {
-            //  so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONTROLPANEL.name())) {
             so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));
@@ -65,11 +63,13 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("property_codes", "", "property_codes", AppConst.BASE_URL + "property_codes"));
             so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", AppConst.BASE_URL + "real_estate_obj_statuses"));
             so.addEntry(new OutlineEntry("land_classifications", "", "land_classifications", AppConst.BASE_URL + "land-classifications"));
-            //   so.addEntry(new OutlineEntry("structure_type", "", "structure_types", AppConst.BASE_URL + "structure_types"));
-            //   so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
+            so.addEntry(new OutlineEntry("tax_income_categories", "", "tax_income_categories", AppConst.BASE_URL + "tax-income-categories"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ARCHITECTURETAR.name())) {
             so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building_states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ECONOMY.name())) {
+            so.addEntry(new OutlineEntry("tax_income_categories", "", "tax_income_categories", AppConst.BASE_URL + "tax-income-categories"));
+
         }
 
         list.add(co);

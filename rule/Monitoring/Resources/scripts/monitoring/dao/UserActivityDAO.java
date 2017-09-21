@@ -210,7 +210,11 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 		UserActivity ua = new UserActivity();
 		ua.setEventTime(new Date());
 		ua.setType(ActivityType.LOGOUT);
-		ua.setActUser((User) user);
+		try {
+			ua.setActUser((User) user);
+		}catch (ClassCastException e){
+
+		}
 	//	add(ua);
 
 	}

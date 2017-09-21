@@ -1,56 +1,74 @@
 package reference.services;
 
+import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.domain.IDTODomain;
+import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
+import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.dataengine.jpa.ISimpleReferenceEntity;
 import com.exponentus.env.EnvConst;
+import com.exponentus.exception.SecureException;
+import com.exponentus.log.Lg;
+import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
+import com.exponentus.user.SuperUser;
+import com.exponentus.util.StringUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
+import reference.dao.PositionDAO;
+import reference.model.Position;
 import reference.ui.Action;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDTODomain<T>> extends EntityService<T, D> {
+public abstract class ReferenceService<T extends SimpleReferenceEntity> extends RestProvider {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        WebFormData params = getWebFormData();
-
-        SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-        ViewPage<T> vp = getDomain().getViewPage(sortParams, params.getPage(), session.getPageSize());
-
-        Outcome outcome = new Outcome();
         IUser user = session.getUser();
-        if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            _ActionBar actionBar = new _ActionBar(session);
-            Action action = new Action();
-            actionBar.addAction(action.addNew);
-            actionBar.addAction(action.deleteDocument);
-            actionBar.addAction(action.refreshVew);
-            outcome.addPayload(actionBar);
-        }
+        WebFormData params = getWebFormData();
+        int pageSize = session.getPageSize();
 
-        outcome.setTitle(this.getClass().getAnnotation(Path.class).value());
-        outcome.addPayload(vp);
+            Outcome outcome = new Outcome();
 
-        return Response.ok(outcome).build();
+            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
+            ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+
+            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
+                _ActionBar actionBar = new _ActionBar(session);
+                Action action = new Action();
+                actionBar.addAction(action.addNew);
+                actionBar.addAction(action.deleteDocument);
+                actionBar.addAction(action.refreshVew);
+                outcome.addPayload(actionBar);
+            }
+
+            String keyword = getClass().getAnnotation(Path.class).value().replace("-","_");
+            outcome.setTitle(keyword);
+            outcome.addPayload("contentTitle", keyword);
+            outcome.addPayload(vp);
+
+            return Response.ok(outcome).build();
+
     }
 
     @GET
@@ -59,11 +77,23 @@ public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDT
     public Response getById(@PathParam("id") String id) {
         try {
             _Session session = getSession();
-            T entity = getDomain().getEntity(id);
+            T entity;
+            boolean isNew = "new".equals(id);
+            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 
-            if (entity.getId() == null) {
-                ((ISimpleReferenceEntity) entity).setName("");
+            if (isNew) {
+                try {
+                    Class<T> clazz = (Class<T>) entityClass;
+                    entity = clazz.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    Lg.exception(e);
+                    return null;
+                }
+                entity.setName("");
                 entity.setAuthor(session.getUser());
+            } else {
+                IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
+                entity = dao.findByIdentefier(id);
             }
 
             //
@@ -76,6 +106,7 @@ public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDT
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            outcome.addPayload("contentTitle", StringUtil.kindToKeyword(entity.getEntityKind()));
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
@@ -84,4 +115,94 @@ public abstract class ReferenceService<T extends IAppEntity<UUID>, D extends IDT
             return responseException(e);
         }
     }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response add(T dto) {
+        dto.setId(null);
+        return save(dto);
+    }
+
+    @PUT
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") String id, T dto) {
+        dto.setId(UUID.fromString(id));
+        return save(dto);
+    }
+
+    public Response save(T dto) {
+        _Session session = getSession();
+        IUser user = session.getUser();
+
+        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
+            return null;
+        }
+
+        try {
+            validate(dto);
+            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
+            T entity;
+
+            if (dto.isNew()) {
+                try {
+                    Class<T> clazz = (Class<T>) entityClass;
+                    entity = clazz.newInstance();
+                } catch (InstantiationException | IllegalAccessException e) {
+                    Lg.exception(e);
+                    return null;
+                }
+            } else {
+                entity = dao.findById(dto.getId());
+            }
+
+            entity.setName(dto.getName());
+            entity.setLocName(dto.getLocName());
+            dao.save(entity);
+
+            Outcome outcome = new Outcome();
+            outcome.addPayload(entity);
+
+            return Response.ok(outcome).build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
+        } catch (DTOException e) {
+            return responseValidationError(e);
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+            IDAO<T, UUID> dao = DAOFactory.get(getSession(), entityClass);
+
+            T entity = dao.findByIdentefier(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
+            return responseException(e);
+        }
+    }
+
+    private void validate(T entity) throws DTOException {
+        DTOException ve = new DTOException();
+
+        if (entity.getName() == null || entity.getName().isEmpty()) {
+            ve.addError("name", "required", "field_is_empty");
+        }
+
+        if (ve.hasError()) {
+            throw ve;
+        }
+    }
+
+
 }
