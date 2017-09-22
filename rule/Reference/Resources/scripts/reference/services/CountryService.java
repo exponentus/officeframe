@@ -92,6 +92,7 @@ public class CountryService extends RestProvider {
             outcome.addPayload("contentTitle", "country");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("countryCodes", CountryCode.values());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
