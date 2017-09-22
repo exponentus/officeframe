@@ -288,6 +288,7 @@
   "brand" : "NextBase",
   "moderate" : "Moderation",
   "it_should_pointed_either_assignment_or_primary" : "It should pointed either assignment or primary ",
+  "field_value_is_0" : "The field value should be more than 0",
   "edit" : "Editing",
   "control_types" : "Control types",
   "responsible_persons" : "Responsible person",
