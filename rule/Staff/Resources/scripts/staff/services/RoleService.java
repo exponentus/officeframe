@@ -9,7 +9,6 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
-import com.exponentus.log.Lg;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -160,6 +159,7 @@ public class RoleService extends RestProvider {
             // fill from dto
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
+            entity.setLocalizedDescr(dto.getLocalizedDescr());
 
             dao.save(entity);
 
@@ -172,8 +172,8 @@ public class RoleService extends RestProvider {
                 LanguageCode lang = session.getLang();
                 return responseValidationError(
                         Environment.vocabulary.getWord("value_exists", lang) + " (" + dto.getName() + "). " +
-                         Environment.vocabulary.getWord("document_has_not_been_saved", lang));
-            }else{
+                                Environment.vocabulary.getWord("document_has_not_been_saved", lang));
+            } else {
                 return responseException(e);
             }
         } catch (SecureException e) {

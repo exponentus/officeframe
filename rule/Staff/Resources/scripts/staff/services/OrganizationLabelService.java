@@ -139,6 +139,7 @@ public class OrganizationLabelService extends RestProvider {
             // fill from dto
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
+            entity.setLocalizedDescr(dto.getLocalizedDescr());
 
             dao.save(entity);
 
