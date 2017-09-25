@@ -18,6 +18,7 @@ import javax.ws.rs.core.Response;
 @Path("user-activities")
 @Produces(MediaType.APPLICATION_JSON)
 public class UserActivityService extends RestProvider {
+
     private ConventionalActionFactory action = new ConventionalActionFactory();
 
     @GET
@@ -43,8 +44,8 @@ public class UserActivityService extends RestProvider {
     }
 
     @GET
-    @Path("action/getLastLogins")
-    public Response getViewGeneratedPage() {
+    @Path("s/last-login")
+    public Response getLastLoginViewPage() {
         _Session session = getSession();
         WebFormData params = getWebFormData();
 
