@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 
-@Path("organization_labels")
+@Path("organization-labels")
 public class OrganizationLabelService extends RestProvider {
 
     @GET

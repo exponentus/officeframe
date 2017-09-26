@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 
-@Path("individual_labels")
+@Path("individual-labels")
 public class IndividualLabelService extends RestProvider {
 
     @GET

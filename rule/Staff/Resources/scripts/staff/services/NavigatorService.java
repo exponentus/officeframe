@@ -54,8 +54,8 @@ public class NavigatorService extends RestProvider {
 
             Outline ro = new Outline("", "staff_ref");
             ro.addEntry(new OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
-            ro.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization_labels"));
-            ro.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", AppConst.BASE_URL + "individual_labels"));
+            ro.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization-labels"));
+            ro.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", AppConst.BASE_URL + "individual-labels"));
 
             list.add(co);
             list.add(ro);

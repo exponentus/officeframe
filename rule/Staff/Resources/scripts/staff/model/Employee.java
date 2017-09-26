@@ -6,15 +6,14 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.extconnect.IExtUser;
-import com.exponentus.scripting._Session;
 import com.exponentus.user.UndefinedUser;
-import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.*;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 import reference.model.Position;
+import staff.init.AppConst;
 import staff.model.util.DepartmentConverter;
 import staff.model.util.EmployeeConverter;
 
@@ -197,22 +196,6 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     }
 
     @Override
-    public String getShortXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append("<rank>" + rank + "</rank>");
-        chunk.append("<name>" + getName() + "</name>");
-        chunk.append("<login>" + getLogin() + "</login>");
-        chunk.append("<roles>");
-        if (roles != null) {
-            for (Role l : roles) {
-                chunk.append("<entry id=\"" + l.getId() + "\">" + l.getName() + "</entry>");
-            }
-        }
-        chunk.append("</roles>");
-        return chunk.toString();
-    }
-
-    @Override
     public List<String> getAllRoles() {
         List<String> list = new ArrayList<>();
         if (roles == null) {
@@ -226,35 +209,7 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     }
 
     @Override
-    public String getFullXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-        chunk.append("<name>" + getName() + "</name>");
-        chunk.append("<iin>" + iin + "</iin>");
-        chunk.append("<rank>" + rank + "</rank>");
-        if (user != null) {
-            chunk.append("<login>" + user.getLogin() + "</login>");
-        }
-
-        chunk.append("<birthdate>" + TimeUtil.dateTimeToStringSilently(birthDate) + "</birthdate>");
-
-        if (organization != null) {
-            chunk.append("<organization id=\"" + organization.getId() + "\">" + organization.getLocName(ses.getLang()) + "</organization>");
-        }
-        if (department != null) {
-            chunk.append("<department id=\"" + department.getId() + "\">" + department.getLocName(ses.getLang()) + "</department>");
-        }
-
-        chunk.append("<position id=\"" + position.getId() + "\">" + position.getLocName(ses.getLang()) + "</position>");
-
-        chunk.append("<roles>");
-        if (roles != null) {
-            for (Role l : roles) {
-                chunk.append("<entry id=\"" + l.getId() + "\">" + l.getLocName(ses.getLang()) + "</entry>");
-            }
-        }
-        chunk.append("</roles>");
-
-        return chunk.toString();
+    public String getURL() {
+        return AppConst.BASE_URL + "employees/" + getIdentifier();
     }
 }
