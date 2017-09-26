@@ -3,6 +3,7 @@ package reference.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.*;
 
@@ -21,4 +22,9 @@ public class Vehicle extends SimpleReferenceEntity {
     public VehicleType vehicleType = VehicleType.CAR;
     public TRANSMISSION transmission = TRANSMISSION.AUTO;
     public int capacity = 5;
+
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "vehicles/" + getIdentifier();
+    }
 }

@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("department_types")
+@Path("department-types")
 public class DepartmentTypeService extends RestProvider {
 
     @GET

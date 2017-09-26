@@ -3,6 +3,7 @@ package reference.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.*;
 
@@ -13,4 +14,9 @@ import javax.persistence.*;
 @Table(name = "ref__delivery_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "DeliveryType.findAll", query = "SELECT m FROM DeliveryType AS m ORDER BY m.regDate")
 public class DeliveryType extends SimpleReferenceEntity {
+
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "delivery-types/" + getIdentifier();
+    }
 }

@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("control_types")
+@Path("control-types")
 public class ControlTypeService extends RestProvider {
 
     @GET

@@ -1,9 +1,9 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -38,10 +38,7 @@ public class District extends SimpleReferenceEntity {
     }
 
     @Override
-    public String getFullXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append(super.getFullXMLChunk(ses));
-        chunk.append("<region id=\"" + region.getId() + "\">" + region.getLocName(ses.getLang()) + "</region>");
-        return chunk.toString();
+    public String getURL() {
+        return AppConst.BASE_URL + "districts/" + getIdentifier();
     }
 }

@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("meeting_rooms")
+@Path("meeting-rooms")
 public class MeetingRoomService extends RestProvider {
 
     @GET

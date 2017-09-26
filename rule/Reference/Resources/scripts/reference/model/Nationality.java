@@ -3,6 +3,7 @@ package reference.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.Cacheable;
 import javax.persistence.Entity;
@@ -16,5 +17,8 @@ import javax.persistence.UniqueConstraint;
 @Cacheable(true)
 public class Nationality extends SimpleReferenceEntity {
 
-    // может быть на основе кода страны
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "nationalities/" + getIdentifier();
+    }
 }

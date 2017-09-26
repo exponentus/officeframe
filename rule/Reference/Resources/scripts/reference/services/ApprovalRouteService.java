@@ -26,7 +26,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("approval_routes")
+@Path("approval-routes")
 public class ApprovalRouteService extends RestProvider {
 
     @GET

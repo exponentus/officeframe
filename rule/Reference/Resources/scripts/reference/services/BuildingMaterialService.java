@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("building_materials")
+@Path("building-materials")
 public class BuildingMaterialService extends RestProvider {
 
     @GET

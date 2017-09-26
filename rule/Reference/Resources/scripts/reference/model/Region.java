@@ -1,11 +1,10 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.scripting._Session;
-import com.exponentus.server.Server;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -70,33 +69,7 @@ public class Region extends SimpleReferenceEntity {
     }
 
     @Override
-    public String getFullXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append(super.getFullXMLChunk(ses));
-        if (type != null && type.getId() != null) {
-            chunk.append("<type id=\"" + type.getId() + "\">" + type.getLocName(ses.getLang()) + "</type>");
-        }
-        if (country != null) {
-            chunk.append("<country id=\"" + country.getId() + "\">" + country.getLocName(ses.getLang()) + "</country>");
-        }
-        return chunk.toString();
-    }
-
-    // TODO consistency between Region and Country ??
-
-    @Override
-    public String getShortXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append("<name>" + getName() + "</name>");
-        try {
-            chunk.append("<type id=\"" + type.getId() + "\">" + type.getLocName(ses.getLang()) + "</type>");
-            if (country != null) {
-                chunk.append(
-                        "<country id=\"" + country.getId() + "\">" + country.getLocName(ses.getLang()) + "</country>");
-            }
-        } catch (Exception e) {
-            Server.logger.exception(e);
-        }
-        return chunk.toString();
+    public String getURL() {
+        return AppConst.BASE_URL + "regions/" + getIdentifier();
     }
 }

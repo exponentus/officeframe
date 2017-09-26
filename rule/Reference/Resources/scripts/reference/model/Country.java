@@ -2,10 +2,10 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 import reference.model.constants.CountryCode;
 
 import javax.persistence.*;
@@ -53,12 +53,8 @@ public class Country extends SimpleReferenceEntity {
         this.regions = regions;
     }
 
-    @JsonIgnore
     @Override
-    public String getFullXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append(super.getFullXMLChunk(ses));
-        chunk.append("<code>" + code + "</code>");
-        return chunk.toString();
+    public String getURL() {
+        return AppConst.BASE_URL + "countries/" + getIdentifier();
     }
 }

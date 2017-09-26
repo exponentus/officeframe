@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("demand_types")
+@Path("demand-types")
 public class DemandTypeService extends RestProvider {
 
     @GET

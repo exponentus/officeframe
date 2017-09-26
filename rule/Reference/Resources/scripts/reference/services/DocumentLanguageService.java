@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("document_languages")
+@Path("document-languages")
 public class DocumentLanguageService extends RestProvider {
 
     @GET

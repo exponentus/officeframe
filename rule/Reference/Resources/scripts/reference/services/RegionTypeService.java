@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("region_types")
+@Path("region-types")
 public class RegionTypeService extends RestProvider {
 
     @GET

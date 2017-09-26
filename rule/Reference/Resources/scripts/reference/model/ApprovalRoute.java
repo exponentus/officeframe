@@ -1,16 +1,11 @@
 package reference.model;
 
-import administrator.dao.LanguageDAO;
-import administrator.model.Language;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.converter.LocalizedValConverter;
-import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.constants.LanguageCode;
-import com.exponentus.scripting._Session;
-import com.exponentus.server.Server;
-import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 import reference.model.constants.ApprovalSchemaType;
 import reference.model.constants.converter.ApprovalSchemaTypeConverter;
 import reference.model.embedded.RouteBlock;
@@ -94,49 +89,7 @@ public class ApprovalRoute extends SimpleReferenceEntity {
     }
 
     @Override
-    public String getFullXMLChunk(_Session ses) {
-        StringBuilder chunk = new StringBuilder(1000);
-        chunk.append("<regdate>" + TimeUtil.dateTimeToStringSilently(regDate) + "</regdate>");
-        chunk.append("<name>" + name + "</name>");
-        chunk.append("<ison>" + isOn + "</ison>");
-        chunk.append("<schema>" + schema + "</schema>");
-        chunk.append("<category>" + category + "</category>");
-
-        chunk.append("<routeblocks>");
-        if (routeBlocks != null) {
-            for (RouteBlock b : routeBlocks) {
-                chunk.append("<entry id=\"" + b.getIdentifier() + "\">" + b.getFullXMLChunk(ses) + "</entry>");
-            }
-        }
-        chunk.append("</routeblocks>");
-
-        List<Language> list = null;
-        try {
-            LanguageDAO lDao = new LanguageDAO(ses);
-            list = lDao.findAllActivated();
-        } catch (DAOException e) {
-            Server.logger.exception(e);
-        }
-
-        chunk.append("<localizednames>");
-        if (list != null) {
-            for (Language l : list) {
-                chunk.append("<entry id=\"" + l.getCode() + "\">" + getLocName(l.getCode()) + "</entry>");
-            }
-        }
-        chunk.append("</localizednames>");
-
-        chunk.append("<localizeddescr>");
-        if (list != null) {
-            for (Language l : list) {
-                try {
-                    chunk.append("<entry id=\"" + l.getCode() + "\">" + localizedDescr.get(l.getCode()) + "</entry>");
-                } catch (NullPointerException e) {
-                    chunk.append("<entry id=\"" + l.getCode() + "\"></entry>");
-                }
-            }
-        }
-        chunk.append("</localizeddescr>");
-        return chunk.toString();
+    public String getURL() {
+        return AppConst.BASE_URL + "approval-routes/" + getIdentifier();
     }
 }

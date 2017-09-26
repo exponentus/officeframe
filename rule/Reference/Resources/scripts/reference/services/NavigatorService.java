@@ -31,45 +31,44 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("regions", "", "regions", AppConst.BASE_URL + "regions"));
         co.addEntry(new OutlineEntry("districts", "", "districts", AppConst.BASE_URL + "districts"));
         co.addEntry(new OutlineEntry("localities", "", "localities", AppConst.BASE_URL + "localities"));
-        co.addEntry(new OutlineEntry("city_districts", "", "city_districts", AppConst.BASE_URL + "city_districts"));
+        co.addEntry(new OutlineEntry("city_districts", "", "city_districts", AppConst.BASE_URL + "city-districts"));
         co.addEntry(new OutlineEntry("streets", "", "streets", AppConst.BASE_URL + "streets"));
-        co.addEntry(new OutlineEntry("department_types", "", "department_types", AppConst.BASE_URL + "department_types"));
-        co.addEntry(new OutlineEntry("org_categories", "", "org_categories", AppConst.BASE_URL + "org_categories"));
-        co.addEntry(new OutlineEntry("region_types", "", "region_types", AppConst.BASE_URL + "region_types"));
-        co.addEntry(new OutlineEntry("locality_types", "", "locality_types", AppConst.BASE_URL + "locality_types"));
+        co.addEntry(new OutlineEntry("department_types", "", "department_types", AppConst.BASE_URL + "department-types"));
+        co.addEntry(new OutlineEntry("org_categories", "", "org_categories", AppConst.BASE_URL + "org-categories"));
+        co.addEntry(new OutlineEntry("region_types", "", "region_types", AppConst.BASE_URL + "region-types"));
+        co.addEntry(new OutlineEntry("locality_types", "", "locality_types", AppConst.BASE_URL + "locality-types"));
         co.addEntry(new OutlineEntry("positions", "", "positions", AppConst.BASE_URL + "positions"));
-        co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", AppConst.BASE_URL + "document_languages"));
+        co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", AppConst.BASE_URL + "document-languages"));
         co.addEntry(new OutlineEntry("tags", "", "tags", AppConst.BASE_URL + "tags"));
 
         Outline so = new Outline("specific_reference_data", "specific");
 
         if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
-            so.addEntry(new OutlineEntry("control_types", "", "control_types", AppConst.BASE_URL + "control_types"));
-            so.addEntry(new OutlineEntry("task_types", "", "task_types", AppConst.BASE_URL + "task_types"));
-            so.addEntry(new OutlineEntry("request_types", "", "request_types", AppConst.BASE_URL + "request_types"));
-            so.addEntry(new OutlineEntry("demand_types", "", "demand_types", AppConst.BASE_URL + "demand_types"));
-            so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work_types"));
-            so.addEntry(new OutlineEntry("doc_types", "", "document_types", AppConst.BASE_URL + "document_types"));
-            so.addEntry(new OutlineEntry("doc_subjs", "", "document_subjects", AppConst.BASE_URL + "document_subjects"));
-            so.addEntry(new OutlineEntry("text_template", "", "text_templates", AppConst.BASE_URL + "text_templates"));
+            so.addEntry(new OutlineEntry("control_types", "", "control_types", AppConst.BASE_URL + "control-types"));
+            so.addEntry(new OutlineEntry("task_types", "", "task_types", AppConst.BASE_URL + "task-types"));
+            so.addEntry(new OutlineEntry("request_types", "", "request_types", AppConst.BASE_URL + "request-types"));
+            so.addEntry(new OutlineEntry("demand_types", "", "demand_types", AppConst.BASE_URL + "demand-types"));
+            so.addEntry(new OutlineEntry("work_types", "", "work_types", AppConst.BASE_URL + "work-types"));
+            so.addEntry(new OutlineEntry("doc_types", "", "document_types", AppConst.BASE_URL + "document-types"));
+            so.addEntry(new OutlineEntry("doc_subjs", "", "document_subjects", AppConst.BASE_URL + "document-subjects"));
+            so.addEntry(new OutlineEntry("text_template", "", "text_templates", AppConst.BASE_URL + "text-templates"));
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
-            so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting_rooms"));
-            so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval_routes"));
+            so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting-rooms"));
+            so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval-routes"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONTROLPANEL.name())) {
             so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));
             so.addEntry(new OutlineEntry("nationalities", "", "nationalities", AppConst.BASE_URL + "nationalities"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.LANDRELATIONSTAR.name())) {
-            so.addEntry(new OutlineEntry("property_codes", "", "property_codes", AppConst.BASE_URL + "property_codes"));
-            so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", AppConst.BASE_URL + "real_estate_obj_statuses"));
+            so.addEntry(new OutlineEntry("property_codes", "", "property_codes", AppConst.BASE_URL + "property-codes"));
+            so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", AppConst.BASE_URL + "real-estate-obj-statuses"));
             so.addEntry(new OutlineEntry("land_classifications", "", "land_classifications", AppConst.BASE_URL + "land-classifications"));
             so.addEntry(new OutlineEntry("tax_income_categories", "", "tax_income_categories", AppConst.BASE_URL + "tax-income-categories"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ARCHITECTURETAR.name())) {
-            so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building_states"));
-            so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building_materials"));
+            so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building-states"));
+            so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building-materials"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ECONOMY.name())) {
             so.addEntry(new OutlineEntry("tax_income_categories", "", "tax_income_categories", AppConst.BASE_URL + "tax-income-categories"));
-
         }
 
         list.add(co);

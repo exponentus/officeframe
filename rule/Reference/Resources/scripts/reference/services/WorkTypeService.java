@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("work_types")
+@Path("work-types")
 public class WorkTypeService extends RestProvider {
 
     @GET

@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("property_codes")
+@Path("property-codes")
 public class PropertyCodeService extends RestProvider {
 
     @GET

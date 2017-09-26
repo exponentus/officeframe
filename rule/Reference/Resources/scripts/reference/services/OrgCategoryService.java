@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("org_categories")
+@Path("org-categories")
 public class OrgCategoryService extends RestProvider {
 
     @GET

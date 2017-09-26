@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("real_estate_obj_statuses")
+@Path("real-estate-obj-statuses")
 public class RealEstateObjStatusService extends RestProvider {
 
     @GET
@@ -175,7 +175,6 @@ public class RealEstateObjStatusService extends RestProvider {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
 
 
         if (ve.hasError()) {

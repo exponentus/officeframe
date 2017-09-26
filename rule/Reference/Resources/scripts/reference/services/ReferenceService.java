@@ -1,14 +1,10 @@
 package reference.services;
 
 import com.exponentus.common.dao.DAOFactory;
-import com.exponentus.common.domain.IDTODomain;
 import com.exponentus.common.model.SimpleReferenceEntity;
-import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.IDAO;
-import com.exponentus.dataengine.jpa.ISimpleReferenceEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.log.Lg;
@@ -20,12 +16,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
-import com.exponentus.user.SuperUser;
 import com.exponentus.util.StringUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.formula.functions.T;
-import reference.dao.PositionDAO;
-import reference.model.Position;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
@@ -46,29 +37,28 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
-            Outcome outcome = new Outcome();
+        Outcome outcome = new Outcome();
 
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-            IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
-            ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+        SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+        Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
+        ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
+        if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
+            _ActionBar actionBar = new _ActionBar(session);
+            Action action = new Action();
+            actionBar.addAction(action.addNew);
+            actionBar.addAction(action.deleteDocument);
+            actionBar.addAction(action.refreshVew);
+            outcome.addPayload(actionBar);
+        }
 
-            String keyword = getClass().getAnnotation(Path.class).value().replace("-","_");
-            outcome.setTitle(keyword);
-            outcome.addPayload("contentTitle", keyword);
-            outcome.addPayload(vp);
+        String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
+        outcome.setTitle(keyword);
+        outcome.addPayload("contentTitle", keyword);
+        outcome.addPayload(vp);
 
-            return Response.ok(outcome).build();
-
+        return Response.ok(outcome).build();
     }
 
     @GET
@@ -203,6 +193,4 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             throw ve;
         }
     }
-
-
 }

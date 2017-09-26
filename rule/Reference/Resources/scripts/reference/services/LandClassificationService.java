@@ -13,19 +13,12 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.LandClassificationDAO;
-import reference.dao.LocalityDAO;
-import reference.dao.PropertyCodeDAO;
-import reference.dao.RegionDAO;
 import reference.model.LandClassification;
-import reference.model.Locality;
-import reference.model.PropertyCode;
-import reference.model.Region;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;

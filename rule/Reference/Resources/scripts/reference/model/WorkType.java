@@ -4,6 +4,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.init.AppConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -31,5 +32,10 @@ public class WorkType extends SimpleReferenceEntity {
 
     public void setParent(WorkType parent) {
         this.parent = parent;
+    }
+
+    @Override
+    public String getURL() {
+        return AppConst.BASE_URL + "work-types/" + getIdentifier();
     }
 }

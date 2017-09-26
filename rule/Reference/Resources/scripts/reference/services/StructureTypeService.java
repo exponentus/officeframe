@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("structure_types")
+@Path("structure-types")
 public class StructureTypeService extends RestProvider {
 
     @GET

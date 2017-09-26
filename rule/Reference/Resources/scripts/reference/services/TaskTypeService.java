@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("task_types")
+@Path("task-types")
 public class TaskTypeService extends RestProvider {
 
     @GET

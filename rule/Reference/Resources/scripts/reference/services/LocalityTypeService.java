@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("locality_types")
+@Path("locality-types")
 public class LocalityTypeService extends RestProvider {
 
     @GET

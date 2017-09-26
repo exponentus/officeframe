@@ -23,7 +23,7 @@ import java.util.UUID;
 
 import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
-@Path("request_types")
+@Path("request-types")
 public class RequestTypeService extends RestProvider {
 
     @GET
