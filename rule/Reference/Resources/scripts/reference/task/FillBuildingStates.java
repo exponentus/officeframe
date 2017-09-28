@@ -9,33 +9,37 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.BuildingStateDAO;
+import reference.dao.RealEstateObjStatusDAO;
+import reference.init.AppConst;
 import reference.model.BuildingState;
+import reference.model.RealEstateObjStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_building_states")
+@Command(name = AppConst.CODE + "_fill_building_states")
 public class FillBuildingStates extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<BuildingState> entities = new ArrayList<>();
 
-		String names[] = { "in operation", "commissioned","under construction" };
-		String namesEng[] = { "Letter", "Commissioned", "Under Construction" };
-		String namesRus[] = { "В эксплуатации", "Вводимые в эксплуатацию","Строящиеся" };
-		String namesKaz[] = { "В эксплуатации", "Вводимые в эксплуатацию","Строящиеся" };
+		String names[] = { "in_operation", "commissioned", "under_construction" };
+		String namesEng[] = { "In operation", "Commissioned", "Under construction" };
+		String namesRus[] = { "В эксплуатации", "Вводимый в эксплуатацию","Строящиеся"};
+		String namesKaz[] = { "Қолданыста", "Тапсырылжатыр", "Кұрылыс барысында"};
+
 		for (int i = 0; i < names.length; i++) {
-			BuildingState dType = new BuildingState();
-			dType.setName(names[i]);
+			BuildingState status = new BuildingState();
+			status.setName(names[i]);
 			Map<LanguageCode, String> name = new HashMap<>();
 			name.put(LanguageCode.RUS, namesRus[i]);
 			name.put(LanguageCode.ENG, namesEng[i]);
 			name.put(LanguageCode.KAZ, namesKaz[i]);
-			dType.setLocName(name);
-			entities.add(dType);
+			status.setLocName(name);
+			entities.add(status);
 		}
 
 		try {
