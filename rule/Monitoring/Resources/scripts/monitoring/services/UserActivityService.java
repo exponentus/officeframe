@@ -1,7 +1,9 @@
 package monitoring.services;
 
+import com.exponentus.common.dto.Table;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
+import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.WebFormData;
@@ -44,25 +46,27 @@ public class UserActivityService extends RestProvider {
     }
 
     @GET
-    @Path("s/last-login")
+    @Path("last-visits")
     public Response getLastLoginViewPage() {
         _Session session = getSession();
         WebFormData params = getWebFormData();
+        try {
+            UserActivityDAO dao = new UserActivityDAO(session);
 
-        UserActivityDAO dao = new UserActivityDAO(session);
-        int pageSize = session.getPageSize();
-        ViewPage vp = dao.findAll(params.getPage(), pageSize);
+            Table table = dao.getLastVisits();
+            _ActionBar actionBar = new _ActionBar(session);
+            actionBar.addAction(action.refreshVew);
 
-        _ActionBar actionBar = new _ActionBar(session);
-        actionBar.addAction(action.refreshVew);
+            Outcome outcome = new Outcome();
+            outcome.setId("last-visits");
+            outcome.setTitle("last_visit");
+            outcome.addPayload("contentTitle", "last_visit");
+            outcome.addPayload(actionBar);
+            outcome.addPayload(table);
 
-        Outcome outcome = new Outcome();
-        outcome.setId("user-activity");
-        outcome.setTitle("last_logins");
-        outcome.addPayload("contentTitle", "last_logins");
-        outcome.addPayload(actionBar);
-        outcome.addPayload(vp);
-
-        return Response.ok(outcome).build();
+            return Response.ok(outcome).build();
+        } catch (DAOException e) {
+            return responseException(e);
+        }
     }
 }
