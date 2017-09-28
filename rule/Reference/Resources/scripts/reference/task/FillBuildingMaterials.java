@@ -26,6 +26,9 @@ public class FillBuildingMaterials extends Do {
 		String names[] = { "brick", "monolithic_reinforced_concrete", "reinforced_concrete_panel", "steel_frame_with_filler",
 				"wood-frame", "foamblock", "skeleton-reed_panel", "slagblock", "rubble", "clay", "wood-sleepers",
 				"metal", "mixed" };
+		String namesEng[] = { "Brick", "Monolithic reinforced concrete", "Reinforced concrete panel", "Steel frame with filler",
+				"Wood frame", "Foamblock", "Skeleton-reed panel", "Slagblock", "Rubble", "Clay", "Wood-sleepers",
+				"metal", "mixed" };
 		String namesRus[] = { "Кирпич", "Монолитный железобетон", "Железобетонная панель", "Стальной каркас с наполнителем",
 			"Дерево-сруб", "Пеноблок","Каркасно-камышитовая панель", "Шлакоблок", "Бут", "Саман", "Дерево-шпала",
 			"Метал", "Смешанный" };
@@ -36,6 +39,7 @@ public class FillBuildingMaterials extends Do {
 			BuildingMaterial dType = new BuildingMaterial();
 			dType.setName(names[i]);
 			Map<LanguageCode, String> name = new HashMap<>();
+			name.put(LanguageCode.ENG, namesEng[i]);
 			name.put(LanguageCode.RUS, namesRus[i]);
 			name.put(LanguageCode.KAZ, namesKaz[i]);
 			dType.setLocName(name);

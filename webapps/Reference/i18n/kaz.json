@@ -200,6 +200,7 @@
   "message_too_short" : "The message is too short",
   "office_memo_plural" : "Қызметтік жазбалар",
   "in_days.plural" : "{{count}}  күн",
+  "land_cadastre" : "land_cadastre",
   "snp" : "snp",
   "add_subtask" : null,
   "report" : "Орындау",

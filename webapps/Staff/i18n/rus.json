@@ -200,6 +200,7 @@
   "message_too_short" : "Сообщение слишком короткое",
   "office_memo_plural" : "Служебные записки",
   "in_days.plural" : "{{count}} дней",
+  "land_cadastre" : "Земельный кадастр",
   "snp" : "snp",
   "add_subtask" : "Добавить подзадачу",
   "report" : "Исполнение",

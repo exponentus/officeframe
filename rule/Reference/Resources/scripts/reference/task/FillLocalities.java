@@ -32,13 +32,18 @@ public class FillLocalities extends Do {
 		String[] data2 = { "Pavloadar", "Aksu", "Ekibastuz" };
 		String[] data2Rus = { "Павлодар", "Аксу", "Экибастуз" };
 
+		String[] zhambylData = { "taraz", "karatau", "zhanatas" };
+		String[] zhambylRegionLocalitiesEng = { "Taraz", "Karatau", "Zhanatas" };
+		String[] zhambylRegionLocalitiesRus = { "Тараз", "Каратау", "Жанатас" };
+		String[] zhambylRegionLocalitiesKaz = {  "Тараз", "Каратау", "Жанатас" };
+
 		Region d = null;
 		LocalityTypeDAO ltDao = null;
 		RegionDAO cDao = null;
 		try {
 			ltDao = new LocalityTypeDAO(ses);
 			cDao = new RegionDAO(ses);
-			d = cDao.findByName("Almaty region");
+			d = cDao.findByName("almaty_region");
 
 			if (d != null) {
 				for (String val : data) {
@@ -50,7 +55,7 @@ public class FillLocalities extends Do {
 				}
 			}
 
-			d = cDao.findByName("Almaty");
+			d = cDao.findByName("almaty");
 
 			if (d != null) {
 				for (String val : data1) {
@@ -62,7 +67,7 @@ public class FillLocalities extends Do {
 				}
 			}
 
-			d = cDao.findByName("Pavloadar region");
+			d = cDao.findByName("pavloadar_region");
 
 			if (d != null) {
 				for (int i = 0; i < data2.length; i++) {
@@ -73,6 +78,23 @@ public class FillLocalities extends Do {
 					name.put(LanguageCode.ENG, data2[i]);
 					name.put(LanguageCode.RUS, data2Rus[i]);
 					name.put(LanguageCode.KAZ, data2Rus[i]);
+					entity.setLocName(name);
+					entity.setType(ltDao.findByCode(LocalityCode.CITY));
+					entities.add(entity);
+				}
+			}
+
+			d = cDao.findByName("zhambyl_region");
+
+			if (d != null) {
+				for (int i = 0; i < zhambylData.length; i++) {
+					Locality entity = new Locality();
+					entity.setRegion(d);
+					entity.setName(zhambylData[i]);
+					Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+					name.put(LanguageCode.ENG, zhambylRegionLocalitiesEng[i]);
+					name.put(LanguageCode.RUS, zhambylRegionLocalitiesRus[i]);
+					name.put(LanguageCode.KAZ, zhambylRegionLocalitiesKaz[i]);
 					entity.setLocName(name);
 					entity.setType(ltDao.findByCode(LocalityCode.CITY));
 					entities.add(entity);

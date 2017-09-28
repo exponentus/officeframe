@@ -15,8 +15,5 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "ref__building_states", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class BuildingState extends SimpleReferenceEntity {
 
-    @Override
-    public String getURL() {
-        return AppConst.BASE_URL + "building-states/" + getIdentifier();
-    }
+
 }

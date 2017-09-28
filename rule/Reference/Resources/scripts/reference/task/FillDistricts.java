@@ -31,12 +31,19 @@ public class FillDistricts extends Do {
 		String[] pavlodarDistrictsRus = { "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
 				"Павлодарский", "Успенский", "Щербактинский" };
 
+		String[] zhambylDistricts = { "talasky", "shusky", "zhambulsky", "kordaysky", "zhualynsky", "sarysusky", "ryskulovsky",
+				"moinkumsky", "baizaksky" };
+		String[] zhambylDistrictsEng = { "Talasky", "Shusky", "Zhambulsky", "Kordaysky", "Zhualynsky", "Sarysusky", "Ryskulovsky",
+				"Moinkumsky", "Baizaksky" };
+		String[] zhambylDistrictsRus = { "Талаский", "Шуский", "Жамбылский", "Кордайский", "Жуалынский", "Сарысуский", "Т.Рыскуловский",
+				"Моинкумский", "Байзакский" };
+
 		Region region = null;
 		RegionDAO cDao = null;
 		try {
 			cDao = new RegionDAO(ses);
 
-			region = cDao.findByName("Almaty region");
+			region = cDao.findByName("almaty_region");
 			for (int i = 0; i < almatyDistricts.length; i++) {
 				District entity = new District();
 				entity.setRegion(region);
@@ -44,7 +51,7 @@ public class FillDistricts extends Do {
 				entities.add(entity);
 			}
 
-			region = cDao.findByName("Pavlodar region");
+			region = cDao.findByName("pavlodar_region");
 			for (int i = 0; i < pavlodarDistricts.length; i++) {
 				District entity = new District();
 				entity.setRegion(region);
@@ -53,6 +60,19 @@ public class FillDistricts extends Do {
 				name.put(LanguageCode.ENG, pavlodarDistricts[i]);
 				name.put(LanguageCode.RUS, pavlodarDistrictsRus[i]);
 				name.put(LanguageCode.KAZ, pavlodarDistrictsRus[i]);
+				entity.setLocName(name);
+				entities.add(entity);
+			}
+
+			region = cDao.findByName("zhambyl_region");
+			for (int i = 0; i < zhambylDistricts.length; i++) {
+				District entity = new District();
+				entity.setRegion(region);
+				entity.setName(zhambylDistricts[i]);
+				Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+				name.put(LanguageCode.ENG, zhambylDistrictsEng[i]);
+				name.put(LanguageCode.RUS, zhambylDistrictsRus[i]);
+				name.put(LanguageCode.KAZ, zhambylDistrictsRus[i]);
 				entity.setLocName(name);
 				entities.add(entity);
 			}

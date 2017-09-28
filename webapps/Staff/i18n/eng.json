@@ -200,6 +200,7 @@
   "message_too_short" : "The message is too short",
   "office_memo_plural" : "Internal",
   "in_days.plural" : "{{count}} days",
+  "land_cadastre" : "Land cadastre",
   "snp" : "snp",
   "add_subtask" : "Add subtask",
   "report" : "Report",

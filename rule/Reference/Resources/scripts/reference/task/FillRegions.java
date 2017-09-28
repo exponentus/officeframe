@@ -1,12 +1,15 @@
 package reference.task;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -25,7 +28,10 @@ public class FillRegions extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Region> entities = new ArrayList<>();
-		String[] data = { "Almaty", "Astana", "Almaty region", "Pavlodar region" };
+		String[] data = { "almaty", "astana", "almaty_region", "pavlodar_region", "zhambyl_region" };
+		String[] namesEng = { "Almaty", "Astana", "Almaty region", "Pavlodar region", "Zhambyl region" };
+		String[] namesRus = { "Алматы", "Астана", "Алматинская область", "Павлодарская область", "Жамбылская область" };
+		String[] namesKaz = { "Алматы", "Астана", "Алматинская область", "Павлодарская область", "Жамбылская область" };
 		try {
 			CountryDAO cDao = new CountryDAO(ses);
 			Country country = null;
@@ -36,9 +42,14 @@ public class FillRegions extends Do {
 				Region entity = new Region();
 				entity.setCountry(country);
 				entity.setName(data[i]);
+				Map<LanguageCode, String> name = new HashMap<>();
+				name.put(LanguageCode.RUS, namesRus[i]);
+				name.put(LanguageCode.ENG, namesEng[i]);
+				name.put(LanguageCode.KAZ, namesKaz[i]);
+				entity.setLocName(name);
 				RegionTypeDAO rtDao = new RegionTypeDAO(ses);
 				RegionType rType = null;
-				if (data[i].equals("Almaty") || data[i].equals("Astana")) {
+				if (data[i].equals("almaty") || data[i].equals("astana")) {
 					rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
 				} else {
 					rType = rtDao.findByCode(RegionCode.REGION);
@@ -47,7 +58,7 @@ public class FillRegions extends Do {
 				entities.add(entity);
 			}
 
-			String[] data1 = { "Moscow", "Saint-Petersburg" };
+			String[] data1 = { "moscow", "saint_petersburg" };
 			Country country1 = null;
 
 			country1 = cDao.findByName("Russia");
@@ -58,7 +69,7 @@ public class FillRegions extends Do {
 				entity.setName(data1[i]);
 				RegionTypeDAO rtDao = new RegionTypeDAO(ses);
 				RegionType rType = null;
-				if (data1[i].equals("Moscow") || data1[i].equals("Saint-Petersburg")) {
+				if (data1[i].equals("moscow") || data1[i].equals("saint_petersburg")) {
 					rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
 				} else {
 					rType = rtDao.findByCode(RegionCode.REGION);
@@ -67,7 +78,7 @@ public class FillRegions extends Do {
 				entities.add(entity);
 			}
 
-			String[] data2 = { "Lisbon", "Leiria" };
+			String[] data2 = { "lisbon", "leiria" };
 			Country country2 = null;
 
 			country2 = cDao.findByName("Portugal");
@@ -78,7 +89,7 @@ public class FillRegions extends Do {
 				entity.setName(data2[i]);
 				RegionTypeDAO rtDao = new RegionTypeDAO(ses);
 				RegionType rType = null;
-				if (data2[i].equals("Lisbon")) {
+				if (data2[i].equals("lisbon")) {
 					rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
 				} else {
 					rType = rtDao.findByCode(RegionCode.REGION);
