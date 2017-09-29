@@ -90,9 +90,15 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
             Map<Long, Employee> emps = empDao.findAll(false).getResult().stream()
                     .collect(Collectors.toMap(Employee::getUserID, Function.identity(), (e1, e2) -> e1));
 
+            ActionFactory actionFactory = new ActionFactory();
+            _ActionBar actionBar = new _ActionBar(session);
+            actionBar.addAction(actionFactory.close);
+            actionBar.addAction(actionFactory.saveAndClose);
+
             Outcome outcome = topicDomain.getOutcome(topic);
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("employees", emps);
+            outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
