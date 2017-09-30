@@ -3,7 +3,7 @@ package discussing.domain;
 import administrator.model.User;
 import com.exponentus.common.domain.CommonDomain;
 import com.exponentus.common.domain.IValidation;
-import com.exponentus.common.dto.ACL;
+import com.exponentus.common.ui.ACL;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;

@@ -1,23 +1,18 @@
 package monitoring.dao;
 
-import administrator.dao.UserDAO;
 import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
-import com.exponentus.common.dto.Table;
-import com.exponentus.common.dto.embedded.Row;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
-import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
-import com.exponentus.util.NumberUtil;
 import monitoring.dao.filter.UserActivityFilter;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
@@ -25,12 +20,6 @@ import monitoring.model.constants.ActivityType;
 import monitoring.model.embedded.Event;
 import net.firefang.ip2c.Country;
 import net.firefang.ip2c.IP2Country;
-import reference.dao.DistrictDAO;
-import reference.dao.LandClassificationDAO;
-import reference.dao.RegionDAO;
-import reference.model.District;
-import reference.model.LandClassification;
-import reference.model.Region;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -39,7 +28,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -97,10 +85,10 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         return null;
     }
 
-    public Table getLastVisits() throws DAOException {
-        int colCount = 0;
+    public ViewPage getLastVisits() throws DAOException {
+     /*   int colCount = 0;
         LanguageCode lang = ses.getLang();
-        com.exponentus.common.dto.Table table = new Table();
+       Table table = new Table();
         table.setName(Environment.vocabulary.getWord("site_traffic", lang));
         List<String> header = new ArrayList();
         header.add(Environment.vocabulary.getWord("user", lang));
@@ -119,9 +107,9 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
             rows.add(row);
         }
 
-        table.setRows(rows);
+        table.setRows(rows);*/
 
-        return table;
+        return new ViewPage();
     }
 
     public ViewPage findViewPage(UserActivityFilter filter, SortParams sortParams, int page, int pageSize) throws DAOException {

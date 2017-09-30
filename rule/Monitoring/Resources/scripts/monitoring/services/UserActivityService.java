@@ -1,6 +1,6 @@
 package monitoring.services;
 
-import com.exponentus.common.dto.Table;
+
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
@@ -53,7 +53,7 @@ public class UserActivityService extends RestProvider {
         try {
             UserActivityDAO dao = new UserActivityDAO(session);
 
-            Table table = dao.getLastVisits();
+            ViewPage table = dao.getLastVisits();
             _ActionBar actionBar = new _ActionBar(session);
             actionBar.addAction(action.refreshVew);
 
