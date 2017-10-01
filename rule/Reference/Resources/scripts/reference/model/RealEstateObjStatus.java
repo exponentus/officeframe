@@ -14,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__real_estate_obj_statuses", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = AppConst.CODE + "__real_estate_obj_statuses", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class RealEstateObjStatus extends SimpleReferenceEntity {
 
     @Override
