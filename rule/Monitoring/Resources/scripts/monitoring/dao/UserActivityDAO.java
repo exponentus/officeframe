@@ -9,11 +9,9 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.extconnect.IMonitoringDAO;
 import com.exponentus.log.Lg;
-import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
-import monitoring.dao.filter.UserActivityFilter;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
 import monitoring.model.constants.ActivityType;
@@ -85,35 +83,18 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         return null;
     }
 
-    public ViewPage getLastVisits() throws DAOException {
-     /*   int colCount = 0;
-        LanguageCode lang = ses.getLang();
-       Table table = new Table();
-        table.setName(Environment.vocabulary.getWord("site_traffic", lang));
-        List<String> header = new ArrayList();
-        header.add(Environment.vocabulary.getWord("user", lang));
-        header.add(Environment.vocabulary.getWord("last_visit", lang));
-        table.setHeader(header);
+    public ViewPage<UserActivity> getLastVisits(int pageNum, int pageSize) throws DAOException {
+        EntityManager em = getEntityManagerFactory().createEntityManager();
+        Query query = em.createQuery(
+                "SELECT MAX(ua.eventTime), ua.actUser FROM UserActivity ua "
+                        + "GROUP BY ua.actUser ORDER BY MAX(ua.eventTime)");
+        Query queryCount = em.createQuery(
+                "SELECT COUNT(ua.actUser) FROM UserActivity ua GROUP BY ua.actUser ");
 
-        List<Row> rows = new ArrayList();
-        UserDAO userDAO = new UserDAO(ses);
-
-        for (User user : userDAO.findAll()) {
-            Row row = new Row();
-            row.setName(user.getLogin());
-            List<String> values = new ArrayList();
-            values.add(Integer.toString(NumberUtil.getRandomNumber(10, 50)));
-            row.setValues(values);
-            rows.add(row);
-        }
-
-        table.setRows(rows);*/
-
-        return new ViewPage();
-    }
-
-    public ViewPage findViewPage(UserActivityFilter filter, SortParams sortParams, int page, int pageSize) throws DAOException {
-        return null;
+        long count = queryCount.getResultList().size();
+        int maxPage = pageable(query, count, pageNum, pageSize);
+        List<UserActivity> result = query.getResultList();
+        return new ViewPage<UserActivity>(result, count, maxPage, pageNum);
     }
 
 

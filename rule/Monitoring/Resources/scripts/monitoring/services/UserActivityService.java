@@ -48,13 +48,12 @@ public class UserActivityService extends RestProvider {
     @GET
     @Path("last-visits")
     public Response getLastLoginViewPage() {
-        _Session session = getSession();
+        _Session ses = getSession();
         WebFormData params = getWebFormData();
         try {
-            UserActivityDAO dao = new UserActivityDAO(session);
+            UserActivityDAO dao = new UserActivityDAO(ses);
 
-            ViewPage table = dao.getLastVisits();
-            _ActionBar actionBar = new _ActionBar(session);
+            _ActionBar actionBar = new _ActionBar(ses);
             actionBar.addAction(action.refreshVew);
 
             Outcome outcome = new Outcome();
@@ -62,7 +61,7 @@ public class UserActivityService extends RestProvider {
             outcome.setTitle("last_visit");
             outcome.addPayload("contentTitle", "last_visit");
             outcome.addPayload(actionBar);
-            outcome.addPayload(table);
+            outcome.addPayload(dao.getLastVisits(getWebFormData().getPage(),ses.getPageSize()));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
