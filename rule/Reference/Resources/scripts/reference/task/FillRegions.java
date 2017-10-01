@@ -36,7 +36,7 @@ public class FillRegions extends Do {
 			CountryDAO cDao = new CountryDAO(ses);
 			Country country = null;
 
-			country = cDao.findByName("Kazakhstan");
+			country = cDao.findByName("kazakhstan");
 
 			for (int i = 0; i < data.length; i++) {
 				Region entity = new Region();
@@ -61,7 +61,7 @@ public class FillRegions extends Do {
 			String[] data1 = { "moscow", "saint_petersburg" };
 			Country country1 = null;
 
-			country1 = cDao.findByName("Russia");
+			country1 = cDao.findByName("russia");
 
 			for (int i = 0; i < data1.length; i++) {
 				Region entity = new Region();
@@ -81,7 +81,7 @@ public class FillRegions extends Do {
 			String[] data2 = { "lisbon", "leiria" };
 			Country country2 = null;
 
-			country2 = cDao.findByName("Portugal");
+			country2 = cDao.findByName("portugal");
 
 			for (int i = 0; i < data2.length; i++) {
 				Region entity = new Region();

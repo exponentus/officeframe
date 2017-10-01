@@ -24,8 +24,8 @@ public class FillCountries extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<Country> entities = new ArrayList<Country>();
-		String[] data = { "Kazakhstan", "Russia", "Byelorussia", "Ukraine", "Germany", "France", "Turkey", "USA",
-				"China", "Bulgaria", "Portugal" };
+		String[] data = { "kazakhstan", "russia", "byelorussia", "ukraine", "germany", "france", "turkey", "usa",
+				"china", "bulgaria", "portugal" };
 		String[] dataRus = { "Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США",
 				"Китай", "Болгария", "Португалия" };
 		String[] dataKaz = { "Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США",
