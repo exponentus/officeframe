@@ -138,6 +138,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
             // fill from dto
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
+            entity.setRequireDate(dto.isRequireDate());
 
             dao.save(entity);
 
