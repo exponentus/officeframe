@@ -128,6 +128,7 @@
   "invested_area_large" : "invested_area_large",
   "owner" : "owner",
   "region_districts" : "Аумақтық бөлімшесі",
+  "require_date" : "Күнді талап ету",
   "approval_block_time_limit_help" : "oсы уақыттан кейін бекіту процесін шектеу алға",
   "blocks" : "blocks",
   "password_confirm_not_equals" : "Парольдеріңіз сәйкес келмейді",

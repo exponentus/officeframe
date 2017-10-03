@@ -128,6 +128,7 @@
   "invested_area_large" : "Крупные предприятия",
   "owner" : "Владелец",
   "region_districts" : "Территориальное деление",
+  "require_date" : "Запрашивать дату",
   "approval_block_time_limit_help" : "время по прошествии которого документ переходит к следующему согласователю",
   "blocks" : "Блоки",
   "password_confirm_not_equals" : "Пароли не совпадают",

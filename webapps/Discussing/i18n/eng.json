@@ -128,6 +128,7 @@
   "invested_area_large" : "invested_area_large",
   "owner" : "Owner",
   "region_districts" : "region_districts",
+  "require_date" : "Require date",
   "approval_block_time_limit_help" : "after this time limit the approval process will go forward",
   "blocks" : "Blocks",
   "password_confirm_not_equals" : "Passwords do not match",

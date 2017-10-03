@@ -128,6 +128,7 @@
   "invested_area_large" : null,
   "owner" : "owner",
   "region_districts" : "region_districts",
+  "require_date" : "require_date",
   "approval_block_time_limit_help" : "approval_block_time_limit_help",
   "blocks" : "blocks",
   "password_confirm_not_equals" : null,

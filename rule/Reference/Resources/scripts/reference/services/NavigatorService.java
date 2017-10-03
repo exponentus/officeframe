@@ -67,7 +67,8 @@ public class NavigatorService extends RestProvider {
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ARCHITECTURETAR.name())) {
             so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building-states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building-materials"));
-        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ECONOMY.name())) {
+            so.addEntry(new OutlineEntry("memorial_types", "", "memorial_types", AppConst.BASE_URL + "memorial-types"));
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.REGIONECONOMY.name())) {
             so.addEntry(new OutlineEntry("tax_income_categories", "", "tax_income_categories", AppConst.BASE_URL + "tax-income-categories"));
         }
 
