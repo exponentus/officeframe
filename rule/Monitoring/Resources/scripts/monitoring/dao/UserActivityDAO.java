@@ -38,7 +38,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         super(UserActivity.class);
         try {
             ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
-
         } catch (IOException e) {
             Lg.exception(e);
         }
@@ -49,7 +48,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         this.ses = ses;
         try {
             ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
-
         } catch (IOException e) {
             Lg.exception(e);
         }
@@ -85,9 +83,10 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
     public ViewPage<UserActivity> getLastVisits(int pageNum, int pageSize) throws DAOException {
         EntityManager em = getEntityManagerFactory().createEntityManager();
+
         Query query = em.createQuery(
-                "SELECT MAX(ua.eventTime), ua.actUser FROM UserActivity ua "
-                        + "GROUP BY ua.actUser ORDER BY MAX(ua.eventTime)");
+                "SELECT ua FROM UserActivity ua " +
+                        " WHERE ua.eventTime = (SELECT MAX(e.eventTime) FROM UserActivity e WHERE ua.actUser = e.actUser)");
         Query queryCount = em.createQuery(
                 "SELECT COUNT(ua.actUser) FROM UserActivity ua GROUP BY ua.actUser ");
 
@@ -96,7 +95,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         List<UserActivity> result = query.getResultList();
         return new ViewPage<UserActivity>(result, count, maxPage, pageNum);
     }
-
 
     @Override
     public void postEvent(IUser user, IAppEntity<UUID> entity, String descr) throws DAOException {
@@ -113,8 +111,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         e.setAfterState(entity);
         ua.addEvent(e);
         add(ua);
-
-
     }
 
     public DocumentActivity findById(long id) {
@@ -135,7 +131,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         } finally {
             em.close();
         }
-
     }
 
     public Long getCount() {
@@ -167,7 +162,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         } finally {
             em.close();
         }
-
     }
 
     public void delete(DocumentActivity entity) {
@@ -197,7 +191,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         ua.setType(ActivityType.LOGIN);
         ua.setActUser((User) user);
 
-
         if (!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")) {
             try {
                 ua.setIp(ip);
@@ -212,8 +205,6 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
             ua.setIp("localhost");
             add(ua);
         }
-
-
     }
 
     @Override
@@ -227,7 +218,5 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
         }
         //	add(ua);
-
     }
-
 }
