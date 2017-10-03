@@ -59,9 +59,9 @@ public class UserActivityService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.setId("last-visits");
             outcome.setTitle("last_visit");
-            outcome.addPayload("contentTitle", "last_visit");
+            outcome.addPayload("contentTitle", "last_logins");
             outcome.addPayload(actionBar);
-            outcome.addPayload(dao.getLastVisits(getWebFormData().getPage(),ses.getPageSize()));
+            outcome.addPayload(dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize()));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
