@@ -40,7 +40,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("positions", "", "positions", AppConst.BASE_URL + "positions"));
         co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", AppConst.BASE_URL + "document-languages"));
         co.addEntry(new OutlineEntry("tags", "", "tags", AppConst.BASE_URL + "tags"));
-
+        co.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval-routes"));
         Outline so = new Outline("specific_reference_data", "specific");
 
         if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
@@ -54,7 +54,6 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("text_template", "", "text_templates", AppConst.BASE_URL + "text-templates"));
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting-rooms"));
-            so.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval-routes"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONTROLPANEL.name())) {
             so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));

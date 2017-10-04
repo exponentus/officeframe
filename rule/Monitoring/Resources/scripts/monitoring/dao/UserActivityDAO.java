@@ -86,7 +86,8 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
 
         Query query = em.createQuery(
                 "SELECT ua FROM UserActivity ua " +
-                        " WHERE ua.eventTime = (SELECT MAX(e.eventTime) FROM UserActivity e WHERE ua.actUser = e.actUser)");
+                        " WHERE ua.eventTime = (SELECT MAX(e.eventTime) FROM UserActivity e WHERE ua.actUser = e.actUser)" +
+                        " ORDER BY ua.eventTime desc");
         Query queryCount = em.createQuery(
                 "SELECT COUNT(ua.actUser) FROM UserActivity ua GROUP BY ua.actUser ");
 
