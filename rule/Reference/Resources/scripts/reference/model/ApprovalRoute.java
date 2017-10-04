@@ -34,7 +34,7 @@ public class ApprovalRoute extends SimpleReferenceEntity {
     private String category;
 
     @Convert(converter = LocalizedValConverter.class)
-    @Column(name = "localized_descr", columnDefinition = "json")
+    @Column(name = "localized_descr", columnDefinition = "jsonb")
     private Map<LanguageCode, String> localizedDescr;
 
     @OneToMany(cascade = CascadeType.ALL)
