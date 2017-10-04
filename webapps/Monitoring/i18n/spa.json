@@ -495,6 +495,7 @@
   "task_type" : null,
   "publish_to_customer" : "Compartir con el cliente",
   "inbox" : "Correo entrante",
+  "statistics" : "statistics",
   "common_reference_data" : "common_reference_data",
   "message_title" : "message_title",
   "document_has_not_been_saved" : "document_has_not_been_saved",
