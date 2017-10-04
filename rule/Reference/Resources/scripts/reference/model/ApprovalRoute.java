@@ -6,8 +6,8 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.AppConst;
-import reference.model.constants.ApprovalSchemaType;
-import reference.model.constants.converter.ApprovalSchemaTypeConverter;
+import com.exponentus.common.model.constants.ApprovalSchemaType;
+import com.exponentus.common.model.constants.converter.ApprovalSchemaTypeConverter;
 import reference.model.embedded.RouteBlock;
 
 import javax.persistence.*;

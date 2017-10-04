@@ -9,7 +9,7 @@ import org.eclipse.persistence.annotations.Converters;
 import reference.model.DepartmentType;
 import staff.init.AppConst;
 import staff.model.util.DepartmentConverter;
-import staff.model.util.EmployeeConverter;
+import com.exponentus.common.model.util.EmployeeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

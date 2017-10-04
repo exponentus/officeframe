@@ -4,8 +4,11 @@ import administrator.model.User;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
+import com.exponentus.common.model.util.EmployeeConverter;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.extconnect.IExtUser;
+import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.user.IUser;
 import com.exponentus.user.UndefinedUser;
 import com.fasterxml.jackson.annotation.*;
 import org.eclipse.persistence.annotations.Cache;
@@ -15,7 +18,6 @@ import org.eclipse.persistence.annotations.Converters;
 import reference.model.Position;
 import staff.init.AppConst;
 import staff.model.util.DepartmentConverter;
-import staff.model.util.EmployeeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -123,8 +125,23 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     }
 
     @JsonIgnore
-    public User getUser() {
-        return user;
+    public IUser getUser() {
+        return (IUser) user;
+    }
+
+    @Override
+    public LanguageCode getDefaultLang() {
+        return user.getDefaultLang();
+    }
+
+    @Override
+    public String getEmail() {
+        return user.getEmail();
+    }
+
+    @Override
+    public String getSlack() {
+        return user.getSlack();
     }
 
     @JsonProperty

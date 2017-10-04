@@ -1,19 +1,11 @@
 package reference.model.embedded;
 
-import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
-import reference.dao.CountryDAO;
-import reference.dao.LocalityDAO;
-import reference.dao.RegionDAO;
 import reference.model.*;
-import reference.model.constants.CountryCode;
 import reference.model.util.*;
-import staff.model.util.DepartmentConverter;
-import staff.model.util.EmployeeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -15,8 +15,8 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.ApprovalRouteDAO;
 import reference.model.ApprovalRoute;
-import reference.model.constants.ApprovalSchemaType;
-import reference.model.constants.ApprovalType;
+import com.exponentus.common.model.constants.ApprovalSchemaType;
+import com.exponentus.common.model.constants.ApprovalType;
 import reference.ui.Action;
 
 import javax.ws.rs.*;

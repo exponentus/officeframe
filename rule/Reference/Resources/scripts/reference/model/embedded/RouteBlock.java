@@ -4,8 +4,8 @@ import com.exponentus.common.model.SimpleAppEntity;
 import com.exponentus.scripting.IPOJOObject;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import reference.model.constants.ApprovalType;
-import reference.model.constants.converter.ApprovalTypeConverter;
+import com.exponentus.common.model.constants.ApprovalType;
+import com.exponentus.common.model.constants.converter.ApprovalTypeConverter;
 import staff.model.Employee;
 
 import javax.persistence.Column;
