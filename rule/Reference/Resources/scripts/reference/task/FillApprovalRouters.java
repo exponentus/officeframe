@@ -1,10 +1,5 @@
 package reference.task;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
@@ -16,7 +11,6 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.EnumUtil;
 import com.exponentus.util.NumberUtil;
-
 import reference.dao.ApprovalRouteDAO;
 import reference.model.ApprovalRoute;
 import reference.model.constants.ApprovalSchemaType;
@@ -24,6 +18,11 @@ import reference.model.constants.ApprovalType;
 import reference.model.embedded.RouteBlock;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Command(name = "fill_approval_routes")
 public class FillApprovalRouters extends Do {
@@ -81,7 +80,7 @@ public class FillApprovalRouters extends Do {
 	}
 
 	private RouteBlock getMockBlock() {
-		EmployeeDAO uDao = (EmployeeDAO) Environment.getExtUserDAO();
+		EmployeeDAO uDao = (EmployeeDAO) Environment.getOfficeFrameProvider();
 		RouteBlock bl = new RouteBlock();
 		bl.setType(EnumUtil.getRndElement(ApprovalType.values()));
 		List<Employee> approvers = new ArrayList<Employee>();

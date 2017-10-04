@@ -7,6 +7,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.extconnect.IExtRole;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.extconnect.IOfficeFrameDataProvider;
+import com.exponentus.log.Lg;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
@@ -207,10 +208,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
         return findByUserId(id);
     }
 
-    @Override
-    public IExtUser getEmployee(UUID id) {
-        return findById(id);
-    }
+
 
     @Override
     public Employee add(Employee entity) throws SecureException, DAOException {
@@ -253,9 +251,26 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
         allEmployeeMap = null;
     }
 
+
     @Override
-    public ViewPage<IExtRole> findAllRoles() {
-        // TODO Auto-generated method stub
-        return null;
+    public IExtRole createRole() {
+        return new Role();
+    }
+
+    @Override
+    public boolean saveRole(IExtRole role) {
+        try {
+            RoleDAO roleDAO = new RoleDAO(ses);
+           if (roleDAO.findByName(role.getName()) == null){
+               roleDAO.add((Role) role);
+           }else{
+               roleDAO.update((Role) role);
+           }
+           return true;
+        } catch (DAOException | SecureException e) {
+            Lg.exception(e);
+            return false;
+        }
+
     }
 }
