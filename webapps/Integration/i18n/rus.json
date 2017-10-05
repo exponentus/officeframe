@@ -57,6 +57,7 @@
   "region_district" : "Город, район",
   "departments" : "Подразделения",
   "close" : "Закрыть",
+  "building_objs" : "Здания",
   "federation" : "Федерация",
   "session_was_lost" : "Сессия была сброшена сервером",
   "address" : "Адрес",

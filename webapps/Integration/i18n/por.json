@@ -57,6 +57,7 @@
   "region_district" : "region_district",
   "departments" : null,
   "close" : "Fechar",
+  "building_objs" : "building_objs",
   "federation" : null,
   "session_was_lost" : null,
   "address" : "address",

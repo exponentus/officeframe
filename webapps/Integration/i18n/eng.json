@@ -57,6 +57,7 @@
   "region_district" : "region_district",
   "departments" : "Departments",
   "close" : "Close",
+  "building_objs" : "Buildngs",
   "federation" : "Federation",
   "session_was_lost" : "User session was expired",
   "address" : "Address",
