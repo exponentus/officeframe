@@ -1,6 +1,5 @@
 package monitoring.services;
 
-
 import administrator.dao.ApplicationDAO;
 import administrator.dao.UserDAO;
 import administrator.model.Application;
@@ -26,9 +25,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 
 @Path("user-activities")
@@ -105,8 +102,12 @@ public class UserActivityService extends RestProvider {
             UserDAO userDAO = new UserDAO(ses);
             EmployeeDAO employeeDAO = new EmployeeDAO(ses);
             for (IUser user : userDAO.findAll()) {
-                List resultRow = new ArrayList();
-                resultRow.add(employeeDAO.findByUser(user).getName());
+
+                Map<String, Object> resultRow = new HashMap<>();
+                resultRow.put("actUser", employeeDAO.findByUser(user).getName());
+                resultRow.put("kind", "userActivity");
+                resultRow.put("id", user.getId());
+
                 for (Application application : applicationDAO.findAllActivated()) {
                     if (!Stream.of(EnvConst.OFFICEFRAME_APPLICATION_MODULES).anyMatch(x -> x.equals(application.getName()))
                             && !application.getName().equals(EnvConst.ADMINISTRATOR_MODULE_NAME)) {
@@ -119,7 +120,7 @@ public class UserActivityService extends RestProvider {
                                     totalCount += viewPage.getCount();
                                 }
                             }
-                            resultRow.add(totalCount);
+                            resultRow.put("count", totalCount);
                         }
                     }
                 }
