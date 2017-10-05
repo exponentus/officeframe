@@ -1,21 +1,37 @@
 package monitoring.services;
 
 
+import administrator.dao.ApplicationDAO;
+import administrator.dao.UserDAO;
+import administrator.model.Application;
+import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.jpa.IAppEntity;
+import com.exponentus.dataengine.jpa.IDAO;
+import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
+import com.exponentus.user.IUser;
+import com.exponentus.util.ReflectionUtil;
 import monitoring.dao.UserActivityDAO;
+import staff.dao.EmployeeDAO;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Stream;
 
 @Path("user-activities")
 @Produces(MediaType.APPLICATION_JSON)
@@ -62,6 +78,61 @@ public class UserActivityService extends RestProvider {
             outcome.addPayload("contentTitle", "last_logins");
             outcome.addPayload(actionBar);
             outcome.addPayload(dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize()));
+
+            return Response.ok(outcome).build();
+        } catch (DAOException e) {
+            return responseException(e);
+        }
+    }
+
+    @GET
+    @Path("count-of-records")
+    public Response getRecordsCount() {
+        _Session ses = getSession();
+        WebFormData params = getWebFormData();
+        try {
+            UserActivityDAO dao = new UserActivityDAO(ses);
+
+            _ActionBar actionBar = new _ActionBar(ses);
+            actionBar.addAction(action.refreshVew);
+
+            Outcome outcome = new Outcome();
+            outcome.setId("count-of-records");
+            outcome.setTitle("count_of_records");
+            outcome.addPayload("contentTitle", "count_of_records");
+            outcome.addPayload(actionBar);
+
+            List result = new ArrayList();
+            ApplicationDAO applicationDAO = new ApplicationDAO(ses);
+            UserDAO userDAO = new UserDAO(ses);
+            EmployeeDAO employeeDAO = new EmployeeDAO(ses);
+            for(IUser user: userDAO.findAll()) {
+                List resultRow = new ArrayList();
+                resultRow.add(employeeDAO.findByUser(user).getName());
+                for (Application application : applicationDAO.findAllActivated()) {
+                    if (! Stream.of(EnvConst.OFFICEFRAME_APPLICATION_MODULES).anyMatch(x -> x.equals(application.getName()))
+                            && !application.getName().equals(EnvConst.ADMINISTRATOR_MODULE_NAME)) {
+                        for (Class<IAppEntity<UUID>> clazz : ReflectionUtil.getAllAppEntities(application.getName().toLowerCase())) {
+                            IDAO idao = DAOFactory.get(ses, clazz);
+                            if (idao != null) {
+                                ViewPage viewPage = idao.findAllequal("author",user,0,0);
+                                if (viewPage != null) {
+                                    long count = viewPage.getCount();
+                                    if (count > 0) {
+                                        List resultSubRow = new ArrayList();
+                                        resultSubRow.add(Environment.vocabulary.getWord(clazz.getSimpleName().toLowerCase(), ses.getLang()));
+                                        resultSubRow.add(viewPage.getCount());
+                                        resultRow.add(resultSubRow);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                result.add(resultRow);
+            }
+
+            outcome.addPayload(new ViewPage(result, result.size(),1,1));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

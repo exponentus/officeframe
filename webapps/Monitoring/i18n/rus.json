@@ -531,6 +531,7 @@
   "password_confirm" : "Повтор пароля",
   "structure_type" : "Тип структуры",
   "rejected" : "Отклонен",
+  "landobj" : "Объект земельных отношении",
   "unique_violation" : "Запись уже существует",
   "doc_type" : "Тип документов",
   "learning_center" : "Центр обучения",

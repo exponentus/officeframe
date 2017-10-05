@@ -531,6 +531,7 @@
   "password_confirm" : "Confirm password",
   "structure_type" : "Түрі құрылымы",
   "rejected" : "Қабылданбаған",
+  "landobj" : "Жер объектісі",
   "unique_violation" : "a value is not unique",
   "doc_type" : "Құжат түрі",
   "learning_center" : "learning_center",

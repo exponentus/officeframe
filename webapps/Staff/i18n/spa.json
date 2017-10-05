@@ -531,6 +531,7 @@
   "password_confirm" : null,
   "structure_type" : null,
   "rejected" : null,
+  "landobj" : "landobj",
   "unique_violation" : "a value is not unique",
   "doc_type" : null,
   "learning_center" : "learning_center",

@@ -531,6 +531,7 @@
   "password_confirm" : "Confirm password",
   "structure_type" : "Structure type",
   "rejected" : "Rejected",
+  "landobj" : "Land object",
   "unique_violation" : "the value must be unique",
   "doc_type" : "Document type",
   "learning_center" : "learning_center",
