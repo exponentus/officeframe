@@ -111,6 +111,7 @@
   "back" : "Артқа",
   "industry_type" : "industry_type",
   "medium" : null,
+  "count_of_records" : "Жазулардың саны",
   "interface" : "Интерфейс",
   "title" : null,
   "applied_author" : null,

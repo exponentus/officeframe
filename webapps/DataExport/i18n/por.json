@@ -111,6 +111,7 @@
   "back" : "Voltar",
   "industry_type" : "industry_type",
   "medium" : "Média",
+  "count_of_records" : "count_of_records",
   "interface" : null,
   "title" : null,
   "applied_author" : null,

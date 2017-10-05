@@ -111,6 +111,7 @@
   "back" : "Volver",
   "industry_type" : "industry_type",
   "medium" : "Mediana",
+  "count_of_records" : "count_of_records",
   "interface" : null,
   "title" : null,
   "applied_author" : null,

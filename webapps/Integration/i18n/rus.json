@@ -111,6 +111,7 @@
   "back" : "Назад",
   "industry_type" : "Тип индустрии",
   "medium" : "Средний",
+  "count_of_records" : "Количество записей",
   "interface" : "Внешний вид",
   "title" : "Заголовок",
   "applied_author" : "Автор",

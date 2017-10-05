@@ -39,6 +39,9 @@ public class FillBuildingStates extends Do {
 			name.put(LanguageCode.ENG, namesEng[i]);
 			name.put(LanguageCode.KAZ, namesKaz[i]);
 			status.setLocName(name);
+			if (name.equals("commissioned") || name.equals("under_construction")){
+				status.setRequireDate(true);
+			}
 			entities.add(status);
 		}
 
