@@ -41,7 +41,7 @@
                 </style>
             </head>
             <body>
-                <app-root class="body">
+                <app-root>
                     <div class="app-loading">
                         <img class="brand-logo" alt="logo" src="{//logo}"/>
                         <div class="three-bounce">
