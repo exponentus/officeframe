@@ -11,7 +11,6 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
-import com.exponentus.env.Environment;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.WebFormData;
@@ -25,7 +24,6 @@ import staff.dao.EmployeeDAO;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -106,33 +104,29 @@ public class UserActivityService extends RestProvider {
             ApplicationDAO applicationDAO = new ApplicationDAO(ses);
             UserDAO userDAO = new UserDAO(ses);
             EmployeeDAO employeeDAO = new EmployeeDAO(ses);
-            for(IUser user: userDAO.findAll()) {
+            for (IUser user : userDAO.findAll()) {
                 List resultRow = new ArrayList();
                 resultRow.add(employeeDAO.findByUser(user).getName());
                 for (Application application : applicationDAO.findAllActivated()) {
-                    if (! Stream.of(EnvConst.OFFICEFRAME_APPLICATION_MODULES).anyMatch(x -> x.equals(application.getName()))
+                    if (!Stream.of(EnvConst.OFFICEFRAME_APPLICATION_MODULES).anyMatch(x -> x.equals(application.getName()))
                             && !application.getName().equals(EnvConst.ADMINISTRATOR_MODULE_NAME)) {
                         for (Class<IAppEntity<UUID>> clazz : ReflectionUtil.getAllAppEntities(application.getName().toLowerCase())) {
+                            int totalCount = 0;
                             IDAO idao = DAOFactory.get(ses, clazz);
                             if (idao != null) {
-                                ViewPage viewPage = idao.findAllequal("author",user,0,0);
+                                ViewPage viewPage = idao.findAllequal("author", user, 0, 0);
                                 if (viewPage != null) {
-                                    long count = viewPage.getCount();
-                                    if (count > 0) {
-                                        List resultSubRow = new ArrayList();
-                                        resultSubRow.add(Environment.vocabulary.getWord(clazz.getSimpleName().toLowerCase(), ses.getLang()));
-                                        resultSubRow.add(viewPage.getCount());
-                                        resultRow.add(resultSubRow);
-                                    }
+                                    totalCount += viewPage.getCount();
                                 }
                             }
+                            resultRow.add(totalCount);
                         }
                     }
                 }
                 result.add(resultRow);
             }
 
-            outcome.addPayload(new ViewPage(result, result.size(),1,1));
+            outcome.addPayload(new ViewPage(result, result.size(), 1, 1));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
