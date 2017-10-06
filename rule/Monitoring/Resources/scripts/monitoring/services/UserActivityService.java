@@ -19,6 +19,7 @@ import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
 import monitoring.dao.UserActivityDAO;
 import staff.dao.EmployeeDAO;
+import staff.model.Employee;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -104,7 +105,8 @@ public class UserActivityService extends RestProvider {
             for (IUser user : userDAO.findAll()) {
 
                 Map<String, Object> resultRow = new HashMap<>();
-                resultRow.put("actUser", employeeDAO.findByUser(user).getName());
+                Employee uemp = employeeDAO.findByUser(user);
+                resultRow.put("actUser", (uemp == null ? user.getLogin() : uemp.getName()));
                 resultRow.put("kind", "userActivity");
                 resultRow.put("id", user.getId());
 
