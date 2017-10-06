@@ -67,6 +67,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building-states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building-materials"));
             so.addEntry(new OutlineEntry("memorial_types", "", "memorial_types", AppConst.BASE_URL + "memorial-types"));
+            so.addEntry(new OutlineEntry("realestate_puposes", "", "realestate_puposes", AppConst.BASE_URL + "realestate-obj-purposes"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.REGIONECONOMY.name())) {
             so.addEntry(new OutlineEntry("tax_income_categories", "", "tax_income_categories", AppConst.BASE_URL + "tax-income-categories"));
         }
