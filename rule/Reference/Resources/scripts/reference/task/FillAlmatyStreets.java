@@ -86,7 +86,7 @@ public class FillAlmatyStreets extends Do {
 					}
 				} catch (DAOException e) {
 					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+						logger.warning("a data is already exists (" + entry.getTitle() + "), record was skipped");
 					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
 						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
 					} else {

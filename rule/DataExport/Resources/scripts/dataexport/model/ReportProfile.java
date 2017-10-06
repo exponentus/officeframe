@@ -17,7 +17,7 @@ import java.util.List;
 @JsonRootName("reportProfile")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "de__report_profiles")
+@Table(name = AppConst.CODE + "__report_profiles")
 public class ReportProfile extends SimpleReferenceEntity {
 
     @Enumerated(EnumType.STRING)
