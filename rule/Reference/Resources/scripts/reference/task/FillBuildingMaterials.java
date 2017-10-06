@@ -28,7 +28,7 @@ public class FillBuildingMaterials extends Do {
 				"metal", "mixed" };
 		String namesEng[] = { "Brick", "Monolithic reinforced concrete", "Reinforced concrete panel", "Steel frame with filler",
 				"Wood frame", "Foamblock", "Skeleton-reed panel", "Slagblock", "Rubble", "Clay", "Wood-sleepers",
-				"metal", "mixed" };
+				"Metal", "Mixed" };
 		String namesRus[] = { "Кирпич", "Монолитный железобетон", "Железобетонная панель", "Стальной каркас с наполнителем",
 			"Дерево-сруб", "Пеноблок","Каркасно-камышитовая панель", "Шлакоблок", "Бут", "Саман", "Дерево-шпала",
 			"Метал", "Смешанный" };

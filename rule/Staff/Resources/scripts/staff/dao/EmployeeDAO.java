@@ -261,10 +261,13 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
     public boolean saveRole(IExtRole role) {
         try {
             RoleDAO roleDAO = new RoleDAO(ses);
-           if (roleDAO.findByName(role.getName()) == null){
+            Role existRole = roleDAO.findByName(role.getName());
+           if (existRole == null){
                roleDAO.add((Role) role);
            }else{
-               roleDAO.update((Role) role);
+               existRole.setLocName(role.getLocName());
+               existRole.setLocalizedDescr(role.getLocalizedDescr());
+               roleDAO.update(existRole);
            }
            return true;
         } catch (DAOException | SecureException e) {

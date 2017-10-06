@@ -25,16 +25,17 @@ public class FillRealEstateObjPurposes extends Do {
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<RealEstateObjPurpose> entities = new ArrayList<RealEstateObjPurpose>();
-		String[] data = { "administrative" };
-		String[] dataRus = { "Административное" };
-		String[] dataKaz = {"Әкімшілік"};
+		String[] data = { "administrative","commercial","production","residental", "historical","warehouse","specials" };
+		String[] dataEng = { "Administrative","Commercial","Production","Residental", "Historical","Warehouse","Specials" };
+		String[] dataRus = { "Административные", "Коммерческие", "Производственные", "Жилые", "Исторические", "Складские", "Специальные"};
+		String[] dataKaz = {"Әкімшілік", "Коммерциялық", "өндіру", "Тұрғын", "Тарихи", "қойма", "Арнайы"};
 
 
 		for (int i = 0; i < data.length; i++) {
 			RealEstateObjPurpose entity = new RealEstateObjPurpose();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
-			name.put(LanguageCode.ENG, data[i]);
+			name.put(LanguageCode.ENG, dataEng[i]);
 			name.put(LanguageCode.RUS, dataRus[i]);
 			name.put(LanguageCode.RUS, dataKaz[i]);
 			entity.setLocName(name);
