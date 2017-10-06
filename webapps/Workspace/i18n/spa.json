@@ -23,6 +23,7 @@
   "parent_assignment" : "parent_assignment",
   "sign_up" : null,
   "locality" : null,
+  "real_estate_obj_purpose" : "real_estate_obj_purpose",
   "active" : "Activo",
   "industry_type_category" : "industry_type_category",
   "version" : null,

@@ -23,6 +23,7 @@
   "parent_assignment" : "parent_assignment",
   "sign_up" : "Тіркелу",
   "locality" : "Елді мекен",
+  "real_estate_obj_purpose" : "Жылжымайтын мүлік объектісінің мақсаты",
   "active" : null,
   "industry_type_category" : "industry_type_category",
   "version" : "Версия",

@@ -23,6 +23,7 @@
   "parent_assignment" : "Вышестоящее поручение",
   "sign_up" : "Регистрация",
   "locality" : "Населенный пункт",
+  "real_estate_obj_purpose" : "Назначение объекта недвижимости",
   "active" : "Активный",
   "industry_type_category" : "Сфера деятельности",
   "version" : "Версия",
