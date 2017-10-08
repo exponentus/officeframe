@@ -22,17 +22,24 @@ import java.util.*;
 public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameDataProvider {
     private static ViewPage<Employee> allEmployee;
     private static Map<UUID, Employee> allEmployeeMap;
+    private static Map<Long, Employee> allEmployeeId;
 
     public EmployeeDAO(_Session session) throws DAOException {
         super(Employee.class, session);
+    }
+
+    public void init(){
+        findAll(true);
     }
 
     public ViewPage<Employee> findAll(boolean reloadCache) {
         if (allEmployee == null || reloadCache) {
             allEmployee = findAll(0, 0);
             allEmployeeMap = new HashMap<UUID, Employee>();
+            allEmployeeId = new HashMap<Long, Employee>();
             for (Employee e : allEmployee.getResult()) {
                 allEmployeeMap.put(e.getId(), e);
+                allEmployeeId.put(e.getUserID(),e);
             }
         }
         return allEmployee;
@@ -113,18 +120,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
     }
 
     public Employee findByUserId(long id) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        try {
-            String jpql = "SELECT e FROM Employee AS e WHERE e.user.id = :id";
-            TypedQuery<Employee> q = em.createQuery(jpql, Employee.class);
-            q.setParameter("id", id);
-            List<Employee> res = q.getResultList();
-            return res.get(0);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        } finally {
-            em.close();
-        }
+        return  allEmployeeId.get(id);
     }
 
     public ViewPage<Employee> findByRole(String roleName) throws DAOException {
@@ -161,20 +157,6 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
             throw new DAOException(e);
         } catch (Exception e) {
             throw new DAOException(e);
-        } finally {
-            em.close();
-        }
-    }
-
-    public List<Employee> findAllByUserIds(List<Long> ids) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        try {
-            String jpql = "SELECT m FROM Employee AS m WHERE m.user.id in :ids";
-            TypedQuery<Employee> q = em.createQuery(jpql, Employee.class);
-            q.setParameter("ids", ids);
-            return q.getResultList();
-        } catch (IndexOutOfBoundsException e) {
-            return null;
         } finally {
             em.close();
         }
