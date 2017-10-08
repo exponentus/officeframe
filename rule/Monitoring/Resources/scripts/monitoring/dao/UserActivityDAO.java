@@ -198,6 +198,8 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
                 Country c = ip2c.getCountry(ip);
                 ua.setCountry(c.getName());
                 add(ua);
+            }catch (NumberFormatException e){
+                Lg.error("Incorrect address, IP=" + ip);
             } catch (Exception e) {
                 Lg.error("IP=" + ip);
                 Lg.exception(e);
