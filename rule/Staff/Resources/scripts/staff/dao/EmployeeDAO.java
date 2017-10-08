@@ -27,7 +27,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameData
     public EmployeeDAO(_Session session) throws DAOException {
         super(Employee.class, session);
     }
-
+//*****
     public void init(){
         findAll(true);
     }
