@@ -15,6 +15,7 @@ import com.exponentus.user.IUser;
 import reference.dao.DocumentSubjectDAO;
 import reference.model.DocumentSubject;
 import reference.ui.Action;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -49,6 +50,8 @@ public class DocumentSubjectService extends RestProvider {
                 actionBar.addAction(action.refreshVew);
                 outcome.addPayload(actionBar);
             }
+
+            vp.setViewPageOptions(new ViewOptions().getDocumentSubjectOptions());
 
             outcome.setTitle("doc_subject");
             outcome.addPayload("contentTitle", "doc_subject");

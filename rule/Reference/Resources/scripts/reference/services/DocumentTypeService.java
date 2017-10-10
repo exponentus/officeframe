@@ -15,6 +15,7 @@ import com.exponentus.user.IUser;
 import reference.dao.DocumentTypeDAO;
 import reference.model.DocumentType;
 import reference.ui.Action;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -49,6 +50,8 @@ public class DocumentTypeService extends RestProvider {
                 actionBar.addAction(action.refreshVew);
                 outcome.addPayload(actionBar);
             }
+
+            vp.setViewPageOptions(new ViewOptions().getDocumentTypeOptions());
 
             outcome.setTitle("doc_types");
             outcome.addPayload("contentTitle", "doc_types");

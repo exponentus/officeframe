@@ -17,6 +17,7 @@ import reference.dao.RegionDAO;
 import reference.model.Country;
 import reference.model.Region;
 import reference.ui.Action;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -63,6 +64,8 @@ public class RegionService extends RestProvider {
                 actionBar.addAction(action.refreshVew);
                 outcome.addPayload(actionBar);
             }
+
+            vp.setViewPageOptions(new ViewOptions().getRegionOptions());
 
             outcome.setTitle("regions");
             outcome.addPayload("contentTitle", "regions");

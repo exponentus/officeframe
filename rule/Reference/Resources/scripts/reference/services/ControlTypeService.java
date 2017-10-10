@@ -15,6 +15,7 @@ import com.exponentus.user.IUser;
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
 import reference.ui.Action;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -49,6 +50,8 @@ public class ControlTypeService extends RestProvider {
                 actionBar.addAction(action.refreshVew);
                 outcome.addPayload(actionBar);
             }
+
+            vp.setViewPageOptions(new ViewOptions().getControlTypeOptions());
 
             outcome.setTitle("control_types");
             outcome.addPayload("contentTitle", "control_types");
