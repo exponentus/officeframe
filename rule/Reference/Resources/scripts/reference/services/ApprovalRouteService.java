@@ -79,6 +79,7 @@ public class ApprovalRouteService extends RestProvider {
                 entity = new ApprovalRoute();
                 entity.setName("");
                 entity.setAuthor(session.getUser());
+                entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
             } else {
                 ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
                 entity = dao.findByIdentefier(id);

@@ -76,6 +76,7 @@ public class ControlTypeService extends RestProvider {
                 entity = new ControlType();
                 entity.setName("");
                 entity.setAuthor(session.getUser());
+                entity.setDefaultHours(30);
             } else {
                 ControlTypeDAO dao = new ControlTypeDAO(session);
                 entity = dao.findByIdentefier(id);

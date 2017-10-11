@@ -14,6 +14,7 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.LocalityTypeDAO;
 import reference.model.LocalityType;
+import reference.model.constants.LocalityCode;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
@@ -89,6 +90,7 @@ public class LocalityTypeService extends RestProvider {
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "locality_type");
+            outcome.addPayload("localityCodes", LocalityCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
