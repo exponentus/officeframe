@@ -328,6 +328,7 @@
   "send_task" : "Enviar tarea",
   "real_estate_obj_statuses" : "real_estate_obj_statuses",
   "building_states" : "building_states",
+  "less_than_min" : "Menos de un minuto",
   "new_assignment" : "new_assignment",
   "new_project" : "Nuevo proyecto",
   "notifications_settings" : "notifications_settings",

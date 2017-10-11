@@ -328,6 +328,7 @@
   "send_task" : "Отправить задачу",
   "real_estate_obj_statuses" : "Статусы объектов недвижимости",
   "building_states" : "Типы состояния здания",
+  "less_than_min" : "Менее минуты",
   "new_assignment" : "Новое поручение",
   "new_project" : "Новый проект",
   "notifications_settings" : "Рассылка",
