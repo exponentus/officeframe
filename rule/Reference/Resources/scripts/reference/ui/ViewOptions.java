@@ -23,8 +23,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.getColumns().add(new ColumnOption("region").type(ViewColumnType.localizedName));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("region").type(ViewColumnType.localizedName));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -47,9 +47,9 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.getColumns().add(new ColumnOption("type").type(ViewColumnType.localizedName));
-        cg.getColumns().add(new ColumnOption("country").type(ViewColumnType.localizedName));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("type").type(ViewColumnType.localizedName));
+        cg.add(new ColumnOption("country").type(ViewColumnType.localizedName));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -71,8 +71,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.getColumns().add(new ColumnOption("category"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("category"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -94,8 +94,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.getColumns().add(new ColumnOption("category"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("category"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -117,8 +117,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.getColumns().add(new ColumnOption("name").name(""));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("name").name(""));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -142,10 +142,10 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.getColumns().add(new ColumnOption("schema").sortBoth());
-        cg.getColumns().add(new ColumnOption("on").name("is_on"));
-        cg.getColumns().add(new ColumnOption("category").sortBoth());
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("schema").sortBoth());
+        cg.add(new ColumnOption("on").name("is_on"));
+        cg.add(new ColumnOption("category").sortBoth());
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -166,8 +166,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name").type(ViewColumnType.localizedName).style("return { color:it.color }").sortBoth());
-        cg.getColumns().add(new ColumnOption("category"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).style("return { color:it.color }").sortBoth());
+        cg.add(new ColumnOption("category"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);

@@ -24,11 +24,11 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("eventTime").name("event_time"));
-        cg.getColumns().add(new ColumnOption("ip"));
-        cg.getColumns().add(new ColumnOption("country"));
-        cg.getColumns().add(new ColumnOption("type"));
-        cg.getColumns().add(new ColumnOption("actUser.login").name("act_user"));
+        cg.add(new ColumnOption("eventTime").name("event_time"));
+        cg.add(new ColumnOption("ip"));
+        cg.add(new ColumnOption("country"));
+        cg.add(new ColumnOption("type"));
+        cg.add(new ColumnOption("actUser.login").name("act_user"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -51,10 +51,10 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("actUser.login").name("act_user"));
-        cg.getColumns().add(new ColumnOption("eventTime").name("event_time"));
-        cg.getColumns().add(new ColumnOption("ip"));
-        cg.getColumns().add(new ColumnOption("country"));
+        cg.add(new ColumnOption("actUser.login").name("act_user"));
+        cg.add(new ColumnOption("eventTime").name("event_time"));
+        cg.add(new ColumnOption("ip"));
+        cg.add(new ColumnOption("country"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -75,8 +75,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("actUser").name("act_user"));
-        cg.getColumns().add(new ColumnOption("count"));
+        cg.add(new ColumnOption("actUser").name("act_user"));
+        cg.add(new ColumnOption("count"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
