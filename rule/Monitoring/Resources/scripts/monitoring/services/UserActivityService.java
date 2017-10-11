@@ -18,6 +18,7 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
 import monitoring.dao.UserActivityDAO;
+import monitoring.ui.ViewOptions;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
 
@@ -47,6 +48,8 @@ public class UserActivityService extends RestProvider {
         _ActionBar actionBar = new _ActionBar(session);
         actionBar.addAction(action.refreshVew);
 
+        vp.setViewPageOptions(new ViewOptions().getUserActivityOptions());
+
         Outcome outcome = new Outcome();
         outcome.setId("user-activity");
         outcome.setTitle("user_activities");
@@ -61,19 +64,21 @@ public class UserActivityService extends RestProvider {
     @Path("last-visits")
     public Response getLastLoginViewPage() {
         _Session ses = getSession();
-        WebFormData params = getWebFormData();
         try {
             UserActivityDAO dao = new UserActivityDAO(ses);
+            ViewPage vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
 
             _ActionBar actionBar = new _ActionBar(ses);
             actionBar.addAction(action.refreshVew);
+
+            vp.setViewPageOptions(new ViewOptions().getLastVisitOptions());
 
             Outcome outcome = new Outcome();
             outcome.setId("last-visits");
             outcome.setTitle("last_visit");
             outcome.addPayload("contentTitle", "last_logins");
             outcome.addPayload(actionBar);
-            outcome.addPayload(dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize()));
+            outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -85,7 +90,6 @@ public class UserActivityService extends RestProvider {
     @Path("count-of-records")
     public Response getRecordsCount() {
         _Session ses = getSession();
-        WebFormData params = getWebFormData();
         try {
             UserActivityDAO dao = new UserActivityDAO(ses);
 
@@ -129,7 +133,10 @@ public class UserActivityService extends RestProvider {
                 result.add(resultRow);
             }
 
-            outcome.addPayload(new ViewPage(result, result.size(), 1, 1));
+            ViewPage vp = new ViewPage(result, result.size(), 1, 1);
+            vp.setViewPageOptions(new ViewOptions().getCountOfRecordOptions());
+
+            outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
