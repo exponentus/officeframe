@@ -29,6 +29,7 @@ import dataexport.model.constants.ReportQueryType;
 import dataexport.other.IReportProfile;
 import dataexport.other.RegistryReportProfile;
 import dataexport.ui.ActionFactory;
+import dataexport.ui.ViewOptions;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.design.JRDesignStyle;
@@ -69,6 +70,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
 
         ViewPage vp = getDomain().getViewPage(sortParams, params.getPage(), pageSize);
+        vp.setViewPageOptions(new ViewOptions().getReportProfileOptions());
 
         ActionFactory action = new ActionFactory();
         _ActionBar actionBar = new _ActionBar(session);
@@ -197,7 +199,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                             reportTemplateName = reportProfile.getTemplateName();
                             appCode = reportProfile.getAppCode();
                             reportFileName = reportProfile.getReportFileName();
-                        }else{
+                        } else {
                             throw new RestServiceException("Improper implementation of \"" + IReportProfile.class.getName() + "\"");
                         }
                     } catch (ClassNotFoundException e) {
@@ -243,7 +245,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     exporter = new JRXmlExporter();
                     exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
                 } else {
-                    throw new RestServiceException( type + " is unknown export format");
+                    throw new RestServiceException(type + " is unknown export format");
                 }
 
                 exporter.setExporterInput(new SimpleExporterInput(print));

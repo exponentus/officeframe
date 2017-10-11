@@ -15,6 +15,7 @@ import com.exponentus.user.IUser;
 import reference.dao.TagDAO;
 import reference.model.Tag;
 import reference.ui.Action;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -52,6 +53,8 @@ public class TagService extends RestProvider {
                 actionBar.addAction(action.refreshVew);
                 outcome.addPayload(actionBar);
             }
+
+            vp.setViewPageOptions(new ViewOptions().getTagOptions());
 
             outcome.setTitle("tags");
             outcome.addPayload("contentTitle", "tags");

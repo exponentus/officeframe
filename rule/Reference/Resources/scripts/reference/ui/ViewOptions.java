@@ -2,6 +2,7 @@ package reference.ui;
 
 import com.exponentus.common.ui.view.ColumnOption;
 import com.exponentus.common.ui.view.ColumnOptionGroup;
+import com.exponentus.common.ui.view.ViewColumnType;
 import com.exponentus.common.ui.view.ViewPageOptions;
 
 import java.util.ArrayList;
@@ -22,8 +23,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name", "name", "localizedName").sort("both"));
-        cg.getColumns().add(new ColumnOption("region", "region", "localizedName"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("region").type(ViewColumnType.localizedName));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -46,9 +47,9 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name", "name", "localizedName").sort("both"));
-        cg.getColumns().add(new ColumnOption("type", "type", "localizedName"));
-        cg.getColumns().add(new ColumnOption("country", "country", "localizedName"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("type").type(ViewColumnType.localizedName));
+        cg.add(new ColumnOption("country").type(ViewColumnType.localizedName));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -70,8 +71,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name", "name", "localizedName").sort("both"));
-        cg.getColumns().add(new ColumnOption("category", "category", "text"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("category"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -93,8 +94,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name", "name", "localizedName").sort("both"));
-        cg.getColumns().add(new ColumnOption("category", "category", "text"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("category"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -116,8 +117,8 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name", "name", "localizedName").sort("both"));
-        cg.getColumns().add(new ColumnOption("", "name", "text"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("name").name(""));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);
@@ -141,10 +142,32 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
         ColumnOptionGroup cg = new ColumnOptionGroup();
 
-        cg.getColumns().add(new ColumnOption("name", "name", "localizedName").sort("both"));
-        cg.getColumns().add(new ColumnOption("schema", "schema", "text").sort("both"));
-        cg.getColumns().add(new ColumnOption("is_on", "on", "text"));
-        cg.getColumns().add(new ColumnOption("category", "category", "text").sort("both"));
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ColumnOption("schema").sortBoth());
+        cg.add(new ColumnOption("on").name("is_on"));
+        cg.add(new ColumnOption("category").sortBoth());
+
+        List<ColumnOptionGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.addOption("root", list);
+        return result;
+    }
+
+    public ViewPageOptions getTagOptions() {
+        /*
+        tags: [{
+            columns: [
+            { name: 'name', value: 'name', type: 'localizedName', sort: 'both', style: (it: Tag) => { return { color: it.color }; } },
+            { name: 'category', value: 'category', type: 'text' }
+            ]
+        }]*/
+
+        ViewPageOptions result = new ViewPageOptions();
+        ColumnOptionGroup cg = new ColumnOptionGroup();
+
+        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).style("return { color:it.color }").sortBoth());
+        cg.add(new ColumnOption("category"));
 
         List<ColumnOptionGroup> list = new ArrayList<>();
         list.add(cg);

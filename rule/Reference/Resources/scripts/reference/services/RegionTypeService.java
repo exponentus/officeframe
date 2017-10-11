@@ -14,6 +14,7 @@ import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.RegionTypeDAO;
 import reference.model.RegionType;
+import reference.model.constants.RegionCode;
 import reference.ui.Action;
 
 import javax.ws.rs.*;
@@ -89,6 +90,7 @@ public class RegionTypeService extends RestProvider {
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "region_type");
+            outcome.addPayload("regionTypeCodes", RegionCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

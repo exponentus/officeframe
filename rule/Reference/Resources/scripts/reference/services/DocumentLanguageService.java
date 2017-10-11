@@ -4,6 +4,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -88,6 +89,8 @@ public class DocumentLanguageService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
+            // addContent(new EnumWrapper(LanguageCode.class.getEnumConstants()));
+            outcome.addPayload("languageCodes", LanguageCode.values());
             outcome.addPayload("contentTitle", "doc_language");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
