@@ -225,6 +225,20 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
         return list;
     }
 
+    public boolean isFired() {
+        if (roles == null) {
+            return false;
+        }
+
+        for (Role role : roles) {
+            if (role.getName().equals(Role.FIRED_ROLE_NAME)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public String getURL() {
         return AppConst.BASE_URL + "employees/" + getIdentifier();

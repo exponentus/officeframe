@@ -2,8 +2,8 @@ package integration.services;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.view.ColumnOption;
-import com.exponentus.common.ui.view.ColumnOptionGroup;
+import com.exponentus.common.ui.view.ViewColumn;
+import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewPageOptions;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -68,14 +68,14 @@ public class ServiceService extends RestProvider {
 
     private ViewPageOptions getViewPageOptions() {
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("descr.appName").name("app_name"));
-        cg.add(new ColumnOption("descr.clazz").name("clazz"));
-        cg.add(new ColumnOption("descr.status").name("status"));
-        cg.add(new ColumnOption("descr.url").name("url"));
+        cg.add(new ViewColumn("descr.appName").name("app_name"));
+        cg.add(new ViewColumn("descr.clazz").name("clazz"));
+        cg.add(new ViewColumn("descr.status").name("status"));
+        cg.add(new ViewColumn("descr.url").name("url"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);

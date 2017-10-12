@@ -20,6 +20,7 @@ import staff.domain.IndividualDomain;
 import staff.model.Individual;
 import staff.model.IndividualLabel;
 import staff.ui.Action;
+import staff.ui.ViewOptions;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -52,6 +53,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             IndividualDAO dao = new IndividualDAO(session);
             ViewPage<Individual> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
+            vp.setViewPageOptions(new ViewOptions().getIndividualOptions());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);

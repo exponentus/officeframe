@@ -24,6 +24,7 @@ import staff.model.Employee;
 import staff.model.Role;
 import staff.services.helper.RoleProcessor;
 import staff.ui.Action;
+import staff.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -54,6 +55,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             EmployeeDAO dao = new EmployeeDAO(session);
             ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
+            vp.setViewPageOptions(new ViewOptions().getEmpOptions());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);

@@ -1,7 +1,7 @@
 package reference.ui;
 
-import com.exponentus.common.ui.view.ColumnOption;
-import com.exponentus.common.ui.view.ColumnOptionGroup;
+import com.exponentus.common.ui.view.ViewColumn;
+import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
 import com.exponentus.common.ui.view.ViewPageOptions;
 
@@ -21,12 +21,12 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("region").type(ViewColumnType.localizedName));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("region").type(ViewColumnType.localizedName));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -45,13 +45,13 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("type").type(ViewColumnType.localizedName));
-        cg.add(new ColumnOption("country").type(ViewColumnType.localizedName));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("type").type(ViewColumnType.localizedName));
+        cg.add(new ViewColumn("country").type(ViewColumnType.localizedName));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -69,12 +69,12 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("category"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("category"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -92,12 +92,12 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("category"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("category"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -115,12 +115,12 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("name").name(""));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("name").name(""));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -140,14 +140,14 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("schema").sortBoth());
-        cg.add(new ColumnOption("on").name("is_on"));
-        cg.add(new ColumnOption("category").sortBoth());
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("schema").sortBoth());
+        cg.add(new ViewColumn("on").name("is_on"));
+        cg.add(new ViewColumn("category").sortBoth());
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -164,12 +164,12 @@ public class ViewOptions {
         }]*/
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).style("return { color:it.color }").sortBoth());
-        cg.add(new ColumnOption("category"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).style("return { color:it.color }").sortBoth());
+        cg.add(new ViewColumn("category"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
