@@ -1,7 +1,7 @@
 package monitoring.ui;
 
-import com.exponentus.common.ui.view.ColumnOption;
-import com.exponentus.common.ui.view.ColumnOptionGroup;
+import com.exponentus.common.ui.view.ViewColumn;
+import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewPageOptions;
 
 import java.util.ArrayList;
@@ -22,15 +22,15 @@ public class ViewOptions {
         }] */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("eventTime").name("event_time"));
-        cg.add(new ColumnOption("ip"));
-        cg.add(new ColumnOption("country"));
-        cg.add(new ColumnOption("type"));
-        cg.add(new ColumnOption("actUser.login").name("act_user"));
+        cg.add(new ViewColumn("eventTime").name("event_time"));
+        cg.add(new ViewColumn("ip"));
+        cg.add(new ViewColumn("country"));
+        cg.add(new ViewColumn("type"));
+        cg.add(new ViewColumn("actUser.login").name("act_user"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -49,14 +49,14 @@ public class ViewOptions {
     }]*/
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("actUser.login").name("act_user"));
-        cg.add(new ColumnOption("eventTime").name("event_time"));
-        cg.add(new ColumnOption("ip"));
-        cg.add(new ColumnOption("country"));
+        cg.add(new ViewColumn("actUser.login").name("act_user"));
+        cg.add(new ViewColumn("eventTime").name("event_time"));
+        cg.add(new ViewColumn("ip"));
+        cg.add(new ViewColumn("country"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);
@@ -73,12 +73,12 @@ public class ViewOptions {
     }]*/
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("actUser").name("act_user"));
-        cg.add(new ColumnOption("count"));
+        cg.add(new ViewColumn("actUser").name("act_user"));
+        cg.add(new ViewColumn("count"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);

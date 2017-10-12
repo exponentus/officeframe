@@ -19,7 +19,9 @@ import java.util.Map;
         @NamedQuery(name = "Role.findAll", query = "SELECT m FROM staff.model.Role AS m ORDER BY m.regDate"),
         @NamedQuery(name = "Role.firedRole", query = "SELECT m FROM staff.model.Role AS m WHERE m.name='fired'")
 })
-public class Role extends SimpleReferenceEntity implements IExtRole{
+public class Role extends SimpleReferenceEntity implements IExtRole {
+
+    public static final String FIRED_ROLE_NAME = "fired";
 
     @ManyToMany(mappedBy = "roles")
     private List<Employee> employees;
@@ -49,6 +51,4 @@ public class Role extends SimpleReferenceEntity implements IExtRole{
     public String toString() {
         return name;
     }
-
-
 }

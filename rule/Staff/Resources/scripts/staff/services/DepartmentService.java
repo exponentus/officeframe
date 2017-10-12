@@ -15,6 +15,7 @@ import com.exponentus.user.IUser;
 import staff.dao.DepartmentDAO;
 import staff.model.Department;
 import staff.ui.Action;
+import staff.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -40,6 +41,7 @@ public class DepartmentService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             DepartmentDAO dao = new DepartmentDAO(session);
             ViewPage<Department> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            vp.setViewPageOptions(new ViewOptions().getDepOptions());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);

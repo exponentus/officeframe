@@ -1,7 +1,7 @@
 package dataexport.ui;
 
-import com.exponentus.common.ui.view.ColumnOption;
-import com.exponentus.common.ui.view.ColumnOptionGroup;
+import com.exponentus.common.ui.view.ViewColumn;
+import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
 import com.exponentus.common.ui.view.ViewPageOptions;
 
@@ -25,16 +25,16 @@ public class ViewOptions {
          */
 
         ViewPageOptions result = new ViewPageOptions();
-        ColumnOptionGroup cg = new ColumnOptionGroup();
+        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ColumnOption("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ColumnOption("className").name("class_name"));
-        cg.add(new ColumnOption("reportQueryType").name("report_query_type"));
-        cg.add(new ColumnOption("outputFormat").name("output_format"));
-        cg.add(new ColumnOption("startFrom").name("start_from").type(ViewColumnType.date).format("DD.MM.YYYY"));
-        cg.add(new ColumnOption("endUntil").name("end_until").type(ViewColumnType.date).format("DD.MM.YYYY"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("className").name("class_name"));
+        cg.add(new ViewColumn("reportQueryType").name("report_query_type"));
+        cg.add(new ViewColumn("outputFormat").name("output_format"));
+        cg.add(new ViewColumn("startFrom").name("start_from").type(ViewColumnType.date).format("DD.MM.YYYY"));
+        cg.add(new ViewColumn("endUntil").name("end_until").type(ViewColumnType.date).format("DD.MM.YYYY"));
 
-        List<ColumnOptionGroup> list = new ArrayList<>();
+        List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
         result.addOption("root", list);

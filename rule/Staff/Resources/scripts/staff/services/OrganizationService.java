@@ -18,6 +18,7 @@ import staff.dao.filter.OrganizationFilter;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;
 import staff.ui.Action;
+import staff.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -47,6 +48,7 @@ public class OrganizationService extends RestProvider {
             OrganizationDAO dao = new OrganizationDAO(session);
             ViewPage<Organization> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
+            vp.setViewPageOptions(new ViewOptions().getOrgOptions());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
