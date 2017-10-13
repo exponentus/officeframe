@@ -57,6 +57,7 @@
   "object_name" : "object_name",
   "region_district" : "region_district",
   "departments" : null,
+  "more_than" : "Mas que",
   "close" : "Cerrar",
   "building_objs" : "building_objs",
   "federation" : null,

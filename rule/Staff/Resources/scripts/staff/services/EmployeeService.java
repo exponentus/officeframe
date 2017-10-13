@@ -18,6 +18,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import staff.dao.EmployeeDAO;
+import staff.dao.RoleDAO;
 import staff.dao.filter.EmployeeFilter;
 import staff.domain.EmployeeDomain;
 import staff.model.Employee;
@@ -177,8 +178,12 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             entity.setOrganization(dto.getOrganization());
             entity.setDepartment(dto.getDepartment());
             entity.setPosition(dto.getPosition());
-            entity.setRoles(dto.getRoles());
-
+            RoleDAO roleDAO = new RoleDAO(session);
+            List<Role> roles = new ArrayList<>();
+            for (Role role : dto.getRoles()) {
+                roles.add(roleDAO.findById(role.getId()));
+            }
+            entity.setRoles(roles);
             UserDAO uDao = new UserDAO();
             User lUser = (User) uDao.findByLogin(dto.getUser().getLogin());
             entity.setUser(lUser);
