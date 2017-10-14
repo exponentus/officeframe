@@ -9,24 +9,24 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
-@JsonRootName("taxIncome")
+@JsonRootName("cashInflow")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__tax_incomes", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
-public class TaxIncome extends SimpleReferenceEntity {
+@Table(name = AppConst.CODE + "__cash_inflows", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+public class CashInflow extends SimpleReferenceEntity {
 
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    private TaxIncomeCategory taxIncomeCategory;
+    private CashInflowCategory cashInflowCategory;
 
-    public TaxIncomeCategory getTaxIncomeCategory() {
-        return taxIncomeCategory;
+    public CashInflowCategory getCashInflowCategory() {
+        return cashInflowCategory;
     }
 
-    public void setTaxIncomeCategory(TaxIncomeCategory taxIncomeCategory) {
-        this.taxIncomeCategory = taxIncomeCategory;
+    public void setCashInflowCategory(CashInflowCategory cashInflowCategory) {
+        this.cashInflowCategory = cashInflowCategory;
     }
 
     @Override

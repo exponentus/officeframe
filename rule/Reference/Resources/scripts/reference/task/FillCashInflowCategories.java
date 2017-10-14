@@ -8,23 +8,21 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.PositionDAO;
-import reference.dao.TaxIncomeCategoryDAO;
+import reference.dao.CashInflowCategoryDAO;
 import reference.init.AppConst;
-import reference.model.Position;
-import reference.model.TaxIncomeCategory;
+import reference.model.CashInflowCategory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_tax_income_categories")
-public class FillTaxIncomeCategories extends Do {
+@Command(name = AppConst.CODE + "_fill_cash_inflow_categories")
+public class FillCashInflowCategories extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<TaxIncomeCategory> entities = new ArrayList<TaxIncomeCategory>();
+		List<CashInflowCategory> entities = new ArrayList<CashInflowCategory>();
 		String[] data = {"income_from_loans", "non-tax_revenue", "proceeds_from_the_sale_of_fixed_capital",
 				"receipts_of_transfers","redemption_of_budget_loans","proceeds_from_the_sale_of_financial_assets_of_the_state",
 				"remaining_budget_funds_are_used", "tax_revenue" };
@@ -40,7 +38,7 @@ public class FillTaxIncomeCategories extends Do {
 
 
 		for (int i = 0; i < data.length; i++) {
-			TaxIncomeCategory entity = new TaxIncomeCategory();
+			CashInflowCategory entity = new CashInflowCategory();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
 			name.put(LanguageCode.ENG, dataEng[i]);
@@ -51,8 +49,8 @@ public class FillTaxIncomeCategories extends Do {
 		}
 
 		try {
-			TaxIncomeCategoryDAO dao = new TaxIncomeCategoryDAO(ses);
-			for (TaxIncomeCategory entry : entities) {
+			CashInflowCategoryDAO dao = new CashInflowCategoryDAO(ses);
+			for (CashInflowCategory entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.info(entry.getName() + " added");

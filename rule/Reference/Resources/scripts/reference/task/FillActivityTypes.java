@@ -26,9 +26,12 @@ public class FillActivityTypes extends Do {
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<ActivityType> entities = new ArrayList<>();
 
-		String names[] = { "trabant", "scania", "gaz", "niva" };
-		String namesEng[] = { "Trabant", "Scania", "Gaz", "Niva" };
-		String namesRus[] = { "Трабант", "Скания", "Газ-24", "Нива Ваз-2121" };
+		String names[] = { "non_ferrous_metals_and_black_metals", "pesticides", "medical_activities",
+				"pharmaceutical_activities", "activities_in_the_field_of_veterinary_medicine" };
+		String namesEng[] = { "Non-ferrous metals and black metals", "Pesticides (pesticides)", "Medical activities",
+				"Pharmaceutical activities", "Activities in the field of veterinary medicine" };
+		String namesRus[] = { "Түсті және қара металдар", "Пестицидтер", "Медициналық қызмет",
+				"Фармацевтикалық қызмет", "Ветеринариялық медицина саласындағы қызмет" };
 		for (int i = 0; i < names.length; i++) {
             ActivityType entity = new ActivityType();
 			entity.setName(names[i]);
