@@ -7,7 +7,6 @@ import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.common.model.util.EmployeeConverter;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.extconnect.IExtUser;
-import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.user.IUser;
 import com.exponentus.user.UndefinedUser;
 import com.fasterxml.jackson.annotation.*;
@@ -129,20 +128,20 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
         return (IUser) user;
     }
 
-    @Override
+  /*  @Override
     public LanguageCode getDefaultLang() {
         return user.getDefaultLang();
-    }
+    }*/
 
-    @Override
+ /*   @Override
     public String getEmail() {
         return user.getEmail();
-    }
+    }*/
 
-    @Override
+   /* @Override
     public String getSlack() {
         return user.getSlack();
-    }
+    }*/
 
     @JsonProperty
     public void setUser(User user) {

@@ -73,7 +73,11 @@ public class TopicDomain extends CommonDomain<Topic> {
     public void calculateReaders(Topic topic) {
         topic.resetReadersEditors();
 
-        topic.addReaderEditor(topic.getAuthor());
+        if (topic.getStatus() == TopicStatusType.CLOSE){
+            topic.addReader(topic.getAuthor());
+        }else {
+            topic.addReaderEditor(topic.getAuthor());
+        }
 
         List<Observer> observers = topic.getObservers();
         if (observers != null) {

@@ -3,10 +3,12 @@ package discussing.model;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
+import com.exponentus.env.EnvConst;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import discussing.init.AppConst;
 import discussing.model.constants.TopicStatusType;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
+import org.glassfish.jersey.jaxb.internal.XmlJaxbElementProvider;
 import reference.model.Tag;
 import staff.model.embedded.Observer;
 
@@ -17,7 +19,7 @@ import java.util.UUID;
 
 @JsonRootName("topic")
 @Entity
-@Table(name = "disc__topics")
+@Table(name = AppConst.CODE + "__topics")
 public class Topic extends SecureAppEntity<UUID> {
 
     @Enumerated(EnumType.STRING)
@@ -37,7 +39,7 @@ public class Topic extends SecureAppEntity<UUID> {
     private List<Tag> tags;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(name = "disc__topic_attachments",
+    @JoinTable(name = AppConst.CODE + "__topic_attachments",
             joinColumns = {@JoinColumn(name = "topic_id")},
             inverseJoinColumns = {@JoinColumn(name = "attachment_id")},
             indexes = {@Index(columnList = "topic_id, attachment_id")},
@@ -46,7 +48,7 @@ public class Topic extends SecureAppEntity<UUID> {
     private List<Attachment> attachments = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "disc__topic_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    @CollectionTable(name = AppConst.CODE + "__topic_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
 
     public TopicStatusType getStatus() {

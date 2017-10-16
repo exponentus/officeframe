@@ -24,6 +24,7 @@ import discussing.ui.ActionFactory;
 import reference.model.Tag;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
+import staff.model.embedded.Observer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -153,7 +154,16 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
 
             comment.setId(null);
             comment.setTopic(topic);
+            comment.addReaderEditor(session.getUser());
+            comment.addReader(topic.getAuthor());
 
+            List<Observer> observers = topic.getObservers();
+            if (observers != null) {
+                for (Observer observer : observers) {
+                    Employee emp = observer.getEmployee();
+                    comment.addReader(emp.getUserID());
+                }
+            }
             commentDAO.save(comment);
 
             Outcome outcome = new Outcome();
@@ -175,7 +185,14 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
             Topic topic = topicDAO.findByIdentefier(id);
 
             comment.setTopic(topic);
-
+            comment.addReader(topic.getAuthor());
+            List<Observer> observers = topic.getObservers();
+            if (observers != null) {
+                for (Observer observer : observers) {
+                    Employee emp = observer.getEmployee();
+                    comment.addReader(emp.getUserID());
+                }
+            }
             commentDAO.save(comment);
 
             Outcome outcome = new Outcome();
@@ -206,7 +223,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         }
     }
 
-    public static TopicFilter setUpTopicFilter(_Session session, WebFormData formData, TopicFilter filter) {
+    public TopicFilter setUpTopicFilter(_Session session, WebFormData formData, TopicFilter filter) {
 
         String statusName = formData.getValueSilently("status");
         if (!statusName.isEmpty()) {
