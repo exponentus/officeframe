@@ -137,6 +137,7 @@
   "promo_experience" : "promo_experience",
   "invested_area_large" : "Крупные предприятия",
   "owner" : "Владелец",
+  "ticker" : "Бегущая строка",
   "region_districts" : "Территориальное деление",
   "require_date" : "Запрашивать дату",
   "approval_block_time_limit_help" : "время по прошествии которого документ переходит к следующему согласователю",

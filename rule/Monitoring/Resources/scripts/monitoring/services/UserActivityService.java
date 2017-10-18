@@ -114,11 +114,11 @@ public class UserActivityService extends RestProvider {
                 resultRow.put("kind", "userActivity");
                 resultRow.put("id", user.getId());
 
+                int totalCount = 0;
                 for (Application application : applicationDAO.findAllActivated()) {
                     if (!Stream.of(EnvConst.OFFICEFRAME_APPLICATION_MODULES).anyMatch(x -> x.equals(application.getName()))
                             && !application.getName().equals(EnvConst.ADMINISTRATOR_MODULE_NAME)) {
-                        for (Class<IAppEntity<UUID>> clazz : ReflectionUtil.getAllAppEntities(application.getName().toLowerCase())) {
-                            int totalCount = 0;
+                        for (Class<IAppEntity<UUID>> clazz : ReflectionUtil.getAllAppEntities(application.getName().toLowerCase() + ".model")) {
                             IDAO idao = DAOFactory.get(ses, clazz);
                             if (idao != null) {
                                 ViewPage viewPage = idao.findAllequal("author", user, 0, 0);
@@ -126,10 +126,11 @@ public class UserActivityService extends RestProvider {
                                     totalCount += viewPage.getCount();
                                 }
                             }
-                            resultRow.put("count", totalCount);
                         }
+
                     }
                 }
+                resultRow.put("count", totalCount);
                 result.add(resultRow);
             }
 

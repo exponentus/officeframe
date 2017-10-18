@@ -137,6 +137,7 @@
   "promo_experience" : "promo_experience",
   "invested_area_large" : "invested_area_large",
   "owner" : "owner",
+  "ticker" : "ticker",
   "region_districts" : "region_districts",
   "require_date" : "require_date",
   "approval_block_time_limit_help" : "approval_block_time_limit_help",
