@@ -8,21 +8,21 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.CashInflowDAO;
+import reference.dao.RevenueCategoryDAO;
 import reference.init.AppConst;
-import reference.model.CashInflow;
+import reference.model.RevenueCategory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_cash_inflows")
-public class FillCashInflow extends Do {
+@Command(name = AppConst.CODE + "_fill_revenue_categories")
+public class FillRevenueCategories extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<CashInflow> entities = new ArrayList<CashInflow>();
+		List<RevenueCategory> entities = new ArrayList<RevenueCategory>();
 		String[] data = {"income_from_loans", "non-tax_revenue", "proceeds_from_the_sale_of_fixed_capital",
 				"receipts_of_transfers","redemption_of_budget_loans","proceeds_from_the_sale_of_financial_assets_of_the_state",
 				"remaining_budget_funds_are_used", "tax_revenue" };
@@ -38,7 +38,7 @@ public class FillCashInflow extends Do {
 
 
 		for (int i = 0; i < data.length; i++) {
-			CashInflow entity = new CashInflow();
+			RevenueCategory entity = new RevenueCategory();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
 			name.put(LanguageCode.ENG, dataEng[i]);
@@ -49,8 +49,8 @@ public class FillCashInflow extends Do {
 		}
 
 		try {
-			CashInflowDAO dao = new CashInflowDAO(ses);
-			for (CashInflow entry : entities) {
+			RevenueCategoryDAO dao = new RevenueCategoryDAO(ses);
+			for (RevenueCategory entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.info(entry.getName() + " added");
