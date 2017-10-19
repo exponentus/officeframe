@@ -26,7 +26,7 @@ import dataexport.domain.ReportProfileDomain;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
-import dataexport.other.IReportProfile;
+import com.exponentus.common.other.IReportProfile;
 import dataexport.other.RegistryReportProfile;
 import dataexport.ui.ActionFactory;
 import dataexport.ui.ViewOptions;
@@ -116,10 +116,14 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             }
 
             List<String> entityClassNames = new ArrayList<>();
+            List<String> reportProfileClassNames = new ArrayList<>();
             for (AppEnv env : Environment.getApplications()) {
-                for (Class<IAppEntity<UUID>> _entity : ReflectionUtil.getAllAppEntities(env.getPackageName())) {
-                    String entityClassName = _entity.getCanonicalName();
-                    entityClassNames.add(entityClassName);
+                String packageName = env.getPackageName();
+                for (Class<IAppEntity<UUID>> appEntityClass : ReflectionUtil.getAllAppEntities(packageName)) {
+                    entityClassNames.add(appEntityClass.getCanonicalName());
+                }
+                for (Class<IReportProfile> reportProfileClass : ReflectionUtil.getAllReportImpls(packageName)) {
+                    reportProfileClassNames.add(reportProfileClass.getCanonicalName());
                 }
             }
 
@@ -129,6 +133,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             outcome.addPayload("exportFormatType", ExportFormatType.values());
             outcome.addPayload("reportQueryType", ReportQueryType.values());
             outcome.addPayload("entityClassNames", entityClassNames);
+            outcome.addPayload("reportProfileClassNames", reportProfileClassNames);
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload(actionBar);
 

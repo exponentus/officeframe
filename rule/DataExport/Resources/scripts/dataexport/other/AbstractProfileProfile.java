@@ -1,5 +1,6 @@
 package dataexport.other;
 
+import com.exponentus.common.other.IReportProfile;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 
