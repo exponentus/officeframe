@@ -1,6 +1,7 @@
 package dataexport.other;
 
 import com.exponentus.common.dao.DAOFactory;
+import com.exponentus.common.other.AbstractReportProfile;
 import com.exponentus.dataengine.jpa.IDAO;
 import dataexport.init.AppConst;
 import org.apache.poi.ss.formula.functions.T;
@@ -12,7 +13,7 @@ import java.util.UUID;
 /**
  * Created by kaira on 9/9/17.
  */
-public class RegistryReportProfile extends AbstractProfileProfile {
+public class RegistryReportProfile extends AbstractReportProfile {
 
     @Override
     public String getTemplateName() {
