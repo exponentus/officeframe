@@ -202,7 +202,8 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                             reportProfile = (IReportProfile) clazz.newInstance();
                             reportProfile.setTitle(dto.getLocName(session.getLang()));
                             reportProfile.setSession(session);
-
+                            reportProfile.setDetails(TimeUtil.dateToStringSilently(dto.getStartFrom()) + "-" +
+                                    TimeUtil.dateToStringSilently(dto.getEndUntil()));
                             result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
                             reportTemplateName = reportProfile.getTemplateName();
                             appCode = reportProfile.getAppCode();

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-10-19T23:04:50 -->
+<!-- 2017-10-20T00:48:36 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report500" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047ecfaf-fe84-4bab-a463-41ea1917e7d2">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="title" class="java.lang.String">
 		<parameterDescription><![CDATA[]]></parameterDescription>
 		<defaultValueExpression><![CDATA[$P{REPORT_CONTEXT}.getParameterValue( "title" )]]></defaultValueExpression>
+	</parameter>
+	<parameter name="details" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{REPORT_CONTEXT}.getParameterValue( "details" )]]></defaultValueExpression>
 	</parameter>
 	<queryString>
 		<![CDATA[]]>
@@ -34,6 +37,11 @@
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="279" y="6" width="351" height="30" forecolor="#080D9C" uuid="532edcd4-09e0-4b01-9367-5597bd669ae0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{details}]]></textFieldExpression>
 			</textField>
 		</band>
 	</title>
