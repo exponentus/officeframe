@@ -10,6 +10,7 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.ReflectionUtil;
 import dataexport.dao.ReportProfileDAO;
+import dataexport.init.AppConst;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
@@ -21,7 +22,7 @@ import java.util.UUID;
 
 import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 
-@Command(name = "gen_default_reports")
+@Command(name = AppConst.CODE + "_gen_default_reports")
 public class GenerateDefaultReportProfiles extends Do {
 
     @Override
