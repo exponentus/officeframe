@@ -2,27 +2,21 @@ package dataexport.other;
 
 import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.dataengine.jpa.IDAO;
-import com.exponentus.scripting._Session;
-import com.exponentus.util.StringUtil;
 import dataexport.init.AppConst;
+import org.apache.poi.ss.formula.functions.T;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by kaira on 9/9/17.
  */
-public class RegistryReportProfile implements IReportProfile {
-    private _Session session;
-
-    @Override
-    public void setSession(_Session session){
-        this.session = session;
-    }
+public class RegistryReportProfile extends AbstractProfileProfile {
 
     @Override
     public String getTemplateName() {
-        return "entity_registry";
+        return "entities";
     }
 
     @Override
@@ -31,13 +25,8 @@ public class RegistryReportProfile implements IReportProfile {
     }
 
     @Override
-    public String getReportFileName() {
-        return StringUtil.generateRndAsText("qwertyuiopasdfghjklzxcvbnm", 10);
-    }
-
-    @Override
-    public List getReportData(Date from, Date until, String customParameter) {
-        IDAO dao = DAOFactory.get(session, customParameter);
+    public List<T> getReportData(Date from, Date until, String customParameter) {
+        IDAO<T,UUID> dao = DAOFactory.get(session, customParameter);
         return dao.findAll().getResult();
     }
 }

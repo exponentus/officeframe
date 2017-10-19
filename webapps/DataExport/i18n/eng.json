@@ -381,6 +381,7 @@
   "license_control" : "license_control",
   "add_new" : "New document",
   "should_be_contain_value_more_than_zero" : "The fields should contain values higher than zero",
+  "source_url" : "Source URL",
   "the_field" : "The field",
   "field_is_too_long" : "The field is too long",
   "start_approving" : "Start approving",

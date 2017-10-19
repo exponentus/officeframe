@@ -381,6 +381,7 @@
   "license_control" : "license_control",
   "add_new" : "Жаңа құжат",
   "should_be_contain_value_more_than_zero" : "өрісі нөлге астам мәні қамтылуға тиіс",
+  "source_url" : "Бастапқы URL",
   "the_field" : "Eнгізетін жол",
   "field_is_too_long" : "Өріс тым ұзын",
   "start_approving" : "Мақұлдау бастау",

@@ -37,7 +37,7 @@ public class GenerateDefaultReportProfiles extends Do {
                     reportProfile.setName(entity.getSimpleName());
                     reportProfile.setReportQueryType(ReportQueryType.ENTITY_REQUEST);
                     reportProfile.setClassName(entity.getCanonicalName());
-                    reportProfile.setOutputFormat(ExportFormatType.CSV);
+                    reportProfile.setOutputFormat(ExportFormatType.PDF);
                     LocalDate firstDay = LocalDate.now().with(firstDayOfYear());
                     reportProfile.setStartFrom(Date.from(firstDay.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                     reportProfile.setEndUntil(new Date());
