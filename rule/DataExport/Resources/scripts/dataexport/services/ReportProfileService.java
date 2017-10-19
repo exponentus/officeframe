@@ -200,7 +200,9 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                         Class clazz = Class.forName(dto.getClassName());
                         if (IReportProfile.class.isAssignableFrom(clazz)) {
                             reportProfile = (IReportProfile) clazz.newInstance();
+                            reportProfile.setTitle(dto.getLocName(session.getLang()));
                             reportProfile.setSession(session);
+
                             result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
                             reportTemplateName = reportProfile.getTemplateName();
                             appCode = reportProfile.getAppCode();
@@ -214,6 +216,10 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                         return responseException(e);
                     }
             }
+
+            parameters.put("title",reportProfile.getTitle());
+            parameters.put("details",reportProfile.getDetails());
+
 
             JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
             JasperPrint print = JasperFillManager

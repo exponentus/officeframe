@@ -1,8 +1,12 @@
 package dataexport.domain;
 
+import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import com.exponentus.common.domain.CommonDomain;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.env.Environment;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
@@ -13,9 +17,12 @@ import staff.dao.EmployeeDAO;
 import staff.model.embedded.Observer;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ReportProfileDomain extends CommonDomain<ReportProfile> {
+    private static final String REPORT_NAME_KEYWORD = "report";
 
     public ReportProfileDomain(_Session ses) throws DAOException {
         super(ses);
@@ -52,7 +59,16 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         entity.setStartFrom(dto.getStartFrom());
         entity.setEndUntil(dto.getEndUntil());
         entity.setTags(dto.getTags());
-        entity.setLocName(dto.getLocName());
+        Map<LanguageCode, String> locNames = dto.getLocName();
+        if (locNames.size() > 0) {
+            entity.setLocName(dto.getLocName());
+        }else{
+            Map<LanguageCode, String> name = new HashMap<>();
+            for(Language language: new LanguageDAO(ses).findAllActivated()) {
+                name.put(language.getCode(), Environment.vocabulary.getWord(REPORT_NAME_KEYWORD, language.getCode()) + "-" + entity.getTitle());
+            }
+            entity.setLocName(name);
+        }
         entity.setObservers(dto.getObservers());
 
         EmployeeDAO eDao = new EmployeeDAO(ses);
