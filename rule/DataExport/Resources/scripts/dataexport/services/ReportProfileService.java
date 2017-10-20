@@ -3,6 +3,7 @@ package dataexport.services;
 import administrator.dao.LanguageDAO;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.domain.IValidation;
+import com.exponentus.common.other.IReportProfile;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
@@ -26,7 +27,6 @@ import dataexport.domain.ReportProfileDomain;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
-import com.exponentus.common.other.IReportProfile;
 import dataexport.other.RegistryReportProfile;
 import dataexport.ui.ActionFactory;
 import dataexport.ui.ViewOptions;
@@ -217,8 +217,8 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     }
             }
 
-            parameters.put("title",reportProfile.getTitle());
-            parameters.put("details",reportProfile.getDetails());
+            parameters.put("title", reportProfile.getTitle());
+            parameters.put("details", reportProfile.getDetails());
 
 
             JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
@@ -327,6 +327,10 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         @Override
         public void check(ReportProfile dto) throws DTOException {
             DTOException ve = new DTOException();
+
+            if (dto.getName() == null || dto.getName().isEmpty()) {
+                ve.addError("name", "required", "field_is_empty");
+            }
 
             if (ve.hasError()) {
                 throw ve;

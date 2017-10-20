@@ -4,9 +4,11 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import com.exponentus.common.domain.CommonDomain;
 import com.exponentus.common.domain.IValidation;
+import com.exponentus.common.other.IReportProfile;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.Environment;
 import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.rest.exception.RestServiceException;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
@@ -46,6 +48,7 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         } else {
             entity = dao.findById(dto.getId());
         }
+
 
         entity.setName(dto.getName());
         entity.setTitle(dto.getTitle());
