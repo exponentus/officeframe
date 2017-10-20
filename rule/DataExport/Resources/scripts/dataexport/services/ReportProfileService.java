@@ -11,6 +11,7 @@ import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.exception.RestServiceException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -51,10 +52,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Path("report-profiles")
 @Produces(MediaType.APPLICATION_JSON)
@@ -182,6 +180,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             JRFileVirtualizer virtualizer = new JRFileVirtualizer(10, Environment.trash);
             parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
             _Session session = getSession();
+            LanguageCode lang = session.getLang();
 
             IReportProfile reportProfile = null;
             List result = new ArrayList<>();
@@ -202,7 +201,9 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                             reportProfile = (IReportProfile) clazz.newInstance();
                             reportProfile.setTitle(dto.getLocName(session.getLang()));
                             reportProfile.setSession(session);
-                            reportProfile.setDetails(TimeUtil.dateToStringSilently(dto.getStartFrom()) + "-" + TimeUtil.dateToStringSilently(dto.getEndUntil()));
+                            reportProfile.setDetails(TimeUtil.dateTimeToStringSilently(new Date()) + ", " +
+                                    Environment.vocabulary.getWord("start_from", lang).toLowerCase() + ": " + TimeUtil.dateToStringSilently(dto.getStartFrom()) + " " +
+                                    Environment.vocabulary.getWord("end_until", lang).toLowerCase() + ": " + TimeUtil.dateToStringSilently(dto.getEndUntil()));
                             result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
                             reportTemplateName = reportProfile.getTemplateName();
                             appCode = reportProfile.getAppCode();
