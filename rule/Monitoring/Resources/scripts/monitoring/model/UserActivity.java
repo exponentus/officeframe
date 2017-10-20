@@ -86,6 +86,6 @@ public class UserActivity extends SimpleAppEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "user-activities/" + getIdentifier();
+        return null; // AppConst.BASE_URL + "user-activities/" + getIdentifier();
     }
 }
