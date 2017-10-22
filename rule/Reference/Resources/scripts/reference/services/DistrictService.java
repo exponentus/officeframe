@@ -3,6 +3,7 @@ package reference.services;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -103,6 +104,7 @@ public class DistrictService extends RestProvider {
             }
 
             Outcome outcome = new Outcome();
+            outcome.addPayload("mapsApiKey", Environment.mapsApiKey);
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "district");
