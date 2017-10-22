@@ -317,6 +317,7 @@
   "org_category" : "Organization type",
   "completed" : "Completed",
   "countries" : "Countries",
+  "report_type" : "Report type",
   "specific_staff_data" : "Additional lists",
   "accept" : "Accept",
   "biz_quantity_indicator_plural" : "biz_quantity_indicator_plural",
