@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
-<!-- 2017-10-20T19:37:08 -->
+<!-- 2017-10-22T23:42:22 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report500" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047ecfaf-fe84-4bab-a463-41ea1917e7d2">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
@@ -32,6 +32,8 @@
 	<field name="postponed" class="java.lang.Integer"/>
 	<field name="draft" class="java.lang.Integer"/>
 	<field name="moderation" class="java.lang.Integer"/>
+	<field name="expired" class="java.lang.Integer"/>
+	<field name="hours" class="java.lang.Integer"/>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
@@ -114,7 +116,7 @@
 				<textElement>
 					<font fontName="SansSerif"/>
 				</textElement>
-				<text><![CDATA[Отложенные]]></text>
+				<text><![CDATA[Прсроченные]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="520" y="-2" width="50" height="30" uuid="a1036dd5-2f7e-43e2-9bd9-10afbc613c7f"/>
@@ -124,7 +126,7 @@
 					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<text><![CDATA[Черновик]]></text>
+				<text><![CDATA[Часов]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="220" y="-2" width="50" height="30" uuid="829791a3-8db8-486e-8331-85502934e46f"/>
@@ -172,7 +174,7 @@
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="31" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<textField>
 				<reportElement key="" x="0" y="0" width="120" height="20" uuid="be28d6e6-58e8-45b1-8068-cf419654be11">
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
@@ -201,16 +203,6 @@
 				<textFieldExpression><![CDATA[$F{pending}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement key="" x="470" y="0" width="50" height="20" uuid="3fcf9686-bbd0-4e04-bbbd-df87d688bd40"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{postponed}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement key="" x="520" y="0" width="50" height="20" uuid="b92d484b-1c4f-4331-afd0-e612d124dddc"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{draft}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement key="" x="220" y="0" width="50" height="20" uuid="2820f6a2-24d4-430d-9403-c51538b966e5"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{moderation}]]></textFieldExpression>
@@ -224,6 +216,18 @@
 				<reportElement key="" x="370" y="0" width="50" height="20" uuid="1dba9099-11da-4a63-83e4-45b8ad67d943"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{completed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="470" y="0" width="50" height="20" forecolor="#850705" uuid="f0ed322b-61ef-4966-a3b8-a1322613395d"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{expired}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="520" y="0" width="50" height="20" uuid="f5641218-48f0-4324-bd90-732264bab04a"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{hours}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
