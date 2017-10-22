@@ -9,6 +9,7 @@ import reference.init.AppConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonRootName("district")
@@ -34,7 +35,7 @@ public class District extends SimpleReferenceEntity {
 
     @Convert(converter = ListOfStringArrayConverter.class)
     @Column(name = "lat_lng", columnDefinition = "jsonb")
-    public List<String[]> latLng;
+    public List<String[]> latLng = new ArrayList<>();
 
 
     public Region getRegion() {
