@@ -313,6 +313,7 @@
   "topic_title_placeholder" : "topic_title_placeholder",
   "edit" : null,
   "control_types" : null,
+  "module" : "Módulo",
   "responsible_persons" : null,
   "org_category" : null,
   "completed" : "Terminado",
