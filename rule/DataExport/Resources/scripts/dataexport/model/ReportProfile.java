@@ -1,6 +1,8 @@
 package dataexport.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.model.converter.LocalizedValConverter;
+import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import dataexport.init.AppConst;
@@ -13,12 +15,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @JsonRootName("reportProfile")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = AppConst.CODE + "__report_profiles")
 public class ReportProfile extends SimpleReferenceEntity {
+
+
+    @Convert(converter = LocalizedValConverter.class)
+    @Column(name = "localized_descr", columnDefinition = "jsonb")
+    private Map<LanguageCode, String> localizedDescr;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 32)
@@ -44,6 +52,14 @@ public class ReportProfile extends SimpleReferenceEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "de__report_profile_tags")
     private List<Tag> tags;
+
+    public Map<LanguageCode, String> getLocalizedDescr() {
+        return localizedDescr;
+    }
+
+    public void setLocalizedDescr(Map<LanguageCode, String> localizedDescr) {
+        this.localizedDescr = localizedDescr;
+    }
 
     public ReportQueryType getReportQueryType() {
         return reportQueryType;

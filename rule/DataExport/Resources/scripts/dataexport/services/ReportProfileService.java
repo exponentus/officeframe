@@ -3,7 +3,7 @@ package dataexport.services;
 import administrator.dao.LanguageDAO;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.domain.IValidation;
-import com.exponentus.common.other.IReportProfile;
+import com.exponentus.common.other.IDataObtainer;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
@@ -28,7 +28,7 @@ import dataexport.domain.ReportProfileDomain;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
-import dataexport.other.RegistryReportProfile;
+import dataexport.other.RegistryDataObtainer;
 import dataexport.ui.ActionFactory;
 import dataexport.ui.ViewOptions;
 import net.sf.jasperreports.engine.*;
@@ -120,7 +120,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 for (Class<IAppEntity<UUID>> appEntityClass : ReflectionUtil.getAllAppEntities(packageName)) {
                     entityClassNames.add(appEntityClass.getCanonicalName());
                 }
-                for (Class<IReportProfile> reportProfileClass : ReflectionUtil.getAllReportImpls(packageName)) {
+                for (Class<IDataObtainer> reportProfileClass : ReflectionUtil.getAllReportImpls(packageName)) {
                     reportProfileClassNames.add(reportProfileClass.getCanonicalName());
                 }
             }
@@ -168,127 +168,135 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         String reportFileName = null, appCode = null;
 
         try {
-            if (!"xlsx".equalsIgnoreCase(type) && !"pdf".equalsIgnoreCase(type)
-                    && !"xml".equalsIgnoreCase(type) && !"csv".equalsIgnoreCase(type)) {
-                throw new IllegalArgumentException("Unsupported format: " + type + "; Supported format: pdf, xlsx");
-            }
-
-            String repPath = Environment.getOfficeFrameDir() + File.separator + "rule" + File.separator
-                    + getAppEnv().appName + File.separator + "Resources" + File.separator + "report";
-
-            HashMap<String, Object> parameters = new HashMap<>();
-            JRFileVirtualizer virtualizer = new JRFileVirtualizer(10, Environment.trash);
-            parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
             _Session session = getSession();
-            LanguageCode lang = session.getLang();
+            ReportProfileDAO reportProfileDAO = new ReportProfileDAO(session);
+            ReportProfile profile = reportProfileDAO.findById(dto.getId());
+            if (profile != null) {
+                if (!"xlsx".equalsIgnoreCase(type) && !"pdf".equalsIgnoreCase(type)
+                        && !"xml".equalsIgnoreCase(type) && !"csv".equalsIgnoreCase(type)) {
+                    throw new IllegalArgumentException("Unsupported format: " + type + "; Supported format: pdf, xlsx");
+                }
+                String repPath = Environment.getOfficeFrameDir() + File.separator + "rule" + File.separator
+                        + getAppEnv().appName + File.separator + "Resources" + File.separator + "report";
 
-            IReportProfile reportProfile = null;
-            List result = new ArrayList<>();
-            switch (dto.getReportQueryType()) {
-                case ENTITY_REQUEST:
-                    reportProfile = new RegistryReportProfile();
-                    reportProfile.setSession(session);
-                    reportTemplateName = reportProfile.getTemplateName();
-                    appCode = reportProfile.getAppCode();
-                    result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), dto.getClassName());
-                    reportFileName = dto.getClassName() + "_" + reportProfile.getReportFileName();
-                    parameters.put("entity_name", dto.getClassName());
-                    break;
-                case CUSTOM_CLASS:
-                    try {
-                        Class clazz = Class.forName(dto.getClassName());
-                        if (IReportProfile.class.isAssignableFrom(clazz)) {
-                            reportProfile = (IReportProfile) clazz.newInstance();
-                            reportProfile.setTitle(dto.getLocName(session.getLang()));
-                            reportProfile.setSession(session);
-                            reportProfile.setDetails(TimeUtil.dateTimeToStringSilently(new Date()) + ", " +
-                                    Environment.vocabulary.getWord("start_from", lang).toLowerCase() + ": " + TimeUtil.dateToStringSilently(dto.getStartFrom()) + " " +
-                                    Environment.vocabulary.getWord("end_until", lang).toLowerCase() + ": " + TimeUtil.dateToStringSilently(dto.getEndUntil()));
-                            result = reportProfile.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
-                            reportTemplateName = reportProfile.getTemplateName();
-                            appCode = reportProfile.getAppCode();
-                            reportFileName = reportProfile.getReportFileName();
-                        } else {
-                            throw new RestServiceException("Improper implementation of \"" + IReportProfile.class.getName() + "\"");
+                HashMap<String, Object> parameters = new HashMap<>();
+                JRFileVirtualizer virtualizer = new JRFileVirtualizer(10, Environment.trash);
+                parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
+
+                LanguageCode lang = session.getLang();
+
+                IDataObtainer obtainer = null;
+                List result = new ArrayList<>();
+
+
+                switch (profile.getReportQueryType()) {
+                    case ENTITY_REQUEST:
+                        obtainer = new RegistryDataObtainer();
+                        obtainer.setSession(session);
+                        reportTemplateName = obtainer.getTemplateName();
+                        appCode = obtainer.getAppCode();
+                        result = obtainer.getReportData(dto.getStartFrom(), dto.getEndUntil(), profile.getClassName());
+                        reportFileName = profile.getClassName() + "_" + obtainer.getReportFileName();
+                        parameters.put("entity_name", dto.getClassName());
+                        break;
+                    case CUSTOM_CLASS:
+                        try {
+                            Class clazz = Class.forName(profile.getClassName());
+                            if (IDataObtainer.class.isAssignableFrom(clazz)) {
+                                obtainer = (IDataObtainer) clazz.newInstance();
+                                obtainer.setTitle(profile.getLocName(session.getLang()));
+                                obtainer.setSession(session);
+                                obtainer.setDetails(TimeUtil.dateTimeToStringSilently(new Date()) + ", " +
+                                        Environment.vocabulary.getWord("start_from", lang).toLowerCase() + ": " + TimeUtil.dateToStringSilently(dto.getStartFrom()) + " " +
+                                        Environment.vocabulary.getWord("end_until", lang).toLowerCase() + ": " + TimeUtil.dateToStringSilently(dto.getEndUntil()));
+                                result = obtainer.getReportData(dto.getStartFrom(), dto.getEndUntil(), "");
+                                reportTemplateName = obtainer.getTemplateName();
+                                appCode = obtainer.getAppCode();
+                                reportFileName = obtainer.getReportFileName();
+                            } else {
+                                throw new RestServiceException("Improper implementation of \"" + IDataObtainer.class.getName() + "\"");
+                            }
+                        } catch (ClassNotFoundException e) {
+                            throw new RestServiceException("Class \"" + profile.getClassName() + "\", has not been found");
+                        } catch (IllegalAccessException | InstantiationException e) {
+                            return responseException(e);
                         }
-                    } catch (ClassNotFoundException e) {
-                        throw new RestServiceException("Class \"" + dto.getClassName() + "\", has not been found");
-                    } catch (IllegalAccessException | InstantiationException e) {
-                        return responseException(e);
-                    }
-            }
-
-            parameters.put("title", reportProfile.getTitle());
-            parameters.put("details", reportProfile.getDetails());
-
-
-            JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
-            JasperPrint print = JasperFillManager
-                    .fillReport(
-                            JasperCompileManager.compileReportToFile(repPath + File.separator + "templates"
-                                    + File.separator + appCode + File.separator + reportTemplateName + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
-                            parameters, dSource);
-
-            boolean needToWriteStream = false;
-            String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
-            File reportFile = new File(filePath);
-
-            try {
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                Exporter exporter = null;
-                if (type.equalsIgnoreCase("pdf")) {
-                    JRStyle style = new JRDesignStyle();
-                    String pathToFont = repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
-                            + "tahoma.ttf";
-                    style.setPdfFontName(pathToFont);
-                    style.setPdfEncoding("Cp1251");
-                    style.setPdfEmbedded(true);
-                    print.setDefaultStyle(style);
-                    exporter = new JRPdfExporter();
-                    exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-                    needToWriteStream = true;
-                } else if (type.equalsIgnoreCase("xlsx")) {
-                    exporter = new JRXlsxExporter();
-                    exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
-                    needToWriteStream = true;
-                } else if (type.equalsIgnoreCase("csv")) {
-                    exporter = new JRCsvExporter();
-                    exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
-                } else if (type.equalsIgnoreCase("xml")) {
-                    exporter = new JRXmlExporter();
-                    exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
-                } else {
-                    throw new RestServiceException(type + " is unknown export format");
                 }
 
-                exporter.setExporterInput(new SimpleExporterInput(print));
-                exporter.exportReport();
+                parameters.put("title", obtainer.getTitle());
+                parameters.put("details", obtainer.getDetails());
 
 
-                File someFile = new File(filePath);
-                if (needToWriteStream) {
-                    FileOutputStream fos = null;
-                    byte[] bytes = outputStream.toByteArray();
-                    if (bytes.length > 1) {
-                        fos = new FileOutputStream(someFile);
-                        fos.write(bytes);
-                        fos.flush();
-                        fos.close();
+                JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
+                JasperPrint print = JasperFillManager
+                        .fillReport(
+                                JasperCompileManager.compileReportToFile(repPath + File.separator + "templates"
+                                        + File.separator + appCode + File.separator + reportTemplateName + "." + JASPER_REPORT_TEMPLATE_EXTENSION),
+                                parameters, dSource);
+
+                boolean needToWriteStream = false;
+                String filePath = Environment.tmpDir + File.separator + reportFileName + "." + type;
+                File reportFile = new File(filePath);
+
+                try {
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    Exporter exporter = null;
+                    if (type.equalsIgnoreCase("pdf")) {
+                        JRStyle style = new JRDesignStyle();
+                        String pathToFont = repPath + File.separator + "templates" + File.separator + "fonts" + File.separator
+                                + "tahoma.ttf";
+                        style.setPdfFontName(pathToFont);
+                        style.setPdfEncoding("Cp1251");
+                        style.setPdfEmbedded(true);
+                        print.setDefaultStyle(style);
+                        exporter = new JRPdfExporter();
+                        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+                        needToWriteStream = true;
+                    } else if (type.equalsIgnoreCase("xlsx")) {
+                        exporter = new JRXlsxExporter();
+                        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(outputStream));
+                        needToWriteStream = true;
+                    } else if (type.equalsIgnoreCase("csv")) {
+                        exporter = new JRCsvExporter();
+                        exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
+                    } else if (type.equalsIgnoreCase("xml")) {
+                        exporter = new JRXmlExporter();
+                        exporter.setExporterOutput(new SimpleWriterExporterOutput(reportFile));
+                    } else {
+                        throw new RestServiceException(type + " is unknown export format");
                     }
+
+                    exporter.setExporterInput(new SimpleExporterInput(print));
+                    exporter.exportReport();
+
+
+                    File someFile = new File(filePath);
+                    if (needToWriteStream) {
+                        FileOutputStream fos = null;
+                        byte[] bytes = outputStream.toByteArray();
+                        if (bytes.length > 1) {
+                            fos = new FileOutputStream(someFile);
+                            fos.write(bytes);
+                            fos.flush();
+                            fos.close();
+                        }
+                    }
+                    String codedFileName = URLEncoder.encode(reportFileName + "." + type, "UTF8");
+                    String val = someFile.getAbsolutePath();
+                    Server.logger.info(
+                            "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
+
+                    System.out.println(val);
+                    return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
+                            header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
+
+                } catch (Exception e) {
+                    return responseException(e);
+                } finally {
+                    TempFileCleaner.addFileToDelete(filePath);
                 }
-                String codedFileName = URLEncoder.encode(reportFileName + "." + type, "UTF8");
-                String val = someFile.getAbsolutePath();
-                Server.logger.info(
-                        "Report \"" + reportTemplateName + "\" is ready, estimated time is " + TimeUtil.getTimeDiffInMilSec(start_time));
-
-                System.out.println(val);
-                return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
-                        header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
-
-            } catch (Exception e) {
-                return responseException(e);
-            } finally {
-                TempFileCleaner.addFileToDelete(filePath);
+            }else{
+                return responseValidationError("ReportProfile entity has not been found id=" + dto.getId());
             }
         } catch (JRException e) {
             logError(e);
