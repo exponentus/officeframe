@@ -12,13 +12,11 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.DistrictDAO;
 import reference.dao.RegionDAO;
 import reference.model.District;
 import reference.model.Region;
-import reference.ui.Action;
 import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
@@ -26,8 +24,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.UUID;
-
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
 @Path("districts")
 public class DistrictService extends RestProvider {
@@ -89,12 +85,6 @@ public class DistrictService extends RestProvider {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
 
             Outcome outcome = new Outcome();
             outcome.addPayload("mapsApiKey", Environment.mapsApiKey);
@@ -102,7 +92,7 @@ public class DistrictService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "district");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -129,11 +119,7 @@ public class DistrictService extends RestProvider {
 
     public Response save(District dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

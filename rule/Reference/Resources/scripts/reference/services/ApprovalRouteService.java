@@ -3,6 +3,7 @@ package reference.services;
 import administrator.dao.LanguageDAO;
 import com.exponentus.common.model.constants.ApprovalSchemaType;
 import com.exponentus.common.model.constants.ApprovalType;
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -13,19 +14,15 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.ApprovalRouteDAO;
 import reference.model.ApprovalRoute;
-import reference.ui.Action;
 import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
-
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
 @Path("approval-routes")
 public class ApprovalRouteService extends RestProvider {
@@ -45,15 +42,7 @@ public class ApprovalRouteService extends RestProvider {
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
             ViewPage<ApprovalRoute> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
-
+            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
             vp.setViewPageOptions(new ViewOptions().getApprovalRouteOptions());
 
             outcome.setTitle("approval_routes");
@@ -85,12 +74,6 @@ public class ApprovalRouteService extends RestProvider {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
@@ -100,7 +83,7 @@ public class ApprovalRouteService extends RestProvider {
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload("approvalSchemaType", ApprovalSchemaType.values());
             outcome.addPayload("approvalType", ApprovalType.values());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -127,13 +110,8 @@ public class ApprovalRouteService extends RestProvider {
 
     public Response save(ApprovalRoute dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
-
-        try {
+          try {
             validate(dto);
 
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);

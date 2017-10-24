@@ -1,5 +1,6 @@
 package reference.services;
 
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -10,18 +11,14 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.DemandTypeDAO;
 import reference.model.DemandType;
-import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
-
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
 @Path("demand-types")
 public class DemandTypeService extends RestProvider {
@@ -41,14 +38,7 @@ public class DemandTypeService extends RestProvider {
             DemandTypeDAO dao = new DemandTypeDAO(session);
             ViewPage<DemandType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
+            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
 
             outcome.setTitle("demand_types");
             outcome.addPayload("contentTitle", "demand_types");
@@ -78,19 +68,12 @@ public class DemandTypeService extends RestProvider {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
-
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "demand_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -117,11 +100,7 @@ public class DemandTypeService extends RestProvider {
 
     public Response save(DemandType dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

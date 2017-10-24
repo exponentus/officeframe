@@ -1,5 +1,6 @@
 package reference.services;
 
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -40,15 +41,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
             BuildingStateDAO dao = new BuildingStateDAO(session);
             ViewPage<BuildingState> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
-
+            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
             outcome.setTitle("building_states");
             outcome.addPayload("contentTitle", "building_states");
             outcome.addPayload(vp);
