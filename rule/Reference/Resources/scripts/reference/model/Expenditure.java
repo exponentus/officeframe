@@ -16,7 +16,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Cacheable(true)
 @Table(name = AppConst.CODE + "__expendituries", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
-public class Expenditure extends SimpleReferenceEntity {
+public class Expenditure  extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
