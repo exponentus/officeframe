@@ -8,11 +8,9 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.ЕxpenditurеCategoryDAO;
-import reference.dao.ЕxpenditurеDAO;
+import reference.dao.ExpenditureDAO;
 import reference.init.AppConst;
-import reference.model.Еxpenditurе;
-import reference.model.ЕxpenditurеCategory;
+import reference.model.Expenditure;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +22,7 @@ public class FillЕxpendituries extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {
-		List<Еxpenditurе> entities = new ArrayList<Еxpenditurе>();
+		List<Expenditure> entities = new ArrayList<Expenditure>();
 		String[] data = {"income_from_loans", "non-tax_revenue", "proceeds_from_the_sale_of_fixed_capital",
 				"receipts_of_transfers","redemption_of_budget_loans","proceeds_from_the_sale_of_financial_assets_of_the_state",
 				"remaining_budget_funds_are_used", "tax_revenue" };
@@ -40,7 +38,7 @@ public class FillЕxpendituries extends Do {
 
 
 		for (int i = 0; i < data.length; i++) {
-			Еxpenditurе entity = new Еxpenditurе();
+			Expenditure entity = new Expenditure();
 			entity.setName(data[i]);
 			Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
 			name.put(LanguageCode.ENG, dataEng[i]);
@@ -51,8 +49,8 @@ public class FillЕxpendituries extends Do {
 		}
 
 		try {
-			ЕxpenditurеDAO dao = new ЕxpenditurеDAO(ses);
-			for (Еxpenditurе entry : entities) {
+			ExpenditureDAO dao = new ExpenditureDAO(ses);
+			for (Expenditure entry : entities) {
 				try {
 					if (dao.add(entry) != null) {
 						logger.info(entry.getName() + " added");

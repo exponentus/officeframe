@@ -11,15 +11,15 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
-@JsonRootName("еxpenditurе")
+@JsonRootName("еxpenditurеCategory")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__еxpendituries", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
-public class Еxpenditurе extends SimpleReferenceEntity {
+@Table(name = AppConst.CODE + "__еxpenditurе_categories", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+public class ExpenditureCategory extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "еxpendituries/" + getIdentifier();
+        return AppConst.BASE_URL + "еxpenditurе-categories/" + getIdentifier();
     }
 }
