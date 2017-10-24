@@ -2,6 +2,7 @@ package reference.services;
 
 import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
@@ -25,7 +26,6 @@ import javax.ws.rs.core.Response;
 import java.lang.reflect.ParameterizedType;
 import java.util.UUID;
 
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
 public abstract class ReferenceService<T extends SimpleReferenceEntity> extends RestProvider {
 
@@ -43,16 +43,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
         ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-        if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            _ActionBar actionBar = new _ActionBar(session);
-            Action action = new Action();
-            actionBar.addAction(action.addNew);
-            actionBar.addAction(action.deleteDocument);
-            actionBar.addAction(action.refreshVew);
-            outcome.addPayload(actionBar);
-        }
-
+        outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
         String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
         outcome.setTitle(keyword);
         outcome.addPayload("contentTitle", keyword);
@@ -86,19 +77,14 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
+
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", StringUtil.kindToKeyword(entity.getEntityKind()));
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -125,11 +111,6 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
 
     public Response save(T dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
-
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

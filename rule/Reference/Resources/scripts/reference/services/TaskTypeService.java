@@ -1,5 +1,6 @@
 package reference.services;
 
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -21,8 +22,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
-
 @Path("task-types")
 public class TaskTypeService extends RestProvider {
 
@@ -40,15 +39,7 @@ public class TaskTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             TaskTypeDAO dao = new TaskTypeDAO(session);
             ViewPage<TaskType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
+            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
 
             outcome.setTitle("task_types");
             outcome.addPayload("contentTitle", "task_types");
@@ -78,19 +69,14 @@ public class TaskTypeService extends RestProvider {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
+
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "task_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -117,11 +103,6 @@ public class TaskTypeService extends RestProvider {
 
     public Response save(TaskType dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
-
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

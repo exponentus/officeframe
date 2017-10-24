@@ -22,8 +22,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
-
 @Path("building-materials")
 public class BuildingMaterialService extends RestProvider {
 
@@ -71,20 +69,13 @@ public class BuildingMaterialService extends RestProvider {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "building_material");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
-
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
@@ -110,11 +101,7 @@ public class BuildingMaterialService extends RestProvider {
 
     public Response save(BuildingMaterial dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

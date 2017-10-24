@@ -21,7 +21,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
 @Path("building-states")
 public class BuildingStatesService extends ReferenceService<BuildingState> {
@@ -70,19 +69,14 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
+
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "building_state");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -109,11 +103,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
 
     public Response save(BuildingState dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
 
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

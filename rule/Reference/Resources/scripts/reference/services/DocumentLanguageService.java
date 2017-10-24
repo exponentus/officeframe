@@ -1,5 +1,6 @@
 package reference.services;
 
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -22,7 +23,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-import static reference.init.AppConst.ROLE_REFERENCE_ADMIN;
 
 @Path("document-languages")
 public class DocumentLanguageService extends RestProvider {
@@ -42,14 +42,7 @@ public class DocumentLanguageService extends RestProvider {
             DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
             ViewPage<DocumentLanguage> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            if (user.isSuperUser() || user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
+            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
 
             outcome.setTitle("doc_languages");
             outcome.addPayload("contentTitle", "doc_languages");
@@ -79,12 +72,6 @@ public class DocumentLanguageService extends RestProvider {
                 entity = dao.findByIdentefier(id);
             }
 
-            //
-            _ActionBar actionBar = new _ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
-            }
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
@@ -93,7 +80,7 @@ public class DocumentLanguageService extends RestProvider {
             outcome.addPayload("languageCodes", LanguageCode.values());
             outcome.addPayload("contentTitle", "doc_language");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -120,11 +107,6 @@ public class DocumentLanguageService extends RestProvider {
 
     public Response save(DocumentLanguage dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
-
-        if (!user.isSuperUser() && !user.getRoles().contains(ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);
