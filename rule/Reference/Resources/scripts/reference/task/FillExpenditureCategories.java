@@ -17,8 +17,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_еxpenditurе_categories")
-public class FillЕxpenditurеCategories extends Do {
+@Command(name = AppConst.CODE + "_fill_expenditure_categories")
+public class FillExpenditureCategories extends Do {
 
 	@Override
 	public void doTask(AppEnv appEnv, _Session ses) {

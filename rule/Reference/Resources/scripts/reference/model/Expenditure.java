@@ -11,11 +11,11 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 
-@JsonRootName("еxpenditurе")
+@JsonRootName("expenditure")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__еxpendituries", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = AppConst.CODE + "__expendituries", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Expenditure extends SimpleReferenceEntity {
 
     @Override
