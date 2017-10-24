@@ -63,13 +63,14 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
         Map<LanguageCode, String> locNames = dto.getLocName();
         if (locNames.size() > 0) {
             entity.setLocName(dto.getLocName());
-        }else{
+        } else {
             Map<LanguageCode, String> name = new HashMap<>();
-            for(Language language: new LanguageDAO(ses).findAllActivated()) {
+            for (Language language : new LanguageDAO(ses).findAllActivated()) {
                 name.put(language.getCode(), Environment.vocabulary.getWord(REPORT_NAME_KEYWORD, language.getCode()) + "-" + entity.getTitle());
             }
             entity.setLocName(name);
         }
+        entity.setLocalizedDescr(dto.getLocalizedDescr());
         entity.setObservers(dto.getObservers());
 
         EmployeeDAO eDao = new EmployeeDAO(ses);

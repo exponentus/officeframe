@@ -23,7 +23,6 @@ import java.util.Map;
 @Table(name = AppConst.CODE + "__report_profiles")
 public class ReportProfile extends SimpleReferenceEntity {
 
-
     @Convert(converter = LocalizedValConverter.class)
     @Column(name = "localized_descr", columnDefinition = "jsonb")
     private Map<LanguageCode, String> localizedDescr;
