@@ -48,7 +48,9 @@ public class OrganizationService extends RestProvider {
             OrganizationDAO dao = new OrganizationDAO(session);
             ViewPage<Organization> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
-            vp.setViewPageOptions(new ViewOptions().getOrgOptions());
+            ViewOptions viewOptions = new ViewOptions();
+            vp.setViewPageOptions(viewOptions.getOrgOptions());
+            vp.setFilter(viewOptions.getOrgFilter());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);

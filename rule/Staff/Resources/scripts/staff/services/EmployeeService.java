@@ -56,7 +56,9 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             EmployeeDAO dao = new EmployeeDAO(session);
             ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
-            vp.setViewPageOptions(new ViewOptions().getEmpOptions());
+            ViewOptions viewOptions = new ViewOptions();
+            vp.setViewPageOptions(viewOptions.getEmpOptions());
+            vp.setFilter(viewOptions.getEmployeeFilter());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 _ActionBar actionBar = new _ActionBar(session);
