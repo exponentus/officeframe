@@ -17,13 +17,13 @@ public class ServiceDAO {
     private List<ServiceClass> services;
 
     public ServiceDAO(_Session ses) {
-        services = ResourceLoader.getServices();
+       // services = ResourceLoader.getServices();
     }
 
     public ViewPage<Service> findViewPage(SortParams sortParams, int pageNum, int pageSize) {
         List<Service> entites = new ArrayList<Service>();
 
-        for (ServiceClass entry : ServicesHelper.getAppTasks(EnvConst.MAIN_PACKAGE + ".rest", "system")) {
+        for (ServiceClass entry : ServicesHelper.getModuleServiceMethods(EnvConst.MAIN_PACKAGE + ".rest", "system")) {
             entites.add(new Service(entry));
         }
 
@@ -48,9 +48,10 @@ public class ServiceDAO {
         return new ViewPage<>(page, count, maxPage, pageNum);
     }
 
+
     public Service findByClassName(String className) {
 
-        for (ServiceClass entry : ServicesHelper.getAppTasks(EnvConst.MAIN_PACKAGE + ".rest", "system")) {
+        for (ServiceClass entry : ServicesHelper.getModuleServiceMethods(EnvConst.MAIN_PACKAGE + ".rest", "system")) {
             if (entry.getName().equals(className)) {
                 return new Service(entry);
             }

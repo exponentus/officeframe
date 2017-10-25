@@ -3,7 +3,7 @@ package monitoring.dao;
 import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.extconnect.IMonitoringFacility;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.user.IUser;
 import monitoring.model.DocumentActivity;
@@ -20,9 +20,9 @@ import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.UUID;
 
-public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> implements IMonitoringDAO {
+public class DocumentActivityFacility extends SimpleDAO<DocumentActivity> implements IMonitoringFacility {
 
-	public DocumentActivityDAO() {
+	public DocumentActivityFacility() {
 		super(DocumentActivity.class);
 	}
 

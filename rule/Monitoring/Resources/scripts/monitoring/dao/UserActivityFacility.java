@@ -7,7 +7,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.extconnect.IMonitoringDAO;
+import com.exponentus.extconnect.IMonitoringFacility;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
@@ -30,11 +30,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitoringDAO {
+public class UserActivityFacility extends SimpleDAO<UserActivity> implements IMonitoringFacility {
     private static IP2Country ip2c;
     private _Session ses;
 
-    public UserActivityDAO() {
+    public UserActivityFacility() {
         super(UserActivity.class);
         try {
             ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
@@ -43,7 +43,7 @@ public class UserActivityDAO extends SimpleDAO<UserActivity> implements IMonitor
         }
     }
 
-    public UserActivityDAO(_Session ses) {
+    public UserActivityFacility(_Session ses) {
         super(UserActivity.class);
         this.ses = ses;
         try {
