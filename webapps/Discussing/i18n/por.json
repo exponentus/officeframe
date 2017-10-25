@@ -99,6 +99,7 @@
   "related_assignments" : null,
   "send_message" : "send_message",
   "tasks_moderate" : "tasks_moderate",
+  "interface_type" : "Tipo de interface",
   "recycle_bin" : null,
   "add" : null,
   "free_area" : "free_area",
