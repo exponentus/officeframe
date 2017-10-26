@@ -14,6 +14,7 @@ public class Workspace extends _DoPage {
     public void doGET(_Session session, WebFormData formData) {
         addValue("logo", Environment.orgLogo);
         addValue("build", "" + tm);
+        addValue("locale", session.getLang().getAlternateCode());
 
         if (!formData.containsField("skip-auth-error") && session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
             setUnauthorized();
