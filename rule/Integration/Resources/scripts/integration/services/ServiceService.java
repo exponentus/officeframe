@@ -68,17 +68,22 @@ public class ServiceService extends RestProvider {
 
     private ViewPageOptions getViewPageOptions() {
         ViewPageOptions result = new ViewPageOptions();
-        ViewColumnGroup cg = new ViewColumnGroup();
 
-        cg.add(new ViewColumn("descr.appName").name("app_name"));
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.setClassName("vw-50");
+        cg.add(new ViewColumn("descr.appName").name("app_name").className("vw-45"));
         cg.add(new ViewColumn("descr.clazz").name("clazz"));
-        cg.add(new ViewColumn("descr.status").name("status"));
-        cg.add(new ViewColumn("descr.url").name("url"));
+
+        ViewColumnGroup cg2 = new ViewColumnGroup();
+        cg2.setClassName("vw-50");
+        cg2.add(new ViewColumn("descr.status").name("status").className("vw-45"));
+        cg2.add(new ViewColumn("descr.url").name("url"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
+        list.add(cg2);
 
-        result.addOption("root", list);
+        result.setRoot(list);
         return result;
     }
 }

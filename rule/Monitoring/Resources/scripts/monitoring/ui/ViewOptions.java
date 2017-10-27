@@ -10,78 +10,63 @@ import java.util.List;
 public class ViewOptions {
 
     public ViewPageOptions getUserActivityOptions() {
-        /*
-        'user-activities': [{
-            columns: [
-                { name: 'event_time', value: 'eventTime' },
-                { name: 'ip', value: 'ip' },
-                { name: 'country', value: 'country' },
-                { name: 'type', value: 'type' },
-                { name: 'act_user', value: 'actUser.login' }
-            ]
-        }] */
-
         ViewPageOptions result = new ViewPageOptions();
-        ViewColumnGroup cg = new ViewColumnGroup();
 
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.setClassName("vw-30");
         cg.add(new ViewColumn("eventTime").name("event_time"));
         cg.add(new ViewColumn("ip"));
-        cg.add(new ViewColumn("country"));
-        cg.add(new ViewColumn("type"));
-        cg.add(new ViewColumn("actUser.login").name("act_user"));
+
+        ViewColumnGroup cg2 = new ViewColumnGroup();
+        cg2.setClassName("vw-35");
+        cg2.add(new ViewColumn("country"));
+
+        ViewColumnGroup cg3 = new ViewColumnGroup();
+        cg3.setClassName("vw-35");
+        cg3.add(new ViewColumn("type"));
+        cg3.add(new ViewColumn("actUser.login").name("act_user"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
+        list.add(cg2);
+        list.add(cg3);
 
-        result.addOption("root", list);
+        result.setRoot(list);
         return result;
     }
 
     public ViewPageOptions getLastVisitOptions() {
-        /*
-    'last-visits': [{
-        columns: [
-            { name: 'act_user', value: 'actUser.login' },
-            { name: 'event_time', value: 'eventTime' },
-            { name: 'ip', value: 'ip' },
-            { name: 'country', value: 'country' }
-        ]
-    }]*/
-
         ViewPageOptions result = new ViewPageOptions();
-        ViewColumnGroup cg = new ViewColumnGroup();
 
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.setClassName("vw-50");
         cg.add(new ViewColumn("actUser.login").name("act_user"));
         cg.add(new ViewColumn("eventTime").name("event_time"));
-        cg.add(new ViewColumn("ip"));
-        cg.add(new ViewColumn("country"));
+
+        ViewColumnGroup cg2 = new ViewColumnGroup();
+        cg2.setClassName("vw-50");
+        cg2.add(new ViewColumn("ip"));
+        cg2.add(new ViewColumn("country"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
+        list.add(cg2);
 
-        result.addOption("root", list);
+        result.setRoot(list);
         return result;
     }
 
     public ViewPageOptions getCountOfRecordOptions() {
-        /*
-    'count-of-records': [{
-        columns: [
-            { name: 'act_user', value: 'actUser' },
-            { name: 'count', value: 'count' }
-        ]
-    }]*/
-
         ViewPageOptions result = new ViewPageOptions();
-        ViewColumnGroup cg = new ViewColumnGroup();
 
+        ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("actUser").name("act_user"));
         cg.add(new ViewColumn("count"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
 
-        result.addOption("root", list);
+        result.setRoot(list);
         return result;
     }
 }
