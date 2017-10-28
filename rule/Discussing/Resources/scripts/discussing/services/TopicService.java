@@ -21,6 +21,7 @@ import discussing.model.Comment;
 import discussing.model.Topic;
 import discussing.model.constants.TopicStatusType;
 import discussing.ui.ActionFactory;
+import discussing.ui.ViewOptions;
 import reference.model.Tag;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
@@ -50,6 +51,9 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
             TopicFilter filter = setUpTopicFilter(session, params, new TopicFilter());
             TopicDAO topicDAO = new TopicDAO(session);
             ViewPage<Topic> vp = topicDAO.findViewPage(filter, sortParams, params.getPage(), session.getPageSize());
+            ViewOptions viewOptions = new ViewOptions();
+            vp.setViewPageOptions(viewOptions.getTopicOptions());
+            vp.setFilter(viewOptions.getTopicFilter(session));
 
             ActionFactory actionFactory = new ActionFactory();
             _ActionBar actionBar = new _ActionBar(session);
