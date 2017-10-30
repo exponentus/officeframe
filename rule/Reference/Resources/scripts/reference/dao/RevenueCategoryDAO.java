@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public class RevenueCategoryDAO extends ReferenceDAO<RevenueCategory, UUID> {
 
-	public RevenueCategoryDAO(_Session session) throws DAOException {
-		super(RevenueCategory.class, session);
-	}
-	
+    public RevenueCategoryDAO(_Session session) throws DAOException {
+        super(RevenueCategory.class, session);
+    }
+
 }

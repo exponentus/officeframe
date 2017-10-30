@@ -19,40 +19,40 @@ import java.util.UUID;
 
 public class DistrictDAO extends ReferenceDAO<District, UUID> {
 
-	public DistrictDAO(_Session session) throws DAOException {
-		super(District.class, session);
-	}
+    public DistrictDAO(_Session session) throws DAOException {
+        super(District.class, session);
+    }
 
-	public ViewPage<District> findAllByRegion(Region region, int pageNum, int pageSize) {
-		EntityManager em = getEntityManagerFactory().createEntityManager();
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		try {
-			CriteriaQuery<District> cq = cb.createQuery(getEntityClass());
-			CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
-			Root<District> c = cq.from(getEntityClass());
-			cq.select(c);
-			countCq.select(cb.count(c));
-			Predicate condition = cb.equal(c.get("region"), region);
-			cq.where(condition);
-			countCq.where(condition);
+    public ViewPage<District> findAllByRegion(Region region, int pageNum, int pageSize) {
+        EntityManager em = getEntityManagerFactory().createEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        try {
+            CriteriaQuery<District> cq = cb.createQuery(getEntityClass());
+            CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
+            Root<District> c = cq.from(getEntityClass());
+            cq.select(c);
+            countCq.select(cb.count(c));
+            Predicate condition = cb.equal(c.get("region"), region);
+            cq.where(condition);
+            countCq.where(condition);
 
-			TypedQuery<District> typedQuery = em.createQuery(cq);
-			Query query = em.createQuery(countCq);
-			long count = (long) query.getSingleResult();
-			int maxPage = 1;
-			if (pageNum != 0 || pageSize != 0) {
-				maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
-				if (pageNum == 0) {
-					pageNum = maxPage;
-				}
-				int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-				typedQuery.setFirstResult(firstRec);
-				typedQuery.setMaxResults(pageSize);
-			}
-			List<District> result = typedQuery.getResultList();
-			return new ViewPage<District>(result, count, maxPage, pageNum);
-		} finally {
-			em.close();
-		}
-	}
+            TypedQuery<District> typedQuery = em.createQuery(cq);
+            Query query = em.createQuery(countCq);
+            long count = (long) query.getSingleResult();
+            int maxPage = 1;
+            if (pageNum != 0 || pageSize != 0) {
+                maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
+                if (pageNum == 0) {
+                    pageNum = maxPage;
+                }
+                int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
+                typedQuery.setFirstResult(firstRec);
+                typedQuery.setMaxResults(pageSize);
+            }
+            List<District> result = typedQuery.getResultList();
+            return new ViewPage<District>(result, count, maxPage, pageNum);
+        } finally {
+            em.close();
+        }
+    }
 }

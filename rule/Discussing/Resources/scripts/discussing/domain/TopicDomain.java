@@ -73,9 +73,9 @@ public class TopicDomain extends CommonDomain<Topic> {
     public void calculateReaders(Topic topic) {
         topic.resetReadersEditors();
 
-        if (topic.getStatus() == TopicStatusType.CLOSE){
+        if (topic.getStatus() == TopicStatusType.CLOSE) {
             topic.addReader(topic.getAuthor());
-        }else {
+        } else {
             topic.addReaderEditor(topic.getAuthor());
         }
 

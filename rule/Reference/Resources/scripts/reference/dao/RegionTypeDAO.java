@@ -1,16 +1,15 @@
 package reference.dao;
 
-import java.util.UUID;
-
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
-
 import reference.model.RegionType;
 
+import java.util.UUID;
+
 public class RegionTypeDAO extends ReferenceDAO<RegionType, UUID> {
-	
-	public RegionTypeDAO(_Session session) throws DAOException {
-		super(RegionType.class, session);
-	}
-	
+
+    public RegionTypeDAO(_Session session) throws DAOException {
+        super(RegionType.class, session);
+    }
+
 }

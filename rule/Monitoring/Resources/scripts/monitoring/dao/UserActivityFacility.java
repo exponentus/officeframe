@@ -198,7 +198,7 @@ public class UserActivityFacility extends SimpleDAO<UserActivity> implements IMo
                 Country c = ip2c.getCountry(ip);
                 ua.setCountry(c.getName());
                 add(ua);
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Lg.error("Incorrect address, IP=" + ip);
             } catch (Exception e) {
                 Lg.error("IP=" + ip);

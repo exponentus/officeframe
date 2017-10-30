@@ -6,11 +6,11 @@ import reference.model.Expenditure;
 
 import java.util.UUID;
 
-public class ExpenditureDAO  extends ReferenceDAO<Expenditure, UUID> {
+public class ExpenditureDAO extends ReferenceDAO<Expenditure, UUID> {
 
-	public ExpenditureDAO(_Session session) throws DAOException {
-		super(Expenditure.class, session);
-	}
-	
+    public ExpenditureDAO(_Session session) throws DAOException {
+        super(Expenditure.class, session);
+    }
+
 }
 

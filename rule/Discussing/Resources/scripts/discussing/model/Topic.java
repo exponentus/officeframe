@@ -3,12 +3,10 @@ package discussing.model;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.env.EnvConst;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import discussing.init.AppConst;
 import discussing.model.constants.TopicStatusType;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
-import org.glassfish.jersey.jaxb.internal.XmlJaxbElementProvider;
 import reference.model.Tag;
 import staff.model.embedded.Observer;
 

@@ -4,7 +4,7 @@ import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 
 public class AppConst extends DefaultAppConst {
-    public static final String  CODE = "de";
+    public static final String CODE = "de";
     public static String NAME = "DataExport";
     public static String NAME_ENG = "Data export";
     public static String NAME_DEU = "Datenexport";

@@ -17,7 +17,7 @@ public class ServiceDAO {
     private List<ServiceClass> services;
 
     public ServiceDAO(_Session ses) {
-       // services = ResourceLoader.getServices();
+        // services = ResourceLoader.getServices();
     }
 
     public ViewPage<Service> findViewPage(SortParams sortParams, int pageNum, int pageSize) {

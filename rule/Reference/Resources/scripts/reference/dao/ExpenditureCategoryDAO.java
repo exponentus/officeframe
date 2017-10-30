@@ -6,10 +6,10 @@ import reference.model.ExpenditureCategory;
 
 import java.util.UUID;
 
-public class ExpenditureCategoryDAO  extends ReferenceDAO<ExpenditureCategory, UUID> {
+public class ExpenditureCategoryDAO extends ReferenceDAO<ExpenditureCategory, UUID> {
 
-	public ExpenditureCategoryDAO(_Session session) throws DAOException {
-		super(ExpenditureCategory.class, session);
-	}
-	
+    public ExpenditureCategoryDAO(_Session session) throws DAOException {
+        super(ExpenditureCategory.class, session);
+    }
+
 }

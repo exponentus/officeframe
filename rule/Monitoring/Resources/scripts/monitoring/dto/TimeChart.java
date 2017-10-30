@@ -30,10 +30,6 @@ public class TimeChart {
         this.end = end;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Map<String, Long> getValues() {
         return values;
     }
@@ -44,6 +40,10 @@ public class TimeChart {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setType(String title) {

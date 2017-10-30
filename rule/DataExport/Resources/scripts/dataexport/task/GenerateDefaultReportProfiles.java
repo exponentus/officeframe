@@ -4,9 +4,9 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
@@ -30,6 +30,7 @@ import static java.time.temporal.TemporalAdjusters.firstDayOfYear;
 @Command(name = AppConst.CODE + "_gen_default_reports")
 public class GenerateDefaultReportProfiles extends Do {
     private static final String REPORT_NAME_KEYWORD = "report";
+
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         try {
@@ -49,7 +50,7 @@ public class GenerateDefaultReportProfiles extends Do {
                     reportProfile.setStartFrom(Date.from(firstDay.atStartOfDay(ZoneId.systemDefault()).toInstant()));
                     reportProfile.setEndUntil(new Date());
                     Map<LanguageCode, String> name = new HashMap<>();
-                    for(Language language: new LanguageDAO(ses).findAllActivated()) {
+                    for (Language language : new LanguageDAO(ses).findAllActivated()) {
                         name.put(language.getCode(), Environment.vocabulary.getWord(REPORT_NAME_KEYWORD, language.getCode()) + "-" + reportProfile.getTitle());
                     }
                     reportProfile.setLocName(name);

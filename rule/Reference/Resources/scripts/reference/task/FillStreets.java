@@ -39,7 +39,7 @@ public class FillStreets extends Do {
                     entities.add(entity);
                     count++;
                 }
-            }else{
+            } else {
                 Lg.error("There is no any Locality");
 
             }

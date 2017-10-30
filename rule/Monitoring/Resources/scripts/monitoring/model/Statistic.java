@@ -13,23 +13,19 @@ import java.util.Date;
         "status"}))
 public class Statistic extends SimpleAppEntity {
 
+    long amount;
     @Column(name = "act_user", nullable = false)
     private Long actUser;
-
     @Column(name = "app_code", nullable = false, length = 16)
     private String appCode;
-
     @Temporal(TemporalType.DATE)
     @Column(name = "event_time", nullable = false)
     private Date eventTime;
-
     @Column(length = 16)
     private String status;
     //0889803556  стоян
     @Column(length = 64)
     private String type;
-
-    long amount;
 
     public String getAppCode() {
         return appCode;

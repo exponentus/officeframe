@@ -208,25 +208,6 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         }
     }
 
-    private class Validation implements IValidation<Topic> {
-
-        @Override
-        public void check(Topic dto) throws DTOException {
-            DTOException ve = new DTOException();
-
-            if (dto.getTitle() == null || dto.getTitle().isEmpty()) {
-                ve.addError("title", "required", "field_is_empty");
-            }
-            if (dto.getBody() == null) {
-                ve.addError("body", "required", "field_is_empty");
-            }
-
-            if (ve.hasError()) {
-                throw ve;
-            }
-        }
-    }
-
     public TopicFilter setUpTopicFilter(_Session session, WebFormData formData, TopicFilter filter) {
 
         String statusName = formData.getValueSilently("status");
@@ -262,5 +243,24 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         }
 
         return filter;
+    }
+
+    private class Validation implements IValidation<Topic> {
+
+        @Override
+        public void check(Topic dto) throws DTOException {
+            DTOException ve = new DTOException();
+
+            if (dto.getTitle() == null || dto.getTitle().isEmpty()) {
+                ve.addError("title", "required", "field_is_empty");
+            }
+            if (dto.getBody() == null) {
+                ve.addError("body", "required", "field_is_empty");
+            }
+
+            if (ve.hasError()) {
+                throw ve;
+            }
+        }
     }
 }

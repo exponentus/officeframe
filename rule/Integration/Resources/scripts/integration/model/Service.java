@@ -7,12 +7,12 @@ public class Service {
 
     private ServiceClass descr;
 
-    public String getKind() {
-        return "service";
-    }
-
     public Service(ServiceClass descr) {
         this.descr = descr;
+    }
+
+    public String getKind() {
+        return "service";
     }
 
     public ServiceClass getDescr() {

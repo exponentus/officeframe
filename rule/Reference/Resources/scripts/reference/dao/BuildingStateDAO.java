@@ -8,8 +8,8 @@ import java.util.UUID;
 
 public class BuildingStateDAO extends ReferenceDAO<BuildingState, UUID> {
 
-	public BuildingStateDAO(_Session session) throws DAOException {
-		super(BuildingState.class, session);
-	}
-	
+    public BuildingStateDAO(_Session session) throws DAOException {
+        super(BuildingState.class, session);
+    }
+
 }

@@ -295,7 +295,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 } finally {
                     TempFileCleaner.addFileToDelete(filePath);
                 }
-            }else{
+            } else {
                 return responseValidationError("ReportProfile entity has not been found id=" + dto.getId());
             }
         } catch (JRException e) {

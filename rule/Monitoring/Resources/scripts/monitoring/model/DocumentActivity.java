@@ -69,6 +69,10 @@ public class DocumentActivity extends SimpleAppEntity {
         return actEntityKind;
     }
 
+    public void setActEntityKind(String actEntityKind) {
+        this.actEntityKind = actEntityKind;
+    }
+
     public List<Event> getDetails() {
         return events;
     }
@@ -79,10 +83,6 @@ public class DocumentActivity extends SimpleAppEntity {
 
     public void addEvent(Event e) {
         events.add(e);
-    }
-
-    public void setActEntityKind(String actEntityKind) {
-        this.actEntityKind = actEntityKind;
     }
 
     @Override

@@ -27,8 +27,8 @@ public class RegistryDataObtainer extends AbstractDataObtainer {
 
     @Override
     public List<T> getReportData(Date from, Date until, String customParameter) {
-            IDAO<T, UUID> dao = DAOFactory.get(session, customParameter);
-            return dao.findAll().getResult();
+        IDAO<T, UUID> dao = DAOFactory.get(session, customParameter);
+        return dao.findAll().getResult();
 
     }
 }

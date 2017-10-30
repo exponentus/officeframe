@@ -10,8 +10,8 @@ import reference.init.AppConst;
 @Command(name = AppConst.CODE + "_gen_voc", trigger = Trigger.POST_APP_START)
 public class GenerateVocabulary extends Do {
 
-	@Override
-	public void doTask(AppEnv appEnv, _Session ses) {
-		generateVocabulary(appEnv);
-	}
+    @Override
+    public void doTask(AppEnv appEnv, _Session ses) {
+        generateVocabulary(appEnv);
+    }
 }
