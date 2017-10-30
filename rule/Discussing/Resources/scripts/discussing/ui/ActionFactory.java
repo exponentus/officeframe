@@ -1,8 +1,8 @@
 package discussing.ui;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
-import com.exponentus.scripting.actions.Action;
-import com.exponentus.scripting.actions.ActionType;
+import com.exponentus.common.ui.actions.Action;
+import com.exponentus.common.ui.actions.ActionType;
 import discussing.init.AppConst;
 
 public class ActionFactory extends ConventionalActionFactory {

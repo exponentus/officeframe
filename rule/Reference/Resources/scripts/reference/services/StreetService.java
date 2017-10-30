@@ -11,13 +11,11 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.user.IUser;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
 import reference.model.Locality;
 import reference.model.Street;
-import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;

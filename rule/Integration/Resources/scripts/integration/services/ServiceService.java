@@ -2,6 +2,7 @@ package integration.services;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
+import com.exponentus.common.ui.actions._ActionBar;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewPageOptions;
@@ -10,7 +11,6 @@ import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.scripting.actions._ActionBar;
 import integration.dao.ServiceDAO;
 import integration.model.Service;
 

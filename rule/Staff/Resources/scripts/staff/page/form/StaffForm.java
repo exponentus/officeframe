@@ -2,14 +2,14 @@ package staff.page.form;
 
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
+import com.exponentus.common.ui.actions.Action;
+import com.exponentus.common.ui.actions.ActionType;
+import com.exponentus.common.ui.actions._ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting._Validation;
-import com.exponentus.scripting.actions.Action;
-import com.exponentus.scripting.actions.ActionType;
-import com.exponentus.scripting.actions._ActionBar;
 import com.exponentus.scripting.event._DoForm;
 import com.exponentus.user.IUser;
 
