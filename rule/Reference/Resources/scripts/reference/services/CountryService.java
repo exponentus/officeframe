@@ -1,8 +1,8 @@
 package reference.services;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
-import com.exponentus.common.ui.IActionBar;
 import com.exponentus.common.ui.ViewPage;
+import com.exponentus.common.ui.actions._ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -39,8 +39,7 @@ public class CountryService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             CountryDAO dao = new CountryDAO(session);
             ViewPage<Country> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            IActionBar actionBar = new ConventionalActionFactory().getViewActionBar(session, true);
-            actionBar.addAction(new ConventionalActionFactory().replicateView);
+            _ActionBar actionBar = new ConventionalActionFactory().getViewActionBar(session, true);
             outcome.addPayload(actionBar);
             outcome.setTitle("countries");
             outcome.addPayload("contentTitle", "countries");
@@ -76,7 +75,7 @@ public class CountryService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "country");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
             outcome.addPayload("countryCodes", CountryCode.values());
 
             return Response.ok(outcome).build();
