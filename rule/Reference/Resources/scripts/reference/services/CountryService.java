@@ -40,6 +40,7 @@ public class CountryService extends RestProvider {
             CountryDAO dao = new CountryDAO(session);
             ViewPage<Country> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             _ActionBar actionBar = new ConventionalActionFactory().getViewActionBar(session, true);
+            actionBar.addAction(new ConventionalActionFactory().replicateView);
             outcome.addPayload(actionBar);
             outcome.setTitle("countries");
             outcome.addPayload("contentTitle", "countries");
