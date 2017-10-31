@@ -80,7 +80,7 @@ public class FillApprovalRouters extends Do {
     }
 
     private RouteBlock getMockBlock() {
-        EmployeeDAO uDao = (EmployeeDAO) Environment.getOfficeFrameProvider();
+        EmployeeDAO uDao = (EmployeeDAO) Environment.getOfficeFrame();
         RouteBlock bl = new RouteBlock();
         bl.setType(EnumUtil.getRndElement(ApprovalType.values()));
         List<Employee> approvers = new ArrayList<Employee>();

@@ -234,7 +234,7 @@ public class NameGenerator {
 			do {
 				b[i] = (int) (Math.random() * mid.size());
 				// System.out.println("exp "
-				// +expecting+" VowelF:"+VowelFirst(mid.get(b[i]))+" syl: "+mid.get(b[i]));
+				// +expecting+" VowelF:"+VowelFirst(mid.connect(b[i]))+" syl: "+mid.connect(b[i]));
 			} while (expecting == 1 && VowelFirst(pureSyl(mid.get(b[i]))) == false || expecting == 2
 			        && consonantFirst(pureSyl(mid.get(b[i]))) == false || last == 1 && hatesPreviousVowels(mid.get(b[i])) || last == 2
 			        && hatesPreviousConsonants(mid.get(b[i])));

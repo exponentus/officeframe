@@ -6,7 +6,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.extconnect.IExtRole;
 import com.exponentus.extconnect.IExtUser;
-import com.exponentus.extconnect.IOfficeFrameDataProvider;
+import com.exponentus.extconnect.IOfficeFrame;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
@@ -19,7 +19,7 @@ import javax.persistence.*;
 import javax.persistence.criteria.*;
 import java.util.*;
 
-public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrameDataProvider {
+public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     private static ViewPage<Employee> allEmployee;
     private static Map<UUID, Employee> allEmployeeMap;
     private static Map<Long, Employee> allEmployeeId;
