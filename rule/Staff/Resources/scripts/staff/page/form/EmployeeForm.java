@@ -100,7 +100,7 @@ public class EmployeeForm extends StaffForm {
 				String roleId = formData.getValueSilently("categoryid");
 				if (!roleId.isEmpty()) {
 					RoleDAO rDao = new RoleDAO(session);
-					Role role = rDao.findByIdentefier(roleId);
+					Role role = rDao.findByIdentifier(roleId);
 					entity.setRoles(new ArrayList<>(Arrays.asList(role)));
 				} else {
 					entity.setRoles(new ArrayList<Role>());
@@ -139,7 +139,7 @@ public class EmployeeForm extends StaffForm {
 			if (isNew) {
 				entity = new Employee();
 			} else {
-				entity = dao.findByIdentefier(id);
+				entity = dao.findByIdentifier(id);
 			}
 
 			entity.setName(formData.getValueSilently("name"));
@@ -148,25 +148,25 @@ public class EmployeeForm extends StaffForm {
 			OrganizationDAO orgDAO = new OrganizationDAO(session);
 			String orgId = formData.getValueSilently("organization");
 			if (!orgId.isEmpty()) {
-				Organization org = orgDAO.findByIdentefier(orgId);
+				Organization org = orgDAO.findByIdentifier(orgId);
 				entity.setOrganization(org);
 			}
 
 			String depId = formData.getValueSilently("department");
 			if (!depId.isEmpty()) {
 				DepartmentDAO depDAO = new DepartmentDAO(session);
-				entity.setDepartment(depDAO.findByIdentefier(depId));
+				entity.setDepartment(depDAO.findByIdentifier(depId));
 			}
 
 			PositionDAO posDAO = new PositionDAO(session);
-			entity.setPosition(posDAO.findByIdentefier(formData.getValueSilently("position")));
+			entity.setPosition(posDAO.findByIdentifier(formData.getValueSilently("position")));
 			String[] roles = formData.getListOfValuesSilently("role");
 			if (roles != null) {
 				RoleDAO roleDAO = new RoleDAO(session);
 				List<Role> roleList = new ArrayList<>();
 				for (String roleId : roles) {
 					if (!roleId.isEmpty()) {
-						Role role = roleDAO.findByIdentefier(roleId);
+						Role role = roleDAO.findByIdentifier(roleId);
 						roleList.add(role);
 					}
 				}

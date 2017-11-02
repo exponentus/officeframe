@@ -7,7 +7,6 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -63,7 +62,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
                 entity.setAuthor(session.getUser());
             } else {
                 RouteClassificationDAO dao = new RouteClassificationDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -135,7 +134,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
     public Response delete(@PathParam("id") String id) {
         try {
             RouteClassificationDAO dao = new RouteClassificationDAO(getSession());
-            RouteClassification entity = dao.findByIdentefier(id);
+            RouteClassification entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

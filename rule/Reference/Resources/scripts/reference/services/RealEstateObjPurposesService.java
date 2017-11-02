@@ -74,7 +74,7 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
                 entity.setAuthor(session.getUser());
             } else {
                 RealEstateObjPurposeDAO dao = new RealEstateObjPurposeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -152,7 +152,7 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
     public Response delete(@PathParam("id") String id) {
         try {
             RealEstateObjPurposeDAO dao = new RealEstateObjPurposeDAO(getSession());
-            RealEstateObjPurpose entity = dao.findByIdentefier(id);
+            RealEstateObjPurpose entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

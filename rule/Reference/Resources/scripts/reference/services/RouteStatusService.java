@@ -5,7 +5,6 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -62,7 +61,7 @@ public class RouteStatusService extends ReferenceService<RouteStatus> {
                 entity.setAuthor(session.getUser());
             } else {
                 RouteStatusDAO dao = new RouteStatusDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -134,7 +133,7 @@ public class RouteStatusService extends ReferenceService<RouteStatus> {
     public Response delete(@PathParam("id") String id) {
         try {
             RouteStatusDAO dao = new RouteStatusDAO(getSession());
-            RouteStatus entity = dao.findByIdentefier(id);
+            RouteStatus entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

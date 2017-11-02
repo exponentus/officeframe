@@ -65,7 +65,7 @@ public class WorkTypeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 WorkTypeDAO dao = new WorkTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -139,7 +139,7 @@ public class WorkTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             WorkTypeDAO dao = new WorkTypeDAO(getSession());
-            WorkType entity = dao.findByIdentefier(id);
+            WorkType entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -65,7 +65,7 @@ public class MeetingRoomService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 MeetingRoomDAO dao = new MeetingRoomDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -137,7 +137,7 @@ public class MeetingRoomService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             MeetingRoomDAO dao = new MeetingRoomDAO(getSession());
-            MeetingRoom entity = dao.findByIdentefier(id);
+            MeetingRoom entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

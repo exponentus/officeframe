@@ -65,7 +65,7 @@ public class DepartmentTypeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -138,7 +138,7 @@ public class DepartmentTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DepartmentTypeDAO dao = new DepartmentTypeDAO(getSession());
-            DepartmentType entity = dao.findByIdentefier(id);
+            DepartmentType entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

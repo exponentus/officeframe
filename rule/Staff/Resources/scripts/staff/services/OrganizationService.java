@@ -86,7 +86,7 @@ public class OrganizationService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 OrganizationDAO dao = new OrganizationDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             //
@@ -174,7 +174,7 @@ public class OrganizationService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             OrganizationDAO dao = new OrganizationDAO(getSession());
-            Organization entity = dao.findByIdentefier(id);
+            Organization entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

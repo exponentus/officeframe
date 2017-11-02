@@ -67,7 +67,7 @@ public class VehicleService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 VehicleDAO dao = new VehicleDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -140,7 +140,7 @@ public class VehicleService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             VehicleDAO dao = new VehicleDAO(getSession());
-            Vehicle entity = dao.findByIdentefier(id);
+            Vehicle entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

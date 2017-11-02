@@ -80,7 +80,7 @@ public class RoleService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 RoleDAO dao = new RoleDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             //
@@ -188,7 +188,7 @@ public class RoleService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             RoleDAO dao = new RoleDAO(getSession());
-            Role entity = dao.findByIdentefier(id);
+            Role entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

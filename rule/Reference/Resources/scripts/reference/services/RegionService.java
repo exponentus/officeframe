@@ -47,7 +47,7 @@ public class RegionService extends RestProvider {
 
             if (countryId != null && !countryId.isEmpty()) {
                 CountryDAO countryDAO = new CountryDAO(session);
-                Country country = countryDAO.findByIdentefier(countryId);
+                Country country = countryDAO.findByIdentifier(countryId);
                 List<Region> regionList = country.getRegions();
                 vp = new ViewPage<Region>(regionList, regionList.size(), 1, 1);
             } else {
@@ -82,7 +82,7 @@ public class RegionService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 RegionDAO dao = new RegionDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -157,7 +157,7 @@ public class RegionService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             RegionDAO dao = new RegionDAO(getSession());
-            Region entity = dao.findByIdentefier(id);
+            Region entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

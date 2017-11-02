@@ -71,7 +71,7 @@ public class ApprovalRouteService extends RestProvider {
                 entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
             } else {
                 ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -152,7 +152,7 @@ public class ApprovalRouteService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             ApprovalRouteDAO dao = new ApprovalRouteDAO(getSession());
-            ApprovalRoute entity = dao.findByIdentefier(id);
+            ApprovalRoute entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

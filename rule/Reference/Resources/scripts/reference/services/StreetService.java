@@ -48,7 +48,7 @@ public class StreetService extends RestProvider {
                 vp = streetDAO.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 LocalityDAO localityDAO = new LocalityDAO(session);
-                Locality locality = localityDAO.findByIdentefier(localityId);
+                Locality locality = localityDAO.findByIdentifier(localityId);
                 List<Street> streetList = locality.getStreets();
                 vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
             }
@@ -79,7 +79,7 @@ public class StreetService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 StreetDAO dao = new StreetDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             Outcome outcome = new Outcome();
@@ -152,7 +152,7 @@ public class StreetService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             StreetDAO dao = new StreetDAO(getSession());
-            Street entity = dao.findByIdentefier(id);
+            Street entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

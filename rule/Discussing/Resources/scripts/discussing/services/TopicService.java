@@ -86,7 +86,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
             if (isNew) {
                 topic = topicDomain.composeNew(session.getUser());
             } else {
-                topic = dao.findByIdentefier(id);
+                topic = dao.findByIdentifier(id);
                 if (topic == null) {
                     return Response.status(Response.Status.NOT_FOUND).build();
                 }
@@ -136,7 +136,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
             WebFormData params = getWebFormData();
             SortParams sortParams = params.getSortParams(SortParams.asc("regDate"));
             TopicDAO topicDAO = new TopicDAO(session);
-            Topic topic = topicDAO.findByIdentefier(id);
+            Topic topic = topicDAO.findByIdentifier(id);
 
             Outcome outcome = new Outcome();
             outcome.addPayload("comments", topic.getComments());
@@ -154,7 +154,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         try {
             CommentDAO commentDAO = new CommentDAO(session);
             TopicDAO topicDAO = new TopicDAO(session);
-            Topic topic = topicDAO.findByIdentefier(id);
+            Topic topic = topicDAO.findByIdentifier(id);
 
             comment.setId(null);
             comment.setTopic(topic);
@@ -186,7 +186,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
         try {
             CommentDAO commentDAO = new CommentDAO(session);
             TopicDAO topicDAO = new TopicDAO(session);
-            Topic topic = topicDAO.findByIdentefier(id);
+            Topic topic = topicDAO.findByIdentifier(id);
 
             comment.setTopic(topic);
             comment.addReader(topic.getAuthor());

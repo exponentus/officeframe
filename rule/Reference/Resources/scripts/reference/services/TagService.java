@@ -71,7 +71,7 @@ public class TagService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 TagDAO dao = new TagDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -146,7 +146,7 @@ public class TagService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             TagDAO dao = new TagDAO(getSession());
-            Tag entity = dao.findByIdentefier(id);
+            Tag entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

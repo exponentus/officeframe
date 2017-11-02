@@ -65,7 +65,7 @@ public class IndustryTypeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 IndustryTypeDAO dao = new IndustryTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 

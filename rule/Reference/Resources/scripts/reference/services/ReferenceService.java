@@ -72,7 +72,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 entity.setAuthor(session.getUser());
             } else {
                 IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -151,7 +151,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             IDAO<T, UUID> dao = DAOFactory.get(getSession(), entityClass);
 
-            T entity = dao.findByIdentefier(id);
+            T entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

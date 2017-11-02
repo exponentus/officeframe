@@ -64,7 +64,7 @@ public class TaskTypeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 TaskTypeDAO dao = new TaskTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -138,7 +138,7 @@ public class TaskTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             TaskTypeDAO dao = new TaskTypeDAO(getSession());
-            TaskType entity = dao.findByIdentefier(id);
+            TaskType entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

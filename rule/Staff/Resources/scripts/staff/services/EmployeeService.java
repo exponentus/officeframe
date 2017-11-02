@@ -104,7 +104,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
                 entity.setUser(tempUser);
             } else {
                 EmployeeDAO dao = new EmployeeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             //
@@ -233,7 +233,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
     public Response delete(@PathParam("id") String id) {
         try {
             EmployeeDAO dao = new EmployeeDAO(getSession());
-            Employee entity = dao.findByIdentefier(id);
+            Employee entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

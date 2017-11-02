@@ -64,7 +64,7 @@ public class PropertyCodeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 PropertyCodeDAO dao = new PropertyCodeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -138,7 +138,7 @@ public class PropertyCodeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             PropertyCodeDAO dao = new PropertyCodeDAO(getSession());
-            PropertyCode entity = dao.findByIdentefier(id);
+            PropertyCode entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

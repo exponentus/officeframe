@@ -64,7 +64,7 @@ public class PositionService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 PositionDAO dao = new PositionDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -137,7 +137,7 @@ public class PositionService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             PositionDAO dao = new PositionDAO(getSession());
-            Position entity = dao.findByIdentefier(id);
+            Position entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

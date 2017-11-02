@@ -65,7 +65,7 @@ public class DemandTypeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 DemandTypeDAO dao = new DemandTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             Outcome outcome = new Outcome();
@@ -138,7 +138,7 @@ public class DemandTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DemandTypeDAO dao = new DemandTypeDAO(getSession());
-            DemandType entity = dao.findByIdentefier(id);
+            DemandType entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -68,7 +68,7 @@ public class ControlTypeService extends RestProvider {
                 entity.setDefaultHours(30);
             } else {
                 ControlTypeDAO dao = new ControlTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             Outcome outcome = new Outcome();
@@ -140,7 +140,7 @@ public class ControlTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             ControlTypeDAO dao = new ControlTypeDAO(getSession());
-            ControlType entity = dao.findByIdentefier(id);
+            ControlType entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

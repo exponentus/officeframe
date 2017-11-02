@@ -68,7 +68,7 @@ public class DocumentTypeService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 DocumentTypeDAO dao = new DocumentTypeDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -143,7 +143,7 @@ public class DocumentTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DocumentTypeDAO dao = new DocumentTypeDAO(getSession());
-            DocumentType entity = dao.findByIdentefier(id);
+            DocumentType entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

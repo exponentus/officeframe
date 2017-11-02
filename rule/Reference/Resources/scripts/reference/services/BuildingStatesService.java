@@ -64,7 +64,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
                 entity.setAuthor(session.getUser());
             } else {
                 BuildingStateDAO dao = new BuildingStateDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -139,7 +139,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
     public Response delete(@PathParam("id") String id) {
         try {
             BuildingStateDAO dao = new BuildingStateDAO(getSession());
-            BuildingState entity = dao.findByIdentefier(id);
+            BuildingState entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -49,7 +49,7 @@ public class CityDistrictService extends RestProvider {
                 vp = cityDistrictDAO.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 LocalityDAO localityDAO = new LocalityDAO(session);
-                Locality locality = localityDAO.findByIdentefier(localityId);
+                Locality locality = localityDAO.findByIdentifier(localityId);
                 List<CityDistrict> streetList = locality.getDistricts();
                 vp = new ViewPage<CityDistrict>(streetList, streetList.size(), 1, 1);
             }
@@ -80,7 +80,7 @@ public class CityDistrictService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 CityDistrictDAO dao = new CityDistrictDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -154,7 +154,7 @@ public class CityDistrictService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             CityDistrictDAO dao = new CityDistrictDAO(getSession());
-            CityDistrict entity = dao.findByIdentefier(id);
+            CityDistrict entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

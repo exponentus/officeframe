@@ -89,7 +89,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
                 entity.setAuthor(session.getUser());
             } else {
                 IndividualDAO dao = new IndividualDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             //

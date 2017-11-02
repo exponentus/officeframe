@@ -49,7 +49,7 @@ public class LocalityService extends RestProvider {
                 vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 RegionDAO regionDAO = new RegionDAO(session);
-                Region region = regionDAO.findByIdentefier(regionId);
+                Region region = regionDAO.findByIdentifier(regionId);
                 List<Locality> localities = region.getLocalities();
                 vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
             }
@@ -81,7 +81,7 @@ public class LocalityService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 LocalityDAO dao = new LocalityDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -156,7 +156,7 @@ public class LocalityService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             LocalityDAO dao = new LocalityDAO(getSession());
-            Locality entity = dao.findByIdentefier(id);
+            Locality entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

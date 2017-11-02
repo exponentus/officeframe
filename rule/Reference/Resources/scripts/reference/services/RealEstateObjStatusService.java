@@ -66,7 +66,7 @@ public class RealEstateObjStatusService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
             Outcome outcome = new Outcome();
@@ -138,7 +138,7 @@ public class RealEstateObjStatusService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(getSession());
-            RealEstateObjStatus entity = dao.findByIdentefier(id);
+            RealEstateObjStatus entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

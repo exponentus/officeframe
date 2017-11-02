@@ -64,7 +64,7 @@ public class BuildingMaterialService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -136,7 +136,7 @@ public class BuildingMaterialService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             BuildingMaterialDAO dao = new BuildingMaterialDAO(getSession());
-            BuildingMaterial entity = dao.findByIdentefier(id);
+            BuildingMaterial entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -49,7 +49,7 @@ public class DistrictService extends RestProvider {
                 vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 RegionDAO regionDAO = new RegionDAO(session);
-                Region region = regionDAO.findByIdentefier(regionId);
+                Region region = regionDAO.findByIdentifier(regionId);
                 List<District> districts = region.getDistricts();
                 vp = new ViewPage<District>(districts, districts.size(), 1, 1);
             }
@@ -82,7 +82,7 @@ public class DistrictService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 DistrictDAO dao = new DistrictDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -157,7 +157,7 @@ public class DistrictService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DistrictDAO dao = new DistrictDAO(getSession());
-            District entity = dao.findByIdentefier(id);
+            District entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

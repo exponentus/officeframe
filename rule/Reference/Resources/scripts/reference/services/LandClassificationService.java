@@ -67,7 +67,7 @@ public class LandClassificationService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 LandClassificationDAO dao = new LandClassificationDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
@@ -140,7 +140,7 @@ public class LandClassificationService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             LandClassificationDAO dao = new LandClassificationDAO(getSession());
-            LandClassification entity = dao.findByIdentefier(id);
+            LandClassification entity = dao.findByIdentifier(id);
             if (entity != null) {
                 dao.delete(entity);
             }

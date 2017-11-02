@@ -65,7 +65,7 @@ public class NationalityService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 NationalityDAO dao = new NationalityDAO(session);
-                entity = dao.findByIdentefier(id);
+                entity = dao.findByIdentifier(id);
             }
 
 
