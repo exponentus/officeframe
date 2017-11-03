@@ -6,7 +6,7 @@ import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.other.IDataObtainer;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
@@ -71,7 +71,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         vp.setViewPageOptions(new ViewOptions().getReportProfileOptions());
 
         ActionFactory action = new ActionFactory();
-        _ActionBar actionBar = new _ActionBar(session);
+        ActionBar actionBar = new ActionBar(session);
         actionBar.addAction(action.refreshVew);
         actionBar.addAction(action.addNew);
         actionBar.addAction(action.deleteDocument);
@@ -105,7 +105,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             }
 
             ActionFactory actionFactory = new ActionFactory();
-            _ActionBar actionBar = new _ActionBar(session);
+            ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(actionFactory.close);
             actionBar.addAction(actionFactory.saveAndClose);
 

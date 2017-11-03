@@ -4,7 +4,7 @@ import administrator.model.User;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -56,7 +56,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
             vp.setFilter(viewOptions.getTopicFilter(session));
 
             ActionFactory actionFactory = new ActionFactory();
-            _ActionBar actionBar = new _ActionBar(session);
+            ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(actionFactory.newTopic);
             actionBar.addAction(actionFactory.refreshVew);
 
@@ -96,7 +96,7 @@ public class TopicService extends EntityService<Topic, TopicDomain> {
                     .collect(Collectors.toMap(Employee::getUserID, Function.identity(), (e1, e2) -> e1));
 
             ActionFactory actionFactory = new ActionFactory();
-            _ActionBar actionBar = new _ActionBar(session);
+            ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(actionFactory.close);
             actionBar.addAction(actionFactory.saveAndClose);
 

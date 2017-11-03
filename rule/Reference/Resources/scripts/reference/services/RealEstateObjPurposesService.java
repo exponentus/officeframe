@@ -3,7 +3,7 @@ package reference.services;
 import com.exponentus.common.init.DefaultDataConst;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -41,7 +41,7 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
             ViewPage<RealEstateObjPurpose> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
             if (user.isSuperUser() || user.getRoles().contains(DefaultDataConst.ROLE_REFERENCE_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
+                ActionBar actionBar = new ActionBar(session);
                 Action action = new Action();
                 actionBar.addAction(action.addNew);
                 actionBar.addAction(action.deleteDocument);

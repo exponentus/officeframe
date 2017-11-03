@@ -3,8 +3,8 @@ package staff.page.form;
 import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import com.exponentus.common.ui.actions.Action;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.common.ui.actions.ActionType;
-import com.exponentus.common.ui.actions._ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;
@@ -33,8 +33,8 @@ public abstract class StaffForm extends _DoForm {
 		return ve;
 	}
 
-	protected _ActionBar getSimpleActionBar(_Session ses, LanguageCode lang) {
-		_ActionBar actionBar = new _ActionBar(ses);
+	protected ActionBar getSimpleActionBar(_Session ses, LanguageCode lang) {
+		ActionBar actionBar = new ActionBar(ses);
 		IUser user = ses.getUser();
 		if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
 			actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", ActionType.SAVE_AND_CLOSE));

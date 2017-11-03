@@ -1,7 +1,7 @@
 package staff.services;
 
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -53,7 +53,7 @@ public class OrganizationService extends RestProvider {
             vp.setFilter(viewOptions.getOrgFilter());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
+                ActionBar actionBar = new ActionBar(session);
                 Action action = new Action();
                 actionBar.addAction(action.addNew);
                 actionBar.addAction(action.deleteDocument);
@@ -90,7 +90,7 @@ public class OrganizationService extends RestProvider {
             }
 
             //
-            _ActionBar actionBar = new _ActionBar(session);
+            ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(new Action().close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);

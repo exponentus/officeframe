@@ -2,7 +2,7 @@ package reference.services;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -39,7 +39,7 @@ public class CountryService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             CountryDAO dao = new CountryDAO(session);
             ViewPage<Country> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            _ActionBar actionBar = new ConventionalActionFactory().getViewActionBar(session, true);
+            ActionBar actionBar = new ConventionalActionFactory().getViewActionBar(session, true);
             actionBar.addAction(new ConventionalActionFactory().replicateView);
             outcome.addPayload(actionBar);
             outcome.setTitle("countries");

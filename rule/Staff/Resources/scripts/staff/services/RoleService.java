@@ -3,7 +3,7 @@ package staff.services;
 import administrator.dao.ApplicationDAO;
 import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.env.EnvConst;
@@ -15,7 +15,8 @@ import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
-import com.exponentus.scripting._Session;import com.exponentus.user.IUser;
+import com.exponentus.scripting._Session;
+import com.exponentus.user.IUser;
 import reference.init.AppConst;
 import staff.dao.RoleDAO;
 import staff.model.Role;
@@ -47,7 +48,7 @@ public class RoleService extends RestProvider {
             ViewPage<Role> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
+                ActionBar actionBar = new ActionBar(session);
                 Action action = new Action();
                 actionBar.addAction(action.addNew);
                 actionBar.addAction(action.deleteDocument);
@@ -84,7 +85,7 @@ public class RoleService extends RestProvider {
             }
 
             //
-            _ActionBar actionBar = new _ActionBar(session);
+            ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(new Action().close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);

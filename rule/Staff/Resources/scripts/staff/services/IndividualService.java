@@ -3,7 +3,7 @@ package staff.services;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
@@ -56,7 +56,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             vp.setViewPageOptions(new ViewOptions().getIndividualOptions());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
-                _ActionBar actionBar = new _ActionBar(session);
+                ActionBar actionBar = new ActionBar(session);
                 Action action = new Action();
                 actionBar.addAction(action.addNew);
                 actionBar.addAction(action.deleteDocument);
@@ -93,7 +93,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             }
 
             //
-            _ActionBar actionBar = new _ActionBar(session);
+            ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(new Action().close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
                 actionBar.addAction(new Action().saveAndClose);

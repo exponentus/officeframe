@@ -6,7 +6,7 @@ import administrator.model.Application;
 import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.IDAO;
@@ -45,7 +45,7 @@ public class UserActivityService extends RestProvider {
         int pageSize = session.getPageSize();
         ViewPage vp = dao.findAll(params.getPage(), pageSize);
 
-        _ActionBar actionBar = new _ActionBar(session);
+        ActionBar actionBar = new ActionBar(session);
         actionBar.addAction(action.refreshVew);
 
         vp.setViewPageOptions(new ViewOptions().getUserActivityOptions());
@@ -68,7 +68,7 @@ public class UserActivityService extends RestProvider {
             UserActivityFacility dao = new UserActivityFacility(ses);
             ViewPage vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
 
-            _ActionBar actionBar = new _ActionBar(ses);
+            ActionBar actionBar = new ActionBar(ses);
             actionBar.addAction(action.refreshVew);
 
             vp.setViewPageOptions(new ViewOptions().getLastVisitOptions());
@@ -93,7 +93,7 @@ public class UserActivityService extends RestProvider {
         try {
             UserActivityFacility dao = new UserActivityFacility(ses);
 
-            _ActionBar actionBar = new _ActionBar(ses);
+            ActionBar actionBar = new ActionBar(ses);
             actionBar.addAction(action.refreshVew);
 
             Outcome outcome = new Outcome();

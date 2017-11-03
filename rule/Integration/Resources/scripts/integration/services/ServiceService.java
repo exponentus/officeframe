@@ -2,7 +2,7 @@ package integration.services;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions._ActionBar;
+import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewPageOptions;
@@ -39,7 +39,7 @@ public class ServiceService extends RestProvider {
         vp.setViewPageOptions(getViewPageOptions());
 
         ConventionalActionFactory actionFactory = new ConventionalActionFactory();
-        _ActionBar actionBar = new _ActionBar(session);
+        ActionBar actionBar = new ActionBar(session);
         actionBar.addAction(actionFactory.refreshVew);
 
         Outcome outcome = new Outcome();
