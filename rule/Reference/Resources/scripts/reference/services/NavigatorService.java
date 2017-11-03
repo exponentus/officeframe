@@ -84,6 +84,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("bus_classifications", "", "bus_classifications", AppConst.BASE_URL + "bus-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONSTRUCTIONTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
             so.addEntry(new OutlineEntry("road_types", "", "road_types", AppConst.BASE_URL + "road-types"));
+            so.addEntry(new OutlineEntry("road_repair_types", "", "road_repair_types", AppConst.BASE_URL + "road-repair-types"));
 
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
 

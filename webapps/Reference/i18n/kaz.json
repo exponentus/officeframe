@@ -181,6 +181,7 @@
   "property_code" : "Код меншік",
   "response_to" : null,
   "programmer" : null,
+  "sync_profiles" : "Репликалау профильдері",
   "error_403" : "Forbidden",
   "error_404" : "The requested resource could not be found",
   "error_405" : "Request method not allowed",

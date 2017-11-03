@@ -181,6 +181,7 @@
   "property_code" : null,
   "response_to" : null,
   "programmer" : "Lider de desarrollo",
+  "sync_profiles" : "sync_profiles",
   "error_403" : "Forbidden",
   "error_404" : "The requested resource could not be found",
   "error_405" : "Request method not allowed",

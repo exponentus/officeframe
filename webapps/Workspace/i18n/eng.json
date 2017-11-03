@@ -181,6 +181,7 @@
   "property_code" : "Property code",
   "response_to" : "This is answer to",
   "programmer" : "Team leader",
+  "sync_profiles" : "Replication profiles",
   "error_403" : "The resource is forbidden",
   "error_404" : "The requested resource could not be found",
   "error_405" : "Request method not allowed",
