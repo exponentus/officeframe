@@ -48,7 +48,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     @Override
     public Employee findById(UUID id) {
         if (allEmployeeMap == null) {
-            findAll(true);
+            init();
         }
         return allEmployeeMap.get(id);
     }
@@ -120,6 +120,9 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     }
 
     public Employee findByUserId(long id) {
+        if (allEmployeeId == null){
+            init();
+        }
         return  allEmployeeId.get(id);
     }
 
@@ -197,6 +200,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         Employee e = super.add(entity);
         allEmployee = null;
         allEmployeeMap = null;
+        allEmployeeId = null;
         getEntityManagerFactory().getCache().evict(Employee.class);
         return e;
     }
@@ -206,6 +210,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         Employee e = super.update(entity);
         allEmployee = null;
         allEmployeeMap = null;
+        allEmployeeId = null;
         getEntityManagerFactory().getCache().evict(Employee.class);
         return e;
     }
@@ -231,6 +236,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         }
         allEmployee = null;
         allEmployeeMap = null;
+        allEmployeeId = null;
     }
 
 
