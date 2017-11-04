@@ -64,14 +64,6 @@ public class Tag extends SimpleReferenceEntity {
         return parent.id;
     }
 
-    public boolean isHidden() {
-        return hidden;
-    }
-
-    public void setHidden(boolean hidden) {
-        this.hidden = hidden;
-    }
-
     public void setParentId(UUID id) {
         if (id == null) {
             setParent(null);
@@ -81,6 +73,14 @@ public class Tag extends SimpleReferenceEntity {
         Tag parent = new Tag();
         parent.setId(id);
         setParent(parent);
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
     }
 
     @Override

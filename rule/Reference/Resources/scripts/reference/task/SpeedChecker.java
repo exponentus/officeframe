@@ -1,14 +1,13 @@
 package reference.task;
 
-import java.util.List;
-
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-
 import reference.dao.TagDAO;
 import reference.model.Tag;
+
+import java.util.List;
 
 @Command(name = "st2")
 public class SpeedChecker extends Do {

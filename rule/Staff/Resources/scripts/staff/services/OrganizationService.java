@@ -32,6 +32,31 @@ import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 @Path("organizations")
 public class OrganizationService extends RestProvider {
 
+    public static OrganizationFilter setUpFilter(OrganizationFilter filter, WebFormData params) {
+        String orgCategoryId = params.getValueSilently("orgCategory");
+        if (!orgCategoryId.isEmpty()) {
+            OrgCategory oc = new OrgCategory();
+            oc.setId(UUID.fromString(orgCategoryId));
+            filter.setOrgCategory(oc);
+        }
+
+        String labelId = params.getValueSilently("labels");
+        if (!labelId.isEmpty()) {
+            OrganizationLabel l = new OrganizationLabel();
+            l.setId(UUID.fromString(labelId));
+            List<OrganizationLabel> labels = new ArrayList<>();
+            labels.add(l);
+            filter.setLabels(labels);
+        }
+
+        String keyword = params.getValueSilently("keyword");
+        if (!keyword.isEmpty()) {
+            filter.setKeyword(keyword);
+        }
+
+        return filter;
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
@@ -202,30 +227,5 @@ public class OrganizationService extends RestProvider {
         if (ve.hasError()) {
             throw ve;
         }
-    }
-
-    public static OrganizationFilter setUpFilter(OrganizationFilter filter, WebFormData params) {
-        String orgCategoryId = params.getValueSilently("orgCategory");
-        if (!orgCategoryId.isEmpty()) {
-            OrgCategory oc = new OrgCategory();
-            oc.setId(UUID.fromString(orgCategoryId));
-            filter.setOrgCategory(oc);
-        }
-
-        String labelId = params.getValueSilently("labels");
-        if (!labelId.isEmpty()) {
-            OrganizationLabel l = new OrganizationLabel();
-            l.setId(UUID.fromString(labelId));
-            List<OrganizationLabel> labels = new ArrayList<>();
-            labels.add(l);
-            filter.setLabels(labels);
-        }
-
-        String keyword = params.getValueSilently("keyword");
-        if (!keyword.isEmpty()) {
-            filter.setKeyword(keyword);
-        }
-
-        return filter;
     }
 }

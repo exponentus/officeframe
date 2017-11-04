@@ -1,7 +1,6 @@
 package reference.services;
 
 import reference.model.RoadRepairType;
-import reference.model.RoadType;
 
 import javax.ws.rs.Path;
 

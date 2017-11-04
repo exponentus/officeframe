@@ -13,7 +13,7 @@ public class CountryDAO extends ReferenceDAO<Country, UUID> {
         super(Country.class, session);
     }
 
-    public Country findByIdentifier(String identifier){
+    public Country findByIdentifier(String identifier) {
         return findByCode(CountryCode.valueOf(identifier));
     }
 }

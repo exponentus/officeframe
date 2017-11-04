@@ -9,8 +9,8 @@ import com.exponentus.scriptprocessor.tasks.Command;
 @Command(name = "staff_gen_voc", trigger = Trigger.POST_APP_START)
 public class GenerateVocabulary extends Do {
 
-	@Override
-	public void doTask(AppEnv appEnv, _Session ses) {
-		generateVocabulary(appEnv);
-	}
+    @Override
+    public void doTask(AppEnv appEnv, _Session ses) {
+        generateVocabulary(appEnv);
+    }
 }

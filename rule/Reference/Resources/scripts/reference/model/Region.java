@@ -44,12 +44,12 @@ public class Region extends SimpleReferenceEntity {
         this.type = type;
     }
 
-    public void setDistricts(List<District> districts) {
-        this.districts = districts;
-    }
-
     public List<District> getDistricts() {
         return districts;
+    }
+
+    public void setDistricts(List<District> districts) {
+        this.districts = districts;
     }
 
     public List<Locality> getLocalities() {
@@ -60,12 +60,12 @@ public class Region extends SimpleReferenceEntity {
         this.localities = localities;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-
     public Country getCountry() {
         return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Override

@@ -54,16 +54,16 @@ public class Locality extends SimpleReferenceEntity {
         return streets;
     }
 
+    public void setStreets(List<Street> streets) {
+        this.streets = streets;
+    }
+
     public Region getRegion() {
         return region;
     }
 
     public void setRegion(Region region) {
         this.region = region;
-    }
-
-    public void setStreets(List<Street> streets) {
-        this.streets = streets;
     }
 
     @Override

@@ -8,6 +8,9 @@
         <class>administrator.model.Application</class>
         <class>administrator.model.Language</class>
         <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
         <class>staff.model.Employee</class>
@@ -17,20 +20,35 @@
         <class>reference.model.DepartmentType</class>
         <class>reference.model.Position</class>
         <class>com.exponentus.common.model.RecycleBin</class>
+        <class>com.exponentus.common.model.Attachment</class>
+        <class>com.exponentus.common.model.AttachmentThumbnail</class>
+        <class>com.exponentus.common.model.embedded.CrossLink</class>
+        <class>com.exponentus.common.model.SecureHierarchicalEntity</class>
+        <class>com.exponentus.common.model.BigFile</class>
+        <!-- Monitoring module entities (if the module activated) -->  
+        <class>monitoring.model.UserActivity</class>   
+        <class>monitoring.model.DocumentActivity</class>
+        <class>monitoring.model.Statistic</class>
     </persistence-unit>
 
     <persistence-unit name="Staff" transaction-type="RESOURCE_LOCAL">
+        <class>com.exponentus.common.model.embedded.CrossLink</class>
         <!-- Obligatory the application module entities -->
         <class>administrator.model.Language</class>
         <class>administrator.model.Application</class>
         <class>administrator.model.User</class>
         <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
         <!-- Common Staff module entities -->
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
         <class>staff.model.Employee</class>
         <class>staff.model.Role</class>
         <class>staff.model.OrganizationLabel</class>
+        <class>staff.model.Individual</class>
+        <class>staff.model.IndividualLabel</class>
         <!-- Common Reference module entities -->
         <class>reference.model.RegionType</class>
         <class>reference.model.LocalityType</class>
@@ -43,8 +61,12 @@
         <class>reference.model.DepartmentType</class>
         <class>reference.model.Position</class>
         <class>reference.model.OrgCategory</class>
-        <!-- Obligatory the application module entities -->
-        <class>administrator.model.Language</class>
+         <!-- Monitoring module entities --> 
+        <class>monitoring.model.UserActivity</class>     
+        <class>monitoring.model.DocumentActivity</class>
+        <class>monitoring.model.Statistic</class>
+        <!-- Because of it suppose importing from Domino -->
+        <!-- <class>administrator.model.Collation</class> -->
         <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
 
@@ -54,6 +76,9 @@
         <class>administrator.model.Application</class>
         <class>administrator.model.User</class>
         <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
         <!-- Common Staff module entities -->
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
@@ -71,29 +96,43 @@
         <class>reference.model.Street</class>
         <class>reference.model.DepartmentType</class>
         <class>reference.model.Position</class>
-        <class>reference.model.TaskType</class>
+        <class>reference.model.DocumentLanguage</class>
+        <class>reference.model.DocumentType</class>
+        <class>reference.model.ControlType</class>
         <class>reference.model.Tag</class>
         <class>reference.model.OrgCategory</class>
+        <class>reference.model.DocumentSubject</class>
         <class>reference.model.TextTemplate</class>
+        <class>reference.model.DocumentTypeCategory</class>
         <class>reference.model.Vehicle</class>
+        <class>reference.model.ApprovalRoute</class>
+        <class>reference.model.embedded.RouteBlock</class>
+        <class>reference.model.WorkType</class>
+        <class>reference.model.MeetingRoom</class>
         <!-- Specific Reference module entities -->
-        <class>reference.model.PropertyCode</class>
-        <class>reference.model.BuildingMaterial</class>
-        <class>reference.model.StructureType</class>
-        <class>reference.model.ReceivingReason</class>
-        <class>reference.model.Kuf</class>
+        <class>reference.model.TaskType</class>
         <class>reference.model.RequestType</class>
         <!-- Specific Reference module entities for HelpDesk module-->
         <class>reference.model.DemandType</class>
+         <!-- Monitoring module entities -->
+        <class>monitoring.model.UserActivity</class>      
+        <class>monitoring.model.DocumentActivity</class>
+        <class>monitoring.model.Statistic</class>
+        <!-- Because of it suppose importing from Domino -->
+        <!-- <class>administrator.model.Collation</class> -->
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     </persistence-unit>
 
-    <persistence-unit name="Discussing" transaction-type="RESOURCE_LOCAL">
+ 	 <persistence-unit name="Monitoring" transaction-type="RESOURCE_LOCAL">
         <!-- Obligatory the application module entities -->
+        <class>com.exponentus.common.model.embedded.CrossLink</class>
         <class>administrator.model.Language</class>
         <class>administrator.model.Application</class>
         <class>administrator.model.User</class>
         <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
         <!-- Common Staff module entities -->
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
@@ -101,11 +140,64 @@
         <class>staff.model.Role</class>
         <class>staff.model.OrganizationLabel</class>
         <!-- Common Reference module entities -->
-        <class>reference.model.OrgCategory</class>
-        <class>reference.model.Position</class>
-        <!-- Specific Discussing module entities -->
-        <class>discussing.model.Topic</class>
-        <class>discussing.model.Comment</class>
+         <class>reference.model.RegionType</class>
+         <class>reference.model.LocalityType</class>
+         <class>reference.model.Country</class>
+         <class>reference.model.Region</class>
+         <class>reference.model.District</class>
+         <class>reference.model.Locality</class>
+         <class>reference.model.CityDistrict</class>
+         <class>reference.model.Street</class>
+         <class>reference.model.DepartmentType</class>
+         <class>reference.model.Position</class>
+         <class>reference.model.DocumentLanguage</class>
+         <class>reference.model.DocumentType</class>
+         <class>reference.model.ControlType</class>
+         <class>reference.model.Tag</class>
+         <class>reference.model.OrgCategory</class>
+         <class>reference.model.DocumentSubject</class>
+         <class>reference.model.TextTemplate</class>
+         <class>reference.model.DocumentTypeCategory</class>
+         <class>reference.model.Vehicle</class>
+         <class>reference.model.ApprovalRoute</class>
+         <class>reference.model.embedded.RouteBlock</class>
+         <class>reference.model.WorkType</class>
+         <class>reference.model.MeetingRoom</class>
+        <!-- Monitoring module entities -->
+       	<class>monitoring.model.UserActivity</class>      
+        <class>monitoring.model.DocumentActivity</class>
+        <class>monitoring.model.Statistic</class>
+        <shared-cache-mode>NONE</shared-cache-mode>
+    </persistence-unit>
+
+    <persistence-unit name="Integration" transaction-type="RESOURCE_LOCAL">
+        <!-- Obligatory the application module entities -->
+        <class>com.exponentus.common.model.embedded.CrossLink</class>
+        <class>administrator.model.Language</class>
+        <class>administrator.model.Application</class>
+        <class>administrator.model.User</class>
+        <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
+
+        <shared-cache-mode>NONE</shared-cache-mode>
+    </persistence-unit>
+
+    <persistence-unit name="DataExport" transaction-type="RESOURCE_LOCAL">
+        <!-- Obligatory the application module entities -->
+        <class>com.exponentus.common.model.embedded.CrossLink</class>
+        <class>administrator.model.Language</class>
+        <class>administrator.model.Application</class>
+        <class>administrator.model.User</class>
+        <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
+        <!-- Reference module entities -->
+        <class>reference.model.Tag</class>
+        <!-- DataExport module entities-->
+        <class>dataexport.model.ReportProfile</class>
         <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
 
@@ -115,6 +207,40 @@
         <class>administrator.model.Application</class>
         <class>administrator.model.Language</class>
         <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
+        <!-- Staff module entities -->
+        <class>staff.model.Organization</class>
+        <class>staff.model.Department</class>
+        <class>staff.model.Employee</class>
+        <class>staff.model.Role</class>
+        <class>staff.model.OrganizationLabel</class>
+        <!-- Reference module entities -->
+        <class>reference.model.Position</class>
+        <class>reference.model.DepartmentType</class>
+        <class>reference.model.OrgCategory</class>
+        <!-- Monitoring module entities -->
+        <class>monitoring.model.UserActivity</class>      
+        <class>monitoring.model.DocumentActivity</class>        
+        <class>monitoring.model.Statistic</class>
+        <shared-cache-mode>NONE</shared-cache-mode>
+    </persistence-unit>
+
+
+    <persistence-unit name="Discussing" transaction-type="RESOURCE_LOCAL">
+        <!-- Obligatory the application module entities -->
+        <class>com.exponentus.common.model.embedded.CrossLink</class>
+        <class>administrator.model.Language</class>
+        <class>administrator.model.Application</class>
+        <class>administrator.model.User</class>
+        <class>administrator.model.Sentence</class>
+        <class>administrator.model.embedded.UserApplication</class>
+        <class>administrator.model.Subscription</class>
+        <class>administrator.model.embedded.UserSubscription</class>
+        <!-- Common module entities -->
+        <class>com.exponentus.common.model.Attachment</class>
+        <class>com.exponentus.common.model.AttachmentThumbnail</class>        
         <!-- Common Staff module entities -->
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
@@ -122,10 +248,19 @@
         <class>staff.model.Role</class>
         <class>staff.model.OrganizationLabel</class>
         <!-- Common Reference module entities -->
+        <class>reference.model.OrgCategory</class>
         <class>reference.model.Position</class>
         <class>reference.model.DepartmentType</class>
-        <class>reference.model.OrgCategory</class>
+        <class>reference.model.Tag</class>
+        <!-- Specific Discussing module entities -->
+        <class>discussing.model.Topic</class>
+        <class>discussing.model.Comment</class>
+         <!-- Monitoring module entities -->
+        <class>monitoring.model.UserActivity</class>     
+        <class>monitoring.model.DocumentActivity</class>
+        <class>monitoring.model.Statistic</class>
         <shared-cache-mode>NONE</shared-cache-mode>
     </persistence-unit>
+
 
 </persistence>

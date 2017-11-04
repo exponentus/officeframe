@@ -11,12 +11,13 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import reference.dao.RouteStatusDAO;
+import reference.model.RouteStatus;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
-import reference.dao.RouteStatusDAO;
-import reference.model.RouteStatus;
 
 @Path("route-statuses")
 public class RouteStatusService extends ReferenceService<RouteStatus> {
@@ -70,7 +71,7 @@ public class RouteStatusService extends ReferenceService<RouteStatus> {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "route_status");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);

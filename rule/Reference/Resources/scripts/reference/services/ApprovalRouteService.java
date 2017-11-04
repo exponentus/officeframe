@@ -83,7 +83,7 @@ public class ApprovalRouteService extends RestProvider {
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload("approvalSchemaType", ApprovalSchemaType.values());
             outcome.addPayload("approvalType", ApprovalType.values());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -111,7 +111,7 @@ public class ApprovalRouteService extends RestProvider {
     public Response save(ApprovalRoute dto) {
         _Session session = getSession();
 
-          try {
+        try {
             validate(dto);
 
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);

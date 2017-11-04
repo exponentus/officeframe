@@ -1,6 +1,7 @@
 package staff.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.common.model.util.EmployeeConverter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import org.eclipse.persistence.annotations.Convert;
@@ -9,7 +10,6 @@ import org.eclipse.persistence.annotations.Converters;
 import reference.model.DepartmentType;
 import staff.init.AppConst;
 import staff.model.util.DepartmentConverter;
-import com.exponentus.common.model.util.EmployeeConverter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

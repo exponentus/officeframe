@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.AppConst;
 
 import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 

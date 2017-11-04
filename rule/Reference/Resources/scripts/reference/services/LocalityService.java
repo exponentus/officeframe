@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.UUID;
 
 
-
 @Path("localities")
 public class LocalityService extends RestProvider {
 
@@ -90,7 +89,7 @@ public class LocalityService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "locality");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

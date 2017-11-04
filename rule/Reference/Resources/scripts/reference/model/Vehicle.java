@@ -15,10 +15,6 @@ import javax.persistence.*;
 @NamedQuery(name = "Vehicle.findAll", query = "SELECT m FROM Vehicle AS m ORDER BY m.regDate")
 public class Vehicle extends SimpleReferenceEntity {
 
-    public enum VehicleType {CAR, SUV, PEOPLE_CARRIERS, VAN}
-
-    public enum TRANSMISSION {AUTO, MANUAL}
-
     public VehicleType vehicleType = VehicleType.CAR;
     public TRANSMISSION transmission = TRANSMISSION.AUTO;
     public int capacity = 5;
@@ -27,4 +23,7 @@ public class Vehicle extends SimpleReferenceEntity {
     public String getURL() {
         return AppConst.BASE_URL + "vehicles/" + getIdentifier();
     }
+    public enum VehicleType {CAR, SUV, PEOPLE_CARRIERS, VAN}
+
+    public enum TRANSMISSION {AUTO, MANUAL}
 }

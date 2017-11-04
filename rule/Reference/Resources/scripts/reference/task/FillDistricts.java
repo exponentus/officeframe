@@ -1,11 +1,5 @@
 package reference.task;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
@@ -15,13 +9,18 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-
 import com.exponentus.util.StringUtil;
 import reference.dao.DistrictDAO;
 import reference.dao.RegionDAO;
 import reference.init.AppConst;
 import reference.model.District;
 import reference.model.Region;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Command(name = AppConst.CODE + "_fill_districts")
 public class FillDistricts extends Do {

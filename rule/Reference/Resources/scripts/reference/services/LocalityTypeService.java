@@ -76,7 +76,7 @@ public class LocalityTypeService extends RestProvider {
             outcome.addPayload("contentTitle", "locality_type");
             outcome.addPayload("localityCodes", LocalityCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

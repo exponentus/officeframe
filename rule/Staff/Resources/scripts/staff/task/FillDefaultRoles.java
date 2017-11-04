@@ -9,9 +9,9 @@ import staff.init.AppConst;
 @Command(name = AppConst.CODE + "_fill_roles")
 public class FillDefaultRoles extends Do {
 
-	@Override
-	public void doTask(AppEnv appEnv, _Session ses) {
-		addApplicationRoles(appEnv);
-	}
+    @Override
+    public void doTask(AppEnv appEnv, _Session ses) {
+        addApplicationRoles(appEnv);
+    }
 
 }

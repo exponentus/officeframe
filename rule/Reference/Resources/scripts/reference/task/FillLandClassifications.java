@@ -9,10 +9,8 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.LandClassificationDAO;
-import reference.dao.PropertyCodeDAO;
 import reference.init.AppConst;
 import reference.model.LandClassification;
-import reference.model.PropertyCode;
 
 import java.util.ArrayList;
 import java.util.HashMap;

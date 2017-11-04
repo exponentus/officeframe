@@ -20,49 +20,49 @@ import java.util.Map;
 @Command(name = AppConst.CODE + "_fill_real_estate_obj_statuses")
 public class FillRealEstateObjStatus extends Do {
 
-	@Override
-	public void doTask(AppEnv appEnv, _Session ses) {
-		List<RealEstateObjStatus> entities = new ArrayList<>();
+    @Override
+    public void doTask(AppEnv appEnv, _Session ses) {
+        List<RealEstateObjStatus> entities = new ArrayList<>();
 
-		String names[] = { "on_sale", "owned", "rental", "rented" };
-		String namesEng[] = { "On sale", "Owned","Rental", "Rented" };
-		String namesRus[] = { "На продажу", "В собственности","Сдается в аренду", "В аренде"};
-		String namesKaz[] = { "Сатуға арналған", "Меншікті", "Жалға беру", "Жалға берілді"};
+        String names[] = {"on_sale", "owned", "rental", "rented"};
+        String namesEng[] = {"On sale", "Owned", "Rental", "Rented"};
+        String namesRus[] = {"На продажу", "В собственности", "Сдается в аренду", "В аренде"};
+        String namesKaz[] = {"Сатуға арналған", "Меншікті", "Жалға беру", "Жалға берілді"};
 
-		for (int i = 0; i < names.length; i++) {
-			RealEstateObjStatus status = new RealEstateObjStatus();
-			status.setName(names[i]);
-			Map<LanguageCode, String> name = new HashMap<>();
-			name.put(LanguageCode.RUS, namesRus[i]);
-			name.put(LanguageCode.ENG, namesEng[i]);
-			name.put(LanguageCode.KAZ, namesKaz[i]);
-			status.setLocName(name);
-			entities.add(status);
-		}
+        for (int i = 0; i < names.length; i++) {
+            RealEstateObjStatus status = new RealEstateObjStatus();
+            status.setName(names[i]);
+            Map<LanguageCode, String> name = new HashMap<>();
+            name.put(LanguageCode.RUS, namesRus[i]);
+            name.put(LanguageCode.ENG, namesEng[i]);
+            name.put(LanguageCode.KAZ, namesKaz[i]);
+            status.setLocName(name);
+            entities.add(status);
+        }
 
-		try {
-			RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(ses);
-			for (RealEstateObjStatus entry : entities) {
-				try {
-					if (dao.add(entry) != null) {
-						logger.info(entry.getName() + " added");
-					}
-				} catch (DAOException e) {
-					if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-						logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
-					} else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-						logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
-					} else {
-						logger.exception(e);
-					}
-				} catch (SecureException e) {
-					logger.exception(e);
-				}
-			}
-		} catch (DAOException e) {
-			logger.exception(e);
-		}
-		logger.info("done...");
-	}
+        try {
+            RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(ses);
+            for (RealEstateObjStatus entry : entities) {
+                try {
+                    if (dao.add(entry) != null) {
+                        logger.info(entry.getName() + " added");
+                    }
+                } catch (DAOException e) {
+                    if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+                        logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+                    } else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+                        logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
+                    } else {
+                        logger.exception(e);
+                    }
+                } catch (SecureException e) {
+                    logger.exception(e);
+                }
+            }
+        } catch (DAOException e) {
+            logger.exception(e);
+        }
+        logger.info("done...");
+    }
 
 }

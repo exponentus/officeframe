@@ -1,6 +1,31 @@
 <?xml version="1.0"?>
 <entity-mappings xmlns="http://www.eclipse.org/eclipselink/xsds/persistence/orm" version="2.1">
-<converter class="administrator.model.util.LanguageCodeConverter"/>
+	<converter class="com.exponentus.common.model.converter.PostgresUuidConverter"/>
+	<converter class="com.exponentus.common.model.converter.LocalizedValConverter"/>
+    <converter class="com.exponentus.common.model.converter.ListOfStringConverter"/>
+    <converter class="com.exponentus.common.model.converter.ListOfStringArrayConverter"/>
+	<converter class="com.exponentus.common.model.constants.converter.ReportTypeConverter"/>
+    <converter class="com.exponentus.common.model.constants.converter.SolutionTypeConverter"/>
+    <converter class="com.exponentus.common.model.converter.TimeLineConverter"/>
+    <converter class="com.exponentus.common.model.constants.converter.ApprovalSchemaTypeConverter"/>
+    <converter class="com.exponentus.common.model.constants.converter.ApprovalTypeConverter"/>
+
+
+    <converter class="administrator.model.util.LanguageCodeConverter"/>
+ 	<converter class="administrator.model.util.ApplicationModeConverter"/>
  	<converter class="administrator.model.util.UserStatusCodeConverter"/>
-    <converter class="administrator.model.util.InterfaceTypeConvertor"/>
+    <converter class="administrator.model.util.MessagingTypeConverter"/>   
+    <converter class="administrator.model.constants.converter.InterfaceTypeConvertor"/>  
+    <converter class="administrator.model.constants.converter.VisibilityModeConvertor"/> 
+    
+ 	<converter class="monitoring.model.constants.converter.ActivityTypeConverter"/> 
+ 	<converter class="monitoring.model.util.EventConverter"/>
+    
+
+    <converter class="reference.model.constants.converter.ControlSchemaTypeConverter"/>
+      	
+    <converter class="com.exponentus.common.model.constants.converter.ApprovalStatusTypeConverter"/>
+    <converter class="com.exponentus.common.model.constants.converter.DecisionTypeConverter"/>
+    <converter class="com.exponentus.common.model.constants.converter.ApprovalResultTypeConverter"/>
+
 </entity-mappings>

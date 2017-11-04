@@ -1,0 +1,33 @@
+echo ***********************************************************
+echo *          Generate test data for Semantyca               *
+echo ***********************************************************
+run task gen_test_users
+run task fill_region_types
+run task fill_locality_types
+run task fill_countries
+run task fill_regions
+run task ref_fill_districts
+run task fill_localities
+run task fill_city_districts
+run task ref_fill_streets
+run task fill_department_types
+run task fill_doc_langs
+run task fill_org_categories
+run task fill_document_types
+run task fill_document_subjs
+run task fill_vehicles
+run task fill_organization_labels
+run task staff_fill_roles
+run task fill_individual_labels
+run task fill_tags
+run task fill_positions
+
+run task fill_demand_types
+run task fill_control_types
+
+run task gen_test_orgs_xls
+run task gen_test_emps
+run task de_gen_default_reports
+echo ***********************************************************
+echo *                     Finished                            *
+echo ***********************************************************

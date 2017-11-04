@@ -37,6 +37,30 @@ import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 @Path("individuals")
 public class IndividualService extends EntityService<Individual, IndividualDomain> {
 
+    public static IndividualFilter setUpFilter(IndividualFilter filter, WebFormData params) {
+        String orgCategoryId = params.getValueSilently("orgCategory");
+        if (!orgCategoryId.isEmpty()) {
+            OrgCategory oc = new OrgCategory();
+            oc.setId(UUID.fromString(orgCategoryId));
+        }
+
+        String labelId = params.getValueSilently("labels");
+        if (!labelId.isEmpty()) {
+            IndividualLabel l = new IndividualLabel();
+            l.setId(UUID.fromString(labelId));
+            List<IndividualLabel> labels = new ArrayList<>();
+            labels.add(l);
+            filter.setLabels(labels);
+        }
+
+        String keyword = params.getValueSilently("keyword");
+        if (!keyword.isEmpty()) {
+            filter.setKeyword(keyword);
+        }
+
+        return filter;
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
@@ -146,29 +170,5 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
                 throw ve;
             }
         }
-    }
-
-    public static IndividualFilter setUpFilter(IndividualFilter filter, WebFormData params) {
-        String orgCategoryId = params.getValueSilently("orgCategory");
-        if (!orgCategoryId.isEmpty()) {
-            OrgCategory oc = new OrgCategory();
-            oc.setId(UUID.fromString(orgCategoryId));
-        }
-
-        String labelId = params.getValueSilently("labels");
-        if (!labelId.isEmpty()) {
-            IndividualLabel l = new IndividualLabel();
-            l.setId(UUID.fromString(labelId));
-            List<IndividualLabel> labels = new ArrayList<>();
-            labels.add(l);
-            filter.setLabels(labels);
-        }
-
-        String keyword = params.getValueSilently("keyword");
-        if (!keyword.isEmpty()) {
-            filter.setKeyword(keyword);
-        }
-
-        return filter;
     }
 }

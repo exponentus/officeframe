@@ -2,7 +2,6 @@ package reference.dao;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
-import reference.model.Revenue;
 import reference.model.RoadType;
 
 import java.util.UUID;

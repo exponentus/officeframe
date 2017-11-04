@@ -27,8 +27,9 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     public EmployeeDAO(_Session session) throws DAOException {
         super(Employee.class, session);
     }
-//*****
-    public void init(){
+
+    //*****
+    public void init() {
         findAll(true);
     }
 
@@ -39,7 +40,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
             allEmployeeId = new HashMap<Long, Employee>();
             for (Employee e : allEmployee.getResult()) {
                 allEmployeeMap.put(e.getId(), e);
-                allEmployeeId.put(e.getUserID(),e);
+                allEmployeeId.put(e.getUserID(), e);
             }
         }
         return allEmployee;
@@ -120,10 +121,10 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     }
 
     public Employee findByUserId(long id) {
-        if (allEmployeeId == null){
+        if (allEmployeeId == null) {
             init();
         }
-        return  allEmployeeId.get(id);
+        return allEmployeeId.get(id);
     }
 
     public ViewPage<Employee> findByRole(String roleName) throws DAOException {
@@ -131,7 +132,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         Role role = roleDAO.findByName(roleName);
         if (role != null) {
             return findByRole(role);
-        }else{
+        } else {
             return new ViewPage<>();
         }
     }
@@ -194,7 +195,6 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     }
 
 
-
     @Override
     public Employee add(Employee entity) throws SecureException, DAOException {
         Employee e = super.add(entity);
@@ -250,14 +250,14 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         try {
             RoleDAO roleDAO = new RoleDAO(ses);
             Role existRole = roleDAO.findByName(role.getName());
-           if (existRole == null){
-               roleDAO.add((Role) role);
-           }else{
-               existRole.setLocName(role.getLocName());
-               existRole.setLocalizedDescr(role.getLocalizedDescr());
-               roleDAO.update(existRole);
-           }
-           return true;
+            if (existRole == null) {
+                roleDAO.add((Role) role);
+            } else {
+                existRole.setLocName(role.getLocName());
+                existRole.setLocalizedDescr(role.getLocalizedDescr());
+                roleDAO.update(existRole);
+            }
+            return true;
         } catch (DAOException | SecureException e) {
             Lg.exception(e);
             return false;

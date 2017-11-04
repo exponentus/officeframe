@@ -15,7 +15,6 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import com.exponentus.util.StringUtil;
 
 import javax.ws.rs.*;
@@ -75,13 +74,12 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             }
 
 
-
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", StringUtil.kindToKeyword(entity.getEntityKind()));
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

@@ -78,7 +78,7 @@ public class DocumentLanguageService extends RestProvider {
             outcome.addPayload("languageCodes", LanguageCode.values());
             outcome.addPayload("contentTitle", "doc_language");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

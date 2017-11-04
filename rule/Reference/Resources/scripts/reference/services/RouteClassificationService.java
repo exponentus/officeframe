@@ -1,7 +1,5 @@
 package reference.services;
 
-import reference.dao.RouteClassificationDAO;
-import reference.model.RouteClassification;
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
@@ -13,11 +11,13 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import reference.dao.RouteClassificationDAO;
+import reference.model.RouteClassification;
+
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
-import javax.ws.rs.Path;
 
 @Path("route-classifications")
 public class RouteClassificationService extends ReferenceService<RouteClassification> {
@@ -71,7 +71,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "route_classification");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session,entity));
+            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);

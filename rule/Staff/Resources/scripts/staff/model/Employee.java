@@ -230,7 +230,6 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
         }
 
 
-
         for (Role role : roles) {
             if (role.getName().equals(Role.FIRED_ROLE_NAME)) {
                 return true;

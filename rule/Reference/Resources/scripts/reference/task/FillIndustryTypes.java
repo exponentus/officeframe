@@ -12,8 +12,8 @@ import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
 import reference.init.AppConst;
 import reference.init.DataConst;
-import reference.model.IndustryType;
 import reference.model.ActivityTypeCategory;
+import reference.model.IndustryType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public class FillIndustryTypes extends Do {
                         logger.exception(e);
                     }
                 }
-            }else{
+            } else {
                 logger.error("Category \"" + DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY + "\" has not been found");
             }
         } catch (DAOException e) {

@@ -8,9 +8,9 @@ import staff.model.Department;
 import java.util.UUID;
 
 public class DepartmentDAO extends DAO<Department, UUID> {
-	
-	public DepartmentDAO(_Session session) throws DAOException {
-		super(Department.class, session);
-	}
-	
+
+    public DepartmentDAO(_Session session) throws DAOException {
+        super(Department.class, session);
+    }
+
 }

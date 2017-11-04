@@ -1,47 +1,37 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <nextbase>
-    <hostname></hostname>
-    <port></port>  
-    <orgname>Avanti</orgname>
-    <applications>
-       <app>
-            <name mode="on">Administrator</name>
-        </app>
-         <app>
-            <name mode="on">Staff</name>
-        </app>
-         <app>
-            <name mode="on">Reference</name>
-                 <rest mode="on">
-           <urlmapping></urlmapping>
-                <allowcors>*</allowcors>
-                <services>
-                    
-                </services>
-            </rest>
-        </app>   
-           
-        <app>
-            <name mode="on">Workspace</name>
-        </app>        
-    </applications>
-    <langs>
-    	<!-- https://en.wikipedia.org/wiki/List_of_ISO_639-2_codes  -->
-		<entry>RUS</entry>
-		<entry>KAZ</entry>
-		<entry>ENG</entry>
-	</langs>
-    <mailagent mode="ON">
-    	<smtphost>smtp.mail.ru</smtphost>
-		<defaultsender>mynameis.m@mail.ru</defaultsender>
-		<auth>true</auth>
-		<smtpport>465</smtpport>
-		<smtpuser></smtpuser>
-		<smtppassword></smtppassword>     
-    </mailagent>
-  <tls mode="OFF">
+    <hostname>localhost</hostname>
+    <port></port>
+    <orgname></orgname>
+    <orglogo></orglogo>
+    <orgcolor></orgcolor>
+    <tls mode="OFF">
         <port>38700</port>
-    	<certfile>server.crt</certfile>
-    	<certkeyfile>server.key</certkeyfile>    	
+        <certfile>server.crt</certfile>
+        <certkeyfile>server.key</certkeyfile>
     </tls>
+    <mail mode="ON">
+        <smtphost>exponentus.com</smtphost>
+        <smtpauth>true</smtpauth>
+        <smtpport>2525</smtpport>
+        <smtpuser>test@exponentus.com</smtpuser>
+        <smtppassword>test22</smtppassword>
+        <smtpusername>poema</smtpusername>
+    </mail>
+
+    <slack mode="OFF">
+        <token></token>
+    </slack>
+
+    <translator mode="OFF">
+        <yandex>
+            <token>trnsl.1.1.20170415T110613Z.4e1ffdbe3fc650fa.8419218cba5694531e4b5063d58a8d28c03c096c</token>
+        </yandex>
+    </translator>
+
+    <integrationbus mode="ON">
+        <hostname>localhost</hostname>
+        <port></port>
+    </integrationbus>
+
 </nextbase>
