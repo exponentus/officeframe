@@ -26,10 +26,10 @@ public class FillBusClassifications extends Do {
 	public void doTask(AppEnv appEnv, _Session ses) {
 		List<BusClassification> entities = new ArrayList<>();
 
-		String names[] = { "sightseeing", "tourist", "regular", "event_service" };
-		String namesEng[] = { "Sightseeing", "Tourist", "Regular", "Event Service" };
-		String namesRus[] = { "Экскурсионный","Туристический","Регулярный","Обслуживание мероприятии" };
-		String namesKaz[] = { "Экскурсия", "Турист", "Тұрақты", "Оқиғаларды басқару" };
+		String names[] = { "city", "intercity" };
+		String namesEng[] = { "City", "Intercity" };
+		String namesRus[] = { "Городской","Междугородный"};
+		String namesKaz[] = { "Қалалық","Қалааралық" };
 
 		for (int i = 0; i < names.length; i++) {
 			BusClassification entity = new BusClassification();
