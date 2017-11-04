@@ -7,7 +7,7 @@ import com.exponentus.common.init.DefaultDataConst;
 public class AppConst extends DefaultAppConst {
     public static final String CODE = "ref";
     public static final String[] ROLES = {DefaultDataConst.ROLE_REFERENCE_ADMIN};
-    public static String NAME = "Reference";
+    public static final String NAME = "Reference";
     public static String NAME_ENG = "Reference";
     public static String NAME_RUS = "Справочники";
     public static String NAME_KAZ = "Анықтамалар";

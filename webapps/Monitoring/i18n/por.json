@@ -1,5 +1,5 @@
 {
-  "cancel" : "cancel",
+  "cancel" : "Cancelar",
   "land_objs" : "land_objs",
   "assignee_user" : "Executante",
   "projects" : "Projetos",
@@ -342,7 +342,7 @@
   "assignments_my" : "assignments_my",
   "button_hide_translate" : null,
   "letter" : "letter",
-  "activity_types" : "activity_types",
+  "activity_types" : "Tipos de atividade",
   "processing" : "Em processamento",
   "reg_documents" : null,
   "contact_us_on_lang" : "contact_us_on_lang",
@@ -629,6 +629,7 @@
   "all_applications" : null,
   "quantity" : null,
   "assignment" : null,
+  "activity_type_category" : "activity_type_category",
   "act_user" : "act_user",
   "send_request" : "Enviar pedido",
   "revenues" : "revenues",

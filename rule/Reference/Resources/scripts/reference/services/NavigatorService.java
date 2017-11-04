@@ -55,7 +55,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("vehicle", "", "vehicle", AppConst.BASE_URL + "vehicles"));
             so.addEntry(new OutlineEntry("meeting_room", "", "meeting_rooms", AppConst.BASE_URL + "meeting-rooms"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONTROLPANEL.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
-            so.addEntry(new OutlineEntry("industry_type_categories", "", "industry-type-categories", AppConst.BASE_URL + "industry-type-categories"));
+            so.addEntry(new OutlineEntry("activity_types", "", "activity_types", AppConst.BASE_URL + "activity-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", AppConst.BASE_URL + "industry-types"));
             so.addEntry(new OutlineEntry("nationalities", "", "nationalities", AppConst.BASE_URL + "nationalities"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.LANDRELATIONSTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
@@ -73,7 +73,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("revenues", "", "revenues", AppConst.BASE_URL + "revenues"));
             so.addEntry(new OutlineEntry("еxpenditurе_categories", "", "еxpenditurе_categories", AppConst.BASE_URL + "еxpenditurе-categories"));
             so.addEntry(new OutlineEntry("expenditures", "", "expenditures", AppConst.BASE_URL + "expenditures"));
-            so.addEntry(new OutlineEntry("activity_types", "", "activity_types", AppConst.BASE_URL + "activity-types"));
+            so.addEntry(new OutlineEntry("activity_types", "", "activity_types", AppConst.BASE_URL + "activity-type-categories"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.PASSENGERTRANSPORTTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
             so.addEntry(new OutlineEntry("route_classifications", "", "route_classifications", AppConst.BASE_URL + "route-classifications"));
             so.addEntry(new OutlineEntry("route_statuses", "", "route_statuses", AppConst.BASE_URL + "route-statuses"));

@@ -15,13 +15,13 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "ref__industry_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class IndustryType extends SimpleReferenceEntity {
 
-    private IndustryTypeCategory category;
+    private ActivityTypeCategory category;
 
-    public IndustryTypeCategory getCategory() {
+    public ActivityTypeCategory getCategory() {
         return category;
     }
 
-    public void setCategory(IndustryTypeCategory category) {
+    public void setCategory(ActivityTypeCategory category) {
         this.category = category;
     }
 

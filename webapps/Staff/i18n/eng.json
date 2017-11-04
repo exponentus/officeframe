@@ -629,6 +629,7 @@
   "all_applications" : "All requests",
   "quantity" : "Quantity",
   "assignment" : "Assignment",
+  "activity_type_category" : "activity_type_category",
   "act_user" : "User",
   "send_request" : "Send request",
   "revenues" : "Tax revenues",

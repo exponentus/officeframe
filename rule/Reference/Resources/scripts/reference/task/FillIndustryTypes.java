@@ -8,17 +8,18 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.IndustryTypeCategoryDAO;
+import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
+import reference.init.AppConst;
 import reference.model.IndustryType;
-import reference.model.IndustryTypeCategory;
+import reference.model.ActivityTypeCategory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_industry_types")
+@Command(name = AppConst.CODE + "_fill_industry_types")
 public class FillIndustryTypes extends Do {
 
     @Override
@@ -34,7 +35,7 @@ public class FillIndustryTypes extends Do {
 
         try {
 
-            IndustryTypeCategory cat = new IndustryTypeCategoryDAO(ses).findByName("Промышленность");
+            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(ses).findByName("industry");
 
             for (int i = 0; i < data.length; i++) {
                 IndustryType entity = new IndustryType();
@@ -55,7 +56,7 @@ public class FillIndustryTypes extends Do {
                     }
                 } catch (DAOException e) {
                     if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-                        logger.warning("a data is already exists (" + e.getAddInfo() + "), record was skipped");
+                        logger.warning("a data is already exists (" + entry.getTitle() + "), record was skipped");
                     } else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
                         logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
                     } else {

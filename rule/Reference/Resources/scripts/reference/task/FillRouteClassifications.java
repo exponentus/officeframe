@@ -8,10 +8,8 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.ActivityTypeDAO;
 import reference.dao.RouteClassificationDAO;
 import reference.init.AppConst;
-import reference.model.ActivityType;
 import reference.model.RouteClassification;
 
 import java.util.ArrayList;
