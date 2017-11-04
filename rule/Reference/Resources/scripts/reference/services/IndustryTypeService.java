@@ -12,7 +12,10 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
+import reference.init.DataConst;
+import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
 
 import javax.ws.rs.*;
@@ -115,11 +118,11 @@ public class IndustryTypeService extends RestProvider {
                 entity = dao.findById(dto.getId());
             }
 
-            // fill from dto
             entity.setTitle(dto.getTitle());
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
-            entity.setCategory(dto.getCategory());
+            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(session).findByName(DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
+            entity.setCategory(cat);
 
             dao.save(entity);
 

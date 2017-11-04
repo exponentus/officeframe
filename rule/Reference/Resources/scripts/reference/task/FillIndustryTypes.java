@@ -11,6 +11,7 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
 import reference.init.AppConst;
+import reference.init.DataConst;
 import reference.model.IndustryType;
 import reference.model.ActivityTypeCategory;
 
@@ -35,36 +36,39 @@ public class FillIndustryTypes extends Do {
 
         try {
 
-            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(ses).findByName("industry");
+            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(ses).findByName(DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
+            if (cat != null) {
+                for (int i = 0; i < data.length; i++) {
+                    IndustryType entity = new IndustryType();
+                    entity.setName(data[i]);
+                    Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
+                    name.put(LanguageCode.ENG, data[i]);
+                    name.put(LanguageCode.RUS, dataRus[i]);
+                    entity.setLocName(name);
+                    entity.setCategory(cat);
+                    entities.add(entity);
+                }
 
-            for (int i = 0; i < data.length; i++) {
-                IndustryType entity = new IndustryType();
-                entity.setName(data[i]);
-                Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
-                name.put(LanguageCode.ENG, data[i]);
-                name.put(LanguageCode.RUS, dataRus[i]);
-                entity.setLocName(name);
-                entity.setCategory(cat);
-                entities.add(entity);
-            }
-
-            IndustryTypeDAO dao = new IndustryTypeDAO(ses);
-            for (IndustryType entry : entities) {
-                try {
-                    if (dao.add(entry) != null) {
-                        logger.info(entry.getName() + " added");
-                    }
-                } catch (DAOException e) {
-                    if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-                        logger.warning("a data is already exists (" + entry.getTitle() + "), record was skipped");
-                    } else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
-                        logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
-                    } else {
+                IndustryTypeDAO dao = new IndustryTypeDAO(ses);
+                for (IndustryType entry : entities) {
+                    try {
+                        if (dao.add(entry) != null) {
+                            logger.info(entry.getName() + " added");
+                        }
+                    } catch (DAOException e) {
+                        if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
+                            logger.warning("a data is already exists (" + entry.getTitle() + "), record was skipped");
+                        } else if (e.getType() == DAOExceptionType.NOT_NULL_VIOLATION) {
+                            logger.warning("a value is null (" + e.getAddInfo() + "), record was skipped");
+                        } else {
+                            logger.exception(e);
+                        }
+                    } catch (SecureException e) {
                         logger.exception(e);
                     }
-                } catch (SecureException e) {
-                    logger.exception(e);
                 }
+            }else{
+                logger.error("Category \"" + DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY + "\" has not been found");
             }
         } catch (DAOException e) {
             logger.exception(e);

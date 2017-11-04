@@ -5,16 +5,18 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.AppConst;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @JsonRootName("industryType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "ref__industry_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = AppConst.CODE + "__industry_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class IndustryType extends SimpleReferenceEntity {
 
+    @NotNull
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = false)
     private ActivityTypeCategory category;
 
     public ActivityTypeCategory getCategory() {
