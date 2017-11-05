@@ -15,7 +15,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__positions", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = AppConst.CODE + "__positions", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "Position.findAll", query = "SELECT m FROM Position AS m ORDER BY m.regDate")
 public class Position extends SimpleReferenceEntity {
     private int rank = 999;

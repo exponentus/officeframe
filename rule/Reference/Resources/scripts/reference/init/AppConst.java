@@ -16,4 +16,6 @@ public class AppConst extends DefaultAppConst {
     public static String BASE_URL = "/" + NAME + "/";
     public static InterfaceType AVAILABLE_MODE[] = {InterfaceType.SPA};
     public static boolean FORCE_DEPLOYING = true;
+
+    public static String[][] NOT_NULL = {{ "ref__city_districts", "locality_id" }, {"ref__industry_types","category_id"}};
 }
