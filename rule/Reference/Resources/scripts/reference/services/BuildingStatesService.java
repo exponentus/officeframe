@@ -38,7 +38,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
             BuildingStateDAO dao = new BuildingStateDAO(session);
             ViewPage<BuildingState> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("building_states");
             outcome.addPayload("contentTitle", "building_states");
             outcome.addPayload(vp);

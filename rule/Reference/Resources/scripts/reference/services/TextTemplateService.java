@@ -39,7 +39,7 @@ public class TextTemplateService extends RestProvider {
             TextTemplateDAO dao = new TextTemplateDAO(session);
             ViewPage<TextTemplate> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("text_template");
             outcome.addPayload("contentTitle", "text_template");

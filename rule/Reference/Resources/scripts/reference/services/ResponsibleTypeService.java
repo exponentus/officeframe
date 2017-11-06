@@ -37,7 +37,7 @@ public class ResponsibleTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             ResponsibleTypeDAO dao = new ResponsibleTypeDAO(session);
             ViewPage<ResponsibleType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("responsible_types");
             outcome.addPayload("contentTitle", "responsible_types");

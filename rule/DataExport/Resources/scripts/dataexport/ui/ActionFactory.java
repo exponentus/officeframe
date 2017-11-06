@@ -2,7 +2,7 @@ package dataexport.ui;
 
 import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.actions.Action;
-import com.exponentus.common.ui.actions.ActionType;
+import com.exponentus.common.ui.actions.constants.ActionType;
 
 
 public class ActionFactory extends ConventionalActionFactory {

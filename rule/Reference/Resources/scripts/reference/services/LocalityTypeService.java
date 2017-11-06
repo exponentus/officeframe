@@ -40,7 +40,7 @@ public class LocalityTypeService extends RestProvider {
             LocalityTypeDAO dao = new LocalityTypeDAO(session);
             ViewPage<LocalityType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("locality_types");
             outcome.addPayload("contentTitle", "locality_types");

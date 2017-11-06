@@ -36,7 +36,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
             RouteClassificationDAO dao = new RouteClassificationDAO(session);
 
             ViewPage<RouteClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("route_classifications");
             outcome.addPayload("contentTitle", "route_classification");
             outcome.addPayload(vp);

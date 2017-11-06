@@ -39,7 +39,7 @@ public class DocumentSubjectService extends RestProvider {
             DocumentSubjectDAO dao = new DocumentSubjectDAO(session);
             ViewPage<DocumentSubject> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             vp.setViewPageOptions(new ViewOptions().getDocumentSubjectOptions());
 

@@ -53,7 +53,7 @@ public class LocalityService extends RestProvider {
                 vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
             }
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("localities");
             outcome.addPayload("contentTitle", "localities");

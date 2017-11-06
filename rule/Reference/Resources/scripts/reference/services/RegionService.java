@@ -54,7 +54,7 @@ public class RegionService extends RestProvider {
                 vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             }
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             vp.setViewPageOptions(new ViewOptions().getRegionOptions());
 
             outcome.setTitle("regions");

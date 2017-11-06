@@ -54,7 +54,7 @@ public class DistrictService extends RestProvider {
                 vp = new ViewPage<District>(districts, districts.size(), 1, 1);
             }
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             vp.setViewPageOptions(new ViewOptions().getDistrictOptions());
 
             outcome.setTitle("districts");

@@ -39,7 +39,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
         ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-        outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+        outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
         String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
         outcome.setTitle(keyword);
         outcome.addPayload("contentTitle", keyword);

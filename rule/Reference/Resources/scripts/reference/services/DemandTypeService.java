@@ -38,7 +38,7 @@ public class DemandTypeService extends RestProvider {
             DemandTypeDAO dao = new DemandTypeDAO(session);
             ViewPage<DemandType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("demand_types");
             outcome.addPayload("contentTitle", "demand_types");

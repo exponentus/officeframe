@@ -40,7 +40,7 @@ public class DocumentLanguageService extends RestProvider {
             DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
             ViewPage<DocumentLanguage> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("doc_languages");
             outcome.addPayload("contentTitle", "doc_languages");

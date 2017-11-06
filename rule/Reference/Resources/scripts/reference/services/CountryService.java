@@ -39,7 +39,7 @@ public class CountryService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             CountryDAO dao = new CountryDAO(session);
             ViewPage<Country> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            ActionBar actionBar = new ConventionalActionFactory().getViewActionBar(session, true);
+            ActionBar actionBar = new ConventionalActionFactory().getRefViewActionBar(session, true);
             outcome.addPayload(actionBar);
             outcome.setTitle("countries");
             outcome.addPayload("contentTitle", "countries");

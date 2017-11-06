@@ -52,7 +52,7 @@ public class CityDistrictService extends RestProvider {
                 List<CityDistrict> streetList = locality.getDistricts();
                 vp = new ViewPage<CityDistrict>(streetList, streetList.size(), 1, 1);
             }
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("city_districts");
             outcome.addPayload("contentTitle", "city_districts");

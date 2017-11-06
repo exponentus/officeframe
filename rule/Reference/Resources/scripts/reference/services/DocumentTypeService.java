@@ -39,7 +39,7 @@ public class DocumentTypeService extends RestProvider {
             DocumentTypeDAO dao = new DocumentTypeDAO(session);
             ViewPage<DocumentType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             vp.setViewPageOptions(new ViewOptions().getDocumentTypeOptions());
 

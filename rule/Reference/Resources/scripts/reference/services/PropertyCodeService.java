@@ -38,7 +38,7 @@ public class PropertyCodeService extends RestProvider {
             PropertyCodeDAO dao = new PropertyCodeDAO(session);
             ViewPage<PropertyCode> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("property_codes");
             outcome.addPayload("contentTitle", "property_codes");
             outcome.addPayload(vp);

@@ -32,7 +32,7 @@ public class ActivityTypeCategoryService extends ReferenceService<ActivityTypeCa
         try {
             ActivityTypeCategoryDAO dao = new ActivityTypeCategoryDAO(session);
             ViewPage<ActivityTypeCategory> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("activity_types");
             outcome.addPayload("contentTitle", "activity_types");
             outcome.addPayload(vp);

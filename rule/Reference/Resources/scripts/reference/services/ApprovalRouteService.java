@@ -42,7 +42,7 @@ public class ApprovalRouteService extends RestProvider {
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
             ViewPage<ApprovalRoute> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             vp.setViewPageOptions(new ViewOptions().getApprovalRouteOptions());
 
             outcome.setTitle("approval_routes");

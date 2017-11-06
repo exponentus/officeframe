@@ -38,7 +38,7 @@ public class NationalityService extends RestProvider {
             NationalityDAO dao = new NationalityDAO(session);
             ViewPage<Nationality> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("nationalities");
             outcome.addPayload("contentTitle", "nationalities");

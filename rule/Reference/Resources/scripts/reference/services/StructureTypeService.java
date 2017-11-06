@@ -39,7 +39,7 @@ public class StructureTypeService extends RestProvider {
             StructureTypeDAO dao = new StructureTypeDAO(session);
             ViewPage<StructureType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("structure_types");
             outcome.addPayload("contentTitle", "structure_types");

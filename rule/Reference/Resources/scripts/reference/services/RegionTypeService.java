@@ -39,7 +39,7 @@ public class RegionTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RegionTypeDAO dao = new RegionTypeDAO(session);
             ViewPage<RegionType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("region_types");
             outcome.addPayload("contentTitle", "region_types");

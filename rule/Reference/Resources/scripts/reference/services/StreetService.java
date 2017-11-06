@@ -53,7 +53,7 @@ public class StreetService extends RestProvider {
                 vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
             }
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("streets");
             outcome.addPayload("contentTitle", "streets");
             outcome.addPayload(vp);

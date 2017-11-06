@@ -37,7 +37,7 @@ public class TaskTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             TaskTypeDAO dao = new TaskTypeDAO(session);
             ViewPage<TaskType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("task_types");
             outcome.addPayload("contentTitle", "task_types");

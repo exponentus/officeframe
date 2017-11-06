@@ -39,7 +39,7 @@ public class MeetingRoomService extends RestProvider {
             MeetingRoomDAO dao = new MeetingRoomDAO(session);
             ViewPage<MeetingRoom> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("meeting_room");
             outcome.addPayload("contentTitle", "meeting_room");
             outcome.addPayload(vp);

@@ -37,7 +37,7 @@ public class PositionService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             PositionDAO dao = new PositionDAO(session);
             ViewPage<Position> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("positions");
             outcome.addPayload("contentTitle", "positions");

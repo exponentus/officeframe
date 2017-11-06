@@ -42,7 +42,7 @@ public class TagService extends RestProvider {
             String category = params.getValueSilently("category");
             ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             vp.setViewPageOptions(new ViewOptions().getTagOptions());
 

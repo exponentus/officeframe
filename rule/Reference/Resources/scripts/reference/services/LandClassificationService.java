@@ -39,7 +39,7 @@ public class LandClassificationService extends RestProvider {
             LandClassificationDAO dao = new LandClassificationDAO(session);
             ViewPage<LandClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("land_classifications");
             outcome.addPayload("contentTitle", "land_classifications");

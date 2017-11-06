@@ -38,7 +38,7 @@ public class DepartmentTypeService extends RestProvider {
             DepartmentTypeDAO dao = new DepartmentTypeDAO(session);
             ViewPage<DepartmentType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("department_types");
             outcome.addPayload("contentTitle", "department_types");

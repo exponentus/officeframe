@@ -4,7 +4,7 @@ import administrator.dao.LanguageDAO;
 import administrator.model.Language;
 import com.exponentus.common.ui.actions.Action;
 import com.exponentus.common.ui.actions.ActionBar;
-import com.exponentus.common.ui.actions.ActionType;
+import com.exponentus.common.ui.actions.constants.ActionType;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting.WebFormData;

@@ -39,7 +39,7 @@ public class ControlTypeService extends RestProvider {
             ControlTypeDAO dao = new ControlTypeDAO(session);
             ViewPage<ControlType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             vp.setViewPageOptions(new ViewOptions().getControlTypeOptions());
 
             outcome.setTitle("control_types");

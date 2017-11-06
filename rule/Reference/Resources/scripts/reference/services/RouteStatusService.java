@@ -36,7 +36,7 @@ public class RouteStatusService extends ReferenceService<RouteStatus> {
             RouteStatusDAO dao = new RouteStatusDAO(session);
 
             ViewPage<RouteStatus> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("route_statuses");
             outcome.addPayload("contentTitle", "route_statuses");
             outcome.addPayload(vp);

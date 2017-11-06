@@ -38,7 +38,7 @@ public class BuildingMaterialService extends RestProvider {
             BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
 
             ViewPage<BuildingMaterial> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
             outcome.setTitle("building_materials");
             outcome.addPayload("contentTitle", "building_materials");
             outcome.addPayload(vp);

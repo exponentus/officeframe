@@ -39,7 +39,7 @@ public class RealEstateObjStatusService extends RestProvider {
             ViewPage<RealEstateObjStatus> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
 
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("real_estate_obj_statuses");
             outcome.addPayload("contentTitle", "real_estate_obj_statuses");

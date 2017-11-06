@@ -38,7 +38,7 @@ public class OrgCategoryService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             OrgCategoryDAO dao = new OrgCategoryDAO(session);
             ViewPage<OrgCategory> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getViewActionBar(session, true));
+            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
 
             outcome.setTitle("org_categories");
             outcome.addPayload("contentTitle", "org_categories");
