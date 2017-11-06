@@ -79,9 +79,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("route_statuses", "", "route_statuses", AppConst.BASE_URL + "route-statuses"));
             so.addEntry(new OutlineEntry("bus_classifications", "", "bus_classifications", AppConst.BASE_URL + "bus-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ENERGETICSTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
-            so.addEntry(new OutlineEntry("route_classifications", "", "route_classifications", AppConst.BASE_URL + "route-classifications"));
-            so.addEntry(new OutlineEntry("route_statuses", "", "route_statuses", AppConst.BASE_URL + "route-statuses"));
-            so.addEntry(new OutlineEntry("bus_classifications", "", "bus_classifications", AppConst.BASE_URL + "bus-classifications"));
+            so.addEntry(new OutlineEntry("eng_infrastruct_obj_classifications", "", "eng_infrastruct_obj_classifications", AppConst.BASE_URL + "eng-infrastruct-obj-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONSTRUCTIONTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
             so.addEntry(new OutlineEntry("road_types", "", "road_types", AppConst.BASE_URL + "road-types"));
             so.addEntry(new OutlineEntry("road_repair_types", "", "road_repair_types", AppConst.BASE_URL + "road-repair-types"));
