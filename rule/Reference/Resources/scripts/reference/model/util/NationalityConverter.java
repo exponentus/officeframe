@@ -11,21 +11,21 @@ import reference.dao.NationalityDAO;
 import java.util.UUID;
 
 public class NationalityConverter extends EntityConverter {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	@Override
-	public Object convertDataValueToObjectValue(Object dataValue, Session session) {
-		if (dataValue != null) {
-			try {
-				return new NationalityDAO(new _Session(new AnonymousUser())).findById((UUID) dataValue);
-			} catch (DAOException e) {
-				Server.logger.exception(e);
-			} catch (Exception e) {
-				Server.logger.exception(e);
-			}
-		}
-		return null;
+    @Override
+    public Object convertDataValueToObjectValue(Object dataValue, Session session) {
+        if (dataValue != null) {
+            try {
+                return new NationalityDAO(new _Session(new AnonymousUser())).findById((UUID) dataValue);
+            } catch (DAOException e) {
+                Server.logger.exception(e);
+            } catch (Exception e) {
+                Server.logger.exception(e);
+            }
+        }
+        return null;
 
-	}
+    }
 
 }

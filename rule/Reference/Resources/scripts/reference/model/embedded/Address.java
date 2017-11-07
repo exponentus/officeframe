@@ -7,13 +7,16 @@ import org.eclipse.persistence.annotations.Converters;
 import reference.model.*;
 import reference.model.util.*;
 
-import javax.persistence.*;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-@JsonPropertyOrder({ "country", "region", "district", "locality","cityDistrict",
-        "street", "houseNumber", "flat", "additionalInfo", "coordiantes" })
-@Converters({ @org.eclipse.persistence.annotations.Converter(name = "country_conv", converterClass = CountryConverter.class),
+@JsonPropertyOrder({"country", "region", "district", "locality", "cityDistrict",
+        "street", "houseNumber", "flat", "additionalInfo", "coordiantes"})
+@Converters({@org.eclipse.persistence.annotations.Converter(name = "country_conv", converterClass = CountryConverter.class),
         @Converter(name = "region_conv", converterClass = RegionConverter.class),
         @Converter(name = "district_conv", converterClass = DistrictConverter.class),
         @Converter(name = "citydistrict_conv", converterClass = CityDistrictConverter.class),
@@ -47,7 +50,6 @@ public class Address {
     @Convert("citydistrict_conv")
     @Basic(fetch = FetchType.LAZY)
     private CityDistrict cityDistrict;
-
 
 
     @NotNull

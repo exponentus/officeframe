@@ -9,10 +9,6 @@ public enum TopicStatusType {
         this.code = code;
     }
 
-    public int getCode() {
-        return code;
-    }
-
     public static TopicStatusType getType(int code) {
         for (TopicStatusType type : values()) {
             if (type.code == code) {
@@ -20,5 +16,9 @@ public enum TopicStatusType {
             }
         }
         return UNKNOWN;
+    }
+
+    public int getCode() {
+        return code;
     }
 }

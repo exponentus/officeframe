@@ -1,9 +1,9 @@
 package staff.model.embedded;
 
+import com.exponentus.common.model.util.EmployeeConverter;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import staff.model.Employee;
-import com.exponentus.common.model.util.EmployeeConverter;
 
 import javax.persistence.Basic;
 import javax.persistence.Embeddable;

@@ -9,10 +9,8 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.RoadRepairTypeDAO;
-import reference.dao.RoadTypeDAO;
 import reference.init.AppConst;
 import reference.model.RoadRepairType;
-import reference.model.RoadType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +26,7 @@ public class FillRoadRepairTypes extends Do {
 
         String names[] = {"current", "medium", "capital", "reconstruction"};
         String namesEng[] = {"Current", "Medium", "Capital", "Reconstruction"};
-        String namesRus[] = {"Текущий", "Средний","Капитальный","Реконструция"};
+        String namesRus[] = {"Текущий", "Средний", "Капитальный", "Реконструция"};
         String namesKaz[] = {"Ағымдағы", "Орташа", "Капитал", "Қайта құру"};
 
         for (int i = 0; i < names.length; i++) {

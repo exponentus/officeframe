@@ -9,10 +9,8 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.RoadTypeDAO;
-import reference.dao.RouteStatusDAO;
 import reference.init.AppConst;
 import reference.model.RoadType;
-import reference.model.RouteStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;

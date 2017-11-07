@@ -23,42 +23,42 @@ import java.util.Map;
 
 public abstract class StaffForm extends _DoForm {
 
-	protected _Validation validate(WebFormData formData, LanguageCode lang) {
-		_Validation ve = new _Validation();
+    protected _Validation validate(WebFormData formData, LanguageCode lang) {
+        _Validation ve = new _Validation();
 
-		if (formData.getValueSilently("name").isEmpty()) {
-			ve.addError("name", "required", getLocalizedWord("required", lang));
-		}
+        if (formData.getValueSilently("name").isEmpty()) {
+            ve.addError("name", "required", getLocalizedWord("required", lang));
+        }
 
-		return ve;
-	}
+        return ve;
+    }
 
-	protected ActionBar getSimpleActionBar(_Session ses, LanguageCode lang) {
-		ActionBar actionBar = new ActionBar(ses);
-		IUser user = ses.getUser();
-		if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
-			actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", ActionType.SAVE_AND_CLOSE));
-		}
-		actionBar.addAction(new Action(getLocalizedWord("close", lang), "", ActionType.CLOSE));
-		return actionBar;
-	}
+    protected ActionBar getSimpleActionBar(_Session ses, LanguageCode lang) {
+        ActionBar actionBar = new ActionBar(ses);
+        IUser user = ses.getUser();
+        if (user.isSuperUser() || user.getRoles().contains("staff_admin")) {
+            actionBar.addAction(new Action(getLocalizedWord("save_close", lang), "", ActionType.SAVE_AND_CLOSE));
+        }
+        actionBar.addAction(new Action(getLocalizedWord("close", lang), "", ActionType.CLOSE));
+        return actionBar;
+    }
 
-	@Override
-	protected Map<LanguageCode, String> getLocalizedNames(_Session session, WebFormData formData) {
-		Map<LanguageCode, String> localizedNames = new HashMap<LanguageCode, String>();
-		try {
-			List<Language> langs = new LanguageDAO(session).findAllActivated();
-			for (Language l : langs) {
-				String ln = formData.getValueSilently(l.getCode().name().toLowerCase() + "localizedname");
-				if (!ln.isEmpty()) {
-					localizedNames.put(l.getCode(), ln);
-				} else {
-					localizedNames.put(l.getCode(), formData.getValueSilently("name"));
-				}
-			}
-		} catch (DAOException e) {
-			logError(e);
-		}
-		return localizedNames;
-	}
+    @Override
+    protected Map<LanguageCode, String> getLocalizedNames(_Session session, WebFormData formData) {
+        Map<LanguageCode, String> localizedNames = new HashMap<LanguageCode, String>();
+        try {
+            List<Language> langs = new LanguageDAO(session).findAllActivated();
+            for (Language l : langs) {
+                String ln = formData.getValueSilently(l.getCode().name().toLowerCase() + "localizedname");
+                if (!ln.isEmpty()) {
+                    localizedNames.put(l.getCode(), ln);
+                } else {
+                    localizedNames.put(l.getCode(), formData.getValueSilently("name"));
+                }
+            }
+        } catch (DAOException e) {
+            logError(e);
+        }
+        return localizedNames;
+    }
 }

@@ -23,6 +23,7 @@ public class Vehicle extends SimpleReferenceEntity {
     public String getURL() {
         return AppConst.BASE_URL + "vehicles/" + getIdentifier();
     }
+
     public enum VehicleType {CAR, SUV, PEOPLE_CARRIERS, VAN}
 
     public enum TRANSMISSION {AUTO, MANUAL}

@@ -24,7 +24,7 @@ public class RoleProcessor {
     private Employee emp;
     private _Session ses;
 
-    public RoleProcessor(_Session ses, Employee emp){
+    public RoleProcessor(_Session ses, Employee emp) {
         Lg.info("Check roles and process");
         this.emp = emp;
         this.ses = ses;
@@ -32,7 +32,7 @@ public class RoleProcessor {
 
     public void checkSupervisorRole() throws SecureException, DAOException {
         int count = 0;
-        for(AppEnv env:Environment.getApplications()){
+        for (AppEnv env : Environment.getApplications()) {
             Role role = new RoleDAO(ses).findByName(env.appCode + DefaultDataConst.SUPERVISOR_ROLE_NAME);
             if (role != null) {
                 if (emp.getRoles().contains(role)) {
@@ -43,7 +43,7 @@ public class RoleProcessor {
                             entity.addReader(emp.getUser());
                             Lg.debug(emp.getLogin() + " added as a reader to: " + entity.getEntityKind() + " " + entity.getId());
                             dao.update(entity);
-                            count ++;
+                            count++;
                         }
                     }
                 }

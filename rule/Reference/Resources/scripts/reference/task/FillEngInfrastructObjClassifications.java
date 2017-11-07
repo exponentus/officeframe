@@ -8,10 +8,8 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.BusClassificationDAO;
 import reference.dao.EngInfrastructObjClassificationDAO;
 import reference.init.AppConst;
-import reference.model.BusClassification;
 import reference.model.EngInfrastructObjClassification;
 
 import java.util.ArrayList;
@@ -30,8 +28,8 @@ public class FillEngInfrastructObjClassifications extends Do {
                 "heat_supply", "telecommunications"};
         String namesEng[] = {"Electricity supply", "Gas supply", "Water supply", "Drainage",
                 "Heat Supply", "Telecommunications"};
-        String namesRus[] = {"Электроснабжение", "Газоснабжение","Водоснабжение","Водоотведение",
-                "Теплоснабжение","Телекоммуникцаии"};
+        String namesRus[] = {"Электроснабжение", "Газоснабжение", "Водоснабжение", "Водоотведение",
+                "Теплоснабжение", "Телекоммуникцаии"};
         String namesKaz[] = {"Электрмен жабдықтау", "Газбен жабдықтау", "Сумен қамтамасыз ету", "Дренаж",
                 "Жылу беру", "Телекоммуникация"};
 
