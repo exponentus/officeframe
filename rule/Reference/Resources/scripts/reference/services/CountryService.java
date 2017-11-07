@@ -39,8 +39,7 @@ public class CountryService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             CountryDAO dao = new CountryDAO(session);
             ViewPage<Country> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            ActionBar actionBar = new ConventionalActionFactory().getRefViewActionBar(session, true);
-            outcome.addPayload(actionBar);
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("countries");
             outcome.addPayload("contentTitle", "countries");
             outcome.addPayload(vp);
@@ -66,7 +65,7 @@ public class CountryService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 CountryDAO dao = new CountryDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
 
@@ -75,7 +74,7 @@ public class CountryService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "country");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("countryCodes", CountryCode.values());
 
             return Response.ok(outcome).build();

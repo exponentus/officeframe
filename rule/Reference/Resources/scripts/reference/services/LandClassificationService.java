@@ -38,8 +38,7 @@ public class LandClassificationService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             LandClassificationDAO dao = new LandClassificationDAO(session);
             ViewPage<LandClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("land_classifications");
             outcome.addPayload("contentTitle", "land_classifications");
@@ -75,7 +74,7 @@ public class LandClassificationService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "land_classification");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

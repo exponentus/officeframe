@@ -39,7 +39,7 @@ public class RegionTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RegionTypeDAO dao = new RegionTypeDAO(session);
             ViewPage<RegionType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("region_types");
             outcome.addPayload("contentTitle", "region_types");
@@ -76,7 +76,7 @@ public class RegionTypeService extends RestProvider {
             outcome.addPayload("contentTitle", "region_type");
             outcome.addPayload("regionTypeCodes", RegionCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

@@ -38,7 +38,7 @@ public class WorkTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             WorkTypeDAO dao = new WorkTypeDAO(session);
             ViewPage<WorkType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("work_types");
             outcome.addPayload("contentTitle", "work_types");
@@ -74,7 +74,7 @@ public class WorkTypeService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "work_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

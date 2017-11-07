@@ -41,8 +41,7 @@ public class TagService extends RestProvider {
             boolean withHidden = params.getBoolSilently("hidden");
             String category = params.getValueSilently("category");
             ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             vp.setViewPageOptions(new ViewOptions().getTagOptions());
 
@@ -80,7 +79,7 @@ public class TagService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "tag");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

@@ -53,8 +53,7 @@ public class RegionService extends RestProvider {
             } else {
                 vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             }
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
             vp.setViewPageOptions(new ViewOptions().getRegionOptions());
 
             outcome.setTitle("regions");
@@ -91,7 +90,7 @@ public class RegionService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "region");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

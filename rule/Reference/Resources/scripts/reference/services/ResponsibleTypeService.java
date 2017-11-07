@@ -37,7 +37,7 @@ public class ResponsibleTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             ResponsibleTypeDAO dao = new ResponsibleTypeDAO(session);
             ViewPage<ResponsibleType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("responsible_types");
             outcome.addPayload("contentTitle", "responsible_types");
@@ -73,7 +73,7 @@ public class ResponsibleTypeService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "responsible_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

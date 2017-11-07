@@ -53,8 +53,7 @@ public class DistrictService extends RestProvider {
                 List<District> districts = region.getDistricts();
                 vp = new ViewPage<District>(districts, districts.size(), 1, 1);
             }
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
             vp.setViewPageOptions(new ViewOptions().getDistrictOptions());
 
             outcome.setTitle("districts");
@@ -92,7 +91,7 @@ public class DistrictService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "district");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

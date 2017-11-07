@@ -37,8 +37,7 @@ public class RequestTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RequestTypeDAO dao = new RequestTypeDAO(session);
             ViewPage<RequestType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("request_types");
             outcome.addPayload("contentTitle", "request_types");
@@ -74,7 +73,7 @@ public class RequestTypeService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "request_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

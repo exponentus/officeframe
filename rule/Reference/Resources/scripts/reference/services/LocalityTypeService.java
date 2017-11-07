@@ -40,7 +40,7 @@ public class LocalityTypeService extends RestProvider {
             LocalityTypeDAO dao = new LocalityTypeDAO(session);
             ViewPage<LocalityType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("locality_types");
             outcome.addPayload("contentTitle", "locality_types");
@@ -76,7 +76,7 @@ public class LocalityTypeService extends RestProvider {
             outcome.addPayload("contentTitle", "locality_type");
             outcome.addPayload("localityCodes", LocalityCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

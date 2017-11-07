@@ -40,9 +40,7 @@ public class IndustryTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             IndustryTypeDAO dao = new IndustryTypeDAO(session);
             ViewPage<IndustryType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
-
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("industry_types");
             outcome.addPayload("contentTitle", "industry_types");
             outcome.addPayload(vp);
@@ -77,7 +75,7 @@ public class IndustryTypeService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "industry_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

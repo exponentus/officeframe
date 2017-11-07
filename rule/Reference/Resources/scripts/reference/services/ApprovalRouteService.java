@@ -42,7 +42,7 @@ public class ApprovalRouteService extends RestProvider {
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
             ViewPage<ApprovalRoute> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
             vp.setViewPageOptions(new ViewOptions().getApprovalRouteOptions());
 
             outcome.setTitle("approval_routes");
@@ -83,7 +83,7 @@ public class ApprovalRouteService extends RestProvider {
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload("approvalSchemaType", ApprovalSchemaType.values());
             outcome.addPayload("approvalType", ApprovalType.values());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

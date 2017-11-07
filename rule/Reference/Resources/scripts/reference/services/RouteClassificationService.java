@@ -36,7 +36,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
             RouteClassificationDAO dao = new RouteClassificationDAO(session);
 
             ViewPage<RouteClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("route_classifications");
             outcome.addPayload("contentTitle", "route_classification");
             outcome.addPayload(vp);
@@ -71,7 +71,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "route_classification");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);

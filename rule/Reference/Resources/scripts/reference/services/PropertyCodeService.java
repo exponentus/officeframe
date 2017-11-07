@@ -37,8 +37,7 @@ public class PropertyCodeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             PropertyCodeDAO dao = new PropertyCodeDAO(session);
             ViewPage<PropertyCode> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("property_codes");
             outcome.addPayload("contentTitle", "property_codes");
             outcome.addPayload(vp);
@@ -73,7 +72,7 @@ public class PropertyCodeService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "property_code");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

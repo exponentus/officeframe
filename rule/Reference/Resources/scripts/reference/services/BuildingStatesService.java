@@ -38,7 +38,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
             BuildingStateDAO dao = new BuildingStateDAO(session);
             ViewPage<BuildingState> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("building_states");
             outcome.addPayload("contentTitle", "building_states");
             outcome.addPayload(vp);
@@ -73,7 +73,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "building_state");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

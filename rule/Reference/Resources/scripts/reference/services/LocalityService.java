@@ -53,7 +53,7 @@ public class LocalityService extends RestProvider {
                 vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
             }
 
-            outcome.addPayload(new ConventionalActionFactory().getRefViewActionBar(session, true));
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("localities");
             outcome.addPayload("contentTitle", "localities");
@@ -89,7 +89,7 @@ public class LocalityService extends RestProvider {
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "locality");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload(new ConventionalActionFactory().getFormActionBar(session, entity));
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
