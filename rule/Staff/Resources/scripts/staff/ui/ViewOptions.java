@@ -45,7 +45,7 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
 
         ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").sortBoth().style("return it.fired ? { 'color': '#777', 'text-decoration': 'line-through' } : null"));
+        cg.add(new ViewColumn("name").sortBoth().style("return it.fired ? { 'orgColor': '#777', 'text-decoration': 'line-through' } : null"));
         cg.add(new ViewColumn("position").type(ViewColumnType.localizedName));
         cg.add(new ViewColumn("login").name("login_name"));
 

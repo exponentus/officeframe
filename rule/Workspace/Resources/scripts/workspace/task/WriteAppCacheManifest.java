@@ -31,7 +31,7 @@ public class WriteAppCacheManifest extends Do {
             writer.write("CACHE:\n");
             writer.write(Environment.logo + "\n");
             writer.write("img/favicon.png\n");
-            writer.write("img/logo.png\n");
+            writer.write("img/orgLogo.png\n");
             writer.write("img/loading.gif\n");
             writer.write("/SharedResources/nb/css/nb.min.css\n");
             writer.write("/SharedResources/ng-app/vendor.js.gz\n");

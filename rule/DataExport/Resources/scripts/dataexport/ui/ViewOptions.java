@@ -22,7 +22,7 @@ public class ViewOptions {
         cg2.setClassName("vw-55");
         cg2.add(new ViewColumn("startFrom").name("start_from").type(ViewColumnType.date).format("DD.MM.YYYY"));
         cg2.add(new ViewColumn("endUntil").name("end_until").type(ViewColumnType.date).format("DD.MM.YYYY"));
-        cg2.add(new ViewColumn("tags").type(ViewColumnType.localizedName).style("return { color: it.color }"));
+        cg2.add(new ViewColumn("tags").type(ViewColumnType.localizedName).style("return { orgColor: it.orgColor }"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);

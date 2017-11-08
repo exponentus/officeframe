@@ -16,7 +16,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__tags", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "color"}))
+@Table(name = AppConst.CODE + "__tags", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "orgColor"}))
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {

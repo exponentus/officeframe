@@ -101,7 +101,7 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
 
         ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return { color:it.color }"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return { orgColor:it.orgColor }"));
         cg.add(new ViewColumn("category"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
