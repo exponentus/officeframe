@@ -36,6 +36,12 @@ public class Region extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private RegionType type;
 
+    @Column(name = "is_primary")
+    private boolean isPrimary;
+
+    @Column(name = "org_coordinates")
+    private String orgCoordinates;
+
     public RegionType getType() {
         return type;
     }
@@ -67,6 +73,23 @@ public class Region extends SimpleReferenceEntity {
     public void setCountry(Country country) {
         this.country = country;
     }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
+    }
+
+    public String getOrgCoordinates() {
+        return orgCoordinates;
+    }
+
+    public void setOrgCoordinates(String orgCoordinates) {
+        this.orgCoordinates = orgCoordinates;
+    }
+
 
     @Override
     public String getURL() {

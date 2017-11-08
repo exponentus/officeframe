@@ -12,7 +12,7 @@ public class Workspace extends _DoPage {
 
     @Override
     public void doGET(_Session session, WebFormData formData) {
-        addValue("logo", Environment.orgLogo);
+        addValue("logo", Environment.logo);
         addValue("build", "" + tm);
         addValue("locale", session.getLang().getAlternateCode());
 

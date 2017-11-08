@@ -40,6 +40,9 @@ public class Organization extends SimpleReferenceEntity {
 
     private int rank = 999;
 
+    @Column(name = "is_primary")
+    private boolean isPrimary;
+
     public OrgCategory getOrgCategory() {
         return orgCategory;
     }
@@ -85,6 +88,15 @@ public class Organization extends SimpleReferenceEntity {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
+    }
+
 
     @Override
     public String getURL() {

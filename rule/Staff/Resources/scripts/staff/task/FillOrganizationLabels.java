@@ -22,11 +22,11 @@ public class FillOrganizationLabels extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<OrganizationLabel> entities = new ArrayList<OrganizationLabel>();
-        String[] data = {"inactive organization", "primary organization"};
-        String[] dataEng = {"Inactive organization", "Primary organization"};
-        String[] dataPor = {"Organização inativa", "Organização primária"};
-        String[] dataRus = {"Не действующая организация", "Первичная организация"};
-        String[] dataKaz = {"Ұйымдастыру міндетін атқарушы емес", "Бастауыш ұйымы"};
+        String[] data = {"inactive organization"};
+        String[] dataEng = {"Inactive organization"};
+        String[] dataPor = {"Organização inativa"};
+        String[] dataRus = {"Не действующая организация"};
+        String[] dataKaz = {"Ұйымдастыру міндетін атқарушы емес"};
 
         for (int i = 0; i < data.length; i++) {
             OrganizationLabel entity = new OrganizationLabel();

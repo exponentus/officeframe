@@ -13,7 +13,7 @@ import java.util.Map;
 
 @JsonRootName("organizationLabel")
 @Entity
-@Table(name = "staff__org_labels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = AppConst.CODE + "__org_labels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "OrganizationLabel.findAll", query = "SELECT m FROM OrganizationLabel AS m ORDER BY m.regDate")
 public class OrganizationLabel extends SimpleReferenceEntity {
 
