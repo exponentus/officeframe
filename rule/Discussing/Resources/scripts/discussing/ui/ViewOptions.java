@@ -21,7 +21,7 @@ public class ViewOptions {
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("title"));
-        cg.add(new ViewColumn("tags").type(ViewColumnType.localizedName).style("return { orgColor:it.orgColor }"));
+        cg.add(new ViewColumn("tags").type(ViewColumnType.localizedName).style("return { color:it.color }"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
@@ -77,7 +77,7 @@ public class ViewOptions {
         FilterForm filterForm = new FilterForm();
         FilterGroup filterGroup = new FilterGroup();
         filterGroup.addItem(new FilterItem("status").items(items));
-        filterGroup.addItem(new FilterItem("tags").multiple().url("/Reference/api/tags?hidden=false&category=discussing").style("return {orgColor:it.orgColor}"));
+        filterGroup.addItem(new FilterItem("tags").multiple().url("/Reference/api/tags?hidden=false&category=discussing").style("return {color:it.color}"));
         filterGroup.addItem(new FilterItem("author").targetValue("userID").url("/Staff/api/employees"));
 
         filterForm.addGroup(filterGroup);
