@@ -28,7 +28,7 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
 
         ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.primary ? { 'font-weight':'bold' } : null"));
         cg.add(new ViewColumn("type").type(ViewColumnType.localizedName));
         cg.add(new ViewColumn("country").type(ViewColumnType.localizedName));
 
