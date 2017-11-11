@@ -392,6 +392,7 @@
   "manager" : "Manager",
   "notify_about_tasks" : "[NOTIFICATION] Assigned tasks",
   "demand_type" : "Demand type",
+  "coordinates" : "Coordinates",
   "my_applications" : "My applications",
   "rural_population" : "rural_population",
   "services" : "Services",

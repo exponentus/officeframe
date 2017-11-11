@@ -392,6 +392,7 @@
   "manager" : "Менеджер",
   "notify_about_tasks" : "[УВЕДОМЛЕНИЕ] О заданиях на исполнение",
   "demand_type" : "Тип заявки",
+  "coordinates" : "Координаты",
   "my_applications" : "Мои заявки",
   "rural_population" : "Сельское население",
   "services" : "Сервисы",

@@ -83,7 +83,10 @@ public class NavigatorService extends RestProvider {
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONSTRUCTIONTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
             so.addEntry(new OutlineEntry("road_types", "", "road_types", AppConst.BASE_URL + "road-types"));
             so.addEntry(new OutlineEntry("road_repair_types", "", "road_repair_types", AppConst.BASE_URL + "road-repair-types"));
-
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.NATURETAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
+            so.addEntry(new OutlineEntry("nature_conservation_obj_types", "", "nature_conservation_obj_types", AppConst.BASE_URL + "nature-conservation-obj-types"));
+            so.addEntry(new OutlineEntry("eng_infrastruct_obj_classifications", "", "eng_infrastruct_obj_classifications", AppConst.BASE_URL + "eng-infrastruct-obj-classifications"));
+            so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", AppConst.BASE_URL + "real-estate-obj-statuses"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
 
         }
