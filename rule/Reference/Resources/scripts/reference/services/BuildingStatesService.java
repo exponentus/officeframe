@@ -137,7 +137,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
     public Response delete(@PathParam("id") String id) {
         try {
             BuildingStateDAO dao = new BuildingStateDAO(getSession());
-            BuildingState entity = dao.findByIdentifier(id);
+            BuildingState entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

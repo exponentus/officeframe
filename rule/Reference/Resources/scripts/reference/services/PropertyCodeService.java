@@ -135,7 +135,7 @@ public class PropertyCodeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             PropertyCodeDAO dao = new PropertyCodeDAO(getSession());
-            PropertyCode entity = dao.findByIdentifier(id);
+            PropertyCode entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

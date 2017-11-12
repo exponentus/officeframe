@@ -137,7 +137,7 @@ public class LandClassificationService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             LandClassificationDAO dao = new LandClassificationDAO(getSession());
-            LandClassification entity = dao.findByIdentifier(id);
+            LandClassification entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

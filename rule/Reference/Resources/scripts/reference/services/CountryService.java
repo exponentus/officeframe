@@ -137,7 +137,7 @@ public class CountryService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             CountryDAO dao = new CountryDAO(getSession());
-            Country entity = dao.findByIdentifier(id);
+            Country entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

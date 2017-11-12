@@ -136,7 +136,7 @@ public class MeetingRoomService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             MeetingRoomDAO dao = new MeetingRoomDAO(getSession());
-            MeetingRoom entity = dao.findByIdentifier(id);
+            MeetingRoom entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

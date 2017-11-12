@@ -136,7 +136,7 @@ public class VehicleService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             VehicleDAO dao = new VehicleDAO(getSession());
-            Vehicle entity = dao.findByIdentifier(id);
+            Vehicle entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

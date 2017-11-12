@@ -144,7 +144,7 @@ public class TagService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             TagDAO dao = new TagDAO(getSession());
-            Tag entity = dao.findByIdentifier(id);
+            Tag entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

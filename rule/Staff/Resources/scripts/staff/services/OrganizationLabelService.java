@@ -160,7 +160,7 @@ public class OrganizationLabelService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             OrganizationLabelDAO dao = new OrganizationLabelDAO(getSession());
-            OrganizationLabel entity = dao.findByIdentifier(id);
+            OrganizationLabel entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -151,7 +151,7 @@ public class ApprovalRouteService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             ApprovalRouteDAO dao = new ApprovalRouteDAO(getSession());
-            ApprovalRoute entity = dao.findByIdentifier(id);
+            ApprovalRoute entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

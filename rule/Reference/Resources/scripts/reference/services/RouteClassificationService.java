@@ -133,7 +133,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
     public Response delete(@PathParam("id") String id) {
         try {
             RouteClassificationDAO dao = new RouteClassificationDAO(getSession());
-            RouteClassification entity = dao.findByIdentifier(id);
+            RouteClassification entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

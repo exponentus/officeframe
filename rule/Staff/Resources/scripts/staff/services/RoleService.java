@@ -189,7 +189,7 @@ public class RoleService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             RoleDAO dao = new RoleDAO(getSession());
-            Role entity = dao.findByIdentifier(id);
+            Role entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

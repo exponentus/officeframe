@@ -156,7 +156,7 @@ public class RegionService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             RegionDAO dao = new RegionDAO(getSession());
-            Region entity = dao.findByIdentifier(id);
+            Region entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

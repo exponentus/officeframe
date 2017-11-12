@@ -135,7 +135,7 @@ public class ResponsibleTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             ResponsibleTypeDAO dao = new ResponsibleTypeDAO(getSession());
-            ResponsibleType entity = dao.findByIdentifier(id);
+            ResponsibleType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

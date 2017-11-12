@@ -135,7 +135,7 @@ public class RealEstateObjStatusService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(getSession());
-            RealEstateObjStatus entity = dao.findByIdentifier(id);
+            RealEstateObjStatus entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

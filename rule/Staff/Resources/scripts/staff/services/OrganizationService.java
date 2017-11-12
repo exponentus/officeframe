@@ -199,7 +199,7 @@ public class OrganizationService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             OrganizationDAO dao = new OrganizationDAO(getSession());
-            Organization entity = dao.findByIdentifier(id);
+            Organization entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

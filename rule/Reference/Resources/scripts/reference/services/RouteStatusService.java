@@ -133,7 +133,7 @@ public class RouteStatusService extends ReferenceService<RouteStatus> {
     public Response delete(@PathParam("id") String id) {
         try {
             RouteStatusDAO dao = new RouteStatusDAO(getSession());
-            RouteStatus entity = dao.findByIdentifier(id);
+            RouteStatus entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -135,7 +135,7 @@ public class DemandTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DemandTypeDAO dao = new DemandTypeDAO(getSession());
-            DemandType entity = dao.findByIdentifier(id);
+            DemandType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

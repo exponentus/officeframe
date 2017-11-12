@@ -140,7 +140,7 @@ public class LocalityTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             LocalityTypeDAO dao = new LocalityTypeDAO(getSession());
-            LocalityType entity = dao.findByIdentifier(id);
+            LocalityType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

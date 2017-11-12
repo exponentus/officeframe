@@ -136,7 +136,7 @@ public class OrgCategoryService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             OrgCategoryDAO dao = new OrgCategoryDAO(getSession());
-            OrgCategory entity = dao.findByIdentifier(id);
+            OrgCategory entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

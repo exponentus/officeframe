@@ -151,7 +151,7 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
     public Response delete(@PathParam("id") String id) {
         try {
             RealEstateObjPurposeDAO dao = new RealEstateObjPurposeDAO(getSession());
-            RealEstateObjPurpose entity = dao.findByIdentifier(id);
+            RealEstateObjPurpose entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

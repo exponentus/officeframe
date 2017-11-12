@@ -141,7 +141,7 @@ public class DocumentTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DocumentTypeDAO dao = new DocumentTypeDAO(getSession());
-            DocumentType entity = dao.findByIdentifier(id);
+            DocumentType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -166,7 +166,7 @@ public class DepartmentService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DepartmentDAO dao = new DepartmentDAO(getSession());
-            Department entity = dao.findByIdentifier(id);
+            Department entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

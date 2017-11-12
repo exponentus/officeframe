@@ -139,7 +139,7 @@ public class DocumentLanguageService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DocumentLanguageDAO dao = new DocumentLanguageDAO(getSession());
-            DocumentLanguage entity = dao.findByIdentifier(id);
+            DocumentLanguage entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

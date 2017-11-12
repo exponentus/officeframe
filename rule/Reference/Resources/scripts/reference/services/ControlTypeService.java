@@ -139,7 +139,7 @@ public class ControlTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             ControlTypeDAO dao = new ControlTypeDAO(getSession());
-            ControlType entity = dao.findByIdentifier(id);
+            ControlType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -152,7 +152,7 @@ public class CityDistrictService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             CityDistrictDAO dao = new CityDistrictDAO(getSession());
-            CityDistrict entity = dao.findByIdentifier(id);
+            CityDistrict entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -137,7 +137,7 @@ public class WorkTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             WorkTypeDAO dao = new WorkTypeDAO(getSession());
-            WorkType entity = dao.findByIdentifier(id);
+            WorkType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

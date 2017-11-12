@@ -159,7 +159,7 @@ public class IndividualLabelService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             IndividualLabelDAO dao = new IndividualLabelDAO(getSession());
-            IndividualLabel entity = dao.findByIdentifier(id);
+            IndividualLabel entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

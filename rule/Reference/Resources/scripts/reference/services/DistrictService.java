@@ -149,21 +149,6 @@ public class DistrictService extends RestProvider {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            DistrictDAO dao = new DistrictDAO(getSession());
-            District entity = dao.findByIdentifier(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
 
     private void validate(District entity) throws DTOException {
         DTOException ve = new DTOException();

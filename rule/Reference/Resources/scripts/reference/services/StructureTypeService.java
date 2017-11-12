@@ -137,7 +137,7 @@ public class StructureTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             StructureTypeDAO dao = new StructureTypeDAO(getSession());
-            StructureType entity = dao.findByIdentifier(id);
+            StructureType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

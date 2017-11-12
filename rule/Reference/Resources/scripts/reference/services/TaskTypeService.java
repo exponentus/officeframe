@@ -136,7 +136,7 @@ public class TaskTypeService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             TaskTypeDAO dao = new TaskTypeDAO(getSession());
-            TaskType entity = dao.findByIdentifier(id);
+            TaskType entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

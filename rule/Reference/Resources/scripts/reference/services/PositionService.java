@@ -136,7 +136,7 @@ public class PositionService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             PositionDAO dao = new PositionDAO(getSession());
-            Position entity = dao.findByIdentifier(id);
+            Position entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

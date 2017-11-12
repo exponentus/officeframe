@@ -139,7 +139,7 @@ public class DocumentSubjectService extends RestProvider {
     public Response delete(@PathParam("id") String id) {
         try {
             DocumentSubjectDAO dao = new DocumentSubjectDAO(getSession());
-            DocumentSubject entity = dao.findByIdentifier(id);
+            DocumentSubject entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }
