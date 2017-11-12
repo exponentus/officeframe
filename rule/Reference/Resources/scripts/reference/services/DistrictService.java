@@ -48,7 +48,7 @@ public class DistrictService extends RestProvider {
                 vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 RegionDAO regionDAO = new RegionDAO(session);
-                Region region = regionDAO.findByIdentifier(regionId);
+                Region region = regionDAO.findById(regionId);
                 List<District> districts = region.getDistricts();
                 vp = new ViewPage<District>(districts, districts.size(), 1, 1);
             }

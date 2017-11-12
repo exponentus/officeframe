@@ -46,7 +46,7 @@ public class RegionService extends RestProvider {
 
             if (countryId != null && !countryId.isEmpty()) {
                 CountryDAO countryDAO = new CountryDAO(session);
-                Country country = countryDAO.findByIdentifier(countryId);
+                Country country = countryDAO.findById(countryId);
                 List<Region> regionList = country.getRegions();
                 vp = new ViewPage<Region>(regionList, regionList.size(), 1, 1);
             } else {

@@ -47,7 +47,7 @@ public class StreetService extends RestProvider {
                 vp = streetDAO.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 LocalityDAO localityDAO = new LocalityDAO(session);
-                Locality locality = localityDAO.findByIdentifier(localityId);
+                Locality locality = localityDAO.findById(localityId);
                 List<Street> streetList = locality.getStreets();
                 vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
             }

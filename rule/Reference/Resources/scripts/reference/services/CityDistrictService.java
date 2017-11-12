@@ -47,7 +47,7 @@ public class CityDistrictService extends RestProvider {
                 vp = cityDistrictDAO.findViewPage(sortParams, params.getPage(), pageSize);
             } else {
                 LocalityDAO localityDAO = new LocalityDAO(session);
-                Locality locality = localityDAO.findByIdentifier(localityId);
+                Locality locality = localityDAO.findById(localityId);
                 List<CityDistrict> streetList = locality.getDistricts();
                 vp = new ViewPage<CityDistrict>(streetList, streetList.size(), 1, 1);
             }
