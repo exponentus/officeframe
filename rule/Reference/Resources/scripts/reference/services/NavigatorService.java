@@ -71,7 +71,7 @@ public class NavigatorService extends RestProvider {
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.REGIONECONOMY.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {
             so.addEntry(new OutlineEntry("revenue_categories", "", "revenue_categories", AppConst.BASE_URL + "revenue-categories"));
             so.addEntry(new OutlineEntry("revenues", "", "revenues", AppConst.BASE_URL + "revenues"));
-            so.addEntry(new OutlineEntry("еxpenditurе_categories", "", "еxpenditurе_categories", AppConst.BASE_URL + "еxpenditurе-categories"));
+            so.addEntry(new OutlineEntry("expenditure_categories", "", "expenditure_categories", AppConst.BASE_URL + "expenditure-categories"));
             so.addEntry(new OutlineEntry("expenditures", "", "expenditures", AppConst.BASE_URL + "expenditures"));
             so.addEntry(new OutlineEntry("activity_types", "", "activity_types", AppConst.BASE_URL + "activity-type-categories"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.PASSENGERTRANSPORTTAR.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONBUS.name())) {

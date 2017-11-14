@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_expendituries")
+@Command(name = AppConst.CODE + "_fill_expenditures")
 public class FillExpendituries extends Do {
 
     @Override

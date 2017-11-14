@@ -4,6 +4,6 @@ import reference.model.Expenditure;
 
 import javax.ws.rs.Path;
 
-@Path("expendituries")
+@Path("expenditures")
 public class ExpenditureService extends ReferenceService<Expenditure> {
 }
