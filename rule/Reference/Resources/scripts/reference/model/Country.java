@@ -57,4 +57,6 @@ public class Country extends SimpleReferenceEntity {
     public String getURL() {
         return AppConst.BASE_URL + "countries/" + getIdentifier();
     }
+
+
 }
