@@ -1,12 +1,14 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.AppConst;
 import reference.model.constants.RegionCode;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @JsonRootName("regionType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -17,7 +19,7 @@ import javax.persistence.*;
 public class RegionType extends SimpleReferenceEntity {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true, length = 32)
+    @Column(nullable = false, length = 32)
     private RegionCode code = RegionCode.UNKNOWN;
 
     public RegionCode getCode() {
@@ -30,6 +32,17 @@ public class RegionType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "region-types/" + getIdentifier();
+        return AppConst.BASE_URL + "region-types/" + getId();
+    }
+
+    @Override
+    public void compose(_Session ses, Map<String, ?> data) {
+        super.compose(ses, data);
+        try {
+            String c = (String) data.get("code");
+            code = RegionCode.valueOf(c);
+        }catch (Exception e){
+
+        }
     }
 }

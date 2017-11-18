@@ -172,6 +172,7 @@
   "button_show_translate" : "отобразить перевод",
   "is_primary_organization" : "Первичная организация",
   "obj" : "Объект",
+  "service" : "Сервис",
   "filter_auto" : "Авто",
   "office_memo" : "Служебная записка",
   "notify_about_task_request" : "[УВЕДОМЛЕНИЕ] Новый запрос от исполнителя",

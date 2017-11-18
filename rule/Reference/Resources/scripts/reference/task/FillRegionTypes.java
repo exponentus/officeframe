@@ -9,6 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.RegionTypeDAO;
+import reference.init.AppConst;
 import reference.model.RegionType;
 import reference.model.constants.RegionCode;
 
@@ -17,17 +18,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_region_types")
+@Command(name = AppConst.CODE + "_fill_region_types")
 public class FillRegionTypes extends Do {
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<RegionType> entities = new ArrayList<>();
 
+        String[] data = {"federation", "region", "urban_agglomeration"};
         String[] dataEng = {"Federation", "Region", "Urban agglomeration"};
-        //String[] data = { "Федерация", "Область", "Город" };
-        String[] data = {"Federation", "Region", "Urban agglomeration"};
-        String[] dataKZ = {"Federation", "Region", "Urban agglomeration"};
+        String[] dataRus = {"Федерация", "Область", "Город" };
+        String[] dataKaz = {"Федерация", "Аймақ", "Қалалық агломерация"};
         RegionCode[] code = {RegionCode.FEDERATION, RegionCode.REGION, RegionCode.URBAN_AGGLOMERATION};
 
         for (int i = 0; i < data.length; i++) {
@@ -35,8 +36,8 @@ public class FillRegionTypes extends Do {
             entity.setName(data[i]);
             Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
             name.put(LanguageCode.ENG, dataEng[i]);
-            name.put(LanguageCode.KAZ, dataKZ[i]);
-            name.put(LanguageCode.RUS, data[i]);
+            name.put(LanguageCode.KAZ, dataKaz[i]);
+            name.put(LanguageCode.RUS, dataRus[i]);
             entity.setLocName(name);
             entity.setCode(code[i]);
             entities.add(entity);

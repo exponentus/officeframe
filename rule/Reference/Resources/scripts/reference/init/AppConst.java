@@ -17,5 +17,9 @@ public class AppConst extends DefaultAppConst {
     public static InterfaceType AVAILABLE_MODE[] = {InterfaceType.SPA};
     public static boolean FORCE_DEPLOYING = true;
 
-    public static String[][] NOT_NULL = {{"ref__city_districts", "locality_id"}, {"ref__industry_types", "category_id"}};
+    public static String[][] NOT_NULL = {{CODE + "__city_districts", "locality_id"},
+            {CODE + "__regions", "country_id"},
+            {CODE + "__regions", "type_id"},
+            {CODE + "__industry_types", "category_id"},
+    };
 }

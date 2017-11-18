@@ -2,7 +2,7 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -10,7 +10,6 @@ import reference.init.AppConst;
 import reference.model.constants.CountryCode;
 
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,8 +61,8 @@ public class Country extends SimpleReferenceEntity {
     }
 
     @Override
-    public void load(Map<String, ?> data) {
-        super.load(data);
+    public void compose(_Session ses, Map<String, ?> data) {
+        super.compose(ses, data);
 
         try {
             code = CountryCode.valueOf((String) data.get("code"));

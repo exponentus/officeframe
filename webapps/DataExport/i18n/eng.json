@@ -172,6 +172,7 @@
   "button_show_translate" : "show translated text",
   "is_primary_organization" : "is Primary organization",
   "obj" : "Object",
+  "service" : "Service",
   "filter_auto" : "Auto apply",
   "office_memo" : "Internal",
   "notify_about_task_request" : "[NOTIFICATION] New request",

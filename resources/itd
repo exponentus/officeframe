@@ -2,7 +2,7 @@ echo ***********************************************************
 echo *          Generate test data for Semantyca               *
 echo ***********************************************************
 run task gen_test_users
-run task fill_region_types
+run task ref_fill_region_types
 run task fill_locality_types
 run task fill_countries
 run task fill_regions
