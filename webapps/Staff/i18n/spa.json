@@ -427,6 +427,7 @@
   "source_url" : "source_url",
   "the_field" : null,
   "field_is_too_long" : "field_is_too_long",
+  "eng_infrastruct_obj_classification" : "eng_infrastruct_obj_classification",
   "start_approving" : null,
   "city_districts" : null,
   "vrp_indicator" : "vrp_indicator",

@@ -427,6 +427,7 @@
   "source_url" : "Сайт-источник",
   "the_field" : "Поле",
   "field_is_too_long" : "Содержимое поля слишком большое",
+  "eng_infrastruct_obj_classification" : "Класс объекта инженерной инфраструктуры",
   "start_approving" : "Начать согласование",
   "city_districts" : "Районы города",
   "vrp_indicator" : "Показатель валового регионального продукта",
