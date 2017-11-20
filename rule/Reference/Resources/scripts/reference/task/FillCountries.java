@@ -27,8 +27,8 @@ public class FillCountries extends Do {
                 "china", "bulgaria", "portugal"};
         String[] dataRus = {"Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США",
                 "Китай", "Болгария", "Португалия"};
-        String[] dataKaz = {"Казахстан", "Россия", "Беларуссия", "Украина", "Германия", "Франция", "Турция", "США",
-                "Китай", "Болгария", "Португалия"};
+        String[] dataKaz = {"Қазақстан", "Ресей", "Беларусь", "Украина", "Германия", "Франция", "Түркия", "АҚШ",
+                "Қытай", "Болгария", "Португалия"};
         String[] dataEng = {"Kazakhstan", "Russia", "Byelorussia", "Ukraine", "Germany", "France", "Turkey", "USA",
                 "China", "Bulgaria", "Portugal"};
         CountryCode[] code = {CountryCode.KZ, CountryCode.RU, CountryCode.BY, CountryCode.UA, CountryCode.DE,
