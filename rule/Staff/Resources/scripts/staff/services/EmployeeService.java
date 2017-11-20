@@ -180,12 +180,15 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             entity.setOrganization(dto.getOrganization());
             entity.setDepartment(dto.getDepartment());
             entity.setPosition(dto.getPosition());
-            RoleDAO roleDAO = new RoleDAO(session);
-            List<Role> roles = new ArrayList<>();
-            for (Role role : dto.getRoles()) {
-                roles.add(roleDAO.findById(role.getId()));
+            List<Role> dtoRoles = dto.getRoles();
+            if (dtoRoles != null) {
+                RoleDAO roleDAO = new RoleDAO(session);
+                List<Role> roles = new ArrayList<>();
+                for (Role role : dto.getRoles()) {
+                    roles.add(roleDAO.findById(role.getId()));
+                }
+                entity.setRoles(roles);
             }
-            entity.setRoles(roles);
             UserDAO uDao = new UserDAO();
             User lUser = (User) uDao.findByLogin(dto.getUser().getLogin());
             entity.setUser(lUser);
