@@ -21,7 +21,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__regions", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "country_id"}))
+@Table(name = AppConst.CODE + "__regions", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "country_id"}))
 @NamedQuery(name = "Region.findAll", query = "SELECT m FROM Region AS m ORDER BY m.regDate")
 public class Region extends SimpleReferenceEntity {
 

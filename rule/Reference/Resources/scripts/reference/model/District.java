@@ -52,6 +52,6 @@ public class District extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "districts/" + getIdentifier();
+        return AppConst.BASE_URL + "districts/" + getId();
     }
 }

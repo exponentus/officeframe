@@ -14,7 +14,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__region_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = AppConst.CODE + "__region_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "RegionType.findAll", query = "SELECT m FROM RegionType AS m ORDER BY m.regDate")
 public class RegionType extends SimpleReferenceEntity {
 
