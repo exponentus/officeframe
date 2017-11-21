@@ -40,13 +40,14 @@ public class TagService extends RestProvider {
             boolean withHidden = params.getBoolSilently("hidden");
             String category = params.getValueSilently("category");
             ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
-            outcome.addPayload(getDefaultViewActionBar(true));
-
-            vp.setViewPageOptions(new ViewOptions().getTagOptions());
+            ViewOptions vo = new ViewOptions();
+            vp.setViewPageOptions(vo.getTagOptions());
+            vp.setFilter(vo.getRoleFilter());
 
             outcome.setTitle("tags");
             outcome.addPayload("contentTitle", "tags");
             outcome.addPayload(vp);
+            outcome.addPayload(getDefaultViewActionBar(true));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

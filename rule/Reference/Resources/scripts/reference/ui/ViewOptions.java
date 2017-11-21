@@ -1,5 +1,8 @@
 package reference.ui;
 
+import com.exponentus.common.ui.filter.FilterForm;
+import com.exponentus.common.ui.filter.FilterGroup;
+import com.exponentus.common.ui.filter.FilterItem;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
@@ -109,5 +112,18 @@ public class ViewOptions {
 
         result.setRoot(list);
         return result;
+    }
+
+    public FilterForm getRoleFilter() {
+        FilterForm filterForm = new FilterForm();
+        FilterGroup filterGroup = new FilterGroup();
+
+        List<FilterItem.Item> items = new ArrayList<>();
+        items.add(new FilterItem.Item("true", "show_hidden", null));
+        filterGroup.addItem(new FilterItem("hidden").items(items).typeCheckbox());
+
+        filterForm.addGroup(filterGroup);
+
+        return filterForm;
     }
 }
