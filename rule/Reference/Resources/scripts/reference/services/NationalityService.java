@@ -113,7 +113,6 @@ public class NationalityService extends RestProvider {
             }
 
             // fill from dto
-            entity.setTitle(dto.getTitle());
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
 

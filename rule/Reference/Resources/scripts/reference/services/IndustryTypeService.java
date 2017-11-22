@@ -115,7 +115,6 @@ public class IndustryTypeService extends RestProvider {
                 entity = dao.findById(dto.getId());
             }
 
-            entity.setTitle(dto.getTitle());
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
             ActivityTypeCategory cat = new ActivityTypeCategoryDAO(session).findByName(DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
