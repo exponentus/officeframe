@@ -42,7 +42,7 @@ public class TagService extends RestProvider {
             ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
             ViewOptions vo = new ViewOptions();
             vp.setViewPageOptions(vo.getTagOptions());
-            vp.setFilter(vo.getRoleFilter());
+            vp.setFilter(vo.getTagFilter());
 
             outcome.setTitle("tags");
             outcome.addPayload("contentTitle", "tags");

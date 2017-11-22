@@ -104,7 +104,7 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
 
         ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return { color:it.color }"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.hidden ? {color:it.color,'border-bottom': '1px solid #ccc'} : {color:it.color}"));
         cg.add(new ViewColumn("category"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
@@ -114,7 +114,7 @@ public class ViewOptions {
         return result;
     }
 
-    public FilterForm getRoleFilter() {
+    public FilterForm getTagFilter() {
         FilterForm filterForm = new FilterForm();
         FilterGroup filterGroup = new FilterGroup();
 
