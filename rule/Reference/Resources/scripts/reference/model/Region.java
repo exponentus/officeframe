@@ -15,7 +15,6 @@ import reference.init.AppConst;
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 @JsonRootName("region")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -47,8 +46,7 @@ public class Region extends SimpleReferenceEntity {
     @Column(name = "is_primary")
     private boolean isPrimary;
 
-    @Column(name = "org_coordinates")
-    private String orgCoordinates;
+    private String coordinates;
 
     public RegionType getType() {
         return type;
@@ -90,12 +88,12 @@ public class Region extends SimpleReferenceEntity {
         isPrimary = primary;
     }
 
-    public String getOrgCoordinates() {
-        return orgCoordinates;
+    public String getCoordinates() {
+        return coordinates;
     }
 
-    public void setOrgCoordinates(String orgCoordinates) {
-        this.orgCoordinates = orgCoordinates;
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
 
     @Override

@@ -135,7 +135,7 @@ public class RegionService extends RestProvider {
             entity.setType(dto.getType());
             entity.setCountry(dto.getCountry());
             entity.setPrimary(dto.isPrimary());
-            entity.setOrgCoordinates(dto.getOrgCoordinates());
+            entity.setCoordinates(dto.getCoordinates());
 
             dao.save(entity);
 

@@ -30,7 +30,7 @@ public class FillRegions extends Do {
         String[] data = {"almaty", "astana", "almaty_region", "pavlodar_region", "zhambyl_region"};
         String[] namesEng = {"Almaty", "Astana", "Almaty region", "Pavlodar region", "Zhambyl region"};
         String[] namesRus = {"Алматы", "Астана", "Алматинская область", "Павлодарская область", "Жамбылская область"};
-        String[] namesKaz = {"Алматы", "Астана", "Алматинская область", "Павлодарская область", "Жамбылская область"};
+        String[] namesKaz = {"Алматы", "Астана", "Алматы облысы", "Павлодар облысы", "Жамбыл облысы"};
         try {
             CountryDAO cDao = new CountryDAO(ses);
             Country country = null;
