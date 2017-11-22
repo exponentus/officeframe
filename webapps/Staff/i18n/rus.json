@@ -275,6 +275,7 @@
   "error_500" : "Внутренняя ошибка сервера",
   "host" : "Узел",
   "meeting_rooms" : "meeting_rooms",
+  "industry_of_region" : "Промышленность региона",
   "lead_department" : "Головное подразделение",
   "approver_is_not_set" : "Ну указаны согласователи",
   "all" : "Все",
