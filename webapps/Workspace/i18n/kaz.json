@@ -421,6 +421,7 @@
   "org_categories" : "Ұйымдастырудың типтері",
   "notify_about_finish_task" : "Уведомление о завершении задачи",
   "cancel_task" : "cancel_task",
+  "name_surname" : "Аты",
   "representatives" : null,
   "chart" : "chart",
   "open" : null,

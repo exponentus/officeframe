@@ -421,6 +421,7 @@
   "org_categories" : null,
   "notify_about_finish_task" : "Notificar",
   "cancel_task" : "Cancelar pedido",
+  "name_surname" : null,
   "representatives" : "Representatives",
   "chart" : "chart",
   "open" : "Aberto",

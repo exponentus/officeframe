@@ -421,6 +421,7 @@
   "org_categories" : "Типы организации",
   "notify_about_finish_task" : "[УВЕДОМЛЕНИЕ] Завершение задачи",
   "cancel_task" : "Отменить задачу",
+  "name_surname" : "Имя",
   "representatives" : "Представители",
   "chart" : "Статистика",
   "open" : "Открытый",

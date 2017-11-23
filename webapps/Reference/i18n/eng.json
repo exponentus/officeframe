@@ -421,6 +421,7 @@
   "org_categories" : "Organizaton categories",
   "notify_about_finish_task" : "[NOTIFICATION] Task finished",
   "cancel_task" : "Cancel task",
+  "name_surname" : null,
   "representatives" : "Representatives",
   "chart" : "Chart",
   "open" : "Open",
