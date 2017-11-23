@@ -19,6 +19,6 @@ public class RealEstateObjStatus extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "real-estate-obj-statuses/" + getIdentifier();
+        return AppConst.BASE_URL + "real-estate-obj-statuses/" + getId();
     }
 }

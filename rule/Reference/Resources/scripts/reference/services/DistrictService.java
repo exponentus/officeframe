@@ -7,6 +7,7 @@ import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.services.Defended;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
@@ -28,6 +29,7 @@ import java.util.UUID;
 public class DistrictService extends RestProvider {
 
     @GET
+    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();

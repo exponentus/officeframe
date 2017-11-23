@@ -6,6 +6,7 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.services.Defended;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
@@ -26,6 +27,7 @@ public class RegionTypeService extends RestProvider {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Defended(false)
     public Response getViewPage() {
         _Session session = getSession();
         IUser user = session.getUser();
