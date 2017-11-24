@@ -1,13 +1,13 @@
 package integration.model;
 
-import com.exponentus.rest.services.ServiceClass;
+import com.exponentus.rest.services.ServiceClassDescriptor;
 import integration.init.AppConst;
 
 public class Service {
 
-    private ServiceClass descr;
+    private ServiceClassDescriptor descr;
 
-    public Service(ServiceClass descr) {
+    public Service(ServiceClassDescriptor descr) {
         this.descr = descr;
     }
 
@@ -15,11 +15,11 @@ public class Service {
         return "service";
     }
 
-    public ServiceClass getDescr() {
+    public ServiceClassDescriptor getDescr() {
         return descr;
     }
 
-    public void setDescr(ServiceClass descr) {
+    public void setDescr(ServiceClassDescriptor descr) {
         this.descr = descr;
     }
 

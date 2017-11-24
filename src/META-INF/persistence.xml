@@ -118,8 +118,6 @@
         <class>monitoring.model.UserActivity</class>      
         <class>monitoring.model.DocumentActivity</class>
         <class>monitoring.model.Statistic</class>
-        <!-- Because of it suppose importing from Domino -->
-        <!-- <class>administrator.model.Collation</class> -->
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
     </persistence-unit>
 

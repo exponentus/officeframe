@@ -4,6 +4,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
+import com.exponentus.integrationhub.IExternalService;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.services.Defended;
@@ -22,7 +23,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("countries")
-public class CountryService extends RestProvider {
+public class CountryService extends RestProvider implements IExternalService {
 
     @GET
     @Defended(false)
@@ -164,5 +165,10 @@ public class CountryService extends RestProvider {
         if (ve.hasError()) {
             throw ve;
         }
+    }
+
+    @Override
+    public Response getByIdentifier(String identifier) {
+        return null;
     }
 }

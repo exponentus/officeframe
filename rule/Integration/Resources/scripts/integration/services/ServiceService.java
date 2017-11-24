@@ -71,7 +71,7 @@ public class ServiceService extends RestProvider {
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-50");
-        cg.add(new ViewColumn("descr.appName").name("app_name").className("vw-45"));
+        cg.add(new ViewColumn("descr.appName").name("module").className("vw-45"));
         cg.add(new ViewColumn("descr.clazz").name("clazz"));
 
         ViewColumnGroup cg2 = new ViewColumnGroup();
