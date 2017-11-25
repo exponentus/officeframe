@@ -40,6 +40,7 @@ public class FillRegions extends Do {
             for (int i = 0; i < data.length; i++) {
                 Region entity = new Region();
                 entity.setCountry(country);
+                entity.setTitle(namesRus[i]);
                 entity.setName(data[i]);
                 Map<LanguageCode, String> name = new HashMap<>();
                 name.put(LanguageCode.RUS, namesRus[i]);

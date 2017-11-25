@@ -14,6 +14,7 @@ import com.exponentus.user.IUser;
 import reference.dao.CityDistrictDAO;
 import reference.dao.LocalityDAO;
 import reference.model.CityDistrict;
+import reference.model.Country;
 import reference.model.Locality;
 
 import javax.ws.rs.*;
@@ -24,7 +25,7 @@ import java.util.UUID;
 
 
 @Path("city-districts")
-public class CityDistrictService extends RestProvider {
+public class CityDistrictService extends ReferenceService<CityDistrict> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

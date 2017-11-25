@@ -2,6 +2,7 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
+import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -34,7 +35,7 @@ public class Country extends SimpleReferenceEntity {
 
     @FTSearchable
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true, length = 7, unique = true)
+    @Column(nullable = false,length = 7, unique = true)
     private CountryCode code = CountryCode.UNKNOWN;
 
     public CountryCode getCode() {
@@ -61,14 +62,16 @@ public class Country extends SimpleReferenceEntity {
     }
 
     @Override
-    public void compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
 
         try {
             code = CountryCode.valueOf((String) data.get("code"));
         }catch (Exception e){
-            code = CountryCode.UNKNOWN;
+            Lg.exception(e);
+            return false;
         }
+        return true;
     }
 
 }

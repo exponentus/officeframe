@@ -21,10 +21,9 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("real-estate-obj-statuses")
-public class RealEstateObjStatusService extends RestProvider {
+public class RealEstateObjStatusService extends ReferenceService<RealEstateObjStatus> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();

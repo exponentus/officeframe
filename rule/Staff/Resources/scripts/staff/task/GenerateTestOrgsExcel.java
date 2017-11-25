@@ -13,6 +13,7 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.server.Server;
 import com.exponentus.util.ListUtil;
+import com.exponentus.util.StringUtil;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -63,9 +64,7 @@ public class GenerateTestOrgsExcel extends Do {
                         localizedNames.put(LanguageCode.ENG, orgName);
                         entity.setLocName(localizedNames);
                         entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll().getResult()));
-                        //List<OrganizationLabel> labels = new ArrayList<>();
-                        //labels.add((OrganizationLabel) ListUtil.getRndListElement(l));
-                        //entity.setLabels(labels);
+                        entity.setBizID(StringUtil.generateRndAsText("1234567890qwertyuiopasdfghjklzxcvbnm",20));
                         entity.setTitle(orgName);
                         entities.put(orgName, entity);
                     }

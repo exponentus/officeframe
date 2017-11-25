@@ -4,16 +4,20 @@ import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
+import com.exponentus.util.StringUtil;
 import reference.dao.CityDistrictDAO;
 import reference.dao.LocalityDAO;
 import reference.model.CityDistrict;
 import reference.model.Locality;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Command(name = "fill_city_districts")
 public class FillCityDistricts extends Do {
@@ -28,12 +32,18 @@ public class FillCityDistricts extends Do {
         Locality region = null;
         try {
             LocalityDAO cDao = new LocalityDAO(ses);
-            region = cDao.findByName("Almaty");
+            region = cDao.findByName("almaty");
             if (region != null) {
                 for (int i = 0; i < data.length; i++) {
                     CityDistrict entity = new CityDistrict();
                     entity.setLocality(region);
-                    entity.setName(data[i]);
+                          String latName = StringUtil.convertRusToLat(data[i]);
+                    entity.setName(latName.replaceAll(" ", "_"));
+                    Map<LanguageCode, String> localizedNames = new HashMap<>();
+                    localizedNames.put(LanguageCode.ENG, latName);
+                    localizedNames.put(LanguageCode.RUS, data[i]);
+                    localizedNames.put(LanguageCode.KAZ, data[i]);
+                    entity.setLocName(localizedNames);
                     entities.add(entity);
                 }
                 try {

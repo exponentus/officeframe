@@ -19,7 +19,7 @@ cfg.xml
 /rule/DataExport/Resources/report/templates/*/.settings/**
 /rule/DataExport/Resources/report/templates/*/.classpath
 /rule/DataExport/Resources/report/templates/*/.project
-/rule/DataExport/Resources/report/templates/*/bin
+/rule/DataExport/Resources/report/templates/*/bizID
 # Idea resources #
 ##################
 .idea
@@ -29,7 +29,7 @@ cfg.xml
 # Logs #
 ########
 /logs/
-/bin/
+/bizID/
 /webserver/
 /.settings/
 /.classpath

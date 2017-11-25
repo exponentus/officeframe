@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("department-types")
-public class DepartmentTypeService extends RestProvider {
+public class DepartmentTypeService extends ReferenceService<DepartmentType> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

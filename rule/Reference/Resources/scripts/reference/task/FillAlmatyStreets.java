@@ -5,6 +5,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
@@ -23,7 +24,9 @@ import reference.model.Street;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Command(name = AppConst.CODE + "_fill_almaty_streets")
 public class FillAlmatyStreets extends Do {
@@ -55,8 +58,15 @@ public class FillAlmatyStreets extends Do {
                         if (!name.equals("") && !name.equals("''") & id != 0) {
                             Street entity = new Street();
                             entity.setLocality(d);
-                            entity.setName(name);
+                            entity.setTitle(name);
+                            String latName = StringUtil.convertRusToLat(name);
+                            entity.setName(latName.replaceAll(" ", "_"));
                             entity.setStreetId(id);
+                            Map<LanguageCode, String> localizedNames = new HashMap<>();
+                            localizedNames.put(LanguageCode.ENG, latName);
+                            localizedNames.put(LanguageCode.RUS, name);
+                            localizedNames.put(LanguageCode.KAZ, name);
+                            entity.setLocName(localizedNames);
                             entities.add(entity);
                         }
 

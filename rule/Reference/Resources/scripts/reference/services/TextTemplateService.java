@@ -21,7 +21,7 @@ import java.util.UUID;
 
 
 @Path("text-templates")
-public class TextTemplateService extends RestProvider {
+public class TextTemplateService extends ReferenceService<TextTemplate> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

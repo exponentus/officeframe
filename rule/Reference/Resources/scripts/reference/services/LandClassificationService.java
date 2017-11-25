@@ -4,9 +4,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
-import com.exponentus.rest.services.Defended;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
@@ -22,14 +20,12 @@ import java.util.UUID;
 
 
 @Path("land-classifications")
-public class LandClassificationService extends RestProvider {
+public class LandClassificationService extends ReferenceService<LandClassification> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 

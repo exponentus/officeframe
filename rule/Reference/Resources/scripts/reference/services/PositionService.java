@@ -20,7 +20,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("positions")
-public class PositionService extends RestProvider {
+public class PositionService extends ReferenceService<Position> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

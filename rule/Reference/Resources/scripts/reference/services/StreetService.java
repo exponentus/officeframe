@@ -6,6 +6,7 @@ import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.services.Defended;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
@@ -24,19 +25,17 @@ import java.util.UUID;
 
 
 @Path("streets")
-public class StreetService extends RestProvider {
+public class StreetService extends ReferenceService<Street> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
         try {
             Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             String localityId = params.getValueSilently("locality");
 
@@ -173,6 +172,28 @@ public class StreetService extends RestProvider {
 
         if (ve.hasError()) {
             throw ve;
+        }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Defended(false)
+    @Path("list/{pageNum}/{pageSize}")
+    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize){
+        _Session session = getSession();
+        try {
+            Outcome outcome = new Outcome();
+            SortParams sortParams = SortParams.desc("regDate");
+            StreetDAO streetDAO = new StreetDAO(session);
+            ViewPage<Street> vp = streetDAO.findViewPage(sortParams, pageNum, pageSize);
+            outcome.addPayload(getDefaultViewActionBar(true));
+            outcome.setTitle("streets");
+            outcome.addPayload("contentTitle", "streets");
+            outcome.addPayload(vp);
+
+            return Response.ok(outcome).build();
+        } catch (DAOException e) {
+            return responseException(e);
         }
     }
 }

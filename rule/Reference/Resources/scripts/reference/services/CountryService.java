@@ -1,5 +1,7 @@
 package reference.services;
 
+import com.exponentus.common.domain.CommonDomain;
+import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -23,10 +25,9 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("countries")
-public class CountryService extends RestProvider implements IExternalService {
+public class CountryService extends ReferenceService<Country> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
@@ -167,8 +168,5 @@ public class CountryService extends RestProvider implements IExternalService {
         }
     }
 
-    @Override
-    public Response getByIdentifier(String identifier) {
-        return null;
-    }
+
 }

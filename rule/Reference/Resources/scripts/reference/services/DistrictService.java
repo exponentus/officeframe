@@ -15,6 +15,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import reference.dao.DistrictDAO;
 import reference.dao.RegionDAO;
+import reference.model.Country;
 import reference.model.District;
 import reference.model.Region;
 import reference.ui.ViewOptions;
@@ -26,10 +27,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Path("districts")
-public class DistrictService extends RestProvider {
+public class DistrictService extends ReferenceService<District> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();

@@ -21,7 +21,7 @@ import reference.model.BuildingMaterial;
 
 
 @Path("building-materials")
-public class BuildingMaterialService extends RestProvider {
+public class BuildingMaterialService extends ReferenceService<BuildingMaterial> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

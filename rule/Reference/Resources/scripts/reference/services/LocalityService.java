@@ -24,7 +24,7 @@ import java.util.UUID;
 
 
 @Path("localities")
-public class LocalityService extends RestProvider {
+public class LocalityService extends ReferenceService<Locality> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("control-types")
-public class ControlTypeService extends RestProvider {
+public class ControlTypeService extends ReferenceService<ControlType> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

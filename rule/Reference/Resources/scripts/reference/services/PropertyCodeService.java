@@ -21,10 +21,9 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("property-codes")
-public class PropertyCodeService extends RestProvider {
+public class PropertyCodeService extends ReferenceService<PropertyCode> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();

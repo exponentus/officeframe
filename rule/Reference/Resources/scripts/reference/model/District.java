@@ -8,9 +8,7 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.dao.CountryDAO;
 import reference.dao.RegionDAO;
-import reference.dao.RegionTypeDAO;
 import reference.init.AppConst;
 
 import javax.persistence.*;
@@ -64,7 +62,7 @@ public class District extends SimpleReferenceEntity {
     }
 
     @Override
-    public void compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String,String> regionMap = (Map<String,String>)data.get("region");
@@ -76,6 +74,8 @@ public class District extends SimpleReferenceEntity {
 
         }catch (Exception e){
             Lg.exception(e);
+            return false;
         }
+        return true;
     }
 }

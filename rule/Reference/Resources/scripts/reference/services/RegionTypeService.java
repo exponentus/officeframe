@@ -23,11 +23,10 @@ import java.util.UUID;
 
 
 @Path("region-types")
-public class RegionTypeService extends RestProvider {
+public class RegionTypeService extends ReferenceService<RegionType> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Defended(false)
     public Response getViewPage() {
         _Session session = getSession();
         IUser user = session.getUser();

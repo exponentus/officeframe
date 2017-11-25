@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("document-types")
-public class DocumentTypeService extends RestProvider {
+public class DocumentTypeService extends ReferenceService<DocumentType> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

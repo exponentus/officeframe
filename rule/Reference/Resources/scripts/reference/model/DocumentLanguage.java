@@ -2,22 +2,26 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.log.Lg;
+import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.AppConst;
+import reference.model.constants.CountryCode;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @JsonRootName("documentLanguage")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__document_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = AppConst.CODE + "__document_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "DocumentLanguage.findAll", query = "SELECT m FROM DocumentLanguage AS m ORDER BY m.regDate")
 public class DocumentLanguage extends SimpleReferenceEntity {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = true, length = 7, unique = true)
+    @Column(nullable = false,length = 7, unique = true)
     private LanguageCode code = LanguageCode.UNKNOWN;
 
     public LanguageCode getCode() {
@@ -29,7 +33,20 @@ public class DocumentLanguage extends SimpleReferenceEntity {
     }
 
     @Override
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        super.compose(ses, data);
+
+        try {
+            code = LanguageCode.valueOf((String) data.get("code"));
+        }catch (Exception e){
+            Lg.exception(e);
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public String getURL() {
-        return AppConst.BASE_URL + "document-languages/" + getIdentifier();
+        return AppConst.BASE_URL + "document-languages/" + getId();
     }
 }

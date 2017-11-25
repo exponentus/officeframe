@@ -26,10 +26,9 @@ import java.util.UUID;
 
 
 @Path("regions")
-public class RegionService extends RestProvider {
+public class RegionService extends ReferenceService<Region> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();

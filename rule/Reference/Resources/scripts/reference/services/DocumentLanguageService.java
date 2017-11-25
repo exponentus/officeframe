@@ -22,7 +22,7 @@ import java.util.UUID;
 
 
 @Path("document-languages")
-public class DocumentLanguageService extends RestProvider {
+public class DocumentLanguageService extends ReferenceService<DocumentLanguage> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

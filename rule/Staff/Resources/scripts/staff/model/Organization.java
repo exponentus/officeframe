@@ -1,20 +1,26 @@
 package staff.model;
 
+import administrator.dao.CollationDAO;
+import administrator.model.Collation;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
+import com.exponentus.log.Lg;
+import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
 import staff.init.AppConst;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @JsonRootName("organization")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "staff__orgs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "bin"}))
+@Table(name = AppConst.CODE + "__orgs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "bizID"}))
 @NamedQuery(name = "Organization.findAll", query = "SELECT m FROM Organization AS m ORDER BY m.regDate")
 public class Organization extends SimpleReferenceEntity {
 
@@ -29,14 +35,14 @@ public class Organization extends SimpleReferenceEntity {
     private List<Employee> employers;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "staff__orgs_labels",
+    @JoinTable(name = AppConst.CODE + "__orgs_labels",
             joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
     private List<OrganizationLabel> labels;
 
     @FTSearchable
-    @Column(length = 12)
-    private String bin = "";
+    @Column(length = 20, name="biz_id")
+    private String bizID = "";
 
     private int rank = 999;
 
@@ -65,12 +71,12 @@ public class Organization extends SimpleReferenceEntity {
         this.employers = employers;
     }
 
-    public String getBin() {
-        return bin;
+    public String getBizID() {
+        return bizID;
     }
 
-    public void setBin(String bin) {
-        this.bin = bin;
+    public void setBizID(String bizID) {
+        this.bizID = bizID;
     }
 
     public List<OrganizationLabel> getLabels() {
@@ -97,6 +103,24 @@ public class Organization extends SimpleReferenceEntity {
         isPrimary = primary;
     }
 
+    @Override
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        super.compose(ses, data);
+        try {
+            Map<String,String> countryMap = (Map<String,String>)data.get("orgCategory");
+            CollationDAO collationDAO = new CollationDAO(ses);
+            Collation collation = collationDAO.findByExtKey((String)countryMap.get("id"));
+            OrgCategoryDAO orgCategoryDAO = new OrgCategoryDAO(ses);
+            OrgCategory orgCategory = orgCategoryDAO.findById(collation.getIntKey());
+            this.orgCategory = orgCategory;
+            bizID = (String) data.get("bizID");
+            rank = (Integer) data.get("rank");
+        }catch (Exception e){
+            Lg.exception(e);
+            return false;
+        }
+        return true;
+    }
 
     @Override
     public String getURL() {

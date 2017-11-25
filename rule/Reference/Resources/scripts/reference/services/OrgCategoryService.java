@@ -12,6 +12,7 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
 
@@ -22,10 +23,9 @@ import java.util.UUID;
 
 
 @Path("org-categories")
-public class OrgCategoryService extends RestProvider {
+public class OrgCategoryService extends ReferenceService<OrgCategory> {
 
     @GET
-    @Defended(false)
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();

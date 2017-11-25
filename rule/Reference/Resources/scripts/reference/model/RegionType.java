@@ -1,6 +1,7 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
@@ -36,13 +37,15 @@ public class RegionType extends SimpleReferenceEntity {
     }
 
     @Override
-    public void compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             String c = (String) data.get("code");
             code = RegionCode.valueOf(c);
         }catch (Exception e){
-
+            Lg.exception(e);
+            return false;
         }
+        return true;
     }
 }

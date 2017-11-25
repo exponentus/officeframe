@@ -21,7 +21,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("document-subjects")
-public class DocumentSubjectService extends RestProvider {
+public class DocumentSubjectService extends ReferenceService<DocumentSubject> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

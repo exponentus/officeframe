@@ -23,8 +23,7 @@ public class FillDocumentLanguages extends Do {
     public void doTask(AppEnv appEnv, _Session ses) {
         List<DocumentLanguage> entities = new ArrayList<>();
 
-        LanguageCode langs[] = {LanguageCode.RUS, LanguageCode.ENG, LanguageCode.KAZ, LanguageCode.CHI,
-                LanguageCode.BUL, LanguageCode.DEU, LanguageCode.BEL, LanguageCode.POR, LanguageCode.SPA};
+        LanguageCode langs[] = {LanguageCode.RUS, LanguageCode.ENG, LanguageCode.KAZ, LanguageCode.POR, LanguageCode.SPA};
         for (LanguageCode code : langs) {
             Language lang = ServerConst.getLanguage(code);
             DocumentLanguage docLang = new DocumentLanguage();

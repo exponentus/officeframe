@@ -5,7 +5,6 @@ import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -30,7 +29,7 @@ import java.util.UUID;
 import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 
 @Path("organizations")
-public class OrganizationService extends RestProvider {
+public class OrganizationService extends StaffService<Organization> {
 
     public static OrganizationFilter setUpFilter(OrganizationFilter filter, WebFormData params) {
         String orgCategoryId = params.getValueSilently("orgCategory");
@@ -177,7 +176,7 @@ public class OrganizationService extends RestProvider {
             entity.setLocName(dto.getLocName());
             entity.setRank(dto.getRank());
             entity.setOrgCategory(dto.getOrgCategory());
-            entity.setBin(dto.getBin());
+            entity.setBizID(dto.getBizID());
             entity.setLabels(dto.getLabels());
 
             dao.save(entity);
@@ -220,7 +219,7 @@ public class OrganizationService extends RestProvider {
             ve.addError("orgCategory", "required", "field_is_empty");
         }
 
-        if (entity.getBin() != null && !entity.getBin().isEmpty() && entity.getBin().length() != 12) {
+        if (entity.getBizID() != null && !entity.getBizID().isEmpty() && entity.getBizID().length() != 12) {
             ve.addError("bin", "len_12", "bin_value_should_be_consist_from_12_symbols");
         }
 
