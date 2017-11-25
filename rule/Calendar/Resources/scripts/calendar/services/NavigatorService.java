@@ -1,11 +1,11 @@
 package calendar.services;
 
+import calendar.init.AppConst;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
-import dataexport.init.AppConst;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -25,7 +25,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("events", "", "events", AppConst.BASE_URL + "events"));
 
         Outline r = new Outline("reminder", "reminder");
-        co.addEntry(new OutlineEntry("predefined_reminders", "", "predefined_reminders", AppConst.BASE_URL + "reminders"));
+        r.addEntry(new OutlineEntry("predefined_reminders", "", "predefined_reminders", AppConst.BASE_URL + "reminders"));
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);
