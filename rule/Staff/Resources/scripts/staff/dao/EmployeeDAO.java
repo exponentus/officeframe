@@ -116,6 +116,15 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         }
     }
 
+    public String getUserName(IUser user) {
+        Employee emp = findByUserId(user.getId());
+        if (emp == null){
+            return user.getLogin();
+        }else{
+            return emp.getName();
+        }
+    }
+
     public Employee findByUser(IUser user) {
         return findByUserId(user.getId());
     }

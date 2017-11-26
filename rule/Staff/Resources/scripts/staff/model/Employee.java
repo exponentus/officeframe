@@ -241,6 +241,6 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "employees/" + getIdentifier();
+        return AppConst.BASE_URL + "employees/" + getId();
     }
 }

@@ -11,7 +11,9 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.IDAO;
+import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
+import com.exponentus.integrationhub.IHEnvConst;
 import com.exponentus.integrationhub.IRequester;
 import com.exponentus.integrationhub.client.Requester;
 import com.exponentus.integrationhub.client.exception.RequesterException;
@@ -35,14 +37,14 @@ public class SyncWithIntegrationHub extends Do {
         try {
             IntegrationBusServiceDAO serviceDAO = new IntegrationBusServiceDAO(ses);
             IntegrationHubCollationDAO collationDAO = new IntegrationHubCollationDAO(ses);
-            for (Map.Entry<String, Class> e : AbstractGen.referenceDataInitSequence().entrySet()) {
+            for (Map.Entry<String, String> e : AbstractGen.referenceDataInitSequence().entrySet()) {
                 IntegrationHubService service = serviceDAO.findByName(e.getKey());
                 if (service != null) {
                     IntegrationHubCollation collation = collationDAO.findByServiceName(service);
                     if (collation != null) {
                         IDAO<IAppEntity<UUID>, UUID> dao = DAOFactory.get(ses, collation.getEntityClassName());
-                        IRequester requester = new Requester();
-                        LinkedHashMap<String, ?> requesterData = requester.getData(service, 0, 0);
+                        IRequester requester = new Requester(Environment.integrationHubHost, IHEnvConst.MODULE_NAME);
+                        LinkedHashMap<String, ?> requesterData = requester.getData(service.getServiceUrl(), 0, 0);
                         List<Map> data = (List) requesterData.get("result");
                         Iterator iterator = data.iterator();
 
