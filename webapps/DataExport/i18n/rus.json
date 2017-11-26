@@ -333,6 +333,7 @@
   "commitments_made" : "Принятые обязательства",
   "message_subject" : "Тема (необязательно)",
   "contractors" : "Контрагенты",
+  "service_url" : "URL-адрес службы",
   "declined" : "Отклонено",
   "application" : "Заявка",
   "dialog_no_selected_value" : "Вы не сделали выбор",

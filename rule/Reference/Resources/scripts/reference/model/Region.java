@@ -102,7 +102,7 @@ public class Region extends SimpleReferenceEntity {
     }
 
     @Override
-    public boolean compose(_Session ses, Map<String, ?> data) {
+    public Region compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String,String> countryMap = (Map<String,String>)data.get("country");
@@ -122,9 +122,9 @@ public class Region extends SimpleReferenceEntity {
   //          code = RegionCode.valueOf(c);
         }catch (Exception e){
             Lg.exception(e);
-            return false;
+            return null;
         }
-        return true;
+        return this;
     }
 
 }

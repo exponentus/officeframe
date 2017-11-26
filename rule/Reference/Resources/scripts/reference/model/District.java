@@ -62,7 +62,7 @@ public class District extends SimpleReferenceEntity {
     }
 
     @Override
-    public boolean compose(_Session ses, Map<String, ?> data) {
+    public District compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String,String> regionMap = (Map<String,String>)data.get("region");
@@ -74,8 +74,8 @@ public class District extends SimpleReferenceEntity {
 
         }catch (Exception e){
             Lg.exception(e);
-            return false;
+            return null;
         }
-        return true;
+        return this;
     }
 }

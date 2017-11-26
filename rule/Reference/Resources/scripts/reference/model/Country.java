@@ -62,16 +62,15 @@ public class Country extends SimpleReferenceEntity {
     }
 
     @Override
-    public boolean compose(_Session ses, Map<String, ?> data) {
+    public Country compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
-
         try {
             code = CountryCode.valueOf((String) data.get("code"));
         }catch (Exception e){
             Lg.exception(e);
-            return false;
+            return null;
         }
-        return true;
+        return this;
     }
 
 }

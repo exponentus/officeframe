@@ -333,6 +333,7 @@
   "commitments_made" : "Берілген міндеттемелер",
   "message_subject" : "message_subject",
   "contractors" : "Контрагенттер",
+  "service_url" : "Қызметтің URL мекенжайы",
   "declined" : null,
   "application" : "Өтінім",
   "dialog_no_selected_value" : "Сіз таңдау жасамадыңыз",
