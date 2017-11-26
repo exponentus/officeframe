@@ -442,7 +442,7 @@
   "end_until" : "end_until",
   "memorial_types" : "memorial_types",
   "individuals" : null,
-  "new_" : null,
+  "new_": "Adicionar",
   "license_control" : "license_control",
   "add_new" : "add_new",
   "should_be_contain_value_more_than_zero" : "should_be_contain_value_more_than_zero",
