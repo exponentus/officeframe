@@ -44,7 +44,8 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
-            cg.add(new ViewColumn("reminderType").type(ViewColumnType.translate));
+            cg.add(new ViewColumn("title"));
+            cg.add(new ViewColumn("reminderType").name("reminder_type").type(ViewColumnType.translate));
             cg.add(new ViewColumn("description"));
             List<ViewColumnGroup> list = new ArrayList<>();
             list.add(cg);

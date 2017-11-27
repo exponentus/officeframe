@@ -44,6 +44,7 @@ public class EventService extends EntityService<Event, EventDomain> {
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
+            cg.add(new ViewColumn("title"));
             cg.add(new ViewColumn("eventTime").name("event_time").type(ViewColumnType.date).format("DD.MM.YYYY").sortBoth());
             cg.add(new ViewColumn("priority").type(ViewColumnType.translate));
             cg.add(new ViewColumn("description"));
