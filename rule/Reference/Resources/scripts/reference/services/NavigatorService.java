@@ -79,6 +79,9 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("bus_classifications", "", "bus_classifications", AppConst.BASE_URL + "bus-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ENERGETICSTAR.name())) {
             so.addEntry(new OutlineEntry("eng_infrastruct_obj_classifications", "", "eng_infrastruct_obj_classifications", AppConst.BASE_URL + "eng-infrastruct-obj-classifications"));
+            so.addEntry(new OutlineEntry("building_states", "", "building_states", AppConst.BASE_URL + "building-states"));
+            so.addEntry(new OutlineEntry("building_materials", "", "building_materials", AppConst.BASE_URL + "building-materials"));
+            so.addEntry(new OutlineEntry("activity_types", "", "activity_types", AppConst.BASE_URL + "activity-type-categories"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.CONSTRUCTIONTAR.name())) {
             so.addEntry(new OutlineEntry("road_types", "", "road_types", AppConst.BASE_URL + "road-types"));
             so.addEntry(new OutlineEntry("road_repair_types", "", "road_repair_types", AppConst.BASE_URL + "road-repair-types"));
