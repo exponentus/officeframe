@@ -42,5 +42,4 @@ public class EventDomain extends CommonDomain<Event> {
         calculateReadersEditors(entity);
         return entity;
     }
-
 }

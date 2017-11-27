@@ -32,7 +32,6 @@ public class ReminderDomain extends CommonDomain<Reminder> {
         entity.setObservers(dto.getObservers());
         entity.setDescription(dto.getDescription());
 
-
         if (entity.isNew()) {
             entity.setAuthor(ses.getUser());
         }
@@ -40,5 +39,4 @@ public class ReminderDomain extends CommonDomain<Reminder> {
         calculateReadersEditors(entity);
         return entity;
     }
-
 }
