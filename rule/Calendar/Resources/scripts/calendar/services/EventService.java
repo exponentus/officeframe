@@ -3,6 +3,7 @@ package calendar.services;
 import calendar.dao.EventDAO;
 import calendar.domain.EventDomain;
 import calendar.model.Event;
+import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.model.constants.PriorityType;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
@@ -12,7 +13,9 @@ import com.exponentus.common.ui.view.ViewColumnType;
 import com.exponentus.common.ui.view.ViewPageOptions;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
+import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
@@ -58,7 +61,7 @@ public class EventService extends EntityService<Event, EventDomain> {
             outcome.setTitle("events");
             outcome.addPayload("contentTitle", "events");
             outcome.addPayload(vp);
-            outcome.addPayload(getDefaultViewActionBar(true));
+            outcome.addPayload(getDefaultViewActionBar());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -94,6 +97,41 @@ public class EventService extends EntityService<Event, EventDomain> {
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
+        }
+    }
+
+    @Override
+    public Response saveForm(Event dto) {
+        try {
+            EventDomain omd = new EventDomain(getSession());
+            Event entity = omd.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            Outcome outcome = omd.getOutcome(omd.save(entity));
+            return Response.ok(outcome).build();
+        } catch (DTOException e) {
+            return responseValidationError(e);
+        } catch (DAOException | SecureException e) {
+            return responseException(e);
+        }
+    }
+
+    private class Validation implements IValidation<Event> {
+
+        @Override
+        public void check(Event dto) throws DTOException {
+            DTOException e = new DTOException();
+
+            if (dto.getTitle() == null || dto.getTitle().isEmpty()) {
+                e.addError("title", "required", "field_is_empty");
+            }
+            if (dto.getEventTime() == null) {
+                e.addError("eventTime", "required", "field_is_empty");
+            }
+            if (dto.getReminder() == null) {
+                e.addError("reminder", "required", "field_is_empty");
+            }
+            if (e.hasError()) {
+                throw e;
+            }
         }
     }
 }

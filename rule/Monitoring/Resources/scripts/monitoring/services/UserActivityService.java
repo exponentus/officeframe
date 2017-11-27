@@ -1,6 +1,6 @@
 package monitoring.services;
 
-import administrator.dao.ApplicationDAO;
+import administrator.dao.ModuleDAO;
 import administrator.dao.UserDAO;
 import administrator.model.Application;
 import com.exponentus.common.dao.DAOFactory;
@@ -103,7 +103,7 @@ public class UserActivityService extends RestProvider {
             outcome.addPayload(actionBar);
 
             List result = new ArrayList();
-            ApplicationDAO applicationDAO = new ApplicationDAO(ses);
+            ModuleDAO applicationDAO = new ModuleDAO(ses);
             UserDAO userDAO = new UserDAO(ses);
             EmployeeDAO employeeDAO = new EmployeeDAO(ses);
             for (IUser user : userDAO.findAll()) {

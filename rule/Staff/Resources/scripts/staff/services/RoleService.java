@@ -1,6 +1,6 @@
 package staff.services;
 
-import administrator.dao.ApplicationDAO;
+import administrator.dao.ModuleDAO;
 import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
@@ -92,7 +92,7 @@ public class RoleService extends RestProvider {
             }
 
             Set<String> allRoles = new HashSet<String>();
-            ApplicationDAO dao = new ApplicationDAO();
+            ModuleDAO dao = new ModuleDAO();
             allRoles.addAll(Arrays.asList(AppConst.ROLES));
             List<Application> apps = dao.findAll().getResult();
             for (Application app : apps) {

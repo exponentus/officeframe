@@ -25,7 +25,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("events", "", "events", AppConst.BASE_URL + "events"));
 
         Outline r = new Outline("reminder", "reminder");
-        r.addEntry(new OutlineEntry("predefined_reminders", "", "predefined_reminders", AppConst.BASE_URL + "reminders"));
+        r.addEntry(new OutlineEntry("reminder_templates", "", "reminder_templates", AppConst.BASE_URL + "reminders"));
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);

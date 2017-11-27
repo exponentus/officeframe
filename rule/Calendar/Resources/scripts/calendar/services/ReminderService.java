@@ -1,9 +1,12 @@
 package calendar.services;
 
 import calendar.dao.ReminderDAO;
+import calendar.domain.EventDomain;
 import calendar.domain.ReminderDomain;
+import calendar.model.Event;
 import calendar.model.Reminder;
 import calendar.model.constants.ReminderType;
+import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.view.ViewColumn;
@@ -12,7 +15,9 @@ import com.exponentus.common.ui.view.ViewColumnType;
 import com.exponentus.common.ui.view.ViewPageOptions;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
+import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
+import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
@@ -54,9 +59,9 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("reminders");
-            outcome.addPayload("contentTitle", "reminders");
+            outcome.addPayload("contentTitle", "reminder_templates");
             outcome.addPayload(vp);
-            outcome.addPayload(getDefaultViewActionBar(true));
+            outcome.addPayload(getDefaultViewActionBar());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -92,6 +97,36 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
+        }
+    }
+
+    @Override
+    public Response saveForm(Reminder dto) {
+        try {
+            ReminderDomain omd = new ReminderDomain(getSession());
+            Reminder entity = omd.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            Outcome outcome = omd.getOutcome(omd.save(entity));
+            return Response.ok(outcome).build();
+        } catch (DTOException e) {
+            return responseValidationError(e);
+        } catch (DAOException | SecureException e) {
+            return responseException(e);
+        }
+    }
+
+    private class Validation implements IValidation<Reminder> {
+
+        @Override
+        public void check(Reminder dto) throws DTOException {
+            DTOException e = new DTOException();
+
+            if (dto.getTitle() == null || dto.getTitle().isEmpty()) {
+                e.addError("title", "required", "field_is_empty");
+            }
+
+            if (e.hasError()) {
+                throw e;
+            }
         }
     }
 }
