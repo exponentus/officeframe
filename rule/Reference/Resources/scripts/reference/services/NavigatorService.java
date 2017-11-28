@@ -39,6 +39,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("positions", "", "positions", AppConst.BASE_URL + "positions"));
         co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", AppConst.BASE_URL + "document-languages"));
         co.addEntry(new OutlineEntry("tags", "", "tags", AppConst.BASE_URL + "tags"));
+        co.addEntry(new OutlineEntry("unit_types", "", "unit_types", AppConst.BASE_URL + "unit-types"));
         co.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", AppConst.BASE_URL + "approval-routes"));
         Outline so = new Outline("specific_reference_data", "specific");
         if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
