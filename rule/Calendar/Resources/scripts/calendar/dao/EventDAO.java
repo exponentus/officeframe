@@ -18,16 +18,16 @@ public class EventDAO extends DAO<Event, UUID> {
         super(Event.class, session);
     }
 
-    public List<Event> findEventsBetween(Date begin, Date end) {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        try {
-            TypedQuery<Event> q = em.createQuery("SELECT m FROM Event AS m WHERE m.eventTime >= :begin AND m.eventTime < :end", Event.class);
-            q.setParameter("begin", begin, TemporalType.TIMESTAMP);
-            q.setParameter("end", end, TemporalType.TIMESTAMP);
-
-            return q.getResultList();
-        } finally {
-            em.close();
-        }
-    }
+//    public List<Event> findEventsBetween(Date begin, Date end) {
+//        EntityManager em = getEntityManagerFactory().createEntityManager();
+//        try {
+//            TypedQuery<Event> q = em.createQuery("SELECT m FROM Event AS m WHERE m.eventTime >= :begin AND m.eventTime < :end", Event.class);
+//            q.setParameter("begin", begin, TemporalType.TIMESTAMP);
+//            q.setParameter("end", end, TemporalType.TIMESTAMP);
+//
+//            return q.getResultList();
+//        } finally {
+//            em.close();
+//        }
+//    }
 }

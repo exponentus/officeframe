@@ -1,6 +1,7 @@
 package calendar.services;
 
 import calendar.dao.EventDAO;
+import calendar.dao.filter.EventFilter;
 import calendar.domain.EventDomain;
 import calendar.model.Event;
 import com.exponentus.common.domain.IValidation;
@@ -39,12 +40,15 @@ public class EventService extends EntityService<Event, EventDomain> {
     public Response getViewPage() {
         _Session session = getSession();
         WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
+        int pageSize = params.getNumberValueSilently("limit", session.getPageSize());
 
         try {
+            EventFilter eventFilter = new EventFilter();
+            setupFilter(eventFilter, params);
+
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             EventDAO dao = new EventDAO(session);
-            ViewPage<Event> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            ViewPage<Event> vp = dao.findViewPage(eventFilter, sortParams, params.getPage(), pageSize);
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
@@ -70,29 +74,29 @@ public class EventService extends EntityService<Event, EventDomain> {
         }
     }
 
-    @GET
-    @Path("week/{yearWeekNum}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getWeekEvents(@PathParam("yearWeekNum") int yearWeekNum) {
-        _Session session = getSession();
-
-        try {
-            Calendar weekBegin = Calendar.getInstance();
-            weekBegin.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
-            weekBegin.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-
-            Calendar weekEnd = Calendar.getInstance();
-            weekEnd.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
-            weekEnd.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-
-            EventDAO dao = new EventDAO(session);
-            List<Event> events = dao.findEventsBetween(weekBegin.getTime(), weekEnd.getTime());
-
-            return Response.ok(events).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
+//    @GET
+//    @Path("week/{yearWeekNum}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getWeekEvents(@PathParam("yearWeekNum") int yearWeekNum) {
+//        _Session session = getSession();
+//
+//        try {
+//            Calendar weekBegin = Calendar.getInstance();
+//            weekBegin.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
+//            weekBegin.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//
+//            Calendar weekEnd = Calendar.getInstance();
+//            weekEnd.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
+//            weekEnd.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+//
+//            EventDAO dao = new EventDAO(session);
+//            List<Event> events = dao.findEventsBetween(weekBegin.getTime(), weekEnd.getTime());
+//
+//            return Response.ok(events).build();
+//        } catch (DAOException e) {
+//            return responseException(e);
+//        }
+//    }
 
     @GET
     @Path("{id}")
@@ -157,6 +161,16 @@ public class EventService extends EntityService<Event, EventDomain> {
             if (e.hasError()) {
                 throw e;
             }
+        }
+    }
+
+    private void setupFilter(EventFilter filter, WebFormData params) {
+        if (params.containsField("eventStart")) {
+            filter.setEventStart(params.getDateSilently("eventStart"));
+        }
+
+        if (params.containsField("eventEnd")) {
+            filter.setEventEnd(params.getDateSilently("eventEnd"));
         }
     }
 }
