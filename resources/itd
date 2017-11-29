@@ -9,7 +9,7 @@ run task fill_regions
 run task ref_fill_districts
 run task fill_localities
 run task fill_city_districts
-run task ref_fill_streets
+run task ref_fill_test_streets
 run task fill_department_types
 run task fill_doc_langs
 run task fill_org_categories

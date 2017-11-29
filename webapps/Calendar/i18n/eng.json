@@ -281,6 +281,7 @@
   "moderator" : "Moderator",
   "localized_names" : "Localized titles",
   "sign" : "Sign",
+  "tempo" : "Tempo",
   "body" : "Body",
   "employee" : "Employee",
   "notify_about_task_acknowledged" : "[NOTIFICATION] Task acknowledged",

@@ -17,7 +17,7 @@ import reference.model.Street;
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = AppConst.CODE + "_fill_streets")
+@Command(name = AppConst.CODE + "_fill_test_streets")
 public class FillStreets extends Do {
 
     @Override

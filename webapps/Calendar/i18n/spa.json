@@ -281,6 +281,7 @@
   "moderator" : "moderator",
   "localized_names" : null,
   "sign" : null,
+  "tempo" : "Tempo",
   "body" : "Cuerpo",
   "employee" : null,
   "notify_about_task_acknowledged" : "Notificarle",
