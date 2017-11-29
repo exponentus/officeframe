@@ -17,12 +17,10 @@ import javax.persistence.*;
 @NamedQuery(name = "UnitType.findAll", query = "SELECT m FROM UnitType AS m ORDER BY m.regDate")
 public class UnitType extends SimpleReferenceEntity {
 
-
     @FTSearchable
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 8)
     private UnitCategory category;
-
 
     public UnitCategory getCategory() {
         return category;
