@@ -34,7 +34,12 @@ public class FillUnitTypes extends Do {
         for (int i = 0; i < data.length; i++) {
             UnitType entity = new UnitType();
             entity.setName(data[i]);
-            entity.setCategory(UnitCategory.MONEY_KZ);
+            if (data[i].contains("tenge")){
+                entity.setCategory(UnitCategory.MONEY_KZ);
+            }else{
+                entity.setCategory(UnitCategory.UNIFORM);
+            }
+
             Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
             name.put(LanguageCode.ENG, dataEng[i]);
             name.put(LanguageCode.RUS, dataRus[i]);

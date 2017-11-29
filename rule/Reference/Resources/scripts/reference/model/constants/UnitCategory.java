@@ -2,6 +2,6 @@ package reference.model.constants;
 
 
 public enum UnitCategory {
-    UNKNOWN, MONEY_KZ;
+    UNKNOWN, UNIFORM,MONEY_KZ;
 
 }
