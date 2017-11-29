@@ -37,7 +37,7 @@ public class LocalityType extends SimpleReferenceEntity {
 
         try {
             code = LocalityCode.valueOf((String) data.get("code"));
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

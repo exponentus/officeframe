@@ -1,9 +1,7 @@
 package calendar.services;
 
 import calendar.dao.ReminderDAO;
-import calendar.domain.EventDomain;
 import calendar.domain.ReminderDomain;
-import calendar.model.Event;
 import calendar.model.Reminder;
 import calendar.model.constants.ReminderType;
 import com.exponentus.common.domain.IValidation;

@@ -27,7 +27,7 @@ public class FillRegionTypes extends Do {
 
         String[] data = {"federation", "region", "urban_agglomeration"};
         String[] dataEng = {"Federation", "Region", "Urban agglomeration"};
-        String[] dataRus = {"Федерация", "Область", "Город" };
+        String[] dataRus = {"Федерация", "Область", "Город"};
         String[] dataKaz = {"Федерация", "Аймақ", "Қалалық агломерация"};
         RegionCode[] code = {RegionCode.FEDERATION, RegionCode.REGION, RegionCode.URBAN_AGGLOMERATION};
 

@@ -179,8 +179,8 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
     @Produces(MediaType.APPLICATION_JSON)
     @Defended(false)
     @Path("list/{pageNum}/{pageSize}")
-    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize){
-        return  getViewPage();
+    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize) {
+        return getViewPage();
     }
 
     @GET
@@ -192,7 +192,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
             T entity = dao.findById(identifier);
-            Map entityMap = ((IIntegratableEntity)entity).extract(session);
+            Map entityMap = ((IIntegratableEntity) entity).extract(session);
             return Response.ok(entityMap).build();
         } catch (DAOException e) {
             return responseException(e);

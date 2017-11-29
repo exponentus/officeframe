@@ -5,21 +5,19 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
-import com.exponentus.env.EnvConst;
-import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.IExternalService;
 import com.exponentus.integrationhub.jpa.IIntegratableEntity;
-import com.exponentus.log.Lg;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.services.Defended;
-import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.util.StringUtil;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.lang.reflect.ParameterizedType;
@@ -56,8 +54,8 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
     @Produces(MediaType.APPLICATION_JSON)
     @Defended(false)
     @Path("list/{pageNum}/{pageSize}")
-    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize){
-        return  getViewPage();
+    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize) {
+        return getViewPage();
     }
 
     @GET
@@ -69,13 +67,12 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
             T entity = dao.findById(identifier);
-            Map entityMap = ((IIntegratableEntity)entity).extract(session);
+            Map entityMap = ((IIntegratableEntity) entity).extract(session);
             return Response.ok(entityMap).build();
         } catch (DAOException e) {
             return responseException(e);
         }
     }
-
 
 
 }

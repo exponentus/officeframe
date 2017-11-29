@@ -37,7 +37,7 @@ public class FillCityDistricts extends Do {
                 for (int i = 0; i < data.length; i++) {
                     CityDistrict entity = new CityDistrict();
                     entity.setLocality(region);
-                          String latName = StringUtil.convertRusToLat(data[i]);
+                    String latName = StringUtil.convertRusToLat(data[i]);
                     entity.setName(latName.replaceAll(" ", "_"));
                     Map<LanguageCode, String> localizedNames = new HashMap<>();
                     localizedNames.put(LanguageCode.ENG, latName);

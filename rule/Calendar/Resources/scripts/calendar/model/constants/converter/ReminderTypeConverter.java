@@ -2,7 +2,6 @@ package calendar.model.constants.converter;
 
 import calendar.model.constants.ReminderType;
 import com.exponentus.log.Lg;
-import dataexport.model.constants.ReportQueryType;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 
 import javax.persistence.AttributeConverter;

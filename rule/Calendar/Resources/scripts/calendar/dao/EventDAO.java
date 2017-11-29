@@ -9,8 +9,8 @@ import java.util.UUID;
 
 public class EventDAO extends DAO<Event, UUID> {
 
-	public EventDAO(_Session session) throws DAOException {
-		super(Event.class, session);
-	}
+    public EventDAO(_Session session) throws DAOException {
+        super(Event.class, session);
+    }
 
 }

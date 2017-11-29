@@ -65,14 +65,14 @@ public class District extends SimpleReferenceEntity {
     public District compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
-            Map<String,String> regionMap = (Map<String,String>)data.get("region");
+            Map<String, String> regionMap = (Map<String, String>) data.get("region");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String)regionMap.get("id"));
+            Collation collation = collationDAO.findByExtKey((String) regionMap.get("id"));
             RegionDAO regionDAO = new RegionDAO(ses);
             Region region = regionDAO.findById(collation.getIntKey());
             this.region = region;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

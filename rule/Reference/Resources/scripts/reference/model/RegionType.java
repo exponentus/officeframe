@@ -42,7 +42,7 @@ public class RegionType extends SimpleReferenceEntity {
         try {
             String c = (String) data.get("code");
             code = RegionCode.valueOf(c);
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

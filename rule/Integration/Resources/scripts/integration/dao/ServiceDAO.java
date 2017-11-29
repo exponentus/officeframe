@@ -63,7 +63,7 @@ public class ServiceDAO {
         int firstRec = 0;
         int lastRec = count;
         int maxPage = 0;
-        if (pageNum > 0 || pageSize > 0){
+        if (pageNum > 0 || pageSize > 0) {
             maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
             firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
             lastRec = firstRec + pageSize;

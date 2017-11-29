@@ -64,7 +64,7 @@ public class GenerateTestOrgsExcel extends Do {
                         localizedNames.put(LanguageCode.ENG, orgName);
                         entity.setLocName(localizedNames);
                         entity.setOrgCategory((OrgCategory) ListUtil.getRndListElement(ocDao.findAll().getResult()));
-                        entity.setBizID(StringUtil.generateRndAsText("1234567890qwertyuiopasdfghjklzxcvbnm",20));
+                        entity.setBizID(StringUtil.generateRndAsText("1234567890qwertyuiopasdfghjklzxcvbnm", 20));
                         entity.setTitle(orgName);
                         entities.put(orgName, entity);
                     }

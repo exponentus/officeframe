@@ -41,7 +41,7 @@ public class Organization extends SimpleReferenceEntity {
     private List<OrganizationLabel> labels;
 
     @FTSearchable
-    @Column(length = 20, name="biz_id")
+    @Column(length = 20, name = "biz_id")
     private String bizID = "";
 
     private int rank = 999;
@@ -107,15 +107,15 @@ public class Organization extends SimpleReferenceEntity {
     public Organization compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
-            Map<String,String> countryMap = (Map<String,String>)data.get("orgCategory");
+            Map<String, String> countryMap = (Map<String, String>) data.get("orgCategory");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String)countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey((String) countryMap.get("id"));
             OrgCategoryDAO orgCategoryDAO = new OrgCategoryDAO(ses);
             OrgCategory orgCategory = orgCategoryDAO.findById(collation.getIntKey());
             this.orgCategory = orgCategory;
             bizID = (String) data.get("bizID");
             rank = (Integer) data.get("rank");
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

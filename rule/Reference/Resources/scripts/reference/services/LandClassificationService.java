@@ -9,7 +9,6 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.LandClassificationDAO;
 import reference.model.LandClassification;
 

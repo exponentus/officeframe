@@ -19,7 +19,6 @@ import com.exponentus.integrationhub.client.Requester;
 import com.exponentus.integrationhub.client.exception.RequesterException;
 import com.exponentus.integrationhub.jpa.IIntegratableEntity;
 import com.exponentus.log.Lg;
-import com.exponentus.rest.exception.RestServiceException;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;

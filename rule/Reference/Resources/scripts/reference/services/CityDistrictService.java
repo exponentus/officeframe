@@ -4,7 +4,6 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -14,7 +13,6 @@ import com.exponentus.user.IUser;
 import reference.dao.CityDistrictDAO;
 import reference.dao.LocalityDAO;
 import reference.model.CityDistrict;
-import reference.model.Country;
 import reference.model.Locality;
 
 import javax.ws.rs.*;

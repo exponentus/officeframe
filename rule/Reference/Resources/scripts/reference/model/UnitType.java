@@ -20,7 +20,7 @@ public class UnitType extends SimpleReferenceEntity {
 
     @FTSearchable
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,length = 8)
+    @Column(nullable = false, length = 8)
     private UnitCategory category;
 
 
