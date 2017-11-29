@@ -59,14 +59,21 @@ public class FillRegions extends Do {
             }
 
             String[] data1 = {"moscow", "saint_petersburg"};
+            String[] names1Eng = {"Moscow", "Saint Petersburg"};
+            String[] names1Rus = {"Москва", "Санкт-Петербург"};
+            String[] names1Kaz = {"Мәскеу", "Санкт-Петербург"};
             Country country1 = null;
-
             country1 = cDao.findByName("russia");
 
             for (int i = 0; i < data1.length; i++) {
                 Region entity = new Region();
                 entity.setCountry(country1);
                 entity.setName(data1[i]);
+                Map<LanguageCode, String> name = new HashMap<>();
+                name.put(LanguageCode.RUS, names1Rus[i]);
+                name.put(LanguageCode.ENG, names1Eng[i]);
+                name.put(LanguageCode.KAZ, names1Kaz[i]);
+                entity.setLocName(name);
                 RegionTypeDAO rtDao = new RegionTypeDAO(ses);
                 RegionType rType = null;
                 if (data1[i].equals("moscow") || data1[i].equals("saint_petersburg")) {
@@ -79,6 +86,9 @@ public class FillRegions extends Do {
             }
 
             String[] data2 = {"lisbon", "leiria"};
+            String[] names2Eng = {"Lisbon", "Leiria"};
+            String[] names2Rus = {"Лиссабон", "Лейрия"};
+            String[] names2Kaz = {"Лиссабон", "Лейрия"};
             Country country2 = null;
 
             country2 = cDao.findByName("portugal");
@@ -87,6 +97,11 @@ public class FillRegions extends Do {
                 Region entity = new Region();
                 entity.setCountry(country2);
                 entity.setName(data2[i]);
+                Map<LanguageCode, String> name = new HashMap<>();
+                name.put(LanguageCode.RUS, names2Rus[i]);
+                name.put(LanguageCode.ENG, names2Eng[i]);
+                name.put(LanguageCode.KAZ, names2Kaz[i]);
+                entity.setLocName(name);
                 RegionTypeDAO rtDao = new RegionTypeDAO(ses);
                 RegionType rType = null;
                 if (data2[i].equals("lisbon")) {
@@ -120,7 +135,16 @@ public class FillRegions extends Do {
                     logger.exception(e);
                 }
             }
+
+            if (dao.findPrimary() == null) {
+                Region region = dao.getRandomEntity();
+                region.setPrimary(true);
+                dao.update(region);
+            }
+
         } catch (DAOException e) {
+            logger.exception(e);
+        } catch (SecureException e) {
             logger.exception(e);
         }
         logger.info("done...");
