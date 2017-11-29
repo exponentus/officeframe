@@ -28,7 +28,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 @Path("events")
@@ -73,30 +72,6 @@ public class EventService extends EntityService<Event, EventDomain> {
             return responseException(e);
         }
     }
-
-//    @GET
-//    @Path("week/{yearWeekNum}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getWeekEvents(@PathParam("yearWeekNum") int yearWeekNum) {
-//        _Session session = getSession();
-//
-//        try {
-//            Calendar weekBegin = Calendar.getInstance();
-//            weekBegin.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
-//            weekBegin.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-//
-//            Calendar weekEnd = Calendar.getInstance();
-//            weekEnd.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
-//            weekEnd.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-//
-//            EventDAO dao = new EventDAO(session);
-//            List<Event> events = dao.findEventsBetween(weekBegin.getTime(), weekEnd.getTime());
-//
-//            return Response.ok(events).build();
-//        } catch (DAOException e) {
-//            return responseException(e);
-//        }
-//    }
 
     @GET
     @Path("{id}")
@@ -165,6 +140,14 @@ public class EventService extends EntityService<Event, EventDomain> {
     }
 
     private void setupFilter(EventFilter filter, WebFormData params) {
+//            Calendar weekBegin = Calendar.getInstance();
+//            weekBegin.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
+//            weekBegin.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+//
+//            Calendar weekEnd = Calendar.getInstance();
+//            weekEnd.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
+//            weekEnd.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+
         if (params.containsField("eventStart")) {
             filter.setEventStart(params.getDateSilently("eventStart"));
         }
