@@ -5,7 +5,6 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.ListUtil;
-import org.apache.poi.ss.formula.functions.T;
 import reference.model.District;
 import reference.model.Region;
 
@@ -59,6 +58,6 @@ public class DistrictDAO extends ReferenceDAO<District, UUID> {
     }
 
     public District getRandomEntity(Region region) {
-        return (District) ListUtil.getRndListElement(findAllByRegion(region,0,0).getResult());
+        return (District) ListUtil.getRndListElement(findAllByRegion(region, 0, 0).getResult());
     }
 }

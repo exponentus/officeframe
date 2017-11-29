@@ -9,7 +9,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.LocalityDAO;
-import reference.dao.RegionDAO;
 import reference.init.AppConst;
 
 import javax.persistence.*;
@@ -53,16 +52,16 @@ public class Street extends SimpleReferenceEntity {
     public Street compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
-            Map<String,String> localityMap = (Map<String,String>)data.get("locality");
+            Map<String, String> localityMap = (Map<String, String>) data.get("locality");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String)localityMap.get("id"));
+            Collation collation = collationDAO.findByExtKey((String) localityMap.get("id"));
             LocalityDAO localityDAO = new LocalityDAO(ses);
             Locality locality = localityDAO.findById(collation.getIntKey());
             this.locality = locality;
 
             streetId = (Integer) data.get("streetId");
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

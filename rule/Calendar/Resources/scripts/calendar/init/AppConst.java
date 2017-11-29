@@ -18,5 +18,5 @@ public class AppConst extends DefaultAppConst {
     public static InterfaceType AVAILABLE_MODE[] = {InterfaceType.SPA};
     public static boolean FORCE_DEPLOYING = true;
 
-    public static String[][] NOT_NULL = {{CODE + "__events", "reminder_id"}   };
+    public static String[][] NOT_NULL = {{CODE + "__events", "reminder_id"}};
 }

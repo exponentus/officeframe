@@ -1,16 +1,18 @@
 package calendar.model;
 
+import calendar.init.AppConst;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.common.model.constants.PriorityType;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
 import com.fasterxml.jackson.annotation.JsonRootName;
-import calendar.init.AppConst;
 import reference.model.Tag;
 import staff.model.embedded.Observer;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.UUID;
 
 @JsonRootName("event")
 @JsonInclude(JsonInclude.Include.NON_NULL)

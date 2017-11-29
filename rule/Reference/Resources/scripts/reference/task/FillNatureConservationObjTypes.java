@@ -8,10 +8,8 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.EngInfrastructObjClassificationDAO;
 import reference.dao.NatureConservationObjTypeDAO;
 import reference.init.AppConst;
-import reference.model.EngInfrastructObjClassification;
 import reference.model.NatureConservationObjType;
 
 import java.util.ArrayList;

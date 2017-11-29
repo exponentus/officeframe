@@ -25,10 +25,10 @@ public class FillUnitTypes extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<UnitType> entities = new ArrayList<UnitType>();
-        String[] data = {"tenge", "million_tenge", "billion_tenge"};
-        String[] dataEng = {"tenge", "mill.tenge","bill.tenge"};
-        String[] dataRus = {"тенге", "млн.тенге","млрд.тенге"};
-        String[] dataKaz = {"теңге", "млн.теңге","млрд.теңге"};
+        String[] data = {"square_meter", "tenge", "million_tenge", "billion_tenge"};
+        String[] dataEng = {"square meter", "tenge", "mill.tenge", "bill.tenge"};
+        String[] dataRus = {"кв.метр", "тенге", "млн.тенге", "млрд.тенге"};
+        String[] dataKaz = {"шаршы метр", "теңге", "млн.теңге", "млрд.теңге"};
 
 
         for (int i = 0; i < data.length; i++) {

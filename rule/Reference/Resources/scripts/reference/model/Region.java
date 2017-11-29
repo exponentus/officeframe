@@ -105,22 +105,22 @@ public class Region extends SimpleReferenceEntity {
     public Region compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
-            Map<String,String> countryMap = (Map<String,String>)data.get("country");
+            Map<String, String> countryMap = (Map<String, String>) data.get("country");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String)countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey((String) countryMap.get("id"));
             CountryDAO countryDAO = new CountryDAO(ses);
             Country country = countryDAO.findById(collation.getIntKey());
             this.country = country;
 
-            Map<String,String> typeMap = (Map<String,String>)data.get("type");
-            collation = collationDAO.findByExtKey((String)typeMap.get("id"));
+            Map<String, String> typeMap = (Map<String, String>) data.get("type");
+            collation = collationDAO.findByExtKey((String) typeMap.get("id"));
             RegionTypeDAO regionTypeDAO = new RegionTypeDAO(ses);
             RegionType regionType = regionTypeDAO.findById(collation.getIntKey());
             this.type = regionType;
 
-  //          String c = (String) data.get("code");
-  //          code = RegionCode.valueOf(c);
-        }catch (Exception e){
+            //          String c = (String) data.get("code");
+            //          code = RegionCode.valueOf(c);
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

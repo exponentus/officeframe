@@ -7,7 +7,6 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.AppConst;
-import reference.model.constants.CountryCode;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -21,7 +20,7 @@ import java.util.Map;
 public class DocumentLanguage extends SimpleReferenceEntity {
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,length = 7, unique = true)
+    @Column(nullable = false, length = 7, unique = true)
     private LanguageCode code = LanguageCode.UNKNOWN;
 
     public LanguageCode getCode() {
@@ -38,7 +37,7 @@ public class DocumentLanguage extends SimpleReferenceEntity {
 
         try {
             code = LanguageCode.valueOf((String) data.get("code"));
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

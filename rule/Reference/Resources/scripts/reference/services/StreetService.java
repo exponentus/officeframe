@@ -4,14 +4,12 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.services.Defended;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
 import reference.model.Locality;
@@ -179,7 +177,7 @@ public class StreetService extends ReferenceService<Street> {
     @Produces(MediaType.APPLICATION_JSON)
     @Defended(false)
     @Path("list/{pageNum}/{pageSize}")
-    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize){
+    public Response getViewPage(@PathParam("pageNum") int pageNum, @PathParam("pageSize") int pageSize) {
         _Session session = getSession();
         try {
             Outcome outcome = new Outcome();

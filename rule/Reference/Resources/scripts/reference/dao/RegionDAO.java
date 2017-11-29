@@ -5,9 +5,7 @@ import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import reference.model.Country;
-import reference.model.Locality;
 import reference.model.Region;
-import staff.model.Organization;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;

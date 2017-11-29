@@ -8,10 +8,8 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.dao.CountryDAO;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
-import reference.dao.RegionTypeDAO;
 import reference.init.AppConst;
 
 import javax.persistence.*;
@@ -79,20 +77,20 @@ public class Locality extends SimpleReferenceEntity {
     public Locality compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
-            Map<String,String> countryMap = (Map<String,String>)data.get("region");
+            Map<String, String> countryMap = (Map<String, String>) data.get("region");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String)countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey((String) countryMap.get("id"));
             RegionDAO dao = new RegionDAO(ses);
             Region region = dao.findById(collation.getIntKey());
             this.region = region;
 
-            Map<String,String> typeMap = (Map<String,String>)data.get("type");
-            collation = collationDAO.findByExtKey((String)typeMap.get("id"));
+            Map<String, String> typeMap = (Map<String, String>) data.get("type");
+            collation = collationDAO.findByExtKey((String) typeMap.get("id"));
             LocalityTypeDAO localityTypeDAO = new LocalityTypeDAO(ses);
             LocalityType localityType = localityTypeDAO.findById(collation.getIntKey());
             type = localityType;
 
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }

@@ -35,7 +35,7 @@ public class Country extends SimpleReferenceEntity {
 
     @FTSearchable
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false,length = 7, unique = true)
+    @Column(nullable = false, length = 7, unique = true)
     private CountryCode code = CountryCode.UNKNOWN;
 
     public CountryCode getCode() {
@@ -66,7 +66,7 @@ public class Country extends SimpleReferenceEntity {
         super.compose(ses, data);
         try {
             code = CountryCode.valueOf((String) data.get("code"));
-        }catch (Exception e){
+        } catch (Exception e) {
             Lg.exception(e);
             return null;
         }
