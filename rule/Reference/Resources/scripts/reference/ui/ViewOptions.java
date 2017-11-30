@@ -89,7 +89,7 @@ public class ViewOptions {
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ViewColumn("schema").sortBoth());
+        cg.add(new ViewColumn("schema").type(ViewColumnType.translate).sortBoth());
         cg.add(new ViewColumn("on").name("is_on"));
         cg.add(new ViewColumn("category").sortBoth());
 

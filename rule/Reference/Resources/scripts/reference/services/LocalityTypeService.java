@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("locality-types")
 public class LocalityTypeService extends ReferenceService<LocalityType> {
 

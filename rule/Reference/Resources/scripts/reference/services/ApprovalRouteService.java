@@ -73,15 +73,14 @@ public class ApprovalRouteService extends RestProvider {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "approval_route");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
-            outcome.addPayload("approvalSchemaType", ApprovalSchemaType.values());
-            outcome.addPayload("approvalType", ApprovalType.values());
+            outcome.addPayload("approvalSchemaTypes", ApprovalSchemaType.values());
+            outcome.addPayload("approvalTypes", ApprovalType.values());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();

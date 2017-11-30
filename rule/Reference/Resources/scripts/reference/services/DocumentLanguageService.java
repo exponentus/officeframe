@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("document-languages")
 public class DocumentLanguageService extends ReferenceService<DocumentLanguage> {
 
@@ -65,7 +64,6 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
                 DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
                 entity = dao.findByIdentifier(id);
             }
-
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);

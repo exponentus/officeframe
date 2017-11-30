@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("region-types")
 public class RegionTypeService extends ReferenceService<RegionType> {
 
@@ -67,12 +66,11 @@ public class RegionTypeService extends ReferenceService<RegionType> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
             outcome.addPayload("contentTitle", "region_type");
-            outcome.addPayload("regionTypeCodes", RegionCode.values());
+            outcome.addPayload("regionCodes", RegionCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
