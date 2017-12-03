@@ -10,6 +10,7 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import com.exponentus.util.StringUtil;
 import reference.dao.CountryDAO;
 import reference.dao.RegionDAO;
 import reference.model.Country;
@@ -129,7 +130,7 @@ public class RegionService extends ReferenceService<Region> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(StringUtil.convertRusToURLString(dto.getName()));
             entity.setLocName(dto.getLocName());
             entity.setType(dto.getType());
             entity.setCountry(dto.getCountry());

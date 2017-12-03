@@ -33,6 +33,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
                 entity = new UnitType();
                 entity.setName("");
                 entity.setAuthor(session.getUser());
+                entity.setCategory(UnitCategory.UNIFORM);
             } else {
                 UnitTypeDAO dao = new UnitTypeDAO(session);
                 entity = dao.findByIdentifier(id);
@@ -41,7 +42,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "text_template");
+            outcome.addPayload("contentTitle", "unit_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("unitCategories", UnitCategory.values());

@@ -29,6 +29,10 @@ public class Reminder extends SecureAppEntity<UUID> {
     @CollectionTable(name = AppConst.CODE + "__reminder_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
 
+    @ElementCollection
+    @CollectionTable(name = AppConst.CODE + "__reminder_maillist", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    private List<Observer> mailList = new ArrayList<Observer>();
+
     public String getDescription() {
         return description;
     }
@@ -52,6 +56,15 @@ public class Reminder extends SecureAppEntity<UUID> {
     public void setObservers(List<Observer> observers) {
         this.observers = observers;
     }
+
+    public List<Observer> getMailList() {
+        return mailList;
+    }
+
+    public void setMailList(List<Observer> mailList) {
+        this.mailList = mailList;
+    }
+
 
     @Override
     public String getURL() {
