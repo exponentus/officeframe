@@ -428,6 +428,7 @@
   "construction_of_regions" : null,
   "panel" : null,
   "more_than" : "Mas que",
+  "allowed_to_publish" : "Permitido para publicación",
   "words" : "Method is not implemented",
   "organization_labels" : null,
   "approving_start_successful" : null,
