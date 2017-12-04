@@ -38,7 +38,7 @@ public class EngInfrastructObjClassificationService extends ReferenceService<Eng
 
             ViewPage<EngInfrastructObjClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
-            outcome.setTitle("eng_infrastruct_obj_classification");
+            outcome.setTitle("eng_infrastruct_obj_classifications");
             outcome.addPayload("contentTitle", "eng_infrastruct_obj_classifications");
             outcome.addPayload(vp);
 
