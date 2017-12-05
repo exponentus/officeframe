@@ -650,6 +650,7 @@
   "vrp_indicator" : "Показатель валового регионального продукта",
   "industry_of_districts" : "Промышленность в районах",
   "locality_type" : "Тип населенного пункта",
+  "region_statistics" : "Статистика по областям",
   "investedarea" : "Инвестируемый субъект",
   "construction_objs" : "Строения",
   "unit_types" : "Единицы измерения",

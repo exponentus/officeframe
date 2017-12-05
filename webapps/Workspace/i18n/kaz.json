@@ -650,6 +650,7 @@
   "vrp_indicator" : "vrp_indicator",
   "industry_of_districts" : "Өңірлердегі өнеркәсіп",
   "locality_type" : "Жергілікті түрі",
+  "region_statistics" : "Аймақтар бойынша статистика",
   "investedarea" : "investedArea",
   "construction_objs" : "Құрылыстар",
   "unit_types" : "Өлшем бірлік",

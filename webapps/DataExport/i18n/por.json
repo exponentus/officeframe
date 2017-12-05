@@ -650,6 +650,7 @@
   "vrp_indicator" : "vrp_indicator",
   "industry_of_districts" : null,
   "locality_type" : "Tipo de localidade",
+  "region_statistics" : null,
   "investedarea" : "investedArea",
   "construction_objs" : null,
   "unit_types" : "Unidades de medida",
