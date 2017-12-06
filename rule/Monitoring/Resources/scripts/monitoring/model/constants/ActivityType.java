@@ -1,7 +1,7 @@
 package monitoring.model.constants;
 
 public enum ActivityType {
-    UNKNOWN(0), LOGIN(580), LOGOUT(581), SENT_MESSAGE(582), COMPOSE(583);
+    UNKNOWN(0), LOGIN(580), LOGOUT(581), SENT_EMAIL(582), COMPOSE(583), SENT_SLACK_MESSAGE(584);
 
     private int code;
 

@@ -2,23 +2,27 @@ package monitoring.model;
 
 import administrator.model.User;
 import com.exponentus.common.model.SimpleAppEntity;
+import com.exponentus.common.model.converter.UUIDConverter;
 import com.exponentus.common.model.converter.UserConverter;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.init.AppConst;
 import monitoring.model.constants.ActivityType;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
+import org.eclipse.persistence.annotations.Converters;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Date;
+import java.util.UUID;
 
 @JsonRootName("userActivity")
 @Entity
 @Table(name = AppConst.CODE + "__user_activities")
-@Converter(name = "user_conv", converterClass = UserConverter.class)
+@Converters({@Converter(name = "user_conv", converterClass = UserConverter.class),
+        @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)})
 public class UserActivity extends SimpleAppEntity {
 
     @Convert("user_conv")
@@ -34,6 +38,13 @@ public class UserActivity extends SimpleAppEntity {
     private String ip = "";
 
     private String country = "";
+
+    @Convert("uuidConverter")
+    @Column(name = "act_entity_id", nullable = false)
+    private UUID actEntityId;
+
+    @Column(name = "act_entity_kind")
+    private String actEntityKind;
 
     public String getKind() {
         return "userActivity";
@@ -77,6 +88,22 @@ public class UserActivity extends SimpleAppEntity {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public UUID getActEntityId() {
+        return actEntityId;
+    }
+
+    public void setActEntityId(UUID actEntityId) {
+        this.actEntityId = actEntityId;
+    }
+
+    public String getActEntityKind() {
+        return actEntityKind;
+    }
+
+    public void setActEntityKind(String actEntityKind) {
+        this.actEntityKind = actEntityKind;
     }
 
     @Override

@@ -779,6 +779,7 @@
   "real_estate_objects" : "Объекты недвижимости",
   "learning_center" : "Центр обучения",
   "building_state_date" : "Дата ввода в эксплуатацию",
+  "security" : "Безопасность",
   "request_time" : "Дата запроса",
   "value_exists" : "Запись с таким значением уже существует",
   "primary_organization" : "Первичная организация",

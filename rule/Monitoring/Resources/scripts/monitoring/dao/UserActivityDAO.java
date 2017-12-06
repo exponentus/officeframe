@@ -4,19 +4,13 @@ import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.extconnect.IMonitoringFacility;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
-import com.exponentus.user.IUser;
 import monitoring.model.DocumentActivity;
 import monitoring.model.UserActivity;
-import monitoring.model.constants.ActivityType;
-import monitoring.model.embedded.Event;
-import net.firefang.ip2c.Country;
 import net.firefang.ip2c.IP2Country;
 
 import javax.persistence.*;
@@ -26,24 +20,14 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
-public class UserActivityFacility extends SimpleDAO<UserActivity> implements IMonitoringFacility {
+public class UserActivityDAO extends SimpleDAO<UserActivity> {
     private static IP2Country ip2c;
     private _Session ses;
 
-    public UserActivityFacility() {
-        super(UserActivity.class);
-        try {
-            ip2c = new IP2Country(Environment.getKernelDir() + EnvConst.RESOURCES_DIR + File.separator + "ip-to-country.bin", IP2Country.MEMORY_CACHE);
-        } catch (IOException e) {
-            Lg.exception(e);
-        }
-    }
 
-    public UserActivityFacility(_Session ses) {
+    public UserActivityDAO(_Session ses) {
         super(UserActivity.class);
         this.ses = ses;
         try {
@@ -97,22 +81,7 @@ public class UserActivityFacility extends SimpleDAO<UserActivity> implements IMo
         return new ViewPage<UserActivity>(result, count, maxPage, pageNum);
     }
 
-    @Override
-    public void postEvent(IUser user, IAppEntity<UUID> entity, String descr) throws DAOException {
 
-        DocumentActivity ua = new DocumentActivity();
-        //ua.setType(ActivityType.COMPOSE);
-        ua.setActEntityId(entity.getId());
-        ua.setActEntityKind(entity.getEntityKind());
-        //ua.setDetails(descr);
-        //ua.setActUser(user.getId());
-        ua.setEventTime(new Date());
-        Event e = new Event();
-        e.setTime(new Date());
-        e.setAfterState(entity);
-        ua.addEvent(e);
-        add(ua);
-    }
 
     public DocumentActivity findById(long id) {
 
@@ -184,42 +153,5 @@ public class UserActivityFacility extends SimpleDAO<UserActivity> implements IMo
         }
     }
 
-    @Override
-    public void postLogin(IUser user, String ip) throws DAOException {
 
-        UserActivity ua = new UserActivity();
-        ua.setEventTime(new Date());
-        ua.setType(ActivityType.LOGIN);
-        ua.setActUser((User) user);
-
-        if (!ip.equals("127.0.0.1") && !ip.equals("0:0:0:0:0:0:0:1")) {
-            try {
-                ua.setIp(ip);
-                Country c = ip2c.getCountry(ip);
-                ua.setCountry(c.getName());
-                add(ua);
-            } catch (NumberFormatException e) {
-                Lg.error("Incorrect address, IP=" + ip);
-            } catch (Exception e) {
-                Lg.error("IP=" + ip);
-                Lg.exception(e);
-            }
-        } else {
-            ua.setIp("localhost");
-            add(ua);
-        }
-    }
-
-    @Override
-    public void postLogout(IUser user) throws DAOException {
-        UserActivity ua = new UserActivity();
-        ua.setEventTime(new Date());
-        ua.setType(ActivityType.LOGOUT);
-        try {
-            ua.setActUser((User) user);
-        } catch (ClassCastException e) {
-
-        }
-        //	add(ua);
-    }
 }

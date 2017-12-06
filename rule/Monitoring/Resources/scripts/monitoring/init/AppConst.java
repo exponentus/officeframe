@@ -5,7 +5,7 @@ import com.exponentus.common.init.DefaultAppConst;
 
 public class AppConst extends DefaultAppConst {
     public static final String CODE = "monit";
-    public static String NAME = "Monitoring";
+    public static final String NAME = "Monitoring";
     public static String NAME_ENG = "Monitoring";
     public static String NAME_DEU = "Überwachung";
     public static String NAME_FRA = "Surveillance";

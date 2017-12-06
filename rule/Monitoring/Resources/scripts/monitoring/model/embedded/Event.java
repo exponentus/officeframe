@@ -1,24 +1,17 @@
 package monitoring.model.embedded;
 
-import com.exponentus.dataengine.jpa.IAppEntity;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.model.constants.ActivityType;
 
 import java.util.Date;
-import java.util.UUID;
 
 @JsonRootName("event")
 public class Event {
-
     private Date time;
-
-    private String description;
-
-    private IAppEntity<UUID> prevState;
-
-    private IAppEntity<UUID> afterState;
-
+    private String addInfo;
     private ActivityType type = ActivityType.UNKNOWN;
+
+    private String locInfo;
 
     public Date getTime() {
         return time;
@@ -28,28 +21,12 @@ public class Event {
         this.time = time;
     }
 
-    public String getDescription() {
-        return description;
+    public String getAddInfo() {
+        return addInfo;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public IAppEntity<UUID> getPrevState() {
-        return prevState;
-    }
-
-    public void setPrevState(IAppEntity<UUID> prevState) {
-        this.prevState = prevState;
-    }
-
-    public IAppEntity<UUID> getAfterState() {
-        return afterState;
-    }
-
-    public void setAfterState(IAppEntity<UUID> afterState) {
-        this.afterState = afterState;
+    public void setAddInfo(String addInfo) {
+        this.addInfo = addInfo;
     }
 
     public ActivityType getType() {
@@ -60,4 +37,11 @@ public class Event {
         this.type = type;
     }
 
+    public String getLocInfo() {
+        return locInfo;
+    }
+
+    public void setLocInfo(String locInfo) {
+        this.locInfo = locInfo;
+    }
 }

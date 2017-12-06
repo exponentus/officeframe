@@ -11,21 +11,14 @@ import org.eclipse.persistence.annotations.Converter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
 @JsonRootName("documentActivity")
 @Entity
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
-@Table(name = "monit__doc_activities")
-@NamedQuery(name = "DocumentActivity.findAll", query = "SELECT m FROM DocumentActivity AS m")
+@Table(name = AppConst.CODE + "__doc_activities")
 public class DocumentActivity extends SimpleAppEntity {
-
-    private DocumentActivity parentActivity;
-
-    @Column(name = "event_time", nullable = false)
-    private Date eventTime;
 
     @Convert("uuidConverter")
     @Column(name = "act_entity_id", nullable = false)
@@ -34,28 +27,10 @@ public class DocumentActivity extends SimpleAppEntity {
     @Column(name = "act_entity_kind")
     private String actEntityKind;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "monit__events")
     @javax.persistence.Convert(converter = EventConverter.class)
     @Column(name = "event", columnDefinition = "jsonb")
     @OrderBy("sort")
     private List<Event> events = new ArrayList<Event>();
-
-    public DocumentActivity getParentActivity() {
-        return parentActivity;
-    }
-
-    public void setParentActivity(DocumentActivity parentActivity) {
-        this.parentActivity = parentActivity;
-    }
-
-    public Date getEventTime() {
-        return eventTime;
-    }
-
-    public void setEventTime(Date eventTime) {
-        this.eventTime = eventTime;
-    }
 
     public UUID getActEntityId() {
         return actEntityId;
@@ -85,12 +60,7 @@ public class DocumentActivity extends SimpleAppEntity {
         events.add(e);
     }
 
-    @Override
-    public String getIdentifier() {
-        return id.toString();
-    }
-
     public String getURL() {
-        return AppConst.BASE_URL + "document-activities/" + getIdentifier();
+        return AppConst.BASE_URL + "document-activities/" + getId();
     }
 }

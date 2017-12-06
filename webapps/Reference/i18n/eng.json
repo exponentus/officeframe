@@ -779,6 +779,7 @@
   "real_estate_objects" : "Real estate objects",
   "learning_center" : "learning_center",
   "building_state_date" : "Date of commissioning",
+  "security" : "Security",
   "request_time" : "Request date",
   "value_exists" : "The value is exists",
   "primary_organization" : "Primary organization",

@@ -90,6 +90,6 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "approval-routes/" + getIdentifier();
+        return AppConst.BASE_URL + "approval-routes/" + getId();
     }
 }

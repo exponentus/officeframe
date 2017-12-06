@@ -17,7 +17,8 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
-import monitoring.dao.UserActivityFacility;
+import monitoring.dao.ActivityRecorder;
+import monitoring.dao.UserActivityDAO;
 import monitoring.ui.ViewOptions;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
@@ -41,7 +42,7 @@ public class UserActivityService extends RestProvider {
         _Session session = getSession();
         WebFormData params = getWebFormData();
 
-        UserActivityFacility dao = new UserActivityFacility(session);
+        UserActivityDAO dao = new UserActivityDAO(session);
         int pageSize = session.getPageSize();
         ViewPage vp = dao.findAll(params.getPage(), pageSize);
 
@@ -65,7 +66,7 @@ public class UserActivityService extends RestProvider {
     public Response getLastLoginViewPage() {
         _Session ses = getSession();
         try {
-            UserActivityFacility dao = new UserActivityFacility(ses);
+            UserActivityDAO dao = new UserActivityDAO(ses);
             ViewPage vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
 
             ActionBar actionBar = new ActionBar(ses);
@@ -91,7 +92,7 @@ public class UserActivityService extends RestProvider {
     public Response getRecordsCount() {
         _Session ses = getSession();
         try {
-            UserActivityFacility dao = new UserActivityFacility(ses);
+            UserActivityDAO dao = new UserActivityDAO(ses);
 
             ActionBar actionBar = new ActionBar(ses);
             actionBar.addAction(action.refreshVew);
