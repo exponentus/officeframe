@@ -487,6 +487,7 @@
   "building_material" : "Building material",
   "bank_details" : null,
   "notify_about_new_project_short" : "[NOTIFICATION] New project created",
+  "bin" : null,
   "expenditure_category" : null,
   "investment_indicator" : "investment_indicator",
   "inactive" : "Inactive",

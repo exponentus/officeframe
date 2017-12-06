@@ -487,6 +487,7 @@
   "building_material" : "Материал постройки",
   "bank_details" : "Реквизиты обслуживающего банка",
   "notify_about_new_project_short" : "[УВЕДОМЛЕНИЕ] Новый проект",
+  "bin" : "БИН",
   "expenditure_category" : "Категория расходов",
   "investment_indicator" : "Показатель по инвестиции",
   "inactive" : "Недействующее",

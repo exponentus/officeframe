@@ -38,8 +38,8 @@ public class NatureConservationObjTypeService extends ReferenceService<NatureCon
 
             ViewPage<NatureConservationObjType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
-            outcome.setTitle("nature_conservation_obj_type");
-            outcome.addPayload("contentTitle", "nature_conservation_obj_type");
+            outcome.setTitle("nature_conservation_obj_types");
+            outcome.addPayload("contentTitle", "nature_conservation_obj_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
