@@ -1,5 +1,7 @@
 package reference.services;
 
+import administrator.dao.ModuleDAO;
+import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
@@ -11,14 +13,16 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import com.exponentus.util.ReflectionUtil;
 import reference.dao.TagDAO;
+import reference.init.AppConst;
 import reference.model.Tag;
 import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
+import java.util.*;
 
 @Path("tags")
 public class TagService extends RestProvider {
@@ -73,6 +77,16 @@ public class TagService extends RestProvider {
                 entity = dao.findByIdentifier(id);
             }
 
+            Set<String> allTagCategories = new HashSet<String>();
+            ModuleDAO dao = new ModuleDAO();
+            allTagCategories.addAll(Arrays.asList(AppConst.TAG_CATEGORIES));
+            List<Application> modules = dao.findAll().getResult();
+            for (Application module : modules) {
+                if (module.isOn()) {
+                    String[] availableTagCategories = (String[]) ReflectionUtil.getAppConstValue(module.getName(), "TAG_CATEGORIES");
+                    allTagCategories.addAll(Arrays.asList(availableTagCategories));
+                }
+            }
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
@@ -80,6 +94,7 @@ public class TagService extends RestProvider {
             outcome.addPayload("contentTitle", "tag");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+            outcome.addPayload("tagCategories", allTagCategories);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
