@@ -595,6 +595,7 @@
   "count_days.1" : "{{count}} days",
   "approving_started" : "Appoval has been started",
   "add_route_block" : "Add route block",
+  "photoreports" : null,
   "approval_route" : "Approval route",
   "new_request" : "Request",
   "brand" : "NextBase",

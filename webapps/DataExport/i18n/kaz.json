@@ -595,6 +595,7 @@
   "count_days.1" : "{{count}} күн",
   "approving_started" : "approving_started",
   "add_route_block" : null,
+  "photoreports" : "Фоторепортаж",
   "approval_route" : null,
   "new_request" : null,
   "brand" : "NextBase",

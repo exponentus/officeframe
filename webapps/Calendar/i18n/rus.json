@@ -595,6 +595,7 @@
   "count_days.1" : "{{count}} дня",
   "approving_started" : "Согласование началось",
   "add_route_block" : "Добавить блок",
+  "photoreports" : "Фотоотчеты",
   "approval_route" : "Утвержденный маршрут",
   "new_request" : "Запрос",
   "brand" : "NextBase",

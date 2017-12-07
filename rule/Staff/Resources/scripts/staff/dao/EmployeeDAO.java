@@ -3,6 +3,7 @@ package staff.dao;
 import com.exponentus.common.dao.DAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.extconnect.IExtRole;
 import com.exponentus.extconnect.IExtUser;
@@ -142,7 +143,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         if (role != null) {
             return findByRole(role);
         } else {
-            return new ViewPage<>();
+            throw new DAOException(DAOExceptionType.NO_ROLE, roleName);
         }
     }
 

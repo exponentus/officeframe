@@ -595,6 +595,7 @@
   "count_days.1" : "count_days.1",
   "approving_started" : "approving_started",
   "add_route_block" : null,
+  "photoreports" : null,
   "approval_route" : null,
   "new_request" : "Solicitud",
   "brand" : "NextBase",
