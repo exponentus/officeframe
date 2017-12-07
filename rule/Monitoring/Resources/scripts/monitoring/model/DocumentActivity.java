@@ -24,7 +24,7 @@ public class DocumentActivity extends SimpleAppEntity {
     @Column(name = "act_entity_id", nullable = false)
     private UUID actEntityId;
 
-    @Column(name = "act_entity_kind")
+    @Column(name = "act_entity_kind", length = 64)
     private String actEntityKind;
 
     @javax.persistence.Convert(converter = EventConverter.class)

@@ -22,7 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class ActivityRecorder  implements IActivityRecorder {
+public class ActivityRecorder implements IActivityRecorder {
     private static IP2Country ip2c;
     private _Session ses;
 
@@ -35,35 +35,43 @@ public class ActivityRecorder  implements IActivityRecorder {
     }
 
     @Override
-    public void postEmailSending(IAppEntity<UUID> entity, List<String> recipients, String info) throws DAOException {
+    public void postEmailSending(IAppEntity<UUID> entity, List<String> recipients, String info) {
         if (recipients.size() > 0) {
             DocumentActivity ua = new DocumentActivity();
             ua.setActEntityId(entity.getId());
             ua.setActEntityKind(entity.getEntityKind());
-            Event e = new Event();
-            e.setType(ActivityType.SENT_EMAIL);
-            e.setTime(new Date());
-            e.setLocInfo(info);
-            e.setAddInfo(recipients.toString());
-            ua.addEvent(e);
-            DocumentActivityDAO dao = new DocumentActivityDAO(ses);
-            dao.add(ua);
+            Event event = new Event();
+            event.setType(ActivityType.SENT_EMAIL);
+            event.setTime(new Date());
+            event.setLocInfo(info);
+            event.setAddInfo(recipients.toString());
+            ua.addEvent(event);
+            try {
+                DocumentActivityDAO dao = new DocumentActivityDAO(ses);
+                dao.add(ua);
+            } catch (DAOException e) {
+                Lg.exception(e);
+            }
         }
     }
 
-    public void postSlackMsgSending(IAppEntity<UUID> entity, String addr, String info) throws DAOException{
+    public void postSlackMsgSending(IAppEntity<UUID> entity, String addr, String info) {
         if (!addr.isEmpty()) {
             DocumentActivity ua = new DocumentActivity();
             ua.setActEntityId(entity.getId());
             ua.setActEntityKind(entity.getEntityKind());
-            Event e = new Event();
-            e.setType(ActivityType.SENT_SLACK_MESSAGE);
-            e.setTime(new Date());
-            e.setLocInfo(info);
-            e.setAddInfo(addr);
-            ua.addEvent(e);
-            DocumentActivityDAO dao = new DocumentActivityDAO(ses);
-            dao.add(ua);
+            Event event = new Event();
+            event.setType(ActivityType.SENT_SLACK_MESSAGE);
+            event.setTime(new Date());
+            event.setLocInfo(info);
+            event.setAddInfo(addr);
+            ua.addEvent(event);
+            try {
+                DocumentActivityDAO dao = new DocumentActivityDAO(ses);
+                dao.add(ua);
+            } catch (DAOException e) {
+                Lg.exception(e);
+            }
         }
     }
 
