@@ -22,6 +22,15 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> {
     }
 
     public DocumentActivity findByEntityIdSilently(UUID entityId) throws DAOException {
+        DocumentActivity entity = findByEntityId(entityId);
+        if (entity == null){
+            return new DocumentActivity();
+        }else{
+            return entity;
+        }
+    }
+
+    public DocumentActivity findByEntityId(UUID entityId) throws DAOException {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         try {
@@ -35,7 +44,7 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> {
         } catch (NonUniqueResultException e) {
             throw new DAOException(e);
         } catch (NoResultException e) {
-            return new DocumentActivity();
+            return null;
         } finally {
             em.close();
         }

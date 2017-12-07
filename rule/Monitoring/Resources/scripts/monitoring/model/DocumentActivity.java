@@ -17,14 +17,14 @@ import java.util.UUID;
 @JsonRootName("documentActivity")
 @Entity
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
-@Table(name = AppConst.CODE + "__doc_activities")
+@Table(name = AppConst.CODE + "__doc_activities", uniqueConstraints = @UniqueConstraint(columnNames = {"act_entity_id"}))
 public class DocumentActivity extends SimpleAppEntity {
 
     @Convert("uuidConverter")
     @Column(name = "act_entity_id", nullable = false, unique = true)
     private UUID actEntityId;
 
-    @Column(name = "act_entity_kind", length = 64)
+    @Column(name = "act_entity_kind", length = 32)
     private String actEntityKind;
 
     @javax.persistence.Convert(converter = EventConverter.class)

@@ -37,48 +37,29 @@ public class ActivityRecorder implements IActivityRecorder {
     @Override
     public void postEmailSending(IAppEntity<UUID> entity, List<String> recipients, String info) {
         if (recipients.size() > 0) {
-            DocumentActivity ua = new DocumentActivity();
-            ua.setActEntityId(entity.getId());
-            ua.setActEntityKind(entity.getEntityKind());
             Event event = new Event();
             event.setType(ActivityType.SENT_EMAIL);
             event.setTime(new Date());
             event.setLocInfo(info);
             event.setAddInfo(recipients.toString());
-            ua.addEvent(event);
-            try {
-                DocumentActivityDAO dao = new DocumentActivityDAO(ses);
-                dao.add(ua);
-            } catch (DAOException e) {
-                Lg.exception(e);
-            }
+            postActivity(entity,event);
         }
     }
 
     public void postSlackMsgSending(IAppEntity<UUID> entity, String addr, String info) {
         if (!addr.isEmpty()) {
-            DocumentActivity ua = new DocumentActivity();
-            ua.setActEntityId(entity.getId());
-            ua.setActEntityKind(entity.getEntityKind());
-            Event event = new Event();
+             Event event = new Event();
             event.setType(ActivityType.SENT_SLACK_MESSAGE);
             event.setTime(new Date());
             event.setLocInfo(info);
             event.setAddInfo(addr);
-            ua.addEvent(event);
-            try {
-                DocumentActivityDAO dao = new DocumentActivityDAO(ses);
-                dao.add(ua);
-            } catch (DAOException e) {
-                Lg.exception(e);
-            }
+            postActivity(entity,event);
         }
     }
 
 
     @Override
     public void postLogin(IUser user, String ip) throws DAOException {
-
         UserActivity ua = new UserActivity();
         ua.setEventTime(new Date());
         ua.setType(ActivityType.LOGIN);
@@ -114,5 +95,24 @@ public class ActivityRecorder implements IActivityRecorder {
 
         }
         //	add(ua);
+    }
+
+    private void postActivity(IAppEntity<UUID> entity, Event event) {
+        try {
+            DocumentActivityDAO dao = new DocumentActivityDAO(ses);
+            DocumentActivity documentActivity = dao.findByEntityId(entity.getId());
+            if (documentActivity == null) {
+                documentActivity = new DocumentActivity();
+                documentActivity.setActEntityId(entity.getId());
+                documentActivity.setActEntityKind(entity.getEntityKind());
+                documentActivity.addEvent(event);
+                dao.add(documentActivity);
+            } else {
+                documentActivity.addEvent(event);
+                dao.update(documentActivity);
+            }
+        } catch (DAOException e) {
+            Lg.exception(e);
+        }
     }
 }
