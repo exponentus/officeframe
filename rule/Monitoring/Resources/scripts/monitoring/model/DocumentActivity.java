@@ -21,7 +21,7 @@ import java.util.UUID;
 public class DocumentActivity extends SimpleAppEntity {
 
     @Convert("uuidConverter")
-    @Column(name = "act_entity_id", nullable = false)
+    @Column(name = "act_entity_id", nullable = false, unique = true)
     private UUID actEntityId;
 
     @Column(name = "act_entity_kind", length = 64)

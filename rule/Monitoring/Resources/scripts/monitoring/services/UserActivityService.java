@@ -76,7 +76,7 @@ public class UserActivityService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setId("last-visits");
-            outcome.setTitle("last_visit");
+            outcome.setTitle("last_logins");
             outcome.addPayload("contentTitle", "last_logins");
             outcome.addPayload(actionBar);
             outcome.addPayload(vp);
