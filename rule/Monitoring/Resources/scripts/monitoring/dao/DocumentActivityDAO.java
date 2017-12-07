@@ -21,7 +21,7 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> {
         super(DocumentActivity.class);
     }
 
-    public DocumentActivity findByEntityId(UUID entityId) throws DAOException {
+    public DocumentActivity findByEntityIdSilently(UUID entityId) throws DAOException {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         try {
@@ -35,7 +35,7 @@ public class DocumentActivityDAO extends SimpleDAO<DocumentActivity> {
         } catch (NonUniqueResultException e) {
             throw new DAOException(e);
         } catch (NoResultException e) {
-            return null;
+            return new DocumentActivity();
         } finally {
             em.close();
         }
