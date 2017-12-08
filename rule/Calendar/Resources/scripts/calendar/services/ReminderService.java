@@ -41,17 +41,24 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
         int pageSize = session.getPageSize();
 
         try {
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("regDate", "-regDate"));
             ReminderDAO dao = new ReminderDAO(session);
             ViewPage<Reminder> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
+            cg.setClassName("vw-30");
             cg.add(new ViewColumn("title"));
-            cg.add(new ViewColumn("reminderType").name("reminder_type").type(ViewColumnType.translate));
-            cg.add(new ViewColumn("description"));
+            ViewColumnGroup cg2 = new ViewColumnGroup();
+            cg2.setClassName("vw-20");
+            cg2.add(new ViewColumn("reminderType").name("reminder_type").type(ViewColumnType.translate));
+            ViewColumnGroup cg3 = new ViewColumnGroup();
+            cg3.setClassName("vw-50");
+            cg3.add(new ViewColumn("description"));
             List<ViewColumnGroup> list = new ArrayList<>();
             list.add(cg);
+            list.add(cg2);
+            list.add(cg3);
             vo.setRoot(list);
             vp.setViewPageOptions(vo);
 

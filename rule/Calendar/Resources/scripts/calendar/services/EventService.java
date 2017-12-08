@@ -45,19 +45,28 @@ public class EventService extends EntityService<Event, EventDomain> {
             EventFilter eventFilter = new EventFilter();
             setupFilter(eventFilter, params);
 
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("regDate", "-regDate"));
             EventDAO dao = new EventDAO(session);
             ViewPage<Event> vp = dao.findViewPage(eventFilter, sortParams, params.getPage(), pageSize);
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
+            cg.setClassName("vw-25");
             cg.add(new ViewColumn("title"));
-            cg.add(new ViewColumn("eventTime").name("event_time").type(ViewColumnType.date).format("DD.MM.YYYY").sortBoth());
-            cg.add(new ViewColumn("priority").type(ViewColumnType.translate));
-            cg.add(new ViewColumn("description"));
-            cg.add(new ViewColumn("tags").type(ViewColumnType.localizedName));
+            ViewColumnGroup cg2 = new ViewColumnGroup();
+            cg2.setClassName("vw-25");
+            cg2.add(new ViewColumn("eventTime").name("event_time").type(ViewColumnType.date).format("DD.MM.YYYY").sortBoth());
+            cg2.add(new ViewColumn("priority").type(ViewColumnType.translate));
+            ViewColumnGroup cg3 = new ViewColumnGroup();
+            cg3.setClassName("vw-35");
+            cg3.add(new ViewColumn("description"));
+            ViewColumnGroup cg4 = new ViewColumnGroup();
+            cg4.setClassName("vw-15");
+            cg4.add(new ViewColumn("tags").type(ViewColumnType.localizedName));
             List<ViewColumnGroup> list = new ArrayList<>();
             list.add(cg);
+            list.add(cg2);
+            list.add(cg3);
             vo.setRoot(list);
             vp.setViewPageOptions(vo);
 
