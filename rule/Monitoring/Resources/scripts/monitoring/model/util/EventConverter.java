@@ -46,8 +46,8 @@ public class EventConverter implements AttributeConverter<List<Event>, PGobject>
     public List<Event> convertToEntityAttribute(PGobject po) {
         try {
             TypeFactory typeFactory = mapper.getTypeFactory();
-            CollectionType mapType = typeFactory.constructCollectionType(ArrayList.class, Event.class);
-            return mapper.readValue(po.getValue(), mapType);
+            CollectionType collectionType = typeFactory.constructCollectionType(ArrayList.class, Event.class);
+            return mapper.readValue(po.getValue(), collectionType);
         } catch (Exception e) {
             Server.logger.error(e.toString());
             return new ArrayList<Event>();
