@@ -3,14 +3,12 @@ package monitoring.dao;
 import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.TimeUtil;
+import com.sun.org.glassfish.external.statistics.Statistic;
 import monitoring.dto.TimeChart;
 import monitoring.model.DocumentActivity;
-import monitoring.model.Statistic;
 import org.apache.commons.lang3.time.DateUtils;
 
 import javax.persistence.*;
@@ -32,34 +30,34 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
 
     public void postStat(User user, String appCode, String type, Date eventTime, String status, long amount) throws DAOException {
         if (amount > 0) {
-            Statistic ua = new Statistic();
+    /*        Statistic ua = new Statistic();
             ua.setActUser(user.getId());
             ua.setType(type);
             ua.setAmount(amount);
             ua.setAppCode(appCode);
             ua.setEventTime(eventTime);
-            ua.setStatus(status);
-            try {
+            ua.setStatus(status);*/
+     //       try {
                 Statistic prevStat = findByStatKeys(user, appCode, type, DateUtils.addDays(eventTime, -1), status, amount);
                 if (prevStat == null) {
                     Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
                     if (s != null) {
-                        if (amount != s.getAmount()) {
-                            s.setAmount(amount);
+            //            if (amount != s.getAmount()) {
+            //                s.setAmount(amount);
                             update(s);
-                        }
+            //            }
                     } else {
-                        add(ua);
+             //           add(ua);
                     }
                 }
-            } catch (DAOException e) {
+        /*    } catch (DAOException e) {
                 if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
                     Lg.warning("a data is already exists (" + user.getId() + "-" + appCode + "-" + TimeUtil.dateToStringSilently(eventTime)
                             + "-" + type + "-" + status + "), record was skipped");
                 } else {
                     Lg.exception(e);
                 }
-            }
+            }*/
         }
 
     }
@@ -158,7 +156,7 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
                                             "AND s.actUser = :au AND s.status = :s")
                             .setParameter("ac", appCode).setParameter("t", type).setParameter("au", user.getId())
                             .setParameter("et", fromIter, TemporalType.DATE).setParameter("s", status).getSingleResult();
-                    chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());
+          //          chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());
                     chart.setType(type);
                     chart.setStatus(status);
                     chart.setStart(TimeUtil.dateToStringSilently(from));
