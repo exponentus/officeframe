@@ -150,13 +150,13 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
         try {
             for (Date fromIter = from; !fromIter.after(to); fromIter = DateUtils.addDays(fromIter, 1)) {
                 try {
-                    Statistic stat = (Statistic) em
+         /*           Statistic stat = (Statistic) em
                             .createQuery(
                                     "SELECT s FROM Statistic s WHERE s.eventTime = :et AND s.appCode=:ac AND s.type = :t " +
                                             "AND s.actUser = :au AND s.status = :s")
                             .setParameter("ac", appCode).setParameter("t", type).setParameter("au", user.getId())
                             .setParameter("et", fromIter, TemporalType.DATE).setParameter("s", status).getSingleResult();
-          //          chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());
+                   chart.addValue(TimeUtil.dateToStringSilently(fromIter), stat.getAmount());*/
                     chart.setType(type);
                     chart.setStatus(status);
                     chart.setStart(TimeUtil.dateToStringSilently(from));
