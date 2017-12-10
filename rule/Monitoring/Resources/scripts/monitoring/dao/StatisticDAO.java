@@ -28,36 +28,18 @@ public class StatisticDAO extends SimpleDAO<Statistic> {
         super(Statistic.class);
     }
 
-    public void postStat(User user, String appCode, String type, Date eventTime, String status, long amount) throws DAOException {
+    public void postStat(User user, String appCode, String type, Date eventTime, String status, long amount) {
         if (amount > 0) {
-    /*        Statistic ua = new Statistic();
-            ua.setActUser(user.getId());
-            ua.setType(type);
-            ua.setAmount(amount);
-            ua.setAppCode(appCode);
-            ua.setEventTime(eventTime);
-            ua.setStatus(status);*/
-     //       try {
-                Statistic prevStat = findByStatKeys(user, appCode, type, DateUtils.addDays(eventTime, -1), status, amount);
-                if (prevStat == null) {
-                    Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
-                    if (s != null) {
-            //            if (amount != s.getAmount()) {
-            //                s.setAmount(amount);
-                            update(s);
-            //            }
-                    } else {
-             //           add(ua);
-                    }
-                }
-        /*    } catch (DAOException e) {
-                if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
-                    Lg.warning("a data is already exists (" + user.getId() + "-" + appCode + "-" + TimeUtil.dateToStringSilently(eventTime)
-                            + "-" + type + "-" + status + "), record was skipped");
+            Statistic prevStat = findByStatKeys(user, appCode, type, DateUtils.addDays(eventTime, -1), status, amount);
+            if (prevStat == null) {
+                Statistic s = findByStatKeys(user, appCode, type, eventTime, status);
+                if (s != null) {
+                    update(s);
                 } else {
-                    Lg.exception(e);
+
                 }
-            }*/
+            }
+
         }
 
     }
