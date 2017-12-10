@@ -2,7 +2,6 @@ package monitoring.dao;
 
 import administrator.model.User;
 import com.exponentus.common.dao.SimpleDAO;
-import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.TimeUtil;
