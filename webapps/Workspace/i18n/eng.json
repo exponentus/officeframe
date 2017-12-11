@@ -723,7 +723,7 @@
   "type" : "Type",
   "just_close" : "Just close the form",
   "approval_block_accepted" : "You decision has been accepted as YES",
-  "sent_slack_message": "SENT_SLACK_MESSAGE",
+  "sent_slack_message": "Slack-message has been sent",
   "markdown_write" : "Writer",
   "request_error" : "Error while executing the query",
   "road" : null,

@@ -28,6 +28,6 @@ public class DocumentSubject extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "document-subjects/" + getIdentifier();
+        return AppConst.BASE_URL + "document-subjects/" + getId();
     }
 }

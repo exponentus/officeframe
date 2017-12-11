@@ -723,7 +723,7 @@
   "type" : null,
   "just_close" : null,
   "approval_block_accepted" : "approval_block_accepted",
-  "sent_slack_message": "SENT_SLACK_MESSAGE",
+  "sent_slack_message": "Slack-mensagem enviada",
   "markdown_write" : null,
   "request_error" : "Ошибка при выполнении запроса",
   "road" : null,
