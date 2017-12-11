@@ -24,7 +24,10 @@
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap-4/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
-                <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css"/>
+                <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css?key={//googleMapApiKey}"/>
+                <xsl:if test="//googleMapApiKey != ''">
+                    <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
+                </xsl:if>
                 <style>
                     <![CDATA[
                     /* fix: fieldset content overflow */
