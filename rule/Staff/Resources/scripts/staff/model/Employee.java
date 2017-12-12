@@ -203,6 +203,8 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
         Attachment a = new Attachment();
         if (avatar != null && !avatar.getRealFileName().isEmpty()) {
             a.setRealFileName(avatar.getRealFileName());
+            a.setExtension("png");
+            a.setId(getId());
         } else {
             a.setRealFileName("no_avatar.png");
         }

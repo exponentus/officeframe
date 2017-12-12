@@ -8,15 +8,20 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.log.Lg;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
+import com.exponentus.scheduler.tasks.TempFileCleaner;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._FormAttachments;
 import com.exponentus.scripting._Session;
+import com.exponentus.server.Server;
 import com.exponentus.user.IUser;
+import com.exponentus.util.StringUtil;
+import org.apache.commons.io.FileUtils;
 import staff.dao.EmployeeDAO;
 import staff.dao.RoleDAO;
 import staff.dao.filter.EmployeeFilter;
@@ -30,6 +35,8 @@ import staff.ui.ViewOptions;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -82,7 +89,31 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
     @GET
     @Path("{id}/avatar")
     public Response getAvatar(@PathParam("id") String id) {
-        return null;
+        try {
+            EmployeeDAO dao = new EmployeeDAO(getSession());
+            Employee entity = dao.findById(id);
+
+            if (entity == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
+            Avatar avatar = entity.getAvatar();
+            String filePath = Environment.tmpDir + File.separator + StringUtil.getRndText() + File.separator + avatar.getRealFileName();
+            try {
+                File attFile = new File(filePath);
+                FileUtils.writeByteArrayToFile(attFile, avatar.getFile());
+                TempFileCleaner.addFileToDelete(filePath);
+                return Response.ok(attFile).build();
+            } catch (IOException ioe) {
+                Server.logger.exception(ioe);
+                return null;
+            } finally {
+                TempFileCleaner.addFileToDelete(filePath);
+            }
+        } catch (DAOException e) {
+            Server.logger.exception(e);
+            return null;
+        }
     }
 
     @GET
@@ -297,8 +328,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
         if (params.containsField("fired")) {
             filter.setWithFired(params.getBoolSilently("fired"));
-        } else {
-            filter.setWithFired(true);
         }
 
         String keyword = params.getValueSilently("keyword");
