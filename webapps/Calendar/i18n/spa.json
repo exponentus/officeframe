@@ -456,6 +456,7 @@
   "recycle_bin" : null,
   "count" : "count",
   "report_profile" : "Tipo de informe",
+  "bus_station_activities": null,
   "without_approval" : null,
   "in_days.2" : "in_days.2",
   "in_days.1" : "Mañana",

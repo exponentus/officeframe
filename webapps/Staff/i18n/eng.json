@@ -456,6 +456,7 @@
   "recycle_bin" : "Recycle Bin",
   "count" : "Count",
   "report_profile" : "Report profile",
+  "bus_station_activities": null,
   "without_approval" : "Without approval",
   "in_days.2" : " {{count}} days",
   "in_days.1" : "Tomorrow",
