@@ -456,6 +456,7 @@
   "recycle_bin" : null,
   "count" : "Количество",
   "report_profile" : "Профиль отчета",
+  "bus_station_activities": "Перечень услуг",
   "without_approval" : "Без согласования",
   "in_days.2" : " {{count}} дня",
   "in_days.1" : "Завтра",
