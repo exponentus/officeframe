@@ -245,4 +245,11 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     public String getURL() {
         return AppConst.BASE_URL + "employees/" + getId();
     }
+
+    public String getAvatarURL() {
+        if (avatar == null) {
+            return null;
+        }
+        return AppConst.BASE_URL + "api/employees/" + getId() + "/avatar";
+    }
 }

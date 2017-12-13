@@ -98,6 +98,10 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             }
 
             Avatar avatar = entity.getAvatar();
+            if (avatar == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+
             String filePath = Environment.tmpDir + File.separator + StringUtil.getRndText() + File.separator + avatar.getRealFileName();
             try {
                 File attFile = new File(filePath);
