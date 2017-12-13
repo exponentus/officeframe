@@ -49,7 +49,7 @@ public class NavigatorService extends RestProvider {
             }
             co.addEntry(new OutlineEntry("organizations", "", "organizations", AppConst.BASE_URL + "organizations"));
             co.addEntry(new OutlineEntry("departments", "", "departments", AppConst.BASE_URL + "departments"));
-            co.addEntry(new OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees"));
+            co.addEntry(new OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees?fired=true"));
             co.addEntry(new OutlineEntry("individuals", "", "individuals", AppConst.BASE_URL + "individuals"));
 
             Outline ro = new Outline("", "staff_ref");
