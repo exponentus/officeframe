@@ -45,12 +45,18 @@ public class ViewOptions {
         ViewPageOptions result = new ViewPageOptions();
 
         ViewColumnGroup cg = new ViewColumnGroup();
+        cg.setClassName("vw-40 vw-sm-100");
+        cg.add(new ViewColumn("avatarURLSm").name("").type(ViewColumnType.image).cellStyle("return { 'width': '48px' }"));
         cg.add(new ViewColumn("name").sortBoth().style("return it.fired ? { 'color': '#777', 'text-decoration': 'line-through' } : null"));
-        cg.add(new ViewColumn("position").type(ViewColumnType.localizedName));
-        cg.add(new ViewColumn("login").name("login_name"));
+
+        ViewColumnGroup cg2 = new ViewColumnGroup();
+        cg2.setClassName("vw-60");
+        cg2.add(new ViewColumn("position").type(ViewColumnType.localizedName));
+        cg2.add(new ViewColumn("login").name("login_name"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg);
+        list.add(cg2);
 
         result.setRoot(list);
         return result;

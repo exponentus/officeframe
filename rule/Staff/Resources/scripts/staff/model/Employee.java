@@ -252,4 +252,11 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
         }
         return AppConst.BASE_URL + "api/employees/" + getId() + "/avatar";
     }
+
+    public String getAvatarURLSm() {
+        if (avatar == null) {
+            return null;
+        }
+        return AppConst.BASE_URL + "api/employees/" + getId() + "/avatar?_thumbnail";
+    }
 }
