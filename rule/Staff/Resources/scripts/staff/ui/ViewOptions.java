@@ -46,7 +46,7 @@ public class ViewOptions {
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-40 vw-sm-100");
-        cg.add(new ViewColumn("avatarURLSm").name("").type(ViewColumnType.image).cellStyle("return { 'width': '48px' }"));
+        cg.add(new ViewColumn("avatarURLSm").name("").type(ViewColumnType.image).cellStyle("return { 'max-width': '50px', 'width': '50px' }"));
         cg.add(new ViewColumn("name").sortBoth().style("return it.fired ? { 'color': '#777', 'text-decoration': 'line-through' } : null"));
 
         ViewColumnGroup cg2 = new ViewColumnGroup();
@@ -78,31 +78,6 @@ public class ViewOptions {
     }
 
     public FilterForm getOrgFilter() {
-        /*
-        organizations: {
-            fieldsets: [{
-                fields: [{
-                    type: 'select',
-                    name: 'orgCategory',
-                    placeHolder: 'org_category',
-                    values: {
-                        url: REFERENCE_URL.API_ORG_CATEGORIES,
-                        targetValue: 'id',
-                        searchable: false
-                    }
-                }, {
-                    type: 'select',
-                    name: 'labels',
-                    placeHolder: 'organization_labels',
-                    values: {
-                        url: STAFF_URL.API_ORGANIZATION_LABELS,
-                        targetValue: 'id',
-                        searchable: false
-                    }
-                }]
-            }]
-        }
-         */
         FilterForm filterForm = new FilterForm();
         FilterGroup filterGroup = new FilterGroup();
         filterGroup.addItem(new FilterItem("orgCategory", "org_category").url("/Reference/api/org-categories"));
@@ -114,22 +89,6 @@ public class ViewOptions {
     }
 
     public FilterForm getEmployeeFilter() {
-        /*
-            employees: {
-                fieldsets: [{
-                    fields: [{
-                        type: 'select',
-                        name: 'role',
-                        placeHolder: 'roles',
-                        values: {
-                            multiple: false,
-                            url: STAFF_URL.API_ROLES,
-                            targetValue: 'id'
-                        }
-                    }]
-                }]
-            }
-         */
         FilterForm filterForm = new FilterForm();
         FilterGroup filterGroup = new FilterGroup();
         filterGroup.addItem(new FilterItem("role").url("/Staff/api/roles"));
