@@ -26,6 +26,7 @@ import staff.dao.EmployeeDAO;
 import staff.dao.RoleDAO;
 import staff.dao.filter.EmployeeFilter;
 import staff.domain.EmployeeDomain;
+import staff.dto.converter.EmployeeConverter;
 import staff.model.Employee;
 import staff.model.Role;
 import staff.services.helper.RoleProcessor;
@@ -37,10 +38,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 
@@ -59,10 +57,11 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             EmployeeFilter filter = setUpFilter(new EmployeeFilter(), params);
+            EmployeeConverter converter = new EmployeeConverter(Arrays.asList(params.getValueSilently("fields").split(",")));
 
             EmployeeDAO dao = new EmployeeDAO(session);
             ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
-                    params.getNumberValueSilently("limit", session.getPageSize()));
+                    params.getNumberValueSilently("limit", session.getPageSize()), converter);
             ViewOptions viewOptions = new ViewOptions();
             vp.setViewPageOptions(viewOptions.getEmpOptions());
             vp.setFilter(viewOptions.getEmployeeFilter());
