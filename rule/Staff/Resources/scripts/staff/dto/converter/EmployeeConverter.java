@@ -34,6 +34,7 @@ public class EmployeeConverter implements GenericConverter<Employee, Employee> {
             }
         } else {
             User user = new User();
+            user.setId(emp.getUser().getId());
             user.setLogin(emp.getUser().getLogin());
             dto.setUser(user);
             if (emp.getPosition() != null) {
