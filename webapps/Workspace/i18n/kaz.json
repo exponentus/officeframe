@@ -600,6 +600,7 @@
   "officememo" : "officememo",
   "initiative_tasks" : "initiative_tasks",
   "count_days.0" : "{{count}} күн",
+  "about": "Осы бағдарламалық жасақтама туралы...",
   "registered" : "Тіркелген",
   "count_days.2" : "{{count}} күн",
   "count_days.1" : "{{count}} күн",

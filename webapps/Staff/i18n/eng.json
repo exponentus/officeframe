@@ -600,6 +600,7 @@
   "officememo" : "officememo",
   "initiative_tasks" : "Initiative tasks",
   "count_days.0" : "{{count}} day",
+  "about": "About...",
   "registered" : "Registered",
   "count_days.2" : "{{count}} days",
   "count_days.1" : "{{count}} days",

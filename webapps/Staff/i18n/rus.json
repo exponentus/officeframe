@@ -600,6 +600,7 @@
   "officememo" : "Служебная записка",
   "initiative_tasks" : "Инициативные задачи",
   "count_days.0" : "{{count}} день",
+  "about": "О программе..",
   "registered" : "Зарегистрирован",
   "count_days.2" : "{{count}} дней",
   "count_days.1" : "{{count}} дня",
