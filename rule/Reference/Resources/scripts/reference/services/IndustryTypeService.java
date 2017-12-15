@@ -77,7 +77,6 @@ public class IndustryTypeService extends RestProvider {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
@@ -110,7 +109,6 @@ public class IndustryTypeService extends RestProvider {
 
     public Response save(IndustryType dto) {
         _Session session = getSession();
-
 
         try {
             validate(dto);
@@ -147,6 +145,9 @@ public class IndustryTypeService extends RestProvider {
 
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
+        }
+        if (entity.getCategory() == null) {
+            ve.addError("category", "required", "field_is_empty");
         }
 
         if (ve.hasError()) {
