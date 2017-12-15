@@ -47,18 +47,15 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
-            cg.setClassName("vw-30");
+            cg.setClassName("vw-60");
             cg.add(new ViewColumn("title"));
             ViewColumnGroup cg2 = new ViewColumnGroup();
-            cg2.setClassName("vw-20");
+            cg2.setClassName("vw-40");
             cg2.add(new ViewColumn("reminderType").name("reminder_type").type(ViewColumnType.translate));
-            ViewColumnGroup cg3 = new ViewColumnGroup();
-            cg3.setClassName("vw-50");
-            cg3.add(new ViewColumn("description"));
+
             List<ViewColumnGroup> list = new ArrayList<>();
             list.add(cg);
             list.add(cg2);
-            list.add(cg3);
             vo.setRoot(list);
             vp.setViewPageOptions(vo);
 
@@ -94,6 +91,7 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
             }
 
             Outcome outcome = domain.getOutcome(entity);
+            outcome.setTitle("reminder");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("contentTitle", "reminder");
             outcome.addPayload(getDefaultFormActionBar(entity));

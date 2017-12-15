@@ -51,18 +51,15 @@ public class EventService extends EntityService<Event, EventDomain> {
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
-            cg.setClassName("vw-25");
+            cg.setClassName("vw-35");
             cg.add(new ViewColumn("title"));
             ViewColumnGroup cg2 = new ViewColumnGroup();
-            cg2.setClassName("vw-25");
+            cg2.setClassName("vw-35");
             cg2.add(new ViewColumn("eventTime").name("event_time").type(ViewColumnType.date).format("DD.MM.YYYY").sortBoth());
             cg2.add(new ViewColumn("priority").type(ViewColumnType.translate));
             ViewColumnGroup cg3 = new ViewColumnGroup();
-            cg3.setClassName("vw-35");
-            cg3.add(new ViewColumn("description"));
-            ViewColumnGroup cg4 = new ViewColumnGroup();
-            cg4.setClassName("vw-15");
-            cg4.add(new ViewColumn("tags").type(ViewColumnType.localizedName));
+            cg3.setClassName("vw-30");
+            cg3.add(new ViewColumn("tags").type(ViewColumnType.localizedName));
             List<ViewColumnGroup> list = new ArrayList<>();
             list.add(cg);
             list.add(cg2);
@@ -102,6 +99,7 @@ public class EventService extends EntityService<Event, EventDomain> {
             }
 
             Outcome outcome = domain.getOutcome(entity);
+            outcome.setTitle("event");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("contentTitle", "event");
             outcome.addPayload(getDefaultFormActionBar(entity));
