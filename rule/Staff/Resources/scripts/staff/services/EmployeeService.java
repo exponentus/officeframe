@@ -61,7 +61,8 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
             EmployeeDAO dao = new EmployeeDAO(session);
             ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
-                    params.getNumberValueSilently("limit", session.getPageSize()), converter);
+                    params.getNumberValueSilently("limit", session.getPageSize()));
+            vp.setResult(converter.convert(vp.getResult()));
             ViewOptions viewOptions = new ViewOptions();
             vp.setViewPageOptions(viewOptions.getEmpOptions());
             vp.setFilter(viewOptions.getEmployeeFilter());

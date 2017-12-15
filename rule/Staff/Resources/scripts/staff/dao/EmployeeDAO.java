@@ -1,6 +1,5 @@
 package staff.dao;
 
-import com.exponentus.common.converter.GenericConverter;
 import com.exponentus.common.dao.DAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
@@ -57,10 +56,6 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     }
 
     public ViewPage<Employee> findAll(EmployeeFilter filter, SortParams sortParams, int pageNum, int pageSize) {
-        return findAll(filter, sortParams, pageNum, pageSize, null);
-    }
-
-    public ViewPage<Employee> findAll(EmployeeFilter filter, SortParams sortParams, int pageNum, int pageSize, GenericConverter converter) {
         if (filter == null) {
             throw new IllegalArgumentException("filter is null");
         }
@@ -115,13 +110,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
 
             long count = (long) query.getSingleResult();
             int maxPage = pageable(typedQuery, count, pageNum, pageSize);
-            List<Employee> result;
-
-            if (converter == null) {
-                result = typedQuery.getResultList();
-            } else {
-                result = converter.convert(typedQuery.getResultList());
-            }
+            List<Employee> result = typedQuery.getResultList();
 
             return new ViewPage<>(result, count, maxPage, pageNum);
         } finally {
