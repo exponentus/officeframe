@@ -43,6 +43,7 @@ public class EmployeeConverter implements GenericConverter<Employee, Employee> {
                 position.setLocName(emp.getPosition().getLocName());
                 dto.setPosition(position);
             }
+            dto.setRoles(emp.getRoles());
             dto.setAvatar(emp.getAvatar());
         }
 
