@@ -13,6 +13,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
+import reference.dao.filter.IndustryTypeFilter;
 import reference.init.DataConst;
 import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
@@ -36,9 +37,17 @@ public class IndustryTypeService extends RestProvider {
         try {
             Outcome outcome = new Outcome();
 
+            IndustryTypeFilter filter = new IndustryTypeFilter();
+            ActivityTypeCategory activityTypeCategory;
+            String categoryId = params.getStringValueSilently("category", "");
+            if (!categoryId.isEmpty()) {
+                activityTypeCategory = new ActivityTypeCategory();
+                activityTypeCategory.setId(UUID.fromString(categoryId));
+                filter.setActivityTypeCategory(activityTypeCategory);
+            }
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             IndustryTypeDAO dao = new IndustryTypeDAO(session);
-            ViewPage<IndustryType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            ViewPage<IndustryType> vp = dao.findViewPage(filter, sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("industry_types");
             outcome.addPayload("contentTitle", "industry_types");

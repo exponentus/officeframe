@@ -17,6 +17,6 @@ public class ActivityTypeCategory extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "activity-type-categories/" + getIdentifier();
+        return AppConst.BASE_URL + "activity-type-categories/" + getId();
     }
 }
