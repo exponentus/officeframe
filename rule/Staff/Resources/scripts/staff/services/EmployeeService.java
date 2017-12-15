@@ -26,7 +26,7 @@ import staff.dao.EmployeeDAO;
 import staff.dao.RoleDAO;
 import staff.dao.filter.EmployeeFilter;
 import staff.domain.EmployeeDomain;
-import staff.dto.converter.EmployeeConverter;
+import staff.dto.converter.EmployeeDtoConverter;
 import staff.model.Employee;
 import staff.model.Role;
 import staff.services.helper.RoleProcessor;
@@ -57,7 +57,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             EmployeeFilter filter = setUpFilter(new EmployeeFilter(), params);
-            EmployeeConverter converter = new EmployeeConverter(Arrays.asList(params.getValueSilently("fields").split(",")));
+            EmployeeDtoConverter converter = new EmployeeDtoConverter(Arrays.asList(params.getValueSilently("fields").split(",")));
 
             EmployeeDAO dao = new EmployeeDAO(session);
             ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),

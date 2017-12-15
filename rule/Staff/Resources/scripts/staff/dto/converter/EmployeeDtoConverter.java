@@ -7,14 +7,14 @@ import staff.model.Employee;
 
 import java.util.List;
 
-public class EmployeeConverter implements GenericConverter<Employee, Employee> {
+public class EmployeeDtoConverter implements GenericConverter<Employee, Employee> {
 
     private List<String> fields;
 
-    public EmployeeConverter() {
+    public EmployeeDtoConverter() {
     }
 
-    public EmployeeConverter(List<String> fields) {
+    public EmployeeDtoConverter(List<String> fields) {
         if (fields != null && fields.size() > 0 && !fields.get(0).isEmpty()) {
             this.fields = fields;
         }
