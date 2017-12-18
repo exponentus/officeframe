@@ -88,9 +88,9 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
 
             if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
                 if (condition == null) {
-                    condition = cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
+                    condition = cb.like(cb.lower(root.get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
                 } else {
-                    condition = cb.and(cb.like(cb.lower(root.<String>get("name")), "%" + filter.getKeyword().toLowerCase() + "%"),
+                    condition = cb.and(cb.like(cb.lower(root.get("name")), "%" + filter.getKeyword().toLowerCase() + "%"),
                             condition);
                 }
             }
@@ -186,7 +186,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
             Root<Employee> c = cq.from(getEntityClass());
             cq.select(c);
             countCq.select(cb.count(c));
-            Predicate condition = cb.like(cb.lower(c.<String>get("name")), "%" + keyword.toLowerCase() + "%");
+            Predicate condition = cb.like(cb.lower(c.get("name")), "%" + keyword.toLowerCase() + "%");
             cq.where(condition);
             countCq.where(condition);
             TypedQuery<Employee> typedQuery = em.createQuery(cq);
@@ -201,6 +201,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     }
 
     @Override
+    @Deprecated
     public IExtUser getEmployee(long id) {
         return findByUserId(id);
     }
@@ -227,7 +228,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
     }
 
     @Override
-    public void delete(Employee entity) throws SecureException, DAOException {
+    public void delete(Employee entity) {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         try {
             EntityTransaction t = em.getTransaction();
