@@ -128,7 +128,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         try {
             _Session session = getSession();
             Employee entity;
-            boolean isNew = "new".equals(id);
+            boolean isNew = "new" .equals(id);
 
             if (isNew) {
                 entity = new Employee();
@@ -275,14 +275,22 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@PathParam("id") String id) {
+        _Session session = getSession();
+        IUser user = session.getUser();
         try {
+            if (!user.isSuperUser() && !user.getRoles().contains(ROLE_STAFF_ADMIN)) {
+                throw new SecureException("deleting_is_restricted", session.getLang());
+            }
+
             EmployeeDAO dao = new EmployeeDAO(getSession());
             Employee entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }
             return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
+        } catch (DAOException e) {
+            return responseException(e);
+        } catch (SecureException e) {
             return responseException(e);
         }
     }
