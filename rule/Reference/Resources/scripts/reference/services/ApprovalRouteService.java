@@ -15,6 +15,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import reference.dao.ApprovalRouteDAO;
+import reference.dto.converter.ApprovalRouteDtoConverter;
 import reference.model.ApprovalRoute;
 import reference.ui.ViewOptions;
 
@@ -35,17 +36,18 @@ public class ApprovalRouteService extends RestProvider {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
             ViewPage<ApprovalRoute> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            outcome.addPayload(getDefaultViewActionBar(true));
             vp.setViewPageOptions(new ViewOptions().getApprovalRouteOptions());
+            if (!"$all".equals(params.getValueSilently("fields"))) {
+                vp.setResult(new ApprovalRouteDtoConverter().convert(vp.getResult()));
+            }
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("approval_routes");
             outcome.addPayload("contentTitle", "approval_route");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();

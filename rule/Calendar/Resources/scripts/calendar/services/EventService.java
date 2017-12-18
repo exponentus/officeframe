@@ -3,6 +3,7 @@ package calendar.services;
 import calendar.dao.EventDAO;
 import calendar.dao.filter.EventFilter;
 import calendar.domain.EventDomain;
+import calendar.dto.converter.EventDtoConverter;
 import calendar.model.Event;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.model.constants.PriorityType;
@@ -48,6 +49,7 @@ public class EventService extends EntityService<Event, EventDomain> {
             SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("regDate", "-regDate"));
             EventDAO dao = new EventDAO(session);
             ViewPage<Event> vp = dao.findViewPage(eventFilter, sortParams, params.getPage(), pageSize);
+            vp.setResult(new EventDtoConverter().convert(vp.getResult()));
 
             ViewPageOptions vo = new ViewPageOptions();
             ViewColumnGroup cg = new ViewColumnGroup();
@@ -59,7 +61,7 @@ public class EventService extends EntityService<Event, EventDomain> {
             cg2.add(new ViewColumn("priority").type(ViewColumnType.translate));
             ViewColumnGroup cg3 = new ViewColumnGroup();
             cg3.setClassName("vw-30");
-            cg3.add(new ViewColumn("tags").type(ViewColumnType.localizedName));
+            cg3.add(new ViewColumn("tags").type(ViewColumnType.localizedName).style("return {color:it.color}"));
             List<ViewColumnGroup> list = new ArrayList<>();
             list.add(cg);
             list.add(cg2);

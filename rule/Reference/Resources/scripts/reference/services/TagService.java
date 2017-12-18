@@ -15,6 +15,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
 import reference.dao.TagDAO;
+import reference.dao.filter.TagFilter;
 import reference.init.AppConst;
 import reference.model.Tag;
 import reference.ui.ViewOptions;
@@ -36,22 +37,25 @@ public class TagService extends RestProvider {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             TagDAO dao = new TagDAO(session);
 
             boolean withHidden = params.getBoolSilently("hidden");
             String category = params.getValueSilently("category");
-            ViewPage<Tag> vp = dao.findAllByCategoryAndVisibility(sortParams, category, withHidden, 1, 0);
+            TagFilter filter = new TagFilter();
+            filter.setCategory(category);
+            filter.setWithHidden(withHidden);
+
+            ViewPage<Tag> vp = dao.findViewPage(filter, sortParams, 0, 0);
             ViewOptions vo = new ViewOptions();
             vp.setViewPageOptions(vo.getTagOptions());
             vp.setFilter(vo.getTagFilter());
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("tags");
             outcome.addPayload("contentTitle", "tags");
-            outcome.addPayload(vp);
             outcome.addPayload(getDefaultViewActionBar(true));
+            outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

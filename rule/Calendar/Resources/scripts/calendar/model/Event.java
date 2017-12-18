@@ -91,5 +91,4 @@ public class Event extends SecureAppEntity<UUID> {
     public String getURL() {
         return AppConst.BASE_URL + "events/" + getId();
     }
-
 }

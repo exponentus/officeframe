@@ -39,6 +39,6 @@ public class OrganizationLabel extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "organization-labels/" + getIdentifier();
+        return AppConst.BASE_URL + "organization-labels/" + getId();
     }
 }

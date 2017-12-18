@@ -45,7 +45,7 @@ public class Role extends SimpleReferenceEntity implements IExtRole {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "roles/" + getIdentifier();
+        return AppConst.BASE_URL + "roles/" + getId();
     }
 
     public String toString() {

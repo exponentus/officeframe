@@ -100,6 +100,20 @@ public class ViewOptions {
         return result;
     }
 
+    public ViewPageOptions getIndustryTypeOptions() {
+        ViewPageOptions result = new ViewPageOptions();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("category").type(ViewColumnType.localizedName).sortBoth().className("vw-40"));
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
     public ViewPageOptions getTagOptions() {
         ViewPageOptions result = new ViewPageOptions();
 

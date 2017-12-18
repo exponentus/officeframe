@@ -65,10 +65,8 @@ public class Reminder extends SecureAppEntity<UUID> {
         this.mailList = mailList;
     }
 
-
     @Override
     public String getURL() {
         return AppConst.BASE_URL + "reminders/" + getId();
     }
-
 }

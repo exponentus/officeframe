@@ -34,7 +34,6 @@ public class Region extends SimpleReferenceEntity {
     @OrderBy("name ASC")
     private List<Locality> localities;
 
-    // @JsonIgnore
     @ManyToOne
     @JoinColumn(nullable = false)
     private Country country;
@@ -127,5 +126,4 @@ public class Region extends SimpleReferenceEntity {
         }
         return this;
     }
-
 }

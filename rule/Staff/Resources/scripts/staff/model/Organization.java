@@ -28,7 +28,7 @@ public class Organization extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private OrgCategory orgCategory;
 
-    @OneToMany(mappedBy = "organization")
+    @OneToMany(mappedBy = "organization", fetch = FetchType.LAZY)
     private List<Department> departments;
 
     @OneToMany(mappedBy = "organization")

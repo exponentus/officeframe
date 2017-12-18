@@ -17,6 +17,7 @@ import reference.dao.filter.IndustryTypeFilter;
 import reference.init.DataConst;
 import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -35,8 +36,6 @@ public class IndustryTypeService extends RestProvider {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             IndustryTypeFilter filter = new IndustryTypeFilter();
             ActivityTypeCategory activityTypeCategory;
             String categoryId = params.getStringValueSilently("category", "");
@@ -48,9 +47,12 @@ public class IndustryTypeService extends RestProvider {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             IndustryTypeDAO dao = new IndustryTypeDAO(session);
             ViewPage<IndustryType> vp = dao.findViewPage(filter, sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
+            vp.setViewPageOptions(new ViewOptions().getIndustryTypeOptions());
+
+            Outcome outcome = new Outcome();
             outcome.setTitle("industry_types");
             outcome.addPayload("contentTitle", "industry_types");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();

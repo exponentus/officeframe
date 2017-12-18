@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("work-types")
 public class WorkTypeService extends RestProvider {
 
@@ -67,7 +66,6 @@ public class WorkTypeService extends RestProvider {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
             outcome.addPayload(entity.getEntityKind(), entity);
             outcome.addPayload("kind", entity.getEntityKind());
@@ -100,7 +98,6 @@ public class WorkTypeService extends RestProvider {
 
     public Response save(WorkType dto) {
         _Session session = getSession();
-
 
         try {
             validate(dto);

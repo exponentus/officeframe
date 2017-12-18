@@ -12,5 +12,4 @@ public class ReminderDAO extends DAO<Reminder, UUID> {
     public ReminderDAO(_Session session) throws DAOException {
         super(Reminder.class, session);
     }
-
 }

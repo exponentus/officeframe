@@ -34,8 +34,16 @@ public class WorkType extends SimpleReferenceEntity {
         this.parent = parent;
     }
 
+    public List<WorkType> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<WorkType> children) {
+        this.children = children;
+    }
+
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "work-types/" + getIdentifier();
+        return AppConst.BASE_URL + "work-types/" + getId();
     }
 }
