@@ -17,8 +17,9 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
-import monitoring.dao.ActivityRecorder;
 import monitoring.dao.UserActivityDAO;
+import monitoring.dto.converter.UserActivityDtoConverter;
+import monitoring.model.UserActivity;
 import monitoring.ui.ViewOptions;
 import staff.dao.EmployeeDAO;
 import staff.model.Employee;
@@ -44,12 +45,12 @@ public class UserActivityService extends RestProvider {
 
         UserActivityDAO dao = new UserActivityDAO(session);
         int pageSize = session.getPageSize();
-        ViewPage vp = dao.findAll(params.getPage(), pageSize);
+        ViewPage<UserActivity> vp = dao.findAll(params.getPage(), pageSize);
+        vp.setResult(new UserActivityDtoConverter().convert(vp.getResult()));
+        vp.setViewPageOptions(new ViewOptions().getUserActivityOptions());
 
         ActionBar actionBar = new ActionBar(session);
         actionBar.addAction(action.refreshVew);
-
-        vp.setViewPageOptions(new ViewOptions().getUserActivityOptions());
 
         Outcome outcome = new Outcome();
         outcome.setId("user-activity");
@@ -67,12 +68,12 @@ public class UserActivityService extends RestProvider {
         _Session ses = getSession();
         try {
             UserActivityDAO dao = new UserActivityDAO(ses);
-            ViewPage vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
+            ViewPage<UserActivity> vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
+            vp.setResult(new UserActivityDtoConverter().convert(vp.getResult()));
+            vp.setViewPageOptions(new ViewOptions().getLastVisitOptions());
 
             ActionBar actionBar = new ActionBar(ses);
             actionBar.addAction(action.refreshVew);
-
-            vp.setViewPageOptions(new ViewOptions().getLastVisitOptions());
 
             Outcome outcome = new Outcome();
             outcome.setId("last-visits");
