@@ -39,6 +39,7 @@ import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static staff.init.AppConst.ROLE_STAFF_ADMIN;
 
@@ -142,11 +143,15 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
                 entity = dao.findByIdentifier(id);
             }
 
+            UserDAO userDAO = new UserDAO(session);
+            List<String> userLogins = userDAO.findAll().stream().map(User::getLogin).collect(Collectors.toList());
+
             //
             ActionBar actionBar = new ActionBar(session);
-            actionBar.addAction(new Action().close);
+            Action action = new Action();
+            actionBar.addAction(action.close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
+                actionBar.addAction(action.saveAndClose);
             }
 
             Outcome outcome = new Outcome();
@@ -156,6 +161,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             outcome.addPayload("contentTitle", "employee");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("userLogins", userLogins);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
