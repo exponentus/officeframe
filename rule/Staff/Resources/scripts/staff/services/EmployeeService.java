@@ -54,8 +54,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         WebFormData params = getWebFormData();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             EmployeeFilter filter = setUpFilter(new EmployeeFilter(), params);
             EmployeeDtoConverter converter = new EmployeeDtoConverter(Arrays.asList(params.getValueSilently("fields").split(",")));
@@ -68,17 +66,18 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             vp.setViewPageOptions(viewOptions.getEmpOptions());
             vp.setFilter(viewOptions.getEmployeeFilter());
 
+            ActionBar actionBar = new ActionBar(session);
+            Action action = new Action();
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
-                ActionBar actionBar = new ActionBar(session);
-                Action action = new Action();
                 actionBar.addAction(action.addNew);
                 actionBar.addAction(action.deleteDocument);
                 actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
             }
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("employees");
             outcome.addPayload("contentTitle", "employees");
+            outcome.addPayload(actionBar);
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -128,7 +127,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         try {
             _Session session = getSession();
             Employee entity;
-            boolean isNew = "new" .equals(id);
+            boolean isNew = "new".equals(id);
 
             if (isNew) {
                 entity = new Employee();
@@ -244,7 +243,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
             dao.save(entity);
 
-
             RoleProcessor roleProcessor = new RoleProcessor(session, entity);
             Thread t = new Thread(new Runnable() {
                 @Override
@@ -257,7 +255,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
                 }
             });
             t.start();
-
 
             Outcome outcome = new Outcome();
             outcome.addPayload(entity);
@@ -279,7 +276,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         IUser user = session.getUser();
         try {
             if (!user.isSuperUser() && !user.getRoles().contains(ROLE_STAFF_ADMIN)) {
-                throw new SecureException("deleting_is_restricted", session.getLang());
+                throw new SecureException("Staff", "deleting_is_restricted", session.getLang());
             }
 
             EmployeeDAO dao = new EmployeeDAO(getSession());

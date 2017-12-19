@@ -21,30 +21,30 @@ public class EmployeeDtoConverter implements GenericConverter<Employee, Employee
     }
 
     @Override
-    public Employee apply(Employee emp) {
+    public Employee apply(Employee entity) {
         Employee dto = new Employee();
 
-        dto.setId(emp.getId());
-        dto.setTitle(emp.getTitle());
-        dto.setName(emp.getName());
+        dto.setId(entity.getId());
+        dto.setTitle(entity.getTitle());
+        dto.setName(entity.getName());
+        User user = new User();
+        user.setId(entity.getUser().getId());
+        user.setLogin(entity.getUser().getLogin());
+        dto.setUser(user);
 
         if (fields != null) {
             for (String fieldName : fields) {
 
             }
         } else {
-            User user = new User();
-            user.setId(emp.getUser().getId());
-            user.setLogin(emp.getUser().getLogin());
-            dto.setUser(user);
-            if (emp.getPosition() != null) {
+            if (entity.getPosition() != null) {
                 Position position = new Position();
-                position.setTitle(emp.getPosition().getTitle());
-                position.setLocName(emp.getPosition().getLocName());
+                position.setTitle(entity.getPosition().getTitle());
+                position.setLocName(entity.getPosition().getLocName());
                 dto.setPosition(position);
             }
-            dto.setRoles(emp.getRoles());
-            dto.setAvatar(emp.getAvatar());
+            dto.setRoles(entity.getRoles());
+            dto.setAvatar(entity.getAvatar());
         }
 
         return dto;
