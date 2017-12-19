@@ -20,14 +20,10 @@
                 <link rel="shortcut icon" href="img/favicon.png"/>
                 <meta name="format-detection" content="telephone=no"/>
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-                <meta name="viewport"
-                      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap-4/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
-                <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css?key={//googleMapApiKey}"/>
-                <xsl:if test="//googleMapApiKey != ''">
-                    <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
-                </xsl:if>
+                <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css"/>
                 <style>
                     <![CDATA[
                     /* fix: fieldset content overflow */
@@ -40,10 +36,28 @@
                             display: table-column !important;
                         }
                     }
+
+                    .noscript {
+                        background: white;
+                        color: #673ab7;
+                        line-height: 1.5;
+                        margin: 0;
+                        position: fixed;
+                        padding: 1em;
+                        text-align: center;
+                        width: 100%;
+                        z-index: 9999;
+                    }
                     ]]>
                 </style>
             </head>
             <body>
+                <noscript>
+                    <h3 class="noscript">
+                        <xsl:value-of select="//captions/noscript/@caption"/>
+                        Sorry, but app is not available without javascript
+                    </h3>
+                </noscript>
                 <app-root>
                     <div class="app-loading">
                         <img class="brand-logo" alt="logo" src="{//logo}"/>
@@ -54,6 +68,9 @@
                         </div>
                     </div>
                 </app-root>
+                <xsl:if test="//googleMapApiKey != ''">
+                    <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
+                </xsl:if>
                 <script src="/SharedResources/ng-app/vendor.js.gz"></script>
                 <script src="/SharedResources/ng-app/app.js.gz"></script>
                 <script src="/SharedResources/knca/sjcl.js"></script>
