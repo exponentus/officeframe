@@ -4,7 +4,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -43,6 +43,6 @@ public class Individual extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "individuals/" + getId();
+        return ModuleConst.BASE_URL + "individuals/" + getId();
     }
 }

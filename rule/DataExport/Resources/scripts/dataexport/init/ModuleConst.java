@@ -3,7 +3,7 @@ package dataexport.init;
 import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 
-public class AppConst extends DefaultAppConst {
+public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "de";
     public static final String NAME = "DataExport";
     public static String NAME_ENG = "Data export";

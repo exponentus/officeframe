@@ -1,7 +1,7 @@
 package integration.model;
 
 import com.exponentus.rest.services.ServiceClassDescriptor;
-import integration.init.AppConst;
+import integration.init.ModuleConst;
 
 public class Service {
 
@@ -24,6 +24,6 @@ public class Service {
     }
 
     public String getURL() {
-        return AppConst.BASE_URL + "services/" + descr.getName();
+        return ModuleConst.BASE_URL + "services/" + descr.getName();
     }
 }

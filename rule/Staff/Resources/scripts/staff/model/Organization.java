@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.Map;
 @JsonRootName("organization")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = AppConst.CODE + "__orgs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "bizID"}))
+@Table(name = ModuleConst.CODE + "__orgs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "bizID"}))
 @NamedQuery(name = "Organization.findAll", query = "SELECT m FROM Organization AS m ORDER BY m.regDate")
 public class Organization extends SimpleReferenceEntity {
 
@@ -35,7 +35,7 @@ public class Organization extends SimpleReferenceEntity {
     private List<Employee> employers;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = AppConst.CODE + "__orgs_labels",
+    @JoinTable(name = ModuleConst.CODE + "__orgs_labels",
             joinColumns = @JoinColumn(name = "org_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "label_id", referencedColumnName = "id"))
     private List<OrganizationLabel> labels;
@@ -109,7 +109,7 @@ public class Organization extends SimpleReferenceEntity {
         try {
             Map<String, String> countryMap = (Map<String, String>) data.get("orgCategory");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String) countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey(countryMap.get("id"));
             OrgCategoryDAO orgCategoryDAO = new OrgCategoryDAO(ses);
             OrgCategory orgCategory = orgCategoryDAO.findById(collation.getIntKey());
             this.orgCategory = orgCategory;
@@ -124,6 +124,6 @@ public class Organization extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "organizations/" + getId();
+        return ModuleConst.BASE_URL + "organizations/" + getId();
     }
 }

@@ -1,6 +1,6 @@
 package calendar.model;
 
-import calendar.init.AppConst;
+import calendar.init.ModuleConst;
 import calendar.model.constants.ReminderType;
 import calendar.model.constants.converter.ReminderTypeConverter;
 import com.exponentus.common.model.SecureAppEntity;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @JsonRootName("reminder")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = AppConst.CODE + "__reminders")
+@Table(name = ModuleConst.CODE + "__reminders")
 public class Reminder extends SecureAppEntity<UUID> {
 
     private String description;
@@ -26,11 +26,11 @@ public class Reminder extends SecureAppEntity<UUID> {
     private ReminderType reminderType = ReminderType.SILENT;
 
     @ElementCollection
-    @CollectionTable(name = AppConst.CODE + "__reminder_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    @CollectionTable(name = ModuleConst.CODE + "__reminder_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
 
     @ElementCollection
-    @CollectionTable(name = AppConst.CODE + "__reminder_maillist", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    @CollectionTable(name = ModuleConst.CODE + "__reminder_maillist", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> mailList = new ArrayList<Observer>();
 
     public String getDescription() {
@@ -67,6 +67,6 @@ public class Reminder extends SecureAppEntity<UUID> {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "reminders/" + getId();
+        return ModuleConst.BASE_URL + "reminders/" + getId();
     }
 }

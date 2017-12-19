@@ -17,7 +17,7 @@ import jxl.WorkbookSettings;
 import jxl.read.biff.BiffException;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.Locality;
 import reference.model.Street;
 
@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_almaty_streets")
+@Command(name = ModuleConst.CODE + "_fill_almaty_streets")
 public class FillAlmatyStreets extends Do {
     private static final String STREETS_LIST = EnvConst.RESOURCES_DIR + File.separator + "streets_almaty.xls";
 

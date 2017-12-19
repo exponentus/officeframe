@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.RoadTypeDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.RoadType;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_road_types")
+@Command(name = ModuleConst.CODE + "_fill_road_types")
 public class FillRoadTypes extends Do {
 
     @Override

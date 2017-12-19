@@ -6,7 +6,7 @@ import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import discussing.init.AppConst;
+import discussing.init.ModuleConst;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
 import javax.persistence.*;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @JsonRootName("comment")
 @Entity
-@Table(name = AppConst.CODE + "__comments")
+@Table(name = ModuleConst.CODE + "__comments")
 public class Comment extends SecureAppEntity<UUID> {
 
     @NotNull
@@ -37,7 +37,7 @@ public class Comment extends SecureAppEntity<UUID> {
     private String comment;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = AppConst.CODE + "__comment_attachments",
+    @JoinTable(name = ModuleConst.CODE + "__comment_attachments",
             joinColumns = {@JoinColumn(name = "comment_id")},
             inverseJoinColumns = {@JoinColumn(name = "attachment_id")},
             indexes = {@Index(columnList = "comment_id, attachment_id")},
@@ -93,6 +93,6 @@ public class Comment extends SecureAppEntity<UUID> {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "comments/" + getIdentifier();
+        return ModuleConst.BASE_URL + "comments/" + getIdentifier();
     }
 }

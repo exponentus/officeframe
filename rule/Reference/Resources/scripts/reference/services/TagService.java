@@ -16,7 +16,7 @@ import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
 import reference.dao.TagDAO;
 import reference.dao.filter.TagFilter;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.Tag;
 import reference.ui.ViewOptions;
 
@@ -83,7 +83,7 @@ public class TagService extends RestProvider {
 
             Set<String> allTagCategories = new HashSet<String>();
             ModuleDAO dao = new ModuleDAO();
-            allTagCategories.addAll(Arrays.asList(AppConst.TAG_CATEGORIES));
+            allTagCategories.addAll(Arrays.asList(ModuleConst.TAG_CATEGORIES));
             List<Application> modules = dao.findAll().getResult();
             for (Application module : modules) {
                 if (module.isOn()) {

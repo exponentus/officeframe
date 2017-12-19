@@ -17,7 +17,7 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import staff.dao.RoleDAO;
 import staff.model.Role;
 import staff.ui.Action;
@@ -27,7 +27,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.*;
 
-import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 @Path("roles")
 public class RoleService extends RestProvider {
@@ -93,7 +93,7 @@ public class RoleService extends RestProvider {
 
             Set<String> allRoles = new HashSet<String>();
             ModuleDAO dao = new ModuleDAO();
-            allRoles.addAll(Arrays.asList(AppConst.ROLES));
+            allRoles.addAll(Arrays.asList(ModuleConst.ROLES));
             List<Application> apps = dao.findAll().getResult();
             for (Application app : apps) {
                 if (app.isOn()) {

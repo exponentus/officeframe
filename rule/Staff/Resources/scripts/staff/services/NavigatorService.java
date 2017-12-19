@@ -9,7 +9,7 @@ import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import staff.dao.OrganizationDAO;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 import staff.model.Organization;
 
 import javax.ws.rs.GET;
@@ -40,22 +40,22 @@ public class NavigatorService extends RestProvider {
             if (po != null) {
                 for (Organization primaryOrg : po) {
                   /*  primaryOrgs.add(new OutlineEntry(primaryOrg.getLocName(lang), primaryOrg.getLocName(lang),
-                            "structures", AppConst.BASE_URL + "structures"));*/
+                            "structures", ModuleConst.BASE_URL + "structures"));*/
                 }
             }
 
             for (OutlineEntry entry : primaryOrgs) {
                 co.addEntry(entry);
             }
-            co.addEntry(new OutlineEntry("organizations", "", "organizations", AppConst.BASE_URL + "organizations"));
-            co.addEntry(new OutlineEntry("departments", "", "departments", AppConst.BASE_URL + "departments"));
-            co.addEntry(new OutlineEntry("employees", "", "employees", AppConst.BASE_URL + "employees?fired=true"));
-            co.addEntry(new OutlineEntry("individuals", "", "individuals", AppConst.BASE_URL + "individuals"));
+            co.addEntry(new OutlineEntry("organizations", "", "organizations", ModuleConst.BASE_URL + "organizations"));
+            co.addEntry(new OutlineEntry("departments", "", "departments", ModuleConst.BASE_URL + "departments"));
+            co.addEntry(new OutlineEntry("employees", "", "employees", ModuleConst.BASE_URL + "employees?fired=true"));
+            co.addEntry(new OutlineEntry("individuals", "", "individuals", ModuleConst.BASE_URL + "individuals"));
 
             Outline ro = new Outline("", "staff_ref");
-            ro.addEntry(new OutlineEntry("roles", "", "roles", AppConst.BASE_URL + "roles"));
-            ro.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", AppConst.BASE_URL + "organization-labels"));
-            ro.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", AppConst.BASE_URL + "individual-labels"));
+            ro.addEntry(new OutlineEntry("roles", "", "roles", ModuleConst.BASE_URL + "roles"));
+            ro.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", ModuleConst.BASE_URL + "organization-labels"));
+            ro.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", ModuleConst.BASE_URL + "individual-labels"));
 
             list.add(co);
             list.add(ro);

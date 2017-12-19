@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.RegionTypeDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.RegionType;
 import reference.model.constants.RegionCode;
 
@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_region_types")
+@Command(name = ModuleConst.CODE + "_fill_region_types")
 public class FillRegionTypes extends Do {
 
     @Override

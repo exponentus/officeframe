@@ -8,7 +8,7 @@ import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 import reference.model.DepartmentType;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 import staff.model.util.DepartmentConverter;
 
 import javax.persistence.*;
@@ -84,6 +84,6 @@ public class Department extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "departments/" + getId();
+        return ModuleConst.BASE_URL + "departments/" + getId();
     }
 }

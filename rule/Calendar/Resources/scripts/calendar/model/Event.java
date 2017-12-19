@@ -1,6 +1,6 @@
 package calendar.model;
 
-import calendar.init.AppConst;
+import calendar.init.ModuleConst;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.common.model.constants.PriorityType;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -17,7 +17,7 @@ import java.util.UUID;
 @JsonRootName("event")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = AppConst.CODE + "__events")
+@Table(name = ModuleConst.CODE + "__events")
 public class Event extends SecureAppEntity<UUID> {
 
     @Column(name = "event_time")
@@ -32,11 +32,11 @@ public class Event extends SecureAppEntity<UUID> {
     private String description;
 
     @ElementCollection
-    @CollectionTable(name = AppConst.CODE + "__event_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    @CollectionTable(name = ModuleConst.CODE + "__event_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = AppConst.CODE + "__event_tags")
+    @JoinTable(name = ModuleConst.CODE + "__event_tags")
     private List<Tag> tags;
 
     public Date getEventTime() {
@@ -89,6 +89,6 @@ public class Event extends SecureAppEntity<UUID> {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "events/" + getId();
+        return ModuleConst.BASE_URL + "events/" + getId();
     }
 }

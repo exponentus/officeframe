@@ -8,7 +8,7 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.constants.Trigger;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.server.Server;
-import workspace.init.AppConst;
+import workspace.init.ModuleConst;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-@Command(name = AppConst.CODE + "_wr_app_cache_manifest", trigger = Trigger.POST_APP_START)
+@Command(name = ModuleConst.CODE + "_wr_app_cache_manifest", trigger = Trigger.POST_APP_START)
 public class WriteAppCacheManifest extends Do {
 
     @Override

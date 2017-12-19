@@ -3,7 +3,7 @@ package monitoring.init;
 import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 
-public class AppConst extends DefaultAppConst {
+public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "monit";
     public static final String NAME = "Monitoring";
     public static String NAME_ENG = "Monitoring";

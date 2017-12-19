@@ -5,7 +5,7 @@ import com.exponentus.common.model.SimpleAppEntity;
 import com.exponentus.common.model.converter.UUIDConverter;
 import com.exponentus.common.model.converter.UserConverter;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import monitoring.init.AppConst;
+import monitoring.init.ModuleConst;
 import monitoring.model.constants.ActivityType;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @JsonRootName("userActivity")
 @Entity
-@Table(name = AppConst.CODE + "__user_activities")
+@Table(name = ModuleConst.CODE + "__user_activities")
 @Converters({@Converter(name = "user_conv", converterClass = UserConverter.class),
         @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)})
 public class UserActivity extends SimpleAppEntity {
@@ -113,6 +113,6 @@ public class UserActivity extends SimpleAppEntity {
 
     @Override
     public String getURL() {
-        return null; // AppConst.BASE_URL + "user-activities/" + getIdentifier();
+        return null; // ModuleConst.BASE_URL + "user-activities/" + getIdentifier();
     }
 }

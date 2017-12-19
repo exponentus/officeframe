@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 @Path("individuals")
 public class IndividualService extends EntityService<Individual, IndividualDomain> {

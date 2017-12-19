@@ -5,7 +5,7 @@ import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
-import dataexport.init.AppConst;
+import dataexport.init.ModuleConst;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,7 +22,7 @@ public class NavigatorService extends RestProvider {
     public Response getNav() {
 
         Outline co = new Outline("", "common");
-        co.addEntry(new OutlineEntry("report_profiles", "", "report_profiles", AppConst.BASE_URL + "report-profiles"));
+        co.addEntry(new OutlineEntry("report_profiles", "", "report_profiles", ModuleConst.BASE_URL + "report-profiles"));
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);

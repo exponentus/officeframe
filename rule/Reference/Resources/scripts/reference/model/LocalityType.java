@@ -5,7 +5,7 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.constants.LocalityCode;
 
 import javax.persistence.*;
@@ -15,7 +15,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__locality_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = ModuleConst.CODE + "__locality_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "LocalityType.findAll", query = "SELECT m FROM LocalityType AS m ORDER BY m.regDate")
 public class LocalityType extends SimpleReferenceEntity {
 
@@ -46,6 +46,6 @@ public class LocalityType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "locality-types/" + getId();
+        return ModuleConst.BASE_URL + "locality-types/" + getId();
     }
 }

@@ -5,7 +5,7 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.constants.RegionCode;
 
 import javax.persistence.*;
@@ -15,7 +15,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__region_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = ModuleConst.CODE + "__region_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "RegionType.findAll", query = "SELECT m FROM RegionType AS m ORDER BY m.regDate")
 public class RegionType extends SimpleReferenceEntity {
 
@@ -33,7 +33,7 @@ public class RegionType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "region-types/" + getId();
+        return ModuleConst.BASE_URL + "region-types/" + getId();
     }
 
     @Override

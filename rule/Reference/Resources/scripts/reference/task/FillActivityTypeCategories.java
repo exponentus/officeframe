@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.ActivityTypeCategoryDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.ActivityTypeCategory;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_activity_type_categories")
+@Command(name = ModuleConst.CODE + "_fill_activity_type_categories")
 public class FillActivityTypeCategories extends Do {
 
     @Override

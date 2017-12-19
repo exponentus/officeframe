@@ -8,7 +8,7 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.LocalityDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -18,7 +18,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__city_districts", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "locality_id"}))
+@Table(name = ModuleConst.CODE + "__city_districts", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "locality_id"}))
 @NamedQuery(name = "CityDistrict.findAll", query = "SELECT m FROM CityDistrict AS m ORDER BY m.regDate")
 public class CityDistrict extends SimpleReferenceEntity {
 
@@ -41,7 +41,7 @@ public class CityDistrict extends SimpleReferenceEntity {
         try {
             Map<String, String> localityMap = (Map<String, String>) data.get("locality");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String) localityMap.get("id"));
+            Collation collation = collationDAO.findByExtKey(localityMap.get("id"));
             LocalityDAO localityDAO = new LocalityDAO(ses);
             Locality locality = localityDAO.findById(collation.getIntKey());
             this.locality = locality;
@@ -55,6 +55,6 @@ public class CityDistrict extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "city-districts/" + getId();
+        return ModuleConst.BASE_URL + "city-districts/" + getId();
     }
 }

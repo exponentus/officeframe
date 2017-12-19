@@ -3,7 +3,7 @@ package reference.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.constants.ControlSchemaType;
 import reference.model.constants.converter.ControlSchemaTypeConverter;
 
@@ -62,6 +62,6 @@ public class ControlType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "control-types/" + getIdentifier();
+        return ModuleConst.BASE_URL + "control-types/" + getIdentifier();
     }
 }

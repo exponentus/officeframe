@@ -7,7 +7,7 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.constants.CountryCode;
 
 import javax.persistence.*;
@@ -24,7 +24,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__countries", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = ModuleConst.CODE + "__countries", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "Country.findAll", query = "SELECT m FROM Country AS m ORDER BY m.regDate")
 public class Country extends SimpleReferenceEntity {
 
@@ -58,7 +58,7 @@ public class Country extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "countries/" + getId();
+        return ModuleConst.BASE_URL + "countries/" + getId();
     }
 
     @Override

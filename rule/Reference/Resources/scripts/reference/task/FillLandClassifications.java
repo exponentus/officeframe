@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.LandClassificationDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.LandClassification;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 
-@Command(name = AppConst.CODE + "_fill_land_classifications")
+@Command(name = ModuleConst.CODE + "_fill_land_classifications")
 public class FillLandClassifications extends Do {
 
     @Override

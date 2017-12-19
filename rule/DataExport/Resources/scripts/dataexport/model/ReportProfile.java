@@ -5,7 +5,7 @@ import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import dataexport.init.AppConst;
+import dataexport.init.ModuleConst;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
 import reference.model.Tag;
@@ -20,7 +20,7 @@ import java.util.Map;
 @JsonRootName("reportProfile")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = AppConst.CODE + "__report_profiles")
+@Table(name = ModuleConst.CODE + "__report_profiles")
 public class ReportProfile extends SimpleReferenceEntity {
 
     @Convert(converter = LocalizedValConverter.class)
@@ -119,6 +119,6 @@ public class ReportProfile extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "report-profiles/" + getIdentifier();
+        return ModuleConst.BASE_URL + "report-profiles/" + getIdentifier();
     }
 }

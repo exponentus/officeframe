@@ -6,7 +6,7 @@ import com.exponentus.extconnect.IExtRole;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -45,7 +45,7 @@ public class Role extends SimpleReferenceEntity implements IExtRole {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "roles/" + getId();
+        return ModuleConst.BASE_URL + "roles/" + getId();
     }
 
     public String toString() {

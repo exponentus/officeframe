@@ -10,7 +10,7 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.init.DataConst;
 import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_industry_types")
+@Command(name = ModuleConst.CODE + "_fill_industry_types")
 public class FillIndustryTypes extends Do {
 
     @Override

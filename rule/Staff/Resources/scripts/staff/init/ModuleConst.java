@@ -3,7 +3,7 @@ package staff.init;
 import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 
-public class AppConst extends DefaultAppConst {
+public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "staff";
     public static final String[] ORG_LABELS = {"primary", "inactive"};
     public static final String ROLE_STAFF_ADMIN = "staff_admin";

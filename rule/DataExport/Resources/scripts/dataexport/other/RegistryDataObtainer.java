@@ -3,7 +3,7 @@ package dataexport.other;
 import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.other.AbstractDataObtainer;
 import com.exponentus.dataengine.jpa.IDAO;
-import dataexport.init.AppConst;
+import dataexport.init.ModuleConst;
 import org.apache.poi.ss.formula.functions.T;
 
 import java.util.Date;
@@ -22,7 +22,7 @@ public class RegistryDataObtainer extends AbstractDataObtainer {
 
     @Override
     public String getAppCode() {
-        return AppConst.CODE;
+        return ModuleConst.CODE;
     }
 
     @Override

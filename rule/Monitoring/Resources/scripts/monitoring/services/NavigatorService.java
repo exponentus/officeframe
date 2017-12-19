@@ -5,7 +5,7 @@ import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.page.IOutcomeObject;
-import monitoring.init.AppConst;
+import monitoring.init.ModuleConst;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -22,10 +22,10 @@ public class NavigatorService extends RestProvider {
     public Response getNav() {
 
         Outline co = new Outline("", "common");
-        co.addEntry(new OutlineEntry("user_activities", "", "user_activities", AppConst.BASE_URL + "user-activities"));
-        co.addEntry(new OutlineEntry("last_logins", "", "last_logins", AppConst.BASE_URL + "user-activities/last-visits"));
-        co.addEntry(new OutlineEntry("count_of_records", "", "count_of_records", AppConst.BASE_URL + "user-activities/count-of-records"));
-        co.addEntry(new OutlineEntry("chart", "", "chart", AppConst.BASE_URL + "user-activities/count-of-records/chart"));
+        co.addEntry(new OutlineEntry("user_activities", "", "user_activities", ModuleConst.BASE_URL + "user-activities"));
+        co.addEntry(new OutlineEntry("last_logins", "", "last_logins", ModuleConst.BASE_URL + "user-activities/last-visits"));
+        co.addEntry(new OutlineEntry("count_of_records", "", "count_of_records", ModuleConst.BASE_URL + "user-activities/count-of-records"));
+        co.addEntry(new OutlineEntry("chart", "", "chart", ModuleConst.BASE_URL + "user-activities/count-of-records/chart"));
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);

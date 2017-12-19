@@ -3,7 +3,7 @@ package reference.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 
@@ -15,7 +15,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__positions", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__positions", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "Position.findAll", query = "SELECT m FROM Position AS m ORDER BY m.regDate")
 public class Position extends SimpleReferenceEntity {
     private int rank = 999;
@@ -30,6 +30,6 @@ public class Position extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "positions/" + getIdentifier();
+        return ModuleConst.BASE_URL + "positions/" + getIdentifier();
     }
 }

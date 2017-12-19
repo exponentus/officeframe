@@ -1,6 +1,6 @@
 package calendar.services;
 
-import calendar.init.AppConst;
+import calendar.init.ModuleConst;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
@@ -22,10 +22,10 @@ public class NavigatorService extends RestProvider {
     public Response getNav() {
 
         Outline co = new Outline("calendar", "calendar");
-        co.addEntry(new OutlineEntry("events", "", "events", AppConst.BASE_URL + "events"));
+        co.addEntry(new OutlineEntry("events", "", "events", ModuleConst.BASE_URL + "events"));
 
         Outline r = new Outline("reminder", "reminder");
-        r.addEntry(new OutlineEntry("reminder_templates", "", "reminder_templates", AppConst.BASE_URL + "reminders"));
+        r.addEntry(new OutlineEntry("reminder_templates", "", "reminder_templates", ModuleConst.BASE_URL + "reminders"));
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
         list.add(co);

@@ -4,7 +4,7 @@ import administrator.model.constants.InterfaceType;
 import administrator.model.constants.VisibiltyMode;
 import com.exponentus.common.init.DefaultAppConst;
 
-public class AppConst extends DefaultAppConst {
+public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "ws";
     public static final InterfaceType AVAILABLE_MODE[] = {InterfaceType.SPA};
     public static final String NAME = "Workspace";

@@ -41,7 +41,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 @Path("employees")
 public class EmployeeService extends EntityService<Employee, EmployeeDomain> {

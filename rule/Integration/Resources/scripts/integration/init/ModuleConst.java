@@ -3,7 +3,7 @@ package integration.init;
 import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 
-public class AppConst extends DefaultAppConst {
+public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "integ";
     public static final String NAME = "Integration";
     public static String NAME_ENG = "Integration";

@@ -7,7 +7,7 @@ import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.embedded.RouteBlock;
 
 import javax.persistence.*;
@@ -90,6 +90,6 @@ public class ApprovalRoute extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "approval-routes/" + getId();
+        return ModuleConst.BASE_URL + "approval-routes/" + getId();
     }
 }

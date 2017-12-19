@@ -1,6 +1,6 @@
 package calendar.task;
 
-import calendar.init.AppConst;
+import calendar.init.ModuleConst;
 import calendar.model.Event;
 import calendar.model.Reminder;
 import com.exponentus.appenv.AppEnv;
@@ -15,7 +15,6 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -25,7 +24,7 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-@Command(name = AppConst.CODE + "_backup")
+@Command(name = ModuleConst.CODE + "_backup")
 public class Backup extends Do {
     private ObjectMapper mapper = new ObjectMapper();
 

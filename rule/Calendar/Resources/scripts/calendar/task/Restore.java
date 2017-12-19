@@ -2,7 +2,7 @@ package calendar.task;
 
 import calendar.dao.EventDAO;
 import calendar.dao.ReminderDAO;
-import calendar.init.AppConst;
+import calendar.init.ModuleConst;
 import calendar.model.Event;
 import calendar.model.Reminder;
 import com.exponentus.appenv.AppEnv;
@@ -18,16 +18,13 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import staff.model.Organization;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.UUID;
 
 //run task cal_restore
-@Command(name = AppConst.CODE + "_restore")
+@Command(name = ModuleConst.CODE + "_restore")
 public class Restore extends Do {
     private ObjectMapper mapper = new ObjectMapper();
 

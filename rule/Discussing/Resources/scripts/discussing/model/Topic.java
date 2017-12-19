@@ -4,7 +4,7 @@ import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import discussing.init.AppConst;
+import discussing.init.ModuleConst;
 import discussing.model.constants.TopicStatusType;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 import reference.model.Tag;
@@ -17,7 +17,7 @@ import java.util.UUID;
 
 @JsonRootName("topic")
 @Entity
-@Table(name = AppConst.CODE + "__topics")
+@Table(name = ModuleConst.CODE + "__topics")
 public class Topic extends SecureAppEntity<UUID> {
 
     @Enumerated(EnumType.STRING)
@@ -37,7 +37,7 @@ public class Topic extends SecureAppEntity<UUID> {
     private List<Tag> tags;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinTable(name = AppConst.CODE + "__topic_attachments",
+    @JoinTable(name = ModuleConst.CODE + "__topic_attachments",
             joinColumns = {@JoinColumn(name = "topic_id")},
             inverseJoinColumns = {@JoinColumn(name = "attachment_id")},
             indexes = {@Index(columnList = "topic_id, attachment_id")},
@@ -46,7 +46,7 @@ public class Topic extends SecureAppEntity<UUID> {
     private List<Attachment> attachments = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = AppConst.CODE + "__topic_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
+    @CollectionTable(name = ModuleConst.CODE + "__topic_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
 
     public TopicStatusType getStatus() {
@@ -101,6 +101,6 @@ public class Topic extends SecureAppEntity<UUID> {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "topics/" + getIdentifier();
+        return ModuleConst.BASE_URL + "topics/" + getIdentifier();
     }
 }

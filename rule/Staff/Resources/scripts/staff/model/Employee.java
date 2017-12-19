@@ -15,7 +15,7 @@ import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
 import reference.model.Position;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 import staff.model.util.DepartmentConverter;
 
 import javax.persistence.*;
@@ -125,7 +125,7 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
 
     @JsonIgnore
     public IUser getUser() {
-        return (IUser) user;
+        return user;
     }
 
   /*  @Override
@@ -243,20 +243,20 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "employees/" + getId();
+        return ModuleConst.BASE_URL + "employees/" + getId();
     }
 
     public String getAvatarURL() {
         if (avatar == null) {
             return null;
         }
-        return AppConst.BASE_URL + "api/employees/" + getId() + "/avatar";
+        return ModuleConst.BASE_URL + "api/employees/" + getId() + "/avatar";
     }
 
     public String getAvatarURLSm() {
         if (avatar == null) {
             return null;
         }
-        return AppConst.BASE_URL + "api/employees/" + getId() + "/avatar?_thumbnail";
+        return ModuleConst.BASE_URL + "api/employees/" + getId() + "/avatar?_thumbnail";
     }
 }

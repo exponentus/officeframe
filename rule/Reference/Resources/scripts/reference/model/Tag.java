@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -16,7 +16,7 @@ import java.util.UUID;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__tags", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "color"}))
+@Table(name = ModuleConst.CODE + "__tags", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "color"}))
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @NamedQuery(name = "Tag.findAll", query = "SELECT m FROM Tag AS m WHERE m.parent IS NULL ORDER BY m.name")
 public class Tag extends SimpleReferenceEntity {
@@ -85,7 +85,7 @@ public class Tag extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "tags/" + getId();
+        return ModuleConst.BASE_URL + "tags/" + getId();
     }
 
     @Override

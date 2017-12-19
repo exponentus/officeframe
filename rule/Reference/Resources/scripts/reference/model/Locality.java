@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -79,13 +79,13 @@ public class Locality extends SimpleReferenceEntity {
         try {
             Map<String, String> countryMap = (Map<String, String>) data.get("region");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String) countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey(countryMap.get("id"));
             RegionDAO dao = new RegionDAO(ses);
             Region region = dao.findById(collation.getIntKey());
             this.region = region;
 
             Map<String, String> typeMap = (Map<String, String>) data.get("type");
-            collation = collationDAO.findByExtKey((String) typeMap.get("id"));
+            collation = collationDAO.findByExtKey(typeMap.get("id"));
             LocalityTypeDAO localityTypeDAO = new LocalityTypeDAO(ses);
             LocalityType localityType = localityTypeDAO.findById(collation.getIntKey());
             type = localityType;
@@ -99,6 +99,6 @@ public class Locality extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "localities/" + getId();
+        return ModuleConst.BASE_URL + "localities/" + getId();
     }
 }

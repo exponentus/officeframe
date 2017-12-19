@@ -5,7 +5,7 @@ import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import staff.init.AppConst;
+import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @JsonRootName("organizationLabel")
 @Entity
-@Table(name = AppConst.CODE + "__org_labels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__org_labels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "OrganizationLabel.findAll", query = "SELECT m FROM OrganizationLabel AS m ORDER BY m.regDate")
 public class OrganizationLabel extends SimpleReferenceEntity {
 
@@ -39,6 +39,6 @@ public class OrganizationLabel extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "organization-labels/" + getId();
+        return ModuleConst.BASE_URL + "organization-labels/" + getId();
     }
 }

@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.RegionDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -58,7 +58,7 @@ public class District extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "districts/" + getId();
+        return ModuleConst.BASE_URL + "districts/" + getId();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class District extends SimpleReferenceEntity {
         try {
             Map<String, String> regionMap = (Map<String, String>) data.get("region");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String) regionMap.get("id"));
+            Collation collation = collationDAO.findByExtKey(regionMap.get("id"));
             RegionDAO regionDAO = new RegionDAO(ses);
             Region region = regionDAO.findById(collation.getIntKey());
             this.region = region;

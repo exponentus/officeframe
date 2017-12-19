@@ -10,14 +10,14 @@ import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.Locality;
 import reference.model.Street;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Command(name = AppConst.CODE + "_fill_test_streets")
+@Command(name = ModuleConst.CODE + "_fill_test_streets")
 public class FillStreets extends Do {
 
     @Override

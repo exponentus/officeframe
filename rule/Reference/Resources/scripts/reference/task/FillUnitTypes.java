@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.UnitTypeDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.UnitType;
 import reference.model.constants.UnitCategory;
 
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 //run task ref_fill_unit_types
-@Command(name = AppConst.CODE + "_fill_unit_types")
+@Command(name = ModuleConst.CODE + "_fill_unit_types")
 public class FillUnitTypes extends Do {
 
     @Override

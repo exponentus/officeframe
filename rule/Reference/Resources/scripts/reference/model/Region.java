@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.CountryDAO;
 import reference.dao.RegionTypeDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__regions", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "country_id"}))
+@Table(name = ModuleConst.CODE + "__regions", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "country_id"}))
 @NamedQuery(name = "Region.findAll", query = "SELECT m FROM Region AS m ORDER BY m.regDate")
 public class Region extends SimpleReferenceEntity {
 
@@ -98,7 +98,7 @@ public class Region extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "regions/" + getId();
+        return ModuleConst.BASE_URL + "regions/" + getId();
     }
 
     @Override
@@ -107,13 +107,13 @@ public class Region extends SimpleReferenceEntity {
         try {
             Map<String, String> countryMap = (Map<String, String>) data.get("country");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey((String) countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey(countryMap.get("id"));
             CountryDAO countryDAO = new CountryDAO(ses);
             Country country = countryDAO.findById(collation.getIntKey());
             this.country = country;
 
             Map<String, String> typeMap = (Map<String, String>) data.get("type");
-            collation = collationDAO.findByExtKey((String) typeMap.get("id"));
+            collation = collationDAO.findByExtKey(typeMap.get("id"));
             RegionTypeDAO regionTypeDAO = new RegionTypeDAO(ses);
             RegionType regionType = regionTypeDAO.findById(collation.getIntKey());
             this.type = regionType;

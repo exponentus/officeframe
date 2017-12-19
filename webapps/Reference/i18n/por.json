@@ -734,7 +734,7 @@
   "individual_label" : "individual_label",
   "owner_organization" : "owner_organization",
   "login_has_not_been_found" : "Login has not been found",
-  "about_nb" : "about_nb",
+  "about_nb": "Sobre NextBase",
   "document_was_saved_succesfully" : null,
   "password_changed" : "Tem senha foi alterada",
   "to_form" : "Gerar um relatório",

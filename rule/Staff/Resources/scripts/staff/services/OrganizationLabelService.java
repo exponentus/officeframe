@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-import static staff.init.AppConst.ROLE_STAFF_ADMIN;
+import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 @Path("organization-labels")
 public class OrganizationLabelService extends RestProvider {

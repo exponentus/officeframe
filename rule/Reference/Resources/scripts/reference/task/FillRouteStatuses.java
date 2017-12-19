@@ -9,7 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.RouteStatusDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.RouteStatus;
 
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_route_statuses")
+@Command(name = ModuleConst.CODE + "_fill_route_statuses")
 public class FillRouteStatuses extends Do {
 
     @Override

@@ -6,14 +6,14 @@ public class DataConst {
 
     public static String[][] NOT_NULL = {
             //   {CODE + "__countries","code"},
-            {AppConst.CODE + "__city_districts", "locality_id"},
-            {AppConst.CODE + "__regions", "country_id"},
-            {AppConst.CODE + "__regions", "type_id"},
-            {AppConst.CODE + "__localities", "region_id"},
-            {AppConst.CODE + "__localities", "type_id"},
-            {AppConst.CODE + "__streets", "locality_id"},
+            {ModuleConst.CODE + "__city_districts", "locality_id"},
+            {ModuleConst.CODE + "__regions", "country_id"},
+            {ModuleConst.CODE + "__regions", "type_id"},
+            {ModuleConst.CODE + "__localities", "region_id"},
+            {ModuleConst.CODE + "__localities", "type_id"},
+            {ModuleConst.CODE + "__streets", "locality_id"},
             //  {CODE + "__document_languages","code"},
-            {AppConst.CODE + "__industry_types", "category_id"},
+            {ModuleConst.CODE + "__industry_types", "category_id"},
     };
 
 }

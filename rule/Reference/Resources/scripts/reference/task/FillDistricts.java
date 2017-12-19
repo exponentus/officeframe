@@ -12,7 +12,7 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.StringUtil;
 import reference.dao.DistrictDAO;
 import reference.dao.RegionDAO;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.District;
 import reference.model.Region;
 
@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = AppConst.CODE + "_fill_districts")
+@Command(name = ModuleConst.CODE + "_fill_districts")
 public class FillDistricts extends Do {
     private static final String KMZ_FILE = "kz.kmz";
 

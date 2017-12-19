@@ -4,7 +4,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 import reference.model.constants.UnitCategory;
 
 import javax.persistence.*;
@@ -13,7 +13,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__unit_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__unit_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "UnitType.findAll", query = "SELECT m FROM UnitType AS m ORDER BY m.regDate")
 public class UnitType extends SimpleReferenceEntity {
 
@@ -32,6 +32,6 @@ public class UnitType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "unit-types/" + getId();
+        return ModuleConst.BASE_URL + "unit-types/" + getId();
     }
 }

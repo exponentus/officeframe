@@ -4,7 +4,7 @@ import administrator.model.constants.InterfaceType;
 import com.exponentus.common.init.DefaultAppConst;
 import com.exponentus.common.init.DefaultDataConst;
 
-public class AppConst extends DefaultAppConst {
+public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "ref";
     public static final String[] ROLES = {DefaultDataConst.ROLE_REFERENCE_ADMIN};
     public static final String NAME = "Reference";

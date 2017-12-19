@@ -23,12 +23,12 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.ReflectionUtil;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import java.util.*;
 
 //run task ref_sync_with_ih
-@Command(name = AppConst.CODE + "_sync_with_ih")
+@Command(name = ModuleConst.CODE + "_sync_with_ih")
 public class SyncWithIntegrationHub extends Do {
 
     @Override

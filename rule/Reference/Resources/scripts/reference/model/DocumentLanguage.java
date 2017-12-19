@@ -6,7 +6,7 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import reference.init.AppConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = AppConst.CODE + "__document_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
+@Table(name = ModuleConst.CODE + "__document_languages", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "code"}))
 @NamedQuery(name = "DocumentLanguage.findAll", query = "SELECT m FROM DocumentLanguage AS m ORDER BY m.regDate")
 public class DocumentLanguage extends SimpleReferenceEntity {
 
@@ -46,6 +46,6 @@ public class DocumentLanguage extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return AppConst.BASE_URL + "document-languages/" + getId();
+        return ModuleConst.BASE_URL + "document-languages/" + getId();
     }
 }
