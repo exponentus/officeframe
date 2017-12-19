@@ -1,6 +1,6 @@
 package reference.dao.filter;
 
-import com.exponentus.runtimeobj.IFilter;
+import com.exponentus.dataengine.IFilter;
 import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
 

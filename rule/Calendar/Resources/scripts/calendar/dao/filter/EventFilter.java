@@ -2,7 +2,7 @@ package calendar.dao.filter;
 
 import calendar.model.Event;
 import com.exponentus.common.model.constants.PriorityType;
-import com.exponentus.runtimeobj.IFilter;
+import com.exponentus.dataengine.IFilter;
 import reference.model.Tag;
 
 import javax.persistence.criteria.CriteriaBuilder;
