@@ -29,7 +29,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         super(Employee.class, session);
     }
 
-    //*****
+
     public void init() {
         findAll(true);
     }
