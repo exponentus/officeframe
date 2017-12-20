@@ -31,7 +31,6 @@ public class ApprovalRouteService extends RestProvider {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
@@ -72,7 +71,7 @@ public class ApprovalRouteService extends RestProvider {
                 entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
             } else {
                 ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             Outcome outcome = new Outcome();
