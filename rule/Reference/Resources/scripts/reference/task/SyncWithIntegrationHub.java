@@ -43,13 +43,12 @@ public class SyncWithIntegrationHub extends Do {
                     if (collation != null) {
                         IDAO<IAppEntity<UUID>, UUID> dao = DAOFactory.get(ses, collation.getEntityClassName());
                         IRequester requester = new Requester(Environment.integrationHubHost, IHEnvConst.MODULE_NAME);
-                        LinkedHashMap<String, ?> requesterData = requester.getData(service.getServiceUrl(), 0, 0);
-                        List<Map> data = (List) requesterData.get("result");
+                        List<Map<String, ?>> data = requester.getData(service.getServiceUrl(), 0, 0);
                         Iterator iterator = data.iterator();
 
                         while (iterator.hasNext()) {
                             Map entry = (Map) iterator.next();
-                            String extId = (String) entry.get("id");
+                            String extId = (String) entry.get("identifier");
                             try {
                                 IAppEntity entity = dao.findByExtKey(extId);
                                 if (entity == null) {

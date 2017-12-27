@@ -20,19 +20,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//run task ref_fill_industry_types
 @Command(name = ModuleConst.CODE + "_fill_industry_types")
 public class FillIndustryTypes extends Do {
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<IndustryType> entities = new ArrayList<IndustryType>();
-        String[] data = {"горнодобывающая промышленность и разработка карьеров", "обрабатывающая промышленность",
-                "электроснабжение, подача газа, пара и воздушное кондиционирование",
-                "водоснабжение; канализационная система, контроль над сбором и распределением отходов"};
+        String[] data = {"mining_and_quarrying", "manufacturing_industry", "electricity",
+                "gas_steam_and_air_conditioning", "water_supply", "sewerage_system",
+                "control_over_the_collection_and_distribution_of_waste"};
 
         String[] dataRus = {"горнодобывающая промышленность и разработка карьеров", "обрабатывающая промышленность",
-                "электроснабжение, подача газа, пара и воздушное кондиционирование",
-                "водоснабжение; канализационная система, контроль над сбором и распределением отходов"};
+                "электроснабжение", "подача газа, пара и воздушное кондиционирование",
+                "водоснабжение", "канализационная система", "контроль над сбором и распределением отходов"};
 
         try {
 

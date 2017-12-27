@@ -72,6 +72,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("expenditure_categories", "", "expenditure_categories", ModuleConst.BASE_URL + "expenditure-categories"));
             so.addEntry(new OutlineEntry("expenditures", "", "expenditures", ModuleConst.BASE_URL + "expenditures"));
             so.addEntry(new OutlineEntry("activity_types", "", "activity_types", ModuleConst.BASE_URL + "activity-type-categories"));
+            so.addEntry(new OutlineEntry("industry_types", "", "industry-types", ModuleConst.BASE_URL + "industry-types"));
             so.addEntry(new OutlineEntry("building_states", "", "building_states", ModuleConst.BASE_URL + "building-states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", ModuleConst.BASE_URL + "building-materials"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.PASSENGERTRANSPORTTAR.name())) {

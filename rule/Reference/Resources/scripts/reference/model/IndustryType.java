@@ -1,12 +1,20 @@
 package reference.model;
 
+import administrator.dao.CollationDAO;
+import administrator.model.Collation;
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.log.Lg;
+import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonRootName;
+import reference.dao.ActivityTypeCategoryDAO;
+import reference.dao.CountryDAO;
+import reference.dao.RegionTypeDAO;
 import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 @JsonRootName("industryType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -30,5 +38,24 @@ public class IndustryType extends SimpleReferenceEntity {
     @Override
     public String getURL() {
         return ModuleConst.BASE_URL + "industry-types/" + getId();
+    }
+
+    @Override
+    public IndustryType compose(_Session ses, Map<String, ?> data) {
+        super.compose(ses, data);
+        try {
+            Map<String, String> categoryMap = (Map<String, String>) data.get("category");
+            CollationDAO collationDAO = new CollationDAO(ses);
+            Collation collation = collationDAO.findByExtKey(categoryMap.get("id"));
+            ActivityTypeCategoryDAO activityTypeCategoryDAO = new ActivityTypeCategoryDAO(ses);
+            ActivityTypeCategory category = activityTypeCategoryDAO.findById(collation.getIntKey());
+            this.category = category;
+
+
+        } catch (Exception e) {
+            Lg.exception(e);
+            return null;
+        }
+        return this;
     }
 }

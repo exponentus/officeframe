@@ -25,13 +25,12 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("industry-types")
-public class IndustryTypeService extends RestProvider {
+public class IndustryTypeService extends ReferenceService<IndustryType> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
