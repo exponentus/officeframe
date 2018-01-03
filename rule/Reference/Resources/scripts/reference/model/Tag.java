@@ -4,7 +4,6 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.converter.UUIDConverter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import reference.init.ModuleConst;
@@ -12,7 +11,6 @@ import reference.init.ModuleConst;
 import javax.persistence.*;
 import java.util.UUID;
 
-@JsonRootName("tag")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

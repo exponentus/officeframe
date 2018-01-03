@@ -30,15 +30,14 @@ public class PositionService extends ReferenceService<Position> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             PositionDAO dao = new PositionDAO(session);
             ViewPage<Position> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("positions");
-            outcome.addPayload("contentTitle", "positions");
+            outcome.setPayloadTitle("positions");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -65,11 +64,9 @@ public class PositionService extends ReferenceService<Position> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "position");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("position");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 

@@ -4,7 +4,6 @@ import calendar.init.ModuleConst;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.common.model.constants.PriorityType;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.model.Tag;
 import staff.model.embedded.Observer;
 
@@ -14,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-@JsonRootName("event")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = ModuleConst.CODE + "__events")

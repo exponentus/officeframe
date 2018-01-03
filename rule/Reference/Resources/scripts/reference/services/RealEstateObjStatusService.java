@@ -30,15 +30,14 @@ public class RealEstateObjStatusService extends ReferenceService<RealEstateObjSt
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RealEstateObjStatusDAO dao = new RealEstateObjStatusDAO(session);
             ViewPage<RealEstateObjStatus> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("real_estate_obj_statuses");
-            outcome.addPayload("contentTitle", "real_estate_obj_statuses");
+            outcome.setPayloadTitle("real_estate_obj_statuses");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,9 +65,8 @@ public class RealEstateObjStatusService extends ReferenceService<RealEstateObjSt
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "real_estate_obj_status");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("real_estate_obj_status");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -114,11 +112,10 @@ public class RealEstateObjStatusService extends ReferenceService<RealEstateObjSt
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
 
-
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

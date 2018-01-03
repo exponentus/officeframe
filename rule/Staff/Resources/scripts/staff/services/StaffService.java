@@ -24,7 +24,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.UUID;
 
-
 public abstract class StaffService<T extends SimpleReferenceEntity> extends RestProvider implements IExternalService {
 
     @GET
@@ -44,7 +43,7 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
         outcome.addPayload(getDefaultViewActionBar());
         String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
         outcome.setTitle(keyword);
-        outcome.addPayload("contentTitle", keyword);
+        outcome.setPayloadTitle(keyword);
         outcome.addPayload(vp);
 
         return Response.ok(outcome).build();
@@ -73,6 +72,4 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             return responseException(e);
         }
     }
-
-
 }

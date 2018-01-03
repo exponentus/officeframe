@@ -21,7 +21,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("realestate-obj-purposes")
 public class RealEstateObjPurposesService extends ReferenceService<RealEstateObjPurpose> {
     @GET
@@ -49,7 +48,7 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
             }
 
             outcome.setTitle("real_estate_obj_purposes");
-            outcome.addPayload("contentTitle", "real_estate_obj_purposes");
+            outcome.setPayloadTitle("real_estate_obj_purposes");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -76,11 +75,9 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "real_estate_obj_purpose");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("real_estate_obj_purpose");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -131,11 +128,10 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
 
-
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {
@@ -168,10 +164,8 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
             ve.addError("name", "required", "field_is_empty");
         }
 
-
         if (ve.hasError()) {
             throw ve;
         }
     }
-
 }

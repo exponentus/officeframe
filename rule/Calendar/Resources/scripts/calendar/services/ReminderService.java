@@ -61,7 +61,7 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("reminders");
-            outcome.addPayload("contentTitle", "reminder_templates");
+            outcome.setPayloadTitle("reminder_templates");
             outcome.addPayload(vp);
             outcome.addPayload(getDefaultViewActionBar());
 
@@ -93,7 +93,7 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
             Outcome outcome = domain.getOutcome(entity);
             outcome.setTitle("reminder");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload("contentTitle", "reminder");
+            outcome.setPayloadTitle("reminder");
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("reminderTypes", ReminderType.values());
 

@@ -3,13 +3,11 @@ package staff.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
 
-@JsonRootName("individual")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "staff__individuals", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "bin"}))

@@ -76,7 +76,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("employees");
-            outcome.addPayload("contentTitle", "employees");
+            outcome.setPayloadTitle("employees");
             outcome.addPayload(actionBar);
             outcome.addPayload(vp);
 
@@ -155,9 +155,8 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("employee");
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "employee");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("employee");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
             outcome.addPayload("userLogins", userLogins);
@@ -257,7 +256,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             t.start();
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

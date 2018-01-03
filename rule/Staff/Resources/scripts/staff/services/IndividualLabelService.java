@@ -51,7 +51,7 @@ public class IndividualLabelService extends RestProvider {
             }
 
             outcome.setTitle("individual_labels");
-            outcome.addPayload("contentTitle", "individual_labels");
+            outcome.setPayloadTitle("individual_labels");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -87,9 +87,8 @@ public class IndividualLabelService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("individual_label");
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "individual_label");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("individual_label");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
@@ -143,7 +142,7 @@ public class IndividualLabelService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

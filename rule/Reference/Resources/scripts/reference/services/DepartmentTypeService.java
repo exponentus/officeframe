@@ -62,10 +62,8 @@ public class DepartmentTypeService extends ReferenceService<DepartmentType> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
+            outcome.setModel(entity);
             outcome.addPayload("contentTitle", "department_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));

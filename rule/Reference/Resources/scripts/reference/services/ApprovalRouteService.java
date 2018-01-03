@@ -13,7 +13,6 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.ApprovalRouteDAO;
 import reference.dto.converter.ApprovalRouteDtoConverter;
 import reference.model.ApprovalRoute;
@@ -45,7 +44,7 @@ public class ApprovalRouteService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("approval_routes");
-            outcome.addPayload("contentTitle", "approval_route");
+            outcome.setPayloadTitle("approval_route");
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
@@ -75,9 +74,8 @@ public class ApprovalRouteService extends RestProvider {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "approval_route");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("approval_route");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload("approvalSchemaTypes", ApprovalSchemaType.values());
@@ -135,7 +133,7 @@ public class ApprovalRouteService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

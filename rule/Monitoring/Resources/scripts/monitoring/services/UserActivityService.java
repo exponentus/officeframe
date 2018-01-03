@@ -55,7 +55,7 @@ public class UserActivityService extends RestProvider {
         Outcome outcome = new Outcome();
         outcome.setId("user-activity");
         outcome.setTitle("user_activities");
-        outcome.addPayload("contentTitle", "user_activities");
+        outcome.setPayloadTitle("user_activities");
         outcome.addPayload(actionBar);
         outcome.addPayload(vp);
 
@@ -78,7 +78,7 @@ public class UserActivityService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.setId("last-visits");
             outcome.setTitle("last_logins");
-            outcome.addPayload("contentTitle", "last_logins");
+            outcome.setPayloadTitle("last_logins");
             outcome.addPayload(actionBar);
             outcome.addPayload(vp);
 

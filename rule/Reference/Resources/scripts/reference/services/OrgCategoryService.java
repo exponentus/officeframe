@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("org-categories")
 public class OrgCategoryService extends ReferenceService<OrgCategory> {
 
@@ -31,15 +30,14 @@ public class OrgCategoryService extends ReferenceService<OrgCategory> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             OrgCategoryDAO dao = new OrgCategoryDAO(session);
             ViewPage<OrgCategory> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("org_categories");
-            outcome.addPayload("contentTitle", "org_categories");
+            outcome.setPayloadTitle("org_categories");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,11 +64,9 @@ public class OrgCategoryService extends ReferenceService<OrgCategory> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "org_category");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("org_category");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -119,7 +115,7 @@ public class OrgCategoryService extends ReferenceService<OrgCategory> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

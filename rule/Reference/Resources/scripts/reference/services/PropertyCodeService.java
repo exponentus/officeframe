@@ -30,14 +30,14 @@ public class PropertyCodeService extends ReferenceService<PropertyCode> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             PropertyCodeDAO dao = new PropertyCodeDAO(session);
             ViewPage<PropertyCode> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
+
+            Outcome outcome = new Outcome();
             outcome.setTitle("property_codes");
-            outcome.addPayload("contentTitle", "property_codes");
+            outcome.setPayloadTitle("property_codes");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -64,11 +64,9 @@ public class PropertyCodeService extends ReferenceService<PropertyCode> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "property_code");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("property_code");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -98,7 +96,6 @@ public class PropertyCodeService extends ReferenceService<PropertyCode> {
     public Response save(PropertyCode dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -118,7 +115,7 @@ public class PropertyCodeService extends ReferenceService<PropertyCode> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

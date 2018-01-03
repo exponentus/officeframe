@@ -79,7 +79,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         Outcome outcome = new Outcome();
         outcome.setId("report-profiles");
         outcome.setTitle("report_profiles");
-        outcome.addPayload("contentTitle", "report_profiles");
+        outcome.setPayloadTitle("report_profiles");
         outcome.addPayload(actionBar);
         outcome.addPayload(vp);
         return Response.ok(outcome).build();
@@ -127,7 +127,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
             Outcome outcome = domain.getOutcome(entity);
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload("contentTitle", "report_profile");
+            outcome.setPayloadTitle("report_profile");
             outcome.addPayload("exportFormatType", ExportFormatType.values());
             outcome.addPayload("reportQueryType", ReportQueryType.values());
             outcome.addPayload("entityClassNames", entityClassNames);

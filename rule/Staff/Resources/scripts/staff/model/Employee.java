@@ -9,7 +9,10 @@ import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.user.IUser;
 import com.exponentus.user.UndefinedUser;
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.eclipse.persistence.annotations.Cache;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
@@ -24,7 +27,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@JsonRootName("employee")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "staff__employees", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "organization_id"}),

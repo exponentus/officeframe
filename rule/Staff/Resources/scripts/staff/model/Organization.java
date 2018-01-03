@@ -8,7 +8,6 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.OrgCategoryDAO;
 import reference.model.OrgCategory;
 import staff.init.ModuleConst;
@@ -17,7 +16,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
-@JsonRootName("organization")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = ModuleConst.CODE + "__orgs", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "bizID"}))

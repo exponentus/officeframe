@@ -31,16 +31,14 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             LocalityTypeDAO dao = new LocalityTypeDAO(session);
             ViewPage<LocalityType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
-            outcome.addPayload(getDefaultViewActionBar(true));
-
+            Outcome outcome = new Outcome();
             outcome.setTitle("locality_types");
-            outcome.addPayload("contentTitle", "locality_types");
+            outcome.setPayloadTitle("locality_types");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -68,9 +66,8 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "locality_type");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("locality_type");
             outcome.addPayload("localityCodes", LocalityCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
@@ -101,7 +98,6 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
     public Response save(LocalityType dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -122,7 +118,7 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

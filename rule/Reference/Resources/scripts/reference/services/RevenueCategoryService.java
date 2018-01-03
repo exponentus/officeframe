@@ -29,15 +29,14 @@ public class RevenueCategoryService extends ReferenceService<RevenueCategory> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RevenueCategoryDAO dao = new RevenueCategoryDAO(session);
-
             ViewPage<RevenueCategory> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
+
+            Outcome outcome = new Outcome();
             outcome.setTitle("revenue_categories");
-            outcome.addPayload("contentTitle", "revenue_categories");
+            outcome.setPayloadTitle("revenue_categories");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -64,11 +63,9 @@ public class RevenueCategoryService extends ReferenceService<RevenueCategory> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "revenue_category");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("revenue_category");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             return Response.ok(outcome).build();
@@ -97,7 +94,6 @@ public class RevenueCategoryService extends ReferenceService<RevenueCategory> {
     public Response save(RevenueCategory dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -117,7 +113,7 @@ public class RevenueCategoryService extends ReferenceService<RevenueCategory> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

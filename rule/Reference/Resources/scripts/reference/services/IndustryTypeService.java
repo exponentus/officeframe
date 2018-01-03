@@ -4,13 +4,11 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
 import reference.dao.filter.IndustryTypeFilter;
@@ -50,7 +48,7 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("industry_types");
-            outcome.addPayload("contentTitle", "industry_types");
+            outcome.setPayloadTitle("industry_types");
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
@@ -79,9 +77,8 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "industry_type");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("industry_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -131,7 +128,7 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

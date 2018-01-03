@@ -2,14 +2,12 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.ModuleConst;
 import reference.model.constants.ControlSchemaType;
 import reference.model.constants.converter.ControlSchemaTypeConverter;
 
 import javax.persistence.*;
 
-@JsonRootName("controlType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

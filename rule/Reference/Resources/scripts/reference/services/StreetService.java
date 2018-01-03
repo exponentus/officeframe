@@ -21,7 +21,6 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.UUID;
 
-
 @Path("streets")
 public class StreetService extends ReferenceService<Street> {
 
@@ -33,7 +32,6 @@ public class StreetService extends ReferenceService<Street> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             String localityId = params.getValueSilently("locality");
 
@@ -48,9 +46,11 @@ public class StreetService extends ReferenceService<Street> {
                 List<Street> streetList = locality.getStreets();
                 vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
             }
-            outcome.addPayload(getDefaultViewActionBar(true));
+
+            Outcome outcome = new Outcome();
             outcome.setTitle("streets");
-            outcome.addPayload("contentTitle", "streets");
+            outcome.setPayloadTitle("streets");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -78,9 +78,8 @@ public class StreetService extends ReferenceService<Street> {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "street");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("street");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -131,7 +130,7 @@ public class StreetService extends ReferenceService<Street> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

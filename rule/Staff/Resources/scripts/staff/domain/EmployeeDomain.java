@@ -19,5 +19,4 @@ public class EmployeeDomain extends CommonDomain<Employee> {
     public Employee fillFromDto(Employee dto, IValidation<Employee> validation, String formSesId) throws DTOException, DAOException {
         return null;
     }
-
 }

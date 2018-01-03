@@ -82,11 +82,9 @@ public class DistrictService extends ReferenceService<District> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
             outcome.addPayload("mapsApiKey", Environment.mapsApiKey);
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
+            outcome.setModel(entity);
             outcome.addPayload("contentTitle", "district");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));

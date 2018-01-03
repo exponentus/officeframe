@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("meeting-rooms")
 public class MeetingRoomService extends RestProvider {
 
@@ -32,15 +31,14 @@ public class MeetingRoomService extends RestProvider {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             MeetingRoomDAO dao = new MeetingRoomDAO(session);
             ViewPage<MeetingRoom> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
 
+            Outcome outcome = new Outcome();
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("meeting_room");
-            outcome.addPayload("contentTitle", "meeting_room");
+            outcome.setPayloadTitle("meeting_room");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -67,11 +65,9 @@ public class MeetingRoomService extends RestProvider {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "meeting_room");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("meeting_room");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -120,7 +116,7 @@ public class MeetingRoomService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

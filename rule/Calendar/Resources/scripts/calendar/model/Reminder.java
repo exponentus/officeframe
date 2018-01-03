@@ -5,7 +5,6 @@ import calendar.model.constants.ReminderType;
 import calendar.model.constants.converter.ReminderTypeConverter;
 import com.exponentus.common.model.SecureAppEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import staff.model.embedded.Observer;
 
 import javax.persistence.*;
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@JsonRootName("reminder")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = ModuleConst.CODE + "__reminders")

@@ -89,7 +89,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             }
 
             outcome.setTitle("individuals");
-            outcome.addPayload("contentTitle", "individuals");
+            outcome.setPayloadTitle("individuals");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -125,9 +125,8 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
 
             Outcome outcome = new Outcome();
             outcome.setTitle("individual");
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "individual");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("individual");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 

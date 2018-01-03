@@ -71,7 +71,7 @@ public class EventService extends EntityService<Event, EventDomain> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("events");
-            outcome.addPayload("contentTitle", "events");
+            outcome.setPayloadTitle("events");
             outcome.addPayload(vp);
             outcome.addPayload(getDefaultViewActionBar());
 
@@ -103,7 +103,7 @@ public class EventService extends EntityService<Event, EventDomain> {
             Outcome outcome = domain.getOutcome(entity);
             outcome.setTitle("event");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
-            outcome.addPayload("contentTitle", "event");
+            outcome.setPayloadTitle("event");
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("priorityTypes", PriorityType.values());
 

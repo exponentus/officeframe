@@ -5,13 +5,11 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.Map;
 
-@JsonRootName("documentLanguage")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

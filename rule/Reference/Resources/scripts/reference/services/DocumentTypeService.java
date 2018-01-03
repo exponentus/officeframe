@@ -31,17 +31,15 @@ public class DocumentTypeService extends ReferenceService<DocumentType> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             DocumentTypeDAO dao = new DocumentTypeDAO(session);
             ViewPage<DocumentType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
-
             vp.setViewPageOptions(new ViewOptions().getDocumentTypeOptions());
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("doc_types");
-            outcome.addPayload("contentTitle", "doc_types");
+            outcome.setPayloadTitle("doc_types");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -68,11 +66,9 @@ public class DocumentTypeService extends ReferenceService<DocumentType> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "doc_type");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("doc_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -124,7 +120,7 @@ public class DocumentTypeService extends ReferenceService<DocumentType> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

@@ -6,7 +6,6 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.ModuleConst;
 import reference.model.constants.CountryCode;
 
@@ -20,7 +19,6 @@ import java.util.Map;
 // a3 - alpha code 3
 // n3 // numeric code 3
 
-@JsonRootName("country")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

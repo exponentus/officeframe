@@ -53,7 +53,7 @@ public class TagService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("tags");
-            outcome.addPayload("contentTitle", "tags");
+            outcome.setPayloadTitle("tags");
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
@@ -93,9 +93,8 @@ public class TagService extends RestProvider {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "tag");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("tag");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("tagCategories", allTagCategories);
@@ -148,7 +147,7 @@ public class TagService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

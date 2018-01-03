@@ -4,14 +4,12 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
-@JsonRootName("individualLabel")
 @Entity
 @Table(name = "staff__individual_labels", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class IndividualLabel extends SimpleReferenceEntity {

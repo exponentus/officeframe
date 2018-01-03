@@ -47,7 +47,6 @@ public class ReportProfileDomain extends CommonDomain<ReportProfile> {
             entity = dao.findById(dto.getId());
         }
 
-
         entity.setName(dto.getName());
         entity.setTitle(dto.getTitle());
         entity.setReportQueryType(dto.getReportQueryType());

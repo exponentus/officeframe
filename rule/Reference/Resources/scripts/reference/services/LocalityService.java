@@ -21,7 +21,6 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.UUID;
 
-
 @Path("localities")
 public class LocalityService extends ReferenceService<Locality> {
 
@@ -34,8 +33,6 @@ public class LocalityService extends ReferenceService<Locality> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             String regionId = params.getValueSilently("region");
 
@@ -51,10 +48,10 @@ public class LocalityService extends ReferenceService<Locality> {
                 vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
             }
 
-            outcome.addPayload(getDefaultViewActionBar(true));
-
+            Outcome outcome = new Outcome();
             outcome.setTitle("localities");
-            outcome.addPayload("contentTitle", "localities");
+            outcome.setPayloadTitle("localities");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -81,11 +78,9 @@ public class LocalityService extends ReferenceService<Locality> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "locality");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("locality");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -115,7 +110,6 @@ public class LocalityService extends ReferenceService<Locality> {
     public Response save(Locality dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -137,7 +131,7 @@ public class LocalityService extends ReferenceService<Locality> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

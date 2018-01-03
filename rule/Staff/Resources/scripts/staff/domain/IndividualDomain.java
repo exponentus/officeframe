@@ -32,7 +32,5 @@ public class IndividualDomain extends CommonDomain<Individual> {
         entity.setBin(dto.getBin());
         entity.setLabels(dto.getLabels());
         return entity;
-
     }
-
 }

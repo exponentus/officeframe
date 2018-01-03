@@ -57,7 +57,7 @@ public class RoleService extends RestProvider {
             }
 
             outcome.setTitle("roles");
-            outcome.addPayload("contentTitle", "roles");
+            outcome.setPayloadTitle("roles");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -106,9 +106,8 @@ public class RoleService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("role");
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "role");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("role");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
             outcome.addPayload("roles", allRoles);
@@ -164,7 +163,7 @@ public class RoleService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

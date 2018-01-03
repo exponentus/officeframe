@@ -44,7 +44,7 @@ public class ServiceService extends RestProvider {
 
         Outcome outcome = new Outcome();
         outcome.setTitle("services");
-        outcome.addPayload("contentTitle", "services");
+        outcome.setPayloadTitle("services");
         outcome.addPayload(vp);
         outcome.addPayload(actionBar);
 
@@ -60,8 +60,8 @@ public class ServiceService extends RestProvider {
 
         Outcome outcome = new Outcome();
         outcome.setTitle("service");
-        outcome.addPayload("contentTitle", "service");
-        outcome.addPayload(service);
+        outcome.setPayloadTitle("service");
+        outcome.setModel(service);
 
         return Response.ok(outcome).build();
     }

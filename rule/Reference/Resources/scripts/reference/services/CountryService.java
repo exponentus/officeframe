@@ -63,10 +63,8 @@ public class CountryService extends ReferenceService<Country> {
                 entity = dao.findById(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
+            outcome.setModel(entity);
             outcome.addPayload("contentTitle", "country");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
@@ -118,7 +116,7 @@ public class CountryService extends ReferenceService<Country> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {
@@ -161,6 +159,4 @@ public class CountryService extends ReferenceService<Country> {
             throw ve;
         }
     }
-
-
 }

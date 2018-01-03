@@ -31,15 +31,14 @@ public class TaskTypeService extends RestProvider {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             TaskTypeDAO dao = new TaskTypeDAO(session);
             ViewPage<TaskType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("task_types");
-            outcome.addPayload("contentTitle", "task_types");
+            outcome.setPayloadTitle("task_types");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,11 +65,9 @@ public class TaskTypeService extends RestProvider {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "task_type");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("task_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -120,7 +117,7 @@ public class TaskTypeService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

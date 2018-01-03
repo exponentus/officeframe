@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("eng-infrastruct-obj-classifications")
 public class EngInfrastructObjClassificationService extends ReferenceService<EngInfrastructObjClassification> {
 
@@ -39,7 +38,7 @@ public class EngInfrastructObjClassificationService extends ReferenceService<Eng
             ViewPage<EngInfrastructObjClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("eng_infrastruct_obj_classifications");
-            outcome.addPayload("contentTitle", "eng_infrastruct_obj_classifications");
+            outcome.setPayloadTitle("eng_infrastruct_obj_classifications");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,11 +65,9 @@ public class EngInfrastructObjClassificationService extends ReferenceService<Eng
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "eng_infrastruct_obj_classification");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("eng_infrastruct_obj_classification");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             return Response.ok(outcome).build();
@@ -99,7 +96,6 @@ public class EngInfrastructObjClassificationService extends ReferenceService<Eng
     public Response save(EngInfrastructObjClassification dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -119,7 +115,7 @@ public class EngInfrastructObjClassificationService extends ReferenceService<Eng
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

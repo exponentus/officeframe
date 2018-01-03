@@ -41,7 +41,7 @@ public class DocumentSubjectService extends ReferenceService<DocumentSubject> {
             vp.setViewPageOptions(new ViewOptions().getDocumentSubjectOptions());
 
             outcome.setTitle("doc_subject");
-            outcome.addPayload("contentTitle", "doc_subject");
+            outcome.setPayloadTitle("doc_subject");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -68,11 +68,9 @@ public class DocumentSubjectService extends ReferenceService<DocumentSubject> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "doc_subject");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("doc_subject");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -122,7 +120,7 @@ public class DocumentSubjectService extends ReferenceService<DocumentSubject> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

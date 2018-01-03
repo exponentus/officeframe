@@ -3,7 +3,6 @@ package staff.model;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.util.EmployeeConverter;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
 import org.eclipse.persistence.annotations.Converters;
@@ -14,7 +13,6 @@ import staff.model.util.DepartmentConverter;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
-@JsonRootName("department")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Table(name = "staff__departments", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "organization_id"}))

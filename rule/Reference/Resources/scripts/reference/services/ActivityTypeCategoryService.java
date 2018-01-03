@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-
 @Path("activity-type-categories")
 public class ActivityTypeCategoryService extends ReferenceService<ActivityTypeCategory> {
 
@@ -26,19 +25,19 @@ public class ActivityTypeCategoryService extends ReferenceService<ActivityTypeCa
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
-        Outcome outcome = new Outcome();
         SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
         try {
             ActivityTypeCategoryDAO dao = new ActivityTypeCategoryDAO(session);
             ViewPage<ActivityTypeCategory> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+
+            Outcome outcome = new Outcome();
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("activity_types");
-            outcome.addPayload("contentTitle", "activity_types");
+            outcome.setPayloadTitle("activity_types");
             outcome.addPayload(vp);
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
-
     }
 }

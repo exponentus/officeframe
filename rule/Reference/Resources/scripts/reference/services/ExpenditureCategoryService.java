@@ -38,7 +38,7 @@ public class ExpenditureCategoryService extends ReferenceService<ExpenditureCate
             ViewPage<ExpenditureCategory> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("expenditure_category");
-            outcome.addPayload("contentTitle", "expenditure_category");
+            outcome.setPayloadTitle("expenditure_category");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -65,11 +65,9 @@ public class ExpenditureCategoryService extends ReferenceService<ExpenditureCate
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "expenditure_category");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("expenditure_category");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             return Response.ok(outcome).build();
@@ -118,7 +116,7 @@ public class ExpenditureCategoryService extends ReferenceService<ExpenditureCate
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

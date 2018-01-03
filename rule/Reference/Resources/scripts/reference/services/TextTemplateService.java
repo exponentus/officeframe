@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("text-templates")
 public class TextTemplateService extends ReferenceService<TextTemplate> {
 
@@ -31,15 +30,14 @@ public class TextTemplateService extends ReferenceService<TextTemplate> {
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             TextTemplateDAO dao = new TextTemplateDAO(session);
             ViewPage<TextTemplate> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("text_template");
-            outcome.addPayload("contentTitle", "text_template");
+            outcome.setPayloadTitle("text_template");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,11 +64,9 @@ public class TextTemplateService extends ReferenceService<TextTemplate> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "text_template");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("text_template");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -100,7 +96,6 @@ public class TextTemplateService extends ReferenceService<TextTemplate> {
     public Response save(TextTemplate dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -121,7 +116,7 @@ public class TextTemplateService extends ReferenceService<TextTemplate> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("nature-conservation-obj-types")
 public class NatureConservationObjTypeService extends ReferenceService<NatureConservationObjType> {
 
@@ -31,15 +30,14 @@ public class NatureConservationObjTypeService extends ReferenceService<NatureCon
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             NatureConservationObjTypeDAO dao = new NatureConservationObjTypeDAO(session);
-
             ViewPage<NatureConservationObjType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+
+            Outcome outcome = new Outcome();
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("nature_conservation_obj_types");
-            outcome.addPayload("contentTitle", "nature_conservation_obj_types");
+            outcome.setPayloadTitle("nature_conservation_obj_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,13 +64,12 @@ public class NatureConservationObjTypeService extends ReferenceService<NatureCon
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "nature_conservation_obj_type");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("nature_conservation_obj_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
@@ -99,7 +96,6 @@ public class NatureConservationObjTypeService extends ReferenceService<NatureCon
     public Response save(NatureConservationObjType dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -119,7 +115,7 @@ public class NatureConservationObjTypeService extends ReferenceService<NatureCon
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

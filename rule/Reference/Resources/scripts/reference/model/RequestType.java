@@ -2,16 +2,10 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.ModuleConst;
 
 import javax.persistence.*;
 
-/**
- * @author Kayra created 07-06-2016
- */
-
-@JsonRootName("requestType")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

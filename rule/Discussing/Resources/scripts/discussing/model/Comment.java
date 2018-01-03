@@ -5,7 +5,6 @@ import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import discussing.init.ModuleConst;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
 
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@JsonRootName("comment")
 @Entity
 @Table(name = ModuleConst.CODE + "__comments")
 public class Comment extends SecureAppEntity<UUID> {

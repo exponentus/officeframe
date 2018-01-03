@@ -29,15 +29,14 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RouteClassificationDAO dao = new RouteClassificationDAO(session);
-
             ViewPage<RouteClassification> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
+
+            Outcome outcome = new Outcome();
             outcome.setTitle("route_classifications");
-            outcome.addPayload("contentTitle", "route_classification");
+            outcome.setPayloadTitle("route_classification");
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -64,11 +63,9 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "route_classification");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("route_classification");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             return Response.ok(outcome).build();
@@ -97,7 +94,6 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
     public Response save(RouteClassification dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -117,7 +113,7 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

@@ -2,7 +2,6 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.ModuleConst;
 
 import javax.persistence.*;
@@ -13,7 +12,6 @@ import javax.persistence.*;
  * @author Kayra created 07-01-2016
  */
 
-@JsonRootName("propertyCode")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

@@ -26,7 +26,6 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.UUID;
 
-
 public abstract class ReferenceService<T extends SimpleReferenceEntity> extends RestProvider implements IExternalService {
 
     @GET
@@ -46,7 +45,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         outcome.addPayload(getDefaultViewActionBar());
         String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
         outcome.setTitle(keyword);
-        outcome.addPayload("contentTitle", keyword);
+        outcome.setPayloadTitle(keyword);
         outcome.addPayload(vp);
 
         return Response.ok(outcome).build();
@@ -77,11 +76,9 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", StringUtil.kindToKeyword(entity.getEntityKind()));
+            outcome.setModel(entity);
+            outcome.setPayloadTitle(StringUtil.kindToKeyword(entity.getEntityKind()));
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -134,7 +131,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {
@@ -174,7 +171,6 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         }
     }
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Defended(false)
@@ -198,6 +194,4 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             return responseException(e);
         }
     }
-
-
 }

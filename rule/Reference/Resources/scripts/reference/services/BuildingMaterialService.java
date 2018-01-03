@@ -18,7 +18,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("building-materials")
 public class BuildingMaterialService extends ReferenceService<BuildingMaterial> {
 
@@ -66,11 +65,9 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "building_material");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("building_material");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             return Response.ok(outcome).build();
@@ -119,7 +116,7 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

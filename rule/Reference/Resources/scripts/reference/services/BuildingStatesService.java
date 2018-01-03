@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("building-states")
 public class BuildingStatesService extends ReferenceService<BuildingState> {
 
@@ -64,11 +63,9 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "building_state");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("building_state");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -98,7 +95,6 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
     public Response save(BuildingState dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -119,7 +115,7 @@ public class BuildingStatesService extends ReferenceService<BuildingState> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

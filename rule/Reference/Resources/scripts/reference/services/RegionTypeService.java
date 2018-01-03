@@ -39,7 +39,7 @@ public class RegionTypeService extends ReferenceService<RegionType> {
             outcome.addPayload(getDefaultViewActionBar(true));
 
             outcome.setTitle("region_types");
-            outcome.addPayload("contentTitle", "region_types");
+            outcome.setPayloadTitle("region_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -67,9 +67,8 @@ public class RegionTypeService extends ReferenceService<RegionType> {
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "region_type");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("region_type");
             outcome.addPayload("regionCodes", RegionCode.values());
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
@@ -120,7 +119,7 @@ public class RegionTypeService extends ReferenceService<RegionType> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

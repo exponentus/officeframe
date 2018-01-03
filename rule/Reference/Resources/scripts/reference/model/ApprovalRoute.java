@@ -6,7 +6,6 @@ import com.exponentus.common.model.constants.converter.ApprovalSchemaTypeConvert
 import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.init.ModuleConst;
 import reference.model.embedded.RouteBlock;
 
@@ -14,7 +13,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
-@JsonRootName("approvalRoute")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

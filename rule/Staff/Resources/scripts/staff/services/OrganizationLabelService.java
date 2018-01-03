@@ -51,7 +51,7 @@ public class OrganizationLabelService extends RestProvider {
             }
 
             outcome.setTitle("organization_labels");
-            outcome.addPayload("contentTitle", "organization_labels");
+            outcome.setPayloadTitle("organization_labels");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -87,9 +87,8 @@ public class OrganizationLabelService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("organization_label");
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "organization_label");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("organization_label");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
@@ -144,7 +143,7 @@ public class OrganizationLabelService extends RestProvider {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

@@ -5,14 +5,12 @@ import com.exponentus.common.model.converter.LocalizedValConverter;
 import com.exponentus.extconnect.IExtRole;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import staff.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
-@JsonRootName("role")
 @Entity
 @Table(name = "staff__roles", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQueries({

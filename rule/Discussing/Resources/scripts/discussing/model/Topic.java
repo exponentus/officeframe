@@ -3,7 +3,6 @@ package discussing.model;
 import com.exponentus.common.model.Attachment;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import discussing.init.ModuleConst;
 import discussing.model.constants.TopicStatusType;
 import org.eclipse.persistence.annotations.CascadeOnDelete;
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@JsonRootName("topic")
 @Entity
 @Table(name = ModuleConst.CODE + "__topics")
 public class Topic extends SecureAppEntity<UUID> {

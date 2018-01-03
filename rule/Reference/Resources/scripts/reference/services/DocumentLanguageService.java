@@ -38,7 +38,7 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
             ViewPage<DocumentLanguage> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("doc_languages");
-            outcome.addPayload("contentTitle", "doc_languages");
+            outcome.setPayloadTitle("doc_languages");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -66,11 +66,9 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
             }
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            // addContent(new EnumWrapper(LanguageCode.class.getEnumConstants()));
+            outcome.setModel(entity);
             outcome.addPayload("languageCodes", LanguageCode.values());
-            outcome.addPayload("contentTitle", "doc_language");
+            outcome.setPayloadTitle("doc_language");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
@@ -120,7 +118,7 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {

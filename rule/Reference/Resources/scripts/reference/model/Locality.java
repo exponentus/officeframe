@@ -7,7 +7,6 @@ import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
 import reference.init.ModuleConst;
@@ -17,7 +16,6 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Map;
 
-@JsonRootName("locality")
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)

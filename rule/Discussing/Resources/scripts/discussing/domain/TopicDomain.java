@@ -115,8 +115,8 @@ public class TopicDomain extends CommonDomain<Topic> {
             outcome.setTitle(Environment.vocabulary.getWord("topic", ses.getLang()) + " " + topic.getTitle());
         }
 
-        outcome.addPayload("contentTitle", "topic");
-        outcome.addPayload(topic);
+        outcome.setPayloadTitle("topic");
+        outcome.setModel(topic);
         if (!topic.isNew()) {
             outcome.addPayload(new ACL(topic));
         }

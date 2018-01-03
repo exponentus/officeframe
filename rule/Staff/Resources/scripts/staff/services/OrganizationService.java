@@ -86,7 +86,7 @@ public class OrganizationService extends StaffService<Organization> {
             }
 
             outcome.setTitle("organizations");
-            outcome.addPayload("contentTitle", "organizations");
+            outcome.setPayloadTitle("organizations");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -122,9 +122,8 @@ public class OrganizationService extends StaffService<Organization> {
 
             Outcome outcome = new Outcome();
             outcome.setTitle("organization");
-            outcome.addPayload(entity.getEntityKind(), entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "organization");
+            outcome.setModel(entity);
+            outcome.setPayloadTitle("organization");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
@@ -182,7 +181,7 @@ public class OrganizationService extends StaffService<Organization> {
             dao.save(entity);
 
             Outcome outcome = new Outcome();
-            outcome.addPayload(entity);
+            outcome.setModel(entity);
 
             return Response.ok(outcome).build();
         } catch (SecureException | DAOException e) {
