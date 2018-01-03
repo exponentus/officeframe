@@ -4,7 +4,6 @@ import administrator.model.User;
 import com.exponentus.common.model.SimpleAppEntity;
 import com.exponentus.common.model.converter.UUIDConverter;
 import com.exponentus.common.model.converter.UserConverter;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.init.ModuleConst;
 import monitoring.model.constants.ActivityType;
 import org.eclipse.persistence.annotations.Convert;
@@ -18,7 +17,6 @@ import javax.persistence.Table;
 import java.util.Date;
 import java.util.UUID;
 
-@JsonRootName("userActivity")
 @Entity
 @Table(name = ModuleConst.CODE + "__user_activities")
 @Converters({@Converter(name = "user_conv", converterClass = UserConverter.class),

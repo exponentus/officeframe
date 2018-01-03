@@ -2,7 +2,6 @@ package monitoring.model;
 
 import com.exponentus.common.model.SimpleAppEntity;
 import com.exponentus.common.model.converter.UUIDConverter;
-import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.init.ModuleConst;
 import monitoring.model.embedded.Event;
 import monitoring.model.util.EventConverter;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@JsonRootName("documentActivity")
 @Entity
 @Converter(name = "uuidConverter", converterClass = UUIDConverter.class)
 @Table(name = ModuleConst.CODE + "__doc_activities", uniqueConstraints = @UniqueConstraint(columnNames = {"act_entity_id"}))

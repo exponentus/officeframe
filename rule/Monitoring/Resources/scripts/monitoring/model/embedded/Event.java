@@ -1,11 +1,9 @@
 package monitoring.model.embedded;
 
-import com.fasterxml.jackson.annotation.JsonRootName;
 import monitoring.model.constants.ActivityType;
 
 import java.util.Date;
 
-@JsonRootName("event")
 public class Event {
     private Date time;
     private String addInfo;
