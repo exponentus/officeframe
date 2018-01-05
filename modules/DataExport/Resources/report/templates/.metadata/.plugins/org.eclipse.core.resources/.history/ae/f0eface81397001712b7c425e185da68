@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-09-11T20:07:27 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report500" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="047ecfaf-fe84-4bab-a463-41ea1917e7d2">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="user" class="java.lang.String"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="processing" class="java.lang.Integer"/>
+	<field name="completed" class="java.lang.Integer"/>
+	<field name="cancelled" class="java.lang.Integer"/>
+	<field name="open" class="java.lang.Integer"/>
+	<field name="pending" class="java.lang.Integer"/>
+	<field name="postponed" class="java.lang.Integer"/>
+	<field name="draft" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="180" y="10" width="100" height="20" uuid="6b64d13e-a5b8-4086-a6d9-395c9d66b55b"/>
+				<text><![CDATA[REPORT 500]]></text>
+			</staticText>
+			<image>
+				<reportElement x="0" y="0" width="80" height="42" uuid="bf148ebe-2740-4d22-9aa1-07c65bf7b9f9"/>
+				<imageExpression><![CDATA["f.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="14" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="150" height="30" uuid="84f81510-1a79-45fe-aa55-84f64f6311fc"/>
+				<text><![CDATA[Автор]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="60" height="30" uuid="665a9751-fab9-4aac-b9c6-914c51d491ae"/>
+				<text><![CDATA[Всего]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="210" y="0" width="60" height="30" uuid="0aa5fe06-dfc8-4d3a-b7d2-bb10c1cdb8c2"/>
+				<text><![CDATA[В работе]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="270" y="0" width="60" height="30" uuid="66435ace-7c04-46d5-8cdd-7e67ff8d78cf"/>
+				<text><![CDATA[Завершенные]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="60" height="30" uuid="0f9d0da6-e21a-438e-ad47-dc247f0fa907"/>
+				<text><![CDATA[Отмененные]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="570" y="0" width="60" height="30" uuid="9933e6e5-ef96-4b60-80de-c1b7c010fa13"/>
+				<text><![CDATA[Черновик]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="390" y="0" width="60" height="30" uuid="d4a07791-d5a8-4420-b031-5a3816bdb498"/>
+				<text><![CDATA[Открытые]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="0" width="60" height="30" uuid="a8120c4a-0dd4-4fcd-be4a-c669681d6a27"/>
+				<text><![CDATA[Ожидающие]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="510" y="0" width="60" height="30" uuid="1e9a278c-1668-4736-a221-1c526aae5a03"/>
+				<text><![CDATA[Отложенные]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="150" height="30" uuid="be28d6e6-58e8-45b1-8068-cf419654be11"/>
+				<textFieldExpression><![CDATA[$F{user}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="60" height="30" uuid="33a386d3-a68d-4c39-b5d5-016b62ccef86"/>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="210" y="0" width="60" height="30" uuid="c9b53d97-d87a-4d4f-95b8-24f8b29fd8ae"/>
+				<textFieldExpression><![CDATA[$F{processing}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="60" height="30" uuid="1dba9099-11da-4a63-83e4-45b8ad67d943"/>
+				<textFieldExpression><![CDATA[$F{completed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="60" height="30" uuid="e5b69f2b-7992-48ff-b51e-1b993e33634d"/>
+				<textFieldExpression><![CDATA[$F{cancelled}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="390" y="0" width="60" height="30" uuid="0b9c6b2c-36ad-4717-ac1b-833ba706a6f2"/>
+				<textFieldExpression><![CDATA[$F{open}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="60" height="30" uuid="dd3b4264-3eff-4b10-821d-22dc0ce5e41b"/>
+				<textFieldExpression><![CDATA[$F{pending}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="510" y="0" width="60" height="30" uuid="3fcf9686-bbd0-4e04-bbbd-df87d688bd40"/>
+				<textFieldExpression><![CDATA[$F{postponed}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="570" y="0" width="60" height="30" uuid="b92d484b-1c4f-4331-afd0-e612d124dddc"/>
+				<textFieldExpression><![CDATA[$F{draft}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="16" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="17" splitType="Stretch"/>
+	</summary>
+</jasperReport>

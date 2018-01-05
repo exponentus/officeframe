@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+    <section name="com.jaspersoft.studio.preferences.fonts.SelectFontSetSetDialog">
+        <item value="300" key="DIALOG_WIDTH"/>
+        <item value="1|Noto Sans|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+        <item value="334" key="dialogY"/>
+        <item value="810" key="dialogX"/>
+        <item value="400" key="dialogHeight"/>
+        <item value="300" key="dialogWidth"/>
+        <item value="400" key="DIALOG_HEIGHT"/>
+        <item value="810" key="DIALOG_X_ORIGIN"/>
+        <item value="334" key="DIALOG_Y_ORIGIN"/>
+    </section>
+    <section name="com.jaspersoft.studio.property.color.chooser.ColorDialog">
+        <item value="638" key="DIALOG_WIDTH"/>
+        <item value="1|Noto Sans|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+        <item value="215" key="dialogY"/>
+        <item value="986" key="dialogX"/>
+        <item value="488" key="dialogHeight"/>
+        <item value="638" key="dialogWidth"/>
+        <item value="488" key="DIALOG_HEIGHT"/>
+        <item value="936" key="DIALOG_X_ORIGIN"/>
+        <item value="215" key="DIALOG_Y_ORIGIN"/>
+    </section>
+    <section name="com.jaspersoft.studio.property.descriptor.expression.dialog.JRExpressionEditor">
+        <item value="750" key="DIALOG_WIDTH"/>
+        <item value="1|Noto Sans|9.0|0|GTK|1|" key="DIALOG_FONT_NAME"/>
+        <item value="87" key="dialogY"/>
+        <item value="930" key="dialogX"/>
+        <item value="680" key="dialogHeight"/>
+        <item value="750" key="dialogWidth"/>
+        <item value="680" key="DIALOG_HEIGHT"/>
+        <item value="880" key="DIALOG_X_ORIGIN"/>
+        <item value="87" key="DIALOG_Y_ORIGIN"/>
+    </section>
+</section>

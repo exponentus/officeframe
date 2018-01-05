@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;report500.jrxml&apos; to &apos;prj&apos;&#x0A;- Original project: &apos;prj&apos;&#x0A;- Destination element: &apos;prj&apos;&#x0A;- Original element: &apos;report500.jrxml&apos;" description="Copy file" element1="report500.jrxml" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1508450559876" target="/prj" units="0" version="1.0"/>
+</session>

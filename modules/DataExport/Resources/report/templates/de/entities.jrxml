@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-19T16:54:58 -->
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="entities" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20"
+              rightMargin="20" topMargin="20" bottomMargin="20" uuid="ba0212df-92a9-4b04-99a3-a1ec694164dc">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <parameter name="entity_name" class="java.lang.String">
+        <parameterDescription><![CDATA[]]></parameterDescription>
+        <defaultValueExpression>
+            <![CDATA[$P{REPORT_CONTEXT}.getParameterValue( "entity_name" )]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="title" class="java.lang.String"/>
+    <field name="regDate" class="java.util.Date"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="5" splitType="Stretch"/>
+    </title>
+    <pageHeader>
+        <band height="34" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="80" height="30" uuid="14fceb11-e525-4aa1-bd60-a69bc1c50282"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="14"/>
+                </textElement>
+                <text><![CDATA[Entities of]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="90" y="1" width="690" height="30" forecolor="#091087"
+                               uuid="a3ee4566-1a3a-41c9-a655-6b1e04e7eba7"/>
+                <textElement verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{entity_name}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="26" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="-1" width="670" height="21" uuid="d3758497-efd8-4476-b452-883fc6599652"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="12" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Title]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="670" y="-1" width="110" height="21" uuid="cd68e128-d70e-4bce-b118-6b08bba5d9b3"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Registration date]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="32" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="2" width="670" height="24" uuid="73d40d52-6da5-483e-b376-a91394701fde"/>
+                <textFieldExpression><![CDATA[$F{title}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="670" y="2" width="110" height="24" uuid="fb27b3b0-3495-4dd0-8a7d-7328e20760d0"/>
+                <textFieldExpression><![CDATA[$F{regDate}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="3" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band splitType="Stretch"/>
+    </summary>
+</jasperReport>
