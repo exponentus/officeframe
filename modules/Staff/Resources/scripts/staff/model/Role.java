@@ -19,8 +19,6 @@ import java.util.Map;
 })
 public class Role extends SimpleReferenceEntity implements IExtRole {
 
-    public static final String FIRED_ROLE_NAME = "fired";
-
     @ManyToMany(mappedBy = "roles")
     private List<Employee> employees;
 

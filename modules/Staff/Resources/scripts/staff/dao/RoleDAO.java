@@ -38,5 +38,4 @@ public class RoleDAO extends DAO<Role, UUID> {
             em.close();
         }
     }
-
 }

@@ -9,15 +9,16 @@ import com.exponentus.extconnect.IExtRole;
 import com.exponentus.extconnect.IExtUser;
 import com.exponentus.extconnect.IOfficeFrame;
 import com.exponentus.log.Lg;
-import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
-import staff.dao.filter.EmployeeFilter;
 import staff.model.Employee;
 import staff.model.Role;
 
 import javax.persistence.*;
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.*;
 
 public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
@@ -53,69 +54,6 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
             init();
         }
         return allEmployeeMap.get(id);
-    }
-
-    public ViewPage<Employee> findAll(EmployeeFilter filter, SortParams sortParams, int pageNum, int pageSize) {
-        if (filter == null) {
-            throw new IllegalArgumentException("filter is null");
-        }
-
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        try {
-            CriteriaQuery<Employee> cq = cb.createQuery(getEntityClass());
-            CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
-            Root<Employee> root = cq.from(getEntityClass());
-
-            Predicate condition = null;
-
-            if (filter.getRoles() != null && !filter.getRoles().isEmpty()) {
-                condition = root.get("roles").in(filter.getRoles());
-            }
-
-            if (!filter.isWithFired()) {
-                Role firedRole = em.createNamedQuery("Role.firedRole", Role.class).getSingleResult();
-                Subquery<Employee> firedEmpSubquery = cq.subquery(Employee.class);
-                Root<Employee> firedEmpRoot = firedEmpSubquery.from(Employee.class);
-                firedEmpSubquery.select(firedEmpRoot.get("id")).where(cb.isMember(firedRole, firedEmpRoot.get("roles")));
-
-                if (condition == null) {
-                    condition = root.get("id").in(firedEmpSubquery).not();
-                } else {
-                    condition = cb.and(root.get("id").in(firedEmpSubquery).not(), condition);
-                }
-            }
-
-            if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
-                if (condition == null) {
-                    condition = cb.like(cb.lower(root.get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
-                } else {
-                    condition = cb.and(cb.like(cb.lower(root.get("name")), "%" + filter.getKeyword().toLowerCase() + "%"),
-                            condition);
-                }
-            }
-
-            cq.select(root).distinct(true);
-            countCq.select(cb.countDistinct(root));
-
-            if (condition != null) {
-                cq.where(condition);
-                countCq.where(condition);
-            }
-
-            cq.orderBy(collectSortOrder(cb, root, sortParams));
-
-            TypedQuery<Employee> typedQuery = em.createQuery(cq);
-            Query query = em.createQuery(countCq);
-
-            long count = (long) query.getSingleResult();
-            int maxPage = pageable(typedQuery, count, pageNum, pageSize);
-            List<Employee> result = typedQuery.getResultList();
-
-            return new ViewPage<>(result, count, maxPage, pageNum);
-        } finally {
-            em.close();
-        }
     }
 
     public String getUserName(IUser user) {

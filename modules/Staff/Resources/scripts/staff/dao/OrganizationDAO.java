@@ -4,11 +4,9 @@ import com.exponentus.common.dao.DAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
 import reference.model.OrgCategory;
-import staff.dao.filter.OrganizationFilter;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;
 
@@ -28,73 +26,6 @@ public class OrganizationDAO extends DAO<Organization, UUID> {
 
     public OrganizationDAO(_Session session) throws DAOException {
         super(Organization.class, session);
-    }
-
-    public ViewPage<Organization> findAll(OrganizationFilter filter, SortParams sortParams, int pageNum, int pageSize) {
-        if (filter == null) {
-            throw new IllegalArgumentException("filter is null");
-        }
-
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        try {
-            CriteriaQuery<Organization> cq = cb.createQuery(getEntityClass());
-            CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
-            Root<Organization> root = cq.from(getEntityClass());
-
-            Predicate condition = null;
-
-            if (filter.getOrgCategory() != null) {
-                condition = cb.and(cb.equal(root.get("orgCategory"), filter.getOrgCategory()));
-            }
-
-            if (filter.getLabels() != null && !filter.getLabels().isEmpty()) {
-                if (condition != null) {
-                    condition = cb.and(root.get("labels").in(filter.getLabels()), condition);
-                } else {
-                    condition = cb.and(root.get("labels").in(filter.getLabels()));
-                }
-            }
-
-            if (filter.getKeyword() != null && !filter.getKeyword().isEmpty()) {
-                if (condition != null) {
-                    condition = cb.and(cb.like(cb.lower(root.get("name")), "%" + filter.getKeyword().toLowerCase() + "%"), condition);
-                } else {
-                    condition = cb.like(cb.lower(root.get("name")), "%" + filter.getKeyword().toLowerCase() + "%");
-                }
-            }
-
-            cq.select(root);
-            countCq.select(cb.count(root));
-
-            if (condition != null) {
-                cq.where(condition);
-                countCq.where(condition);
-            }
-
-            cq.orderBy(collectSortOrder(cb, root, sortParams));
-
-            TypedQuery<Organization> typedQuery = em.createQuery(cq);
-            Query query = em.createQuery(countCq);
-            long count = (long) query.getSingleResult();
-
-            int maxPage = 1;
-            if (pageNum != 0 || pageSize != 0) {
-                maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
-                if (pageNum == 0) {
-                    pageNum = maxPage;
-                }
-                int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-                typedQuery.setFirstResult(firstRec);
-                if (pageSize > 0) {
-                    typedQuery.setMaxResults(pageSize);
-                }
-            }
-            List<Organization> result = typedQuery.getResultList();
-            return new ViewPage<>(result, count, maxPage, pageNum);
-        } finally {
-            em.close();
-        }
     }
 
     public List<Organization> findPrimaryOrg() {
