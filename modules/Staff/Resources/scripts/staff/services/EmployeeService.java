@@ -59,7 +59,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             EmployeeDtoConverter converter = new EmployeeDtoConverter(Arrays.asList(params.getValueSilently("fields").split(",")));
 
             EmployeeDAO dao = new EmployeeDAO(session);
-            ViewPage<Employee> vp = dao.findAll(filter, sortParams, params.getPage(),
+            ViewPage<Employee> vp = dao.findViewPage(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
             vp.setResult(converter.convert(vp.getResult()));
             ViewOptions viewOptions = new ViewOptions();

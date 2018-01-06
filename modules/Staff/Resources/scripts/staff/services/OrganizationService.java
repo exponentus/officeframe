@@ -70,7 +70,7 @@ public class OrganizationService extends StaffService<Organization> {
             OrganizationFilter filter = setUpFilter(new OrganizationFilter(), params);
 
             OrganizationDAO dao = new OrganizationDAO(session);
-            ViewPage<Organization> vp = dao.findAll(filter, sortParams, params.getPage(),
+            ViewPage<Organization> vp = dao.findViewPage(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
             ViewOptions viewOptions = new ViewOptions();
             vp.setViewPageOptions(viewOptions.getOrgOptions());
@@ -113,7 +113,6 @@ public class OrganizationService extends StaffService<Organization> {
                 entity = dao.findByIdentifier(id);
             }
 
-            //
             ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(new Action().close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {

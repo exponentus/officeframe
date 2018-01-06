@@ -75,7 +75,7 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             IndividualFilter filter = setUpFilter(new IndividualFilter(), params);
 
             IndividualDAO dao = new IndividualDAO(session);
-            ViewPage<Individual> vp = dao.findAll(filter, sortParams, params.getPage(),
+            ViewPage<Individual> vp = dao.findViewPage(filter, sortParams, params.getPage(),
                     params.getNumberValueSilently("limit", session.getPageSize()));
             vp.setViewPageOptions(new ViewOptions().getIndividualOptions());
 
@@ -116,7 +116,6 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
                 entity = dao.findByIdentifier(id);
             }
 
-            //
             ActionBar actionBar = new ActionBar(session);
             actionBar.addAction(new Action().close);
             if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
@@ -159,11 +158,9 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
             if (entity.getName() == null || entity.getName().isEmpty()) {
                 ve.addError("name", "required", "field_is_empty");
             }
-
             if (entity.getBin() != null && !entity.getBin().isEmpty() && entity.getBin().length() != 12) {
                 ve.addError("bin", "len_12", "bin_value_should_be_consist_from_12_symbols");
             }
-
 
             if (ve.hasError()) {
                 throw ve;

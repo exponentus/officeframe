@@ -1,13 +1,17 @@
 package discussing.dao.filter;
 
 import administrator.model.User;
-import com.exponentus.runtimeobj.Filter;
+import com.exponentus.dataengine.IFilter;
+import discussing.model.Topic;
 import discussing.model.constants.TopicStatusType;
 import reference.model.Tag;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
-public class TopicFilter extends Filter {
+public class TopicFilter implements IFilter<Topic> {
 
     private TopicStatusType status = TopicStatusType.UNKNOWN;
     private List<Tag> tags;
@@ -35,5 +39,34 @@ public class TopicFilter extends Filter {
 
     public void setAuthor(User author) {
         this.author = author;
+    }
+
+    @Override
+    public Predicate collectPredicate(Root<Topic> root, CriteriaBuilder cb, Predicate condition) {
+        if (author != null) {
+            if (condition == null) {
+                condition = cb.equal(root.get("author"), author);
+            } else {
+                condition = cb.and(cb.equal(root.get("author"), author), condition);
+            }
+        }
+
+        if (status != TopicStatusType.UNKNOWN) {
+            if (condition == null) {
+                condition = cb.equal(root.get("status"), status);
+            } else {
+                condition = cb.and(cb.equal(root.get("status"), status), condition);
+            }
+        }
+
+        if (tags != null) {
+            if (condition == null) {
+                condition = root.get("tags").in(tags);
+            } else {
+                condition = cb.and(root.get("tags").in(tags), condition);
+            }
+        }
+
+        return condition;
     }
 }
