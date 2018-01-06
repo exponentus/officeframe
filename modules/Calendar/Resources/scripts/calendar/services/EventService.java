@@ -46,7 +46,7 @@ public class EventService extends EntityService<Event, EventDomain> {
             EventFilter eventFilter = new EventFilter();
             setupFilter(eventFilter, params);
 
-            SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("regDate", "-regDate"));
+            SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("regDate", "-eventTime"));
             EventDAO dao = new EventDAO(session);
             ViewPage<Event> vp = dao.findViewPage(eventFilter, sortParams, params.getPage(), pageSize);
             vp.setResult(new EventDtoConverter().convert(vp.getResult()));
