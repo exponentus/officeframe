@@ -1,7 +1,5 @@
 package reference.dao;
 
-import com.exponentus.common.ui.ViewPage;
-import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
 import reference.model.Country;
@@ -9,7 +7,6 @@ import reference.model.Region;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -34,34 +31,16 @@ public class RegionDAO extends ReferenceDAO<Region, UUID> {
         }
     }
 
-    public ViewPage<Region> findAllByCountry(Country country, int pageNum, int pageSize) {
+    public List<Region> findAllByCountry(Country country) {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
         try {
             CriteriaQuery<Region> cq = cb.createQuery(getEntityClass());
-            CriteriaQuery<Long> countCq = cb.createQuery(Long.class);
-            Root<Region> c = cq.from(getEntityClass());
-            cq.select(c);
-            countCq.select(cb.count(c));
+            Root<Region> c = cq.from(Region.class);
             Predicate condition = cb.equal(c.get("country"), country);
-            cq.where(condition);
-            countCq.where(condition);
+            cq.select(c).where(condition);
 
-            TypedQuery<Region> typedQuery = em.createQuery(cq);
-            Query query = em.createQuery(countCq);
-            long count = (long) query.getSingleResult();
-            int maxPage = 1;
-            if (pageNum != 0 || pageSize != 0) {
-                maxPage = RuntimeObjUtil.countMaxPage(count, pageSize);
-                if (pageNum == 0) {
-                    pageNum = maxPage;
-                }
-                int firstRec = RuntimeObjUtil.calcStartEntry(pageNum, pageSize);
-                typedQuery.setFirstResult(firstRec);
-                typedQuery.setMaxResults(pageSize);
-            }
-            List<Region> result = typedQuery.getResultList();
-            return new ViewPage<Region>(result, count, maxPage, pageNum);
+            return em.createQuery(cq).getResultList();
         } finally {
             em.close();
         }
