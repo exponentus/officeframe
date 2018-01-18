@@ -11,6 +11,7 @@ public class EventDtoConverter implements GenericConverter<Event, Event> {
 
         dto.setId(event.getId());
         dto.setTitle(event.getTitle());
+        dto.setDescription(event.getDescription());
         dto.setEventTime(event.getEventTime());
         dto.setPriority(event.getPriority());
         dto.setTags(event.getTags());
