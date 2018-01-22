@@ -12,22 +12,22 @@ import javax.validation.constraints.NotNull;
 @Cacheable(true)
 @Table(name = ModuleConst.CODE + "__revenues", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Revenue extends SimpleReferenceEntity {
-
+    /****/
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
-    private RevenueCategory revenueCategory;
+    private RevenueCategory category;
 
-    public RevenueCategory getRevenueCategory() {
-        return revenueCategory;
+    public RevenueCategory getCategory() {
+        return category;
     }
 
-    public void setRevenueCategory(RevenueCategory revenueCategory) {
-        this.revenueCategory = revenueCategory;
+    public void setCategory(RevenueCategory category) {
+        this.category = category;
     }
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "revenues/" + getIdentifier();
+        return ModuleConst.BASE_URL + "revenues/" + getId();
     }
 }
