@@ -23,7 +23,7 @@
   "decline_reason" : "Decline reason",
   "kuf" : "KUF",
   "require_comment_if_no" : "it is required a comment if NO",
-  "back_to_doc_list" : "Return to the list of documents",
+  "back_to_doc_list": "Back to the list of documents",
   "role" : "Role",
   "attachments" : "Attachments",
   "right_of_use" : "Right of using",

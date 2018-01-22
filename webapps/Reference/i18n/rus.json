@@ -448,6 +448,7 @@
   "notify_about_new_message" : "notify_about_new_message",
   "cert_number" : "Номер удостоверения",
   "observers" : "Наблюдатели",
+  "expenditure": "Налоговый расход",
   "land_classifications" : "Классификация земель",
   "digital_signature" : "Электронная подпись",
   "as_of" : "По состоянию на...",
