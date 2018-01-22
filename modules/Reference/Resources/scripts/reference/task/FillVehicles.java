@@ -9,6 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.VehicleDAO;
+import reference.init.ModuleConst;
 import reference.model.Vehicle;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_vehicles")
+@Command(name = ModuleConst.CODE + "_fill_vehicles")
 public class FillVehicles extends Do {
 
     @Override
