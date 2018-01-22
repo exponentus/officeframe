@@ -15,8 +15,9 @@ import javax.persistence.UniqueConstraint;
 @Table(name = ModuleConst.CODE + "__еxpenditurе_categories", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class ExpenditureCategory extends SimpleReferenceEntity {
 
+
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "еxpenditurе-categories/" + getIdentifier();
+        return ModuleConst.BASE_URL + "еxpenditurе-categories/" + getId();
     }
 }
