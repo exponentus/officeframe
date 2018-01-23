@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 @Cacheable(true)
 @Table(name = ModuleConst.CODE + "__revenues", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class Revenue extends SimpleReferenceEntity {
-    /****/
+
     @NotNull
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
