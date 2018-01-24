@@ -448,6 +448,7 @@
   "notify_about_new_message" : "New message submitted by visitor",
   "cert_number" : "Certificate number",
   "observers" : "Observers",
+  "expenditure": "Expenditure",
   "land_classifications" : "Land classifications",
   "digital_signature" : "Digital signature",
   "as_of" : "As of...",

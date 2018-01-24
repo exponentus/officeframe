@@ -448,6 +448,7 @@
   "notify_about_new_message" : "notify_about_new_message",
   "cert_number" : "cert_number",
   "observers" : "Observedarores",
+  "expenditure": "expenditure",
   "land_classifications" : "land_classifications",
   "digital_signature" : "digital_signature",
   "as_of" : null,
