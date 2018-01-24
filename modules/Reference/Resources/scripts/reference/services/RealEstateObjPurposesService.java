@@ -23,6 +23,7 @@ import java.util.UUID;
 
 @Path("realestate-obj-purposes")
 public class RealEstateObjPurposesService extends ReferenceService<RealEstateObjPurpose> {
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
