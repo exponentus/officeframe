@@ -523,6 +523,7 @@
   "violates_foreign_key" : "Violates foreign key error. The action cancelled.",
   "additional_info": "Informação adicional",
   "ft_search_result" : null,
+  "invalid": "Inválido",
   "cancelled" : "Cancelado",
   "status" : "Status",
   "specific_reference_data" : null,
