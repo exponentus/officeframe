@@ -21,10 +21,11 @@ public class NavigatorService extends RestProvider {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNav() {
 
-        Outline co = new Outline("calendar", "calendar");
+        Outline co = new Outline("", "s-calendar");
+        // co.addEntry(new OutlineEntry("calendar", "", "calendar", ModuleConst.BASE_URL + "calendar"));
         co.addEntry(new OutlineEntry("events", "", "events", ModuleConst.BASE_URL + "events"));
 
-        Outline r = new Outline("reminder", "reminder");
+        Outline r = new Outline("", "s-reminder");
         r.addEntry(new OutlineEntry("reminder_templates", "", "reminder_templates", ModuleConst.BASE_URL + "reminders"));
 
         LinkedList<IOutcomeObject> list = new LinkedList<>();
