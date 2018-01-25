@@ -1,14 +1,18 @@
 package reference.services;
 
+import administrator.dao.ModuleDAO;
+import administrator.model.Application;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
+import com.exponentus.util.ReflectionUtil;
+import com.exponentus.util.StringUtil;
 import reference.dao.UnitTypeDAO;
+import reference.init.ModuleConst;
 import reference.model.UnitType;
-import reference.model.constants.UnitCategory;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -16,6 +20,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.*;
 
 @Path("unit-types")
 public class UnitTypeService extends ReferenceService<UnitType> {
@@ -33,10 +38,20 @@ public class UnitTypeService extends ReferenceService<UnitType> {
                 entity = new UnitType();
                 entity.setName("");
                 entity.setAuthor(session.getUser());
-                entity.setCategory(UnitCategory.UNIFORM);
             } else {
                 UnitTypeDAO dao = new UnitTypeDAO(session);
                 entity = dao.findByIdentifier(id);
+            }
+
+            Set<String> allCategories = new HashSet<String>();
+            ModuleDAO dao = new ModuleDAO();
+            allCategories.addAll(Arrays.asList(ModuleConst.UNIT_CATEGORIES));
+            List<Application> modules = dao.findAll().getResult();
+            for (Application module : modules) {
+                if (module.isOn()) {
+                    String[] categories = (String[]) ReflectionUtil.getAppConstValue(module.getName(), "UNIT_CATEGORIES");
+                    allCategories.addAll(Arrays.asList(categories));
+                }
             }
 
             Outcome outcome = new Outcome();
@@ -44,7 +59,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
             outcome.setPayloadTitle("unit_type");
             outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
-            outcome.addPayload("unitCategories", UnitCategory.values());
+            outcome.addPayload("unitCategories", allCategories);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -68,8 +83,9 @@ public class UnitTypeService extends ReferenceService<UnitType> {
                 entity = dao.findById(dto.getId());
             }
 
-            // fill from dto
-            entity.setName(dto.getName());
+            if (entity.getName() == null || entity.getName().equals("")) {
+                entity.setName(StringUtil.convertToURLString(dto.getLocName()));
+            }
             entity.setTitle(entity.getName());
             entity.setLocName(dto.getLocName());
             entity.setCategory(dto.getCategory());
@@ -90,8 +106,8 @@ public class UnitTypeService extends ReferenceService<UnitType> {
     private void validate(UnitType entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
+        if (entity.getLocName().size() == 0) {
+            ve.addError("locName", "required", "field_is_empty");
         }
 
         if (ve.hasError()) {
