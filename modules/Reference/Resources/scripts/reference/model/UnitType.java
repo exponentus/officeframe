@@ -4,7 +4,6 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import reference.init.ModuleConst;
-import reference.model.constants.UnitCategory;
 
 import javax.persistence.*;
 
@@ -16,15 +15,13 @@ import javax.persistence.*;
 public class UnitType extends SimpleReferenceEntity {
 
     @FTSearchable
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 8)
-    private UnitCategory category;
+    private String category;
 
-    public UnitCategory getCategory() {
+    public String getCategory() {
         return category;
     }
 
-    public void setCategory(UnitCategory category) {
+    public void setCategory(String category) {
         this.category = category;
     }
 

@@ -11,7 +11,6 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.UnitTypeDAO;
 import reference.init.ModuleConst;
 import reference.model.UnitType;
-import reference.model.constants.UnitCategory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,9 +34,7 @@ public class FillUnitTypes extends Do {
             UnitType entity = new UnitType();
             entity.setName(data[i]);
             if (data[i].contains("tenge")){
-                entity.setCategory(UnitCategory.MONEY_KZ);
-            }else{
-                entity.setCategory(UnitCategory.UNIFORM);
+                entity.setCategory("money_kz");
             }
 
             Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
