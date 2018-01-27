@@ -20,7 +20,7 @@ public class Reminder extends SecureAppEntity<UUID> {
     private String description;
 
     @Convert(converter = ReminderTypeConverter.class)
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     private ReminderType reminderType = ReminderType.SILENT;
 
     @ElementCollection
