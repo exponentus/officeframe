@@ -5,22 +5,19 @@ import calendar.dao.filter.EventFilter;
 import calendar.domain.EventDomain;
 import calendar.dto.converter.EventDtoConverter;
 import calendar.model.Event;
+import calendar.ui.ViewOptions;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.model.constants.PriorityType;
 import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.view.ViewColumn;
-import com.exponentus.common.ui.view.ViewColumnGroup;
-import com.exponentus.common.ui.view.ViewColumnType;
-import com.exponentus.common.ui.view.ViewPageOptions;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
+import reference.model.Tag;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -30,6 +27,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Path("events")
 @Produces(MediaType.APPLICATION_JSON)
@@ -51,23 +49,9 @@ public class EventService extends EntityService<Event, EventDomain> {
             ViewPage<Event> vp = dao.findViewPage(eventFilter, sortParams, params.getPage(), pageSize);
             vp.setResult(new EventDtoConverter().convert(vp.getResult()));
 
-            ViewPageOptions vo = new ViewPageOptions();
-            ViewColumnGroup cg = new ViewColumnGroup();
-            cg.setClassName("vw-35");
-            cg.add(new ViewColumn("title"));
-            ViewColumnGroup cg2 = new ViewColumnGroup();
-            cg2.setClassName("vw-35");
-            cg2.add(new ViewColumn("eventTime").name("event_time").type(ViewColumnType.date).format("DD.MM.YYYY").sortBoth());
-            cg2.add(new ViewColumn("priority").type(ViewColumnType.translate));
-            ViewColumnGroup cg3 = new ViewColumnGroup();
-            cg3.setClassName("vw-30");
-            cg3.add(new ViewColumn("tags").type(ViewColumnType.localizedName).style("return {color:it.color}"));
-            List<ViewColumnGroup> list = new ArrayList<>();
-            list.add(cg);
-            list.add(cg2);
-            list.add(cg3);
-            vo.setRoot(list);
-            vp.setViewPageOptions(vo);
+            ViewOptions vo = new ViewOptions();
+            vp.setViewPageOptions(vo.getEventOptions());
+            vp.setFilter(vo.getEventFilter(session));
 
             Outcome outcome = new Outcome();
             outcome.setTitle("events");
@@ -102,7 +86,7 @@ public class EventService extends EntityService<Event, EventDomain> {
 
             Outcome outcome = domain.getOutcome(entity);
             outcome.setTitle("event");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.setPayloadTitle("event");
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("priorityTypes", PriorityType.values());
@@ -149,20 +133,28 @@ public class EventService extends EntityService<Event, EventDomain> {
     }
 
     private void setupFilter(EventFilter filter, WebFormData params) {
-//            Calendar weekBegin = Calendar.getInstance();
-//            weekBegin.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
-//            weekBegin.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-//
-//            Calendar weekEnd = Calendar.getInstance();
-//            weekEnd.set(Calendar.WEEK_OF_YEAR, yearWeekNum);
-//            weekEnd.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
-
         if (params.containsField("eventStart")) {
             filter.setEventStart(params.getDateSilently("eventStart"));
         }
 
         if (params.containsField("eventEnd")) {
             filter.setEventEnd(params.getDateSilently("eventEnd"));
+        }
+
+        String taskPriority = params.getValueSilently("priority");
+        if (!taskPriority.isEmpty()) {
+            filter.setPriority(PriorityType.valueOf(taskPriority));
+        }
+
+        if (params.containsField("tags")) {
+            List<Tag> tags = new ArrayList<>();
+            String[] tagIds = params.getListOfValuesSilently("tags");
+            for (String tid : tagIds) {
+                Tag tag = new Tag();
+                tag.setId(UUID.fromString(tid));
+                tags.add(tag);
+            }
+            filter.setTags(tags);
         }
     }
 }

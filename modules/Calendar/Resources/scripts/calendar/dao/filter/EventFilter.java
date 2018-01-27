@@ -68,6 +68,22 @@ public class EventFilter implements IFilter<Event> {
             }
         }
 
+        if (priority != null && priority != PriorityType.UNKNOWN) {
+            if (condition == null) {
+                condition = cb.and(cb.equal(root.get("priority"), priority));
+            } else {
+                condition = cb.and(cb.equal(root.get("priority"), priority), condition);
+            }
+        }
+
+        if (tags != null) {
+            if (condition == null) {
+                condition = cb.and(root.get("tags").in(tags));
+            } else {
+                condition = cb.and(root.get("tags").in(tags), condition);
+            }
+        }
+
         return condition;
     }
 }

@@ -22,7 +22,7 @@ public class NavigatorService extends RestProvider {
     public Response getNav() {
 
         Outline co = new Outline("", "s-calendar");
-        // co.addEntry(new OutlineEntry("calendar", "", "calendar", ModuleConst.BASE_URL + "calendar"));
+        co.addEntry(new OutlineEntry("calendar", "", "calendar", ModuleConst.BASE_URL + "calendar"));
         co.addEntry(new OutlineEntry("events", "", "events", ModuleConst.BASE_URL + "events"));
 
         Outline r = new Outline("", "s-reminder");
