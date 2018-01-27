@@ -336,6 +336,7 @@
   "placeholder_application_title" : "Заголовок, цель заявки, кратко описание...",
   "start_from" : "От ",
   "low" : "Низкий",
+  "unit_factor": "Коэффициент",
   "theme" : "Тема",
   "real_estate_obj_purposes" : "Назначения объекта недвижимости",
   "notify_about_overdued_task" : "[УВЕДОМЛЕНИЕ] Просроченное задание",

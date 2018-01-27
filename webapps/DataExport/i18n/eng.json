@@ -336,6 +336,7 @@
   "placeholder_application_title" : "Title",
   "start_from" : "From",
   "low" : "Low",
+  "unit_factor": "Factor",
   "theme" : "Theme",
   "real_estate_obj_purposes" : "Real estate object purposes",
   "notify_about_overdued_task" : "[NOTIFICATION] Task expired",

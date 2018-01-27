@@ -336,6 +336,7 @@
   "placeholder_application_title" : null,
   "start_from" : "start_from",
   "low" : "Bajo",
+  "unit_factor": "Coeficiente",
   "theme" : "Tema",
   "real_estate_obj_purposes" : "real_estate_obj_purposes",
   "notify_about_overdued_task" : "Notificarle",

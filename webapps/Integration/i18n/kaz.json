@@ -336,6 +336,7 @@
   "placeholder_application_title" : "Тақырып, өтінім мақсаты, қысқа сипаттама...",
   "start_from" : "start_from",
   "low" : "Аласа",
+  "unit_factor": "Коэффициенті",
   "theme" : "Тақырып",
   "real_estate_obj_purposes" : "Мүлікті тағайындау",
   "notify_about_overdued_task" : "Уведомление о просроченном задании",
