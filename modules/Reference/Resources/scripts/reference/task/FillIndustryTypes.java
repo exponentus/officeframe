@@ -11,7 +11,6 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
 import reference.init.ModuleConst;
-import reference.init.DataConst;
 import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
 
@@ -37,7 +36,7 @@ public class FillIndustryTypes extends Do {
 
         try {
 
-            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(ses).findByName(DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
+            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(ses).findByName(ModuleConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
             if (cat != null) {
                 for (int i = 0; i < data.length; i++) {
                     IndustryType entity = new IndustryType();
@@ -69,7 +68,7 @@ public class FillIndustryTypes extends Do {
                     }
                 }
             } else {
-                logger.error("Category \"" + DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY + "\" has not been found");
+                logger.error("Category \"" + ModuleConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY + "\" has not been found");
             }
         } catch (DAOException e) {
             logger.exception(e);

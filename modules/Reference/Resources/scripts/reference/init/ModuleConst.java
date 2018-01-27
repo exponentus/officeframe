@@ -17,5 +17,8 @@ public class ModuleConst extends DefaultAppConst {
     public static InterfaceType AVAILABLE_MODE[] = {InterfaceType.SPA};
     public static boolean FORCE_DEPLOYING = true;
 
+    public static final String EXPIRED_TAG_NAME = "expired";
+    public static final String ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY = "industry";
+    public static final String[] UNIT_CATEGORIES = {"money_euro"};
 
 }

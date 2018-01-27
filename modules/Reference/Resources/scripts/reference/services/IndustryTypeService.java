@@ -12,7 +12,7 @@ import com.exponentus.scripting._Session;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
 import reference.dao.filter.IndustryTypeFilter;
-import reference.init.DataConst;
+import reference.init.ModuleConst;
 import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
 import reference.ui.ViewOptions;
@@ -122,7 +122,7 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
 
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
-            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(session).findByName(DataConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
+            ActivityTypeCategory cat = new ActivityTypeCategoryDAO(session).findByName(ModuleConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
             entity.setCategory(cat);
 
             dao.save(entity);
