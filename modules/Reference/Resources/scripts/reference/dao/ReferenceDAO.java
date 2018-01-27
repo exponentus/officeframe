@@ -96,6 +96,10 @@ public abstract class ReferenceDAO<T extends IAppEntity<UUID>, K> extends DAO<T,
         }
     }
 
+    public List<T> findAllByCategory(String categoryName) {
+        return findAllByCategory(categoryName, 0, 0).getResult();
+    }
+
     public ViewPage<T> findAllByCategory(String categoryName, int pageNum, int pageSize) {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();
