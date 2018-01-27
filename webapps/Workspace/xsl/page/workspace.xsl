@@ -51,6 +51,9 @@
                     }
                     ]]>
                 </style>
+                <xsl:if test="//googleMapApiKey != ''">
+                    <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
+                </xsl:if>
             </head>
             <body>
                 <noscript>
@@ -69,9 +72,6 @@
                         </div>
                     </div>
                 </app-root>
-                <xsl:if test="//googleMapApiKey != ''">
-                    <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
-                </xsl:if>
                 <script src="/SharedResources/ng-app/vendor.js.gz"></script>
                 <script src="/SharedResources/ng-app/app.js.gz"></script>
                 <script src="/SharedResources/knca/sjcl.js"></script>
