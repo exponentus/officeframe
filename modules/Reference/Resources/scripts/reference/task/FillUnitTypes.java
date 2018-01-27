@@ -29,6 +29,7 @@ public class FillUnitTypes extends Do {
         String[] dataRus = {"кв.метр", "тенге", "млн.тенге", "млрд.тенге"};
         String[] dataKaz = {"шаршы метр", "теңге", "млн.теңге", "млрд.теңге"};
 
+        String[] jsCode = {"", "", "value * 1000000", "value * 1000000000"};
 
         for (int i = 0; i < data.length; i++) {
             UnitType entity = new UnitType();

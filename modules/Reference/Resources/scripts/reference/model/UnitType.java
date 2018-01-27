@@ -17,12 +17,23 @@ public class UnitType extends SimpleReferenceEntity {
     @FTSearchable
     private String category;
 
+    private int factor;
+
     public String getCategory() {
         return category;
     }
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+
+    public int getFactor() {
+        return factor;
+    }
+
+    public void setFactor(int factor) {
+        this.factor = factor;
     }
 
     @Override
