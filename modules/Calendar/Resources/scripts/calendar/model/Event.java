@@ -29,6 +29,9 @@ public class Event extends SecureAppEntity<UUID> {
 
     private String description;
 
+    @Column(name = "related_url")
+    private String relatedURL;
+
     @ElementCollection
     @CollectionTable(name = ModuleConst.CODE + "__event_observers", joinColumns = @JoinColumn(referencedColumnName = "id"))
     private List<Observer> observers = new ArrayList<Observer>();
@@ -67,6 +70,14 @@ public class Event extends SecureAppEntity<UUID> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getRelatedURL() {
+        return relatedURL;
+    }
+
+    public void setRelatedURL(String relatedURL) {
+        this.relatedURL = relatedURL;
     }
 
     public List<Observer> getObservers() {

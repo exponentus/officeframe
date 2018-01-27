@@ -14,7 +14,7 @@ import java.util.UUID;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = ModuleConst.CODE + "__reminders")
+@Table(name = ModuleConst.CODE + "__reminders", uniqueConstraints = @UniqueConstraint(columnNames = {"author", "type"}))
 public class Reminder extends SecureAppEntity<UUID> {
 
     private String description;
