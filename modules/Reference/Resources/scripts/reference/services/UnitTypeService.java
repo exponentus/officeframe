@@ -3,7 +3,6 @@ package reference.services;
 import administrator.dao.ModuleDAO;
 import administrator.model.Application;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -20,7 +19,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Path("unit-types")
 public class UnitTypeService extends ReferenceService<UnitType> {
@@ -57,7 +59,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("unit_type");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("unitCategories", allCategories);
 
@@ -83,12 +85,13 @@ public class UnitTypeService extends ReferenceService<UnitType> {
                 entity = dao.findById(dto.getId());
             }
 
-            if (entity.getName() == null || entity.getName().equals("")) {
+            if (entity.getName() == null || entity.getName().isEmpty()) {
                 entity.setName(StringUtil.convertToURLString(dto.getLocName()));
             }
             entity.setTitle(entity.getName());
             entity.setLocName(dto.getLocName());
             entity.setCategory(dto.getCategory());
+            entity.setFactor(dto.getFactor());
 
             dao.save(entity);
 
