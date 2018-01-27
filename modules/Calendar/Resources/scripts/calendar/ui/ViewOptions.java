@@ -21,7 +21,7 @@ public class ViewOptions {
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-35");
-        cg.add(new ViewColumn("event"));
+        cg.add(new ViewColumn("title").name("event"));
 
         ViewColumnGroup cg2 = new ViewColumnGroup();
         cg2.setClassName("vw-35");
