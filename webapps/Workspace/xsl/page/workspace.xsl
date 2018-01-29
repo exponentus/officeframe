@@ -58,7 +58,7 @@
                 <xsl:if test="//googleMapApiKey != ''">
                     <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
                 </xsl:if>
-                <xsl:if test="//isDevMode ne '1'">
+                <xsl:if test="//isDevMode eq '1'">
                     <script src="/sw-loader.js"></script>
                 </xsl:if>
             </head>
