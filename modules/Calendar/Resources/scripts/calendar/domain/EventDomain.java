@@ -33,6 +33,7 @@ public class EventDomain extends CommonDomain<Event> {
         entity.setDescription(dto.getDescription());
         entity.setPriority(dto.getPriority());
         entity.setReminder(dto.getReminder());
+        entity.setRelatedURL(dto.getRelatedURL());
         entity.setTags(dto.getTags());
 
         if (entity.isNew()) {
