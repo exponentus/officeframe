@@ -10,7 +10,10 @@
     <xsl:template name="layout">
         <xsl:text disable-output-escaping="yes">&lt;</xsl:text>!DOCTYPE html<xsl:text
             disable-output-escaping="yes">&gt;</xsl:text>
-        <html manifest="manifest.appcache?v={//build}" lang="{//locale}">
+        <html lang="{//locale}">
+            <xsl:if test="//isDevMode ne '1'">
+                <xsl:attribute name="manifest" select="concat('manifest.appcache?v=', //build)"/>
+            </xsl:if>
             <head>
                 <base href=""/>
                 <meta charset="utf-8"/>
@@ -22,6 +25,7 @@
                 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
                 <meta name="viewport"
                       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+                <link rel="manifest" href="manifest.json"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap-4/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css"/>
@@ -53,6 +57,9 @@
                 </style>
                 <xsl:if test="//googleMapApiKey != ''">
                     <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
+                </xsl:if>
+                <xsl:if test="//isDevMode eq '1'">
+                    <script src="/sw-loader.js"></script>
                 </xsl:if>
             </head>
             <body>

@@ -17,6 +17,10 @@ public class Workspace extends _DoPage {
         addValue("locale", session.getLang().getAlternateCode());
         addValue("googleMapApiKey", Environment.mapsApiKey);
 
+        if (Environment.isDevMode()) {
+            addValue("isDevMode", "r144");
+        }
+
         if (!formData.containsField("skip-auth-error") && session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
             setUnauthorized();
         }

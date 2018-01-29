@@ -1,0 +1,17 @@
+{
+    "name": "NB",
+    "short_name": "NB",
+    "icons": [{
+        "src": "/Workspace/img/favicon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+    }, {
+        "src": "/Workspace/img/favicon.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }],
+    "start_url": "/",
+    "theme_color": "#563d7c",
+    "background_color": "#563d7c",
+    "display": "standalone"
+}

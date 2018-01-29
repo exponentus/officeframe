@@ -36,7 +36,7 @@ public class WriteAppCacheManifest extends Do {
             writer.write("/SharedResources/nb/css/nb.min.css\n");
             writer.write("/SharedResources/ng-app/vendor.js.gz\n");
             writer.write("/SharedResources/ng-app/app.js.gz\n");
-            writer.write("/SharedResources/vendor/bootstrap/css/bootstrap.min.css\n");
+            writer.write("/SharedResources/vendor/bootstrap-4/css/bootstrap.min.css\n");
             writer.write("/SharedResources/vendor/font-awesome/css/font-awesome.min.css\n");
             writer.write("/SharedResources/vendor/font-awesome/fonts/fontawesome-webfont.woff2\n");
             writer.write("\n");
