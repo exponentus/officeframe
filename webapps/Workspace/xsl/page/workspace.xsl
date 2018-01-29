@@ -10,7 +10,7 @@
     <xsl:template name="layout">
         <xsl:text disable-output-escaping="yes">&lt;</xsl:text>!DOCTYPE html<xsl:text
             disable-output-escaping="yes">&gt;</xsl:text>
-        <html manifest="manifest.appcache?v={//build}" lang="{//locale}">
+        <html lang="{//locale}">
             <!--<xsl:if test="//isDevMode ne '1'">-->
             <!--<xsl:attribute name="manifest" select="concat('manifest.appcache?v=', //build)"/>-->
             <!--</xsl:if>-->
@@ -58,9 +58,9 @@
                 <xsl:if test="//googleMapApiKey != ''">
                     <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
                 </xsl:if>
-                <!--<xsl:if test="//isDevMode eq '1'">-->
-                <!--<script src="/sw-loader.js"></script>-->
-                <!--</xsl:if>-->
+                <xsl:if test="//isDevMode ne '1'">
+                    <script src="/sw-loader.js"></script>
+                </xsl:if>
             </head>
             <body>
                 <noscript>
