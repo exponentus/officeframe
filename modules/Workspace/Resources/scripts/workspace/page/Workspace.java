@@ -18,7 +18,7 @@ public class Workspace extends _DoPage {
         addValue("googleMapApiKey", Environment.mapsApiKey);
 
         if (Environment.isDevMode()) {
-            addValue("isDevMode", "r144");
+            addValue("isDevMode", "1");
         }
 
         if (!formData.containsField("skip-auth-error") && session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
