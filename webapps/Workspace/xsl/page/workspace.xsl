@@ -10,10 +10,7 @@
     <xsl:template name="layout">
         <xsl:text disable-output-escaping="yes">&lt;</xsl:text>!DOCTYPE html<xsl:text
             disable-output-escaping="yes">&gt;</xsl:text>
-        <html lang="{//locale}">
-            <!--<xsl:if test="//isDevMode ne '1'">-->
-            <!--<xsl:attribute name="manifest" select="concat('manifest.appcache?v=', //build)"/>-->
-            <!--</xsl:if>-->
+        <html manifest="manifest.appcache?v={//build}" lang="{//locale}">
             <head>
                 <base href=""/>
                 <meta charset="utf-8"/>
