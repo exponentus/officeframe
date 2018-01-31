@@ -29,6 +29,8 @@ public class WriteAppCacheManifest extends Do {
             writer.write("# version " + v + "\n");
             writer.write("\n");
             writer.write("CACHE:\n");
+            writer.write("/Workspace/\n");
+            writer.write("/Workspace/manifest.json\n");
             writer.write(Environment.logo + "\n");
             writer.write("img/favicon.png\n");
             writer.write("img/logo.png\n");

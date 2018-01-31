@@ -12,14 +12,10 @@ public class Workspace extends _DoPage {
 
     @Override
     public void doGET(_Session session, WebFormData formData) {
-        addValue("orgLogo", Environment.logo);
+        addValue("logo", Environment.logo);
         addValue("build", "" + tm);
         addValue("locale", session.getLang().getAlternateCode());
         addValue("googleMapApiKey", Environment.mapsApiKey);
-
-        if (Environment.isDevMode()) {
-            addValue("isDevMode", "1");
-        }
 
         if (!formData.containsField("skip-auth-error") && session.getUser().getUserID().equalsIgnoreCase(AnonymousUser.USER_NAME)) {
             setUnauthorized();
