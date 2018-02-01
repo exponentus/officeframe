@@ -531,7 +531,7 @@
   "button_add_assignee" : "Добавить исполнителя",
   "violates_foreign_key" : "Действие влечет нарушение целостности данных, действие отменено",
   "additional_info" : "Дополнительная информация",
-  "ft_search_result" : "Результат поиска",
+  "ft_search_result": "Результат поиска:  {{keyword}}",
   "invalid": "Недействительный",
   "cancelled" : "Отменен",
   "status" : "Статус",

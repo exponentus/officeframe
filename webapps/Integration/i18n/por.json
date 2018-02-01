@@ -531,7 +531,7 @@
   "button_add_assignee" : "button_add_assignee",
   "violates_foreign_key" : "Violates foreign key error. The action cancelled.",
   "additional_info": "Informação adicional",
-  "ft_search_result" : null,
+  "ft_search_result": "Resultado da pesquisa: {{keyword}}",
   "invalid": "Inválido",
   "cancelled" : "Cancelado",
   "status" : "Status",

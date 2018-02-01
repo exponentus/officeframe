@@ -531,7 +531,7 @@
   "button_add_assignee" : "Орындаушысын қосу",
   "violates_foreign_key" : "Violates foreign key error. The action cancelled.",
   "additional_info" : "Қосымша Ақпарат",
-  "ft_search_result" : "Іздеу нәтижесі",
+  "ft_search_result": "Іздеу нәтижесі:  {{keyword}}",
   "invalid": "Жарамсыз",
   "cancelled" : null,
   "status" : "Статус",
