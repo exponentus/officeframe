@@ -1,6 +1,6 @@
 package staff.dto.converter;
 
-import com.exponentus.common.converter.GenericConverter;
+import com.exponentus.common.dto.converter.GenericConverter;
 import com.exponentus.common.ui.BaseReferenceModel;
 import staff.model.Employee;
 

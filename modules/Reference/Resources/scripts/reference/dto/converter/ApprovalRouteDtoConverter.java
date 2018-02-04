@@ -1,6 +1,6 @@
 package reference.dto.converter;
 
-import com.exponentus.common.converter.GenericConverter;
+import com.exponentus.common.dto.converter.GenericConverter;
 import reference.model.ApprovalRoute;
 
 public class ApprovalRouteDtoConverter implements GenericConverter<ApprovalRoute, ApprovalRoute> {

@@ -1,7 +1,7 @@
 package staff.dto.converter;
 
 import administrator.model.User;
-import com.exponentus.common.converter.GenericConverter;
+import com.exponentus.common.dto.converter.GenericConverter;
 import reference.model.Position;
 import staff.model.Employee;
 

@@ -1,7 +1,7 @@
 package calendar.dto.converter;
 
 import calendar.model.Event;
-import com.exponentus.common.converter.GenericConverter;
+import com.exponentus.common.dto.converter.GenericConverter;
 
 public class EventDtoConverter implements GenericConverter<Event, Event> {
 

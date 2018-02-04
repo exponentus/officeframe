@@ -1,7 +1,7 @@
 package monitoring.dto.converter;
 
 import administrator.model.User;
-import com.exponentus.common.converter.GenericConverter;
+import com.exponentus.common.dto.converter.GenericConverter;
 import monitoring.model.UserActivity;
 
 public class UserActivityDtoConverter implements GenericConverter<UserActivity, UserActivity> {
