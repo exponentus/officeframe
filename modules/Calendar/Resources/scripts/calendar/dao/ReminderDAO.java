@@ -3,20 +3,19 @@ package calendar.dao;
 import calendar.model.Reminder;
 import calendar.model.constants.ReminderType;
 import com.exponentus.common.dao.DAO;
+import com.exponentus.common.model.embedded.Reader;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
 import com.exponentus.scripting._Session;
 import com.exponentus.server.Server;
+import org.apache.poi.ss.formula.functions.T;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
 import java.util.UUID;
 
 public class ReminderDAO extends DAO<Reminder, UUID> {
@@ -36,7 +35,8 @@ public class ReminderDAO extends DAO<Reminder, UUID> {
                 Root<Reminder> c = cq.from(Reminder.class);
                 cq.select(c);
                 Predicate condition = c.get("reminderType").in(ReminderType.SILENT);
-                condition = cb.and(c.get("readers").in(user.getId()), condition);
+                MapJoin<T, Long, Reader> mapJoin = c.joinMap("readers");
+                condition = cb.and(cb.equal(mapJoin.key(), user.getId()), condition);
                 cq.where(condition);
                 Query query = em.createQuery(cq);
                 Reminder entity = (Reminder) query.getSingleResult();
