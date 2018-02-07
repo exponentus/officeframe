@@ -99,6 +99,6 @@ public class Topic extends SecureAppEntity<UUID> {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "topics/" + getIdentifier();
+        return ModuleConst.BASE_URL + "topics/" + getId();
     }
 }

@@ -27,6 +27,7 @@ public class Event extends SecureAppEntity<UUID> {
 
     private Reminder reminder;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
     @Column(name = "related_url")

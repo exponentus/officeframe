@@ -91,6 +91,6 @@ public class Comment extends SecureAppEntity<UUID> {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "comments/" + getIdentifier();
+        return ModuleConst.BASE_URL + "comments/" + getId();
     }
 }
