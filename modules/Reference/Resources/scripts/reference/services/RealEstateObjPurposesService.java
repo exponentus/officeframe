@@ -21,7 +21,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-@Path("realestate-obj-purposes")
+@Path("real-estate-obj-purposes")
 public class RealEstateObjPurposesService extends ReferenceService<RealEstateObjPurpose> {
 
     @GET

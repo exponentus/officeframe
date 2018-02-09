@@ -18,7 +18,6 @@ public class Expenditure extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private ExpenditureCategory category;
 
-
     public ExpenditureCategory getCategory() {
         return category;
     }
