@@ -47,15 +47,15 @@ public class NavigatorService extends RestProvider {
             for (OutlineEntry entry : primaryOrgs) {
                 co.addEntry(entry);
             }
-            co.addEntry(new OutlineEntry("organizations", "", "organizations", ModuleConst.BASE_URL + "organizations"));
-            co.addEntry(new OutlineEntry("departments", "", "departments", ModuleConst.BASE_URL + "departments"));
-            co.addEntry(new OutlineEntry("employees", "", "employees", ModuleConst.BASE_URL + "employees?fired=true"));
-            co.addEntry(new OutlineEntry("individuals", "", "individuals", ModuleConst.BASE_URL + "individuals"));
+            co.addEntry(new OutlineEntry("organizations", "", "fa fa-building", "organizations", ModuleConst.BASE_URL + "organizations"));
+            co.addEntry(new OutlineEntry("departments", "", "fa fa-sitemap", "departments", ModuleConst.BASE_URL + "departments"));
+            co.addEntry(new OutlineEntry("employees", "", "fa fa-users", "employees", ModuleConst.BASE_URL + "employees?fired=true"));
+            co.addEntry(new OutlineEntry("individuals", "", "fa fa-user-o", "individuals", ModuleConst.BASE_URL + "individuals"));
 
             Outline ro = new Outline("", "staff_ref");
-            ro.addEntry(new OutlineEntry("roles", "", "roles", ModuleConst.BASE_URL + "roles"));
-            ro.addEntry(new OutlineEntry("organization_labels", "", "organization_labels", ModuleConst.BASE_URL + "organization-labels"));
-            ro.addEntry(new OutlineEntry("individual_labels", "", "individual_labels", ModuleConst.BASE_URL + "individual-labels"));
+            ro.addEntry(new OutlineEntry("roles", "", "fa fa-flag", "roles", ModuleConst.BASE_URL + "roles"));
+            ro.addEntry(new OutlineEntry("organization_labels", "", "fa fa-tags", "organization_labels", ModuleConst.BASE_URL + "organization-labels"));
+            ro.addEntry(new OutlineEntry("individual_labels", "", "fa fa-tags", "individual_labels", ModuleConst.BASE_URL + "individual-labels"));
 
             list.add(co);
             list.add(ro);
