@@ -1,14 +1,14 @@
 package workspace.init;
 
 import administrator.model.constants.InterfaceType;
-import administrator.model.constants.VisibiltyMode;
+import administrator.model.constants.VisibilityMode;
 import com.exponentus.common.init.DefaultAppConst;
 
 public class ModuleConst extends DefaultAppConst {
     public static final String CODE = "ws";
     public static final InterfaceType AVAILABLE_MODE[] = {InterfaceType.SPA};
     public static final String NAME = "Workspace";
-    public static VisibiltyMode VISIBILITY = VisibiltyMode.HIDDEN;
+    public static VisibilityMode VISIBILITY = VisibilityMode.HIDDEN;
     public static String NAME_ENG = "Workspace";
     public static String NAME_RUS = "Рабочая область";
     public static String NAME_KAZ = "Жұмыс аумағы";

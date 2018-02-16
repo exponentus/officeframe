@@ -1,8 +1,8 @@
 package reference.services;
 
+import administrator.dao.LanguageDAO;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -65,10 +65,11 @@ public class CountryService extends ReferenceService<Country> {
 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
-            outcome.addPayload("contentTitle", "country");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setPayloadTitle("country");
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("countryCodes", CountryCode.values());
+            outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
