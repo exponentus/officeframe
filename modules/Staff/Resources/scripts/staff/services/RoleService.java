@@ -6,7 +6,6 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
@@ -108,7 +107,7 @@ public class RoleService extends RestProvider {
             outcome.setTitle("role");
             outcome.setModel(entity);
             outcome.setPayloadTitle("role");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
             outcome.addPayload("roles", allRoles);
 

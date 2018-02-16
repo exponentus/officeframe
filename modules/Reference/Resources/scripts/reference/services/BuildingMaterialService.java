@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -38,7 +37,7 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
             ViewPage<BuildingMaterial> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("building_materials");
-            outcome.addPayload("contentTitle", "building_materials");
+            outcome.setPayloadTitle("building_materials");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -68,8 +67,9 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("building_material");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);

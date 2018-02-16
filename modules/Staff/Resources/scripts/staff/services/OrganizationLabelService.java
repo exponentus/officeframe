@@ -3,7 +3,6 @@ package staff.services;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -89,7 +88,7 @@ public class OrganizationLabelService extends RestProvider {
             outcome.setTitle("organization_label");
             outcome.setModel(entity);
             outcome.setPayloadTitle("organization_label");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();

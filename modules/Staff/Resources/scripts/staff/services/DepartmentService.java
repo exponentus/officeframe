@@ -3,7 +3,6 @@ package staff.services;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -91,7 +90,7 @@ public class DepartmentService extends RestProvider {
             outcome.setTitle("department");
             outcome.setModel(entity);
             outcome.setPayloadTitle("department");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();

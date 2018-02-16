@@ -5,7 +5,6 @@ import com.exponentus.common.model.constants.ApprovalSchemaType;
 import com.exponentus.common.model.constants.ApprovalType;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -76,11 +75,12 @@ public class ApprovalRouteService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("approval_route");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
+            outcome.addPayload(getDefaultFormActionBar(entity));
+            // include
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload("approvalSchemaTypes", ApprovalSchemaType.values());
             outcome.addPayload("approvalTypes", ApprovalType.values());
-            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

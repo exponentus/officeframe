@@ -7,7 +7,6 @@ import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.log.Lg;
@@ -157,7 +156,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             outcome.setTitle("employee");
             outcome.setModel(entity);
             outcome.setPayloadTitle("employee");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
             outcome.addPayload("userLogins", userLogins);
 
