@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -68,9 +67,9 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("locality_type");
-            outcome.addPayload("localityCodes", LocalityCode.values());
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+            outcome.addPayload("localityCodes", LocalityCode.values());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

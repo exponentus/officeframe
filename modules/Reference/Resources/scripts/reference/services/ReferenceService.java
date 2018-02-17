@@ -8,7 +8,6 @@ import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.IExternalService;
-import com.exponentus.integrationhub.jpa.IIntegratableEntity;
 import com.exponentus.log.Lg;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;

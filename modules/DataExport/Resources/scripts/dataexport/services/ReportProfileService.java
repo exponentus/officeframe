@@ -9,7 +9,6 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
-import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
@@ -126,14 +125,15 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             }
 
             Outcome outcome = domain.getOutcome(entity);
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.setPayloadTitle("report_profile");
+            outcome.addPayload(actionBar);
+            // include
             outcome.addPayload("exportFormatType", ExportFormatType.values());
             outcome.addPayload("reportQueryType", ReportQueryType.values());
             outcome.addPayload("entityClassNames", entityClassNames);
             outcome.addPayload("reportProfileClassNames", reportProfileClassNames);
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
-            outcome.addPayload(actionBar);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

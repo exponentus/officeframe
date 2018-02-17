@@ -4,7 +4,6 @@ import com.exponentus.common.init.DefaultDataConst;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -79,7 +78,7 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("real_estate_obj_purpose");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();

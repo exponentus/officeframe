@@ -4,7 +4,6 @@ import administrator.dao.ModuleDAO;
 import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -95,7 +94,7 @@ public class TagService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("tag");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
             outcome.addPayload("tagCategories", allTagCategories);
 

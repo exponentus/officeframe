@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -69,7 +68,7 @@ public class DocumentTypeService extends ReferenceService<DocumentType> {
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("doc_type");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
@@ -97,7 +96,6 @@ public class DocumentTypeService extends ReferenceService<DocumentType> {
 
     public Response save(DocumentType dto) {
         _Session session = getSession();
-
 
         try {
             validate(dto);

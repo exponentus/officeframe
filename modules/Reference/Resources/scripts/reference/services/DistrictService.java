@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -55,7 +54,7 @@ public class DistrictService extends ReferenceService<District> {
             vp.setViewPageOptions(new ViewOptions().getDistrictOptions());
 
             outcome.setTitle("districts");
-            outcome.addPayload("contentTitle", "districts");
+            outcome.setPayloadTitle("districts");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -85,8 +84,8 @@ public class DistrictService extends ReferenceService<District> {
             Outcome outcome = new Outcome();
             outcome.addPayload("mapsApiKey", Environment.mapsApiKey);
             outcome.setModel(entity);
-            outcome.addPayload("contentTitle", "district");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setPayloadTitle("district");
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
@@ -114,7 +113,6 @@ public class DistrictService extends ReferenceService<District> {
 
     public Response save(District dto) {
         _Session session = getSession();
-
 
         try {
             validate(dto);
@@ -145,7 +143,6 @@ public class DistrictService extends ReferenceService<District> {
             return responseValidationError(e);
         }
     }
-
 
     private void validate(District entity) throws DTOException {
         DTOException ve = new DTOException();

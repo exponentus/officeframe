@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -67,10 +66,10 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
-            outcome.addPayload("languageCodes", LanguageCode.values());
             outcome.setPayloadTitle("doc_language");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+            outcome.addPayload("languageCodes", LanguageCode.values());
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

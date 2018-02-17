@@ -21,7 +21,6 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.UUID;
 
-
 @Path("city-districts")
 public class CityDistrictService extends ReferenceService<CityDistrict> {
 

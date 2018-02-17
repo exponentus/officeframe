@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -67,7 +66,7 @@ public class RealEstateObjStatusService extends ReferenceService<RealEstateObjSt
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("real_estate_obj_status");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
@@ -147,7 +146,6 @@ public class RealEstateObjStatusService extends ReferenceService<RealEstateObjSt
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
 
         if (ve.hasError()) {
             throw ve;

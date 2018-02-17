@@ -36,7 +36,7 @@ public class CountryService extends ReferenceService<Country> {
             ViewPage<Country> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("countries");
-            outcome.addPayload("contentTitle", "countries");
+            outcome.setPayloadTitle("countries");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();

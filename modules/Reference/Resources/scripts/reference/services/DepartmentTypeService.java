@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -35,7 +34,7 @@ public class DepartmentTypeService extends ReferenceService<DepartmentType> {
             ViewPage<DepartmentType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("department_types");
-            outcome.addPayload("contentTitle", "department_types");
+            outcome.setPayloadTitle("department_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -64,8 +63,8 @@ public class DepartmentTypeService extends ReferenceService<DepartmentType> {
 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
-            outcome.addPayload("contentTitle", "department_type");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setPayloadTitle("department_type");
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();

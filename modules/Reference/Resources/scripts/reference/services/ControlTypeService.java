@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -41,7 +40,7 @@ public class ControlTypeService extends ReferenceService<ControlType> {
             vp.setViewPageOptions(new ViewOptions().getControlTypeOptions());
 
             outcome.setTitle("control_types");
-            outcome.addPayload("contentTitle", "control_types");
+            outcome.setPayloadTitle("control_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -71,9 +70,8 @@ public class ControlTypeService extends ReferenceService<ControlType> {
 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "control_type");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setPayloadTitle("control_type");
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();

@@ -41,6 +41,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("tags", "", "tags", ModuleConst.BASE_URL + "tags"));
         co.addEntry(new OutlineEntry("unit_types", "", "unit_types", ModuleConst.BASE_URL + "unit-types"));
         co.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", ModuleConst.BASE_URL + "approval-routes"));
+
         Outline so = new Outline("specific_reference_data", "specific");
         if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
             so.addEntry(new OutlineEntry("task_types", "", "task_types", ModuleConst.BASE_URL + "task-types"));
@@ -122,5 +123,4 @@ public class NavigatorService extends RestProvider {
 
         return Response.ok(outcome).build();
     }
-
 }

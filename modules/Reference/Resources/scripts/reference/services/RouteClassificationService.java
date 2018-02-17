@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -20,6 +19,7 @@ import java.util.UUID;
 
 @Path("route-classifications")
 public class RouteClassificationService extends ReferenceService<RouteClassification> {
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
@@ -66,8 +66,9 @@ public class RouteClassificationService extends ReferenceService<RouteClassifica
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle("route_classification");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);

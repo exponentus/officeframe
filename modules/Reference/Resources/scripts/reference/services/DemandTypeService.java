@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -38,7 +37,7 @@ public class DemandTypeService extends RestProvider {
             ViewPage<DemandType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("demand_types");
-            outcome.addPayload("contentTitle", "demand_types");
+            outcome.setPayloadTitle("demand_types");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -67,8 +66,8 @@ public class DemandTypeService extends RestProvider {
 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
-            outcome.addPayload("contentTitle", "demand_type");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setPayloadTitle("demand_type");
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
@@ -96,7 +95,6 @@ public class DemandTypeService extends RestProvider {
 
     public Response save(DemandType dto) {
         _Session session = getSession();
-
 
         try {
             validate(dto);

@@ -68,22 +68,21 @@ public class UserActivityService extends RestProvider {
         _Session ses = getSession();
 
         UserActivityDAO dao = new UserActivityDAO(ses);
-            ViewPage<UserActivity> vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
-            vp.setResult(new UserActivityDtoConverter().convert(vp.getResult()));
-            vp.setViewPageOptions(new ViewOptions().getLastVisitOptions());
+        ViewPage<UserActivity> vp = dao.getLastVisits(getWebFormData().getPage(), ses.getPageSize());
+        vp.setResult(new UserActivityDtoConverter().convert(vp.getResult()));
+        vp.setViewPageOptions(new ViewOptions().getLastVisitOptions());
 
-            ActionBar actionBar = new ActionBar(ses);
-            actionBar.addAction(action.refreshVew);
+        ActionBar actionBar = new ActionBar(ses);
+        actionBar.addAction(action.refreshVew);
 
-            Outcome outcome = new Outcome();
-            outcome.setId("last-visits");
-            outcome.setTitle("last_logins");
-            outcome.setPayloadTitle("last_logins");
-            outcome.addPayload(actionBar);
-            outcome.addPayload(vp);
+        Outcome outcome = new Outcome();
+        outcome.setId("last-visits");
+        outcome.setTitle("last_logins");
+        outcome.setPayloadTitle("last_logins");
+        outcome.addPayload(actionBar);
+        outcome.addPayload(vp);
 
-            return Response.ok(outcome).build();
-
+        return Response.ok(outcome).build();
     }
 
     @GET
@@ -99,7 +98,7 @@ public class UserActivityService extends RestProvider {
             Outcome outcome = new Outcome();
             outcome.setId("count-of-records");
             outcome.setTitle("count_of_records");
-            outcome.addPayload("contentTitle", "count_of_records");
+            outcome.setPayloadTitle("count_of_records");
             outcome.addPayload(actionBar);
 
             List result = new ArrayList();
@@ -107,7 +106,6 @@ public class UserActivityService extends RestProvider {
             UserDAO userDAO = new UserDAO(ses);
             EmployeeDAO employeeDAO = new EmployeeDAO(ses);
             for (IUser user : userDAO.findAll()) {
-
                 Map<String, Object> resultRow = new HashMap<>();
                 Employee uemp = employeeDAO.findByUser(user);
                 resultRow.put("actUser", (uemp == null ? user.getLogin() : uemp.getName()));
