@@ -23,7 +23,7 @@ public class NavigatorService extends RestProvider {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getNav() {
-        Collection<IOutcomeObject> list = new LinkedList<>();
+        Collection<Outline> list = new LinkedList<>();
 
         Outline co = new Outline("common_reference_data", "common");
         co.addEntry(new OutlineEntry("countries", "", "countries", ModuleConst.BASE_URL + "countries"));

@@ -7,7 +7,6 @@ import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import staff.dao.OrganizationDAO;
 import staff.init.ModuleConst;
 import staff.model.Organization;
@@ -30,7 +29,7 @@ public class NavigatorService extends RestProvider {
         _Session session = getSession();
 
         LanguageCode lang = session.getLang();
-        LinkedList<IOutcomeObject> list = new LinkedList<>();
+        LinkedList<Outline> list = new LinkedList<>();
         List<OutlineEntry> primaryOrgs = new ArrayList<OutlineEntry>();
 
         Outline co = new Outline("", "common");

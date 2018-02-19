@@ -4,7 +4,6 @@ import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import discussing.init.ModuleConst;
 
 import javax.ws.rs.GET;
@@ -25,7 +24,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("topics_all", "", "topics_all", ModuleConst.BASE_URL + "topics"));
         co.addEntry(new OutlineEntry("topics_my", "", "topics_my", ModuleConst.BASE_URL + "topics/s/my"));
 
-        LinkedList<IOutcomeObject> list = new LinkedList<>();
+        LinkedList<Outline> list = new LinkedList<>();
         list.add(co);
 
         Outcome outcome = new Outcome();

@@ -4,7 +4,6 @@ import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import monitoring.init.ModuleConst;
 
 import javax.ws.rs.GET;
@@ -27,7 +26,7 @@ public class NavigatorService extends RestProvider {
         co.addEntry(new OutlineEntry("count_of_records", "", "count_of_records", ModuleConst.BASE_URL + "user-activities/count-of-records"));
         co.addEntry(new OutlineEntry("chart", "", "chart", ModuleConst.BASE_URL + "user-activities/count-of-records/chart"));
 
-        LinkedList<IOutcomeObject> list = new LinkedList<>();
+        LinkedList<Outline> list = new LinkedList<>();
         list.add(co);
 
         Outcome outcome = new Outcome();

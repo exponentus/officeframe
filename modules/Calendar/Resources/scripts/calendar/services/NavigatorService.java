@@ -5,7 +5,6 @@ import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -28,7 +27,7 @@ public class NavigatorService extends RestProvider {
         Outline r = new Outline("", "s-reminder");
         r.addEntry(new OutlineEntry("reminder_templates", "", "reminder_templates", ModuleConst.BASE_URL + "reminders"));
 
-        LinkedList<IOutcomeObject> list = new LinkedList<>();
+        LinkedList<Outline> list = new LinkedList<>();
         list.add(co);
         list.add(r);
 
