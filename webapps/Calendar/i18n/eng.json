@@ -609,6 +609,7 @@
   "photo_reports" : null,
   "ok" : "Ok",
   "percent_by_year_plan" : null,
+  "show_hidden": "Show hidden",
   "approval_block" : "Approval block",
   "control" : "Control",
   "structure" : "Organization structure",
