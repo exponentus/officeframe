@@ -6,7 +6,7 @@ import com.exponentus.common.ui.filter.FilterItem;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
 import discussing.model.constants.TopicStatusType;
@@ -16,8 +16,8 @@ import java.util.List;
 
 public class ViewOptions {
 
-    public ViewPageOptions getTopicOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getTopicOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("title"));

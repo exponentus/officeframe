@@ -5,7 +5,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.SortParams;
@@ -66,8 +66,8 @@ public class ServiceService extends RestProvider {
         return Response.ok(outcome).build();
     }
 
-    private ViewPageOptions getViewPageOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    private ViewOption getViewPageOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-50");

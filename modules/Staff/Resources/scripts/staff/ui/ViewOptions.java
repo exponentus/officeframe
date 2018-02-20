@@ -6,15 +6,15 @@ import com.exponentus.common.ui.filter.FilterItem;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOptions {
 
-    public ViewPageOptions getOrgOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getOrgOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -27,8 +27,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getDepOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getDepOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -41,8 +41,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getEmpOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getEmpOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-40 vw-sm-100");
@@ -62,8 +62,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getIndividualOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getIndividualOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").sortBoth());

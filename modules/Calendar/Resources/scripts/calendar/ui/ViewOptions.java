@@ -7,7 +7,7 @@ import com.exponentus.common.ui.filter.FilterItem;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
 
@@ -16,8 +16,8 @@ import java.util.List;
 
 public class ViewOptions {
 
-    public ViewPageOptions getEventOptions() {
-        ViewPageOptions vo = new ViewPageOptions();
+    public ViewOption getEventOptions() {
+        ViewOption vo = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-35");
@@ -42,8 +42,8 @@ public class ViewOptions {
         return vo;
     }
 
-    public ViewPageOptions getReminderOptions() {
-        ViewPageOptions vo = new ViewPageOptions();
+    public ViewOption getReminderOptions() {
+        ViewOption vo = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-60");

@@ -3,15 +3,15 @@ package dataexport.ui;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOptions {
 
-    public ViewPageOptions getReportProfileOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getReportProfileOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-45");

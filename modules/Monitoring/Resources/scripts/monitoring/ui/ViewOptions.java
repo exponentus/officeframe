@@ -2,15 +2,15 @@ package monitoring.ui;
 
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOptions {
 
-    public ViewPageOptions getUserActivityOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getUserActivityOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-30");
@@ -35,8 +35,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getLastVisitOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getLastVisitOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.setClassName("vw-50");
@@ -56,8 +56,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getCountOfRecordOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getCountOfRecordOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("actUser").name("act_user"));

@@ -6,15 +6,15 @@ import com.exponentus.common.ui.filter.FilterItem;
 import com.exponentus.common.ui.view.ViewColumn;
 import com.exponentus.common.ui.view.ViewColumnGroup;
 import com.exponentus.common.ui.view.ViewColumnType;
-import com.exponentus.common.ui.view.ViewPageOptions;
+import com.exponentus.common.ui.view.ViewOption;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ViewOptions {
 
-    public ViewPageOptions getDistrictOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getDistrictOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -27,8 +27,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getRegionOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getRegionOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.primary ? { 'font-weight':'bold' } : null"));
@@ -42,8 +42,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getDocumentTypeOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getDocumentTypeOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -56,8 +56,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getDocumentSubjectOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getDocumentSubjectOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -70,8 +70,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getControlTypeOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getControlTypeOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -84,8 +84,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getApprovalRouteOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getApprovalRouteOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
@@ -100,8 +100,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getIndustryTypeOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getIndustryTypeOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("category").type(ViewColumnType.localizedName).sortBoth().className("vw-40"));
@@ -114,8 +114,8 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewPageOptions getTagOptions() {
-        ViewPageOptions result = new ViewPageOptions();
+    public ViewOption getTagOptions() {
+        ViewOption result = new ViewOption();
 
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.hidden ? {color:it.color,'border-bottom': '1px solid #ccc'} : {color:it.color}"));
