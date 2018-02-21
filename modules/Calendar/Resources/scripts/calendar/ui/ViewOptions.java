@@ -26,7 +26,7 @@ public class ViewOptions {
         ViewColumnGroup cg2 = new ViewColumnGroup();
         cg2.setClassName("vw-35");
         cg2.add(new ViewColumn("eventTime").name("event_time").type(ViewColumnType.date).format("DD.MM.YYYY").sortBoth());
-        cg2.add(new ViewColumn("priority").type(ViewColumnType.translate));
+        cg2.add(new ViewColumn("priority").type(ViewColumnType.translate).valueAsClass("priority-"));
 
         ViewColumnGroup cg3 = new ViewColumnGroup();
         cg3.setClassName("vw-30");
