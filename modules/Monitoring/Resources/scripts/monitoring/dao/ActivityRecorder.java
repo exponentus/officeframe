@@ -70,7 +70,11 @@ public class ActivityRecorder implements IActivityRecorder {
             try {
                 ua.setIp(ip);
                 Country c = ip2c.getCountry(ip);
-                ua.setCountry(c.getName());
+                if (c != null) {
+                    ua.setCountry(c.getName());
+                } else {
+                    ua.setCountry("unresolved(" + ip + ")");
+                }
                 dao.add(ua);
             } catch (NumberFormatException e) {
                 Lg.error("Incorrect address, IP=" + ip);
