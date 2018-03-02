@@ -29,7 +29,7 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "staff__employees", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "organization_id"}),
+@Table(name = ModuleConst.CODE + "__employees", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "organization_id"}),
         @UniqueConstraint(columnNames = {"user_id", "organization_id"})})
 @Converters({@Converter(name = "dep_conv", converterClass = DepartmentConverter.class),
         @Converter(name = "emp_conv", converterClass = EmployeeConverter.class)})
@@ -65,7 +65,7 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     private Position position;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "staff__employee_role")
+    @JoinTable(name = ModuleConst.CODE + "__employee_role")
     private List<Role> roles;
 
     private int rank = 999;

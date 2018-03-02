@@ -116,7 +116,6 @@ public class ViewOptions {
 
     public ViewOption getTagOptions() {
         ViewOption result = new ViewOption();
-
         ViewColumnGroup cg = new ViewColumnGroup();
         cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.hidden ? {color:it.color,'border-bottom': '1px solid #ccc'} : {color:it.color}"));
         cg.add(new ViewColumn("category"));
