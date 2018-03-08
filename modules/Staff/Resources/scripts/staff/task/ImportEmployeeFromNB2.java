@@ -7,7 +7,7 @@ import com.exponentus.dataengine.IDBConnectionPool;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jdbc.DatabaseUtil;
 import com.exponentus.exception.SecureException;
-import com.exponentus.legacy.forms.Import4MS;
+import com.exponentus.legacy.forms.ImportNB2;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scriptprocessor.tasks.Command;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 //run task import_emp_nb2
 @Command(name = "import_emp_nb2")
-public class ImportEmployeeFromNB2 extends Import4MS {
+public class ImportEmployeeFromNB2 extends ImportNB2 {
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
