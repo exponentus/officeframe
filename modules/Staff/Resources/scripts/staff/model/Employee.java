@@ -47,6 +47,11 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     @FTSearchable
     private String iin = "";
 
+
+    @FTSearchable
+    private String phone;
+
+
     @NotNull
     @ManyToOne(optional = true)
     @JoinColumn(nullable = false)
@@ -124,6 +129,15 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     public void setIin(String iin) {
         this.iin = iin;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
 
     @JsonIgnore
     public IUser getUser() {

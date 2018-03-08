@@ -11,6 +11,7 @@
         <class>administrator.model.embedded.UserApplication</class>
         <class>administrator.model.Subscription</class>
         <class>administrator.model.embedded.UserSubscription</class>
+        <class>administrator.model.Collation</class>
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
         <class>staff.model.Employee</class>
@@ -41,6 +42,7 @@
         <class>administrator.model.embedded.UserApplication</class>
         <class>administrator.model.Subscription</class>
         <class>administrator.model.embedded.UserSubscription</class>
+        <class>administrator.model.Collation</class>
         <!-- Common Staff module entities -->
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>
@@ -79,6 +81,7 @@
         <class>administrator.model.embedded.UserApplication</class>
         <class>administrator.model.Subscription</class>
         <class>administrator.model.embedded.UserSubscription</class>
+        <class>administrator.model.Collation</class>
         <!-- Common Staff module entities -->
         <class>staff.model.Organization</class>
         <class>staff.model.Department</class>

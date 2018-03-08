@@ -218,6 +218,7 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
             entity.setOrganization(dto.getOrganization());
             entity.setDepartment(dto.getDepartment());
             entity.setPosition(dto.getPosition());
+            entity.setPhone(dto.getPhone());
             List<Role> dtoRoles = dto.getRoles();
             if (dtoRoles != null) {
                 RoleDAO roleDAO = new RoleDAO(session);

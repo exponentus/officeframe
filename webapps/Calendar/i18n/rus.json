@@ -892,6 +892,7 @@
   "comment": "Комментарий",
   "ft_search_keyword_is_empty" : "Ключевое слово не указано",
   "demands_my" : "Мои запросы",
+  "application_to_get_concession": "Заявка на получение концессии",
   "applied_reg_date" : "Дата регистрации",
   "acknowledged_task" : "Принять в работу",
   "approver_decision_unknown": "НЕТ РЕШЕНИЯ",
