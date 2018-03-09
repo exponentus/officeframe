@@ -2,6 +2,7 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import reference.init.ModuleConst;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,5 +23,10 @@ public class BuildingState extends SimpleReferenceEntity {
 
     public void setRequireDate(boolean requireDate) {
         this.requireDate = requireDate;
+    }
+
+    @Override
+    public String getURL() {
+        return ModuleConst.BASE_URL + "building-states/" + getId();
     }
 }
