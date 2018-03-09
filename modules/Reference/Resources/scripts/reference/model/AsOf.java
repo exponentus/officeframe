@@ -2,7 +2,7 @@ package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import objectregistere.init.ModuleConst;
+import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import java.util.Date;
