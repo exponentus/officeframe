@@ -3,10 +3,12 @@ package reference.model;
 import administrator.dao.CollationDAO;
 import administrator.model.Collation;
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.dataengine.jpa.util.NamingCustomizer;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.eclipse.persistence.annotations.Customizer;
 import reference.dao.LocalityDAO;
 import reference.init.ModuleConst;
 
@@ -19,6 +21,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
+@Customizer(NamingCustomizer.class)
 @Table(name = ModuleConst.CODE + "__streets", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "locality_id"}))
 @NamedQuery(name = "Street.findAll", query = "SELECT m FROM Street AS m ORDER BY m.regDate")
 public class Street extends SimpleReferenceEntity {
