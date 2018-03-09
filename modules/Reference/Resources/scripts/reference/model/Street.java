@@ -12,7 +12,9 @@ import reference.init.ModuleConst;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -28,6 +30,19 @@ public class Street extends SimpleReferenceEntity {
 
     @Column(name = "street_id")
     private int streetId;
+
+
+    @ElementCollection
+    private Set<String> altName = new HashSet<>();
+
+    public Set<String> getAltName() {
+        return altName;
+    }
+
+    public void setAltName(Set<String> altName) {
+        this.altName = altName;
+    }
+
 
     public int getStreetId() {
         return streetId;

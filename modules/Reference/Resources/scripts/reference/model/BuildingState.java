@@ -11,7 +11,7 @@ import javax.persistence.UniqueConstraint;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = "ref__building_states", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__building_states", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class BuildingState extends SimpleReferenceEntity {
 
     @Column(name = "require_date")

@@ -28,6 +28,8 @@ public class District extends SimpleReferenceEntity {
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private Region region;
+
+    //map coordinates
     @Convert(converter = ListOfStringArrayConverter.class)
     @Column(name = "lat_lng", columnDefinition = "jsonb")
     private List<String[]> latLng = new ArrayList<>();

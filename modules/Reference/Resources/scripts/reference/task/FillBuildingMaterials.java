@@ -35,6 +35,8 @@ public class FillBuildingMaterials extends Do {
         String namesKaz[] = {"Кирпич", "Монолитный железобетон", "Железобетонная панель", "Стальной каркас с наполнителем",
                 "Дерево-сруб", "Пеноблок", "Каркасно-камышитовая панель", "Шлакоблок", "Бут", "Саман", "Дерево-шпала",
                 "Метал", "Смешанный"};
+
+
         for (int i = 0; i < names.length; i++) {
             BuildingMaterial dType = new BuildingMaterial();
             dType.setName(names[i]);
