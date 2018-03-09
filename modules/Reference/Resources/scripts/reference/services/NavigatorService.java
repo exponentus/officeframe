@@ -6,7 +6,6 @@ import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.scripting.outline.Outline;
 import com.exponentus.scripting.outline.OutlineEntry;
-import com.exponentus.scriptprocessor.page.IOutcomeObject;
 import reference.init.ModuleConst;
 
 import javax.ws.rs.GET;
@@ -68,6 +67,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "realestate-obj-purposes"));
             so.addEntry(new OutlineEntry("land_classifications", "", "land_classifications", ModuleConst.BASE_URL + "land-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.REGIONECONOMY.name())) {
+            so.addEntry(new OutlineEntry("as_of", "", "as_of", ModuleConst.BASE_URL + "as-of"));
             so.addEntry(new OutlineEntry("revenue_categories", "", "revenue_categories", ModuleConst.BASE_URL + "revenue-categories"));
             so.addEntry(new OutlineEntry("revenues", "", "revenues", ModuleConst.BASE_URL + "revenues"));
             so.addEntry(new OutlineEntry("expenditure_categories", "", "expenditure_categories", ModuleConst.BASE_URL + "expenditure-categories"));
