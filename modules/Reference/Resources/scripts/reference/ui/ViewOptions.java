@@ -13,6 +13,21 @@ import java.util.List;
 
 public class ViewOptions {
 
+    public ViewOption getAsOfOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg1 = new ViewColumnGroup();
+        cg1.add(new ViewColumn("title").type(ViewColumnType.localizedName));
+        cg1.add(new ViewColumn("schema"));
+        cg1.add(new ViewColumn("asOfByDate").name("as_of").type(ViewColumnType.date).format("DD.MM.YYYY"));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg1);
+
+        result.setRoot(list);
+        return result;
+    }
+
     public ViewOption getDistrictOptions() {
         ViewOption result = new ViewOption();
 
