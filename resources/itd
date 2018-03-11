@@ -3,19 +3,19 @@ echo *          Generate test data for Semantyca               *
 echo ***********************************************************
 run task gen_test_users
 run task ref_fill_region_types
-run task fill_locality_types
+run task ref_fill_locality_types
 run task fill_countries
 run task fill_regions
 run task ref_fill_districts
-run task fill_localities
-run task fill_city_districts
-run task ref_fill_test_streets
+#run task fill_localities
+#run task fill_city_districts
+#run task ref_fill_test_streets
 run task fill_department_types
 run task fill_doc_langs
 run task fill_org_categories
 run task fill_document_types
 run task fill_document_subjs
-run task fill_vehicles
+run task ref_fill_vehicles
 run task fill_organization_labels
 run task staff_fill_roles
 run task fill_individual_labels

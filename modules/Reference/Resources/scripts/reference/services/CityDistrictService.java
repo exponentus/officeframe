@@ -46,7 +46,7 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
             } else {
                 LocalityDAO localityDAO = new LocalityDAO(session);
                 Locality locality = localityDAO.findById(localityId);
-                List<CityDistrict> streetList = locality.getDistricts();
+                List<CityDistrict> streetList = locality.getCityDistricts();
                 vp = new ViewPage<CityDistrict>(streetList, streetList.size(), 1, 1);
             }
             outcome.addPayload(getDefaultViewActionBar());

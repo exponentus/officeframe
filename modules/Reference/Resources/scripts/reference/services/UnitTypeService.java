@@ -86,7 +86,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
             }
 
             if (entity.getName() == null || entity.getName().isEmpty()) {
-                entity.setName(StringUtil.convertToURLString(dto.getLocName()));
+                entity.setName(StringUtil.convertStringToURL(dto.getLocName()));
             }
             entity.setTitle(entity.getName());
             entity.setLocName(dto.getLocName());

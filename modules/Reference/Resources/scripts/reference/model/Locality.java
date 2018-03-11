@@ -30,7 +30,7 @@ public class Locality extends SimpleReferenceEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "locality")
     @OrderBy("name ASC")
-    private List<CityDistrict> districts;
+    private List<CityDistrict> cityDistricts;
 
     @NotNull
     @ManyToOne(optional = false)
@@ -43,6 +43,10 @@ public class Locality extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private Region region;
 
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = false)
+    private District district;
+
     public LocalityType getType() {
         return type;
     }
@@ -51,8 +55,8 @@ public class Locality extends SimpleReferenceEntity {
         this.type = type;
     }
 
-    public List<CityDistrict> getDistricts() {
-        return districts;
+    public List<CityDistrict> getCityDistricts() {
+        return cityDistricts;
     }
 
     public List<Street> getStreets() {
@@ -69,6 +73,15 @@ public class Locality extends SimpleReferenceEntity {
 
     public void setRegion(Region region) {
         this.region = region;
+    }
+
+
+    public District getDistrict() {
+        return district;
+    }
+
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     @Override

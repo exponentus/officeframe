@@ -124,7 +124,7 @@ public class RegionService extends ReferenceService<Region> {
                 entity = dao.findById(dto.getId());
             }
 
-            entity.setName(StringUtil.convertToURLString(dto.getName()));
+            entity.setName(StringUtil.convertStringToURL(dto.getName()));
             entity.setLocName(dto.getLocName());
             entity.setType(dto.getType());
             entity.setCountry(dto.getCountry());
