@@ -9,6 +9,7 @@ import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.LocalityTypeDAO;
+import reference.init.ModuleConst;
 import reference.model.LocalityType;
 import reference.model.constants.LocalityCode;
 
@@ -17,15 +18,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_locality_types")
+@Command(name = ModuleConst.CODE + "_fill_locality_types")
 public class FillLocalityTypes extends Do {
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<LocalityType> entities = new ArrayList<LocalityType>();
+        String[] data = {"city", "village"};
         String[] dataEng = {"City", "Village"};
-        String[] data = {"Город", "Село"};
-        String[] dataKZ = {"Город", "Село"};
+        String[] dataRus = {"Город", "Село"};
+        String[] dataKZ = {"Қала", "Ауыл"};
         LocalityCode[] code = {LocalityCode.CITY, LocalityCode.VILLAGE};
 
         for (int i = 0; i < data.length; i++) {
@@ -34,7 +36,7 @@ public class FillLocalityTypes extends Do {
             Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
             name.put(LanguageCode.ENG, dataEng[i]);
             name.put(LanguageCode.KAZ, dataKZ[i]);
-            name.put(LanguageCode.RUS, data[i]);
+            name.put(LanguageCode.RUS, dataRus[i]);
             entity.setLocName(name);
             entity.setCode(code[i]);
             entities.add(entity);

@@ -24,6 +24,10 @@ public class DistrictDAO extends ReferenceDAO<District, UUID> {
         super(District.class, session);
     }
 
+    public ViewPage<District> findAllByRegion(Region region) {
+        return findAllByRegion(region, 0, 0);
+    }
+
     public ViewPage<District> findAllByRegion(Region region, int pageNum, int pageSize) {
         EntityManager em = getEntityManagerFactory().createEntityManager();
         CriteriaBuilder cb = em.getCriteriaBuilder();

@@ -40,13 +40,13 @@ public class FillDistricts extends Do {
                 "Павлодарский", "Успенский", "Щербактинский"};
 
         String[] zhambylDistricts = {"talasky", "shusky", "zhambulsky", "kordaysky", "zhualynsky", "sarysusky", "ryskulovsky",
-                "moinkumsky", "baizaksky"};
+                "moinkumsky", "baizaksky", "merkensky"};
         String[] zhambylDistrictsEng = {"Talasky", "Shusky", "Zhambulsky", "Kordaysky", "Zhualynsky", "Sarysusky", "Ryskulovsky",
-                "Moinkumsky", "Baizaksky"};
+                "Moinkumsky", "Baizaksky", "Merkensky"};
         String[] zhambylDistrictsRus = {"Талаский", "Шуский", "Жамбылский", "Кордайский", "Жуалынский", "Сарысуский", "Т.Рыскуловский",
-                "Моинкумский", "Байзакский"};
+                "Моинкумский", "Байзакский", "Меркенский"};
         String[] zhambylDistrictsKaz = {"Талаский", "Шуский", "Жамбылский", "Кордайский", "Жуалынский", "Сарысуский", "Т.Рыскуловский",
-                "Моинкумский", "Байзакский"};
+                "Моинкумский", "Байзакский", "Меркі"};
 
         Region region = null;
         RegionDAO cDao = null;

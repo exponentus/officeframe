@@ -23,8 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 //run task import_streets_nb2
-@Command(name = "import_streets_nb2")
-public class ImportStreetsFromNB2 extends ImportNB2 {
+@Command(name = "import_taraz_streets_nb2")
+public class ImportTarazStreetsFromNB2 extends ImportNB2 {
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
@@ -54,7 +54,7 @@ public class ImportStreetsFromNB2 extends ImportNB2 {
                     String rusName = rs.getString("viewtext3").replace("улица", "");
                     entity.setName(rs.getString("viewtext3"));
                     String latName = StringUtil.convertRusToLat(rusName);
-                    entity.setName(StringUtil.convertToURLString(rusName));
+                    entity.setName(StringUtil.convertStringToURL(rusName));
                     entity.setStreetId(rs.getInt("docid"));
                     Map<LanguageCode, String> localizedNames = new HashMap<>();
                     localizedNames.put(LanguageCode.ENG, latName);

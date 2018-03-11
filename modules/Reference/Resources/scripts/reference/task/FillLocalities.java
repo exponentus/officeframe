@@ -8,6 +8,7 @@ import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
+import reference.dao.DistrictDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
@@ -86,6 +87,7 @@ public class FillLocalities extends Do {
             d = cDao.findByName("zhambyl_region");
 
             if (d != null) {
+                DistrictDAO districtDAO = new DistrictDAO(ses);
                 for (int i = 0; i < zhambylData.length; i++) {
                     Locality entity = new Locality();
                     entity.setRegion(d);
@@ -96,6 +98,11 @@ public class FillLocalities extends Do {
                     name.put(LanguageCode.KAZ, zhambylRegionLocalitiesKaz[i]);
                     entity.setLocName(name);
                     entity.setType(ltDao.findByCode(LocalityCode.CITY));
+                    if (entity.getName().equals("karatau")) {
+                        entity.setDistrict(districtDAO.findByName("talasky"));
+                    } else if (entity.getName().equals("zhanatas")) {
+                        entity.setDistrict(districtDAO.findByName("sarysusky"));
+                    }
                     entities.add(entity);
                 }
             }
