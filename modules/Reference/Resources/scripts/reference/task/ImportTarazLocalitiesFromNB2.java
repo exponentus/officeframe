@@ -131,14 +131,5 @@ public class ImportTarazLocalitiesFromNB2 extends ImportNB2 {
 
     }
 
-    private Map<Integer, LanguageCode> districtCollationMapInit() {
-        Map<Integer, LanguageCode> depTypeCollation = new HashMap<>();
-        depTypeCollation.put(1, LanguageCode.RUS);
-        depTypeCollation.put(2, LanguageCode.ENG);
-        depTypeCollation.put(3, LanguageCode.KAZ);
-        depTypeCollation.put(null, LanguageCode.UNKNOWN);
-        depTypeCollation.put(0, LanguageCode.RUS);
-        return depTypeCollation;
 
-    }
 }

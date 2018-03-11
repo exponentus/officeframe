@@ -22,6 +22,13 @@ run task fill_individual_labels
 run task fill_tags
 run task fill_positions
 
+run task ref_fill_realestateobjpurposes
+run task ref_fill_building_states
+#run task fill_building_materials
+run task ref_fill_memorial_types
+#run task ref_fill_almaty_streets
+run task ref_fill_land_classifications
+
 run task fill_demand_types
 run task fill_control_types
 

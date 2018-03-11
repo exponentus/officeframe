@@ -115,7 +115,25 @@
         <!-- Specific Reference module entities -->
         <class>reference.model.TaskType</class>
         <class>reference.model.RequestType</class>
-        <!-- Specific Reference module entities for HelpDesk module-->
+        <class>reference.model.ControlType</class>
+        <class>reference.model.DocumentSubject</class>
+        <class>reference.model.TextTemplate</class>
+        <class>reference.model.IndustryType</class>
+        <class>reference.model.ActivityTypeCategory</class>
+        <class>reference.model.Nationality</class>
+        <class>reference.model.BuildingMaterial</class>
+        <class>reference.model.BuildingState</class>
+        <class>reference.model.MemorialType</class>
+        <class>reference.model.RealEstateObjPurpose</class>
+        <class>reference.model.PropertyCode</class>
+        <class>reference.model.RealEstateObjStatus</class>
+        <class>reference.model.LandClassification</class>
+        <class>reference.model.RevenueCategory</class>
+        <class>reference.model.Revenue</class>
+        <class>reference.model.ExpenditureCategory</class>
+        <class>reference.model.Expenditure</class>
+        <class>reference.model.EngInfrastructObjClassification</class>
+        <class>reference.model.TaxIncomeCategory</class>
         <class>reference.model.DemandType</class>
          <!-- Monitoring module entities -->
         <class>monitoring.model.UserActivity</class>      
