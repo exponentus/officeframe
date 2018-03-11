@@ -1,5 +1,6 @@
 package reference.model.embedded;
 
+import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import org.eclipse.persistence.annotations.Convert;
 import org.eclipse.persistence.annotations.Converter;
@@ -151,6 +152,11 @@ public class Address {
 
     public void setCityDistrict(CityDistrict district) {
         this.cityDistrict = district;
+    }
+
+    public String getFullAddress(LanguageCode lang) {
+        return country.getLocName(lang) + "," + region.getLocName(lang);
+        // return country.getLocName(lang) + "," + region.getLocName(lang) + "," + locality.getLocName(lang) + "," + houseNumber + "-" + flat;
     }
 
 
