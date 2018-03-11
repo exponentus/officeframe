@@ -35,7 +35,6 @@ public class AsOfService extends RestProvider {
             ViewPage<AsOf> vp = dao.findViewPage(sortParams, 0, 0);
             ViewOptions vo = new ViewOptions();
             vp.setViewPageOptions(vo.getAsOfOptions());
-            vp.setFilter(vo.getTagFilter());
 
             Outcome outcome = new Outcome();
             outcome.setTitle("as_of");
