@@ -25,7 +25,10 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.util.ReflectionUtil;
 import reference.init.ModuleConst;
 
-import java.util.*;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 //run task ref_sync_with_ih
 @Command(name = ModuleConst.CODE + "_sync_with_ih")
@@ -48,7 +51,8 @@ public class SyncWithIntegrationHub extends Do {
 
                         while (iterator.hasNext()) {
                             Map entry = (Map) iterator.next();
-                            String extId = (String) entry.get("identifier");
+                            //    String extId = (String) entry.get("identifier");
+                            String extId = (String) entry.get("id");
                             try {
                                 IAppEntity entity = dao.findByExtKey(extId);
                                 if (entity == null) {
