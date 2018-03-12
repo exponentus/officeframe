@@ -75,7 +75,6 @@ public class Locality extends SimpleReferenceEntity {
         this.region = region;
     }
 
-
     public District getDistrict() {
         return district;
     }

@@ -126,6 +126,7 @@ public class LocalityService extends ReferenceService<Locality> {
             entity.setLocName(dto.getLocName());
             entity.setType(dto.getType());
             entity.setRegion(dto.getRegion());
+            entity.setDistrict(dto.getDistrict());
 
             dao.save(entity);
 
@@ -162,11 +163,9 @@ public class LocalityService extends ReferenceService<Locality> {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
         if (entity.getRegion() == null) {
             ve.addError("region", "required", "field_is_empty");
         }
-
         if (entity.getType() == null) {
             ve.addError("type", "required", "field_is_empty");
         }
