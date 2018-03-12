@@ -13,6 +13,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.validation.constraints.NotNull;
+import java.util.StringJoiner;
 
 @Embeddable
 @JsonPropertyOrder({"country", "region", "district", "locality", "cityDistrict",
@@ -154,9 +155,38 @@ public class Address {
         this.cityDistrict = district;
     }
 
+    public String getAddress(LanguageCode lang) {
+        StringJoiner addr = new StringJoiner(", ");
+        if (locality != null) {
+            addr.add(locality.getLocName(lang));
+        }
+        if (houseNumber != null) {
+            addr.add(houseNumber);
+        }
+        if (flat != null) {
+            addr.add(flat);
+        }
+        return addr.toString() + " " + additionalInfo;
+    }
+
     public String getFullAddress(LanguageCode lang) {
-        return country.getLocName(lang) + "," + region.getLocName(lang);
-        // return country.getLocName(lang) + "," + region.getLocName(lang) + "," + locality.getLocName(lang) + "," + houseNumber + "-" + flat;
+        StringJoiner fullAddr = new StringJoiner(", ");
+        if (country != null) {
+            fullAddr.add(country.getLocName(lang));
+        }
+        if (region != null) {
+            fullAddr.add(region.getLocName(lang));
+        }
+        if (locality != null) {
+            fullAddr.add(locality.getLocName(lang));
+        }
+        if (houseNumber != null) {
+            fullAddr.add(houseNumber);
+        }
+        if (flat != null) {
+            fullAddr.add(flat);
+        }
+        return fullAddr.toString();
     }
 
 

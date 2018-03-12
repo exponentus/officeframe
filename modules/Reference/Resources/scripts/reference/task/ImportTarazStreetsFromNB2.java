@@ -12,6 +12,7 @@ import com.exponentus.user.SuperUser;
 import com.exponentus.util.StringUtil;
 import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
+import reference.init.ModuleConst;
 import reference.model.Locality;
 import reference.model.Street;
 
@@ -22,8 +23,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-//run task import_streets_nb2
-@Command(name = "import_taraz_streets_nb2")
+//run task ref_import_taraz_streets_nb2
+@Command(name = ModuleConst.CODE + "_import_taraz_streets_nb2")
 public class ImportTarazStreetsFromNB2 extends ImportNB2 {
 
     @Override

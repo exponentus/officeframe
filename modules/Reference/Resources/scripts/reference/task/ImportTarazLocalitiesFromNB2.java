@@ -15,6 +15,7 @@ import reference.dao.DistrictDAO;
 import reference.dao.LocalityDAO;
 import reference.dao.LocalityTypeDAO;
 import reference.dao.RegionDAO;
+import reference.init.ModuleConst;
 import reference.model.District;
 import reference.model.Locality;
 import reference.model.LocalityType;
@@ -27,8 +28,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-//run task import_taraz_distr_nb2
-@Command(name = "import_taraz_distr_nb2")
+//run task ref_import_taraz_distr_nb2
+@Command(name = ModuleConst.CODE + "_import_taraz_distr_nb2")
 public class ImportTarazLocalitiesFromNB2 extends ImportNB2 {
 
     @Override

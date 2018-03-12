@@ -11,6 +11,7 @@ import com.exponentus.scriptprocessor.tasks.Command;
 import com.exponentus.user.SuperUser;
 import com.exponentus.util.StringUtil;
 import reference.dao.BuildingMaterialDAO;
+import reference.init.ModuleConst;
 import reference.model.BuildingMaterial;
 
 import java.sql.Connection;
@@ -20,8 +21,8 @@ import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
-//run task import_building_materials_nb2
-@Command(name = "import_building_materials_nb2")
+//run task ref_import_building_materials_nb2
+@Command(name = ModuleConst.CODE + "_import_building_materials_nb2")
 public class ImportBuildingMaterialsFromNB2 extends ImportNB2 {
 
     @Override
