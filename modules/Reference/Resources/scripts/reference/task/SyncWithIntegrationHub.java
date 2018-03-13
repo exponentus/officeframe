@@ -72,6 +72,7 @@ public class SyncWithIntegrationHub extends Do {
                     Lg.error("IntegrationBus service \"" + e.getKey() + "\", has not been found");
                 }
             }
+
         } catch (RequesterException e) {
             Lg.exception(e);
         } catch (DAOException e) {

@@ -112,6 +112,7 @@
         <class>reference.model.embedded.RouteBlock</class>
         <class>reference.model.WorkType</class>
         <class>reference.model.MeetingRoom</class>
+        <class>reference.model.ActivityTypeCategory</class>
         <class>reference.model.AsOf</class>
         <!-- Specific Reference module entities -->
         <class>reference.model.TaskType</class>
@@ -120,7 +121,6 @@
         <class>reference.model.DocumentSubject</class>
         <class>reference.model.TextTemplate</class>
         <class>reference.model.IndustryType</class>
-        <class>reference.model.ActivityTypeCategory</class>
         <class>reference.model.Nationality</class>
         <class>reference.model.BuildingMaterial</class>
         <class>reference.model.BuildingState</class>

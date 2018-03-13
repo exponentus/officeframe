@@ -31,6 +31,11 @@ public class Street extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private Locality locality;
 
+    @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private CityDistrict cityDistrict;
+
     @Column(name = "street_id")
     private int streetId;
 
@@ -60,6 +65,15 @@ public class Street extends SimpleReferenceEntity {
     @JsonProperty
     public void setLocality(Locality locality) {
         this.locality = locality;
+    }
+
+
+    public CityDistrict getCityDistrict() {
+        return cityDistrict;
+    }
+
+    public void setCityDistrict(CityDistrict cityDistrict) {
+        this.cityDistrict = cityDistrict;
     }
 
     @Override
