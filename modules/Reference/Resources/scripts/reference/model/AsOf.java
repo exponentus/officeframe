@@ -9,7 +9,7 @@ import java.util.Date;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
-@Table(name = ModuleConst.CODE + "__asof")
+@Table(name = ModuleConst.CODE + "__asof", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class AsOf extends SimpleReferenceEntity {
 
     @Column(name = "asof_by_date")
