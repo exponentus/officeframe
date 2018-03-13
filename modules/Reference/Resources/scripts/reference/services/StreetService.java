@@ -13,6 +13,7 @@ import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
 import reference.model.Locality;
 import reference.model.Street;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -45,6 +46,7 @@ public class StreetService extends ReferenceService<Street> {
                 List<Street> streetList = locality.getStreets();
                 vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
             }
+            vp.setViewPageOptions(new ViewOptions().getStreetOptions());
 
             Outcome outcome = new Outcome();
             outcome.setTitle("streets");
@@ -161,7 +163,6 @@ public class StreetService extends ReferenceService<Street> {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
         if (entity.getLocality() == null) {
             ve.addError("locality", "required", "field_is_empty");
         }
@@ -184,7 +185,7 @@ public class StreetService extends ReferenceService<Street> {
             ViewPage<Street> vp = streetDAO.findViewPage(sortParams, pageNum, pageSize);
             outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("streets");
-            outcome.addPayload("contentTitle", "streets");
+            outcome.setPayloadTitle("streets");
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();

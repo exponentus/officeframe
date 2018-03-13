@@ -34,7 +34,6 @@ public class Street extends SimpleReferenceEntity {
     @Column(name = "street_id")
     private int streetId;
 
-
     @ElementCollection
     private Set<String> altName = new HashSet<>();
 
@@ -45,7 +44,6 @@ public class Street extends SimpleReferenceEntity {
     public void setAltName(Set<String> altName) {
         this.altName = altName;
     }
-
 
     public int getStreetId() {
         return streetId;
@@ -60,8 +58,8 @@ public class Street extends SimpleReferenceEntity {
     }
 
     @JsonProperty
-    public void setLocality(Locality city) {
-        this.locality = city;
+    public void setLocality(Locality locality) {
+        this.locality = locality;
     }
 
     @Override
@@ -76,7 +74,6 @@ public class Street extends SimpleReferenceEntity {
             this.locality = locality;
 
             streetId = (Integer) data.get("streetId");
-
         } catch (Exception e) {
             Lg.exception(e);
             return null;

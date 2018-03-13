@@ -56,6 +56,20 @@ public class ViewOptions {
         return result;
     }
 
+    public ViewOption getStreetOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("locality").type(ViewColumnType.localizedName));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
     public ViewOption getDocumentTypeOptions() {
         ViewOption result = new ViewOption();
 

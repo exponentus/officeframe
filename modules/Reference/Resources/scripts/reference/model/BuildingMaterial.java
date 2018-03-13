@@ -17,7 +17,6 @@ import java.util.Set;
 @NamedQuery(name = "BuildingMaterial.findAll", query = "SELECT m FROM BuildingMaterial AS m ORDER BY m.regDate")
 public class BuildingMaterial extends SimpleReferenceEntity {
 
-
     @ElementCollection
     private Set<String> altName = new HashSet<>();
 
