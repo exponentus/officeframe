@@ -8,16 +8,14 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.LocalityDAO;
-import reference.dao.RegionDAO;
+import reference.dao.filter.LocalityFilter;
 import reference.model.Locality;
-import reference.model.Region;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.UUID;
 
 @Path("localities")
@@ -27,25 +25,18 @@ public class LocalityService extends ReferenceService<Locality> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
         try {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            String regionId = params.getValueSilently("region");
-
+            LocalityFilter localityFilter = new LocalityFilter(params);
             LocalityDAO dao = new LocalityDAO(session);
-            ViewPage<Locality> vp;
 
-            if (regionId == null || regionId.isEmpty()) {
-                vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            } else {
-                RegionDAO regionDAO = new RegionDAO(session);
-                Region region = regionDAO.findByIdentifier(regionId);
-                List<Locality> localities = region.getLocalities();
-                vp = new ViewPage<Locality>(localities, localities.size(), 1, 1);
-            }
+            ViewPage<Locality> vp = dao.findViewPage(localityFilter, sortParams, params.getPage(), pageSize);
+            ViewOptions vo = new ViewOptions();
+            vp.setViewPageOptions(vo.getLocalityOptions());
+            vp.setFilter(vo.getLocalityFilter());
 
             Outcome outcome = new Outcome();
             outcome.setTitle("localities");

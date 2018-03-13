@@ -25,7 +25,7 @@ public class IndustryTypeFilter implements IFilter<IndustryType> {
 
         if (activityTypeCategory != null) {
             if (condition == null) {
-                condition = cb.and(cb.equal(root.get("category"), activityTypeCategory));
+                condition = cb.equal(root.get("category"), activityTypeCategory);
             } else {
                 condition = cb.and(cb.equal(root.get("category"), activityTypeCategory), condition);
             }

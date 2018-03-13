@@ -27,49 +27,6 @@ public class ViewOptions {
         return result;
     }
 
-    public ViewOption getDistrictOptions() {
-        ViewOption result = new ViewOption();
-
-        ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ViewColumn("region").type(ViewColumnType.localizedName));
-
-        List<ViewColumnGroup> list = new ArrayList<>();
-        list.add(cg);
-
-        result.setRoot(list);
-        return result;
-    }
-
-    public ViewOption getRegionOptions() {
-        ViewOption result = new ViewOption();
-
-        ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.primary ? { 'font-weight':'bold' } : null"));
-        cg.add(new ViewColumn("type").type(ViewColumnType.localizedName));
-        cg.add(new ViewColumn("country").type(ViewColumnType.localizedName));
-
-        List<ViewColumnGroup> list = new ArrayList<>();
-        list.add(cg);
-
-        result.setRoot(list);
-        return result;
-    }
-
-    public ViewOption getStreetOptions() {
-        ViewOption result = new ViewOption();
-
-        ViewColumnGroup cg = new ViewColumnGroup();
-        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
-        cg.add(new ViewColumn("locality").type(ViewColumnType.localizedName));
-
-        List<ViewColumnGroup> list = new ArrayList<>();
-        list.add(cg);
-
-        result.setRoot(list);
-        return result;
-    }
-
     public ViewOption getDocumentTypeOptions() {
         ViewOption result = new ViewOption();
 
@@ -162,6 +119,102 @@ public class ViewOptions {
         List<FilterItem.Item> items = new ArrayList<>();
         items.add(new FilterItem.Item("true", "show_hidden", null));
         filterGroup.addItem(new FilterItem("hidden").items(items).typeCheckbox());
+
+        filterForm.addGroup(filterGroup);
+
+        return filterForm;
+    }
+
+    // Address
+    public ViewOption getDistrictOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("region").type(ViewColumnType.localizedName));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
+    public ViewOption getRegionOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth().style("return it.primary ? { 'font-weight':'bold' } : null"));
+        cg.add(new ViewColumn("type").type(ViewColumnType.localizedName));
+        cg.add(new ViewColumn("country").type(ViewColumnType.localizedName));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
+    // Locality
+    public ViewOption getLocalityOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("region").type(ViewColumnType.localizedName));
+        cg.add(new ViewColumn("district").type(ViewColumnType.localizedName));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
+    public FilterForm getLocalityFilter() {
+        FilterForm filterForm = new FilterForm();
+        FilterGroup filterGroup = new FilterGroup();
+        filterGroup.addItem(new FilterItem("region", "region").url("/Reference/api/regions"));
+        filterGroup.addItem(new FilterItem("district", "district").url("/Reference/api/districts"));
+
+        filterForm.addGroup(filterGroup);
+
+        return filterForm;
+    }
+
+    public ViewOption getCityDistrictOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("locality").type(ViewColumnType.localizedName));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
+    // Street
+    public ViewOption getStreetOptions() {
+        ViewOption result = new ViewOption();
+
+        ViewColumnGroup cg = new ViewColumnGroup();
+        cg.add(new ViewColumn("name").type(ViewColumnType.localizedName).sortBoth());
+        cg.add(new ViewColumn("locality").type(ViewColumnType.localizedName));
+
+        List<ViewColumnGroup> list = new ArrayList<>();
+        list.add(cg);
+
+        result.setRoot(list);
+        return result;
+    }
+
+    public FilterForm getStreetFilter() {
+        FilterForm filterForm = new FilterForm();
+        FilterGroup filterGroup = new FilterGroup();
+        filterGroup.addItem(new FilterItem("locality", "locality").url("/Reference/api/localities"));
 
         filterForm.addGroup(filterGroup);
 

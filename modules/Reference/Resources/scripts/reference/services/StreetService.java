@@ -9,16 +9,14 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import reference.dao.LocalityDAO;
 import reference.dao.StreetDAO;
-import reference.model.Locality;
+import reference.dao.filter.StreetFilter;
 import reference.model.Street;
 import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.UUID;
 
 @Path("streets")
@@ -33,20 +31,13 @@ public class StreetService extends ReferenceService<Street> {
 
         try {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            String localityId = params.getValueSilently("locality");
-
+            StreetFilter streetFilter = new StreetFilter(params);
             StreetDAO streetDAO = new StreetDAO(session);
-            ViewPage<Street> vp;
 
-            if (localityId == null || localityId.isEmpty()) {
-                vp = streetDAO.findViewPage(sortParams, params.getPage(), pageSize);
-            } else {
-                LocalityDAO localityDAO = new LocalityDAO(session);
-                Locality locality = localityDAO.findById(localityId);
-                List<Street> streetList = locality.getStreets();
-                vp = new ViewPage<Street>(streetList, streetList.size(), 1, 1);
-            }
-            vp.setViewPageOptions(new ViewOptions().getStreetOptions());
+            ViewPage<Street> vp = streetDAO.findViewPage(streetFilter, sortParams, params.getPage(), pageSize);
+            ViewOptions vo = new ViewOptions();
+            vp.setViewPageOptions(vo.getStreetOptions());
+            vp.setFilter(vo.getStreetFilter());
 
             Outcome outcome = new Outcome();
             outcome.setTitle("streets");

@@ -2,23 +2,20 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.CityDistrictDAO;
-import reference.dao.LocalityDAO;
+import reference.dao.filter.CityDistrictFilter;
 import reference.model.CityDistrict;
-import reference.model.Locality;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.UUID;
 
 @Path("city-districts")
@@ -28,31 +25,23 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            String localityId = params.getValueSilently("locality");
-
+            CityDistrictFilter cityDistrictFilter = new CityDistrictFilter(params);
             CityDistrictDAO cityDistrictDAO = new CityDistrictDAO(session);
-            ViewPage<CityDistrict> vp;
 
-            if (localityId == null || localityId.isEmpty()) {
-                vp = cityDistrictDAO.findViewPage(sortParams, params.getPage(), pageSize);
-            } else {
-                LocalityDAO localityDAO = new LocalityDAO(session);
-                Locality locality = localityDAO.findById(localityId);
-                List<CityDistrict> streetList = locality.getCityDistricts();
-                vp = new ViewPage<CityDistrict>(streetList, streetList.size(), 1, 1);
-            }
-            outcome.addPayload(getDefaultViewActionBar());
+            ViewPage<CityDistrict> vp = cityDistrictDAO.findViewPage(cityDistrictFilter, sortParams, params.getPage(), pageSize);
+            ViewOptions vo = new ViewOptions();
+            vp.setViewPageOptions(vo.getCityDistrictOptions());
+            // vp.setFilter(vo.getCityDistrictFilter());
 
+            Outcome outcome = new Outcome();
             outcome.setTitle("city_districts");
-            outcome.addPayload("contentTitle", "city_districts");
+            outcome.setPayloadTitle("city_districts");
+            outcome.addPayload(getDefaultViewActionBar());
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
@@ -79,12 +68,10 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
                 entity = dao.findByIdentifier(id);
             }
 
-
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
-            outcome.addPayload("kind", entity.getEntityKind());
-            outcome.addPayload("contentTitle", "city_district");
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setPayloadTitle("city_district");
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
@@ -112,7 +99,6 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
 
     public Response save(CityDistrict dto) {
         _Session session = getSession();
-
 
         try {
             validate(dto);
