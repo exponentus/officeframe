@@ -8,6 +8,7 @@ import com.exponentus.dataengine.jdbc.DBConnectionPool;
 import com.exponentus.dataengine.jdbc.DatabaseUtil;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
+import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.constants.Trigger;
@@ -29,7 +30,7 @@ public class IHSpeedChecker extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session session) {
         if (Environment.integrationHubEnable) {
-            System.out.println("connect to IH database...");
+            Lg.debug("connect to IH database...");
             long start_time = System.nanoTime();
 
 
@@ -48,7 +49,7 @@ public class IHSpeedChecker extends Do {
                 handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
             } catch (TimeoutException e) {
                 handler.cancel(true);
-                System.err.println("TimeoutException 30 sec");
+                Lg.error("TimeoutException 30 sec");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
@@ -57,7 +58,7 @@ public class IHSpeedChecker extends Do {
 
             executor.shutdownNow();
             long end_time = System.nanoTime();
-            System.out.println("speed=" + Info.showDatabaseSpeed(((end_time - start_time) / 1e6) - 3));
+            Lg.debug("speed=" + Info.showDatabaseSpeed(((end_time - start_time) / 1e6) - 3));
 
 
 
