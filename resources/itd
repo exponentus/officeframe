@@ -29,6 +29,8 @@ run task ref_fill_building_states
 run task ref_fill_memorial_types
 #run task ref_fill_almaty_streets
 run task ref_fill_land_classifications
+run task ref_fill_road_types
+run task ref_fill_road_repair_types
 
 run task fill_demand_types
 run task fill_control_types

@@ -13,6 +13,7 @@ import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
+import com.exponentus.integrationhub.Helper;
 import com.exponentus.integrationhub.IHEnvConst;
 import com.exponentus.integrationhub.IRequester;
 import com.exponentus.integrationhub.client.Requester;
@@ -39,7 +40,7 @@ public class SyncWithIntegrationHub extends Do {
         try {
             IntegrationBusServiceDAO serviceDAO = new IntegrationBusServiceDAO(ses);
             IntegrationHubCollationDAO collationDAO = new IntegrationHubCollationDAO(ses);
-            for (Map.Entry<String, String> e : AbstractGen.referenceDataInitSequence().entrySet()) {
+            for (Map.Entry<String, String> e : Helper.referenceDataInitSequence().entrySet()) {
                 IntegrationHubService service = serviceDAO.findByName(e.getKey());
                 if (service != null) {
                     IntegrationHubCollation collation = collationDAO.findByServiceName(service);

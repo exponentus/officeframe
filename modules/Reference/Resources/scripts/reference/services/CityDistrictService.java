@@ -41,7 +41,7 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
             Outcome outcome = new Outcome();
             outcome.setTitle("city_districts");
             outcome.setPayloadTitle("city_districts");
-            outcome.addPayload(getDefaultViewActionBar());
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.addPayload(vp);
 
             return Response.ok(outcome).build();
