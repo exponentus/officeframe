@@ -114,6 +114,7 @@
         <class>reference.model.MeetingRoom</class>
         <class>reference.model.ActivityTypeCategory</class>
         <class>reference.model.AsOf</class>
+        <class>reference.model.ProductType</class>
         <!-- Specific Reference module entities -->
         <class>reference.model.TaskType</class>
         <class>reference.model.RequestType</class>
