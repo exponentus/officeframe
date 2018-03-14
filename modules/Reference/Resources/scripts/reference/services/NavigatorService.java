@@ -25,21 +25,23 @@ public class NavigatorService extends RestProvider {
         Collection<Outline> list = new LinkedList<>();
 
         Outline co = new Outline("common_reference_data", "common");
-        co.addEntry(new OutlineEntry("countries", "", "countries", ModuleConst.BASE_URL + "countries"));
-        co.addEntry(new OutlineEntry("regions", "", "regions", ModuleConst.BASE_URL + "regions"));
-        co.addEntry(new OutlineEntry("districts", "", "districts", ModuleConst.BASE_URL + "districts"));
-        co.addEntry(new OutlineEntry("localities", "", "localities", ModuleConst.BASE_URL + "localities"));
-        co.addEntry(new OutlineEntry("city_districts", "", "city_districts", ModuleConst.BASE_URL + "city-districts"));
-        co.addEntry(new OutlineEntry("streets", "", "streets", ModuleConst.BASE_URL + "streets"));
         co.addEntry(new OutlineEntry("department_types", "", "department_types", ModuleConst.BASE_URL + "department-types"));
         co.addEntry(new OutlineEntry("org_categories", "", "org_categories", ModuleConst.BASE_URL + "org-categories"));
-        co.addEntry(new OutlineEntry("region_types", "", "region_types", ModuleConst.BASE_URL + "region-types"));
-        co.addEntry(new OutlineEntry("locality_types", "", "locality_types", ModuleConst.BASE_URL + "locality-types"));
         co.addEntry(new OutlineEntry("positions", "", "positions", ModuleConst.BASE_URL + "positions"));
         co.addEntry(new OutlineEntry("doc_languages", "", "document_languages", ModuleConst.BASE_URL + "document-languages"));
         co.addEntry(new OutlineEntry("tags", "", "tags", ModuleConst.BASE_URL + "tags"));
         co.addEntry(new OutlineEntry("unit_types", "", "unit_types", ModuleConst.BASE_URL + "unit-types"));
         co.addEntry(new OutlineEntry("approval_routes", "", "approval_routes", ModuleConst.BASE_URL + "approval-routes"));
+
+        Outline lo = new Outline("address_reference_data", "location");
+        lo.addEntry(new OutlineEntry("countries", "", "countries", ModuleConst.BASE_URL + "countries"));
+        lo.addEntry(new OutlineEntry("regions", "", "regions", ModuleConst.BASE_URL + "regions"));
+        lo.addEntry(new OutlineEntry("districts", "", "districts", ModuleConst.BASE_URL + "districts"));
+        lo.addEntry(new OutlineEntry("localities", "", "localities", ModuleConst.BASE_URL + "localities"));
+        lo.addEntry(new OutlineEntry("city_districts", "", "city_districts", ModuleConst.BASE_URL + "city-districts"));
+        lo.addEntry(new OutlineEntry("streets", "", "streets", ModuleConst.BASE_URL + "streets"));
+        lo.addEntry(new OutlineEntry("region_types", "", "region_types", ModuleConst.BASE_URL + "region-types"));
+        lo.addEntry(new OutlineEntry("locality_types", "", "locality_types", ModuleConst.BASE_URL + "locality-types"));
 
         Outline so = new Outline("specific_reference_data", "specific");
         if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
@@ -117,6 +119,7 @@ public class NavigatorService extends RestProvider {
         }
 
         list.add(co);
+        list.add(lo);
         if (!so.getEntries().isEmpty()) {
             list.add(so);
         }
