@@ -1,62 +1,95 @@
 package reference.task;
 
 import com.exponentus.appenv.AppEnv;
+import com.exponentus.dataengine.DataengineConst;
+import com.exponentus.dataengine.IDBConnectionPool;
+import com.exponentus.dataengine.exception.DatabasePoolException;
+import com.exponentus.dataengine.jdbc.DBConnectionPool;
+import com.exponentus.dataengine.jdbc.DatabaseUtil;
+import com.exponentus.env.EnvConst;
+import com.exponentus.env.Environment;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
+import com.exponentus.scriptprocessor.constants.Trigger;
 import com.exponentus.scriptprocessor.tasks.Command;
-import reference.dao.TagDAO;
-import reference.model.Tag;
+import com.exponentus.server.Server;
+import com.exponentus.server.cli.Info;
 
-import java.util.List;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.time.Duration;
+import java.util.concurrent.*;
 
-@Command(name = "_ih_speed_checker")
+//run task _ih_speed_check
+@Command(name = "_ih_speed_check", trigger = Trigger.EVERY_HOUR)
 public class IHSpeedChecker extends Do {
+    String connectionURL = "jdbc:postgresql://" + EnvConst.DATABASE_HOST + ":" + EnvConst.CONN_PORT + "/" + EnvConst.DATABASE_NAME;
 
     @Override
     public void doTask(AppEnv appEnv, _Session session) {
-        System.out.println("run...");
-        long start_time = System.nanoTime();
-        int iteration0 = 10;
-        int iteration = 500;
-        try {
-            for (int i0 = 0; i0 < iteration0; i0++) {
-                TagDAO dao = new TagDAO(session);
-                int cached = 0, notCached = 0;
-                List<Tag> list = null;
-                for (int i = 0; i < iteration; i++) {
-                    cached = 0;
-                    notCached = 0;
-                    list = dao.findAll().getResult();
-                    for (Tag tag : list) {
-                        if (dao.isCached(tag)) {
-                            cached++;
-                        } else {
-                            notCached++;
-                        }
-                    }
+        if (Environment.integrationHubEnable) {
+            System.out.println("connect to IH database...");
+            long start_time = System.nanoTime();
+
+
+            final Duration timeout = Duration.ofSeconds(30);
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+
+            final Future<String> handler = executor.submit(new Callable() {
+                @Override
+                public String call() throws Exception {
+                    checkServer();
+                    return "";
                 }
-                System.out.println(i0 + " cached=" + cached + ", not cached=" + notCached);
-                dao.resetCache();
-                cached = 0;
-                notCached = 0;
-                for (Tag tag : list) {
-                    if (dao.isCached(tag)) {
-                        cached++;
-                    } else {
-                        notCached++;
-                    }
-                }
-                System.out.println("  cached=" + cached + ", not cached=" + notCached);
+            });
+
+            try {
+                handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
+            } catch (TimeoutException e) {
+                handler.cancel(true);
+                System.err.println("TimeoutException 30 sec");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
 
-        } catch (Exception e) {
-            System.err.println(e);
-        }
+            executor.shutdownNow();
+            long end_time = System.nanoTime();
+            System.out.println("speed=" + Info.showDatabaseSpeed(((end_time - start_time) / 1e6) - 3));
 
-        long end_time = System.nanoTime();
-        System.out.println("done");
-        System.out.println("speed=" + (end_time - start_time) / 1e6);
+
+
+            System.out.println("done");
+
+
+        }
 
     }
 
+    private void checkServer(){
+        IDBConnectionPool dbPool = new DBConnectionPool();
+        try {
+            dbPool.initConnectionPool(DataengineConst.JDBC_DRIVER, connectionURL, EnvConst.DB_USER, EnvConst.DB_PWD);
+            try {
+                Connection conn = dbPool.getConnection();
+                conn.setAutoCommit(false);
+                Statement s = conn.createStatement();
+                String sql = "SELECT 1";
+                ResultSet rs = s.executeQuery(sql);
+                if (rs.next()) {
+                    @SuppressWarnings({"unused"})
+                    int n = rs.getInt(1);
+                }
+                s.close();
+                conn.commit();
+            } catch (Throwable e) {
+                DatabaseUtil.debugErrorPrint(e);
+            }
+
+        } catch (InstantiationException | IllegalAccessException | ClassNotFoundException | DatabasePoolException e) {
+            Server.logger.exception(e);
+        }
+    }
 }

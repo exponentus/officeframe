@@ -10,7 +10,7 @@
         <certfile>server.crt</certfile>
         <certkeyfile>server.key</certkeyfile>
     </tls>
-    <mail mode="ON">
+    <mail mode="OFF">
         <smtphost>exponentus.com</smtphost>
         <smtpauth>true</smtpauth>
         <smtpport>2525</smtpport>
