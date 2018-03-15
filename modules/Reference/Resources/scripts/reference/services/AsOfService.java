@@ -151,6 +151,9 @@ public class AsOfService extends RestProvider {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
+        if (entity.getAsOfByDate() == null) {
+            ve.addError("asOfByDate", "date", "field_is_empty");
+        }
 
         if (ve.hasError()) {
             throw ve;
