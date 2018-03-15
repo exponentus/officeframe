@@ -96,6 +96,9 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("nature_conservation_obj_types", "", "nature_conservation_obj_types", ModuleConst.BASE_URL + "nature-conservation-obj-types"));
             so.addEntry(new OutlineEntry("eng_infrastruct_obj_classifications", "", "eng_infrastruct_obj_classifications", ModuleConst.BASE_URL + "eng-infrastruct-obj-classifications"));
             so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", ModuleConst.BASE_URL + "real-estate-obj-statuses"));
+        } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ENTERPRISEINDUSTRYTAR.name())) {
+            so.addEntry(new OutlineEntry("product_types", "", "product_types", ModuleConst.BASE_URL + "product-types"));
+            so.addEntry(new OutlineEntry("project_stages", "", "project_stages", ModuleConst.BASE_URL + "project-stages"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONHUB.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.OFFICEFRAME.name())) {
             so.addEntry(new OutlineEntry("as_of", "", "as_of", ModuleConst.BASE_URL + "as-of"));
             so.addEntry(new OutlineEntry("control_types", "", "control_types", ModuleConst.BASE_URL + "control-types"));
