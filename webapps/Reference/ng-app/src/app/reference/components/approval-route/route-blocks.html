@@ -1,0 +1,54 @@
+<div class="approval">
+    <div class="approval__actions" *ngIf="editable">
+        <button type="button" class="btn" (click)="addNewBlock()">
+            <span class="btn-text">{{'add' | translate}}</span>
+        </button>
+        <button type="button" class="btn btn-warning-effect" [disabled]="!selectedBlockIds.length" (click)="deleteSelectedBlocks()">
+            <span class="btn-text">{{'delete' | translate}}</span>
+        </button>
+    </div>
+    <nb-grid hover="row" *ngIf="approvalRoute.routeBlocks">
+        <nb-grid-head>
+            <nb-grid-cols class="vw-25">
+                <nb-grid-col class="vw-10 row-checkbox" *ngIf="editable"></nb-grid-col>
+                <nb-grid-col class="vw-90">{{'type' | translate}}</nb-grid-col>
+            </nb-grid-cols>
+            <nb-grid-cols class="vw-25">
+                <nb-grid-col class="vw-50" [title]="'approval_block_time_limit_help' | translate">{{'time_limit' | translate}}</nb-grid-col>
+                <nb-grid-col class="vw-50">{{'require_comment_if_no' | translate}}</nb-grid-col>
+            </nb-grid-cols>
+            <nb-grid-cols class="vw-50">
+                <nb-grid-col>{{'approvers' | translate}}</nb-grid-col>
+            </nb-grid-cols>
+        </nb-grid-head>
+        <nb-grid-row class="approval__block" [class.is-new]="block.isNew" *ngFor="let block of approvalRoute.routeBlocks">
+            <nb-grid-cols class="vw-25">
+                <nb-grid-col class="vw-10 row-checkbox text-center" *ngIf="editable">
+                    <label class="row-checkbox-label" (click)="$event.stopPropagation()">
+                        <input type="checkbox" [checked]="selectedBlockIds.indexOf(block.id) !== -1" (change)="onToggleSelected(block)">
+                    </label>
+                </nb-grid-col>
+                <nb-grid-col class="vw-90">
+                    <nb-select name="approvalType" targetValue="id" [items]="approvalTypes" [(ngModel)]="block.type" [disabled]="!editable"></nb-select>
+                </nb-grid-col>
+            </nb-grid-cols>
+            <nb-grid-cols class="vw-25">
+                <nb-grid-col class="vw-50">
+                    <nb-select class="span2" name="timeLimit" targetValue="id" [items]="TIME_LIMITS" [(ngModel)]="block.timeLimit" [disabled]="!editable"
+                        [searchable]="false"></nb-select>
+                </nb-grid-col>
+                <nb-grid-col class="vw-50">
+                    <label class="input-placeholder">
+                        <input type="checkbox" name="requireCommentIfNo" [(ngModel)]="block.requireCommentIfNo" [disabled]="!editable">
+                    </label>
+                </nb-grid-col>
+            </nb-grid-cols>
+            <nb-grid-cols class="vw-50">
+                <nb-grid-col>
+                    <nb-select name="approver" [url]="STAFF_URL.API_EMPLOYEES" [allowClear]="true" [disabled]="!editable" [multiple]="block.type != 'SIGNING'"
+                        [searchable]="true" [(ngModel)]="block.approvers"></nb-select>
+                </nb-grid-col>
+            </nb-grid-cols>
+        </nb-grid-row>
+    </nb-grid>
+</div>

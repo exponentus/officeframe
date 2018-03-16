@@ -1,0 +1,16 @@
+<article class="topic">
+    <header class="topic-header">
+        <h1 class="topic-title">{{topic.title}}</h1>
+        <div class="topic-tags" *ngIf="topic.tags && topic.tags.length">
+            <i class="fa fa-tags"></i> <span *ngFor="let tag of topic.tags">{{tag | localizedName}}</span>
+        </div>
+        <a [routerLink]="[DISCUSS_URL.TOPIC_EDIT(topic)]">Edit</a>
+    </header>
+    <div class="topic-body" [innerHTML]="topic.body | marked"></div>
+    <div class="topic-attachments">
+        <nb-attachments [model]="topic" [editable]="false"></nb-attachments>
+    </div>
+    <!-- <div class="topic-observers">
+        {{topic.observers | json}}
+    </div> -->
+</article>

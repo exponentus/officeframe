@@ -1,0 +1,110 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <div class="doc-head">
+            <div class="doc-head__row">
+                <div class="doc-head__row_item">
+                    <div class="doc-head__title">{{title | translate}}</div>
+                </div>
+            </div>
+            <div class="doc-head__row">
+                <input *ngIf="isEditable" class="doc-head__input" [class.invalid]="errors.title"
+                    autocomplete="off" required name="title" maxlength="140" placeholder="{{'title' | translate}}"
+                    [(ngModel)]="model.title">
+                <div *ngIf="!isEditable" class="doc-head__input">{{model.title}}</div>
+            </div>
+        </div>
+    </header>
+    <section class="content-body">
+        <tabs>
+            <tab tabTitle="{{'properties' | translate}}">
+                <div class="fieldset">
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'event_time' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.eventTime">
+                            <input class="span2 span-sm-full" datepicker [showTime]="true" [format]="DATE_TIME_FORMAT"
+                                [readonly]="!isEditable" name="eventTime" [(ngModel)]="model.eventTime">
+                            <error-message [error]="errors.eventTime"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'priority' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.priority">
+                            <select class="span4 span-sm-full" name="priority" [(ngModel)]="model.priority">
+                                <option [value]="t" *ngFor="let t of data.priorityTypes">{{t | lowercase | translate}}</option>
+                            </select>
+                            <error-message [error]="errors.priority"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-md">
+                        <div class="control-label">
+                            {{'reminder' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.reminder">
+                            <nb-select class="span8" name="reminder" [url]="CALENDAR_URL.API_REMINDER" [disabled]="!isEditable"
+                                [searchable]="true" [(ngModel)]="model.reminder"></nb-select>
+                            <error-message [error]="errors.reminder"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-md">
+                        <div class="control-label">
+                            {{'description' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.description">
+                            <textarea class="span8 span-sm-full" [class.invalid]="errors.description" name="description"
+                                autosize [readonly]="!isEditable" [(ngModel)]="model.description"></textarea>
+                            <error-message [error]="errors.description"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'related_url' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.relatedURL">
+                            <input class="span8" [readonly]="!isEditable" name="relatedURL" [(ngModel)]="model.relatedURL">
+                            <error-message [error]="errors.relatedURL"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-md">
+                        <div class="control-label">
+                            {{'tags' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.tags">
+                            <nb-select class="span8 tags-input" name="tags" [disabled]="!isEditable" [searchable]="true"
+                                [allowClear]="true" [multiple]="true" classKey="tag"
+                                [styler]="tagStylerFn" [url]="REFERENCE_URL.API_TAGS"
+                                [(ngModel)]="model.tags">
+                            </nb-select>
+                            <error-message [error]="errors.tags"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-md">
+                        <div class="control-label">
+                            {{'observers' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.observers">
+                            <nb-observers-input [model]="model" [disabled]="!isEditable"></nb-observers-input>
+                            <error-message [error]="errors.observers"></error-message>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab tabTitle="{{'acl_tab_title' | translate}}" icon="fa fa-share-alt" *ngIf="acl">
+                <nb-acl [acl]="acl"></nb-acl>
+            </tab>
+        </tabs>
+    </section>
+    <footer class="content-footer">
+        <div class="record-author" *ngIf="model.author">
+            <span>{{'author' | translate}}</span>
+            <span>{{model.author.name}}</span>
+            <span>{{model.regDate}}</span>
+        </div>
+    </footer>
+</form>

@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <div class="row" style="margin-bottom:10px;">
+        <div class="col-md-4 text-center" style="margin-bottom:5px;">
+            <h3 class="calendar-header">
+                <ng-container *ngIf="view === 'month'">
+                    {{ viewDate | calendarDate:(view + 'ViewTitle'):locale }}
+                </ng-container>
+                <ng-container *ngIf="view === 'week'">
+                    {{dateYear}}
+                </ng-container>
+            </h3>
+        </div>
+        <div class="col-md-4 text-center" style="margin-bottom:5px;">
+            <div class="btn-group">
+                <button type="button" class="btn calendar-btn" (click)="onChangeView('month')" [class.active]="view === 'month'">
+                    {{'month' | translate}}
+                </button>
+                <button type="button" class="btn calendar-btn" (click)="onChangeView('week')" [class.active]="view === 'week'">
+                    {{'week' | translate}}
+                </button>
+            </div>
+        </div>
+        <div class="col-md-4 text-center" style="margin-bottom:5px;">
+            <div class="btn-group">
+                <button type="button" class="btn calendar-btn" mwlCalendarPreviousView [view]="view"
+                    [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange(false)">
+                    <i class="fa fa-chevron-left"></i>
+                </button>
+                <button type="button" class="btn calendar-btn" mwlCalendarToday [(viewDate)]="viewDate"
+                    (viewDateChange)="onViewDateChange()">
+                    {{'today' | translate}}
+                </button>
+                <button type="button" class="btn calendar-btn" mwlCalendarNextView [view]="view"
+                    [(viewDate)]="viewDate" (viewDateChange)="onViewDateChange(false)">
+                    <i class="fa fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- loading -->
+    <ng-template #loading>
+        <div class="text-center">
+            <br>
+            <i class="fa fa-spin fa-spinner fa-5x"></i>
+            <br>{{'loading' | translate}}
+        </div>
+    </ng-template>
+    <!-- /loading -->
+    <!-- eventTitleTemplate -->
+    <ng-template #eventTitleTemplate let-event="event" let-view="view">
+        <a *ngIf="!event.meta.relatedURL" class="cal-event-title" href="javascript:;" [innerHTML]="event.title | calendarEventTitle:view:event"></a>
+        <a *ngIf="event.meta.relatedURL" class="cal-event-title" [routerLink]="[event.meta.relatedURL]"
+            [innerHTML]="event.title | calendarEventTitle:view:event"></a>
+    </ng-template>
+    <!-- /eventTitleTemplate -->
+    <div *ngIf="events$ | async; else loading; let events">
+        <div [ngSwitch]="view">
+            <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [locale]="locale"
+                [events]="events" [activeDayIsOpen]="activeDayIsOpen" [eventTitleTemplate]="eventTitleTemplate"
+                (dayClicked)="onDayClicked($event.day)" (eventClicked)="onEventClick($event.event)">
+            </mwl-calendar-month-view>
+            <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [locale]="locale"
+                [events]="events" [eventTitleTemplate]="eventTitleTemplate" (eventClicked)="onEventClick($event.event)">
+            </mwl-calendar-week-view>
+            <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [locale]="locale"
+                [events]="events" [eventTitleTemplate]="eventTitleTemplate" (eventClicked)="onEventClick($event.event)">
+            </mwl-calendar-day-view>
+        </div>
+    </div>
+</div>
+<!-- <div class="nb-modal-container" *ngIf="event">
+    <div class="nb-modal span9">
+        <div class="nb-modal__header">
+            {{'event' | translate}}
+        </div>
+        <button class="nb-modal__dismiss_button" (click)="event = null">×</button>
+        <div class="nb-modal__body">
+            <event-item [event]="event" [active]="true"></event-item>
+        </div>
+    </div>
+</div> -->

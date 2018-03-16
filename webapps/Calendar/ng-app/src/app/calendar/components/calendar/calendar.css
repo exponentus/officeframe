@@ -1,0 +1,14 @@
+.calendar-header {
+    font-family: RobotoC, sans-serif;
+    text-transform: capitalize;
+}
+
+.btn-group .calendar-btn {
+    border-radius: 18px;
+    min-width: 60px;
+}
+
+.calendar-btn.active,
+.calendar-btn:active {
+    border-color: #31496e;
+}

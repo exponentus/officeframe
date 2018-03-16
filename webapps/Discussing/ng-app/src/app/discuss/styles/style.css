@@ -1,0 +1,63 @@
+discuss-topics-page {
+    display: block;
+    padding: 1rem;
+}
+
+discuss-topic-page {
+    display: block;
+    padding: 1rem;
+}
+
+.topic {
+    margin-bottom: 16px;
+    max-width: 800px;
+    padding: 8px 2%;
+}
+
+.topic.topic-teaser {
+    margin: 0;
+    padding: 0;
+}
+
+.topic .topic-title {
+    font-size: 1.3rem;
+}
+
+.topic-header {
+    margin-bottom: 16px;
+}
+
+.topic-body {
+    font-size: 16px;
+}
+
+.topic-body p {
+    margin: 20px 0;
+}
+
+.topic-tags {
+    margin: 8px 0;
+}
+
+.topic-tags > span {
+    display: inline-block;
+    margin: 0 3px;
+}
+
+discuss-topic-comments {
+    display: block;
+    padding: 8px 2%;
+}
+
+.discuss-comment-tree {
+    border: 1px solid #efefef;
+    list-style: none;
+    padding: 16px;
+}
+
+.discuss-comment-tree button {
+    background: none;
+    border: 0;
+    color: blue;
+    padding: 4px 6px;
+}

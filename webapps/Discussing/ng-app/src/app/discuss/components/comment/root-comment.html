@@ -1,0 +1,8 @@
+<ul class="discuss-comment-tree">
+    <li>
+        <textarea class="comment-textarea" [(ngModel)]="commentText"></textarea>
+        <button type="button" class="btn btn-sm" [disabled]="!commentText" (click)="handleSend()">
+            Отправить
+        </button>
+    </li>
+</ul>

@@ -1,0 +1,67 @@
+<form class="form">
+    <header class="content-header">
+        <div class="content-actions">
+            <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+        </div>
+        <div class="doc-head">
+            <div class="doc-head__row">
+                <div class="doc-head__row_item">
+                    <div class="doc-head__title">{{title | translate}}</div>
+                </div>
+            </div>
+            <div class="doc-head__row">
+                <input class="input-lg" [class.invalid]="errors.title" autocomplete="off" required
+                    name="title" maxlength="140" placeholder="{{'topic_title_placeholder' | translate}}"
+                    (keyup)="validateForm()" [(ngModel)]="topic.title">
+            </div>
+        </div>
+    </header>
+    <section class="content-body">
+        <tabs>
+            <tab [active]="true" tabTitle="{{'properties' | translate}}">
+                <div class="fieldset">
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'tags' | translate}}
+                        </div>
+                        <div class="controls">
+                            <nb-select class="span8 tags-input" name="tags" [searchable]="true" [allowClear]="true"
+                                [multiple]="true" classKey="tag" [styler]="tagStylerFn"
+                                [url]="REFERENCE_URL.API_TAGS + '?hidden=false&category=discussing'"
+                                [(ngModel)]="topic.tags" (ngModelChange)="validateForm()">
+                            </nb-select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'observers' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.topic">
+                            <nb-observers-input [model]="topic" [disabled]="false"></nb-observers-input>
+                            <error-message [error]="errors.topic"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical">
+                        <div class="control-label">
+                            {{'body' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.body">
+                            <markdown-editor writeLabel="{{'markdown_write' | translate}}" previewLabel="{{'markdown_preview' | translate}}"
+                                [markdown]="topic.body" [editable]="true" [updateTimeout]="300"
+                                (update)="topic.body = $event; validateForm()">
+                            </markdown-editor>
+                            <error-message [error]="errors.body"></error-message>
+                            <nb-text-translate [text]="topic.body"></nb-text-translate>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab tabTitle="{{'attachments' | translate}}">
+                <nb-attachments [model]="topic" [fsId]="fsId" [editable]="true"></nb-attachments>
+            </tab>
+            <tab tabTitle="{{'acl_tab_title' | translate}}" icon="fa fa-share-alt" *ngIf="acl">
+                <nb-acl [acl]="acl"></nb-acl>
+            </tab>
+        </tabs>
+    </section>
+</form>

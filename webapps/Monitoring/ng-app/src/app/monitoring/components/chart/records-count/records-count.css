@@ -1,0 +1,16 @@
+:host-context() /deep/ nb-chart {
+    margin: 16px;
+}
+
+:host-context() /deep/ canvas {
+    height: 100%;
+    min-height: 280px;
+}
+
+:host-context() /deep/ .chart-pie {
+    min-height: 65vh;
+}
+
+:host-context() /deep/ .chart-pie canvas {
+    min-height: 320px;
+}

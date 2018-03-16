@@ -1,0 +1,83 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <div class="doc-head">
+            <div class="doc-head__row">
+                <div class="doc-head__row_item">
+                    <div class="doc-head__title">{{title | translate}}</div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="content-body">
+        <tabs>
+            <tab tabTitle="{{'properties' | translate}}">
+                <div class="fieldset">
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'name' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.name">
+                            <input class="span8" name="name" [(ngModel)]="model.name">
+                            <error-message [error]="errors.name"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label"></div>
+                        <div class="controls">
+                            <label class="input">
+                                <input type="checkbox" name="on" value="true" [(ngModel)]="model.on">
+                                <span>{{'is_on' | translate}}</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'category' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.category">
+                            <input class="span8" name="category" [(ngModel)]="model.category">
+                            <error-message [error]="errors.category"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'schema' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.schema">
+                            <select class="span8" name="schema" [(ngModel)]="model.schema">
+                                <option [value]="t" *ngFor="let t of data.approvalSchemaTypes">{{t | lowercase | translate}}</option>
+                            </select>
+                            <error-message [error]="errors.schema"></error-message>
+                        </div>
+                    </div>
+                </div>
+                <div class="fieldset">
+                    <div class="legend">{{'localized_names' | translate}}</div>
+                    <div class="form-group">
+                        <div class="controls">
+                            <div *ngFor="let lang of data.languages">
+                                <div class="form-group">
+                                    <div class="control-label">{{lang | localizedName}}</div>
+                                    <div class="controls">
+                                        <input class="span8" type="text" [name]="lang.code.toLowerCase() + 'locName'" [readonly]="!model.editable"
+                                            [(ngModel)]="model.locName[lang.code]">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab tabTitle="{{'blocks' | translate}}">
+                <div class="fieldset">
+                    <div class="form-group">
+                        <ref-approval-route-blocks [approvalRoute]="model" (delete)="handleDeleteRouteBlock($event)"></ref-approval-route-blocks>
+                    </div>
+                </div>
+            </tab>
+        </tabs>
+    </section>
+</form>

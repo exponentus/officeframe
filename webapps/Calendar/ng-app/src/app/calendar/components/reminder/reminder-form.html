@@ -1,0 +1,68 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <div class="doc-head">
+            <div class="doc-head__row">
+                <div class="doc-head__row_item">
+                    <div class="doc-head__title">{{title | translate}}</div>
+                </div>
+            </div>
+            <div class="doc-head__row">
+                <input *ngIf="isEditable" class="doc-head__input" [class.invalid]="errors.title"
+                    autocomplete="off" required name="title" maxlength="140" placeholder="{{'title' | translate}}"
+                    [(ngModel)]="model.title">
+                <div *ngIf="!isEditable" class="doc-head__input">{{model.title}}</div>
+            </div>
+        </div>
+    </header>
+    <section class="content-body">
+        <tabs>
+            <tab tabTitle="{{'properties' | translate}}">
+                <div class="fieldset">
+                    <div class="form-group">
+                        <div class="control-label">
+                            {{'reminder_type' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.reminderType">
+                            <select class="span4" name="reminderType" [(ngModel)]="model.reminderType">
+                                <option [value]="t" *ngFor="let t of data.reminderTypes">{{t | lowercase | translate}}</option>
+                            </select>
+                            <error-message [error]="errors.reminderType"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-md">
+                        <div class="control-label">
+                            {{'description' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.description">
+                            <textarea class="span8 span-sm-full" [class.invalid]="errors.description" name="description"
+                                autosize [readonly]="!isEditable" [(ngModel)]="model.description"></textarea>
+                            <error-message [error]="errors.description"></error-message>
+                        </div>
+                    </div>
+                    <div class="form-group vertical-md">
+                        <div class="control-label">
+                            {{'observers' | translate}}
+                        </div>
+                        <div class="controls" [class.has-error]="errors.observers">
+                            <nb-observers-input [model]="model" [disabled]="!isEditable"></nb-observers-input>
+                            <error-message [error]="errors.observers"></error-message>
+                        </div>
+                    </div>
+                </div>
+            </tab>
+            <tab tabTitle="{{'acl_tab_title' | translate}}" icon="fa fa-share-alt" *ngIf="acl">
+                <nb-acl [acl]="acl"></nb-acl>
+            </tab>
+        </tabs>
+    </section>
+    <footer class="content-footer">
+        <div class="record-author" *ngIf="model.author">
+            <span>{{'author' | translate}}</span>
+            <span>{{model.author.name}}</span>
+            <span>{{model.regDate}}</span>
+        </div>
+    </footer>
+</form>

@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "target": "es6",
+        "module": "es2015",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "removeComments": true,
+        "noImplicitAny": false,
+        "noEmit": true
+    },
+    "complieOnSave": false,
+    "outDir": "./compiled",
+    "filesGlob": [
+        "./src/app/**/*.ts",
+        "!./node_modules/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ],
+    "atom": {
+        "rewriteTsconfig": false
+    }
+}

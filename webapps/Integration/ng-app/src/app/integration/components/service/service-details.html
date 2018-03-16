@@ -1,0 +1,82 @@
+<form class="form" *ngIf="model">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <h1 class="header-title">{{title | translate}}</h1>
+    </header>
+    <section class="content-body">
+        <div class="fieldset">
+            <div class="form-group">
+                <div class="control-label">
+                    appName
+                </div>
+                <div class="controls">
+                    <span class="input-placeholder">
+                        {{model.descr.appName}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    class
+                </div>
+                <div class="controls">
+                    <span class="input-placeholder">
+                        {{model.descr.clazz}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    status
+                </div>
+                <div class="controls">
+                    <span class="input-placeholder">
+                        {{model.descr.status}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    url
+                </div>
+                <div class="controls">
+                    <span class="input-placeholder">
+                        {{model.descr.url}}
+                    </span>
+                </div>
+            </div>
+            <div class="form-group vertical">
+                <div class="control-label">
+                    serviceMethods
+                </div>
+                <div class="controls">
+                    <div class="scrollable">
+                        <table class="table">
+                            <tr>
+                                <th>isServiceMethod</th>
+                                <th>httpMethod</th>
+                                <th>method</th>
+                                <th>url</th>
+                                <th>anonymous</th>
+                            </tr>
+                            <tr *ngFor="let s of model.descr.serviceMethods">
+                                <td>{{s.isServiceMethod}}</td>
+                                <td>{{s.httpMethod}}</td>
+                                <td>{{s.method}}</td>
+                                <td>{{s.url}}</td>
+                                <td>{{s.anonymous}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-group">
+                <div class="controls">
+                    <pre>{{model | json}}</pre>
+                </div>
+            </div> -->
+        </div>
+    </section>
+</form>
