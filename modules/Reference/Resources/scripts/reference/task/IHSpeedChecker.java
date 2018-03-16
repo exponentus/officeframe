@@ -26,6 +26,7 @@ import java.util.concurrent.*;
 @Command(name = "_ih_speed_check", trigger = Trigger.EVERY_HOUR)
 public class IHSpeedChecker extends Do {
     String connectionURL = "jdbc:postgresql://" + EnvConst.DATABASE_HOST + ":" + EnvConst.CONN_PORT + "/" + EnvConst.DATABASE_NAME;
+    int timeOutSecs = 10;
 
     @Override
     public void doTask(AppEnv appEnv, _Session session) {
@@ -34,7 +35,7 @@ public class IHSpeedChecker extends Do {
             long start_time = System.nanoTime();
 
 
-            final Duration timeout = Duration.ofSeconds(30);
+            final Duration timeout = Duration.ofSeconds(timeOutSecs);
             ExecutorService executor = Executors.newSingleThreadExecutor();
 
             final Future<String> handler = executor.submit(new Callable() {
@@ -49,7 +50,7 @@ public class IHSpeedChecker extends Do {
                 handler.get(timeout.toMillis(), TimeUnit.MILLISECONDS);
             } catch (TimeoutException e) {
                 handler.cancel(true);
-                Lg.error("TimeoutException 30 sec");
+                Lg.error("TimeoutException " + timeOutSecs + " sec");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             } catch (ExecutionException e) {
