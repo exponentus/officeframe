@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rule mode="on" anonymous="on">
+    <xsltfile>page//app.xsl</xsltfile>
+    <element mode="ON" type="SCRIPT">
+        <events>
+            <doscript source="JAVA_CLASS">staff.page.Index</doscript>
+        </events>
+    </element>
+    <caption name="brand"/>
+    <caption name="loading"/>
+</rule>
