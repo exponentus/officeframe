@@ -11,7 +11,6 @@
         <xsl:text disable-output-escaping="yes">&lt;</xsl:text>!DOCTYPE html<xsl:text
             disable-output-escaping="yes">&gt;</xsl:text>
         <html lang="{//locale}">
-            <!-- manifest="manifest.appcache?v={//build}" -->
             <head>
                 <base href=""/>
                 <meta charset="utf-8"/>
@@ -28,32 +27,6 @@
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap-4/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css"/>
-                <style>
-                    <![CDATA[
-                    /* fix: fieldset content overflow */
-                    fieldset {
-                        display: block;
-                        min-width: inherit; /* chrome */
-                    }
-                    @-moz-document url-prefix() {
-                        fieldset {
-                            display: table-column !important;
-                        }
-                    }
-
-                    .noscript {
-                        background: white;
-                        color: #673ab7;
-                        line-height: 1.5;
-                        margin: 0;
-                        position: fixed;
-                        padding: 1em;
-                        text-align: center;
-                        width: 100%;
-                        z-index: 9999;
-                    }
-                    ]]>
-                </style>
                 <xsl:if test="//googleMapApiKey != ''">
                     <script src="https://maps.googleapis.com/maps/api/js?key={//googleMapApiKey}"></script>
                 </xsl:if>
@@ -76,8 +49,8 @@
                         </div>
                     </div>
                 </app-root>
-                <script src="/SharedResources/ng-app/vendor.js.gz"></script>
-                <script src="/SharedResources/ng-app/app.js.gz"></script>
+                <script src="assets/dist/vendor.js.gz"></script>
+                <script src="assets/dist/app.js.gz"></script>
                 <script src="/SharedResources/knca/sjcl.js"></script>
             </body>
         </html>
