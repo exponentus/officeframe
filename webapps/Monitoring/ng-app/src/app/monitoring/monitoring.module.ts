@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule } from '@nb/core';
+import { NbCommonModule, NBChartModule } from '@nb/core';
 
 import { MONITORING_URL_ROUTES } from './monitoring.routes';
 import { MonitoringService } from './monitoring.service';
@@ -17,6 +17,7 @@ import { MonitoringContainerComponent, RecordsCountChartComponent } from './comp
     ],
     imports: [
         NbCommonModule,
+        NBChartModule,
         RouterModule.forChild(MONITORING_URL_ROUTES)
     ],
     providers: [
