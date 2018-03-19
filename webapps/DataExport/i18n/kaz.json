@@ -23,6 +23,7 @@
   "ipv" : "ipv",
   "average_wage_in_transportation" : "Көлік және сақтау",
   "objects_of_communal_property" : "Коммуналдық меншік объектілері",
+  "is_ticker" : "Жылжымалы желіде көрсету",
   "nationality" : "Ұлты",
   "sender" : "Жіберуші",
   "water_supplying_service_ipv" : "Сумен жабдықтау, канализация, қалдықтарды жинау және бөлуді бақылау IPV",
