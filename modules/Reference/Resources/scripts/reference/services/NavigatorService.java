@@ -59,6 +59,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("activity_types", "", "activity_types", ModuleConst.BASE_URL + "activity-type-categories"));
             so.addEntry(new OutlineEntry("industry_types", "", "industry-types", ModuleConst.BASE_URL + "industry-types"));
             so.addEntry(new OutlineEntry("nationalities", "", "nationalities", ModuleConst.BASE_URL + "nationalities"));
+            so.addEntry(new OutlineEntry("operative_info_types", "", "operative_info_types", ModuleConst.BASE_URL + "operative-info-types"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.LANDRELATIONSTAR.name())) {
             so.addEntry(new OutlineEntry("property_codes", "", "property_codes", ModuleConst.BASE_URL + "property-codes"));
             so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", ModuleConst.BASE_URL + "real-estate-obj-statuses"));
@@ -121,6 +122,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("eng_infrastruct_obj_classifications", "", "eng_infrastruct_obj_classifications", ModuleConst.BASE_URL + "eng-infrastruct-obj-classifications"));
             so.addEntry(new OutlineEntry("product_types", "", "product_types", ModuleConst.BASE_URL + "product-types"));
             so.addEntry(new OutlineEntry("project_stages", "", "project_stages", ModuleConst.BASE_URL + "project-stages"));
+            so.addEntry(new OutlineEntry("operative_info_types", "", "operative_info_types", ModuleConst.BASE_URL + "operative-info-types"));
         }
 
         list.add(co);
