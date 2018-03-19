@@ -19,6 +19,6 @@ public class ModuleConst extends DefaultAppConst {
 
     public static final String EXPIRED_TAG_NAME = "expired";
     public static final String ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY = "industry";
-    public static final String[] UNIT_CATEGORIES = {"money_euro"};
+    public static final String[] UNIT_CATEGORIES = {"money_euro", "money_kz"};
 
 }
