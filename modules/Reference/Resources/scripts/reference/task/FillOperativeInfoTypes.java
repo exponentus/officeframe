@@ -3,12 +3,16 @@ package reference.task;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
+import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
+import reference.dao.OperativeInfoTypeDAO;
 import reference.dao.PositionDAO;
+import reference.init.ModuleConst;
+import reference.model.OperativeInfoType;
 import reference.model.Position;
 
 import java.util.ArrayList;
@@ -16,24 +20,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Command(name = "fill_positions")
-public class FillPositions extends Do {
+@Command(name = ModuleConst.CODE + "_fill_operative_info_types")
+public class FillOperativeInfoTypes extends Do {
 
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
-        List<Position> entities = new ArrayList<Position>();
-        String[] data = {"ceo", "manager", "accounter", "engineer", "specialist", "secretary", "administrator",
-                "department_manager", "forwarder"};
-        String[] dataEng = {"CEO", "Manager", "Accounter", "Engineer", "Specialist", "Secretary", "Administrator",
-                "Department manager", "Forwarder"};
-        String[] dataRus = {"Директор", "Менеджер", "Бухгалтер", "Инженер", "Специалист", "Секретарь-референт",
-                "Администратор", "Руководитель подразделения", "Экспедитор"};
-        String[] dataKaz = {"Директор", "Менеджер", "Бухгалтер", "Инженер", "Маман", "Хатшы-референт",
-                 "Әкімші", "Бөлім бастығы", "Экспедитор"};
-        int[] rankData = {5, 7, 6, 6, 8, 10, 6, 8, 13};
+        List<OperativeInfoType> entities = new ArrayList<OperativeInfoType>();
+        String[] data = {"weather"};
+        String[] dataEng = {"Weather"};
+        String[] dataRus = {"Погода"};
+        String[] dataKaz = {"Ауа райы"};
+
+        int[] rankData = {999};
 
         for (int i = 0; i < data.length; i++) {
-            Position entity = new Position();
+            OperativeInfoType entity = new OperativeInfoType();
             entity.setName(data[i]);
             Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
             name.put(LanguageCode.ENG, dataEng[i]);
@@ -45,8 +46,8 @@ public class FillPositions extends Do {
         }
 
         try {
-            PositionDAO dao = new PositionDAO(ses);
-            for (Position entry : entities) {
+            OperativeInfoTypeDAO dao = new OperativeInfoTypeDAO(ses);
+            for (OperativeInfoType entry : entities) {
                 try {
                     if (dao.add(entry) != null) {
                         logger.info(entry.getName() + " added");

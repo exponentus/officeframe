@@ -22,6 +22,7 @@ run task fill_individual_labels
 run task fill_tags
 run task fill_positions
 run task ref_gen_asof_test_data
+run task ref_fill_operative_info_types
 
 run task ref_fill_realestateobjpurposes
 run task ref_fill_building_states
