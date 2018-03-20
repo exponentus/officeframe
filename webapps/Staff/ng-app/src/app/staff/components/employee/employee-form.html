@@ -1,0 +1,96 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <h1 class="header-title">{{title | translate}}</h1>
+    </header>
+    <section class="content-body employee-form">
+        <div class="fieldset fieldset-user-avatar">
+            <nb-attachments [model]="model" [fsId]="fsId" [editable]="model.editable" [attachmentFieldName]="'avatar'"
+                [accept]="'image/*'" [computeUrlFn]="computeAttachmentUrl" [maxFileCount]="1">
+            </nb-attachments>
+        </div>
+        <div class="fieldset fieldset-user-fields">
+            <div class="form-group">
+                <div class="control-label">
+                    {{'name_surname' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.name">
+                    <input class="span6" [readonly]="!isEditable" name="name" [(ngModel)]="model.name">
+                    <error-message [error]="errors.name"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'iin' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.iin">
+                    <input class="span3 span-sm-full" [readonly]="!isEditable" name="iin" [(ngModel)]="model.iin">
+                    <error-message [error]="errors.iin"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'organization' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.organization">
+                    <nb-select class="span6" name="organization" [url]="STAFF_URL.API_ORGANIZATIONS"
+                        [disabled]="!isEditable" [searchable]="true" [(ngModel)]="model.organization"></nb-select>
+                    <error-message [error]="errors.organization"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'department' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.department">
+                    <nb-select class="span6" name="department" [url]="STAFF_URL.API_DEPARTMENTS" [disabled]="!isEditable"
+                        [searchable]="true" [(ngModel)]="model.department"></nb-select>
+                    <error-message [error]="errors.department"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'rank' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.rank">
+                    <input class="span2" type="number" [readonly]="!isEditable" name="rank" [(ngModel)]="model.rank">
+                    <error-message [error]="errors.rank"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'position' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.position">
+                    <nb-select class="span6" name="position" [url]="REFERENCE_URL.API_POSITIONS" [disabled]="!isEditable"
+                        [searchable]="true" [(ngModel)]="model.position"></nb-select>
+                    <error-message [error]="errors.position"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'roles' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.roles">
+                    <nb-select class="span6" name="roles" [url]="STAFF_URL.API_ROLES" [disabled]="!isEditable"
+                        [searchable]="true" [multiple]="true" [allowClear]="true" [(ngModel)]="model.roles"></nb-select>
+                    <error-message [error]="errors.roles"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'login_name' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.login">
+                    <select class="span6" name="login" [disabled]="!isEditable" [(ngModel)]="model.login">
+                        <option value=""></option>
+                        <option [value]="t" *ngFor="let t of data.userLogins">{{t}}</option>
+                    </select>
+                    <error-message [error]="errors.login"></error-message>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

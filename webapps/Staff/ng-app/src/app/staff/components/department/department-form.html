@@ -1,0 +1,77 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <h1 class="header-title">{{title | translate}}</h1>
+    </header>
+    <section class="content-body">
+        <div class="fieldset">
+            <div class="form-group">
+                <div class="control-label">
+                    {{'organization' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.organization">
+                    <nb-select class="span8" name="organization" [url]="STAFF_URL.API_ORGANIZATIONS"
+                        [disabled]="!isEditable" [searchable]="true" [(ngModel)]="model.organization"></nb-select>
+                    <error-message [error]="errors.organization"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'lead_department' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.leadDepartment">
+                    <nb-select class="span8" name="leadDepartment" [url]="STAFF_URL.API_DEPARTMENTS"
+                        [disabled]="!isEditable" [searchable]="true" [allowClear]="true"
+                        [(ngModel)]="model.leadDepartment"></nb-select>
+                    <error-message [error]="errors.leadDepartment"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'name' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.name">
+                    <input class="span8" [readonly]="!isEditable" name="name" [(ngModel)]="model.name">
+                    <error-message [error]="errors.name"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'type' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.type">
+                    <nb-select class="span4" name="type" [url]="REFERENCE_URL.API_DEPARTMENT_TYPES" [disabled]="!isEditable"
+                        [(ngModel)]="model.type"></nb-select>
+                    <error-message [error]="errors.type"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'rank' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.rank">
+                    <input class="span2" type="number" [readonly]="!isEditable" name="rank" [(ngModel)]="model.rank">
+                    <error-message [error]="errors.rank"></error-message>
+                </div>
+            </div>
+        </div>
+        <div class="fieldset">
+            <div class="legend">{{'localized_names' | translate}}</div>
+            <div class="form-group">
+                <div class="controls">
+                    <div *ngFor="let lang of languages | keys">
+                        <div class="form-group">
+                            <div class="control-label">{{languages[lang]}}</div>
+                            <div class="controls">
+                                <input class="span8" type="text" [name]="lang.toLowerCase() + 'locName'" [readonly]="!isEditable"
+                                    [(ngModel)]="model.locName[lang]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

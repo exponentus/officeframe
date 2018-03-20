@@ -1,0 +1,67 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <h1 class="header-title">{{title | translate}}</h1>
+    </header>
+    <section class="content-body">
+        <div class="fieldset">
+            <div class="form-group">
+                <div class="control-label">
+                    {{'name' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.name">
+                    <input class="span8" [readonly]="!isEditable" name="name" [(ngModel)]="model.name">
+                    <error-message [error]="errors.name"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'org_category' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.orgCategory">
+                    <nb-select class="span4" name="orgCategory" [url]="REFERENCE_URL.API_ORG_CATEGORIES"
+                        [disabled]="!isEditable" [searchable]="true" [(ngModel)]="model.orgCategory"></nb-select>
+                    <error-message [error]="errors.orgCategory"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'biz_id' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.bizID">
+                    <input class="span4" [readonly]="!isEditable" name="bizID" [(ngModel)]="model.bizID">
+                    <error-message [error]="errors.bizID"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'organization_labels' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.labels">
+                    <nb-select class="span8" name="labels" [url]="STAFF_URL.API_ORGANIZATION_LABELS"
+                        [disabled]="!isEditable" [searchable]="true" [multiple]="true"
+                        [allowClear]="true" [(ngModel)]="model.labels"></nb-select>
+                    <error-message [error]="errors.labels"></error-message>
+                </div>
+            </div>
+        </div>
+        <div class="fieldset">
+            <div class="legend">{{'localized_names' | translate}}</div>
+            <div class="form-group">
+                <div class="controls">
+                    <div *ngFor="let lang of languages | keys">
+                        <div class="form-group">
+                            <div class="control-label">{{languages[lang]}}</div>
+                            <div class="controls">
+                                <input class="span8" type="text" [name]="lang.toLowerCase() + 'locName'" [readonly]="!isEditable"
+                                    [(ngModel)]="model.locName[lang]">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>

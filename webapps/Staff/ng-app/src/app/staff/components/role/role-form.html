@@ -1,0 +1,43 @@
+<form class="form" *ngIf="isReady">
+    <div class="content-actions">
+        <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
+    </div>
+    <header class="content-header">
+        <h1 class="header-title">{{title | translate}}</h1>
+    </header>
+    <section class="content-body">
+        <div class="fieldset">
+            <div class="form-group">
+                <div class="control-label">
+                    {{'name' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.name">
+                    <select class="span8" name="name" [disabled]="!isEditable" [(ngModel)]="model.name">
+                        <option value=""></option>
+                        <option [value]="t" *ngFor="let t of data.roles">{{t}}</option>
+                    </select>
+                    <error-message [error]="errors.name"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'bin' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.bin">
+                    <input class="span4" [readonly]="!isEditable" name="bin" [(ngModel)]="model.bin">
+                    <error-message [error]="errors.bin"></error-message>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="control-label">
+                    {{'individual_labels' | translate}}
+                </div>
+                <div class="controls" [class.has-error]="errors.labels">
+                    <nb-select class="span8" name="labels" [url]="STAFF_URL.API_INDIVIDUAL_LABELS" [disabled]="!isEditable"
+                        [searchable]="true" [multiple]="true" [allowClear]="true" [(ngModel)]="model.labels"></nb-select>
+                    <error-message [error]="errors.labels"></error-message>
+                </div>
+            </div>
+        </div>
+    </section>
+</form>
