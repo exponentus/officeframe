@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//run task ref_fill_operative_info_types
 @Command(name = ModuleConst.CODE + "_fill_operative_info_types")
 public class FillOperativeInfoTypes extends Do {
 
