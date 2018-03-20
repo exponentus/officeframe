@@ -1,4 +1,4 @@
-import { IEntity, DATE_TIME_FORMAT, PriorityType } from '@nb/core';
+import { IEntity, DATE_TIME_FORMAT } from '@nb/core';
 import { mdFormat } from '@nb/core';
 import { Observer } from '@nb/core';
 import { Tag } from './tag';
@@ -11,7 +11,7 @@ export class Event {
     //
     title: string;
     eventTime: string;
-    priority: PriorityType;
+    priority: string;
     reminder: Reminder;
     description: string;
     relatedURL: string;

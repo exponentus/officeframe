@@ -23,6 +23,7 @@
   "ipv" : "IPV",
   "average_wage_in_transportation" : null,
   "objects_of_communal_property" : "Оbjects of communal property",
+  "is_ticker" : null,
   "nationality" : "Nationality",
   "sender" : "Sender",
   "water_supplying_service_ipv" : null,
