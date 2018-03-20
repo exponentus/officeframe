@@ -7,12 +7,22 @@ import { STAFF_ROUTES } from './staff.routes';
 import { StaffService } from './staff.service';
 
 import { StaffContainerComponent } from './components/container';
-import { StaffFormComponent } from './components/form';
+import { OrganizationFormComponent } from './components/organization/organization-form';
+import { DepartmentFormComponent } from './components/department/department-form';
+import { EmployeeFormComponent } from './components/employee/employee-form';
+import { IndividualFormComponent } from './components/individual/individual-form';
+import { RoleFormComponent } from './components/role/role-form';
+import { SimpleReferenceFormComponent } from './components/simple-reference/simple-reference-form';
 
 @NgModule({
     declarations: [
         StaffContainerComponent,
-        StaffFormComponent
+        OrganizationFormComponent,
+        DepartmentFormComponent,
+        EmployeeFormComponent,
+        IndividualFormComponent,
+        RoleFormComponent,
+        SimpleReferenceFormComponent
     ],
     imports: [
         NbCommonModule,

@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {
     IAction, IEntity, IDto, IEntityService, IColumnOptions, IFormSchema,
-    AppService, DataService,
-    createApiUrl
+    AppService, DataService, createApiUrl
 } from '@nb/core';
 
 import { REFERENCE_URL } from './reference.constants';
