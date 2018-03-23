@@ -124,7 +124,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("project_stages", "", "project_stages", ModuleConst.BASE_URL + "project-stages"));
             so.addEntry(new OutlineEntry("operative_info_types", "", "operative_info_types", ModuleConst.BASE_URL + "operative-info-types"));
         }
-
+/***/
         list.add(co);
         list.add(lo);
         if (!so.getEntries().isEmpty()) {
