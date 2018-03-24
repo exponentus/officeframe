@@ -73,6 +73,7 @@ export class StreetConverter {
         return {
             id: model.id,
             name: model.name,
+            altName: model.altName,
             locName: model.locName,
             locality: model.locality ? { id: model.locality.id } : null,
             cityDistrict: model.cityDistrict ? { id: model.cityDistrict.id } : null,

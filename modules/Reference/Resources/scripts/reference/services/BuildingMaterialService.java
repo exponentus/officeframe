@@ -111,6 +111,7 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
 
             // fill from dto
             entity.setName(dto.getName());
+            entity.setAltName(dto.getAltName());
             entity.setLocName(dto.getLocName());
 
             dao.save(entity);

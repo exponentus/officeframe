@@ -287,6 +287,11 @@ function getFormSchemas(languages: any) {
                     label: 'identifier',
                     name: 'streetId',
                     className: 'span3'
+                }, {
+                    type: 'textarea',
+                    label: 'alt_name',
+                    name: 'altName',
+                    className: 'span7'
                 }]
             }, {
                 title: 'localized_names',
@@ -841,6 +846,35 @@ function getFormSchemas(languages: any) {
                     label: 'name',
                     name: 'name',
                     className: 'span8',
+                    disabled: true,
+                    onClick: CHANGE_NAMED_URL_ACTION
+                }]
+            }]
+        }],
+        BuildingMaterial: [{
+            tabTitle: 'properties',
+            fieldsets: [{
+                fields: [{
+                    type: 'textarea',
+                    label: 'alt_name',
+                    name: 'altName',
+                    className: 'span7'
+                }]
+            }, {
+                title: 'localized_names',
+                fields: [{
+                    type: 'localizedName',
+                    hideLabel: true,
+                    className: 'span7',
+                    values: { enum: languages }
+                }]
+            }, {
+                title: 'URL',
+                fields: [{
+                    type: 'text',
+                    label: 'name',
+                    name: 'name',
+                    className: 'span7',
                     disabled: true,
                     onClick: CHANGE_NAMED_URL_ACTION
                 }]

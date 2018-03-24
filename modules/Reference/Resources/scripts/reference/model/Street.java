@@ -6,8 +6,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.dataengine.jpa.util.NamingCustomizer;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import org.eclipse.persistence.annotations.Customizer;
 import reference.dao.LocalityDAO;
 import reference.init.ModuleConst;
@@ -16,7 +15,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -39,6 +41,7 @@ public class Street extends SimpleReferenceEntity {
     @Column(name = "street_id")
     private int streetId;
 
+    @JsonIgnore
     @ElementCollection
     private Set<String> altName = new HashSet<>();
 
@@ -67,13 +70,22 @@ public class Street extends SimpleReferenceEntity {
         this.locality = locality;
     }
 
-
     public CityDistrict getCityDistrict() {
         return cityDistrict;
     }
 
     public void setCityDistrict(CityDistrict cityDistrict) {
         this.cityDistrict = cityDistrict;
+    }
+
+    @JsonGetter("altName")
+    public String getAlternateName() {
+        return String.join("\n", altName);
+    }
+
+    @JsonSetter("altName")
+    public void setAlternateName(String name) {
+        altName = Stream.of(Optional.of(name).orElse("").split("\n")).collect(Collectors.toSet());
     }
 
     @Override

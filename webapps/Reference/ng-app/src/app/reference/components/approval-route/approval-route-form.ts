@@ -4,10 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 import {
     IAction, IEntity,
-    AppService, ActionService,
-    AbstractFormPage,
-    NotificationService,
-    NbModalService
+    AppService, ActionService, NotificationService, NbModalService,
+    AbstractFormPage
 } from '@nb/core';
 
 import { ReferenceService } from '../../reference.service';

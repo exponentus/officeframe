@@ -4,10 +4,8 @@ import { TranslateService } from '@ngx-translate/core';
 
 import {
     IAction, IApiOutcome, IEntity, IFormSchema, IFormSchemaField, IFormSchemaEvent,
-    AppService, ActionService,
-    AbstractFormPage,
-    NotificationService,
-    NbModalService
+    AppService, ActionService, NotificationService, NbModalService,
+    AbstractFormPage
 } from '@nb/core';
 
 import { ReferenceService } from '../reference.service';
@@ -86,7 +84,7 @@ export class ReferenceFormComponent extends AbstractFormPage<IEntity> {
     onFormEvent(event: IFormSchemaEvent) {
         if (event.type === 'click') {
             let action: IAction = (<IAction>event.field.onClick);
-            if (action.customID === 'CHANGE_NAMED_URL') {
+            if (action && action.customID === 'CHANGE_NAMED_URL') {
                 let inputEl = (<HTMLInputElement>event.$event.target);
                 if (inputEl.disabled || inputEl.readOnly) {
                     this.openActionConfirmModal(action, () => {
