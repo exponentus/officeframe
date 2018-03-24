@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule } from '@nb/core';
+import { NbCommonModule, NbAclModule } from '@nb/core';
 
 import { DISCUSS_ROUTES } from './discuss.routes';
 import { TopicService, CommentService } from './services';
@@ -27,6 +27,7 @@ import { TopicPageComponent, TopicEditPageComponent } from './pages';
     ],
     imports: [
         NbCommonModule,
+        NbAclModule,
         RouterModule.forChild(DISCUSS_ROUTES)
     ],
     providers: [

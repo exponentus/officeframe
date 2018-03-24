@@ -78,8 +78,7 @@
                         <div class="controls" [class.has-error]="errors.tags">
                             <nb-select class="span8 tags-input" name="tags" [disabled]="!isEditable" [searchable]="true"
                                 [allowClear]="true" [multiple]="true" classKey="tag"
-                                [styler]="tagStylerFn" [url]="REFERENCE_URL.API_TAGS"
-                                [(ngModel)]="model.tags">
+                                [styler]="tagStylerFn" [url]="CALENDAR_URL.API_TAG" [(ngModel)]="model.tags">
                             </nb-select>
                             <error-message [error]="errors.tags"></error-message>
                         </div>

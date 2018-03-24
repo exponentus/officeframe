@@ -3,13 +3,7 @@
         <nb-toolbar [actions]="actions" (action)="onAction($event)"></nb-toolbar>
     </div>
     <header class="content-header">
-        <div class="doc-head">
-            <div class="doc-head__row">
-                <div class="doc-head__row_item">
-                    <div class="doc-head__title">{{title | translate}}</div>
-                </div>
-            </div>
-        </div>
+        <h1 class="header-title">{{title | translate}}</h1>
     </header>
     <section class="content-body">
         <tabs>

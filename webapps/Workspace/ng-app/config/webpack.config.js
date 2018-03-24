@@ -9,6 +9,8 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 
+// const ClosureCompiler = require('google-closure-compiler-js').webpack;
+
 const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
 const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -85,7 +87,16 @@ var plugins = [
             noEmit: false,
             noEmitHelpers: false
         }
-    })
+    }),
+
+    // new ClosureCompiler({
+    //     options: {
+    //         languageIn: 'ECMASCRIPT5',
+    //         languageOut: 'ECMASCRIPT5',
+    //         compilationLevel: 'ADVANCED',
+    //         warningLevel: 'VERBOSE',
+    //     }
+    // })
 ];
 
 if (AOT) {

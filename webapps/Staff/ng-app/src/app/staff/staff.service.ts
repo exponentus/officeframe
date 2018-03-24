@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 
 import {
     IEntity, IDto, IColumnOptions, IFormSchema, IEntityService,
-    AppService, DataService,
-    createApiUrl,
-    Attachment
+    AppService, DataService, createApiUrl,
+    Attachment, REFERENCE_URL
 } from '@nb/core';
 
-import { REFERENCE_URL } from '@nb/core';
 import { STAFF_URL } from './staff.constants';
 import { convertToDto } from './converter-factory';
 import { Employee } from './models';
@@ -27,35 +25,30 @@ export class StaffService implements IEntityService<IEntity> {
     convertToDto(model: IEntity): IDto {
         return convertToDto(model);
     }
-
-    // getFormSchema(kind: string): IFormSchema[] {
-    //     let formSchemas = getFormSchemas(this.appService.languages);
-    //     return formSchemas[kind] || formSchemas._default;
-    // }
 }
 
-function getFormSchemas(languages: any) {
-    return {
-        _default: [{
-            tabTitle: 'properties',
-            fieldsets: [{
-                fields: [{
-                    type: 'text',
-                    label: 'name',
-                    name: 'name',
-                    className: 'span8',
-                    required: true
-                }]
-            }, {
-                title: 'localized_names',
-                fields: [{
-                    type: 'localizedName',
-                    hideLabel: true,
-                    className: 'span8',
-                    values: { enum: languages }
-                }]
-            }]
-        }],
+// function getFormSchemas(languages: any) {
+//     return {
+        // _default: [{
+        //     tabTitle: 'properties',
+        //     fieldsets: [{
+        //         fields: [{
+        //             type: 'text',
+        //             label: 'name',
+        //             name: 'name',
+        //             className: 'span8',
+        //             required: true
+        //         }]
+        //     }, {
+        //         title: 'localized_names',
+        //         fields: [{
+        //             type: 'localizedName',
+        //             hideLabel: true,
+        //             className: 'span8',
+        //             values: { enum: languages }
+        //         }]
+        //     }]
+        // }],
         // Organization: [{
         //     tabTitle: 'properties',
         //     fieldsets: [{
@@ -302,5 +295,5 @@ function getFormSchemas(languages: any) {
         //         }]
         //     }]
         // }]
-    };
-}
+//     };
+// }

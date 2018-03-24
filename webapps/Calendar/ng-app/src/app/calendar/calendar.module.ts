@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CalendarModule as ngCalendarModule } from 'angular-calendar';
 
-import { NbCommonModule } from '@nb/core';
+import { NbCommonModule, NbAclModule } from '@nb/core';
 
 import { CALENDAR_ROUTES } from './calendar.routes';
 import { CalendarService } from './calendar.service';
@@ -23,6 +23,7 @@ import { ReminderFormComponent } from './components/reminder/reminder-form';
     ],
     imports: [
         NbCommonModule,
+        NbAclModule,
         RouterModule.forChild(CALENDAR_ROUTES),
         ngCalendarModule.forRoot()
     ],

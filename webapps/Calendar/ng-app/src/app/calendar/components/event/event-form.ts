@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { NotificationService } from '@nb/core';
-import { NbModalService } from '@nb/core';
-import { AppService, ActionService } from '@nb/core';
-import { DATE_TIME_FORMAT } from '@nb/core';
-import { AbstractFormPage } from '@nb/core';
-import { tagStylerFn } from '@nb/core';
-import { REFERENCE_URL } from '@nb/core';
+import {
+    AppService, ActionService,
+    NotificationService, NbModalService,
+    DATE_TIME_FORMAT, AbstractFormPage, tagStylerFn
+} from '@nb/core';
+
 import { CALENDAR_URL } from '../../constants';
 import { CalendarService } from '../../calendar.service';
 import { Event } from '../../models';
@@ -24,7 +23,6 @@ import { Event } from '../../models';
 export class EventFormComponent extends AbstractFormPage<Event> {
 
     DATE_TIME_FORMAT = DATE_TIME_FORMAT;
-    REFERENCE_URL = REFERENCE_URL;
     CALENDAR_URL = CALENDAR_URL;
     tagStylerFn = tagStylerFn;
 

@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { NotificationService } from '@nb/core';
-import { NbModalService } from '@nb/core';
-import { AppService, ActionService } from '@nb/core';
-import { AbstractFormPage } from '@nb/core';
-import { tagStylerFn } from '@nb/core';
+import {
+    AppService, ActionService,
+    NotificationService, NbModalService,
+    AbstractFormPage, tagStylerFn
+} from '@nb/core';
+
 import { CalendarService } from '../../calendar.service';
 import { Reminder } from '../../models';
 
