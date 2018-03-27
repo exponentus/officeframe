@@ -17,6 +17,8 @@ import com.exponentus.integrationhub.HubEnvConst;
 import com.exponentus.extconnect.IRequester;
 import com.exponentus.extconnect.Requester;
 import com.exponentus.extconnect.exception.RequesterException;
+import com.exponentus.integrationhub.HubRequester;
+import com.exponentus.integrationhub.IHRequester;
 import com.exponentus.integrationhub.jpa.IIntegratableEntity;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
@@ -45,7 +47,7 @@ public class SyncWithIntegrationHub extends Do {
                     IntegrationHubCollation collation = collationDAO.findByServiceName(service);
                     if (collation != null) {
                         IDAO<IAppEntity<UUID>, UUID> dao = DAOFactory.get(ses, collation.getEntityClassName());
-                        IRequester requester = new Requester(Environment.integrationHubHost, HubEnvConst.MODULE_NAME);
+                        IHRequester requester = new HubRequester(Environment.integrationHubHost, HubEnvConst.MODULE_NAME);
                         List<Map<String, ?>> data = requester.getData(service.getServiceUrl(), 0, 0);
                         Iterator iterator = data.iterator();
 
