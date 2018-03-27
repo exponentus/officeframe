@@ -6,7 +6,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.embedded.Avatar;
 import com.exponentus.common.model.util.EmployeeConverter;
 import com.exponentus.dataengine.jpadatabase.ftengine.FTSearchable;
-import com.exponentus.extconnect.IExtUser;
+import com.exponentus.modulebinding.IExtUser;
 import com.exponentus.user.IUser;
 import com.exponentus.user.UndefinedUser;
 import com.fasterxml.jackson.annotation.JsonIgnore;

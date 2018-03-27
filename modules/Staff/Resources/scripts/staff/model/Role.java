@@ -2,7 +2,7 @@ package staff.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.model.converter.LocalizedValConverter;
-import com.exponentus.extconnect.IExtRole;
+import com.exponentus.modulebinding.IExtRole;
 import com.exponentus.localization.constants.LanguageCode;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import staff.init.ModuleConst;

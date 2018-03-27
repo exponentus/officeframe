@@ -5,7 +5,7 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.extconnect.IActivityRecorder;
+import com.exponentus.modulebinding.IActivityRecorder;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;

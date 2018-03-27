@@ -6,7 +6,6 @@ import administrator.model.IntegrationHubCollation;
 import administrator.model.IntegrationHubService;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.dao.DAOFactory;
-import com.exponentus.common.task.AbstractGen;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.dataengine.jpa.IAppEntity;
@@ -14,10 +13,10 @@ import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.Helper;
-import com.exponentus.integrationhub.IHEnvConst;
-import com.exponentus.integrationhub.IRequester;
-import com.exponentus.integrationhub.client.Requester;
-import com.exponentus.integrationhub.client.exception.RequesterException;
+import com.exponentus.integrationhub.HubEnvConst;
+import com.exponentus.extconnect.IRequester;
+import com.exponentus.extconnect.Requester;
+import com.exponentus.extconnect.exception.RequesterException;
 import com.exponentus.integrationhub.jpa.IIntegratableEntity;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
@@ -46,7 +45,7 @@ public class SyncWithIntegrationHub extends Do {
                     IntegrationHubCollation collation = collationDAO.findByServiceName(service);
                     if (collation != null) {
                         IDAO<IAppEntity<UUID>, UUID> dao = DAOFactory.get(ses, collation.getEntityClassName());
-                        IRequester requester = new Requester(Environment.integrationHubHost, IHEnvConst.MODULE_NAME);
+                        IRequester requester = new Requester(Environment.integrationHubHost, HubEnvConst.MODULE_NAME);
                         List<Map<String, ?>> data = requester.getData(service.getServiceUrl(), 0, 0);
                         Iterator iterator = data.iterator();
 
