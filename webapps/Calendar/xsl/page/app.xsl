@@ -45,8 +45,8 @@
                         </div>
                     </div>
                 </app-root>
-                <script src="assets/dist/vendor.js.gz"></script>
-                <script src="assets/dist/app.js.gz"></script>
+                <script src="assets/dist/vendor.js.gz?cache"></script>
+                <script src="assets/dist/app.js.gz?cache"></script>
             </body>
         </html>
     </xsl:template>

@@ -5,7 +5,7 @@ import { CalendarEvent } from 'angular-calendar';
 import { map } from 'rxjs/operators/map';
 import * as Moment from 'moment';
 
-import { AppService, DATE_FORMAT, DATE_TIME_FORMAT } from '@nb/core';
+import { AppService, DATE_TIME_FORMAT } from '@nb/core';
 
 import { Event } from '../../models';
 import { CalendarService } from '../../calendar.service';
