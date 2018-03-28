@@ -9,7 +9,7 @@
     <converter class="com.exponentus.common.model.converter.TimeLineConverter"/>
     <converter class="com.exponentus.common.model.constants.converter.ApprovalSchemaTypeConverter"/>
     <converter class="com.exponentus.common.model.constants.converter.ApprovalTypeConverter"/>
-
+    <converter class="com.exponentus.common.model.converter.MapDoubleIntAsStackConverter"/>
 
     <converter class="administrator.model.util.LanguageCodeConverter"/>
  	<converter class="administrator.model.util.ApplicationModeConverter"/>
