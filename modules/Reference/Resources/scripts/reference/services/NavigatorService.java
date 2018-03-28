@@ -100,6 +100,7 @@ public class NavigatorService extends RestProvider {
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.ENTERPRISEINDUSTRYTAR.name())) {
             so.addEntry(new OutlineEntry("product_types", "", "product_types", ModuleConst.BASE_URL + "product-types"));
             so.addEntry(new OutlineEntry("project_stages", "", "project_stages", ModuleConst.BASE_URL + "project-stages"));
+            so.addEntry(new OutlineEntry("activity_types", "", "activity_types", ModuleConst.BASE_URL + "activity-type-categories"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.INTEGRATIONHUB.name()) || EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.OFFICEFRAME.name())) {
             so.addEntry(new OutlineEntry("as_of", "", "as_of", ModuleConst.BASE_URL + "as-of"));
             so.addEntry(new OutlineEntry("control_types", "", "control_types", ModuleConst.BASE_URL + "control-types"));
