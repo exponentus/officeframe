@@ -78,7 +78,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             Outcome outcome = new Outcome();
             outcome.setModel(entity);
             outcome.setPayloadTitle(StringUtil.kindToKeyword(entity.getEntityKind()));
-            outcome.addPayload(EnvConst.FSID_FIELD_NAME, getWebFormData().getFormSesId());
+            outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
