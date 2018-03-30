@@ -81,6 +81,7 @@
   "change_password" : "Change password",
   "level_food_stuff" : null,
   "has_been_not_filled" : "has not been filled",
+  "assign_yourself" : "Assign yourself",
   "road_type" : null,
   "portland_industry" : null,
   "related_assignments" : "Related assignments",

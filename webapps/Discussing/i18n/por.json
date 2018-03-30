@@ -81,6 +81,7 @@
   "change_password" : "Mudar senha",
   "level_food_stuff" : null,
   "has_been_not_filled" : "has_been_not_filled",
+  "assign_yourself" : "assign_yourself",
   "road_type" : null,
   "portland_industry" : null,
   "related_assignments" : null,
