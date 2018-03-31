@@ -20,10 +20,6 @@
     margin: 0;
 }
 
-:host-context() /deep/ .approval .nb-flex-list-cols {
-    overflow: visible;
-}
-
 :host-context() /deep/ nb-select {
     width: 100%;
 }
