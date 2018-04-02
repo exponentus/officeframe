@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AppService } from '@nb/core';
-import { stringToRGB } from '@nb/core';
+import { AppService, stringToRGB } from '@nb/core';
 import { MonitoringService } from '../../../monitoring.service';
 import { UserActivity } from '../../../models';
 

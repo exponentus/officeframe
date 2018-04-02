@@ -2,8 +2,7 @@ import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { IAction } from '@nb/core';
-import { AppService } from '@nb/core';
+import { IAction, AppService } from '@nb/core';
 import { IntegrationService } from '../../integration.service';
 import { Service } from '../../models';
 

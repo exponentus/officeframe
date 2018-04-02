@@ -13,5 +13,8 @@ import javax.persistence.UniqueConstraint;
 @Table(name = ModuleConst.CODE + "__project_stages", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class ProjectStage extends SimpleReferenceEntity {
 
-
+    @Override
+    public String getURL() {
+        return ModuleConst.BASE_URL + "project-stages/" + getIdentifier();
+    }
 }

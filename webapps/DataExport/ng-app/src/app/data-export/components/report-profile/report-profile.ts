@@ -2,13 +2,13 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
-import { NotificationService } from '@nb/core';
-import { NbModalService } from '@nb/core';
-import { IAction, IApiOutcome, IEntity } from '@nb/core';
-import { AppService, ActionService } from '@nb/core';
-import { tagStylerFn } from '@nb/core';
-import { AbstractFormPage } from '@nb/core';
-import { REFERENCE_URL } from '@nb/core';
+import {
+    IAction, IApiOutcome, IEntity,
+    AppService, ActionService,
+    NotificationService, NbModalService,
+    tagStylerFn, AbstractFormPage, REFERENCE_URL
+} from '@nb/core';
+
 import { DataExportService } from '../../data-export.service';
 import { ReportProfile } from '../../models';
 

@@ -13,5 +13,8 @@ import javax.persistence.UniqueConstraint;
 @Table(name = ModuleConst.CODE + "__product_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class ProductType extends SimpleReferenceEntity {
 
-
+    @Override
+    public String getURL() {
+        return ModuleConst.BASE_URL + "product-types/" + getIdentifier();
+    }
 }

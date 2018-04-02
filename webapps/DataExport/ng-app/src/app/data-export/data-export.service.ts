@@ -3,10 +3,12 @@ import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs/Observable';
 import { saveAs } from 'file-saver';
 
-import { NotificationService } from '@nb/core';
-import { IAction, IColumnOptions, IFormSchema, IEntity, IDto, IEntityService } from '@nb/core';
-import { AppService, DataService } from '@nb/core';
-import { createApiUrl } from '@nb/core';
+import {
+    IAction, IEntity, IDto, IEntityService,
+    AppService, DataService, NotificationService,
+    createApiUrl
+} from '@nb/core';
+
 import { DATA_EXPORT_URL } from './constants';
 import { ReportProfile } from './models';
 import { convertToDto } from './converter-factory';
