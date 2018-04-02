@@ -3,7 +3,7 @@ export const REFERENCE_URL = {
     API_BUILDING_MATERIALS: '/Reference/api/building-materials',
     API_BUILDING_STATES: '/Reference/api/building-states',
     API_CITY_DISTRICTS: '/Reference/api/city-districts',
-    API_OBJECT_PURPOSES: '/Reference/api/realestate-obj-purposes',
+    API_OBJECT_PURPOSES: '/Reference/api/realestate-purposes',
     API_CONTROL_TYPES: '/Reference/api/control-types',
     API_COUNTRIES: '/Reference/api/countries',
     API_DEMAND_TYPES: '/Reference/api/demand-types',

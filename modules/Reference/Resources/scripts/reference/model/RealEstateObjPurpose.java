@@ -15,6 +15,6 @@ public class RealEstateObjPurpose extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "real-estate-obj-purposes/" + getId();
+        return ModuleConst.BASE_URL + "realestate-purposes/" + getId();
     }
 }

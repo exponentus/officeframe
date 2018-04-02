@@ -42,7 +42,6 @@ public class NavigatorService extends RestProvider {
         lo.addEntry(new OutlineEntry("streets", "", "streets", ModuleConst.BASE_URL + "streets"));
         lo.addEntry(new OutlineEntry("region_types", "", "region_types", ModuleConst.BASE_URL + "region-types"));
         lo.addEntry(new OutlineEntry("locality_types", "", "locality_types", ModuleConst.BASE_URL + "locality-types"));
-
         Outline so = new Outline("specific_reference_data", "specific");
         if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.SEMANTYCA.name())) {
             so.addEntry(new OutlineEntry("task_types", "", "task_types", ModuleConst.BASE_URL + "task-types"));
@@ -69,7 +68,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", ModuleConst.BASE_URL + "building-materials"));
             so.addEntry(new OutlineEntry("memorial_types", "", "memorial_types", ModuleConst.BASE_URL + "memorial-types"));
             so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", ModuleConst.BASE_URL + "real-estate-obj-statuses"));
-            so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "real-estate-obj-purposes"));
+            so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "realestate-purposes"));
             so.addEntry(new OutlineEntry("land_classifications", "", "land_classifications", ModuleConst.BASE_URL + "land-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.REGIONECONOMY.name())) {
             so.addEntry(new OutlineEntry("as_of", "", "as_of", ModuleConst.BASE_URL + "as-of"));
