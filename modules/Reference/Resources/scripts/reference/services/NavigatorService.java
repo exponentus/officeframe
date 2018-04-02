@@ -69,7 +69,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", ModuleConst.BASE_URL + "building-materials"));
             so.addEntry(new OutlineEntry("memorial_types", "", "memorial_types", ModuleConst.BASE_URL + "memorial-types"));
             so.addEntry(new OutlineEntry("real_estate_obj_statuses", "", "real_estate_obj_statuses", ModuleConst.BASE_URL + "real-estate-obj-statuses"));
-            so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "realestate-obj-purposes"));
+            so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "real-estate-obj-purposes"));
             so.addEntry(new OutlineEntry("land_classifications", "", "land_classifications", ModuleConst.BASE_URL + "land-classifications"));
         } else if (EnvConst.APP_ID.equalsIgnoreCase(AvailableApplicationTypes.REGIONECONOMY.name())) {
             so.addEntry(new OutlineEntry("as_of", "", "as_of", ModuleConst.BASE_URL + "as-of"));
@@ -115,7 +115,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("building_states", "", "building_states", ModuleConst.BASE_URL + "building-states"));
             so.addEntry(new OutlineEntry("building_materials", "", "building_materials", ModuleConst.BASE_URL + "building-materials"));
             so.addEntry(new OutlineEntry("memorial_types", "", "memorial_types", ModuleConst.BASE_URL + "memorial-types"));
-            so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "realestate-obj-purposes"));
+            so.addEntry(new OutlineEntry("realestate_obj_purposes", "", "realestate_obj_purposes", ModuleConst.BASE_URL + "real-estate-obj-purposes"));
             so.addEntry(new OutlineEntry("revenue_categories", "", "revenue_categories", ModuleConst.BASE_URL + "revenue-categories"));
             so.addEntry(new OutlineEntry("revenues", "", "revenues", ModuleConst.BASE_URL + "revenues"));
             so.addEntry(new OutlineEntry("expenditure_categories", "", "expenditure_categories", ModuleConst.BASE_URL + "expenditure-categories"));
