@@ -12,12 +12,12 @@ import javax.persistence.UniqueConstraint;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = ModuleConst.CODE + "__еxpenditurе_categories", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__expenditure_categories", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class ExpenditureCategory extends SimpleReferenceEntity {
 
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "еxpenditurе-categories/" + getId();
+        return ModuleConst.BASE_URL + "expenditure-categories/" + getId();
     }
 }
