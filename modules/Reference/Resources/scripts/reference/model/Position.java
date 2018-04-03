@@ -24,6 +24,6 @@ public class Position extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "positions/" + getIdentifier();
+        return ModuleConst.BASE_URL + "positions/" + getId();
     }
 }

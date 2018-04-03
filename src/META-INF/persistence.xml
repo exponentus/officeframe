@@ -138,6 +138,7 @@
         <class>reference.model.EngInfrastructObjClassification</class>
         <class>reference.model.TaxIncomeCategory</class>
         <class>reference.model.DemandType</class>
+        <class>reference.model.WayOfInteraction</class>
          <!-- Monitoring module entities -->
         <class>monitoring.model.UserActivity</class>      
         <class>monitoring.model.DocumentActivity</class>

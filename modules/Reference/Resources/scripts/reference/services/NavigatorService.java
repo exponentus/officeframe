@@ -48,6 +48,7 @@ public class NavigatorService extends RestProvider {
             so.addEntry(new OutlineEntry("request_types", "", "request_types", ModuleConst.BASE_URL + "request-types"));
             so.addEntry(new OutlineEntry("demand_types", "", "demand_types", ModuleConst.BASE_URL + "demand-types"));
             so.addEntry(new OutlineEntry("work_types", "", "work_types", ModuleConst.BASE_URL + "work-types"));
+            so.addEntry(new OutlineEntry("way_of_interactions", "", "way_of_interactions", ModuleConst.BASE_URL + "way-of-interactions"));
             so.addEntry(new OutlineEntry("doc_types", "", "document_types", ModuleConst.BASE_URL + "document-types"));
             so.addEntry(new OutlineEntry("doc_subjs", "", "document_subjects", ModuleConst.BASE_URL + "document-subjects"));
             so.addEntry(new OutlineEntry("text_template", "", "text_templates", ModuleConst.BASE_URL + "text-templates"));
