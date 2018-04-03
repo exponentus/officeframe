@@ -599,7 +599,7 @@
   "waiting" : "On hold",
   "regular_cost" : null,
   "additional" : "More",
-  "eng_infrastruct_obj_classifications" : null,
+  "eng_infrastruct_obj_classifications" : "Engineer infrastructure object classification",
   "back" : "Back",
   "title" : "Title",
   "retail_of_regions" : null,
