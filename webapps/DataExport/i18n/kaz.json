@@ -28,6 +28,7 @@
   "sender" : "Жіберуші",
   "water_supplying_service_ipv" : "Сумен жабдықтау, канализация, қалдықтарды жинау және бөлуді бақылау IPV",
   "decline_reason" : null,
+  "way_of_interaction" : "Ынтымақтастық жолы",
   "kuf" : "kuf",
   "require_comment_if_no" : "Төмендеуі Пікір егер талап",
   "gold_industry" : "Алтын",

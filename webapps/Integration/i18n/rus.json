@@ -28,6 +28,7 @@
   "sender" : "Отправитель",
   "water_supplying_service_ipv" : "Водоснабжение, канализация, контроль над сбором и распределением отходов ИФО",
   "decline_reason" : "Причина отклонения",
+  "way_of_interaction" : "Способ взаимодействия",
   "kuf" : "kuf",
   "require_comment_if_no" : "Комментарий если не согласен",
   "gold_industry" : "Золото",

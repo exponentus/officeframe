@@ -28,6 +28,7 @@
   "sender" : "Sender",
   "water_supplying_service_ipv" : null,
   "decline_reason" : "Decline reason",
+  "way_of_interaction" : "Way of interaction",
   "kuf" : "KUF",
   "require_comment_if_no" : "it is required a comment if NO",
   "gold_industry" : null,
