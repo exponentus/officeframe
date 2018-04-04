@@ -44,7 +44,7 @@
   "replicate_view" : "Replicate view",
   "region_types" : "Region types",
   "inflation_of_region" : null,
-  "url_syntax_warning" : null,
+  "url_syntax_warning" : "Warning! The syntax should be according in URL rules.",
   "departments" : "Departments",
   "bus_classifications" : "Bus classifications",
   "close" : "Close",

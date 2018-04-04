@@ -1,8 +1,6 @@
 package reference.services;
 
-import com.exponentus.common.init.DefaultDataConst;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -10,10 +8,8 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.RealEstateObjPurposeDAO;
 import reference.model.RealEstateObjPurpose;
-import reference.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -27,26 +23,15 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
         try {
-            Outcome outcome = new Outcome();
-
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
             RealEstateObjPurposeDAO dao = new RealEstateObjPurposeDAO(session);
             ViewPage<RealEstateObjPurpose> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            if (user.isSuperUser() || user.getRoles().contains(DefaultDataConst.ROLE_REFERENCE_ADMIN)) {
-                ActionBar actionBar = new ActionBar(session);
-                Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
-                outcome.addPayload(actionBar);
-            }
-
+            Outcome outcome = new Outcome();
+            outcome.addPayload(getDefaultViewActionBar(true));
             outcome.setTitle("real_estate_obj_purposes");
             outcome.setPayloadTitle("real_estate_obj_purposes");
             outcome.addPayload(vp);
@@ -106,11 +91,6 @@ public class RealEstateObjPurposesService extends ReferenceService<RealEstateObj
 
     public Response save(RealEstateObjPurpose dto) {
         _Session session = getSession();
-        IUser user = session.getUser();
-
-        if (!user.isSuperUser() && !user.getRoles().contains(DefaultDataConst.ROLE_REFERENCE_ADMIN)) {
-            return null;
-        }
 
         try {
             validate(dto);

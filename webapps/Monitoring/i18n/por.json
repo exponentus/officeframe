@@ -44,7 +44,7 @@
   "replicate_view" : "replicate_view",
   "region_types" : null,
   "inflation_of_region" : null,
-  "url_syntax_warning" : null,
+  "url_syntax_warning" : "¡Advertencia! La sintaxis debe estar de acuerdo en las reglas de URL.",
   "departments" : null,
   "bus_classifications" : "bus_classifications",
   "close" : "Fechar",
