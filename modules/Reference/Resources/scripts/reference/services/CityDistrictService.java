@@ -113,7 +113,7 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(getEntityName(dto));
             entity.setLocName(dto.getLocName());
             entity.setLocality(dto.getLocality());
 
@@ -149,9 +149,6 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
     private void validate(CityDistrict entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
         if (entity.getLocality() == null) {
             ve.addError("locality", "required", "field_is_empty");
         }

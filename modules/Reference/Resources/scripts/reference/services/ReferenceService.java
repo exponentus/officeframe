@@ -5,9 +5,9 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.IExternalService;
+import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.log.Lg;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
@@ -26,6 +26,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public abstract class ReferenceService<T extends SimpleReferenceEntity> extends RestProvider implements IExternalService {
+    private static final LanguageCode[] LANG_PREFFERABLE_CODE = {LanguageCode.ENG, LanguageCode.RUS};
+
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -125,7 +127,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 entity = dao.findById(dto.getId());
             }
 
-            entity.setName(dto.getName());
+            entity.setName(getEntityName(dto));
             entity.setLocName(dto.getLocName());
             dao.save(entity);
 
@@ -193,4 +195,19 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             return responseException(e);
         }
     }
+
+
+    protected static String getEntityName(SimpleReferenceEntity dto) {
+        String name = dto.getName();
+        if (name.isEmpty()) {
+            String latName = StringUtil.convertStringToURL(dto.getLocName(), LANG_PREFFERABLE_CODE);
+            if (latName != null && !latName.isEmpty()) {
+                return latName;
+            }
+            return StringUtil.getRndText();
+        }else{
+            return name;
+        }
+    }
+
 }

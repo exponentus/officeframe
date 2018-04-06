@@ -98,7 +98,7 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
 
 
         try {
-            validate(dto);
+              validate(dto);
 
             BuildingMaterialDAO dao = new BuildingMaterialDAO(session);
             BuildingMaterial entity;
@@ -110,7 +110,7 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(getEntityName(dto));
             entity.setAltName(dto.getAltName());
             entity.setLocName(dto.getLocName());
 
@@ -146,9 +146,6 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
     private void validate(BuildingMaterial entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
 
         if (ve.hasError()) {
             throw ve;

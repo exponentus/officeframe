@@ -114,12 +114,14 @@ public class StreetService extends ReferenceService<Street> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(getEntityName(dto));
             entity.setAltName(dto.getAltName());
             entity.setLocName(dto.getLocName());
             entity.setLocality(dto.getLocality());
             entity.setCityDistrict(dto.getCityDistrict());
             entity.setStreetId(dto.getStreetId());
+
+
 
             dao.save(entity);
 
@@ -153,9 +155,6 @@ public class StreetService extends ReferenceService<Street> {
     private void validate(Street entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
         if (entity.getLocality() == null) {
             ve.addError("locality", "required", "field_is_empty");
         }

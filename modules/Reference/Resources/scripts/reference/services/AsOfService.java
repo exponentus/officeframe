@@ -3,7 +3,6 @@ package reference.services;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -20,7 +19,7 @@ import java.util.UUID;
 
 @Path("as-of")
 @Produces(MediaType.APPLICATION_JSON)
-public class AsOfService extends RestProvider {
+public class AsOfService extends ReferenceService<AsOf> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -111,7 +110,7 @@ public class AsOfService extends RestProvider {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(getEntityName(dto));
             entity.setLocName(dto.getLocName());
             entity.setAsOfByDate(dto.getAsOfByDate());
             entity.setAllowedToPublish(dto.isAllowedToPublish());
@@ -148,9 +147,6 @@ public class AsOfService extends RestProvider {
     private void validate(AsOf entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
         if (entity.getAsOfByDate() == null) {
             ve.addError("asOfByDate", "date", "field_is_empty");
         }
