@@ -27,6 +27,8 @@
                 <link rel="stylesheet" href="/SharedResources/vendor/bootstrap-4/css/bootstrap.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/vendor/font-awesome/css/font-awesome.min.css"/>
                 <link rel="stylesheet" href="/SharedResources/nb/css/nb.min.css"/>
+                <!-- <script src="assets/js/sw-loader.js"></script> -->
+                <script src="assets/js/sw-unregister.js"></script>
             </head>
             <body>
                 <noscript>
