@@ -110,7 +110,7 @@ public class AsOfService extends ReferenceService<AsOf> {
             }
 
             // fill from dto
-            entity.setName(getEntityName(dto));
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setAsOfByDate(dto.getAsOfByDate());
             entity.setAllowedToPublish(dto.isAllowedToPublish());

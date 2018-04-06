@@ -27,10 +27,10 @@ public class FillOperativeInfoTypes extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<OperativeInfoType> entities = new ArrayList<OperativeInfoType>();
-        String[] data = {"weather"};
-        String[] dataEng = {"Weather"};
-        String[] dataRus = {"Погода"};
-        String[] dataKaz = {"Ауа райы"};
+        String[] data = {"weather","internet_recource","news","faq"};
+        String[] dataEng = {"Weather","Internet resource", "News", "FAQ"};
+        String[] dataRus = {"Погода","Интернет-ресурс", "Новость","Вопрос-ответ"};
+        String[] dataKaz = {"Ауа райы","Интернет-ресурс", "Жаңалықтар", "Сұрақ-жауап"};
 
         int[] rankData = {999};
 
@@ -42,7 +42,7 @@ public class FillOperativeInfoTypes extends Do {
             name.put(LanguageCode.RUS, dataRus[i]);
             name.put(LanguageCode.KAZ, dataKaz[i]);
             entity.setLocName(name);
-            entity.setRank(rankData[i]);
+            entity.setRank(rankData[0]);
             entities.add(entity);
         }
 

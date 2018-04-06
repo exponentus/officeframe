@@ -114,7 +114,7 @@ public class StreetService extends ReferenceService<Street> {
             }
 
             // fill from dto
-            entity.setName(getEntityName(dto));
+            entity.setName(extractAnyNameValue(dto));
             entity.setAltName(dto.getAltName());
             entity.setLocName(dto.getLocName());
             entity.setLocality(dto.getLocality());

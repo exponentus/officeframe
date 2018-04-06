@@ -5,13 +5,11 @@ import administrator.model.Application;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import com.exponentus.util.ReflectionUtil;
 import reference.dao.TagDAO;
 import reference.dao.filter.TagFilter;
@@ -25,15 +23,13 @@ import javax.ws.rs.core.Response;
 import java.util.*;
 
 @Path("tags")
-public class TagService extends RestProvider {
+public class TagService extends ReferenceService<Tag> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
 
         try {
             SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
@@ -137,7 +133,7 @@ public class TagService extends RestProvider {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setCategory(dto.getCategory());
             entity.setColor(dto.getColor());
             entity.setHidden(dto.isHidden());

@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public abstract class ReferenceService<T extends SimpleReferenceEntity> extends RestProvider implements IExternalService {
-    private static final LanguageCode[] LANG_PREFFERABLE_CODE = {LanguageCode.ENG, LanguageCode.RUS};
+    private static final LanguageCode[] LANG_PREFFERABLE_CODES = {LanguageCode.ENG, LanguageCode.RUS};
 
 
     @GET
@@ -127,7 +127,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 entity = dao.findById(dto.getId());
             }
 
-            entity.setName(getEntityName(dto));
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             dao.save(entity);
 
@@ -197,10 +197,10 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
     }
 
 
-    protected static String getEntityName(SimpleReferenceEntity dto) {
+    protected static String extractAnyNameValue(SimpleReferenceEntity dto) {
         String name = dto.getName();
         if (name.isEmpty()) {
-            String latName = StringUtil.convertStringToURL(dto.getLocName(), LANG_PREFFERABLE_CODE);
+            String latName = StringUtil.convertStringToURL(dto.getLocName(), LANG_PREFFERABLE_CODES);
             if (latName != null && !latName.isEmpty()) {
                 return latName;
             }
