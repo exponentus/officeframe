@@ -102,7 +102,7 @@ public class Organization extends SimpleReferenceEntity {
     }
 
     @Override
-    public Organization compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String, String> countryMap = (Map<String, String>) data.get("orgCategory");
@@ -115,9 +115,9 @@ public class Organization extends SimpleReferenceEntity {
             rank = (Integer) data.get("rank");
         } catch (Exception e) {
             Lg.exception(e);
-            return null;
+            return false;
         }
-        return this;
+        return true;
     }
 
     @Override

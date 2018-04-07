@@ -37,21 +37,20 @@ public class IndustryType extends SimpleReferenceEntity {
     }
 
     @Override
-    public IndustryType compose(_Session ses, Map<String, ?> data) {
-        super.compose(ses, data);
-        try {
-            Map<String, String> categoryMap = (Map<String, String>) data.get("category");
-            CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey(categoryMap.get("id"));
-            ActivityTypeCategoryDAO activityTypeCategoryDAO = new ActivityTypeCategoryDAO(ses);
-            ActivityTypeCategory category = activityTypeCategoryDAO.findById(collation.getIntKey());
-            this.category = category;
-
-
-        } catch (Exception e) {
-            Lg.exception(e);
-            return null;
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        if (super.compose(ses, data)) {
+            try {
+                Map<String, String> categoryMap = (Map<String, String>) data.get("category");
+                CollationDAO collationDAO = new CollationDAO(ses);
+                Collation collation = collationDAO.findByExtKey(categoryMap.get("id"));
+                ActivityTypeCategoryDAO activityTypeCategoryDAO = new ActivityTypeCategoryDAO(ses);
+                ActivityTypeCategory category = activityTypeCategoryDAO.findById(collation.getIntKey());
+                this.category = category;
+                return true;
+            } catch (Exception e) {
+                Lg.exception(e);
+            }
         }
-        return this;
+        return false;
     }
 }

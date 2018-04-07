@@ -89,7 +89,7 @@ public class Street extends SimpleReferenceEntity {
     }
 
     @Override
-    public Street compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String, String> localityMap = (Map<String, String>) data.get("locality");
@@ -102,9 +102,9 @@ public class Street extends SimpleReferenceEntity {
             streetId = (Integer) data.get("streetId");
         } catch (Exception e) {
             Lg.exception(e);
-            return null;
+            return false;
         }
-        return this;
+        return true;
     }
 
     @Override

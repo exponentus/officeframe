@@ -30,16 +30,18 @@ public class LocalityType extends SimpleReferenceEntity {
     }
 
     @Override
-    public LocalityType compose(_Session ses, Map<String, ?> data) {
-        super.compose(ses, data);
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        if (super.compose(ses, data)) {
 
-        try {
-            code = LocalityCode.valueOf((String) data.get("code"));
-        } catch (Exception e) {
-            Lg.exception(e);
-            return null;
+            try {
+                code = LocalityCode.valueOf((String) data.get("code"));
+            } catch (Exception e) {
+                Lg.exception(e);
+            }
+            return true;
+        }else{
+            return false;
         }
-        return this;
     }
 
     @Override

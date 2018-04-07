@@ -84,7 +84,7 @@ public class Locality extends SimpleReferenceEntity {
     }
 
     @Override
-    public Locality compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String, String> countryMap = (Map<String, String>) data.get("region");
@@ -99,12 +99,11 @@ public class Locality extends SimpleReferenceEntity {
             LocalityTypeDAO localityTypeDAO = new LocalityTypeDAO(ses);
             LocalityType localityType = localityTypeDAO.findById(collation.getIntKey());
             type = localityType;
-
+            return true;
         } catch (Exception e) {
             Lg.exception(e);
-            return null;
         }
-        return this;
+        return false;
     }
 
     @Override

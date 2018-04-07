@@ -34,7 +34,7 @@ public class CityDistrict extends SimpleReferenceEntity {
     }
 
     @Override
-    public CityDistrict compose(_Session ses, Map<String, ?> data) {
+    public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
             Map<String, String> localityMap = (Map<String, String>) data.get("locality");
@@ -43,12 +43,11 @@ public class CityDistrict extends SimpleReferenceEntity {
             LocalityDAO localityDAO = new LocalityDAO(ses);
             Locality locality = localityDAO.findById(collation.getIntKey());
             this.locality = locality;
-
+            return true;
         } catch (Exception e) {
             Lg.exception(e);
-            return null;
         }
-        return this;
+        return false;
     }
 
     @Override

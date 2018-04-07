@@ -35,15 +35,16 @@ public class RegionType extends SimpleReferenceEntity {
     }
 
     @Override
-    public RegionType compose(_Session ses, Map<String, ?> data) {
-        super.compose(ses, data);
-        try {
-            String c = (String) data.get("code");
-            code = RegionCode.valueOf(c);
-        } catch (Exception e) {
-            Lg.exception(e);
-            return null;
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        if (super.compose(ses, data)) {
+            try {
+                String c = (String) data.get("code");
+                code = RegionCode.valueOf(c);
+                return true;
+            } catch (Exception e) {
+                Lg.exception(e);
+            }
         }
-        return this;
+        return false;
     }
 }

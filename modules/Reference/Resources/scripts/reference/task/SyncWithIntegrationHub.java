@@ -61,8 +61,11 @@ public class SyncWithIntegrationHub extends Do {
                                     entity = ReflectionUtil.getEmptyInstance((Class<IAppEntity<UUID>>) Class.forName(collation.getEntityClassName()));
                                 }
 
-                                ((IIntegratableEntity) entity).compose(ses, entry);
-                                save(dao, entity, extId);
+                                if(entity.compose(ses, entry)) {
+                                    save(dao, entity, extId);
+                                }else{
+                                    Lg.error("Entity " + entity.getId() + " has not composed and skipped");
+                                }
                             } catch (ClassNotFoundException error) {
                                 Lg.exception(error);
                             }

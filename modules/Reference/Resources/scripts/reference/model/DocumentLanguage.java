@@ -30,16 +30,16 @@ public class DocumentLanguage extends SimpleReferenceEntity {
     }
 
     @Override
-    public DocumentLanguage compose(_Session ses, Map<String, ?> data) {
-        super.compose(ses, data);
-
-        try {
-            code = LanguageCode.valueOf((String) data.get("code"));
-        } catch (Exception e) {
-            Lg.exception(e);
-            return null;
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        if (super.compose(ses, data)) {
+            try {
+                code = LanguageCode.valueOf((String) data.get("code"));
+                return true;
+            } catch (Exception e) {
+                Lg.exception(e);
+            }
         }
-        return this;
+        return false;
     }
 
     @Override
