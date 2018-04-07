@@ -60,7 +60,7 @@ public class FillAlmatyStreets extends Do {
                             entity.setLocality(d);
                             entity.setTitle(name);
                             String latName = StringUtil.convertRusToLat(name);
-                            entity.setName(latName.replaceAll(" ", "_"));
+                            entity.setName(latName.replaceAll(" ", "p"));
                             entity.setStreetId(id);
                             Map<LanguageCode, String> localizedNames = new HashMap<>();
                             localizedNames.put(LanguageCode.ENG, latName);

@@ -228,7 +228,7 @@ public class RestoreOfficeframe extends Do {
             TypeReference<List<User>> listType = new TypeReference<List<User>>() {
             };
             List<User> entities = mapper.readValue(
-                    new File(EnvConst.BACKUP_DIR + File.separator + User.class.getName() + "_.json"), listType);
+                    new File(EnvConst.BACKUP_DIR + File.separator + User.class.getName() + "p.json"), listType);
 
             for (User entity : entities) {
 
@@ -255,7 +255,7 @@ public class RestoreOfficeframe extends Do {
     private BufferedReader getFile(Class<?> class1) {
         try {
             return new BufferedReader(
-                    new FileReader(EnvConst.BACKUP_DIR + File.separator + class1.getName() + "_.json"));
+                    new FileReader(EnvConst.BACKUP_DIR + File.separator + class1.getName() + "p.json"));
         } catch (IOException e) {
             e.printStackTrace();
         }

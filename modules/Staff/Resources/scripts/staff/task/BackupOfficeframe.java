@@ -78,7 +78,7 @@ public class BackupOfficeframe extends Do {
     private FileWriter getFile(Class<?> class1) {
         FileWriter fileWriter;
         try {
-            fileWriter = new FileWriter(EnvConst.BACKUP_DIR + File.separator + class1.getName() + "_.json");
+            fileWriter = new FileWriter(EnvConst.BACKUP_DIR + File.separator + class1.getName() + "p.json");
             return fileWriter;
         } catch (IOException e) {
             e.printStackTrace();

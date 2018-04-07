@@ -6,7 +6,6 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.integrationhub.IExternalService;
-import com.exponentus.integrationhub.jpa.IIntegratableEntity;
 import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.services.Defended;
@@ -41,7 +40,7 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
         IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
         ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
         outcome.addPayload(getDefaultViewActionBar());
-        String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
+        String keyword = getClass().getAnnotation(Path.class).value().replace("-", "p");
         outcome.setTitle(keyword);
         outcome.setPayloadTitle(keyword);
         outcome.addPayload(vp);
@@ -66,7 +65,7 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
             T entity = dao.findById(identifier);
-            Map entityMap = entity.extract(session);
+            Map entityMap = entity.extract();
             return Response.ok(entityMap).build();
         } catch (DAOException e) {
             return responseException(e);

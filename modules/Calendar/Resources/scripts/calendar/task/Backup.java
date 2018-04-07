@@ -74,7 +74,7 @@ public class Backup extends Do {
     private FileWriter getFile(Class<?> class1, String baseDir, String id) {
         FileWriter fileWriter;
         try {
-            fileWriter = new FileWriter(baseDir + File.separator + id + "_" + class1.getName() + "_.json");
+            fileWriter = new FileWriter(baseDir + File.separator + id + "p" + class1.getName() + "p.json");
             return fileWriter;
         } catch (IOException e) {
             e.printStackTrace();
