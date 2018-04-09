@@ -15,7 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.UUID;
 
-public class AsOfDAO extends DAO<AsOf, UUID> {
+public class AsOfDAO extends ReferenceDAO<AsOf, UUID> {
 
     public AsOfDAO(_Session session) throws DAOException {
         super(AsOf.class, session);

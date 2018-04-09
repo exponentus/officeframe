@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -37,6 +38,20 @@ public abstract class ReferenceDAO<T extends IAppEntity<UUID>, K> extends DAO<T,
             return query.getResultList();
         } finally {
             em.close();
+        }
+    }
+
+    public T getFromMap(Map data, String entityTypeName, boolean isRequired) throws DAOException {
+        Map<String, String> activityTypeMap = (Map<String, String>) data.get(entityTypeName);
+        try {
+            T entity = findByName(activityTypeMap.get("name"));
+            return entity;
+        }catch (NoResultException e){
+            if (isRequired){
+                throw e;
+            }else{
+                return null;
+            }
         }
     }
 
