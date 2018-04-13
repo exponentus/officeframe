@@ -41,18 +41,11 @@ public abstract class ReferenceDAO<T extends IAppEntity<UUID>, K> extends DAO<T,
         }
     }
 
-    public T getFromMap(Map data, String entityTypeName, boolean isRequired) throws DAOException {
+    public T getFromMap(Map data, String entityTypeName) throws DAOException {
         Map<String, String> activityTypeMap = (Map<String, String>) data.get(entityTypeName);
-        try {
-            T entity = findByName(activityTypeMap.get("name"));
-            return entity;
-        }catch (NoResultException e){
-            if (isRequired){
-                throw e;
-            }else{
-                return null;
-            }
-        }
+        String key = activityTypeMap.get("name");
+        T entity = findByName(key);
+        return entity;
     }
 
     public T findByName(String name) throws DAOException {

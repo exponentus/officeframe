@@ -572,6 +572,7 @@
   "cert_number" : "cert_number",
   "agricultural_product" : null,
   "observers" : "Observadores",
+  "web_site" : "web_site",
   "expenditure" : "expenditure",
   "land_classifications" : "land_classifications",
   "digital_signature" : "digital_signature",
