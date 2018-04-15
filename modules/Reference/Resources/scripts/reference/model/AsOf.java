@@ -12,7 +12,7 @@ import java.util.Date;
 @Table(name = ModuleConst.CODE + "__asof", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class AsOf extends SimpleReferenceEntity {
 
-    @Column(name = "asof_by_date")
+    @Column(name = "asof_by_date", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date asOfByDate;
 

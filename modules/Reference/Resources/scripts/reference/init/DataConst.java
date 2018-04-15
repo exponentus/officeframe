@@ -11,7 +11,7 @@ public class DataConst {
             {ModuleConst.CODE + "__localities", "type_id"},
             {ModuleConst.CODE + "__streets", "locality_id"},
             //  {CODE + "__document_languages","code"},
-            {ModuleConst.CODE + "__industry_types", "category_id"},
+            {ModuleConst.CODE + "__industry_types", "category_id"}
     };
 
 }
