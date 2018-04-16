@@ -1,11 +1,16 @@
 package reference.model;
 
 import com.exponentus.common.model.SimpleReferenceEntity;
+import com.exponentus.log.Lg;
+import com.exponentus.scripting._Session;
+import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import reference.init.ModuleConst;
+import reference.model.constants.LocalityCode;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
@@ -33,6 +38,21 @@ public class AsOf extends SimpleReferenceEntity {
 
     public void setAllowedToPublish(boolean allowedToPublish) {
         isAllowedToPublish = allowedToPublish;
+    }
+
+    @Override
+    public boolean compose(_Session ses, Map<String, ?> data) {
+        if (super.compose(ses, data)) {
+
+            try {
+                asOfByDate = TimeUtil.stringToDateWithPassion((String) data.get("asOfByDate"));
+            } catch (Exception e) {
+                Lg.exception(e);
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override

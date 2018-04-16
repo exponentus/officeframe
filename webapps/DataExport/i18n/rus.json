@@ -287,6 +287,7 @@
   "class_name" : "Имя класса",
   "value_is_not_allowed" : "Не допустимое значение",
   "label_prj_dashboard_stat_author_state" : "Количество задании инициированных вами",
+  "refresh" : "Обновить",
   "dev_budget" : "Бюджет развития",
   "services" : "Сервисы",
   "obj_documents" : "Реестр объектов",
