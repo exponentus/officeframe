@@ -76,11 +76,9 @@ public class OrganizationService extends StaffService<Organization> {
             vp.setFilter(viewOptions.getOrgFilter());
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
-                ActionBar actionBar = new ActionBar(session);
+                ActionBar actionBar = getDefaultViewActionBar(true);
                 Action action = new Action();
-                actionBar.addAction(action.addNew);
-                actionBar.addAction(action.deleteDocument);
-                actionBar.addAction(action.refreshVew);
+            //    actionBar.addAction(action.addNew);
                 outcome.addPayload(actionBar);
             }
 
@@ -205,7 +203,7 @@ public class OrganizationService extends StaffService<Organization> {
         }
     }
 
-    private void validate(Organization entity) throws DTOException {
+    protected void validate(Organization entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {

@@ -105,9 +105,9 @@ public class Organization extends SimpleReferenceEntity {
     public boolean compose(_Session ses, Map<String, ?> data) {
         super.compose(ses, data);
         try {
-            Map<String, String> countryMap = (Map<String, String>) data.get("orgCategory");
+            Map<String, String> categoryMap = (Map<String, String>) data.get("orgCategory");
             CollationDAO collationDAO = new CollationDAO(ses);
-            Collation collation = collationDAO.findByExtKey(countryMap.get("id"));
+            Collation collation = collationDAO.findByExtKey(categoryMap.get("id"));
             OrgCategoryDAO orgCategoryDAO = new OrgCategoryDAO(ses);
             OrgCategory orgCategory = orgCategoryDAO.findById(collation.getIntKey());
             this.orgCategory = orgCategory;

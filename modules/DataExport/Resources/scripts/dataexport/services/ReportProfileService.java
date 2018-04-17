@@ -12,6 +12,7 @@ import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
+import com.exponentus.log.Lg;
 import com.exponentus.rest.exception.RestServiceException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -299,9 +300,9 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 return responseValidationError("ReportProfile entity has not been found id=" + dto.getId());
             }
         } catch (JRException e) {
-            logError(e);
+            Lg.exception(e);
             if (e.getCause() instanceof FileNotFoundException) {
-                logError(e);
+                Lg.exception(e);
                 return responseException(
                         new FileNotFoundException(JASPER_REPORT_TEMPLATE_EXTENSION + " file has not been found"));
             }

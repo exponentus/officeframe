@@ -44,7 +44,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
         ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
         outcome.addPayload(getDefaultViewActionBar(true));
-        String keyword = getClass().getAnnotation(Path.class).value().replace("-", "p");
+        String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
         outcome.setTitle(keyword);
         outcome.setPayloadTitle(keyword);
         outcome.addPayload(vp);
@@ -74,7 +74,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 entity.setAuthor(session.getUser());
             } else {
                 IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             Outcome outcome = new Outcome();
@@ -150,7 +150,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             IDAO<T, UUID> dao = DAOFactory.get(getSession(), entityClass);
 
-            T entity = dao.findByIdentifier(id);
+            T entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }
