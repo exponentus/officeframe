@@ -8,15 +8,17 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
+import org.apache.commons.collections4.MapUtils;
 import reference.dao.CityDistrictDAO;
 import reference.dao.filter.CityDistrictFilter;
 import reference.model.CityDistrict;
 import reference.ui.ViewOptions;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("city-districts")
 public class CityDistrictService extends ReferenceService<CityDistrict> {
@@ -86,6 +88,11 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
 
     protected void validate(CityDistrict entity) throws DTOException {
         DTOException ve = new DTOException();
+
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
+            ve.addError("locName", "required", "field_is_empty");
+        }
+
 
         if (entity.getLocality() == null) {
             ve.addError("locality", "required", "field_is_empty");

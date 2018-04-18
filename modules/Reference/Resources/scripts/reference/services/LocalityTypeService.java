@@ -52,7 +52,7 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setCode(dto.getCode());
 

@@ -8,6 +8,7 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
+import org.apache.commons.collections4.MapUtils;
 import reference.dao.ActivityTypeCategoryDAO;
 import reference.dao.IndustryTypeDAO;
 import reference.dao.filter.IndustryTypeFilter;
@@ -72,7 +73,7 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
                 entity = dao.findById(dto.getId());
             }
 
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             ActivityTypeCategory cat = new ActivityTypeCategoryDAO(session).findByName(ModuleConst.ACTIVITY_TYPE_CATEGORY_FOR_INDUSTRY);
             entity.setCategory(cat);
@@ -93,9 +94,10 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
     protected void validate(IndustryType entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
+            ve.addError("locName", "required", "field_is_empty");
         }
+
         if (entity.getCategory() == null) {
             ve.addError("category", "required", "field_is_empty");
         }

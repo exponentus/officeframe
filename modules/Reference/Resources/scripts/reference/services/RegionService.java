@@ -10,6 +10,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.StringUtil;
+import org.apache.commons.collections4.MapUtils;
 import reference.dao.CountryDAO;
 import reference.dao.RegionDAO;
 import reference.model.Country;
@@ -77,7 +78,7 @@ public class RegionService extends ReferenceService<Region> {
                 entity = dao.findById(dto.getId());
             }
 
-            entity.setName(StringUtil.convertStringToURL(dto.getName()));
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setType(dto.getType());
             entity.setCountry(dto.getCountry());
@@ -101,9 +102,10 @@ public class RegionService extends ReferenceService<Region> {
     protected void validate(Region entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
+            ve.addError("locName", "required", "field_is_empty");
         }
+
 
         if (entity.getType() == null) {
             ve.addError("type", "required", "field_is_empty");

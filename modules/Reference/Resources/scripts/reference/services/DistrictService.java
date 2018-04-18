@@ -93,7 +93,7 @@ public class DistrictService extends ReferenceService<District> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setRegion(dto.getRegion());
 

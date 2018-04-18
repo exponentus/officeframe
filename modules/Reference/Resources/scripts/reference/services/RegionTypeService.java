@@ -1,22 +1,20 @@
 package reference.services;
 
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.scripting.SortParams;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.RegionTypeDAO;
 import reference.model.RegionType;
 import reference.model.constants.RegionCode;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("region-types")
 public class RegionTypeService extends ReferenceService<RegionType> {
@@ -37,7 +35,6 @@ public class RegionTypeService extends ReferenceService<RegionType> {
     }
 
 
-
     public Response save(RegionType dto) {
         _Session session = getSession();
 
@@ -54,7 +51,7 @@ public class RegionTypeService extends ReferenceService<RegionType> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setCode(dto.getCode());
 

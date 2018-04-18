@@ -1,22 +1,21 @@
 package reference.services;
 
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.scripting.SortParams;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
+import org.apache.commons.collections4.MapUtils;
 import reference.dao.DocumentLanguageDAO;
 import reference.model.DocumentLanguage;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("document-languages")
 public class DocumentLanguageService extends ReferenceService<DocumentLanguage> {
@@ -51,7 +50,7 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setCode(dto.getCode());
 
@@ -72,9 +71,10 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
     protected void validate(DocumentLanguage entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
+            ve.addError("locName", "required", "field_is_empty");
         }
+
 
         if (entity.getCode() == null) {
             ve.addError("code", "required", "field_is_empty");

@@ -5,6 +5,7 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
+import org.apache.commons.collections4.MapUtils;
 import reference.dao.AsOfDAO;
 import reference.model.AsOf;
 
@@ -55,6 +56,11 @@ public class AsOfService extends ReferenceService<AsOf> {
 
     protected void validate(AsOf entity) throws DTOException {
         DTOException ve = new DTOException();
+
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
+            ve.addError("locName", "required", "field_is_empty");
+        }
+
 
         if (entity.getAsOfByDate() == null) {
             ve.addError("asOfByDate", "date", "field_is_empty");

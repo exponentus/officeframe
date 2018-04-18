@@ -6,7 +6,6 @@ import com.exponentus.common.model.constants.ApprovalType;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -17,10 +16,12 @@ import reference.dto.converter.ApprovalRouteDtoConverter;
 import reference.model.ApprovalRoute;
 import reference.ui.ViewOptions;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("approval-routes")
 public class ApprovalRouteService extends ReferenceService<ApprovalRoute> {
@@ -71,23 +72,6 @@ public class ApprovalRouteService extends ReferenceService<ApprovalRoute> {
         }
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(ApprovalRoute dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, ApprovalRoute dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
-
     public Response save(ApprovalRoute dto) {
         _Session session = getSession();
 
@@ -104,7 +88,7 @@ public class ApprovalRouteService extends ReferenceService<ApprovalRoute> {
             }
 
             // fill from dto
-            entity.setName(dto.getName());
+            entity.setName(extractAnyNameValue(dto));
             entity.setOn(dto.isOn());
             entity.setVersionsSupport(dto.isVersionsSupport());
             entity.setCategory(dto.getCategory());
