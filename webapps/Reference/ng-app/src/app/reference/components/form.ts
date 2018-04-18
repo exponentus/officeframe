@@ -35,7 +35,8 @@ import { ReferenceService } from '../reference.service';
                 <div class="record-author" *ngIf="model.author">
                     <span>{{'author' | translate}}</span>
                     <span>{{model.author}}</span>
-                    <span>{{model.regDate}}</span>
+                    <br/>
+                    <span>{{model.lastModifiedDate}}</span>
                 </div>
             </footer>
         </form>
