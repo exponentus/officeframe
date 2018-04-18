@@ -1,9 +1,10 @@
 package integration.model;
 
+import com.exponentus.common.model.IModel;
 import com.exponentus.rest.services.ServiceClassDescriptor;
 import integration.init.ModuleConst;
 
-public class Service {
+public class Service implements IModel {
 
     private ServiceClassDescriptor descr;
 

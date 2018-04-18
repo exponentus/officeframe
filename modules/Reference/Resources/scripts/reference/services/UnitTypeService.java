@@ -32,19 +32,6 @@ public class UnitTypeService extends ReferenceService<UnitType> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            UnitType entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new UnitType();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                UnitTypeDAO dao = new UnitTypeDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
             Set<String> allCategories = new HashSet<String>();
             ModuleDAO dao = new ModuleDAO();
             allCategories.addAll(Arrays.asList(ModuleConst.UNIT_CATEGORIES));
@@ -55,14 +42,8 @@ public class UnitTypeService extends ReferenceService<UnitType> {
                     allCategories.addAll(Arrays.asList(categories));
                 }
             }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("unit_type");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
+            Outcome outcome = getDefaultRefFormOutcome(id);
             outcome.addPayload("unitCategories", allCategories);
-
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
@@ -107,7 +88,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
         }
     }
 
-    private void validate(UnitType entity) throws DTOException {
+    protected void validate(UnitType entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getLocName().size() == 0) {

@@ -14,47 +14,5 @@ import javax.ws.rs.core.Response;
 @Path("product-types")
 public class ProductTypeService extends ReferenceService<ProductType> {
 
-    public Response save(ProductType dto) {
-        _Session session = getSession();
 
-        try {
-            validate(dto);
-
-            ProductTypeDAO dao = new ProductTypeDAO(session);
-            ProductType entity;
-
-            if (dto.isNew()) {
-                entity = new ProductType();
-            } else {
-                entity = dao.findById(dto.getId());
-            }
-
-            // fill from dto
-            entity.setName(dto.getName());
-            entity.setLocName(dto.getLocName());
-
-            dao.save(entity);
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-
-            return Response.ok(outcome).build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        } catch (DTOException e) {
-            return responseValidationError(e);
-        }
-    }
-
-    private void validate(ProductType entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

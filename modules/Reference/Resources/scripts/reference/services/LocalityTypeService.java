@@ -22,53 +22,11 @@ import java.util.UUID;
 public class LocalityTypeService extends ReferenceService<LocalityType> {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getViewPage() {
-        _Session session = getSession();
-        IUser user = session.getUser();
-        WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
-
-        try {
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            LocalityTypeDAO dao = new LocalityTypeDAO(session);
-            ViewPage<LocalityType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            Outcome outcome = new Outcome();
-            outcome.setTitle("locality_types");
-            outcome.setPayloadTitle("locality_types");
-            outcome.addPayload(getDefaultViewActionBar(true));
-            outcome.addPayload(vp);
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            LocalityType entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new LocalityType();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                LocalityTypeDAO dao = new LocalityTypeDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("locality_type");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
+            Outcome outcome = getDefaultRefFormOutcome(id);
             outcome.addPayload("localityCodes", LocalityCode.values());
 
             return Response.ok(outcome).build();
@@ -77,22 +35,6 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
         }
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(LocalityType dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, LocalityType dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
 
     public Response save(LocalityType dto) {
         _Session session = getSession();
@@ -127,31 +69,5 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            LocalityTypeDAO dao = new LocalityTypeDAO(getSession());
-            LocalityType entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
 
-    private void validate(LocalityType entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

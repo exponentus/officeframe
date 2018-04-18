@@ -2,6 +2,7 @@ package reference.services;
 
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
@@ -22,58 +23,14 @@ import java.util.UUID;
 public class ControlTypeService extends ReferenceService<ControlType> {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getViewPage() {
-        _Session session = getSession();
-        IUser user = session.getUser();
-        WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
-
-        try {
-            Outcome outcome = new Outcome();
-
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            ControlTypeDAO dao = new ControlTypeDAO(session);
-            ViewPage<ControlType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            outcome.addPayload(getDefaultViewActionBar(true));
-            vp.setViewPageOptions(new ViewOptions().getControlTypeOptions());
-
-            outcome.setTitle("control_types");
-            outcome.setPayloadTitle("control_types");
-            outcome.addPayload(vp);
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            ControlType entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new ControlType();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-                entity.setDefaultHours(30);
-            } else {
-                ControlTypeDAO dao = new ControlTypeDAO(session);
-                entity = dao.findByIdentifier(id);
+            Outcome outcome = getDefaultRefFormOutcome(id);
+            if (((IAppEntity<UUID>)outcome.getModel()).isNew()){
+                ((ControlType)outcome.getModel()).setDefaultHours(30);
             }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("control_type");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
-
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
@@ -130,31 +87,4 @@ public class ControlTypeService extends ReferenceService<ControlType> {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            ControlTypeDAO dao = new ControlTypeDAO(getSession());
-            ControlType entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    private void validate(ControlType entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

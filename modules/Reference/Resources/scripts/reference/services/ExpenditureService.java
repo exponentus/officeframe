@@ -47,7 +47,7 @@ public class ExpenditureService extends ReferenceService<Expenditure> {
         }
     }
 
-    private void validate(Expenditure entity) throws DTOException {
+    protected void validate(Expenditure entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getCategory() == null) {

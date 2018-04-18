@@ -29,7 +29,6 @@ public class DistrictService extends ReferenceService<District> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
-        IUser user = session.getUser();
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
@@ -68,25 +67,8 @@ public class DistrictService extends ReferenceService<District> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            District entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new District();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                DistrictDAO dao = new DistrictDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            Outcome outcome = new Outcome();
+            Outcome outcome = getDefaultRefFormOutcome(id);
             outcome.addPayload("mapsApiKey", Environment.mapsApiKey);
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("district");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -94,22 +76,6 @@ public class DistrictService extends ReferenceService<District> {
         }
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(District dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, District dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
 
     public Response save(District dto) {
         _Session session = getSession();
@@ -144,15 +110,5 @@ public class DistrictService extends ReferenceService<District> {
         }
     }
 
-    private void validate(District entity) throws DTOException {
-        DTOException ve = new DTOException();
 
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

@@ -47,7 +47,7 @@ public class RevenueService extends ReferenceService<Revenue> {
         }
     }
 
-    private void validate(Revenue entity) throws DTOException {
+    protected void validate(Revenue entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getCategory() == null) {

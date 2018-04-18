@@ -21,78 +21,6 @@ import java.util.UUID;
 @Path("document-types")
 public class DocumentTypeService extends ReferenceService<DocumentType> {
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getViewPage() {
-        _Session session = getSession();
-        IUser user = session.getUser();
-        WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
-
-        try {
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            DocumentTypeDAO dao = new DocumentTypeDAO(session);
-            ViewPage<DocumentType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            vp.setViewPageOptions(new ViewOptions().getDocumentTypeOptions());
-
-            Outcome outcome = new Outcome();
-            outcome.setTitle("doc_types");
-            outcome.setPayloadTitle("doc_types");
-            outcome.addPayload(getDefaultViewActionBar(true));
-            outcome.addPayload(vp);
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") String id) {
-        try {
-            _Session session = getSession();
-            DocumentType entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new DocumentType();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                DocumentTypeDAO dao = new DocumentTypeDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("doc_type");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(DocumentType dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, DocumentType dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
 
     public Response save(DocumentType dto) {
         _Session session = getSession();
@@ -128,23 +56,8 @@ public class DocumentTypeService extends ReferenceService<DocumentType> {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            DocumentTypeDAO dao = new DocumentTypeDAO(getSession());
-            DocumentType entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
 
-    private void validate(DocumentType entity) throws DTOException {
+    protected void validate(DocumentType entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {

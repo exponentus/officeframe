@@ -14,47 +14,5 @@ import javax.ws.rs.core.Response;
 @Path("project-stages")
 public class ProjectStageService extends ReferenceService<ProjectStage> {
 
-    public Response save(ProjectStage dto) {
-        _Session session = getSession();
 
-        try {
-            validate(dto);
-
-            ProjectStageDAO dao = new ProjectStageDAO(session);
-            ProjectStage entity;
-
-            if (dto.isNew()) {
-                entity = new ProjectStage();
-            } else {
-                entity = dao.findById(dto.getId());
-            }
-
-            // fill from dto
-            entity.setName(dto.getName());
-            entity.setLocName(dto.getLocName());
-
-            dao.save(entity);
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-
-            return Response.ok(outcome).build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        } catch (DTOException e) {
-            return responseValidationError(e);
-        }
-    }
-
-    private void validate(ProjectStage entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

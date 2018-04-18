@@ -57,53 +57,6 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
         }
     }
 
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") String id) {
-        try {
-            _Session session = getSession();
-            IndustryType entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new IndustryType();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                IndustryTypeDAO dao = new IndustryTypeDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("industry_type");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(IndustryType dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, IndustryType dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
-
     public Response save(IndustryType dto) {
         _Session session = getSession();
 
@@ -137,7 +90,7 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
         }
     }
 
-    private void validate(IndustryType entity) throws DTOException {
+    protected void validate(IndustryType entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {

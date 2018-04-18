@@ -23,7 +23,7 @@ import javax.ws.rs.core.Response;
 import java.util.UUID;
 
 @Path("approval-routes")
-public class ApprovalRouteService extends RestProvider {
+public class ApprovalRouteService extends ReferenceService<ApprovalRoute> {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,24 +59,7 @@ public class ApprovalRouteService extends RestProvider {
     public Response getById(@PathParam("id") String id) {
         try {
             _Session session = getSession();
-            ApprovalRoute entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new ApprovalRoute();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-                entity.setSchema(ApprovalSchemaType.REJECT_IF_NO);
-            } else {
-                ApprovalRouteDAO dao = new ApprovalRouteDAO(session);
-                entity = dao.findById(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("approval_route");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
+            Outcome outcome = getDefaultRefFormOutcome(id);
             // include
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             outcome.addPayload("approvalSchemaTypes", ApprovalSchemaType.values());
@@ -143,31 +126,5 @@ public class ApprovalRouteService extends RestProvider {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            ApprovalRouteDAO dao = new ApprovalRouteDAO(getSession());
-            ApprovalRoute entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
 
-    private void validate(ApprovalRoute entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

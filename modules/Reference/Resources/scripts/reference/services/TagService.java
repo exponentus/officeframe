@@ -63,19 +63,6 @@ public class TagService extends ReferenceService<Tag> {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            Tag entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new Tag();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                TagDAO dao = new TagDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
             Set<String> allTagCategories = new HashSet<String>();
             ModuleDAO dao = new ModuleDAO();
             allTagCategories.addAll(Arrays.asList(ModuleConst.TAG_CATEGORIES));
@@ -86,35 +73,12 @@ public class TagService extends ReferenceService<Tag> {
                     allTagCategories.addAll(Arrays.asList(availableTagCategories));
                 }
             }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("tag");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
+            Outcome outcome = getDefaultRefFormOutcome(id);
             outcome.addPayload("tagCategories", allTagCategories);
-
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(Tag dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, Tag dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
     }
 
     public Response save(Tag dto) {
@@ -152,31 +116,5 @@ public class TagService extends ReferenceService<Tag> {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            TagDAO dao = new TagDAO(getSession());
-            Tag entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
 
-    private void validate(Tag entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 }

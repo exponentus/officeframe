@@ -1,97 +1,19 @@
 package reference.services;
 
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.scripting.SortParams;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.TaskTypeDAO;
 import reference.model.TaskType;
 
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("task-types")
-public class TaskTypeService extends RestProvider {
+public class TaskTypeService extends ReferenceService<TaskType> {
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getViewPage() {
-        _Session session = getSession();
-        IUser user = session.getUser();
-        WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
-
-        try {
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            TaskTypeDAO dao = new TaskTypeDAO(session);
-            ViewPage<TaskType> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-
-            Outcome outcome = new Outcome();
-            outcome.setTitle("task_types");
-            outcome.setPayloadTitle("task_types");
-            outcome.addPayload(getDefaultViewActionBar(true));
-            outcome.addPayload(vp);
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @GET
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getById(@PathParam("id") String id) {
-        try {
-            _Session session = getSession();
-            TaskType entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new TaskType();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                TaskTypeDAO dao = new TaskTypeDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("task_type");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(TaskType dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, TaskType dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
 
     public Response save(TaskType dto) {
         _Session session = getSession();
@@ -126,23 +48,7 @@ public class TaskTypeService extends RestProvider {
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            TaskTypeDAO dao = new TaskTypeDAO(getSession());
-            TaskType entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    private void validate(TaskType entity) throws DTOException {
+    protected void validate(TaskType entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {

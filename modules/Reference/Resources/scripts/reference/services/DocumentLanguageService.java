@@ -22,77 +22,18 @@ import java.util.UUID;
 public class DocumentLanguageService extends ReferenceService<DocumentLanguage> {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getViewPage() {
-        _Session session = getSession();
-        IUser user = session.getUser();
-        WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
-
-        try {
-            Outcome outcome = new Outcome();
-
-            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
-            DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
-            ViewPage<DocumentLanguage> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-            outcome.addPayload(getDefaultViewActionBar(true));
-            outcome.setTitle("doc_languages");
-            outcome.setPayloadTitle("doc_languages");
-            outcome.addPayload(vp);
-
-            return Response.ok(outcome).build();
-        } catch (DAOException e) {
-            return responseException(e);
-        }
-    }
-
-    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            DocumentLanguage entity;
-            boolean isNew = "new".equals(id);
-
-            if (isNew) {
-                entity = new DocumentLanguage();
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                DocumentLanguageDAO dao = new DocumentLanguageDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle("doc_language");
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
+            Outcome outcome = getDefaultRefFormOutcome(id);
             outcome.addPayload("languageCodes", LanguageCode.values());
-
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
     }
 
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(DocumentLanguage dto) {
-        dto.setId(null);
-        return save(dto);
-    }
-
-    @PUT
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") String id, DocumentLanguage dto) {
-        dto.setId(UUID.fromString(id));
-        return save(dto);
-    }
 
     public Response save(DocumentLanguage dto) {
         _Session session = getSession();
@@ -127,23 +68,8 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
         }
     }
 
-    @DELETE
-    @Path("{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@PathParam("id") String id) {
-        try {
-            DocumentLanguageDAO dao = new DocumentLanguageDAO(getSession());
-            DocumentLanguage entity = dao.findById(id);
-            if (entity != null) {
-                dao.delete(entity);
-            }
-            return Response.noContent().build();
-        } catch (SecureException | DAOException e) {
-            return responseException(e);
-        }
-    }
 
-    private void validate(DocumentLanguage entity) throws DTOException {
+    protected void validate(DocumentLanguage entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {

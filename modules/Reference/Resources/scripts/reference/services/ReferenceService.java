@@ -5,6 +5,7 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
+import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.IExternalService;
 import com.exponentus.localization.constants.LanguageCode;
@@ -16,7 +17,11 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
+import com.exponentus.user.IUser;
 import com.exponentus.util.StringUtil;
+import org.apache.commons.collections4.MapUtils;
+import reference.model.ApprovalRoute;
+import staff.dao.EmployeeDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -57,33 +62,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("id") String id) {
         try {
-            _Session session = getSession();
-            T entity;
-            boolean isNew = "new".equals(id);
-            Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
-            if (isNew) {
-                try {
-                    Class<T> clazz = entityClass;
-                    entity = clazz.newInstance();
-                } catch (InstantiationException | IllegalAccessException e) {
-                    Lg.exception(e);
-                    return null;
-                }
-                entity.setName("");
-                entity.setAuthor(session.getUser());
-            } else {
-                IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
-                entity = dao.findById(id);
-            }
-
-            Outcome outcome = new Outcome();
-            outcome.setModel(entity);
-            outcome.setPayloadTitle(StringUtil.kindToKeyword(entity.getEntityKind()));
-            outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(getDefaultFormActionBar(entity));
-
-            return Response.ok(outcome).build();
+            return Response.ok(getDefaultRefFormOutcome(id)).build();
         } catch (DAOException e) {
             return responseException(e);
         }
@@ -160,17 +139,6 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         }
     }
 
-    private void validate(T entity) throws DTOException {
-        DTOException ve = new DTOException();
-
-        if (entity.getName() == null || entity.getName().isEmpty()) {
-            ve.addError("name", "required", "field_is_empty");
-        }
-
-        if (ve.hasError()) {
-            throw ve;
-        }
-    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -197,6 +165,19 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
     }
 
 
+    protected void validate(T entity) throws DTOException {
+        DTOException ve = new DTOException();
+
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
+            ve.addError("locName", "required", "field_is_empty");
+        }
+
+        if (ve.hasError()) {
+            throw ve;
+        }
+    }
+
+
     protected static String extractAnyNameValue(SimpleReferenceEntity dto) {
         String name = dto.getName();
         if (name.isEmpty()) {
@@ -210,4 +191,39 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         }
     }
 
+    protected Outcome getDefaultRefFormOutcome(String id) throws DAOException {
+        _Session session = getSession();
+        IUser user = session.getUser();
+        T entity;
+        String author;
+        EmployeeDAO employeeDAO = new EmployeeDAO(session);
+        boolean isNew = "new".equals(id);
+        Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+
+        if (isNew) {
+            try {
+                Class<T> clazz = entityClass;
+                entity = clazz.newInstance();
+                author = employeeDAO.getUserName(user);
+            } catch (InstantiationException | IllegalAccessException e) {
+                Lg.exception(e);
+                return null;
+            }
+            entity.setName("");
+            entity.setAuthor(session.getUser());
+        } else {
+            IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
+            entity = dao.findById(id);
+            author = employeeDAO.getUserName(entity.getAuthor());
+        }
+
+        Outcome outcome = new Outcome();
+        outcome.setModel(entity);
+        outcome.setPayloadTitle(StringUtil.kindToKeyword(entity.getEntityKind()));
+        outcome.setFSID(getWebFormData().getFormSesId());
+        outcome.addPayload(getDefaultFormActionBar(entity));
+        outcome.addPayload("author", author);
+
+        return outcome;
+    }
 }
