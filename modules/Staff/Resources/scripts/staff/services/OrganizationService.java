@@ -1,5 +1,6 @@
 package staff.services;
 
+import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
@@ -107,13 +108,7 @@ public class OrganizationService extends StaffService<Organization> {
                 entity.setAuthor(session.getUser());
             } else {
                 OrganizationDAO dao = new OrganizationDAO(session);
-                entity = dao.findByIdentifier(id);
-            }
-
-            ActionBar actionBar = new ActionBar(session);
-            actionBar.addAction(new Action().close);
-            if (session.getUser().isSuperUser() || session.getUser().getRoles().contains(ROLE_STAFF_ADMIN)) {
-                actionBar.addAction(new Action().saveAndClose);
+                entity = dao.findById(id);
             }
 
             Outcome outcome = new Outcome();
@@ -121,7 +116,7 @@ public class OrganizationService extends StaffService<Organization> {
             outcome.setModel(entity);
             outcome.setPayloadTitle("organization");
             outcome.setFSID(getWebFormData().getFormSesId());
-            outcome.addPayload(actionBar);
+            outcome.addPayload(getDefaultFormActionBar(entity));
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
