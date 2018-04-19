@@ -23,6 +23,7 @@ import { StaffService } from '../../staff.service';
 export class RoleFormComponent extends AbstractFormPage<IEntity> {
 
     STAFF_URL = STAFF_URL;
+    languages: any = {};
 
     constructor(
         public route: ActivatedRoute,
@@ -35,5 +36,6 @@ export class RoleFormComponent extends AbstractFormPage<IEntity> {
         public calendarService: StaffService
     ) {
         super(route, router, ngxTranslate, notifyService, nbModalService, appService, actionService, calendarService);
+        this.languages = this.appService.languages;
     }
 }

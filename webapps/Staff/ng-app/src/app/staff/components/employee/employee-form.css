@@ -24,6 +24,8 @@
     border-radius: .25rem;
     display: flex;
     flex-direction: column;
+    padding: 0;
+    outline: none;
 }
 
 :host-context() /deep/ .fieldset-user-avatar .attachment-list {
@@ -41,6 +43,9 @@
 }
 
 :host-context() /deep/ .fieldset-user-avatar .attachment {
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, .1);
+    border-bottom: 0;
     max-width: none;
 }
 
@@ -59,6 +64,7 @@
 }
 
 :host-context() /deep/ .fieldset-user-avatar .btn.btn-upload {
+    border-width: 0 1px 1px;
     width: 100%;
 }
 

@@ -3,7 +3,6 @@ package staff.services;
 import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.ui.ViewPage;
-import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.exception.SecureException;
@@ -17,7 +16,6 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.StringUtil;
-import staff.ui.Action;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -25,8 +23,6 @@ import javax.ws.rs.core.Response;
 import java.lang.reflect.ParameterizedType;
 import java.util.Map;
 import java.util.UUID;
-
-import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 public abstract class StaffService<T extends SimpleReferenceEntity> extends RestProvider implements IExternalService {
 
@@ -38,14 +34,14 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
-        Outcome outcome = new Outcome();
-
         SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
         ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-        outcome.addPayload(getDefaultViewActionBar(true));
         String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
+
+        Outcome outcome = new Outcome();
+        outcome.addPayload(getDefaultViewActionBar(true));
         outcome.setTitle(keyword);
         outcome.setPayloadTitle(keyword);
         outcome.addPayload(vp);
@@ -92,13 +88,11 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
 
-
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
     }
-
 
     @GET
     @Path("id/{id}")
@@ -187,7 +181,6 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
         }
     }
 
-
     protected void validate(T entity) throws DTOException {
         DTOException ve = new DTOException();
 
@@ -199,5 +192,4 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             throw ve;
         }
     }
-
 }
