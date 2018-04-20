@@ -3,13 +3,13 @@ package staff.services;
 import administrator.dao.UserDAO;
 import administrator.model.User;
 import com.exponentus.common.model.embedded.Avatar;
-import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.log.Lg;
+import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scheduler.tasks.TempFileCleaner;
@@ -24,7 +24,6 @@ import org.apache.commons.io.FileUtils;
 import staff.dao.EmployeeDAO;
 import staff.dao.RoleDAO;
 import staff.dao.filter.EmployeeFilter;
-import staff.domain.EmployeeDomain;
 import staff.dto.converter.EmployeeDtoConverter;
 import staff.model.Employee;
 import staff.model.Role;
@@ -43,7 +42,7 @@ import java.util.stream.Collectors;
 import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 @Path("employees")
-public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
+public class EmployeeService extends RestProvider {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -166,7 +165,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         }
     }
 
-    @Override
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
@@ -175,7 +173,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         return save(dto);
     }
 
-    @Override
     @PUT
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -183,12 +180,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
     public Response update(@PathParam("id") String id, Employee dto) {
         dto.setId(UUID.fromString(id));
         return save(dto);
-    }
-
-    @Override
-    public Response saveForm(Employee dto) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     public Response save(Employee dto) {
@@ -266,7 +257,6 @@ public class EmployeeService extends EntityService<Employee, EmployeeDomain> {
         }
     }
 
-    @Override
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)

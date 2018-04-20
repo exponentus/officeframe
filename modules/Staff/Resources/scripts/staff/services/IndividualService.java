@@ -1,11 +1,11 @@
 package staff.services;
 
 import com.exponentus.common.domain.IValidation;
-import com.exponentus.common.service.EntityService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
+import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -15,16 +15,12 @@ import com.exponentus.user.IUser;
 import reference.model.OrgCategory;
 import staff.dao.IndividualDAO;
 import staff.dao.filter.IndividualFilter;
-import staff.domain.IndividualDomain;
 import staff.model.Individual;
 import staff.model.IndividualLabel;
 import staff.ui.Action;
 import staff.ui.ViewOptions;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -34,7 +30,7 @@ import java.util.UUID;
 import static staff.init.ModuleConst.ROLE_STAFF_ADMIN;
 
 @Path("individuals")
-public class IndividualService extends EntityService<Individual, IndividualDomain> {
+public class IndividualService extends RestProvider {
 
     public static IndividualFilter setUpFilter(IndividualFilter filter, WebFormData params) {
         String orgCategoryId = params.getValueSilently("orgCategory");
@@ -134,16 +130,67 @@ public class IndividualService extends EntityService<Individual, IndividualDomai
         }
     }
 
-    @Override
-    public Response saveForm(Individual dto) {
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response add(Individual dto) {
+        dto.setId(null);
+        return save(dto);
+    }
+
+    @PUT
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@PathParam("id") String id, Individual dto) {
+        dto.setId(UUID.fromString(id));
+        return save(dto);
+    }
+
+    public Response save(Individual dto) {
         try {
-            IndividualDomain domain = new IndividualDomain(getSession());
-            Individual entity = domain.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
-            domain.save(entity);
-            return Response.ok(domain.getOutcome(entity)).build();
+            new Validation().check(dto);
+
+            IndividualDAO individualDAO = new IndividualDAO(getSession());
+            Individual entity;
+
+            if (dto.isNew()) {
+                entity = new Individual();
+            } else {
+                entity = individualDAO.findById(dto.getId());
+            }
+
+            // fill from dto
+            entity.setName(dto.getName());
+            entity.setLocName(dto.getLocName());
+            entity.setBin(dto.getBin());
+            entity.setLabels(dto.getLabels());
+
+            individualDAO.save(entity);
+
+            Outcome outcome = new Outcome();
+            outcome.setModel(entity);
+
+            return Response.ok(outcome).build();
         } catch (DTOException e) {
             return responseValidationError(e);
         } catch (DAOException | SecureException e) {
+            return responseException(e);
+        }
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response delete(@PathParam("id") String id) {
+        try {
+            IndividualDAO dao = new IndividualDAO(getSession());
+            Individual entity = dao.findById(id);
+            if (entity != null) {
+                dao.delete(entity);
+            }
+            return Response.noContent().build();
+        } catch (SecureException | DAOException e) {
             return responseException(e);
         }
     }
