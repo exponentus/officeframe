@@ -9,13 +9,17 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__demand_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__demand_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "DemandType.findAll", query = "SELECT m FROM DemandType AS m ORDER BY m.regDate")
 public class DemandType extends SimpleReferenceEntity {
     public String prefix;
 
     public String getPrefix() {
-        return prefix;
+        if (prefix != null) {
+            return prefix;
+        } else {
+            return name;
+        }
     }
 
     public void setPrefix(String prefix) {
@@ -24,6 +28,6 @@ public class DemandType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "demand-types/" + getIdentifier();
+        return ModuleConst.BASE_URL + "demand-types/" + getId();
     }
 }

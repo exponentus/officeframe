@@ -5,7 +5,6 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
-import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.IExternalService;
 import com.exponentus.localization.constants.LanguageCode;
@@ -20,7 +19,6 @@ import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import com.exponentus.util.StringUtil;
 import org.apache.commons.collections4.MapUtils;
-import reference.model.ApprovalRoute;
 import staff.dao.EmployeeDAO;
 
 import javax.ws.rs.*;
@@ -186,7 +184,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
                 return latName;
             }
             return StringUtil.getRndText();
-        }else{
+        } else {
             return name;
         }
     }
