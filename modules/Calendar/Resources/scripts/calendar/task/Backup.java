@@ -5,7 +5,6 @@ import calendar.model.Event;
 import calendar.model.Reminder;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.dao.DAOFactory;
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.env.EnvConst;
@@ -20,6 +19,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -35,15 +35,15 @@ public class Backup extends Do {
 
     private void backup(_Session ses, Class class1) {
         System.out.println("Backup " + class1.getSimpleName() + "...");
-        final File tmp = new File(EnvConst.BACKUP_DIR  + File.separator + class1.getSimpleName());
+        final File tmp = new File(EnvConst.BACKUP_DIR + File.separator + class1.getSimpleName());
         if (!tmp.exists()) {
             tmp.mkdir();
         }
 
         IDAO<IAppEntity, UUID> dao = DAOFactory.get(ses, class1.getCanonicalName());
-        ViewPage<IAppEntity> vp = dao.findAll();
-        System.out.println("Found " + vp.getCount() + " records");
-        for (IAppEntity entity : vp.getResult()) {
+        List<IAppEntity> list = dao.findAll();
+        System.out.println("Found " + list.size() + " records");
+        for (IAppEntity entity : list) {
             FileWriter writer = getFile(class1, tmp.getAbsolutePath(), entity.getId().toString());
             try {
                 System.out.println(">write " + entity.getId());
@@ -57,7 +57,6 @@ public class Backup extends Do {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
             }
         }
 
@@ -68,7 +67,6 @@ public class Backup extends Do {
         }*/
 
         System.out.println(class1.getName() + " backup was created successfully");
-
     }
 
     private FileWriter getFile(Class<?> class1, String baseDir, String id) {
@@ -80,7 +78,6 @@ public class Backup extends Do {
             e.printStackTrace();
         }
         return null;
-
     }
 
     private void pack(String sourceDirPath, String zipFilePath) throws IOException {
@@ -101,5 +98,4 @@ public class Backup extends Do {
                     });
         }
     }
-
 }

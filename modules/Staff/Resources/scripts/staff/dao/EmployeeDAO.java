@@ -37,7 +37,7 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
 
     public ViewPage<Employee> findAll(boolean reloadCache) {
         if (allEmployee == null || reloadCache) {
-            allEmployee = findAll(0, 0);
+            allEmployee = findViewPage(0, 0);
             allEmployeeMap = new HashMap<UUID, Employee>();
             allEmployeeId = new HashMap<Long, Employee>();
             for (Employee e : allEmployee.getResult()) {

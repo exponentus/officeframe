@@ -26,7 +26,7 @@ public class FillStreets extends Do {
 
         try {
             LocalityDAO cDao = new LocalityDAO(ses);
-            Locality d = cDao.findAll().getFirstEntity();
+            Locality d = cDao.findAll().get(0);
             if (d != null) {
                 String[] data = {"Champs Elysées", "La Rambla", "Fifth Avenue", "Via Appia", "Zeil", "Abbey Road",
                         "Khao San", "Rua Augusta"};
@@ -71,5 +71,4 @@ public class FillStreets extends Do {
         }
         logger.info("done...");
     }
-
 }

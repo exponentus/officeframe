@@ -3,7 +3,6 @@ package staff.services.helper;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.init.DefaultDataConst;
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.dataengine.jpa.ISecureAppEntity;
@@ -15,6 +14,7 @@ import staff.dao.RoleDAO;
 import staff.model.Employee;
 import staff.model.Role;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -38,8 +38,8 @@ public class RoleProcessor {
                 if (emp.getRoles().contains(role)) {
                     for (String clazzName : env.getAllEntities()) {
                         IDAO<ISecureAppEntity, UUID> dao = DAOFactory.get(ses, clazzName);
-                        ViewPage<ISecureAppEntity> vp = dao.findAll();
-                        for (ISecureAppEntity entity : vp.getResult()) {
+                        List<ISecureAppEntity> list = dao.findAll();
+                        for (ISecureAppEntity entity : list) {
                             entity.addReader(emp.getUser());
                             Lg.debug(emp.getLogin() + " added as a reader to: " + entity.getEntityKind() + " " + entity.getId());
                             dao.update(entity);
@@ -49,7 +49,6 @@ public class RoleProcessor {
                 }
                 Lg.info(emp.getLogin() + " added as a reader in " + count + " documents");
             }
-
         }
     }
 }

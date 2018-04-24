@@ -41,9 +41,9 @@ public class GenerateTestEmployees extends Do {
         List<Employee> entities = new ArrayList<Employee>();
         if (checkNecessaryFiles()) {
             try {
-                ViewPage<Organization> orgs = new OrganizationDAO(ses).findAll();
-                if (orgs.getCount() > 0) {
-                    Organization org = orgs.getResult().get(1);
+                List<Organization> orgs = new OrganizationDAO(ses).findAll();
+                if (!orgs.isEmpty()) {
+                    Organization org = orgs.get(0);
                     UserDAO uDao = new UserDAO();
                     List<User> users = uDao.findAll();
                     int rCount = users.size();
@@ -100,14 +100,14 @@ public class GenerateTestEmployees extends Do {
         try {
             emp.setOrganization(o);
             RoleDAO roleDao = new RoleDAO(ses);
-            List<Role> rl = roleDao.findAll().getResult();
+            List<Role> rl = roleDao.findAll();
             Role role = EnumUtil.getRndElement(rl);
             if (role != null) {
                 emp.addRole(role);
             }
 
             PositionDAO postDao = new PositionDAO(ses);
-            List<Position> posts = postDao.findAll().getResult();
+            List<Position> posts = postDao.findAll();
             emp.setPosition(EnumUtil.getRndElement(posts));
 
         } catch (DAOException e) {

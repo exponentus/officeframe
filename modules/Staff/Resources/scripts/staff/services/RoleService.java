@@ -93,7 +93,7 @@ public class RoleService extends RestProvider {
             Set<String> allRoles = new HashSet<String>();
             ModuleDAO dao = new ModuleDAO();
             allRoles.addAll(Arrays.asList(ModuleConst.ROLES));
-            List<Application> apps = dao.findAll().getResult();
+            List<Application> apps = dao.findAll();
             for (Application app : apps) {
                 if (app.isOn()) {
                     Object rolesObj = app.getAvailableRoles();

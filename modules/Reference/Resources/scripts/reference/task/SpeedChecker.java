@@ -26,7 +26,7 @@ public class SpeedChecker extends Do {
                 for (int i = 0; i < iteration; i++) {
                     cached = 0;
                     notCached = 0;
-                    list = dao.findAll().getResult();
+                    list = dao.findAll();
                     for (Tag tag : list) {
                         if (dao.isCached(tag)) {
                             cached++;
@@ -56,7 +56,5 @@ public class SpeedChecker extends Do {
         long end_time = System.nanoTime();
         System.out.println("done");
         System.out.println("speed=" + (end_time - start_time) / 1e6);
-
     }
-
 }

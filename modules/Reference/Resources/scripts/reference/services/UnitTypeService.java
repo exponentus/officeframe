@@ -35,7 +35,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
             Set<String> allCategories = new HashSet<String>();
             ModuleDAO dao = new ModuleDAO();
             allCategories.addAll(Arrays.asList(ModuleConst.UNIT_CATEGORIES));
-            List<Application> modules = dao.findAll().getResult();
+            List<Application> modules = dao.findAll();
             for (Application module : modules) {
                 if (module.isOn()) {
                     String[] categories = (String[]) ReflectionUtil.getAppConstValue(module.getName(), "UNIT_CATEGORIES");
@@ -49,7 +49,6 @@ public class UnitTypeService extends ReferenceService<UnitType> {
             return responseException(e);
         }
     }
-
 
     @Override
     public Response save(UnitType dto) {

@@ -40,7 +40,7 @@ public class BackupOfficeframe extends Do {
         FileWriter fileWriter = getFile(class1);
         try {
             IDAO<?, UUID> dao = DAOFactory.get(ses, class1.getCanonicalName());
-            fileWriter.append(mapper.writeValueAsString(dao.findAll().getResult()));
+            fileWriter.append(mapper.writeValueAsString(dao.findAll()));
             System.out.println(class1.getName() + " backup was created successfully");
         } catch (Exception e) {
             e.printStackTrace();
