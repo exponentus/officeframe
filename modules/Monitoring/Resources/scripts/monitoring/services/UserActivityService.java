@@ -119,7 +119,7 @@ public class UserActivityService extends RestProvider {
                         for (Class<IAppEntity<UUID>> clazz : ReflectionUtil.getAllAppEntities(application.getName().toLowerCase() + ".model")) {
                             IDAO idao = DAOFactory.get(ses, clazz);
                             if (idao != null) {
-                                ViewPage viewPage = idao.findAllequal("author", user, 0, 0);
+                                ViewPage viewPage = idao.findAllEqual("author", user, 0, 0);
                                 if (viewPage != null) {
                                     totalCount += viewPage.getCount();
                                 }

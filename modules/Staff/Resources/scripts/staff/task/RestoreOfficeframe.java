@@ -190,7 +190,7 @@ public class RestoreOfficeframe extends Do {
                         newEntity.setOrganization(list.get(1));
                     }
                     List<Department> depList = new DepartmentDAO(ses)
-                            .findAllequal("name", newEntity.getDepartment().getName(), 1, 1).getResult();
+                            .findAllEqual("name", newEntity.getDepartment().getName(), 1, 1).getResult();
                     if (depList.size() > 0) {
                         newEntity.setDepartment(depList.get(1));
                     }
