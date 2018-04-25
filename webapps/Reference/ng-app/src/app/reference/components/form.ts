@@ -65,8 +65,8 @@ export class ReferenceFormComponent extends AbstractFormPage<IEntity> {
     }
 
     // @Override
-    loadDataSuccess(data: IApiOutcome) {
-        super.loadDataSuccess(data);
+    onLoadDataSuccess(data: IApiOutcome) {
+        super.onLoadDataSuccess(data);
         this.formSchema = this.referenceService.getFormSchema(this.model.kind);
         this.payload = data.payload;
         this.model.editable = this.actions.filter(it => it.customID === 'save_and_close').length > 0;

@@ -39,8 +39,8 @@ export class ReportProfileComponent extends AbstractFormPage<ReportProfile> {
     }
 
     // @Override
-    loadDataSuccess(data: IApiOutcome) {
-        super.loadDataSuccess(data);
+    onLoadDataSuccess(data: IApiOutcome) {
+        super.onLoadDataSuccess(data);
         this.data = {
             entityClassNames: data.payload.entityClassNames,
             reportProfileClassNames: data.payload.reportProfileClassNames,
