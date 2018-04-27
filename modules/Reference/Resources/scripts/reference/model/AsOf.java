@@ -6,7 +6,6 @@ import com.exponentus.scripting._Session;
 import com.exponentus.util.TimeUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import reference.init.ModuleConst;
-import reference.model.constants.LocalityCode;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -50,7 +49,7 @@ public class AsOf extends SimpleReferenceEntity {
                 Lg.exception(e);
             }
             return true;
-        }else{
+        } else {
             return false;
         }
     }
