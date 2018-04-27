@@ -2,6 +2,7 @@ package staff.dto.converter;
 
 import administrator.model.User;
 import com.exponentus.common.dto.converter.GenericConverter;
+import com.exponentus.common.model.embedded.Avatar;
 import reference.model.Position;
 import staff.model.Employee;
 
@@ -35,6 +36,9 @@ public class EmployeeDtoConverter implements GenericConverter<Employee, Employee
         if (fields != null) {
             for (String fieldName : fields) {
 
+            }
+            if (entity.getAvatar() != null) {
+                dto.setAvatar(new Avatar());
             }
         } else {
             if (entity.getPosition() != null) {
