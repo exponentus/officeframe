@@ -19,10 +19,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import reference.model.Tag;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
@@ -34,17 +31,21 @@ import java.util.UUID;
 public class EventService extends EntityService<Event, EventDomain> {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
+        EventFilter eventFilter = new EventFilter();
+        setupFilter(eventFilter, getWebFormData());
+
+        return getViewPage(eventFilter);
+    }
+
+    @POST
+    public Response getViewPage(EventFilter eventFilter) {
         _Session session = getSession();
         WebFormData params = getWebFormData();
         int pageSize = params.getNumberValueSilently("limit", session.getPageSize());
+        SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("sort", "-eventTime"));
 
         try {
-            EventFilter eventFilter = new EventFilter();
-            setupFilter(eventFilter, params);
-
-            SortParams sortParams = SortParams.valueOf(params.getStringValueSilently("sort", "-eventTime"));
             EventDAO dao = new EventDAO(session);
             ViewPage<Event> vp = dao.findViewPage(eventFilter, sortParams, params.getPage(), pageSize);
             vp.setResult(new EventDtoConverter().convert(vp.getResult()));

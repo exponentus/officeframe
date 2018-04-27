@@ -28,7 +28,6 @@ import javax.ws.rs.core.Response;
 public class ReminderService extends EntityService<Reminder, ReminderDomain> {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public Response getViewPage() {
         _Session session = getSession();
         WebFormData params = getWebFormData();

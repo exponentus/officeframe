@@ -185,10 +185,8 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 parameters.put(JRParameter.REPORT_VIRTUALIZER, virtualizer);
 
                 LanguageCode lang = session.getLang();
-
                 IDataObtainer obtainer = null;
                 List result = new ArrayList<>();
-
 
                 switch (profile.getReportQueryType()) {
                     case ENTITY_REQUEST:
@@ -226,7 +224,6 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
 
                 parameters.put("title", obtainer.getTitle());
                 parameters.put("details", obtainer.getDetails());
-
 
                 JRBeanCollectionDataSource dSource = new JRBeanCollectionDataSource(result);
                 JasperPrint print = JasperFillManager
@@ -270,7 +267,6 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     exporter.setExporterInput(new SimpleExporterInput(print));
                     exporter.exportReport();
 
-
                     File someFile = new File(filePath);
                     if (needToWriteStream) {
                         FileOutputStream fos = null;
@@ -290,7 +286,6 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                     System.out.println(val);
                     return Response.ok(someFile, MediaType.APPLICATION_OCTET_STREAM).
                             header("Content-Disposition", "attachment; filename*=\"utf-8'" + codedFileName + "\"").build();
-
                 } catch (Exception e) {
                     return responseException(e);
                 } finally {
