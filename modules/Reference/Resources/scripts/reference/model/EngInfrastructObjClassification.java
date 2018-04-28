@@ -17,6 +17,6 @@ public class EngInfrastructObjClassification extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "eng-infrastruct-obj-classifications/" + getIdentifier();
+        return ModuleConst.BASE_URL + "eng-infrastruct-obj-classifications/" + getId();
     }
 }

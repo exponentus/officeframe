@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Customizer(NamingCustomizer.class)
-@Table(name = "ref__building_materials", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__building_materials", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "BuildingMaterial.findAll", query = "SELECT m FROM BuildingMaterial AS m ORDER BY m.regDate")
 public class BuildingMaterial extends SimpleReferenceEntity {
 
@@ -47,6 +47,6 @@ public class BuildingMaterial extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "building-materials/" + getIdentifier();
+        return ModuleConst.BASE_URL + "building-materials/" + getId();
     }
 }

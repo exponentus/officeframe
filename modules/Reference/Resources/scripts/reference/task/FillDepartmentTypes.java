@@ -25,7 +25,7 @@ public class FillDepartmentTypes extends Do {
         List<DepartmentType> entities = new ArrayList<>();
         String[] data = {"Department", "Sector", "Group", "Management"};
         String[] dataRus = {"Департамент", "Сектор", "Группа", "Управление"};
-        String[] dataKaz = {"Департамент", "Сектор", "Группа", "Управление"};
+        String[] dataKaz = {"Бөлім", "Сектор", "Топ", "Менеджмент"};
 
         for (int i = 0; i < data.length; i++) {
             DepartmentType entity = new DepartmentType();
