@@ -193,7 +193,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         _Session session = getSession();
         IUser user = session.getUser();
         T entity;
-        String author;
+        String author = "";
         EmployeeDAO employeeDAO = new EmployeeDAO(session);
         boolean isNew = "new".equals(id);
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -212,7 +212,10 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         } else {
             IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
             entity = dao.findById(id);
-            author = employeeDAO.getUserName(entity.getAuthor());
+            IUser authorUser = entity.getAuthor();
+            if (authorUser != null) {
+                author = employeeDAO.getUserName(authorUser);
+            }
         }
 
         Outcome outcome = new Outcome();
