@@ -79,7 +79,14 @@ public class TagService extends ReferenceService<Tag> {
                     allTagCategories.addAll(Arrays.asList(availableTagCategories));
                 }
             }
+
             Outcome outcome = getDefaultRefFormOutcome(id);
+
+            Tag tag = (Tag) outcome.getModel();
+            if (tag.getCategory() != null && !tag.getCategory().isEmpty()) {
+                allTagCategories.add(tag.getCategory());
+            }
+
             outcome.addPayload("tagCategories", allTagCategories);
             return Response.ok(outcome).build();
         } catch (DAOException e) {
