@@ -1,6 +1,6 @@
 package reference.task;
 
-import administrator.dao.IntegrationBusServiceDAO;
+import administrator.dao.IntegrationHubServiceDAO;
 import administrator.dao.IntegrationHubCollationDAO;
 import administrator.model.IntegrationHubCollation;
 import administrator.model.IntegrationHubService;
@@ -14,12 +14,9 @@ import com.exponentus.env.Environment;
 import com.exponentus.exception.SecureException;
 import com.exponentus.integrationhub.Helper;
 import com.exponentus.integrationhub.HubEnvConst;
-import com.exponentus.extconnect.IRequester;
-import com.exponentus.extconnect.Requester;
 import com.exponentus.extconnect.exception.RequesterException;
 import com.exponentus.integrationhub.HubRequester;
 import com.exponentus.integrationhub.IHRequester;
-import com.exponentus.integrationhub.jpa.IIntegratableEntity;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
@@ -39,7 +36,7 @@ public class SyncWithIntegrationHub extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         try {
-            IntegrationBusServiceDAO serviceDAO = new IntegrationBusServiceDAO(ses);
+            IntegrationHubServiceDAO serviceDAO = new IntegrationHubServiceDAO(ses);
             IntegrationHubCollationDAO collationDAO = new IntegrationHubCollationDAO(ses);
             for (Map.Entry<String, String> e : Helper.referenceDataInitSequence().entrySet()) {
                 IntegrationHubService service = serviceDAO.findByName(e.getKey());
