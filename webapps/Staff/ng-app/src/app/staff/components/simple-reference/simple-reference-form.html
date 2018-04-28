@@ -21,13 +21,11 @@
             <div class="legend">{{'localized_names' | translate}}</div>
             <div class="form-group">
                 <div class="controls">
-                    <div *ngFor="let lang of languages | keys">
-                        <div class="form-group">
-                            <div class="control-label">{{languages[lang]}}</div>
-                            <div class="controls">
-                                <input class="span8" type="text" [name]="lang.toLowerCase() + 'locName'" [readonly]="!isEditable"
-                                    [(ngModel)]="model.locName[lang]">
-                            </div>
+                    <div class="form-group" *ngFor="let lang of languages | keys">
+                        <div class="control-label">{{languages[lang]}}</div>
+                        <div class="controls">
+                            <input class="span8" type="text" [name]="lang.toLowerCase() + 'locName'" [readonly]="!isEditable"
+                                [(ngModel)]="model.locName[lang]">
                         </div>
                     </div>
                 </div>
