@@ -17,7 +17,7 @@ public class UnitType extends SimpleReferenceEntity {
     @FTSearchable
     private String category;
 
-    private int factor = 1;
+    private long factor = 1;
 
     public String getCategory() {
         return category;
@@ -28,11 +28,11 @@ public class UnitType extends SimpleReferenceEntity {
     }
 
 
-    public int getFactor() {
+    public long getFactor() {
         return factor;
     }
 
-    public void setFactor(int factor) {
+    public void setFactor(long factor) {
         this.factor = factor;
     }
 
