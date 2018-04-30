@@ -5,8 +5,8 @@ import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.env.EnvConst;
 import com.exponentus.env.Environment;
-import com.exponentus.modulebinding.IActivityRecorder;
 import com.exponentus.log.Lg;
+import com.exponentus.modulebinding.IActivityRecorder;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import monitoring.model.DocumentActivity;
@@ -36,24 +36,24 @@ public class ActivityRecorder implements IActivityRecorder {
 
     @Override
     public void postEmailSending(IAppEntity<UUID> entity, List<String> recipients, String info) {
-        if (recipients.size() > 0) {
+        if (recipients.size() > 0 && (!recipients.stream().allMatch(String::isEmpty))) {
             Event event = new Event();
             event.setType(ActivityType.SENT_EMAIL);
             event.setTime(new Date());
             event.setLocInfo(info);
             event.setAddInfo(recipients.toString());
-            postActivity(entity,event);
+            postActivity(entity, event);
         }
     }
 
     public void postSlackMsgSending(IAppEntity<UUID> entity, String addr, String info) {
         if (!addr.isEmpty()) {
-             Event event = new Event();
+            Event event = new Event();
             event.setType(ActivityType.SENT_SLACK_MESSAGE);
             event.setTime(new Date());
             event.setLocInfo(info);
             event.setAddInfo(addr);
-            postActivity(entity,event);
+            postActivity(entity, event);
         }
     }
 
