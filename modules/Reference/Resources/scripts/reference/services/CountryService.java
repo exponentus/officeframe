@@ -17,9 +17,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
-
-import static java.util.stream.Collectors.toList;
 
 @Path("countries")
 public class CountryService extends ReferenceService<Country> {
@@ -31,7 +28,7 @@ public class CountryService extends ReferenceService<Country> {
         try {
             _Session session = getSession();
             Outcome outcome = getDefaultRefFormOutcome(id);
-            outcome.addPayload("countryCodes", Arrays.stream(CountryCode.values()).filter(code -> code != CountryCode.UNKNOWN).collect(toList()));
+            outcome.addPayload("countryCodes", CountryCode.values());
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             return Response.ok(outcome).build();
         } catch (DAOException e) {

@@ -16,9 +16,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Arrays;
-
-import static java.util.stream.Collectors.toList;
 
 @Path("document-languages")
 public class DocumentLanguageService extends ReferenceService<DocumentLanguage> {
@@ -29,7 +26,7 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
     public Response getById(@PathParam("id") String id) {
         try {
             Outcome outcome = getDefaultRefFormOutcome(id);
-            outcome.addPayload("languageCodes", Arrays.stream(LanguageCode.values()).filter(code -> code != LanguageCode.UNKNOWN).collect(toList()));
+            outcome.addPayload("languageCodes", LanguageCode.values());
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
