@@ -6,6 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("land-classifications")
 public class LandClassificationService extends ReferenceService<LandClassification> {
-
-
 }

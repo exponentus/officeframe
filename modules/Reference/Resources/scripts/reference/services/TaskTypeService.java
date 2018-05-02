@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 @Path("task-types")
 public class TaskTypeService extends ReferenceService<TaskType> {
 
-
     public Response save(TaskType dto) {
         _Session session = getSession();
 
@@ -54,7 +53,6 @@ public class TaskTypeService extends ReferenceService<TaskType> {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
         if (entity.getPrefix() == null || entity.getPrefix().isEmpty()) {
             ve.addError("prefix", "required", "field_is_empty");
         }

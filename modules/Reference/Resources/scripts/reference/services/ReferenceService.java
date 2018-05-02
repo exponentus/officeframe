@@ -31,7 +31,6 @@ import java.util.UUID;
 public abstract class ReferenceService<T extends SimpleReferenceEntity> extends RestProvider implements IExternalService {
     private static final LanguageCode[] LANG_PREFFERABLE_CODES = {LanguageCode.ENG, LanguageCode.RUS};
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Defended(false)
@@ -137,7 +136,6 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         }
     }
 
-
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Defended(false)
@@ -162,7 +160,6 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         }
     }
 
-
     protected void validate(T entity) throws DTOException {
         DTOException ve = new DTOException();
 
@@ -174,7 +171,6 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
             throw ve;
         }
     }
-
 
     protected static String extractAnyNameValue(SimpleReferenceEntity dto) {
         String name = dto.getName();

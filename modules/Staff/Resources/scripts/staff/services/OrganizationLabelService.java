@@ -6,6 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("organization-labels")
 public class OrganizationLabelService extends StaffService<OrganizationLabel> {
-
-
 }

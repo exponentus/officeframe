@@ -19,7 +19,6 @@ import javax.ws.rs.core.Response;
 @Path("region-types")
 public class RegionTypeService extends ReferenceService<RegionType> {
 
-
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -33,7 +32,6 @@ public class RegionTypeService extends ReferenceService<RegionType> {
             return responseException(e);
         }
     }
-
 
     public Response save(RegionType dto) {
         _Session session = getSession();
@@ -67,5 +65,4 @@ public class RegionTypeService extends ReferenceService<RegionType> {
             return responseValidationError(e);
         }
     }
-
 }

@@ -6,6 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("vehicles")
 public class VehicleService extends ReferenceService<Vehicle> {
-
-
 }

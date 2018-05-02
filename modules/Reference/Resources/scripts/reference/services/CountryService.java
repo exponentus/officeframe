@@ -17,6 +17,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Arrays;
+
+import static java.util.stream.Collectors.toList;
 
 @Path("countries")
 public class CountryService extends ReferenceService<Country> {
@@ -28,14 +31,13 @@ public class CountryService extends ReferenceService<Country> {
         try {
             _Session session = getSession();
             Outcome outcome = getDefaultRefFormOutcome(id);
-            outcome.addPayload("countryCodes", CountryCode.values());
+            outcome.addPayload("countryCodes", Arrays.stream(CountryCode.values()).filter(code -> code != CountryCode.UNKNOWN).collect(toList()));
             outcome.addPayload("languages", new LanguageDAO(session).findAllActivated());
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
     }
-
 
     public Response save(Country dto) {
         _Session session = getSession();
@@ -77,14 +79,12 @@ public class CountryService extends ReferenceService<Country> {
 
         if (entity.getCode() == null) {
             ve.addError("code", "required", "field_is_empty");
-        } else if (entity.getCode().toString().equalsIgnoreCase(CountryCode.UNKNOWN.name())) {
-            ve.addError("code", "ne_unknown", "field_cannot_be_unknown");
+        } else if (entity.getCode() == CountryCode.UNKNOWN) {
+            ve.addError("code", "ne:UNKNOWN", "field_cannot_be_unknown");
         }
 
         if (ve.hasError()) {
             throw ve;
         }
     }
-
-
 }

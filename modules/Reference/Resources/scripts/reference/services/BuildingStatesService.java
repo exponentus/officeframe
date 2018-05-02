@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 @Path("building-states")
 public class BuildingStatesService extends ReferenceService<BuildingState> {
 
-
     public Response save(BuildingState dto) {
         _Session session = getSession();
 

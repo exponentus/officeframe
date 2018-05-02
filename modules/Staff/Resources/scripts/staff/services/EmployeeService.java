@@ -287,19 +287,12 @@ public class EmployeeService extends RestProvider {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
         if (entity.getOrganization() == null) {
             ve.addError("organization", "required", "field_is_empty");
         }
-
-      /*  if (entity.getDepartment() == null) {
-            ve.addError("department", "required", "field_is_empty");
-        }*/
-
         if (entity.getPosition() == null) {
             ve.addError("position", "required", "field_is_empty");
         }
-
         if (entity.getUser() == null || entity.getUser().getLogin().isEmpty()) {
             ve.addError("login", "required", "field_is_empty");
         } else {

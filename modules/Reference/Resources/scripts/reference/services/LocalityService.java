@@ -52,7 +52,6 @@ public class LocalityService extends ReferenceService<Locality> {
         }
     }
 
-
     public Response save(Locality dto) {
         _Session session = getSession();
 
@@ -88,14 +87,12 @@ public class LocalityService extends ReferenceService<Locality> {
         }
     }
 
-
     protected void validate(Locality entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
             ve.addError("locName", "required", "field_is_empty");
         }
-
         if (entity.getRegion() == null) {
             ve.addError("region", "required", "field_is_empty");
         }

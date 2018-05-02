@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 @Path("text-templates")
 public class TextTemplateService extends ReferenceService<TextTemplate> {
 
-
     public Response save(TextTemplate dto) {
         _Session session = getSession();
 
@@ -47,6 +46,4 @@ public class TextTemplateService extends ReferenceService<TextTemplate> {
             return responseValidationError(e);
         }
     }
-
-
 }

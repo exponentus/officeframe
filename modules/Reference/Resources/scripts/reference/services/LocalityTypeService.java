@@ -1,22 +1,20 @@
 package reference.services;
 
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.scripting.SortParams;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.LocalityTypeDAO;
 import reference.model.LocalityType;
 import reference.model.constants.LocalityCode;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("locality-types")
 public class LocalityTypeService extends ReferenceService<LocalityType> {
@@ -34,7 +32,6 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
             return responseException(e);
         }
     }
-
 
     public Response save(LocalityType dto) {
         _Session session = getSession();
@@ -68,6 +65,4 @@ public class LocalityTypeService extends ReferenceService<LocalityType> {
             return responseValidationError(e);
         }
     }
-
-
 }

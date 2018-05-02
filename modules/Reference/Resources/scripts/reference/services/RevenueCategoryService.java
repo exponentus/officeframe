@@ -6,5 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("revenue-categories")
 public class RevenueCategoryService extends ReferenceService<RevenueCategory> {
-
 }

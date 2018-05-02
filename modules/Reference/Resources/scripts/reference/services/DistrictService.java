@@ -9,18 +9,19 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.DistrictDAO;
 import reference.dao.RegionDAO;
 import reference.model.District;
 import reference.model.Region;
 import reference.ui.ViewOptions;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.UUID;
 
 @Path("districts")
 public class DistrictService extends ReferenceService<District> {
@@ -76,7 +77,6 @@ public class DistrictService extends ReferenceService<District> {
         }
     }
 
-
     public Response save(District dto) {
         _Session session = getSession();
 
@@ -109,6 +109,4 @@ public class DistrictService extends ReferenceService<District> {
             return responseValidationError(e);
         }
     }
-
-
 }

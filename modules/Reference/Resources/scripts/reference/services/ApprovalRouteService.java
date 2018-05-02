@@ -109,6 +109,4 @@ public class ApprovalRouteService extends ReferenceService<ApprovalRoute> {
             return responseValidationError(e);
         }
     }
-
-
 }

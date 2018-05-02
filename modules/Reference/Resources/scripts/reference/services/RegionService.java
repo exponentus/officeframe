@@ -8,8 +8,6 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
-import com.exponentus.util.StringUtil;
 import org.apache.commons.collections4.MapUtils;
 import reference.dao.CountryDAO;
 import reference.dao.RegionDAO;
@@ -17,11 +15,12 @@ import reference.model.Country;
 import reference.model.Region;
 import reference.ui.ViewOptions;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
-import java.util.UUID;
 
 @Path("regions")
 public class RegionService extends ReferenceService<Region> {
@@ -62,7 +61,6 @@ public class RegionService extends ReferenceService<Region> {
         }
     }
 
-
     public Response save(Region dto) {
         _Session session = getSession();
 
@@ -98,19 +96,15 @@ public class RegionService extends ReferenceService<Region> {
         }
     }
 
-
     protected void validate(Region entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
             ve.addError("locName", "required", "field_is_empty");
         }
-
-
         if (entity.getType() == null) {
             ve.addError("type", "required", "field_is_empty");
         }
-
         if (entity.getCountry() == null) {
             ve.addError("country", "required", "field_is_empty");
         }

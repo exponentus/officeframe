@@ -46,5 +46,4 @@ public class DocumentSubjectService extends ReferenceService<DocumentSubject> {
             return responseValidationError(e);
         }
     }
-
 }

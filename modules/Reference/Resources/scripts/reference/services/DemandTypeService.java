@@ -2,7 +2,6 @@ package reference.services;
 
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
-import com.exponentus.rest.RestProvider;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
@@ -48,14 +47,12 @@ public class DemandTypeService extends ReferenceService<DemandType> {
         }
     }
 
-
     protected void validate(DemandType entity) throws DTOException {
         DTOException ve = new DTOException();
 
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
         if (entity.getPrefix() == null || entity.getPrefix().isEmpty()) {
             ve.addError("prefix", "required", "field_is_empty");
         }

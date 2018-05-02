@@ -1,6 +1,5 @@
 package staff.services;
 
-import com.exponentus.common.ui.ConventionalActionFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
@@ -16,7 +15,6 @@ import staff.dao.OrganizationDAO;
 import staff.dao.filter.OrganizationFilter;
 import staff.model.Organization;
 import staff.model.OrganizationLabel;
-import staff.ui.Action;
 import staff.ui.ViewOptions;
 
 import javax.ws.rs.*;
@@ -78,8 +76,6 @@ public class OrganizationService extends StaffService<Organization> {
 
             if (user.isSuperUser() || user.getRoles().contains(ROLE_STAFF_ADMIN)) {
                 ActionBar actionBar = getDefaultViewActionBar(true);
-                Action action = new Action();
-            //    actionBar.addAction(action.addNew);
                 outcome.addPayload(actionBar);
             }
 
@@ -204,13 +200,11 @@ public class OrganizationService extends StaffService<Organization> {
         if (entity.getName() == null || entity.getName().isEmpty()) {
             ve.addError("name", "required", "field_is_empty");
         }
-
         if (entity.getOrgCategory() == null) {
             ve.addError("orgCategory", "required", "field_is_empty");
         }
-
-        if (entity.getBizID() != null && !entity.getBizID().isEmpty() && entity.getBizID().length() != 12) {
-            ve.addError("bin", "len_12", "bin_value_should_be_consist_from_12_symbols");
+        if (entity.getBizID() != null && !entity.getBizID().isEmpty() && entity.getBizID().trim().length() != 12) {
+            ve.addError("bin", "len:12", "bin_value_should_be_consist_from_12_symbols");
         }
 
         if (ve.hasError()) {

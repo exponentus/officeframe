@@ -1,18 +1,13 @@
 package reference.services;
 
-import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.jpa.IAppEntity;
 import com.exponentus.exception.SecureException;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
-import com.exponentus.scripting.SortParams;
-import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
-import com.exponentus.user.IUser;
 import reference.dao.ControlTypeDAO;
 import reference.model.ControlType;
-import reference.ui.ViewOptions;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -28,8 +23,8 @@ public class ControlTypeService extends ReferenceService<ControlType> {
     public Response getById(@PathParam("id") String id) {
         try {
             Outcome outcome = getDefaultRefFormOutcome(id);
-            if (((IAppEntity<UUID>)outcome.getModel()).isNew()){
-                ((ControlType)outcome.getModel()).setDefaultHours(30);
+            if (((IAppEntity<UUID>) outcome.getModel()).isNew()) {
+                ((ControlType) outcome.getModel()).setDefaultHours(30);
             }
             return Response.ok(outcome).build();
         } catch (DAOException e) {
@@ -86,5 +81,4 @@ public class ControlTypeService extends ReferenceService<ControlType> {
             return responseValidationError(e);
         }
     }
-
 }

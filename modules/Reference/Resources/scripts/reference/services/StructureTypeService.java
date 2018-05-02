@@ -6,6 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("structure-types")
 public class StructureTypeService extends ReferenceService<StructureType> {
-
-
 }

@@ -204,8 +204,8 @@ public class IndividualService extends RestProvider {
             if (entity.getName() == null || entity.getName().isEmpty()) {
                 ve.addError("name", "required", "field_is_empty");
             }
-            if (entity.getBin() != null && !entity.getBin().isEmpty() && entity.getBin().length() != 12) {
-                ve.addError("bin", "len_12", "bin_value_should_be_consist_from_12_symbols");
+            if (entity.getBin() != null && !entity.getBin().isEmpty() && entity.getBin().trim().length() != 12) {
+                ve.addError("bin", "len:12", "bin_value_should_be_consist_from_12_symbols");
             }
 
             if (ve.hasError()) {

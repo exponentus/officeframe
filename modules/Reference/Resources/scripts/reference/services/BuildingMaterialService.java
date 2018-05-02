@@ -17,7 +17,6 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
     public Response save(BuildingMaterial dto) {
         _Session session = getSession();
 
-
         try {
             validate(dto);
 
@@ -47,6 +46,4 @@ public class BuildingMaterialService extends ReferenceService<BuildingMaterial> 
             return responseValidationError(e);
         }
     }
-
-
 }

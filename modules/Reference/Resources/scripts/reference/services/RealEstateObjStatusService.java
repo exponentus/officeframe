@@ -6,6 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("real-estate-obj-statuses")
 public class RealEstateObjStatusService extends ReferenceService<RealEstateObjStatus> {
-
-
 }

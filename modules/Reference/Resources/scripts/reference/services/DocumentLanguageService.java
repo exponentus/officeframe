@@ -16,6 +16,9 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Arrays;
+
+import static java.util.stream.Collectors.toList;
 
 @Path("document-languages")
 public class DocumentLanguageService extends ReferenceService<DocumentLanguage> {
@@ -26,13 +29,12 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
     public Response getById(@PathParam("id") String id) {
         try {
             Outcome outcome = getDefaultRefFormOutcome(id);
-            outcome.addPayload("languageCodes", LanguageCode.values());
+            outcome.addPayload("languageCodes", Arrays.stream(LanguageCode.values()).filter(code -> code != LanguageCode.UNKNOWN).collect(toList()));
             return Response.ok(outcome).build();
         } catch (DAOException e) {
             return responseException(e);
         }
     }
-
 
     public Response save(DocumentLanguage dto) {
         _Session session = getSession();
@@ -67,7 +69,6 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
         }
     }
 
-
     protected void validate(DocumentLanguage entity) throws DTOException {
         DTOException ve = new DTOException();
 
@@ -75,11 +76,10 @@ public class DocumentLanguageService extends ReferenceService<DocumentLanguage> 
             ve.addError("locName", "required", "field_is_empty");
         }
 
-
         if (entity.getCode() == null) {
             ve.addError("code", "required", "field_is_empty");
-        } else if (entity.getCode().toString().equalsIgnoreCase("unknown")) {
-            ve.addError("code", "ne_unknown", "field_cannot_be_unknown");
+        } else if (entity.getCode() == LanguageCode.UNKNOWN) {
+            ve.addError("code", "ne:UNKNOWN", "field_cannot_be_unknown");
         }
 
         if (ve.hasError()) {

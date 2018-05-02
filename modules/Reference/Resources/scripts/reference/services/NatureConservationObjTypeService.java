@@ -6,6 +6,4 @@ import javax.ws.rs.Path;
 
 @Path("nature-conservation-obj-types")
 public class NatureConservationObjTypeService extends ReferenceService<NatureConservationObjType> {
-
-
 }

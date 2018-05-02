@@ -17,7 +17,9 @@ import reference.model.ActivityTypeCategory;
 import reference.model.IndustryType;
 import reference.ui.ViewOptions;
 
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
@@ -97,7 +99,6 @@ public class IndustryTypeService extends ReferenceService<IndustryType> {
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
             ve.addError("locName", "required", "field_is_empty");
         }
-
         if (entity.getCategory() == null) {
             ve.addError("category", "required", "field_is_empty");
         }
