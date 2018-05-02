@@ -255,6 +255,7 @@
   "culture_sports" : null,
   "masut_industry" : null,
   "use_to" : "use_to",
+  "run_task" : "Ejecutar tarea ...",
   "events" : "events",
   "it_should_pointed_either_assignment_or_primary" : "it_should_pointed_either_assignment_or_primary ",
   "field_value_is_0" : "field_value_is_0",

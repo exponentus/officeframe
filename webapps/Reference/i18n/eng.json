@@ -255,6 +255,7 @@
   "culture_sports" : null,
   "masut_industry" : null,
   "use_to" : "Until",
+  "run_task" : "Run task...",
   "events" : "Events",
   "it_should_pointed_either_assignment_or_primary" : "It should pointed either assignment or primary ",
   "field_value_is_0" : "The field value should be more than 0",

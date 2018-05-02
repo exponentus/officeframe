@@ -255,6 +255,7 @@
   "culture_sports" : "Культура, спорт, туризм и информационное пространство",
   "masut_industry" : "Мазут топочный",
   "use_to" : "До",
+  "run_task" : "Запустить задачу ...",
   "events" : "События",
   "it_should_pointed_either_assignment_or_primary" : "it_should_pointed_either_assignment_or_primary ",
   "field_value_is_0" : "Значение поля должно быть больше 0",
