@@ -48,6 +48,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -79,6 +80,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -130,6 +132,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -163,6 +166,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -215,6 +219,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -247,6 +252,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -297,6 +303,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -326,6 +333,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -357,6 +365,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -387,6 +396,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -417,6 +427,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -452,6 +463,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -482,6 +494,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -512,6 +525,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -542,6 +556,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -581,6 +596,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -611,6 +627,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -641,6 +658,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -669,6 +687,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
@@ -706,6 +725,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span8',
                     values: { enum: languages }
@@ -738,6 +758,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span8',
                     values: { enum: languages }
@@ -770,6 +791,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span8',
                     values: { enum: languages }
@@ -802,6 +824,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span8',
                     values: { enum: languages }
@@ -835,6 +858,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span8',
                     values: { enum: languages }
@@ -864,6 +888,7 @@ function getFormSchemas(languages: any) {
                 title: 'localized_names',
                 fields: [{
                     type: 'localizedName',
+                    name: 'locName',
                     hideLabel: true,
                     className: 'span7',
                     values: { enum: languages }
