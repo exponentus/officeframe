@@ -35,6 +35,18 @@ public class ActivityRecorder implements IActivityRecorder {
     }
 
     @Override
+    public void postDocumentActivity(IAppEntity<UUID> entity, ActivityType activityType, String keyword, String addInfo) {
+        if (!keyword.isEmpty()) {
+            Event event = new Event();
+            event.setType(activityType);
+            event.setTime(new Date());
+            event.setLocInfo(keyword);
+            event.setAddInfo(addInfo);
+            postActivity(entity, event);
+        }
+    }
+
+    @Override
     public void postEmailSending(IAppEntity<UUID> entity, List<String> recipients, String info) {
         if (recipients.size() > 0 && (!recipients.stream().allMatch(String::isEmpty))) {
             Event event = new Event();
