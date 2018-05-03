@@ -24,17 +24,23 @@ public class FillUnitTypes extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<UnitType> entities = new ArrayList<UnitType>();
-        String[] data = {"square_meter", "tenge", "million_tenge", "billion_tenge"};
+     /*   String[] data = {"square_meter", "tenge", "million_tenge", "billion_tenge"};
         String[] dataEng = {"square meter", "tenge", "mill.tenge", "bill.tenge"};
         String[] dataRus = {"кв.метр", "тенге", "млн.тенге", "млрд.тенге"};
-        String[] dataKaz = {"шаршы метр", "теңге", "млн.теңге", "млрд.теңге"};
+        String[] dataKaz = {"шаршы метр", "теңге", "млн.теңге", "млрд.теңге"};*/
 
-        int[] factor = {1, 1, 1000000, 1000000000};
+        String[] data = {"square_meter", "tenge"};
+        String[] dataEng = {"square meter", "tenge"};
+        String[] dataRus = {"кв.метр", "тенге"};
+        String[] dataKaz = {"шаршы метр", "теңге"};
+
+        //  int[] factor = {1, 1, 1000000, 1000000000};
+        int[] factor = {1, 1};
 
         for (int i = 0; i < data.length; i++) {
             UnitType entity = new UnitType();
             entity.setName(data[i]);
-            if (data[i].contains("tenge")){
+            if (data[i].contains("tenge")) {
                 entity.setCategory("money_kz");
             }
 
