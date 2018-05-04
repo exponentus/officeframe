@@ -83,6 +83,12 @@ export class CalendarComponent {
             .fetchCalendarEvents(params)
             .pipe(map(data => {
                 return (data.payload.viewpage.result || []).map(event => {
+                    //
+                    if (event.relatedURL) {
+                        let module = event.relatedURL.split('/')[1];
+                        event.relatedURL = '/' + module + '/#' + event.relatedURL;
+                    }
+                    //
                     return {
                         title: event.title,
                         start: Moment(event.eventTime, DATE_TIME_FORMAT),

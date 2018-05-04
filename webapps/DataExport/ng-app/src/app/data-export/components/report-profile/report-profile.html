@@ -100,13 +100,11 @@
                     <div class="legend">{{'localized_names' | translate}}</div>
                     <div class="form-group">
                         <div class="controls">
-                            <div *ngFor="let lang of data.languages">
-                                <div class="form-group">
-                                    <div class="control-label">{{lang | localizedName}}</div>
-                                    <div class="controls">
-                                        <input class="span8" type="text" [name]="lang.code.toLowerCase() + 'locName'" [readonly]="!model.editable"
-                                            [(ngModel)]="model.locName[lang.code]">
-                                    </div>
+                            <div class="form-group" *ngFor="let lang of data.languages">
+                                <div class="control-label">{{lang | localizedName}}</div>
+                                <div class="controls">
+                                    <input class="span8" type="text" [name]="lang.code.toLowerCase() + 'locName'" [readonly]="!model.editable"
+                                        [(ngModel)]="model.locName[lang.code]">
                                 </div>
                             </div>
                         </div>
@@ -117,13 +115,11 @@
                 <div class="fieldset">
                     <div class="form-group">
                         <div class="controls">
-                            <div *ngFor="let lang of data.languages">
-                                <div class="form-group">
-                                    <div class="control-label">{{lang | localizedName}}</div>
-                                    <div class="controls">
-                                        <textarea class="span8" [name]="lang.code.toLowerCase() + 'localizedDescr'" [readonly]="!model.editable"
-                                            [(ngModel)]="model.localizedDescr[lang.code]"></textarea>
-                                    </div>
+                            <div class="form-group" *ngFor="let lang of data.languages">
+                                <div class="control-label">{{lang | localizedName}}</div>
+                                <div class="controls">
+                                    <textarea class="span8" [name]="lang.code.toLowerCase() + 'localizedDescr'" [readonly]="!model.editable"
+                                        [(ngModel)]="model.localizedDescr[lang.code]"></textarea>
                                 </div>
                             </div>
                         </div>
