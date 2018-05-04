@@ -14,6 +14,7 @@
     "lint": "tslint ./src/**/*.ts{,x}",
     "explorer": "source-map-explorer ../assets/dist/app.js ../assets/dist/app.js.map",
     "explorer:vendor": "source-map-explorer ../assets/dist/vendor.js ../assets/dist/vendor.js.map",
+    "reinstall-nb-core": "npm rm @nb/core && npm i git+ssh://git@git.semantyca.com:22373/b2b/nb-ng.git",
     "reinstall-nb-core:build:aot:p": "npm rm @nb/core && npm i git+ssh://git@git.semantyca.com:22373/b2b/nb-ng.git && npm run build:aot:p"
   },
   "dependencies": {

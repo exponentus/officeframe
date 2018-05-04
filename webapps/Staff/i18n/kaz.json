@@ -859,6 +859,7 @@
   "country" : "Ел",
   "workspace" : "Жұмыс аумағы",
   "incoming_document" : "incoming_document",
+  "last_modified_date" : "Соңғы өзгертілген",
   "project" : null,
   "level_service" : "Ақылы қызметтер үшін",
   "end_until" : "Кезеңнің соңы",

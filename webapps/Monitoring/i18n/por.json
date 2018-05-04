@@ -859,6 +859,7 @@
   "country" : "País",
   "workspace" : "Área de trabalho",
   "incoming_document" : "incoming_document",
+  "last_modified_date" : "Última modificação",
   "project" : "Projeto",
   "level_service" : null,
   "end_until" : "end_until",

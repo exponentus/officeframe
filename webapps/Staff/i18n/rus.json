@@ -859,6 +859,7 @@
   "country" : "Страна",
   "workspace" : "Рабочая область",
   "incoming_document" : "Входящий документ",
+  "last_modified_date" : "Последнее изменение",
   "project" : "Проект",
   "level_service" : "На платные услуги",
   "end_until" : "До",
