@@ -9,6 +9,7 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting._Session;
 import com.exponentus.util.ReflectionUtil;
 import com.exponentus.util.StringUtil;
+import org.apache.commons.collections4.MapUtils;
 import reference.dao.UnitTypeDAO;
 import reference.init.ModuleConst;
 import reference.model.UnitType;
@@ -90,7 +91,11 @@ public class UnitTypeService extends ReferenceService<UnitType> {
     protected void validate(UnitType entity) throws DTOException {
         DTOException ve = new DTOException();
 
-        if (entity.getLocName().size() == 0) {
+        if (entity.getCategory() == null || entity.getCategory().isEmpty()) {
+            ve.addError("category", "required", "field_is_empty");
+        }
+
+        if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
             ve.addError("locName", "required", "field_is_empty");
         }
 

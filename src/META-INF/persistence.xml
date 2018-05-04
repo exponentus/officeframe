@@ -116,6 +116,7 @@
         <class>reference.model.AsOf</class>
         <class>reference.model.ProductType</class>
         <class>reference.model.ProjectStage</class>
+        <class>reference.model.UnitType</class>
         <!-- Specific Reference module entities -->
         <class>reference.model.TaskType</class>
         <class>reference.model.RequestType</class>

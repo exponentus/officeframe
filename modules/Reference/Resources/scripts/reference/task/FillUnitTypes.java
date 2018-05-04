@@ -29,21 +29,20 @@ public class FillUnitTypes extends Do {
         String[] dataRus = {"кв.метр", "тенге", "млн.тенге", "млрд.тенге"};
         String[] dataKaz = {"шаршы метр", "теңге", "млн.теңге", "млрд.теңге"};*/
 
-        String[] data = {"square_meter", "tenge"};
-        String[] dataEng = {"square meter", "tenge"};
-        String[] dataRus = {"кв.метр", "тенге"};
-        String[] dataKaz = {"шаршы метр", "теңге"};
+        String[] data = {"square_meter", "tenge", "unit"};
+        String[] dataEng = {"square meter", "tenge", "unit"};
+        String[] dataRus = {"кв.метр", "тенге", "единица"};
+        String[] dataKaz = {"шаршы метр", "теңге", "бірлік"};
+
+        String[] categories = {"area", "money_kz", "quantity"};
 
         //  int[] factor = {1, 1, 1000000, 1000000000};
-        int[] factor = {1, 1};
+        int[] factor = {1, 1, 1};
 
         for (int i = 0; i < data.length; i++) {
             UnitType entity = new UnitType();
             entity.setName(data[i]);
-            if (data[i].contains("tenge")) {
-                entity.setCategory("money_kz");
-            }
-
+            entity.setCategory(categories[i]);
             Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
             name.put(LanguageCode.ENG, dataEng[i]);
             name.put(LanguageCode.RUS, dataRus[i]);
