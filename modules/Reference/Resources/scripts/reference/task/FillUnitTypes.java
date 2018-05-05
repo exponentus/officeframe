@@ -24,20 +24,14 @@ public class FillUnitTypes extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<UnitType> entities = new ArrayList<UnitType>();
-     /*   String[] data = {"square_meter", "tenge", "million_tenge", "billion_tenge"};
-        String[] dataEng = {"square meter", "tenge", "mill.tenge", "bill.tenge"};
-        String[] dataRus = {"кв.метр", "тенге", "млн.тенге", "млрд.тенге"};
-        String[] dataKaz = {"шаршы метр", "теңге", "млн.теңге", "млрд.теңге"};*/
 
-        String[] data = {"square_meter", "tenge", "unit"};
-        String[] dataEng = {"square meter", "tenge", "unit"};
-        String[] dataRus = {"кв.метр", "тенге", "единица"};
-        String[] dataKaz = {"шаршы метр", "теңге", "бірлік"};
+        String[] data = {"square_meter", "tenge", "thousand_tenge", "million_tenge", "billion_tenge", "trillion_tenge", "unit"};
+        String[] dataEng = {"square meter", "tenge", "thousand tenge", "mill.tenge", "bill.tenge", "trillion tenge", "unit"};
+        String[] dataRus = {"кв.метр", "тенге", "тыс.тенге", "млн.тенге", "млрд.тенге", "триллион тенге", "единиц"};
+        String[] dataKaz = {"шаршы метр", "теңге", "мың теңге", "млн.теңге", "млрд.теңге", "триллион теңге", "бірлік"};
+        String[] categories = {"area", "money_kz", "money_kz", "money_kz", "money_kz", "money_kz", "quantity"};
 
-        String[] categories = {"area", "money_kz", "quantity"};
-
-        //  int[] factor = {1, 1, 1000000, 1000000000};
-        int[] factor = {1, 1, 1};
+        long[] factor = {1, 1, 1000, 1000000, 1000000000, 1000000000000L, 1};
 
         for (int i = 0; i < data.length; i++) {
             UnitType entity = new UnitType();
