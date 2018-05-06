@@ -25,13 +25,13 @@ public class FillUnitTypes extends Do {
     public void doTask(AppEnv appEnv, _Session ses) {
         List<UnitType> entities = new ArrayList<UnitType>();
 
-        String[] data = {"square_meter", "tenge", "thousand_tenge", "million_tenge", "billion_tenge", "trillion_tenge", "unit"};
-        String[] dataEng = {"square meter", "tenge", "thousand tenge", "mill.tenge", "bill.tenge", "trillion tenge", "unit"};
-        String[] dataRus = {"кв.метр", "тенге", "тыс.тенге", "млн.тенге", "млрд.тенге", "триллион тенге", "единиц"};
-        String[] dataKaz = {"шаршы метр", "теңге", "мың теңге", "млн.теңге", "млрд.теңге", "триллион теңге", "бірлік"};
-        String[] categories = {"area", "money_kz", "money_kz", "money_kz", "money_kz", "money_kz", "quantity"};
+        String[] data = {"person", "thousand_persons", "square_meter", "tenge", "thousand_tenge", "million_tenge", "billion_tenge", "trillion_tenge", "unit", "thousand_units", "incident"};
+        String[] dataEng = {"person", "thousand persons", "square meter", "tenge", "thousand tenge", "mill.tenge", "bill.tenge", "trillion tenge", "unit", "thousand units", "incident"};
+        String[] dataRus = {"человек", "тысяча человек", "кв.метр", "тенге", "тыс.тенге", "млн.тенге", "млрд.тенге", "триллион тенге", "единиц", "тыс.единиц", "случай"};
+        String[] dataKaz = {"адам", "мың адам", "шаршы метр", "теңге", "мың теңге", "млн.теңге", "млрд.теңге", "триллион теңге", "бірлік", "мың бірлік", "оқиға"};
+        String[] categories = {"people", "people", "area", "money_kz", "money_kz", "money_kz", "money_kz", "money_kz", "quantity", "quantity", "event"};
 
-        long[] factor = {1, 1, 1000, 1000000, 1000000000, 1000000000000L, 1};
+        long[] factor = {1, 1000, 1, 1, 1000, 1000000, 1000000000, 1000000000000L, 1, 1000, 1};
 
         for (int i = 0; i < data.length; i++) {
             UnitType entity = new UnitType();
