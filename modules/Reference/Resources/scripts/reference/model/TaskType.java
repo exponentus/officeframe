@@ -9,7 +9,7 @@ import javax.persistence.*;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
-@Table(name = "ref__task_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
+@Table(name = ModuleConst.CODE + "__task_types", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 @NamedQuery(name = "TaskType.findAll", query = "SELECT m FROM TaskType AS m ORDER BY m.regDate")
 public class TaskType extends SimpleReferenceEntity {
 
@@ -26,6 +26,6 @@ public class TaskType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "task-types/" + getIdentifier();
+        return ModuleConst.BASE_URL + "task-types/" + getId();
     }
 }
