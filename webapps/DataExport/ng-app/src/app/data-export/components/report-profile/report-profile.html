@@ -62,7 +62,7 @@
                             {{'start_from' | translate}}
                         </div>
                         <div class="controls">
-                            <input class="span2" datepicker name="startFrom" [(ngModel)]="model.startFrom">
+                            <input class="span2" datepicker name="startFrom" [maxDate]="model.endUntil" [(ngModel)]="model.startFrom">
                         </div>
                     </div>
                     <div class="form-group">
@@ -70,7 +70,7 @@
                             {{'end_until' | translate}}
                         </div>
                         <div class="controls">
-                            <input class="span2" datepicker name="endUntil" [(ngModel)]="model.endUntil">
+                            <input class="span2" datepicker name="endUntil" [minDate]="model.startFrom" [(ngModel)]="model.endUntil">
                         </div>
                     </div>
                     <div class="form-group">
