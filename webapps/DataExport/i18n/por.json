@@ -586,6 +586,7 @@
   "digital_signature" : "digital_signature",
   "as_of" : null,
   "hours.0" : "hora",
+  "emergency" : "Emergência",
   "hours.1" : "horas",
   "hours.2" : "horas",
   "oil_seed_area" : null,
