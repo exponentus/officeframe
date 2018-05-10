@@ -89,7 +89,7 @@ public class CityDistrictService extends ReferenceService<CityDistrict> {
         DTOException ve = new DTOException();
 
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
-            ve.addError("locName", "required", "field_is_empty");
+            ve.addError("locName", "required:all", "field_is_empty");
         }
         if (entity.getLocality() == null) {
             ve.addError("locality", "required", "field_is_empty");

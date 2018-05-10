@@ -39,17 +39,17 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         WebFormData params = getWebFormData();
         int pageSize = session.getPageSize();
 
-        Outcome outcome = new Outcome();
-
         SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
         IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
         ViewPage<T> vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
-        outcome.addPayload(getDefaultViewActionBar(true));
         String keyword = getClass().getAnnotation(Path.class).value().replace("-", "_");
+
+        Outcome outcome = new Outcome();
         outcome.setTitle(keyword);
         outcome.setPayloadTitle(keyword);
         outcome.addPayload(vp);
+        outcome.addPayload(getDefaultViewActionBar(true));
 
         return Response.ok(outcome).build();
     }
@@ -164,7 +164,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
         DTOException ve = new DTOException();
 
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
-            ve.addError("locName", "required", "field_is_empty");
+            ve.addError("locName", "required:all", "field_is_empty");
         }
 
         if (ve.hasError()) {

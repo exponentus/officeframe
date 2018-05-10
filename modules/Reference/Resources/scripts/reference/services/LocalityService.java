@@ -91,7 +91,7 @@ public class LocalityService extends ReferenceService<Locality> {
         DTOException ve = new DTOException();
 
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
-            ve.addError("locName", "required", "field_is_empty");
+            ve.addError("locName", "required:all", "field_is_empty");
         }
         if (entity.getRegion() == null) {
             ve.addError("region", "required", "field_is_empty");

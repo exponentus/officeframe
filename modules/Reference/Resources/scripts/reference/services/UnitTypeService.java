@@ -96,7 +96,7 @@ public class UnitTypeService extends ReferenceService<UnitType> {
         }
 
         if (MapUtils.isEmpty(entity.getLocName()) || entity.getLocName().values().stream().anyMatch(String::isEmpty)) {
-            ve.addError("locName", "required", "field_is_empty");
+            ve.addError("locName", "required:all", "field_is_empty");
         }
 
         if (ve.hasError()) {
