@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
+import { AuthGuard, ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
 
 import { IntegrationContainerComponent } from './components/container';
 import { ServiceDetailsComponent } from './components/service/service-details';
 
 export const INTEGRATION_ROUTES: Routes = [{
-    path: 'Integration', component: IntegrationContainerComponent,
+    path: 'Integration', component: IntegrationContainerComponent, canActivate: [AuthGuard],
     children: [
         { path: '', redirectTo: 'services', pathMatch: 'full' },
         { path: 'index', redirectTo: 'services', pathMatch: 'full' },

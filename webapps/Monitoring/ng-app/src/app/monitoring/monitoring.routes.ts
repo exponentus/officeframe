@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
-import { ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
+import { AuthGuard, ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
 
 import { ChartsPage } from './pages';
 import { MonitoringContainerComponent } from './components';
 
 export const MONITORING_URL_ROUTES: Routes = [{
-    path: 'Monitoring', component: MonitoringContainerComponent,
+    path: 'Monitoring', component: MonitoringContainerComponent, canActivate: [AuthGuard],
     children: [
         { path: '', redirectTo: 'user-activities', pathMatch: 'full' },
         { path: 'index', redirectTo: 'user-activities', pathMatch: 'full' },

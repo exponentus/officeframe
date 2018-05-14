@@ -1,13 +1,13 @@
 import { Routes } from '@angular/router';
 
-import { ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
+import { AuthGuard, ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
 
 import { ReferenceContainerComponent } from './components/container';
 import { ReferenceFormComponent } from './components/form';
 import { ApprovalRouteFormComponent } from './components/approval-route/approval-route-form';
 
 export const REFERENCE_ROUTES: Routes = [{
-    path: 'Reference', component: ReferenceContainerComponent,
+    path: 'Reference', component: ReferenceContainerComponent, canActivate: [AuthGuard],
     children: [
         { path: '', redirectTo: 'countries', pathMatch: 'full' },
         { path: 'index', redirectTo: 'countries', pathMatch: 'full' },

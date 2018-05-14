@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
+import { AuthGuard, ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
 
 import { StaffContainerComponent } from './components/container';
 import { OrganizationFormComponent } from './components/organization/organization-form';
@@ -11,7 +11,7 @@ import { RoleFormComponent } from './components/role/role-form';
 import { SimpleReferenceFormComponent } from './components/simple-reference/simple-reference-form';
 
 export const STAFF_ROUTES: Routes = [{
-    path: 'Staff', component: StaffContainerComponent,
+    path: 'Staff', component: StaffContainerComponent, canActivate: [AuthGuard],
     children: [
         { path: '', redirectTo: 'organizations', pathMatch: 'full' },
         { path: 'index', redirectTo: 'organizations', pathMatch: 'full' },

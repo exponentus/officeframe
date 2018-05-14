@@ -1,11 +1,11 @@
 import { Routes } from '@angular/router';
 
-import { ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
+import { AuthGuard, ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
 import { DiscussContainerComponent } from './components';
 import { TopicPageComponent, TopicEditPageComponent } from './pages';
 
 export const DISCUSS_ROUTES: Routes = [{
-    path: 'Discussing', component: DiscussContainerComponent,
+    path: 'Discussing', component: DiscussContainerComponent, canActivate: [AuthGuard],
     children: [
         { path: '', redirectTo: 'topics', pathMatch: 'full' },
         { path: 'index', redirectTo: 'topics', pathMatch: 'full' },
