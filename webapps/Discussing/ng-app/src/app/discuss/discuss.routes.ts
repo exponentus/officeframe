@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AuthGuard, ViewPage, UserProfileComponent, OfflinePage } from '@nb/core';
+
 import { DiscussContainerComponent } from './components';
 import { TopicPageComponent, TopicEditPageComponent } from './pages';
 
