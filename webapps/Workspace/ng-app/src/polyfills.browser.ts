@@ -16,16 +16,3 @@ import 'core-js/es6/reflect';
 
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
-
-// rxjs
-import 'rxjs/Observable';
-import 'rxjs/observable/ErrorObservable';
-import 'rxjs/add/observable/combineLatest';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/throw';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/retry';
-import 'rxjs/add/operator/take';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/finally';
