@@ -74,7 +74,7 @@ public class IndividualLabelService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 IndividualLabelDAO dao = new IndividualLabelDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             //

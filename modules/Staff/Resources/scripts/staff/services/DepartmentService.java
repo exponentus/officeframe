@@ -76,7 +76,7 @@ public class DepartmentService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 DepartmentDAO dao = new DepartmentDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             //

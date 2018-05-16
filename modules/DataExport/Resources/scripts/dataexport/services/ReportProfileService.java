@@ -98,7 +98,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             if (isNew) {
                 entity = domain.composeNew(session.getUser());
             } else {
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
                 if (entity == null) {
                     return Response.status(Response.Status.NOT_FOUND).build();
                 }
@@ -316,7 +316,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
             ReportProfileDAO dao = new ReportProfileDAO(getSession());
             String[] ids = getWebFormData().getListOfValuesSilently("id");
             for (String id : ids) {
-                ReportProfile entity = dao.findByIdentifier(id);
+                ReportProfile entity = dao.findById(id);
                 if (entity != null) {
                     dao.delete(entity);
                 }

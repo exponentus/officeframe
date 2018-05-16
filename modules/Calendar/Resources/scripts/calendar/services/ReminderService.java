@@ -66,7 +66,7 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
             if (isNew) {
                 entity = domain.composeNew(session.getUser());
             } else {
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
                 if (entity == null) {
                     return Response.status(Response.Status.NOT_FOUND).build();
                 }

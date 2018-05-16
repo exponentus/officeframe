@@ -108,7 +108,7 @@ public class IndividualService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 IndividualDAO dao = new IndividualDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             ActionBar actionBar = new ActionBar(session);

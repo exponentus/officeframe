@@ -80,7 +80,7 @@ public class RoleService extends RestProvider {
                 entity.setAuthor(session.getUser());
             } else {
                 RoleDAO dao = new RoleDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             //

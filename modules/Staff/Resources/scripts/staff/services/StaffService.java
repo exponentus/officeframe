@@ -171,7 +171,7 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
             IDAO<T, UUID> dao = DAOFactory.get(getSession(), entityClass);
 
-            T entity = dao.findByIdentifier(id);
+            T entity = dao.findById(id);
             if (entity != null) {
                 dao.delete(entity);
             }

@@ -137,7 +137,7 @@ public class EmployeeService extends RestProvider {
                 entity.setUser(tempUser);
             } else {
                 EmployeeDAO dao = new EmployeeDAO(session);
-                entity = dao.findByIdentifier(id);
+                entity = dao.findById(id);
             }
 
             UserDAO userDAO = new UserDAO(session);
