@@ -1,4 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { TranslateService } from '@ngx-translate/core';
 
 import { NbModalService } from '@nb/core';
@@ -23,13 +24,13 @@ export class ApprovalRouteBlocksComponent {
         private ngxTranslate: TranslateService,
         private nbModalService: NbModalService
     ) {
-        this.ngxTranslate.get(['serial', 'parallel', 'signing']).map(t => [
+        this.ngxTranslate.get(['serial', 'parallel', 'signing']).pipe(map((t: any) => [
             { id: 'SERIAL', name: t.serial },
             { id: 'PARALLEL', name: t.parallel },
             { id: 'SIGNING', name: t.signing }
-        ]).subscribe(it => this.approvalTypes = it);
+        ])).subscribe(it => this.approvalTypes = it);
 
-        this.ngxTranslate.get(['no', 'minutes', 'hour', 'hours', 'day', 'days', 'week']).map(t => [
+        this.ngxTranslate.get(['no', 'minutes', 'hour', 'hours', 'day', 'days', 'week']).pipe(map((t: any) => [
             { id: 0, name: t.no },
             { id: 30, name: `30 ${t.minutes}` },
             { id: 60, name: `1 ${t.hour}` },
@@ -38,7 +39,7 @@ export class ApprovalRouteBlocksComponent {
             { id: (60 * 24 * 1), name: `1 ${t.day}` },
             { id: (60 * 24 * 3), name: `3 ${t.days}` },
             { id: (60 * 24 * 7), name: `1 ${t.week}` }
-        ]).subscribe(it => this.TIME_LIMITS = it);
+        ])).subscribe(it => this.TIME_LIMITS = it);
     }
 
     get editable() {
