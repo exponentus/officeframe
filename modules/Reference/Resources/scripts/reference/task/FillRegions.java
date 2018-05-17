@@ -115,7 +115,7 @@ public class FillRegions extends Do {
                     rType = rtDao.findByCode(RegionCode.REGION);
                 }
                 entity.setType(rType);
-                entities.add(entity);
+           //     entities.add(entity);
             }
         } catch (DAOException e) {
             e.printStackTrace();
@@ -142,7 +142,8 @@ public class FillRegions extends Do {
             }
 
             if (dao.findPrimary() == null) {
-                Region region = dao.getRandomEntity();
+                Region region = dao.findByName("pavlodar_region");
+                //Region region = dao.getRandomEntity();
                 region.setPrimary(true);
                 dao.update(region);
             }
