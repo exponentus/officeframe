@@ -30,13 +30,14 @@ public class FillDistricts extends Do {
     public void doTask(AppEnv appEnv, _Session ses) {
         List<District> entities = new ArrayList<>();
         String[] almatyDistricts = {"karasay", "talgar"};
-        String[] pavlodarDistricts = {"aktogayskiy", "bayanaulskiy", "zhelezinskiy", "irtyshskiy", "kachirskiy",
+
+        String[] pavlodarDistricts = {"pavlodar", "aksu", "ekibastuz", "aktogayskiy", "bayanaulskiy", "zhelezinskiy", "irtyshskiy", "kachirskiy",
                 "lebyazhinskiy", "mayskiy", "pavlodarskiy", "uspenskiy", "sherbaktinskiy"};
-        String[] pavlodarDistrictsEng = {"Aktogayskiy", "Bayanaulskiy", "Zhelezinskiy", "Irtyshskiy", "Kachirskiy", "Lebyazhinskiy", "Mayskiy",
+        String[] pavlodarDistrictsEng = {"Pavlodar", "Aksu", "Ekibastuz",  "Aktogayskiy", "Bayanaulskiy", "Zhelezinskiy", "Irtyshskiy", "Kachirskiy", "Lebyazhinskiy", "Mayskiy",
                 "Pavlodarskiy", "Uspenskiy", "Sherbaktinskiy"};
-        String[] pavlodarDistrictsRus = {"Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
+        String[] pavlodarDistrictsRus = {"Павлодар", "Аксу", "Экибастуз", "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
                 "Павлодарский", "Успенский", "Щербактинский"};
-        String[] pavlodarDistrictsKaz = {"Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
+        String[] pavlodarDistrictsKaz = {"Павлодар", "Ақсу", "Екібастұз", "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
                 "Павлодарский", "Успенский", "Щербактинский"};
 
         String[] zhambylDistricts = {"talasky", "shusky", "zhambulsky", "kordaysky", "zhualynsky", "sarysusky", "ryskulovsky",

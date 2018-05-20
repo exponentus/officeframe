@@ -21,24 +21,6 @@ public class AsOfDAO extends ReferenceDAO<AsOf, UUID> {
         super(AsOf.class, session);
     }
 
-    public AsOf findByName(String name) throws DAOException {
-        EntityManager em = getEntityManagerFactory().createEntityManager();
-        CriteriaBuilder cb = em.getCriteriaBuilder();
-        try {
-            CriteriaQuery<AsOf> cq = cb.createQuery(getEntityClass());
-            Root<AsOf> c = cq.from(getEntityClass());
-            cq.select(c);
-            Predicate condition = cb.equal(cb.lower(c.get("name")), name.toLowerCase());
-            cq.where(condition);
-            TypedQuery<AsOf> typedQuery = em.createQuery(cq);
-            return typedQuery.getSingleResult();
-        } catch (NonUniqueResultException e) {
-            throw new DAOException(e);
-        } catch (NoResultException e) {
-            return null;
-        } finally {
-            em.close();
-        }
-    }
+
 
 }

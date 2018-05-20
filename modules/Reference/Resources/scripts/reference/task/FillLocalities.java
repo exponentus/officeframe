@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//run task fill_localities
 @Command(name = "fill_localities")
 public class FillLocalities extends Do {
 
@@ -29,8 +30,11 @@ public class FillLocalities extends Do {
         List<Locality> entities = new ArrayList<>();
         String[] data = {"Kapchagay", "Taldykorgan"};
         String[] data1 = {"Almaty"};
-        String[] data2 = {"Pavloadar", "Aksu", "Ekibastuz"};
-        String[] data2Rus = {"Павлодар", "Аксу", "Экибастуз"};
+
+        String[] pavlodarData = {"pavloadar", "aksu", "ekibastuz"};
+        String[] pavlodarDataEng = {"Pavloadar", "Aksu", "Ekibastuz"};
+        String[] pavlodarDataRus = {"Павлодар", "Аксу", "Экибастуз"};
+        String[] pavlodarDataKaz = {"Павлодар", "Ақсу", "Екібастұз"};
 
         String[] zhambylData = {"taraz", "karatau", "zhanatas"};
         String[] zhambylRegionLocalitiesEng = {"Taraz", "Karatau", "Zhanatas"};
@@ -43,6 +47,7 @@ public class FillLocalities extends Do {
         try {
             ltDao = new LocalityTypeDAO(ses);
             cDao = new RegionDAO(ses);
+            DistrictDAO districtDAO = new DistrictDAO(ses);
             d = cDao.findByName("almaty_region");
 
             if (d != null) {
@@ -67,19 +72,26 @@ public class FillLocalities extends Do {
                 }
             }
 
-            d = cDao.findByName("pavloadar_region");
+            d = cDao.findByName("pavlodar_region");
 
             if (d != null) {
-                for (int i = 0; i < data2.length; i++) {
+                for (int i = 0; i < pavlodarData.length; i++) {
                     Locality entity = new Locality();
                     entity.setRegion(d);
-                    entity.setName(data2[i]);
+                    entity.setName(pavlodarData[i]);
                     Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
-                    name.put(LanguageCode.ENG, data2[i]);
-                    name.put(LanguageCode.RUS, data2Rus[i]);
-                    name.put(LanguageCode.KAZ, data2Rus[i]);
+                    name.put(LanguageCode.ENG, pavlodarDataEng[i]);
+                    name.put(LanguageCode.RUS, pavlodarDataRus[i]);
+                    name.put(LanguageCode.KAZ, pavlodarDataKaz[i]);
                     entity.setLocName(name);
                     entity.setType(ltDao.findByCode(LocalityCode.CITY));
+                    if (entity.getName().equals("pavlodar")) {
+                        entity.setDistrict(districtDAO.findByName("pavlodar"));
+                    } else if (entity.getName().equals("aksu")) {
+                        entity.setDistrict(districtDAO.findByName("aksu"));
+                    } else if(entity.getName().equals("ekibastuz")){
+                        entity.setDistrict(districtDAO.findByName("ekibastuz"));
+                    }
                     entities.add(entity);
                 }
             }
@@ -87,7 +99,6 @@ public class FillLocalities extends Do {
             d = cDao.findByName("zhambyl_region");
 
             if (d != null) {
-                DistrictDAO districtDAO = new DistrictDAO(ses);
                 for (int i = 0; i < zhambylData.length; i++) {
                     Locality entity = new Locality();
                     entity.setRegion(d);
