@@ -28,8 +28,8 @@ public class FillLocalities extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<Locality> entities = new ArrayList<>();
-        String[] data = {"Kapchagay", "Taldykorgan"};
-        String[] data1 = {"Almaty"};
+        String[] almatyData = {"Kapchagay", "Taldykorgan"};
+        String[] almatyDataEng = {"Almaty"};
 
         String[] pavlodarData = {"pavloadar", "aksu", "ekibastuz"};
         String[] pavlodarDataEng = {"Pavloadar", "Aksu", "Ekibastuz"};
@@ -37,9 +37,9 @@ public class FillLocalities extends Do {
         String[] pavlodarDataKaz = {"Павлодар", "Ақсу", "Екібастұз"};
 
         String[] zhambylData = {"taraz", "karatau", "zhanatas"};
-        String[] zhambylRegionLocalitiesEng = {"Taraz", "Karatau", "Zhanatas"};
-        String[] zhambylRegionLocalitiesRus = {"Тараз", "Каратау", "Жанатас"};
-        String[] zhambylRegionLocalitiesKaz = {"Тараз", "Каратау", "Жанатас"};
+        String[] zhambylDataEng = {"Taraz", "Karatau", "Zhanatas"};
+        String[] zhambylDataRus = {"Тараз", "Каратау", "Жанатас"};
+        String[] zhambylDataKaz = {"Тараз", "Каратау", "Жанатас"};
 
         Region d = null;
         LocalityTypeDAO ltDao = null;
@@ -51,7 +51,7 @@ public class FillLocalities extends Do {
             d = cDao.findByName("almaty_region");
 
             if (d != null) {
-                for (String val : data) {
+                for (String val : almatyData) {
                     Locality entity = new Locality();
                     entity.setRegion(d);
                     entity.setName(val);
@@ -63,7 +63,7 @@ public class FillLocalities extends Do {
             d = cDao.findByName("almaty");
 
             if (d != null) {
-                for (String val : data1) {
+                for (String val : almatyDataEng) {
                     Locality entity = new Locality();
                     entity.setRegion(d);
                     entity.setName(val);
@@ -104,9 +104,9 @@ public class FillLocalities extends Do {
                     entity.setRegion(d);
                     entity.setName(zhambylData[i]);
                     Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
-                    name.put(LanguageCode.ENG, zhambylRegionLocalitiesEng[i]);
-                    name.put(LanguageCode.RUS, zhambylRegionLocalitiesRus[i]);
-                    name.put(LanguageCode.KAZ, zhambylRegionLocalitiesKaz[i]);
+                    name.put(LanguageCode.ENG, zhambylDataEng[i]);
+                    name.put(LanguageCode.RUS, zhambylDataRus[i]);
+                    name.put(LanguageCode.KAZ, zhambylDataKaz[i]);
                     entity.setLocName(name);
                     entity.setType(ltDao.findByCode(LocalityCode.CITY));
                     if (entity.getName().equals("karatau")) {
