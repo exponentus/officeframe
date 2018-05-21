@@ -48,8 +48,9 @@
     <!-- /loading -->
     <!-- eventTitleTemplate -->
     <ng-template #eventTitleTemplate let-event="event" let-view="view">
-        <a *ngIf="event.meta.relatedURL" class="cal-event-title" [href]="event.meta.relatedURL ? event.meta.relatedURL : 'javascript:;'"
+        <a *ngIf="event.meta.relatedURL" class="cal-event-title" [href]="event.meta.relatedURL"
             [innerHTML]="event.title | calendarEventTitle:view:event"></a>
+        <span *ngIf="!event.meta.relatedURL" class="cal-event-title" [innerHTML]="event.title | calendarEventTitle:view:event"></span>
     </ng-template>
     <!-- /eventTitleTemplate -->
     <div *ngIf="events$ | async; else loading; let events">
