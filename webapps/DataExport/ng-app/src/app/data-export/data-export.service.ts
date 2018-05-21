@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { catchError, finalize, map, switchMap } from 'rxjs/operators';
 import { saveAs } from 'file-saver';
 
 import {
@@ -38,7 +38,7 @@ export class DataExportService implements IEntityService<IEntity> {
         let noty = this.notifyService.process(this.ngxTranslate.instant('report_generation')).show();
         let url = `${DATA_EXPORT_URL.API_REPORT_PROFILES}/action/${action.url}`;
         return this.dataService.apiPostDownload(url, convertToDto(model))
-            .map(response => {
+            .pipe(map((response: any) => {
                 let disposition = response.headers.get('content-disposition');
                 let filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
                 let matches = filenameRegex.exec(disposition);
@@ -56,8 +56,9 @@ export class DataExportService implements IEntityService<IEntity> {
 
                 saveAs(blob, filename);
                 return response;
-            })
-            .catch(err => {
+            }), catchError(err => {
+                this.notifyService.error(this.ngxTranslate.instant('error')).show().remove(1000);
+
                 let fileAsTextObservable = new Observable<string>(observer => {
                     const reader = new FileReader();
                     reader.onload = (e) => {
@@ -75,8 +76,7 @@ export class DataExportService implements IEntityService<IEntity> {
                         this.handleRequestError(_err, 3000);
                         return Observable.throw(_err);
                     }));
-            })
-            .finally(() => noty.remove());
+            }), finalize(() => noty.remove()));
     }
 
     handleMessages(option: { messages: string[], isError?: boolean, delay?: number }) {

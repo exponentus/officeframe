@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule as ngCalendarModule } from 'angular-calendar';
 
 import { NbCommonModule, NbAclModule, NBEntityCreationDetailsModule } from '@nb/core';
@@ -22,6 +23,7 @@ import { ReminderFormComponent } from './components/reminder/reminder-form';
         ReminderFormComponent
     ],
     imports: [
+        BrowserAnimationsModule,
         NbCommonModule,
         NbAclModule,
         NBEntityCreationDetailsModule,

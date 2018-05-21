@@ -1,8 +1,8 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CalendarDateFormatter, CalendarNativeDateFormatter } from 'angular-calendar';
 import { Observable } from 'rxjs/Observable';
-import { CalendarEvent } from 'angular-calendar';
 import { map } from 'rxjs/operators/map';
+import { CalendarEvent } from 'angular-calendar';
 import * as Moment from 'moment';
 
 import { AppService, DATE_TIME_FORMAT } from '@nb/core';
@@ -91,7 +91,7 @@ export class CalendarComponent {
                     //
                     return {
                         title: event.title,
-                        start: Moment(event.eventTime, DATE_TIME_FORMAT),
+                        start: Moment(event.eventTime, DATE_TIME_FORMAT).toDate(),
                         color: {
                             primary: '#e3bc08',
                             secondary: '#FDF1BA'

@@ -17,8 +17,8 @@ public class ViewOptions {
         ViewOption result = new ViewOption();
 
         ViewColumnGroup cg1 = new ViewColumnGroup();
+        cg1.add(new ViewColumn("asOfByDate").name("as_of").sortBoth().type(ViewColumnType.date).format("DD.MM.YYYY"));
         cg1.add(new ViewColumn("name").type(ViewColumnType.localizedName));
-        cg1.add(new ViewColumn("asOfByDate").name("as_of").type(ViewColumnType.date).format("DD.MM.YYYY"));
 
         List<ViewColumnGroup> list = new ArrayList<>();
         list.add(cg1);
