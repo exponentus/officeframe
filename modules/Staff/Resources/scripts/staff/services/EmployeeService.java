@@ -327,6 +327,19 @@ public class EmployeeService extends RestProvider {
             filter.setWithFired(params.getBoolSilently("fired"));
         }
 
+        String[] userIds = params.getListOfValuesSilently("user");
+        if (userIds.length > 0) {
+            List<User> users = new ArrayList<>();
+            for (String uid : userIds) {
+                User u = new User();
+                u.setId(Long.valueOf(uid));
+                users.add(u);
+            }
+            if (!users.isEmpty()) {
+                filter.setUsers(users);
+            }
+        }
+
         String keyword = params.getValueSilently("keyword");
         if (!keyword.isEmpty()) {
             filter.setKeyword(keyword);

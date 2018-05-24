@@ -1,5 +1,6 @@
 package staff.dao.filter;
 
+import administrator.model.User;
 import com.exponentus.dataengine.IFilter;
 import staff.init.ModuleConst;
 import staff.model.Employee;
@@ -10,6 +11,7 @@ import java.util.List;
 
 public class EmployeeFilter implements IFilter<Employee> {
 
+    private List<User> users;
     private List<Role> roles;
     private boolean withFired;
     private String keyword;
@@ -19,6 +21,14 @@ public class EmployeeFilter implements IFilter<Employee> {
 
     public EmployeeFilter(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 
     public List<Role> getRoles() {
@@ -52,6 +62,14 @@ public class EmployeeFilter implements IFilter<Employee> {
                 condition = root.get("roles").in(roles);
             } else {
                 condition = cb.and(root.get("roles").in(roles), condition);
+            }
+        }
+
+        if (users != null && !users.isEmpty()) {
+            if (condition == null) {
+                condition = root.get("user").in(users);
+            } else {
+                condition = cb.and(root.get("user").in(users), condition);
             }
         }
 

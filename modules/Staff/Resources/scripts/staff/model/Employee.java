@@ -47,10 +47,8 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     @FTSearchable
     private String iin = "";
 
-
     @FTSearchable
     private String phone;
-
 
     @NotNull
     @ManyToOne(optional = true)
@@ -137,7 +135,6 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
 
     @JsonIgnore
     public IUser getUser() {
@@ -252,7 +249,6 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
                 return true;
             }
         }
-
         return false;
     }
 
