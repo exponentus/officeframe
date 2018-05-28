@@ -637,7 +637,7 @@
   "in_days.2" : " {{count}} дня",
   "in_days.1" : "Завтра",
   "in_days.0" : "Сегодня",
-  "waiting" : "Ожидание срока",
+  "waiting" : "Ожидание",
   "regular_cost" : "Общая стоимость проезда",
   "additional" : "Дополнительно",
   "eng_infrastruct_obj_classifications" : "Классификация объектов инженерной инфраструктуры",
