@@ -31,7 +31,6 @@ public class Address {
     @Basic(fetch = FetchType.LAZY)
     private Country country;
 
-
     @NotNull
     @Convert("region_conv")
     @Basic(fetch = FetchType.LAZY)
@@ -47,12 +46,10 @@ public class Address {
     @Basic(fetch = FetchType.LAZY)
     private Locality locality;
 
-
     @NotNull
     @Convert("citydistrict_conv")
     @Basic(fetch = FetchType.LAZY)
     private CityDistrict cityDistrict;
-
 
     @NotNull
     @Convert("street_conv")
@@ -188,6 +185,4 @@ public class Address {
         }
         return fullAddr.toString();
     }
-
-
 }
