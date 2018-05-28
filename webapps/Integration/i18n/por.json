@@ -363,6 +363,7 @@
   "building_book_obj" : null,
   "public_health_social" : null,
   "description" : null,
+  "originator" : "Originador",
   "unit_type" : "Unidade de medida",
   "doc_subjs" : null,
   "labor_productivity" : null,
