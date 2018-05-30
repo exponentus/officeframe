@@ -13,6 +13,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import reference.model.OrgCategory;
+import staff.dao.EmployeeDAO;
 import staff.dao.IndividualDAO;
 import staff.dao.filter.IndividualFilter;
 import staff.model.Individual;
@@ -101,14 +102,20 @@ public class IndividualService extends RestProvider {
             _Session session = getSession();
             Individual entity;
             boolean isNew = "new".equals(id);
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 entity = new Individual();
+                author = employeeDAO.getUserName(session.getUser());
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
                 IndividualDAO dao = new IndividualDAO(session);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
 
             ActionBar actionBar = new ActionBar(session);
@@ -123,6 +130,7 @@ public class IndividualService extends RestProvider {
             outcome.setPayloadTitle("individual");
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

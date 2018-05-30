@@ -12,6 +12,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import staff.dao.DepartmentDAO;
+import staff.dao.EmployeeDAO;
 import staff.model.Department;
 import staff.ui.Action;
 import staff.ui.ViewOptions;
@@ -69,14 +70,20 @@ public class DepartmentService extends RestProvider {
             _Session session = getSession();
             Department entity;
             boolean isNew = "new".equals(id);
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 entity = new Department();
+                author = employeeDAO.getUserName(session.getUser());
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
                 DepartmentDAO dao = new DepartmentDAO(session);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
 
             //
@@ -92,6 +99,7 @@ public class DepartmentService extends RestProvider {
             outcome.setPayloadTitle("department");
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

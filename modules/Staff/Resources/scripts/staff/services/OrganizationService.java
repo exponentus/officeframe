@@ -1,9 +1,12 @@
 package staff.services;
 
+import com.exponentus.common.dao.DAOFactory;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
+import com.exponentus.dataengine.jpa.IDAO;
 import com.exponentus.exception.SecureException;
+import com.exponentus.log.Lg;
 import com.exponentus.rest.outgoingdto.Outcome;
 import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
@@ -11,6 +14,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import reference.model.OrgCategory;
+import staff.dao.EmployeeDAO;
 import staff.dao.OrganizationDAO;
 import staff.dao.filter.OrganizationFilter;
 import staff.model.Organization;
@@ -97,22 +101,28 @@ public class OrganizationService extends StaffService<Organization> {
             _Session session = getSession();
             Organization entity;
             boolean isNew = "new".equals(id);
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 entity = new Organization();
+                author = employeeDAO.getUserName(session.getUser());
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
                 OrganizationDAO dao = new OrganizationDAO(session);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
-
             Outcome outcome = new Outcome();
             outcome.setTitle("organization");
             outcome.setModel(entity);
             outcome.setPayloadTitle("organization");
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

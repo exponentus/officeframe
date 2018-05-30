@@ -126,9 +126,11 @@ public class EmployeeService extends RestProvider {
             _Session session = getSession();
             Employee entity;
             boolean isNew = "new".equals(id);
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 entity = new Employee();
+                author = employeeDAO.getUserName(session.getUser());
                 entity.setName("");
                 entity.setAuthor(session.getUser());
 
@@ -138,6 +140,10 @@ public class EmployeeService extends RestProvider {
             } else {
                 EmployeeDAO dao = new EmployeeDAO(session);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
 
             UserDAO userDAO = new UserDAO(session);
@@ -158,6 +164,7 @@ public class EmployeeService extends RestProvider {
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
             outcome.addPayload("userLogins", userLogins);
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

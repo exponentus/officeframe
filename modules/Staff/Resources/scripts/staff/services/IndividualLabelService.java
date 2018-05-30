@@ -11,6 +11,7 @@ import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
+import staff.dao.EmployeeDAO;
 import staff.dao.IndividualLabelDAO;
 import staff.model.IndividualLabel;
 import staff.ui.Action;
@@ -67,7 +68,8 @@ public class IndividualLabelService extends RestProvider {
             _Session session = getSession();
             IndividualLabel entity;
             boolean isNew = "new".equals(id);
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 entity = new IndividualLabel();
                 entity.setName("");
@@ -75,6 +77,10 @@ public class IndividualLabelService extends RestProvider {
             } else {
                 IndividualLabelDAO dao = new IndividualLabelDAO(session);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
 
             //
@@ -90,6 +96,7 @@ public class IndividualLabelService extends RestProvider {
             outcome.setPayloadTitle("individual_label");
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

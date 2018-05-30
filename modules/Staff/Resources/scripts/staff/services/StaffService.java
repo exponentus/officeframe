@@ -15,7 +15,9 @@ import com.exponentus.rest.validation.exception.DTOException;
 import com.exponentus.scripting.SortParams;
 import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
+import com.exponentus.user.IUser;
 import com.exponentus.util.StringUtil;
+import staff.dao.EmployeeDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -66,7 +68,8 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             T entity;
             boolean isNew = "new".equals(id);
             Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 try {
                     Class<T> clazz = entityClass;
@@ -75,11 +78,16 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
                     Lg.exception(e);
                     return null;
                 }
+                author = employeeDAO.getUserName(session.getUser());
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
                 IDAO<T, UUID> dao = DAOFactory.get(session, entityClass);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
 
             Outcome outcome = new Outcome();
@@ -87,6 +95,7 @@ public abstract class StaffService<T extends SimpleReferenceEntity> extends Rest
             outcome.setPayloadTitle(StringUtil.kindToKeyword(entity.getEntityKind()));
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(getDefaultFormActionBar(entity));
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {

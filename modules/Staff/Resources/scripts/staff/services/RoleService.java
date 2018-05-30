@@ -17,6 +17,7 @@ import com.exponentus.scripting.WebFormData;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import reference.init.ModuleConst;
+import staff.dao.EmployeeDAO;
 import staff.dao.RoleDAO;
 import staff.model.Role;
 import staff.ui.Action;
@@ -73,14 +74,20 @@ public class RoleService extends RestProvider {
             _Session session = getSession();
             Role entity;
             boolean isNew = "new".equals(id);
-
+            String author = "";
+            EmployeeDAO employeeDAO = new EmployeeDAO(session);
             if (isNew) {
                 entity = new Role();
+                author = employeeDAO.getUserName(session.getUser());
                 entity.setName("");
                 entity.setAuthor(session.getUser());
             } else {
                 RoleDAO dao = new RoleDAO(session);
                 entity = dao.findById(id);
+                IUser authorUser = entity.getAuthor();
+                if (authorUser != null) {
+                    author = employeeDAO.getUserName(authorUser);
+                }
             }
 
             //
@@ -110,6 +117,7 @@ public class RoleService extends RestProvider {
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.addPayload(actionBar);
             outcome.addPayload("roles", allRoles);
+            outcome.addPayload("author", author);
 
             return Response.ok(outcome).build();
         } catch (DAOException e) {
