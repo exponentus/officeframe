@@ -45,7 +45,7 @@
     "@angular/compiler-cli": "^6.0.3",
     "@ngtools/webpack": "^1.10.2",
     "@types/core-js": "0.9.46",
-    "@types/node": "^10.0.3",
+    "@types/node": "10.0.3",
     "@types/uglify-js": "^3.0.2",
     "awesome-typescript-loader": "^3.5.0",
     "babel-core": "^6.26.3",
