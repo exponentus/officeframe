@@ -3,17 +3,14 @@ package reference.task;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.OperativeInfoTypeDAO;
-import reference.dao.PositionDAO;
 import reference.init.ModuleConst;
 import reference.model.OperativeInfoType;
-import reference.model.Position;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +24,10 @@ public class FillOperativeInfoTypes extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<OperativeInfoType> entities = new ArrayList<OperativeInfoType>();
-        String[] data = {"weather","internet_recource","news","faq"};
-        String[] dataEng = {"Weather","Internet resource", "News", "FAQ"};
-        String[] dataRus = {"Погода","Интернет-ресурс", "Новость","Вопрос-ответ"};
-        String[] dataKaz = {"Ауа райы","Интернет-ресурс", "Жаңалықтар", "Сұрақ-жауап"};
+        String[] data = {"weather", "internet_resource", "news", "faq"};
+        String[] dataEng = {"Weather", "Internet resource", "News", "FAQ"};
+        String[] dataRus = {"Погода", "Интернет-ресурс", "Новость", "Вопрос-ответ"};
+        String[] dataKaz = {"Ауа райы", "Интернет-ресурс", "Жаңалықтар", "Сұрақ-жауап"};
 
         int[] rankData = {999};
 
@@ -70,5 +67,4 @@ public class FillOperativeInfoTypes extends Do {
         }
         logger.info("done...");
     }
-
 }
