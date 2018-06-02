@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CalendarDateFormatter, CalendarNativeDateFormatter } from 'angular-calendar';
-import { Observable } from 'rxjs/Observable';
-import { map } from 'rxjs/operators/map';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { CalendarEvent } from 'angular-calendar';
 import * as Moment from 'moment';
 
