@@ -1,18 +1,19 @@
 :host-context() /deep/ .employee-form {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 :host-context() /deep/ .fieldset-user-fields {
     max-width: 100%;
-    width: 600px;
+    width: 100%;
 }
 
 :host-context() /deep/ .fieldset-user-avatar {
     display: block;
-    max-width: 100%;
+    max-width: 300px;
     text-align: center;
-    width: 300px;
+    width: 100%;
 }
 
 :host-context() /deep/ .fieldset-user-avatar .form-group {
@@ -84,14 +85,16 @@
     display: block;
 }
 
-@media (min-width: 769px) {
-    :host-context() /deep/ .fieldset-user-avatar {
-        order: 2;
-    }
-}
-
-@media (max-width: 768px) {
+@media (min-width: 800px) {
     :host-context() /deep/ .employee-form {
-        justify-content: center;
+        justify-content: flex-start;
+    }
+    :host-context() /deep/ .fieldset-user-fields {
+        width: 60%;
+    }
+    :host-context() /deep/ .fieldset-user-avatar {
+        margin-left: 16px;
+        order: 2;
+        width: calc(30% - 16px);
     }
 }
