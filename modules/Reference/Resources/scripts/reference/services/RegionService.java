@@ -23,10 +23,27 @@ import javax.ws.rs.core.Response;
 import java.util.List;
 
 @Path("regions")
+@Produces(MediaType.APPLICATION_JSON)
 public class RegionService extends ReferenceService<Region> {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Path("primary")
+    public Response getPrimary() {
+        _Session session = getSession();
+        try {
+            RegionDAO dao = new RegionDAO(session);
+            Region region = dao.findPrimary();
+
+            Outcome outcome = new Outcome();
+            outcome.setModel(region);
+
+            return Response.ok(outcome).build();
+        } catch (DAOException e) {
+            return responseException(e);
+        }
+    }
+
+    @GET
     public Response getViewPage() {
         _Session session = getSession();
         WebFormData params = getWebFormData();
