@@ -12,7 +12,7 @@ import reference.model.StatisticType;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-@Path("statistic-indicator-type")
+@Path("statistic-indicator-types")
 public class StatisticIndicatorTypeService extends ReferenceService<StatisticIndicatorType> {
 
     public Response save(StatisticIndicatorType dto) {

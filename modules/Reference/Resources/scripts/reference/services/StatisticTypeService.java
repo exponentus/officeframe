@@ -11,7 +11,7 @@ import reference.model.StatisticType;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.Response;
 
-@Path("statistic-type")
+@Path("statistic-types")
 public class StatisticTypeService extends ReferenceService<StatisticType> {
 
     public Response save(StatisticType dto) {
