@@ -61,6 +61,6 @@ public class StatisticType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "statistic-types/" + getIdentifier();
+        return ModuleConst.BASE_URL + "statistic-types/" + getId();
     }
 }

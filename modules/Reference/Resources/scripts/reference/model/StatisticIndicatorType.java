@@ -44,6 +44,6 @@ public class StatisticIndicatorType extends SimpleReferenceEntity {
 
     @Override
     public String getURL() {
-        return ModuleConst.BASE_URL + "statistic-indicator-types/" + getIdentifier();
+        return ModuleConst.BASE_URL + "statistic-indicator-types/" + getId();
     }
 }
