@@ -908,7 +908,7 @@ function getFormSchemas(languages: any) {
         StatisticType: [{
             tabTitle: 'properties',
             fieldsets: [{
-                fields: [{
+                fields: [/*{
                     type: 'select',
                     label: 'parent',
                     name: 'parent',
@@ -916,12 +916,12 @@ function getFormSchemas(languages: any) {
                     values: {
                         url: '/Reference/api/statistic-types'
                     }
-                }, {
-                    type: 'text',
-                    label: 'code',
-                    name: 'code',
-                    className: 'span4'
-                }]
+                },*/ {
+                        type: 'text',
+                        label: 'code',
+                        name: 'code',
+                        className: 'span4'
+                    }]
             }, {
                 title: 'localized_names',
                 fields: [{
