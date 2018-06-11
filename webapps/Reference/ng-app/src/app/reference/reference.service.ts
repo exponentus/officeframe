@@ -907,8 +907,8 @@ function getFormSchemas(languages: any) {
         }],
         StatisticType: [{
             tabTitle: 'properties',
-            fieldsets: [{
-                fields: [/*{
+            fieldsets: [/*{
+                fields: [{
                     type: 'select',
                     label: 'parent',
                     name: 'parent',
@@ -916,32 +916,32 @@ function getFormSchemas(languages: any) {
                     values: {
                         url: '/Reference/api/statistic-types'
                     }
-                },*/ {
+                }, {
                         type: 'text',
                         label: 'code',
                         name: 'code',
                         className: 'span4'
                     }]
-            }, {
-                title: 'localized_names',
-                fields: [{
-                    type: 'localizedName',
-                    name: 'locName',
-                    hideLabel: true,
-                    className: 'span8',
-                    values: { enum: languages }
+            },*/ {
+                    title: 'localized_names',
+                    fields: [{
+                        type: 'localizedName',
+                        name: 'locName',
+                        hideLabel: true,
+                        className: 'span8',
+                        values: { enum: languages }
+                    }]
+                }, {
+                    title: 'URL',
+                    fields: [{
+                        type: 'text',
+                        label: 'name',
+                        name: 'name',
+                        className: 'span8',
+                        disabled: true,
+                        onClick: CHANGE_NAMED_URL_ACTION
+                    }]
                 }]
-            }, {
-                title: 'URL',
-                fields: [{
-                    type: 'text',
-                    label: 'name',
-                    name: 'name',
-                    className: 'span8',
-                    disabled: true,
-                    onClick: CHANGE_NAMED_URL_ACTION
-                }]
-            }]
         }],
         StatisticIndicatorType: [{
             tabTitle: 'properties',
@@ -962,12 +962,12 @@ function getFormSchemas(languages: any) {
                     values: {
                         url: '/Reference/api/unit-types'
                     }
-                }, {
-                    type: 'text',
-                    label: 'code',
-                    name: 'code',
-                    className: 'span4'
-                }]
+                }, /*{
+                        type: 'text',
+                        label: 'code',
+                        name: 'code',
+                        className: 'span4'
+                    }*/]
             }, {
                 title: 'localized_names',
                 fields: [{
