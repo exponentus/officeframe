@@ -11,6 +11,7 @@ import com.exponentus.scripting._Session;
 import reference.dao.StatisticIndicatorTypeDAO;
 import reference.dao.filter.StatisticIndicatorTypeFilter;
 import reference.model.StatisticIndicatorType;
+import reference.ui.ViewOptions;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -34,9 +35,8 @@ public class StatisticIndicatorTypeService extends ReferenceService<StatisticInd
             int pageSize = session.getPageSize();
 
             ViewPage<StatisticIndicatorType> vp = dao.findViewPage(filter, sortParams, params.getPage(), pageSize);
-            // ViewOptions vo = new ViewOptions();
-            // vp.setViewPageOptions(vo.getTagOptions());
-            // vp.setFilter(vo.getTagFilter());
+            ViewOptions vo = new ViewOptions();
+            vp.setViewPageOptions(vo.getStatisticIndicatorTypeOptions());
 
             Outcome outcome = new Outcome();
             outcome.setTitle("statistic_indicator_types");
