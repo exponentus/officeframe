@@ -32,7 +32,6 @@ public class StatisticTypeService extends ReferenceService<StatisticType> {
             // fill from dto
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
-            entity.setCode(dto.getCode());
             entity.setParent(dto.getParent());
 
             dao.save(entity);

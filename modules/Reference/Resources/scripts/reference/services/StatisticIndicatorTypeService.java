@@ -68,7 +68,6 @@ public class StatisticIndicatorTypeService extends ReferenceService<StatisticInd
             // fill from dto
             entity.setName(dto.getName());
             entity.setLocName(dto.getLocName());
-            entity.setCode(dto.getCode());
             entity.setStatisticType(dto.getStatisticType());
             entity.setUnitType(dto.getUnitType());
 

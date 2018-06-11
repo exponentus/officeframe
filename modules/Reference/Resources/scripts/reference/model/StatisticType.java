@@ -11,9 +11,6 @@ import java.util.List;
 @Table(name = ModuleConst.CODE + "__statistic__type", uniqueConstraints = @UniqueConstraint(columnNames = {"name"}))
 public class StatisticType extends SimpleReferenceEntity {
 
-    @Column(length = 16, unique = true)
-    private String code;
-
     @JsonIgnore
     @JoinColumn(name = "statistic_type_id")
     private StatisticType parent;
@@ -26,14 +23,6 @@ public class StatisticType extends SimpleReferenceEntity {
     @JsonIgnore
     @OneToMany(mappedBy = "statisticType", cascade = CascadeType.ALL)
     private List<StatisticIndicatorType> indicatorTypes;
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
 
     public StatisticType getParent() {
         return parent;

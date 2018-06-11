@@ -916,13 +916,7 @@ function getFormSchemas(languages: any) {
                     values: {
                         url: '/Reference/api/statistic-types'
                     }
-                }, {
-                        type: 'text',
-                        label: 'code',
-                        name: 'code',
-                        className: 'span4'
-                    }]
-            },*/ {
+                },*/ {
                     title: 'localized_names',
                     fields: [{
                         type: 'localizedName',
@@ -962,12 +956,7 @@ function getFormSchemas(languages: any) {
                     values: {
                         url: '/Reference/api/unit-types'
                     }
-                }, /*{
-                        type: 'text',
-                        label: 'code',
-                        name: 'code',
-                        className: 'span4'
-                    }*/]
+                }]
             }, {
                 title: 'localized_names',
                 fields: [{
