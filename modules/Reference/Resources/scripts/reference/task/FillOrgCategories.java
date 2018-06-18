@@ -23,8 +23,10 @@ public class FillOrgCategories extends Do {
     public void doTask(AppEnv appEnv, _Session ses) {
 
         List<OrgCategory> entities = new ArrayList<>();
-        String[] data = {"LTD", "Self_employed", "JSC", "State_office", "State_enterprise", "International_company",
-                "Public_association", "City_Hall", "Embassy", "Educational_institution"};
+        String[] data = {"ltd", "self_employed", "jsc", "state_office", "state_enterprise", "international_company",
+                "public_association", "city_Hall", "embassy", "educational_institution"};
+        String[] dataEng = {"LTD", "Self employed", "JSC", "State office", "State enterprise", "International company",
+                "Public association", "City Hall", "Embassy", "Educational institution"};
         String[] dataRus = {"ТОО", "Частный предприниматель", "АО", "Государственное ведомство", "РГП",
                 "Зарубежная компания", "Общественное объединение", "Мэрия", "Посольство",
                 "Образовательное учреждение"};
@@ -35,7 +37,7 @@ public class FillOrgCategories extends Do {
         for (int i = 0; i < data.length; i++) {
             OrgCategory entity = new OrgCategory();
             Map<LanguageCode, String> name = new HashMap<>();
-            name.put(LanguageCode.ENG, data[i]);
+            name.put(LanguageCode.ENG, dataEng[i]);
             name.put(LanguageCode.KAZ, dataKaz[i]);
             name.put(LanguageCode.RUS, dataRus[i]);
             entity.setLocName(name);
