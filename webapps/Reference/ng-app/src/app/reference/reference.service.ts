@@ -954,7 +954,9 @@ function getFormSchemas(languages: any) {
                     name: 'unitType',
                     className: 'span4',
                     values: {
-                        url: '/Reference/api/unit-types'
+                        url: '/Reference/api/unit-types',
+                        // groupBy: 'category',
+                        // groupSelectable: false
                     }
                 }]
             }, {
