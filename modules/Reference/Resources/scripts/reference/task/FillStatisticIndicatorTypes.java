@@ -25,11 +25,10 @@ public class FillStatisticIndicatorTypes extends Do {
     @Override
     public void doTask(AppEnv appEnv, _Session ses) {
         List<StatisticIndicatorType> entities = new ArrayList<>();
-
-        String names[] = {"", "", ""};
-        String namesEng[] = {"", "", ""};
-        String namesRus[] = {"", "", ""};
-        String namesKaz[] = {"", "", ""};
+        String names[] = {"taxes_on_products", "provision_other_types_services", "arts_entertainment_recreation","health_social_services","education", "public_administration_defense", "compulsory_social_security", "activities_in_field_administrative_support_services", "professional_scientific_technical_activities", "operations_with_real_estate", "financial_and_insurance_activities", "information_and_communication", "accommodation_food_services","transport_and_storage","wholesale_retail_trade","repair_cars_motorcycles","building","industry","agriculture_forestry_fisheries"};
+        String namesEng[] = {"Taxes on products", "Provision of other types of services", "Arts, entertainment and recreation","Health and social services","Education", "Public administration and defense", "Compulsory social security", "Activities in the field of administrative and support services", "Professional, scientific and technical activities", "Operations with real estate", "Financial and insurance activities", "Information and communication", "Accommodation and food services","Transport and storage","Wholesale and retail trade","Repair of cars and motorcycles","Building","Industry","Agriculture, forestry and fisheries"};
+        String namesRus[] = {"Налоги на продукты", "Предоставление прочих видов услуг", "Искусство, развлечения и отдых", "Здравоохранение и социальные услуги", "Образование", "Государственное управление и оборона", "Обязательное социальное обеспечение","Деятельность в области административного и вспомогательного обслуживания","Профессиональная, научная и техническая деятельность","Операции с недвижимым имуществом", "Финансовая и страховая деятельность","Информация и связь", "Услуги по проживанию и питанию","Транспорт и складирование","Оптовая и розничная торговля","Ремонт автомобилей и мотоциклов","Строительство","Промышленность","Сельское, лесное и рыбное хозяйство"};
+        String namesKaz[] = {"", "", "","","","","","","","","","","","","","","","",""};// TODO add kazakh translate
 
         for (int i = 0; i < names.length; i++) {
             StatisticIndicatorType statisticIndicatorType = new StatisticIndicatorType();
@@ -41,6 +40,7 @@ public class FillStatisticIndicatorTypes extends Do {
             statisticIndicatorType.setLocName(name);
             entities.add(statisticIndicatorType);
         }
+
 
         try {
            StatisticIndicatorTypeDAO dao = new StatisticIndicatorTypeDAO(ses);
