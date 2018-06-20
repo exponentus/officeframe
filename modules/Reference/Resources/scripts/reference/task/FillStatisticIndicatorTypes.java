@@ -7,12 +7,15 @@ import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
+import com.exponentus.scripting.outline.OutlineEntry;
 import com.exponentus.scriptprocessor.tasks.Command;
 import reference.dao.StatisticIndicatorTypeDAO;
 import reference.dao.StatisticTypeDAO;
+import reference.dao.UnitTypeDAO;
 import reference.init.ModuleConst;
 import reference.model.StatisticIndicatorType;
 import reference.model.StatisticType;
+import reference.model.UnitType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,7 +33,7 @@ public class FillStatisticIndicatorTypes extends Do {
         String namesRus[] = {"Налоги на продукты", "Предоставление прочих видов услуг", "Искусство, развлечения и отдых", "Здравоохранение и социальные услуги", "Образование", "Государственное управление и оборона", "Обязательное социальное обеспечение","Деятельность в области административного и вспомогательного обслуживания","Профессиональная, научная и техническая деятельность","Операции с недвижимым имуществом", "Финансовая и страховая деятельность","Информация и связь", "Услуги по проживанию и питанию","Транспорт и складирование","Оптовая и розничная торговля","Ремонт автомобилей и мотоциклов","Строительство","Промышленность","Сельское, лесное и рыбное хозяйство"};
         String namesKaz[] = {"", "", "","","","","","","","","","","","","","","","",""};// TODO add kazakh translate
 
-        for (int i = 0; i < names.length; i++) {
+        /*for (int i = 0; i < names.length; i++) {
             StatisticIndicatorType statisticIndicatorType = new StatisticIndicatorType();
             statisticIndicatorType.setName(names[i]);
             Map<LanguageCode, String> name = new HashMap<>();
@@ -39,6 +42,60 @@ public class FillStatisticIndicatorTypes extends Do {
             name.put(LanguageCode.KAZ, namesKaz[i]);
             statisticIndicatorType.setLocName(name);
             entities.add(statisticIndicatorType);
+        }*/
+        StatisticTypeDAO statisticTypeDAO = null;
+        UnitTypeDAO unitTypeDAO = null;
+        try {
+            statisticTypeDAO = new StatisticTypeDAO(ses);
+            unitTypeDAO = new UnitTypeDAO(ses);
+        } catch (DAOException e) {
+            e.printStackTrace();
+        }
+        List<StatisticType> list = statisticTypeDAO.findAll();
+        for (StatisticType st : list) {
+            StatisticIndicatorType statisticIndicatorType = new StatisticIndicatorType();
+
+
+            if(!st.getName().equalsIgnoreCase("entrepreneurship") ) {
+                UnitType unitType = null;
+                try {
+                    unitType = unitTypeDAO.findByName("tenge");
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+                statisticIndicatorType.setName("total_turnover_" + st.getName());
+                Map<LanguageCode, String> name = new HashMap<>();
+                name.put(LanguageCode.RUS, "Общий оборот в денежном выражении");
+                name.put(LanguageCode.ENG, "Total turnover in monetary terms");
+                name.put(LanguageCode.KAZ, "Ақшалай айналымдағы жалпы айналым");
+                statisticIndicatorType.setLocName(name);
+                statisticIndicatorType.setStatisticType(st);
+                statisticIndicatorType.setUnitType(unitType);
+                entities.add(statisticIndicatorType);
+            }else{
+                UnitType unitType = null;
+                try {
+                    unitType = unitTypeDAO.findByName("unit");
+                } catch (DAOException e) {
+                    e.printStackTrace();
+                }
+                String _names[] = {"in_count_entrepreneurship", "by_number_entrepreneurship", "number_of_enterprises_entrepreneurship"};
+                String _namesEng[] = {"In count", "By number", "Number of enterprises"};
+                String _namesRus[] = {"По количеству", "По численности", "Количество предприятий"};
+                String _namesKaz[] = {"сан бойынша", "сан бойынша", "Кәсіпорындар саны"};
+                for (int k = 0; k < _names.length; k++) {
+                    StatisticIndicatorType _statisticIndicatorType = new StatisticIndicatorType();
+                    _statisticIndicatorType.setName(_names[k]);
+                    Map<LanguageCode, String> name = new HashMap<>();
+                    name.put(LanguageCode.RUS, _namesRus[k]);
+                    name.put(LanguageCode.ENG, _namesEng[k]);
+                    name.put(LanguageCode.KAZ, _namesKaz[k]);
+                    _statisticIndicatorType.setLocName(name);
+                    _statisticIndicatorType.setStatisticType(st);
+                    _statisticIndicatorType.setUnitType(unitType);
+                    entities.add(_statisticIndicatorType);
+                }
+            }
         }
 
 
