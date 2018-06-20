@@ -94,6 +94,7 @@ public class FillStatisticIndicatorTypes extends Do {
                     _statisticIndicatorType.setStatisticType(st);
                     _statisticIndicatorType.setUnitType(unitType);
                     entities.add(_statisticIndicatorType);
+
                 }
             }
         }
