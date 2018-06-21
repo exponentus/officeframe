@@ -1086,6 +1086,7 @@
   "trade" : null,
   "registry_number" : "registry_number",
   "serial" : null,
+  "estimate_in_hours" : "Tiempo estimado para implementar (en horas)",
   "agricultural_product_ipv" : null,
   "external_turnover_ipv" : null,
   "biz_quantity_indicators" : "biz_quantity_indicators",

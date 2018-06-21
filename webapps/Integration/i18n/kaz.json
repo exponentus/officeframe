@@ -1086,6 +1086,7 @@
   "trade" : "Сауда",
   "registry_number" : "Тіркеу нөмірі",
   "serial" : null,
+  "estimate_in_hours" : "Іске асырудың болжамды уақыты (сағат бойынша)",
   "agricultural_product_ipv" : "Ауылшаруашылық өнімдері IPV",
   "external_turnover_ipv" : "IPV",
   "biz_quantity_indicators" : "biz_quantity_indicators",
