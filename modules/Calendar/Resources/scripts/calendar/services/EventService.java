@@ -2,13 +2,12 @@ package calendar.services;
 
 import calendar.dao.EventDAO;
 import calendar.dao.filter.EventFilter;
-import calendar.domain.EventDomain;
 import calendar.dto.converter.EventDtoConverter;
 import calendar.model.Event;
 import calendar.ui.ViewOptions;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.model.constants.PriorityType;
-import com.exponentus.common.service.EntityService;
+import com.exponentus.common.service.AbstractService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
@@ -28,7 +27,7 @@ import java.util.UUID;
 
 @Path("events")
 @Produces(MediaType.APPLICATION_JSON)
-public class EventService extends EntityService<Event, EventDomain> {
+public class EventService extends AbstractService<Event> {
 
     @GET
     public Response getViewPage() {
@@ -72,12 +71,13 @@ public class EventService extends EntityService<Event, EventDomain> {
         _Session session = getSession();
         try {
             EventDAO dao = new EventDAO(session);
-            EventDomain domain = new EventDomain(session);
             Event entity;
 
             boolean isNew = "new".equals(id);
             if (isNew) {
-                entity = domain.composeNew(session.getUser());
+                entity = new Event();
+                entity.setAuthor(session.getUser());
+                entity.setTitle("");
             } else {
                 entity = dao.findById(id);
                 if (entity == null) {
@@ -85,7 +85,7 @@ public class EventService extends EntityService<Event, EventDomain> {
                 }
             }
 
-            Outcome outcome = domain.getOutcome(entity);
+            Outcome outcome = getOutcome(entity);
             outcome.setTitle("event");
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.setPayloadTitle("event");
@@ -101,15 +101,44 @@ public class EventService extends EntityService<Event, EventDomain> {
     @Override
     public Response saveForm(Event dto) {
         try {
-            EventDomain omd = new EventDomain(getSession());
-            Event entity = omd.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
-            Outcome outcome = omd.getOutcome(omd.save(entity));
+            EventDAO dao = new EventDAO(getSession());
+            Event entity = fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            Outcome outcome = getOutcome(dao.save(entity));
             return Response.ok(outcome).build();
         } catch (DTOException e) {
             return responseValidationError(e);
         } catch (DAOException | SecureException e) {
             return responseException(e);
         }
+    }
+
+    @Override
+    public Event fillFromDto(Event dto, IValidation<Event> validation, String formSesId) throws DTOException, DAOException {
+        validation.check(dto);
+
+        Event entity;
+
+        if (dto.isNew()) {
+            entity = new Event();
+        } else {
+            entity = dao.findById(dto.getId());
+        }
+
+        entity.setTitle(dto.getTitle());
+        entity.setEventTime(dto.getEventTime());
+        entity.setObservers(dto.getObservers());
+        entity.setDescription(dto.getDescription());
+        entity.setPriority(dto.getPriority());
+        entity.setReminder(dto.getReminder());
+        entity.setRelatedURL(dto.getRelatedURL());
+        entity.setTags(dto.getTags());
+
+        if (entity.isNew()) {
+            entity.setAuthor(getSession().getUser());
+        }
+        entity.setAttachments(getActualAttachments(entity.getAttachments(), dto.getAttachments()));
+        calculateReadersEditors(entity);
+        return entity;
     }
 
     private class Validation implements IValidation<Event> {

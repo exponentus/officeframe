@@ -1,10 +1,11 @@
 package dataexport.services;
 
 import administrator.dao.LanguageDAO;
+import administrator.model.Language;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.common.domain.IValidation;
 import com.exponentus.common.other.IDataObtainer;
-import com.exponentus.common.service.EntityService;
+import com.exponentus.common.service.AbstractService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.common.ui.actions.ActionBar;
 import com.exponentus.dataengine.exception.DAOException;
@@ -24,7 +25,6 @@ import com.exponentus.server.Server;
 import com.exponentus.util.ReflectionUtil;
 import com.exponentus.util.TimeUtil;
 import dataexport.dao.ReportProfileDAO;
-import dataexport.domain.ReportProfileDomain;
 import dataexport.model.ReportProfile;
 import dataexport.model.constants.ExportFormatType;
 import dataexport.model.constants.ReportQueryType;
@@ -43,6 +43,8 @@ import net.sf.jasperreports.export.Exporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.export.SimpleWriterExporterOutput;
+import staff.dao.EmployeeDAO;
+import staff.model.embedded.Observer;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -56,33 +58,40 @@ import java.util.*;
 
 @Path("report-profiles")
 @Produces(MediaType.APPLICATION_JSON)
-public class ReportProfileService extends EntityService<ReportProfile, ReportProfileDomain> {
+public class ReportProfileService extends AbstractService<ReportProfile> {
+
+    private static final String REPORT_NAME_KEYWORD = "report";
     private static final String JASPER_REPORT_TEMPLATE_EXTENSION = "jrxml";
 
     @GET
     public Response getViewPage() {
-        _Session session = getSession();
-        WebFormData params = getWebFormData();
+        try {
+            _Session session = getSession();
+            WebFormData params = getWebFormData();
 
-        int pageSize = session.getPageSize();
-        SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            int pageSize = session.getPageSize();
+            SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
+            ReportProfileDAO dao = new ReportProfileDAO(session);
 
-        ViewPage vp = getDomain().getViewPage(sortParams, params.getPage(), pageSize);
-        vp.setViewPageOptions(new ViewOptions().getReportProfileOptions());
+            ViewPage vp = dao.findViewPage(sortParams, params.getPage(), pageSize);
+            vp.setViewPageOptions(new ViewOptions().getReportProfileOptions());
 
-        ActionFactory action = new ActionFactory();
-        ActionBar actionBar = new ActionBar(session);
-        actionBar.addAction(action.refreshVew);
-        actionBar.addAction(action.addNew);
-        actionBar.addAction(action.deleteDocument);
+            ActionFactory action = new ActionFactory();
+            ActionBar actionBar = new ActionBar(session);
+            actionBar.addAction(action.refreshVew);
+            actionBar.addAction(action.addNew);
+            actionBar.addAction(action.deleteDocument);
 
-        Outcome outcome = new Outcome();
-        outcome.setId("report-profiles");
-        outcome.setTitle("report_profiles");
-        outcome.setPayloadTitle("report_profiles");
-        outcome.addPayload(actionBar);
-        outcome.addPayload(vp);
-        return Response.ok(outcome).build();
+            Outcome outcome = new Outcome();
+            outcome.setId("report-profiles");
+            outcome.setTitle("report_profiles");
+            outcome.setPayloadTitle("report_profiles");
+            outcome.addPayload(actionBar);
+            outcome.addPayload(vp);
+            return Response.ok(outcome).build();
+        } catch (DAOException e) {
+            return responseException(e);
+        }
     }
 
     @GET
@@ -91,12 +100,12 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
         _Session session = getSession();
         try {
             ReportProfileDAO dao = new ReportProfileDAO(session);
-            ReportProfileDomain domain = new ReportProfileDomain(session);
             ReportProfile entity;
 
             boolean isNew = "new".equals(id);
             if (isNew) {
-                entity = domain.composeNew(session.getUser());
+                entity = new ReportProfile();
+                entity.setAuthor(session.getUser());
             } else {
                 entity = dao.findById(id);
                 if (entity == null) {
@@ -125,7 +134,7 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
                 }
             }
 
-            Outcome outcome = domain.getOutcome(entity);
+            Outcome outcome = getOutcome(entity);
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.setPayloadTitle("report_profile");
             outcome.addPayload(actionBar);
@@ -145,18 +154,72 @@ public class ReportProfileService extends EntityService<ReportProfile, ReportPro
     @Override
     public Response saveForm(ReportProfile dto) {
         try {
-            ReportProfileDomain domain = new ReportProfileDomain(getSession());
-            ReportProfile entity = domain.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
-            domain.save(entity);
+            ReportProfileDAO dao = new ReportProfileDAO(getSession());
+            ReportProfile entity = fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            dao.save(entity);
 
-            Outcome outcome = domain.getOutcome(entity);
-
+            Outcome outcome = getOutcome(entity);
             return Response.ok(outcome).build();
         } catch (DTOException e) {
             return responseValidationError(e);
         } catch (DAOException | SecureException e) {
             return responseException(e);
         }
+    }
+
+    @Override
+    public ReportProfile fillFromDto(ReportProfile dto, IValidation<ReportProfile> validation, String formSesId) throws DTOException, DAOException {
+        validation.check(dto);
+
+        ReportProfile entity;
+
+        if (dto.isNew()) {
+            entity = new ReportProfile();
+        } else {
+            entity = dao.findById(dto.getId());
+        }
+
+        entity.setName(dto.getName());
+        entity.setTitle(dto.getTitle());
+        entity.setReportQueryType(dto.getReportQueryType());
+        if (entity.getReportQueryType() == ReportQueryType.ENTITY_REQUEST || entity.getReportQueryType() == ReportQueryType.CUSTOM_CLASS) {
+            entity.setClassName(dto.getClassName());
+        } else {
+            entity.setClassName("");
+        }
+        entity.setOutputFormat(dto.getOutputFormat());
+        entity.setStartFrom(dto.getStartFrom());
+        entity.setEndUntil(dto.getEndUntil());
+        entity.setTags(dto.getTags());
+        Map<LanguageCode, String> locNames = dto.getLocName();
+        if (locNames.size() > 0) {
+            entity.setLocName(dto.getLocName());
+        } else {
+            Map<LanguageCode, String> name = new HashMap<>();
+            for (Language language : new LanguageDAO(getSession()).findAllActivated()) {
+                name.put(language.getCode(), Environment.vocabulary.getWord(REPORT_NAME_KEYWORD, language.getCode()) + "-" + entity.getTitle());
+            }
+            entity.setLocName(name);
+        }
+        entity.setLocalizedDescr(dto.getLocalizedDescr());
+        entity.setObservers(dto.getObservers());
+
+        EmployeeDAO eDao = new EmployeeDAO(getSession());
+
+        List<staff.model.embedded.Observer> observers = new ArrayList<staff.model.embedded.Observer>();
+        for (staff.model.embedded.Observer o : dto.getObservers()) {
+            staff.model.embedded.Observer observer = new Observer();
+            observer.setEmployee(eDao.findById(o.getEmployee().getId()));
+            observers.add(observer);
+        }
+        entity.setObservers(observers);
+
+        if (entity.isNew()) {
+            entity.setAuthor(getSession().getUser());
+        }
+        entity.setAttachments(getActualAttachments(entity.getAttachments(), dto.getAttachments()));
+        // calculateReadersEditors(entity);
+        return entity;
     }
 
     @POST

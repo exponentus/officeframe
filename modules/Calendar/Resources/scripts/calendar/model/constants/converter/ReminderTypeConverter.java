@@ -23,6 +23,5 @@ public class ReminderTypeConverter implements AttributeConverter<ReminderType, I
             Lg.error(this.getClass().getSimpleName(), ExceptionUtils.getRootCauseMessage(e));
             return ReminderType.UNKNOWN;
         }
-
     }
 }

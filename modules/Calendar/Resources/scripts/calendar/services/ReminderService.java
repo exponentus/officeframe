@@ -1,12 +1,11 @@
 package calendar.services;
 
 import calendar.dao.ReminderDAO;
-import calendar.domain.ReminderDomain;
 import calendar.model.Reminder;
 import calendar.model.constants.ReminderType;
 import calendar.ui.ViewOptions;
 import com.exponentus.common.domain.IValidation;
-import com.exponentus.common.service.EntityService;
+import com.exponentus.common.service.AbstractService;
 import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.exception.SecureException;
@@ -25,7 +24,7 @@ import javax.ws.rs.core.Response;
 
 @Path("reminders")
 @Produces(MediaType.APPLICATION_JSON)
-public class ReminderService extends EntityService<Reminder, ReminderDomain> {
+public class ReminderService extends AbstractService<Reminder> {
 
     @GET
     public Response getViewPage() {
@@ -59,12 +58,13 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
         _Session session = getSession();
         try {
             ReminderDAO dao = new ReminderDAO(session);
-            ReminderDomain domain = new ReminderDomain(session);
             Reminder entity;
 
             boolean isNew = "new".equals(id);
             if (isNew) {
-                entity = domain.composeNew(session.getUser());
+                entity = new Reminder();
+                entity.setAuthor(session.getUser());
+                entity.setTitle("");
             } else {
                 entity = dao.findById(id);
                 if (entity == null) {
@@ -72,7 +72,7 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
                 }
             }
 
-            Outcome outcome = domain.getOutcome(entity);
+            Outcome outcome = getOutcome(entity);
             outcome.setTitle("reminder");
             outcome.setFSID(getWebFormData().getFormSesId());
             outcome.setPayloadTitle("reminder");
@@ -88,15 +88,40 @@ public class ReminderService extends EntityService<Reminder, ReminderDomain> {
     @Override
     public Response saveForm(Reminder dto) {
         try {
-            ReminderDomain omd = new ReminderDomain(getSession());
-            Reminder entity = omd.fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
-            Outcome outcome = omd.getOutcome(omd.save(entity));
+            ReminderDAO dao = new ReminderDAO(getSession());
+            Reminder entity = fillFromDto(dto, new Validation(), getWebFormData().getFormSesId());
+            Outcome outcome = getOutcome(dao.save(entity));
             return Response.ok(outcome).build();
         } catch (DTOException e) {
             return responseValidationError(e);
         } catch (DAOException | SecureException e) {
             return responseException(e);
         }
+    }
+
+    @Override
+    public Reminder fillFromDto(Reminder dto, IValidation<Reminder> validation, String formSesId) throws DTOException, DAOException {
+        validation.check(dto);
+
+        Reminder entity;
+
+        if (dto.isNew()) {
+            entity = new Reminder();
+        } else {
+            entity = dao.findById(dto.getId());
+        }
+
+        entity.setTitle(dto.getTitle());
+        entity.setReminderType(dto.getReminderType());
+        entity.setObservers(dto.getObservers());
+        entity.setDescription(dto.getDescription());
+
+        if (entity.isNew()) {
+            entity.setAuthor(getSession().getUser());
+        }
+        entity.setAttachments(getActualAttachments(entity.getAttachments(), dto.getAttachments()));
+        calculateReadersEditors(entity);
+        return entity;
     }
 
     private class Validation implements IValidation<Reminder> {

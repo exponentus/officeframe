@@ -1086,6 +1086,7 @@
   "trade" : "Торговля",
   "registry_number" : "Реестровый номер",
   "serial" : "Последовательно",
+  "estimate_in_hours" : "Время для исполнения (в часах)",
   "agricultural_product_ipv" : "Продукция сельского хозяйства ИФО",
   "external_turnover_ipv" : "ИФО",
   "biz_quantity_indicators" : "Действующие субъекты МСП",
