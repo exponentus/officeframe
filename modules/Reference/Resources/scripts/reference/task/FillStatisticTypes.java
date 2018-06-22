@@ -29,7 +29,7 @@ public class FillStatisticTypes extends Do {
         String names[] = {"vrp", "industry", "agriculture", "investment", "construction", "building_commissioning", "entrepreneurship", "retail_turnover", "wholesale_turnover", "inflation", "manpower", "crime"};
         String namesEng[] = {"VRP", "Industry", "Agriculture","Investment","Construction","Building commissioning","Entrepreneurship","Retail turnover","Wholesale turnover","Inflation","Manpower","Crime"};
         String namesRus[] = {"Валовый региональный продукт", "Промышленность", "Сельское хозяйство", "Инвестиции", "Строительство", "Ввод в эксплуатацию жилых здании", "Предпринимательство", "Розничный товарооборот", "Оптовый товарооборот","Инфляция","Рабочая сила","Преступность"};
-        String namesKaz[] = {"", "", "","","","","","","","","",""};// TODO add kazakh translate
+        String namesKaz[] = {"Жалпы өңірлік өнім", "Өнеркәсіп", "Ауыл шаруашылығы","Инвестициялар","Құрылыс","Тұрғын үйді пайдалануға беру","Кәсіпкерлік","Бөлшек тауар айналымы","Көтерме сауда айналымы","Инфляция","Жұмыс күші","Қылмыс"};
 
         for (int i = 0; i < names.length; i++) {
             StatisticType statisticType = new StatisticType();
