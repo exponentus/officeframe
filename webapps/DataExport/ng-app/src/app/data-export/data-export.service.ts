@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { catchError, finalize, map, switchMap } from 'rxjs/operators';
 import { saveAs } from 'file-saver';
 
@@ -57,8 +57,6 @@ export class DataExportService implements IEntityService<IEntity> {
                 saveAs(blob, filename);
                 return response;
             }), catchError(err => {
-                this.notifyService.error(this.ngxTranslate.instant('error')).show().remove(1000);
-
                 let fileAsTextObservable = new Observable<string>(observer => {
                     const reader = new FileReader();
                     reader.onload = (e) => {
@@ -72,9 +70,9 @@ export class DataExportService implements IEntityService<IEntity> {
 
                 return fileAsTextObservable
                     .pipe(switchMap(errMsgJsonAsText => {
-                        let _err = JSON.parse(errMsgJsonAsText);
+                        let _err = errMsgJsonAsText ? JSON.parse(errMsgJsonAsText) : { message: [this.ngxTranslate.instant('error')] };
                         this.handleRequestError(_err, 3000);
-                        return Observable.throw(_err);
+                        return throwError(_err);
                     }));
             }), finalize(() => noty.remove()));
     }
