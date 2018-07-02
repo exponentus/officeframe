@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule as ngCalendarModule } from 'angular-calendar';
 
-import { NbCommonModule, NbAclModule, NBEntityCreationDetailsModule } from '@nb/core';
+import { NbCommonModule, NbAclModule, NbEntityCreationDetailsModule } from '@nb/core';
 
 import { CALENDAR_ROUTES } from './calendar.routes';
 import { CalendarService } from './calendar.service';
@@ -26,7 +26,7 @@ import { ReminderFormComponent } from './components/reminder/reminder-form';
         BrowserAnimationsModule,
         NbCommonModule,
         NbAclModule,
-        NBEntityCreationDetailsModule,
+        NbEntityCreationDetailsModule,
         RouterModule.forChild(CALENDAR_ROUTES),
         ngCalendarModule.forRoot()
     ],

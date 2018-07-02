@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule, NBEntityCreationDetailsModule } from '@nb/core';
+import { NbCommonModule, NbEntityCreationDetailsModule } from '@nb/core';
 
 import { REFERENCE_ROUTES } from './reference.routes';
 import { ReferenceService } from './reference.service';
@@ -20,7 +20,7 @@ import { ApprovalRouteBlocksComponent } from './components/approval-route/route-
     ],
     imports: [
         NbCommonModule,
-        NBEntityCreationDetailsModule,
+        NbEntityCreationDetailsModule,
         RouterModule.forChild(REFERENCE_ROUTES)
     ],
     providers: [

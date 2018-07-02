@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule, NBEntityCreationDetailsModule } from '@nb/core';
+import { NbCommonModule, NbEntityCreationDetailsModule } from '@nb/core';
 
 import { STAFF_ROUTES } from './staff.routes';
 import { StaffService } from './staff.service';
@@ -26,7 +26,7 @@ import { SimpleReferenceFormComponent } from './components/simple-reference/simp
     ],
     imports: [
         NbCommonModule,
-        NBEntityCreationDetailsModule,
+        NbEntityCreationDetailsModule,
         RouterModule.forChild(STAFF_ROUTES)
     ],
     providers: [
