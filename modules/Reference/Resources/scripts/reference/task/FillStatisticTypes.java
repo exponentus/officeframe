@@ -19,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+//run task ref_fill_statistic_types
 @Command(name = ModuleConst.CODE + "_fill_statistic_types")
 public class FillStatisticTypes extends Do {
 

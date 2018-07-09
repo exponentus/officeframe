@@ -1,6 +1,7 @@
 package calendar.model;
 
 import calendar.init.ModuleConst;
+import calendar.model.embedded.TimeRange;
 import com.exponentus.common.model.SecureAppEntity;
 import com.exponentus.common.model.constants.PriorityType;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -20,6 +21,9 @@ public class Event extends SecureAppEntity<UUID> {
 
     @Column(name = "event_time")
     private Date eventTime;
+
+    @Embedded
+    private TimeRange timeRange = new TimeRange();
 
     @Enumerated(EnumType.STRING)
     @Column(length = 10)
@@ -47,6 +51,14 @@ public class Event extends SecureAppEntity<UUID> {
 
     public void setEventTime(Date eventTime) {
         this.eventTime = eventTime;
+    }
+
+    public TimeRange getTimeRange() {
+        return timeRange;
+    }
+
+    public void setTimeRange(TimeRange timeRange) {
+        this.timeRange = timeRange;
     }
 
     public PriorityType getPriority() {
