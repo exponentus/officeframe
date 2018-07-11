@@ -239,6 +239,20 @@ public class Employee extends SimpleReferenceEntity implements IExtUser {
         return list;
     }
 
+    public boolean hasRole(String roleName) {
+        if (roles == null) {
+            return false;
+        }
+
+        for (Role role : roles) {
+            if (role.getName().equals(roleName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
     public boolean isFired() {
         if (roles == null) {
             return false;
