@@ -30,12 +30,12 @@ public class FillRegions extends Do {
 
         String[] data = {"akmola_region", "aktobe_region", "almaty", "astana", "almaty_region", "pavlodar_region", "zhambyl_region",
                 "atyray_region", "zko_region", "karagandy_region", "kostanay_region", "kyzyl-orda_region", "mangystay_region", "uko_region"
-                , "sko_region", "vko_region"};
+                , "sko_region", "vko_region", "shymkent", "turkestan_region"};
         String[] namesEng = {"Akmola region", "Aktobe region", "Almaty", "Astana", "Almaty region", "Pavlodar region", "Zhambyl region",
                 "Atyray region", "ZKO region", "Karagandy region", "Kostanay region", "Kyzyl-orda region", "Mangystay region", "UKO region",
-                "SKO region", "VKO region"};
-        String[] namesRus = {"Акмолинская область", "Актюбинская область", "Алматы", "Астана", "Алматинская область", "Павлодарская область", "Жамбылская область", "Атырауская область", "Западно-Казахстанская область", "Карагандинская область", "Костанайская область", "Кызыл-Ординская область", "Мангистауская область", "Южно-Казахстанская область", "Северно-Казахстанская область", "Восточно-Казахстанская область"};
-        String[] namesKaz = {"Ақмола облысы", "Ақтөбе облысы", "Алматы", "Астана", "Алматы облысы", "Павлодар облысы", "Жамбыл облысы", "Атырау облысы", "Батыс Қазақстан облысы", "Қарағанды облысы", "Қостанай облысы", "Қызылорда облысы", "Маңғыстау облысы", "Оңтүстік Қазақстан облысы", "Солтүстік Қазақстан облысы","Шығыс Қазақстан облысы"};
+                "SKO region", "VKO region", "Shymkent", "Turkestan region"};
+        String[] namesRus = {"Акмолинская область", "Актюбинская область", "Алматы", "Астана", "Алматинская область", "Павлодарская область", "Жамбылская область", "Атырауская область", "Западно-Казахстанская область", "Карагандинская область", "Костанайская область", "Кызыл-Ординская область", "Мангистауская область", "Южно-Казахстанская область", "Северно-Казахстанская область", "Восточно-Казахстанская область", "Шымкент", "Туркестанская область"};
+        String[] namesKaz = {"Ақмола облысы", "Ақтөбе облысы", "Алматы", "Астана", "Алматы облысы", "Павлодар облысы", "Жамбыл облысы", "Атырау облысы", "Батыс Қазақстан облысы", "Қарағанды облысы", "Қостанай облысы", "Қызылорда облысы", "Маңғыстау облысы", "Оңтүстік Қазақстан облысы", "Солтүстік Қазақстан облысы","Шығыс Қазақстан облысы", "Шымкент", "Туркестан обласы"};
         try {
             CountryDAO cDao = new CountryDAO(ses);
             Country country = null;
@@ -54,7 +54,7 @@ public class FillRegions extends Do {
                 entity.setLocName(name);
                 RegionTypeDAO rtDao = new RegionTypeDAO(ses);
                 RegionType rType = null;
-                if (data[i].equals("almaty") || data[i].equals("astana")) {
+                if (data[i].equals("almaty") || data[i].equals("astana") || data[i].equals("shymkent")) {
                     rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
                 } else {
                     rType = rtDao.findByCode(RegionCode.REGION);
