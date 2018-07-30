@@ -98,7 +98,7 @@ public class RegionService extends ReferenceService<Region> {
             entity.setType(dto.getType());
             entity.setCountry(dto.getCountry());
             entity.setPrimary(dto.isPrimary());
-            entity.setCoordinates(dto.getCoordinates());
+            entity.setLatLng(dto.getLatLng());
 
             dao.save(entity);
 

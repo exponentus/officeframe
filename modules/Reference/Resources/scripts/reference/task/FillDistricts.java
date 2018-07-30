@@ -116,8 +116,8 @@ public class FillDistricts extends Do {
         name.put(LanguageCode.RUS, namesRus[i]);
         name.put(LanguageCode.KAZ, namesKaz[i]);
         entity.setLocName(name);
-        entity.setLatLng(StringUtil.convertKMLToJSArray(names[i],
-                EnvConst.RESOURCES_DIR + File.separator + KMZ_FILE));
+//        entity.setLatLng(StringUtil.convertKMLToJSArray(names[i],
+//                EnvConst.RESOURCES_DIR + File.separator + KMZ_FILE));
         return entity;
     }
 }

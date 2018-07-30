@@ -6,7 +6,6 @@ import com.exponentus.common.model.SimpleReferenceEntity;
 import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import reference.dao.CountryDAO;
 import reference.dao.RegionTypeDAO;
 import reference.init.ModuleConst;
@@ -15,7 +14,6 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Map;
 
-@JsonInclude(JsonInclude.Include.NON_NULL)
 @Entity
 @Cacheable(true)
 @Table(name = ModuleConst.CODE + "__regions", uniqueConstraints = @UniqueConstraint(columnNames = {"name", "country_id"}))
@@ -43,8 +41,8 @@ public class Region extends SimpleReferenceEntity {
     @Column(name = "is_primary")
     private boolean isPrimary;
 
-    @Column(length = 128)
-    private String coordinates;
+    @Column(name = "lat_lng")
+    private String latLng;
 
     public RegionType getType() {
         return type;
@@ -86,12 +84,12 @@ public class Region extends SimpleReferenceEntity {
         isPrimary = primary;
     }
 
-    public String getCoordinates() {
-        return coordinates;
+    public String getLatLng() {
+        return latLng;
     }
 
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
+    public void setLatLng(String latLng) {
+        this.latLng = latLng;
     }
 
     @Override

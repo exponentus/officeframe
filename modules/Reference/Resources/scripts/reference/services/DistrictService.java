@@ -96,6 +96,7 @@ public class DistrictService extends ReferenceService<District> {
             entity.setName(extractAnyNameValue(dto));
             entity.setLocName(dto.getLocName());
             entity.setRegion(dto.getRegion());
+            entity.setLatLng(dto.getLatLng());
 
             dao.save(entity);
 
