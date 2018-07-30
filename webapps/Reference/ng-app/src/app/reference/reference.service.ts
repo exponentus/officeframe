@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {
-    IAction, IEntity, IDto, IEntityService, IColumnOptions, IFormSchema,
+    IAction, IEntity, IDto, IEntityService, IFormSchema,
     AppService, DataService, createApiUrl
 } from '@nb/core';
 
@@ -125,7 +125,7 @@ function getFormSchemas(languages: any) {
                 }, {
                     type: 'text',
                     label: 'coordinates',
-                    name: 'orgCoordinates',
+                    name: 'latLng',
                     className: 'span7'
                 }]
             }, {
@@ -161,6 +161,11 @@ function getFormSchemas(languages: any) {
                         url: REFERENCE_URL.API_REGIONS
                     },
                     required: true
+                }, {
+                    type: 'text',
+                    label: 'coordinates',
+                    name: 'latLng',
+                    className: 'span7'
                 }]
             }, {
                 title: 'localized_names',

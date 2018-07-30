@@ -63,7 +63,8 @@ export class DistrictConverter {
             id: model.id,
             name: model.name,
             locName: model.locName,
-            region: model.region ? { id: model.region.id } : null
+            region: model.region ? { id: model.region.id } : null,
+            latLng: model.latLng
         };
     }
 }
@@ -104,7 +105,7 @@ export class RegionConverter {
             type: model.type ? { id: model.type.id } : null,
             country: model.country ? { id: model.country.id } : null,
             primary: model.primary,
-            orgCoordinates: model.orgCoordinates
+            latLng: model.latLng
         };
     }
 }
