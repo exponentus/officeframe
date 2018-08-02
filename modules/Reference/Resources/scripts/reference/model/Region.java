@@ -41,7 +41,7 @@ public class Region extends SimpleReferenceEntity {
     @Column(name = "is_primary")
     private boolean isPrimary;
 
-    @Column(name = "lat_lng")
+    @Column(name = "lat_lng", columnDefinition = "TEXT")
     private String latLng;
 
     public RegionType getType() {

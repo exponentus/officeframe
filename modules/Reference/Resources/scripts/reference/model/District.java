@@ -26,7 +26,7 @@ public class District extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private Region region;
 
-    @Column(name = "lat_lng")
+    @Column(name = "lat_lng", columnDefinition = "TEXT")
     private String latLng;
 
     @OneToMany(mappedBy = "district")
