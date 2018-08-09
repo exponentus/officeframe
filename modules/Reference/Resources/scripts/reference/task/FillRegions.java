@@ -112,33 +112,6 @@ public class FillRegions extends Do {
                 entities.add(entity);
             }
 
-            String[] data2 = {"lisbon", "leiria"};
-            String[] names2Eng = {"Lisbon", "Leiria"};
-            String[] names2Rus = {"Лиссабон", "Лейрия"};
-            String[] names2Kaz = {"Лиссабон", "Лейрия"};
-            Country country2 = null;
-
-            country2 = cDao.findByName("portugal");
-
-            for (int i = 0; i < data2.length; i++) {
-                Region entity = new Region();
-                entity.setCountry(country2);
-                entity.setName(data2[i]);
-                Map<LanguageCode, String> name = new HashMap<>();
-                name.put(LanguageCode.RUS, names2Rus[i]);
-                name.put(LanguageCode.ENG, names2Eng[i]);
-                name.put(LanguageCode.KAZ, names2Kaz[i]);
-                entity.setLocName(name);
-                RegionTypeDAO rtDao = new RegionTypeDAO(ses);
-                RegionType rType = null;
-                if (data2[i].equals("lisbon")) {
-                    rType = rtDao.findByCode(RegionCode.URBAN_AGGLOMERATION);
-                } else {
-                    rType = rtDao.findByCode(RegionCode.REGION);
-                }
-                entity.setType(rType);
-           //     entities.add(entity);
-            }
         } catch (DAOException e) {
             e.printStackTrace();
         }
@@ -147,8 +120,20 @@ public class FillRegions extends Do {
             RegionDAO dao = new RegionDAO(ses);
             for (Region entry : entities) {
                 try {
-                    if (dao.add(entry) != null) {
-                        logger.info(entry.getName() + " added");
+                    Region existEntry = dao.findByName(entry.getName());
+                    if (existEntry != null){
+                        existEntry.setCountry(entry.getCountry());
+                        existEntry.setLocName(entry.getLocName());
+                        existEntry.setLatLng(entry.getLatLng());
+                        existEntry.setType(entry.getType());
+                        existEntry.setTitle(entry.getTitle());
+                        if (dao.update(existEntry) != null) {
+                            logger.info(entry.getName() + " updated");
+                        }
+                    }else {
+                        if (dao.add(entry) != null) {
+                            logger.info(entry.getName() + " added");
+                        }
                     }
                 } catch (DAOException e) {
                     if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {

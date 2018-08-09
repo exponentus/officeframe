@@ -3,20 +3,17 @@ package reference.task;
 import com.exponentus.appenv.AppEnv;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
-import com.exponentus.env.EnvConst;
 import com.exponentus.exception.SecureException;
 import com.exponentus.localization.constants.LanguageCode;
 import com.exponentus.scripting._Session;
 import com.exponentus.scripting.event.Do;
 import com.exponentus.scriptprocessor.tasks.Command;
-import com.exponentus.util.StringUtil;
 import reference.dao.DistrictDAO;
 import reference.dao.RegionDAO;
 import reference.init.ModuleConst;
 import reference.model.District;
 import reference.model.Region;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +30,7 @@ public class FillDistricts extends Do {
 
         String[] pavlodarDistricts = {"pavlodar", "aksu", "ekibastuz", "aktogayskiy", "bayanaulskiy", "zhelezinskiy", "irtyshskiy", "kachirskiy",
                 "lebyazhinskiy", "mayskiy", "pavlodarskiy", "uspenskiy", "sherbaktinskiy"};
-        String[] pavlodarDistrictsEng = {"Pavlodar", "Aksu", "Ekibastuz",  "Aktogayskiy", "Bayanaulskiy", "Zhelezinskiy", "Irtyshskiy", "Kachirskiy", "Lebyazhinskiy", "Mayskiy",
+        String[] pavlodarDistrictsEng = {"Pavlodar", "Aksu", "Ekibastuz", "Aktogayskiy", "Bayanaulskiy", "Zhelezinskiy", "Irtyshskiy", "Kachirskiy", "Lebyazhinskiy", "Mayskiy",
                 "Pavlodarskiy", "Uspenskiy", "Sherbaktinskiy"};
         String[] pavlodarDistrictsRus = {"Павлодар", "Аксу", "Экибастуз", "Актогайский", "Баянаульский", "Железинский", "Иртышский", "Качирский", "Лебяжинский", "Майский",
                 "Павлодарский", "Успенский", "Щербактинский"};
@@ -113,8 +110,19 @@ public class FillDistricts extends Do {
             DistrictDAO dao = new DistrictDAO(ses);
             for (District entry : entities) {
                 try {
-                    if (dao.add(entry) != null) {
-                        logger.info(entry.getName() + " added");
+                    District existEntry = dao.findByName(entry.getName());
+                    if (existEntry != null) {
+                        existEntry.setRegion(entry.getRegion());
+                        existEntry.setLocName(entry.getLocName());
+                        existEntry.setLatLng(entry.getLatLng());
+                        existEntry.setTitle(entry.getTitle());
+                        if (dao.update(existEntry) != null) {
+                            logger.info(entry.getName() + " updated");
+                        }
+                    } else {
+                        if (dao.add(entry) != null) {
+                            logger.info(entry.getName() + " added");
+                        }
                     }
                 } catch (DAOException e) {
                     if (e.getType() == DAOExceptionType.UNIQUE_VIOLATION) {
@@ -138,6 +146,7 @@ public class FillDistricts extends Do {
         District entity = new District();
         entity.setRegion(region);
         entity.setName(names[i]);
+        entity.setTitle(namesRus[i]);
         Map<LanguageCode, String> name = new HashMap<LanguageCode, String>();
         name.put(LanguageCode.ENG, namesEng[i]);
         name.put(LanguageCode.RUS, namesRus[i]);
