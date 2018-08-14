@@ -1,39 +1,36 @@
 'use strict';
 
-const path = require('path');
 const helpers = require('./helpers');
+const { resolve } = require('path');
 
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const rxPaths = require('rxjs/_esm5/path-mapping');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
-const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
-
-const AngularCompilerPlugin = require('@ngtools/webpack').AngularCompilerPlugin;
-const CheckerPlugin = require('awesome-typescript-loader').CheckerPlugin;
+const ProgressPlugin = require('webpack/lib/ProgressPlugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CompressionPlugin = require('compression-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const CircularDependencyPlugin = require('circular-dependency-plugin');
+const { CleanCssWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/cleancss-webpack-plugin');
+const { SuppressExtractedTextChunksWebpackPlugin } = require('@angular-devkit/build-angular/src/angular-cli-files/plugins/suppress-entry-chunks-webpack-plugin');
+const { AngularCompilerPlugin } = require('@ngtools/webpack');
 
-/**
- * Webpack Constants
- */
+// Constants
 const HMR = helpers.hasNpmFlag('hot');
 const AOT = helpers.hasNpmFlag('aot');
-const METADATA = {
-    title: '',
-    baseUrl: '/',
-    isDevServer: false, // helpers.isWebpackDevServer(),
-    HMR: HMR
-};
+
+let ENV_FILE,
+    MODE;
+if (AOT) {
+    MODE = 'production';
+    ENV_FILE = resolve('src/environments/environment.ts');
+} else {
+    MODE = 'development';
+    ENV_FILE = resolve('src/environments/environment.ts');
+}
 
 // Plugins
 var plugins = [
-    new ExtractTextPlugin('[name].css', {
-        allChunks: true
-    }),
-
-    new CheckerPlugin(),
+    new ProgressPlugin(),
 
     // Объявим переменную для использования в переменной окружения environment.ts
     new DefinePlugin({
@@ -43,22 +40,11 @@ var plugins = [
         })
     }),
 
-    /**
-     * This enables tree shaking of the vendor modules
-     */
-    new CommonsChunkPlugin({
-        name: 'vendor',
-        chunks: ['app'],
-        minChunks: module => /node_modules\//.test(module.resource)
+    new MiniCssExtractPlugin({
+        filename: '[name].css'
     }),
 
-    new ContextReplacementPlugin(
-        // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        helpers.root('') // location of your src
-    ),
-
-    new ContextReplacementPlugin(/moment[\\/]locale$/, /^\.\/(ru)$/),
+    new SuppressExtractedTextChunksWebpackPlugin(),
 
     new CompressionPlugin({
         // В output['filename', 'chunkFilename'] при aot для чанков указали расширение файлов .js.gz
@@ -69,65 +55,45 @@ var plugins = [
         threshold: 1500
     }),
 
-    new LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-    }),
-
     new AngularCompilerPlugin({
         disabled: !AOT,
         skipCodeGeneration: false,
-        tsConfigPath: helpers.root('tsconfig.aot.json'),
-        entryModule: helpers.root('src/app/app.module#AppModule'),
-        mainPath: helpers.root('src/main.browser.ts'),
+        tsConfigPath: resolve('tsconfig.aot.json'),
+        entryModule: resolve('src/app/app.module#AppModule'),
+        mainPath: resolve('src/main.browser.ts'),
+        nameLazyFiles: false,
+        sourceMap: false,
         typeChecking: false,
         compilerOptions: {
             noEmit: false,
             noEmitHelpers: false
+        },
+        hostReplacementPaths: {
+            [resolve('src/environments/environment.ts')]: ENV_FILE
         }
+    }),
+
+    new CircularDependencyPlugin({
+        exclude: /[\\\/]node_modules[\\\/]/
     })
 ];
-
-if (AOT) {
-    plugins.push(new UglifyJsPlugin({
-        test: /\.js\.gz$/,
-        beautify: false, //prod
-        output: {
-            comments: false
-        }, //prod
-        mangle: {
-            screw_ie8: true
-        }, //prod
-        compress: {
-            screw_ie8: true,
-            warnings: false,
-            conditionals: true,
-            unused: true,
-            comparisons: true,
-            sequences: true,
-            dead_code: true,
-            evaluate: true,
-            if_return: true,
-            join_vars: true,
-            negate_iife: false // we need this for lazy v8
-        }
-    }));
-}
 
 /**
  * Webpack configuration
  */
 module.exports = function(options) {
     return {
+        mode: MODE,
+
         devtool: 'source-map',
 
         entry: {
-            'vendor': helpers.root('src/polyfills.browser.ts'),
-            'app': helpers.root('src/main.browser.ts')
+            app: resolve('src/main.browser.ts'),
+            vendor: resolve('src/polyfills.browser.ts')
         },
 
         output: {
-            path: helpers.root('../assets/dist'),
+            path: resolve('../assets/dist'),
             publicPath: 'assets/dist/',
             // Файлы именуем с расширением gz, что бы при ленивой загрузке, грузились gz файлы
             // Смотреть CompressionPlugin в plugins.aot. Сжимаем файлы с расширением .js.gz, не меняя имени.
@@ -136,56 +102,100 @@ module.exports = function(options) {
         },
 
         resolve: {
-            extensions: ['.ts', '.js', '.json'],
-            modules: [
-                helpers.root('src'),
-                helpers.root('node_modules')
-            ]
+            alias: rxPaths(),
+            extensions: ['.ts', '.js', '.json']
+        },
+
+        node: false,
+
+        performance: {
+            hints: false,
         },
 
         module: {
             rules: [{
-                test: /(?:\.ngfactory\.js|\.ngstyle\.js|\.ts)$/,
-                loader: '@ngtools/webpack'
+                test: /\.ts$/,
+                use: '@ngtools/webpack'
+            }, {
+                test: /\.js$/,
+                loader: '@angular-devkit/build-optimizer/webpack-loader',
+                options: { sourceMap: false }
+            }, {
+                test: /\.js$/,
+                exclude: /(ngfactory|ngstyle).js$/,
+                enforce: 'pre',
+                use: 'source-map-loader'
             }, {
                 test: /\.css$/,
-                exclude: helpers.root('src', 'app'),
-                loader: ExtractTextPlugin.extract('style-loader', 'css-loader?-autoprefixer')
+                exclude: resolve('src', 'app'),
+                loader: ['to-string-loader', 'css-loader']
             }, {
                 test: /\.css$/,
-                include: helpers.root('src', 'app'),
+                include: resolve('src', 'app'),
                 loader: 'raw-loader'
             }, {
                 test: /\.html$/,
-                loader: 'html-loader?caseSensitive=true&removeAttributeQuotes=false&minimize=true&conservativeCollapse=false',
-                exclude: [helpers.root('index.html')]
-            }, {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                loader: 'babel-loader'
+                exclude: [resolve('index.html')],
+                loader: 'html-loader?caseSensitive=true&removeAttributeQuotes=false&minimize=true&conservativeCollapse=false'
             }, {
                 test: /\.(jpg|png|gif)$/,
                 use: 'file-loader'
             }, {
                 test: /\.(eot|woff2?|svg|ttf)([\?]?.*)$/,
                 use: 'file-loader'
-            }],
-            noParse: [/zone\.js\/dist\/.+/]
+            }, {
+                // This hides some deprecation warnings that Webpack throws
+                test: /[\/\\]@angular[\/\\]core[\/\\].+\.js$/,
+                parser: { system: true },
+            }]
         },
 
-        plugins: plugins,
-
-        stats: {
-            colors: true
+        optimization: {
+            noEmitOnErrors: true,
+            splitChunks: {
+                cacheGroups: {
+                    default: {
+                        chunks: 'async',
+                        minChunks: 2,
+                        priority: 10
+                    },
+                    common: {
+                        name: 'common',
+                        chunks: 'async',
+                        minChunks: 2,
+                        enforce: true,
+                        priority: 5
+                    },
+                    vendors: false,
+                    vendor: false
+                }
+            },
+            minimizer: [
+                new UglifyJsPlugin({
+                    test: /\.js\.gz$/,
+                    cache: true,
+                    parallel: true,
+                    uglifyOptions: {
+                        beautify: false,
+                        output: {
+                            ascii_only: true,
+                            comments: false,
+                            webkit: true,
+                        },
+                        compress: {
+                            pure_getters: true,
+                            passes: 3,
+                            inline: 3,
+                        }
+                    }
+                }),
+                new CleanCssWebpackPlugin({
+                    sourceMap: false,
+                    test: (file) => /\.(?:css)$/.test(file),
+                })
+            ]
         },
 
-        node: {
-            global: true,
-            crypto: 'empty',
-            process: true,
-            module: false,
-            clearImmediate: false,
-            setImmediate: false
-        }
+        plugins: plugins
     };
 }
