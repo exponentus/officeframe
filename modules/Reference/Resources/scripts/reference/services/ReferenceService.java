@@ -37,7 +37,7 @@ public abstract class ReferenceService<T extends SimpleReferenceEntity> extends 
     public Response getViewPage() {
         _Session session = getSession();
         WebFormData params = getWebFormData();
-        int pageSize = session.getPageSize();
+        int pageSize = params.getNumberValueSilently("limit", session.getPageSize());
 
         SortParams sortParams = params.getSortParams(SortParams.desc("regDate"));
         Class<T> entityClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
