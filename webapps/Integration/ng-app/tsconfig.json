@@ -20,7 +20,7 @@
             "@nb/*": ["../@nb-src-tmp/*"]
         }
     },
-    "complieOnSave": false,
+    "compileOnSave": false,
     "outDir": "./compiled",
     "filesGlob": [
         "./src/app/**/*.ts",
