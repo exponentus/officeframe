@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule, NbEntityCreationDetailsModule } from '@nb/core';
+import { NbCommonModule } from '@nb/core';
+import { NbEntityCreationDetailsModule } from '@nb/components';
 
 import { REFERENCE_ROUTES } from './reference.routes';
 import { ReferenceService } from './reference.service';

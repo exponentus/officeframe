@@ -13,8 +13,9 @@
     "lint": "tslint ./src/**/*.ts{,x}",
     "explorer": "source-map-explorer ../assets/dist/app.js ../assets/dist/app.js.map",
     "explorer:vendor": "source-map-explorer ../assets/dist/vendor.js ../assets/dist/vendor.js.map",
-    "reinstall-nb-core": "npm rm @nb/core && npm i git+ssh://git@git.semantyca.com:22373/b2b/nb-ng.git --save",
-    "reinstall-nb-core:build:aot:p": "npm rm @nb/core && npm i git+ssh://git@git.semantyca.com:22373/b2b/nb-ng.git --save && npm run build:aot:p"
+    "reinstall-nb-core": "npm rm @nb/core && npm i git+ssh://git@git.semantyca.com:22373/b2b/nb-ng.git --save && npm run postinstall",
+    "reinstall-nb-core:build:aot:p": "npm rm @nb/core && npm i git+ssh://git@git.semantyca.com:22373/b2b/nb-ng.git --save && npm run postinstall && npm run build:aot:p",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "@angular/animations": "6.1.2",
@@ -54,6 +55,7 @@
     "compression-webpack-plugin": "1.1.11",
     "css-loader": "1.0.0",
     "file-loader": "1.1.11",
+    "fs-extra": "^7.0.0",
     "html-loader": "0.5.5",
     "mini-css-extract-plugin": "0.4.1",
     "ngc-webpack": "4.1.2",
@@ -61,6 +63,7 @@
     "rimraf": "2.6.2",
     "source-map-explorer": "1.5.0",
     "style-loader": "0.22.1",
+    "to-string-loader": "^1.1.5",
     "tslint": "5.11.0",
     "typescript": "2.9.2",
     "webpack": "4.16.5"

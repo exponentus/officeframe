@@ -15,7 +15,10 @@
             "dom",
             "es2016",
             "es2017"
-        ]
+        ],
+        "paths": {
+            "@nb/*": ["../@nb-src-tmp/*"]
+        }
     },
     "complieOnSave": false,
     "outDir": "./compiled",

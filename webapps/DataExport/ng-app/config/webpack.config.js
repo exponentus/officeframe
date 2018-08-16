@@ -4,6 +4,7 @@ const helpers = require('./helpers');
 const { resolve } = require('path');
 
 const rxPaths = require('rxjs/_esm5/path-mapping');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ProgressPlugin = require('webpack/lib/ProgressPlugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
@@ -75,7 +76,9 @@ var plugins = [
 
     new CircularDependencyPlugin({
         exclude: /[\\\/]node_modules[\\\/]/
-    })
+    }),
+
+    new ContextReplacementPlugin(/moment[/\\]locale$/, /en-us|ru|kk|es|pt/)
 ];
 
 /**
@@ -102,7 +105,10 @@ module.exports = function(options) {
         },
 
         resolve: {
-            alias: rxPaths(),
+            alias: {
+                ...rxPaths(),
+                '@nb/*': './@nb-src-tmp/*'
+            },
             extensions: ['.ts', '.js', '.json']
         },
 

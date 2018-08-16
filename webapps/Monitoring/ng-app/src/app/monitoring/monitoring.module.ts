@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule, NbChartModule } from '@nb/core';
+import { NbCommonModule } from '@nb/core';
+import { NbChartModule } from '@nb/components';
 
 import { MONITORING_URL_ROUTES } from './monitoring.routes';
 import { MonitoringService } from './monitoring.service';

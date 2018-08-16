@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule, NbEntityCreationDetailsModule } from '@nb/core';
+import { NbCommonModule } from '@nb/core';
+import { NbEntityCreationDetailsModule } from '@nb/components';
 
 import { STAFF_ROUTES } from './staff.routes';
 import { StaffService } from './staff.service';

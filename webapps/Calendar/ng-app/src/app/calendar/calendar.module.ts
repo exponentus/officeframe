@@ -3,7 +3,8 @@ import { RouterModule } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule as ngCalendarModule } from 'angular-calendar';
 
-import { NbCommonModule, NbAclModule, NbEntityCreationDetailsModule } from '@nb/core';
+import { NbCommonModule } from '@nb/core';
+import { NbAclModule, NbEntityCreationDetailsModule } from '@nb/components';
 
 import { CALENDAR_ROUTES } from './calendar.routes';
 import { CalendarService } from './calendar.service';

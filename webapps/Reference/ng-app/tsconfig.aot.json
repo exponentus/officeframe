@@ -22,7 +22,10 @@
         ],
         "types": [
             "node"
-        ]
+        ],
+        "paths": {
+            "@nb/*": ["../@nb-src-tmp/*"]
+        }
     },
     "exclude": [
         "node_modules",
