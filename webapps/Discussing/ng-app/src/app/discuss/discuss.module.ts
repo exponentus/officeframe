@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { NbCommonModule, NbAclModule } from '@nb/core';
+import { NbCommonModule } from '@nb/core';
+import { NbAclModule } from '@nb/components';
 
 import { DISCUSS_ROUTES } from './discuss.routes';
 import { TopicService, CommentService } from './services';

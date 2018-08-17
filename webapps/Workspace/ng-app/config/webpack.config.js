@@ -158,7 +158,6 @@ module.exports = function(options) {
 
         optimization: {
             noEmitOnErrors: true,
-            sideEffects: false,
             splitChunks: {
                 cacheGroups: {
                     default: {
