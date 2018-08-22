@@ -24,11 +24,11 @@
             <div class="legend">{{'localized_names' | translate}}</div>
             <div class="form-group">
                 <div class="controls">
-                    <div class="form-group" *ngFor="let lang of languages | keys">
-                        <div class="control-label">{{languages[lang]}}</div>
+                    <div class="form-group" *ngFor="let lang of languages | keyvalue">
+                        <div class="control-label">{{lang.value}}</div>
                         <div class="controls">
-                            <input class="span8" type="text" [name]="lang.toLowerCase() + 'locName'" [readonly]="!isEditable"
-                                [(ngModel)]="model.locName[lang]">
+                            <input class="span8" type="text" [name]="lang.key.toLowerCase() + 'locName'" [readonly]="!isEditable"
+                                [(ngModel)]="model.locName[lang.key]">
                         </div>
                     </div>
                 </div>

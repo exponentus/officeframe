@@ -4,6 +4,7 @@ const fs = require('fs-extra');
 
 try {
     console.info('postinstall-auto-configure::start');
+    fs.removeSync('./@nb-src-tmp');
     fs.copySync('./node_modules/@nb/core/src', './@nb-src-tmp');
     fs.copySync('./node_modules/@nb/core/config/webpack', './config');
     fs.copySync('./node_modules/@nb/core/config/package.json', './package.json');
