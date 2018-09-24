@@ -50,9 +50,9 @@ var plugins = [
     new CompressionPlugin({
         // В output['filename', 'chunkFilename'] при aot для чанков указали расширение файлов .js.gz
         // оставим имена файлов не изменно для aot
-        asset: AOT ? '[path]' : '[path].gz[query]',
+        filename: AOT ? '[path]' : '[path].gz[query]',
         algorithm: 'gzip',
-        regExp: AOT ? /\.gz$/ : /\.js$|\.map$/,
+        test: AOT ? /\.gz$/ : /\.js$|\.map$/,
         threshold: 1500
     }),
 
