@@ -73,6 +73,7 @@ public class LocalityService extends ReferenceService<Locality> {
             entity.setType(dto.getType());
             entity.setRegion(dto.getRegion());
             entity.setDistrict(dto.getDistrict());
+            entity.setDistrictCenter(dto.isDistrictCenter());
 
             dao.save(entity);
 

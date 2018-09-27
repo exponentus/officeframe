@@ -15,6 +15,7 @@ public class LocalityFilter implements IFilter<Locality> {
 
     private Region region;
     private District district;
+    private Boolean isDistrictCenter;
 
     public LocalityFilter(WebFormData params) {
         String regionId = params.getValueSilently("region");
@@ -26,6 +27,9 @@ public class LocalityFilter implements IFilter<Locality> {
         if (!districtId.isEmpty()) {
             district = new District();
             district.setId(UUID.fromString(districtId));
+        }
+        if (params.containsField("isDistrictCenter")) {
+            isDistrictCenter = params.getBoolSilently("isDistrictCenter");
         }
     }
 
@@ -45,6 +49,14 @@ public class LocalityFilter implements IFilter<Locality> {
         this.district = district;
     }
 
+    public boolean isDistrictCenter() {
+        return isDistrictCenter;
+    }
+
+    public void setDistrictCenter(boolean districtCenter) {
+        isDistrictCenter = districtCenter;
+    }
+
     @Override
     public Predicate collectPredicate(Root<Locality> root, CriteriaBuilder cb, Predicate condition) {
 
@@ -61,6 +73,22 @@ public class LocalityFilter implements IFilter<Locality> {
                 condition = cb.equal(root.get("district"), district);
             } else {
                 condition = cb.and(cb.equal(root.get("district"), district), condition);
+            }
+        }
+
+        if (isDistrictCenter != null) {
+            if (condition == null) {
+                if (isDistrictCenter) {
+                    condition = cb.isTrue(root.get("isDistrictCenter"));
+                } else {
+                    condition = cb.isFalse(root.get("isDistrictCenter"));
+                }
+            } else {
+                if (isDistrictCenter) {
+                    condition = cb.and(cb.isTrue(root.get("isDistrictCenter")), condition);
+                } else {
+                    condition = cb.and(cb.isFalse(root.get("isDistrictCenter")), condition);
+                }
             }
         }
 

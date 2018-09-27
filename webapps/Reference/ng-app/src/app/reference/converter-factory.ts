@@ -91,7 +91,8 @@ export class LocalityConverter {
             locName: model.locName,
             type: model.type ? { id: model.type.id } : null,
             region: model.region ? { id: model.region.id } : null,
-            district: model.district ? { id: model.district.id } : null
+            district: model.district ? { id: model.district.id } : null,
+            districtCenter: model.districtCenter || false
         };
     }
 }

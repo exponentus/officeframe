@@ -37,7 +37,6 @@ public class Locality extends SimpleReferenceEntity {
     @JoinColumn(nullable = false)
     private LocalityType type;
 
-    // @JsonIgnore
     @NotNull
     @ManyToOne(optional = true)
     @JoinColumn(nullable = false)
@@ -46,6 +45,8 @@ public class Locality extends SimpleReferenceEntity {
     @ManyToOne(optional = true)
     @JoinColumn(nullable = false)
     private District district;
+
+    private boolean isDistrictCenter;
 
     public LocalityType getType() {
         return type;
@@ -81,6 +82,14 @@ public class Locality extends SimpleReferenceEntity {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public boolean isDistrictCenter() {
+        return isDistrictCenter;
+    }
+
+    public void setDistrictCenter(boolean isDistrictCenter) {
+        this.isDistrictCenter = isDistrictCenter;
     }
 
     @Override

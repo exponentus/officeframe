@@ -219,6 +219,10 @@ function getFormSchemas(languages: any) {
                         },
                         preload: true
                     }
+                }, {
+                    type: 'boolean',
+                    name: 'districtCenter',
+                    values: { label: 'is_district_center' }
                 }]
             }, {
                 title: 'localized_names',
