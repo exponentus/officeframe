@@ -4,6 +4,7 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.RuntimeObjUtil;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.scripting._Session;
+import reference.model.District;
 import reference.model.Locality;
 import reference.model.Region;
 
@@ -56,4 +57,21 @@ public class LocalityDAO extends ReferenceDAO<Locality, UUID> {
         }
     }
 
+    public Locality findCenterLocalityForDistrict(District district) {
+        EntityManager em = getEntityManagerFactory().createEntityManager();
+        try {
+            String jpql = "SELECT e FROM Locality AS e WHERE e.isDistrictCenter = TRUE AND e.district = :district";
+            TypedQuery<Locality> query = em.createQuery(jpql, Locality.class);
+            query.setParameter("district", district);
+            query.setMaxResults(1);
+
+            List<Locality> list = query.getResultList();
+            if (list.isEmpty()) {
+                return null;
+            }
+            return list.get(0);
+        } finally {
+            em.close();
+        }
+    }
 }
