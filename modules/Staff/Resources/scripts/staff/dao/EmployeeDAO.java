@@ -76,6 +76,15 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         return allEmployeeId.get(id);
     }
 
+    public String getEmployeeNameSilently(long id) {
+        Employee employee = allEmployeeId.get(id);
+        if (employee != null) {
+            return employee.getName();
+        }else{
+            return "";
+        }
+    }
+
     public ViewPage<Employee> findByRole(String roleName) throws DAOException {
         RoleDAO roleDAO = new RoleDAO(ses);
         Role role = roleDAO.findByName(roleName);
