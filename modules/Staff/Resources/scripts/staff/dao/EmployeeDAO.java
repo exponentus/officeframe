@@ -5,10 +5,10 @@ import com.exponentus.common.ui.ViewPage;
 import com.exponentus.dataengine.exception.DAOException;
 import com.exponentus.dataengine.exception.DAOExceptionType;
 import com.exponentus.exception.SecureException;
+import com.exponentus.log.Lg;
 import com.exponentus.modulebinding.IExtRole;
 import com.exponentus.modulebinding.IExtUser;
 import com.exponentus.modulebinding.IOfficeFrame;
-import com.exponentus.log.Lg;
 import com.exponentus.scripting._Session;
 import com.exponentus.user.IUser;
 import staff.model.Employee;
@@ -76,11 +76,21 @@ public class EmployeeDAO extends DAO<Employee, UUID> implements IOfficeFrame {
         return allEmployeeId.get(id);
     }
 
+    public String getEmployeeNameSilently(IUser user) {
+        try {
+            return getEmployeeNameSilently(user.getId());
+        } catch (Exception e) {
+            Lg.error(e.toString());
+        }
+        return "";
+    }
+
+
     public String getEmployeeNameSilently(long id) {
         Employee employee = allEmployeeId.get(id);
         if (employee != null) {
             return employee.getName();
-        }else{
+        } else {
             return "";
         }
     }
