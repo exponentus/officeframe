@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.1.final using JasperReports Library version 6.3.1  -->
+<!-- 2017-10-19T22:08:23 -->
+<jasperReport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="report500" pageWidth="792" pageHeight="612" orientation="Landscape" columnWidth="752"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20"
+              uuid="047ecfaf-fe84-4bab-a463-41ea1917e7d2">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <parameter name="title" class="java.lang.String">
+        <parameterDescription><![CDATA[]]></parameterDescription>
+        <defaultValueExpression><![CDATA[$P{REPORT_CONTEXT}.getParameterValue( "title" )]]></defaultValueExpression>
+    </parameter>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="user" class="java.lang.String"/>
+    <field name="hours" class="java.lang.Integer"/>
+    <field name="total" class="java.lang.Integer"/>
+    <field name="notExecutedTaskInHours" class="java.lang.Integer"/>
+    <field name="execHours" class="java.lang.Integer"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="43" splitType="Stretch">
+            <image>
+                <reportElement x="0" y="0" width="80" height="42" uuid="bf148ebe-2740-4d22-9aa1-07c65bf7b9f9"/>
+                <imageExpression><![CDATA["f.jpg"]]></imageExpression>
+            </image>
+            <textField>
+                <reportElement x="81" y="6" width="198" height="30" uuid="a2c4a66f-b15c-4a8b-82ae-82fe76582a0e"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="14" splitType="Stretch"/>
+    </pageHeader>
+    <columnHeader>
+        <band height="46" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="0" width="150" height="40" uuid="84f81510-1a79-45fe-aa55-84f64f6311fc"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Dialog" size="10"/>
+                </textElement>
+                <text><![CDATA[Автор]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="150" y="0" width="100" height="40" uuid="665a9751-fab9-4aac-b9c6-914c51d491ae"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <text><![CDATA[Всего заявок]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="250" y="0" width="100" height="40" uuid="665a9751-fab9-4aac-b9c6-914c51d491ae"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <text><![CDATA[Первоначальная оценка времени]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="0" width="100" height="40" uuid="0aa5fe06-dfc8-4d3a-b7d2-bb10c1cdb8c2"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <text><![CDATA[Фактически потраченное время]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="450" y="0" width="150" height="40" uuid="0aa5fe06-dfc8-4d3a-b7d2-bb10c1cdb8c2"/>
+                <box>
+                    <topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                    <rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+                </box>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <text><![CDATA[ План. время на неисполненные заявки (На текущее время)]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="36" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="0" width="150" height="25" uuid="be28d6e6-58e8-45b1-8068-cf419654be11"/>
+                <textElement verticalAlignment="Middle" textAlignment="Left">
+                    <font fontName="Serif"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{user}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="150" y="0" width="100" height="25" uuid="be28d6e6-58e8-45b1-8068-cf419654be11"/>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="100" height="25" uuid="33a386d3-a68d-4c39-b5d5-016b62ccef86"/>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{hours}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="350" y="0" width="100" height="25" uuid="c9b53d97-d87a-4d4f-95b8-24f8b29fd8ae"/>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{execHours}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="450" y="0" width="150" height="25" uuid="c9b53d97-d87a-4d4f-95b8-24f8b29fd8ae"/>
+                <textElement verticalAlignment="Middle" textAlignment="Center">
+                    <font fontName="Serif"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{notExecutedTaskInHours}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="30" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="16" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="17" splitType="Stretch"/>
+    </summary>
+</jasperReport>
