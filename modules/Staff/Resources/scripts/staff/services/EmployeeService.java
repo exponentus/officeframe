@@ -72,6 +72,7 @@ public class EmployeeService extends RestProvider {
                 actionBar.addAction(action.refreshVew);
             }
 
+
             Outcome outcome = new Outcome();
             outcome.setTitle("employees");
             outcome.setPayloadTitle("employees");
