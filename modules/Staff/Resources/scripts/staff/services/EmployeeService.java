@@ -84,6 +84,7 @@ public class EmployeeService extends RestProvider {
         }
     }
 
+
     @GET
     @Path("{id}/avatar")
     public Response getAvatar(@PathParam("id") String id) {
